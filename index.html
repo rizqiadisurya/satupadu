@@ -1007,6 +1007,127 @@ html.boot-app #bootSkel .bs-app{display:flex}
   .ed-insp-b{padding:16px 18px calc(28px + env(safe-area-inset-bottom))}
   body.ed-sheet-open::after{content:"";position:fixed;inset:0;background:rgba(20,10,14,.28);z-index:55}
 }
+/* ===== Mode penerima tamu v2 ===== */
+.ci-shell{background:#F7F2F3}
+.ci2-top{position:sticky;top:0;z-index:30;background:var(--beet-deep,#4a0f22);color:#fff;box-shadow:0 6px 20px rgba(60,10,25,.18)}
+.ci2-top-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:12px 16px 10px}
+.ci2-brand{display:grid;line-height:1.15;min-width:0}
+.ci2-brand b{font-size:17px}
+.ci2-brand span{font-size:13px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci2-ses{margin-left:auto;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border-radius:12px;padding:4px 4px 4px 12px}
+.ci2-ses span{font-size:12px;font-weight:700;opacity:.75}
+.ci2-ses select{appearance:none;-webkit-appearance:none;background:transparent;border:0;color:#fff;font:inherit;font-weight:800;font-size:15px;padding:8px 26px 8px 4px;background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%);background-position:calc(100% - 12px) 52%,calc(100% - 7px) 52%;background-size:5px 5px;background-repeat:no-repeat;cursor:pointer;max-width:46vw}
+.ci2-ses select option{color:#222}
+.ci2-ib{width:42px;height:42px;border-radius:12px;border:0;background:rgba(255,255,255,.12);color:#fff;display:grid;place-items:center;cursor:pointer;flex:none}
+.ci2-ib .icon{width:20px;height:20px}
+.ci2-prog{max-width:1100px;margin:0 auto;padding:0 16px 12px}
+.ci2-bar{height:6px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden}
+.ci2-bar span{display:block;height:100%;background:#fff;border-radius:99px;transition:width .6s}
+.ci2-nums{display:flex;gap:6px 16px;flex-wrap:wrap;margin-top:8px;font-size:13px;opacity:.9}
+.ci2-nums b{font-size:15px}
+.ci2-main{max-width:1100px;margin:0 auto;padding:18px 16px 80px;display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:24px;align-items:start}
+.ci2-col{display:grid;gap:14px;min-width:0}
+.ci2-help{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 18px;display:grid;gap:10px}
+.ci2-help ol{list-style:none;display:grid;gap:8px;margin:0;padding:0;font-size:15px}
+.ci2-help li{display:flex;gap:10px;align-items:flex-start;line-height:1.45}
+.ci2-help li p{margin:0;flex:1}
+.ci2-help li span{flex:none;width:24px;height:24px;border-radius:50%;background:var(--blush);color:var(--beet);font-weight:800;font-size:13px;display:grid;place-items:center}
+.ci2-help .btn{justify-self:start}
+.ci2-scan{display:flex;align-items:center;gap:16px;width:100%;border:0;border-radius:20px;padding:20px 22px;background:var(--beet);color:#fff;cursor:pointer;text-align:left;box-shadow:0 12px 26px color-mix(in srgb,var(--beet) 35%,transparent);transition:transform .15s}
+.ci2-scan:active{transform:scale(.98)}
+.ci2-scan .icon{width:40px;height:40px;flex:none}
+.ci2-scan b{display:block;font-size:20px}
+.ci2-scan small{display:block;font-size:14px;opacity:.85;margin-top:2px}
+.ci2-search{position:relative}
+.ci2-search > .icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--muted)}
+.ci2-search .input{min-height:56px;font-size:17px;padding-left:46px;padding-right:46px;border-radius:16px;background:#fff}
+.ci2-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:40px;height:40px;border:0;border-radius:10px;background:transparent;display:grid;place-items:center;color:var(--muted);cursor:pointer}
+.ci2-clear .icon{width:18px;height:18px}
+.ci2-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:#EFE6E8;border-radius:14px;padding:4px}
+.ci2-tabs button{border:0;background:transparent;border-radius:11px;padding:10px 6px;font:inherit;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer;display:flex;justify-content:center;align-items:center;gap:6px;min-height:44px}
+.ci2-tabs button span{font-size:12px;background:rgba(0,0,0,.06);border-radius:99px;padding:1px 7px}
+.ci2-tabs button[aria-selected=true]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.ci2-h{font-size:14px;font-weight:700;color:var(--muted)}
+.ci2-list{list-style:none;display:grid;gap:8px;margin:0;padding:0}
+.ci2-row{width:100%;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff;cursor:pointer;text-align:left;font:inherit;color:var(--ink);min-height:68px}
+.ci2-row:hover{border-color:color-mix(in srgb,var(--beet) 45%,var(--line))}
+.ci2-row .av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--blush);color:var(--beet);font-weight:800;font-size:14px}
+.ci2-row.in{background:#F3F8F4;border-color:#D5E8DA}
+.ci2-row.in .av{background:var(--ok,#2f7a4f);color:#fff}
+.ci2-row.in .av .icon{width:20px;height:20px}
+.ci2-info{display:grid;min-width:0}
+.ci2-info b{font-size:16.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci2-info small{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci2-pill{display:inline-flex;align-items:center;min-height:38px;padding:0 14px;border-radius:99px;background:var(--beet);color:#fff;font-weight:800;font-size:13.5px}
+.ci2-in{font-size:12.5px;font-weight:700;color:var(--ok,#2f7a4f);text-align:right}
+.ci2-empty{padding:28px 16px;text-align:center;color:var(--muted);background:#fff;border:1px dashed var(--line);border-radius:16px}
+.ci2-walk{display:flex;align-items:center;gap:12px;width:100%;padding:14px 16px;border:1.5px dashed var(--line);border-radius:16px;background:transparent;cursor:pointer;text-align:left;font:inherit;color:var(--ink)}
+.ci2-walk .icon{width:22px;height:22px;color:var(--beet)}
+.ci2-walk b{display:block;font-size:15px}
+.ci2-walk small{display:block;font-size:13px;color:var(--muted)}
+.ci2-side{position:sticky;top:130px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
+.ci2-side h3{font-size:16px;margin-bottom:10px}
+.ci2-feed{list-style:none;display:grid;gap:10px;margin:0;padding:0}
+.ci2-feed li{display:flex;gap:10px;align-items:center}
+.ci2-feed .av{width:34px;height:34px;border-radius:50%;background:#E5F1E8;color:var(--ok,#2f7a4f);display:grid;place-items:center;font-weight:800;font-size:12px;flex:none}
+.ci2-feed b{display:block;font-size:14.5px}
+.ci2-feed small{font-size:12.5px;color:var(--muted)}
+/* lembar konfirmasi */
+.ci2-sheet{display:grid;gap:12px}
+.ci2-name{font-family:var(--display);font-size:34px;line-height:1.08;margin-top:2px}
+.ci2-chips{display:flex;gap:6px;flex-wrap:wrap}
+.ci2-state{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:#EEF6F0;color:#1f5f35}
+.ci2-state.warn{background:#FFF5E3;color:#7a4b00}
+.ci2-state .icon{width:22px;height:22px;flex:none;margin-top:1px}
+.ci2-state b{display:block;font-size:15px}
+.ci2-state span{font-size:13.5px}
+.ci2-note{font-size:14.5px;color:var(--muted)}
+.ci2-field{display:grid;gap:8px;padding:12px 0;border-top:1px solid var(--line)}
+.ci2-field > span{font-weight:700;font-size:15px}
+.ci2-step{display:grid;grid-template-columns:64px 1fr 64px;align-items:center;gap:10px}
+.ci2-step button{height:56px;border-radius:14px;border:1.5px solid var(--line);background:#fff;font-size:26px;cursor:pointer;color:var(--ink)}
+.ci2-step output{text-align:center;font-family:var(--display);font-size:40px;line-height:1}
+.ci2-diff{color:#b7791f;font-size:13px;min-height:1em}
+.ci2-seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ci2-seg button{min-height:52px;border-radius:14px;border:1.5px solid var(--line);background:#fff;font:inherit;font-weight:800;font-size:15px;cursor:pointer;color:var(--ink)}
+.ci2-seg button[aria-pressed=true]{border-color:var(--beet);background:var(--blush);color:var(--beet)}
+.ci2-sheet .ci2-go{min-height:58px;font-size:17px}
+.ci2-sheet .ci2-go{display:flex;justify-content:center;border-radius:16px;margin-top:4px}
+.ci2-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.toast.ci2-toast{display:flex;gap:10px;align-items:center;flex-wrap:wrap;width:min(520px,calc(100vw - 24px));max-width:none}
+.ci2-toast > span{flex:1;min-width:160px}
+.ci2-toast .linkbtn{color:#fff;text-decoration:underline;font-weight:700}
+/* PIN */
+.ci2-pin{min-height:100vh;display:grid;place-items:center;padding:24px 18px;background:linear-gradient(180deg,var(--beet-deep,#4a0f22) 0 38%,#F7F2F3 38%)}
+.ci2-pin-card{width:100%;max-width:400px;background:#fff;border-radius:24px;padding:28px 24px;box-shadow:0 24px 60px rgba(60,10,25,.18);display:grid;gap:10px}
+.ci2-pin-card .display{font-size:32px;line-height:1.1}
+.ci2-pin-card form{display:grid;gap:12px;margin-top:8px}
+.ci2-badge{display:inline-flex;align-items:center;gap:6px;justify-self:start;padding:6px 12px;border-radius:99px;background:var(--blush);color:var(--beet);font-weight:800;font-size:12.5px}
+.ci2-badge .icon{width:16px;height:16px}
+/* kamera */
+.ci2-cam{position:fixed;inset:0;z-index:120;background:#000;color:#fff}
+.ci2-cam video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ci2-mask{position:absolute;inset:0;display:grid;place-items:center}
+.ci2-frame{position:relative;width:min(68vw,300px);aspect-ratio:1;border-radius:24px;box-shadow:0 0 0 100vmax rgba(0,0,0,.55)}
+.ci2-frame i{position:absolute;width:42px;height:42px;border:4px solid #fff;border-radius:6px}
+.ci2-frame i:nth-child(1){top:-2px;left:-2px;border-right:0;border-bottom:0;border-top-left-radius:24px}
+.ci2-frame i:nth-child(2){top:-2px;right:-2px;border-left:0;border-bottom:0;border-top-right-radius:24px}
+.ci2-frame i:nth-child(3){bottom:-2px;left:-2px;border-right:0;border-top:0;border-bottom-left-radius:24px}
+.ci2-frame i:nth-child(4){bottom:-2px;right:-2px;border-left:0;border-top:0;border-bottom-right-radius:24px}
+.ci2-line{position:absolute;left:10%;right:10%;height:2px;top:10%;background:linear-gradient(90deg,transparent,#fff,transparent);animation:scanl 2s ease-in-out infinite}
+@keyframes scanl{0%,100%{top:12%}50%{top:86%}}
+.ci2-cam.ok .ci2-frame i{border-color:#4ade80}
+.ci2-cam.bad .ci2-frame i{border-color:#f87171}
+.ci2-cam-top{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:calc(14px + env(safe-area-inset-top)) 16px 14px;font-size:17px}
+.ci2-ib.light{background:rgba(255,255,255,.18)}
+.ci2-cam-msg{position:absolute;left:0;right:0;top:calc(50% + min(34vw,150px) + 22px);text-align:center;font-size:15px;font-weight:600;padding:0 24px;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.ci2-cam-bot{position:absolute;left:0;right:0;bottom:0;display:flex;gap:10px;justify-content:center;padding:16px 16px calc(20px + env(safe-area-inset-bottom));flex-wrap:wrap}
+@media (max-width:860px){
+  .ci2-main{grid-template-columns:1fr;padding-top:14px}
+  .ci2-side{display:none}
+  .ci2-nums span:nth-child(3){display:none}
+  .modal:has(.ci2-sheet) .panel{border-radius:24px 24px 0 0}
+}
 </style>
 </head>
 <body>
@@ -2928,55 +3049,167 @@ function invoiceModal(k){
 let ciSession = null, ciQ='';
 const nowTime = () => new Intl.DateTimeFormat('id-ID',{hour:'2-digit',minute:'2-digit'}).format(new Date());
 function defaultSession(){ const i=S.events.findIndex(e=>/resepsi/i.test(e.type)); return i>-1?i:0; }
+/* ---------- Mode penerima tamu v2 ---------- */
+let ciTab='belum', ciGreetOn = lsGet('sp-ci-greet')==='1', ciHelpSeen = lsGet('sp-ci-help')==='1', ciScanLoop=false, ciLastScan='', ciFromScan=false;
+const giftNo = n => '#'+String(n).padStart(3,'0');
 function renderCheckin(){
   const root=$('#checkin');
-  if(CLOUD.pinMode && CLOUD.needPin){ root.innerHTML = `<div class="ci-top"><div class="wrap ci-top-in"><span class="logo" style="color:#fff"><span>Penerima tamu</span></span></div></div><div class="wrap" style="max-width:420px;padding:60px 0"><form id="pinF" class="form-card" style="display:grid;gap:14px"><span class="eyebrow">Mode penerima tamu</span><h1 class="display" style="font-size:32px">Masukkan PIN</h1><p class="muted">PIN 6 angka diberikan oleh pasangan pengantin dari dashboard Satu Padu Kita.</p><label for="pinI" class="sr-only">PIN</label><input class="input otp" id="pinI" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="••••••">${CLOUD.pinError?`<span class="err">${esc(CLOUD.pinError)}</span>`:''}<button class="btn btn-primary btn-block">Masuk</button></form></div>`;
-    $('#pinF').addEventListener('submit',async ev=>{ ev.preventDefault(); CLOUD.pin=$('#pinI').value.trim(); await pinLoad(); if(!CLOUD.needPin){ try{ history.replaceState(null,'',`/u/${CLOUD.slug}/checkin?pin=${CLOUD.pin}`); }catch(e){} } renderCheckin(); }); setTimeout(()=>$('#pinI')?.focus(),50); return; }
+  if(CLOUD.pinMode && CLOUD.needPin){
+    root.innerHTML = `<div class="ci2-pin"><div class="ci2-pin-card">
+      <span class="ci2-badge">${ico('qr')}Penerima tamu</span>
+      <h1 class="display">Masuk ke buku tamu</h1>
+      <p class="muted">Masukkan 6 angka PIN dari pengantin. Kamu tidak perlu akun.</p>
+      <form id="pinF" novalidate><label for="pinI" class="sr-only">PIN</label><input class="input otp" id="pinI" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="••••••">
+      ${CLOUD.pinError?`<span class="err">PIN salah. Cek lagi ke pengantin.</span>`:''}
+      <button class="btn btn-primary btn-block">Masuk</button></form></div></div>`;
+    const inp=$('#pinI'); inp.addEventListener('input',()=>{ inp.value=inp.value.replace(/\D/g,'').slice(0,6); if(inp.value.length===6) $('#pinF').requestSubmit(); });
+    $('#pinF').addEventListener('submit',async ev=>{ ev.preventDefault(); const b=ev.target.querySelector('button'); b.disabled=true; b.textContent='Memeriksa…'; CLOUD.pin=inp.value.trim(); CLOUD.pinError=null; await pinLoad(); if(!CLOUD.needPin){ try{ history.replaceState(null,'',`/u/${CLOUD.slug}/checkin?pin=${CLOUD.pin}`); }catch(e){} } renderCheckin(); });
+    setTimeout(()=>inp.focus(),50); return;
+  }
+  if(isLocked('harih')){ root.innerHTML=`<div class="wrap" style="padding:60px 0">${lockNote('QR check-in hari H')}<p style="margin-top:16px"><a class="linkbtn" href="#dashboard">← Kembali ke dashboard</a></p></div>`; return; }
   if(ciSession==null || !S.events[ciSession]) ciSession=defaultSession();
   const ev=S.events[ciSession];
-  if(isLocked('harih')){ root.innerHTML=`<div class="wrap" style="padding:60px 0">${lockNote('QR check-in hari H')}<p style="margin-top:16px"><a class="linkbtn" href="#dashboard">← Kembali ke dashboard</a></p></div>`; return; }
+  const pool = G.filter(g=>!isPending(g));
   const inSes = g => guestEvents(g).some(e=>e.i===ciSession);
-  const arrived = G.filter(g=>g.checkin && g.checkin.session===ciSession);
-  const ppl = arrived.reduce((a,g)=>a+g.checkin.pax,0);
-  const expect = G.filter(g=>inSes(g) && g.status==='hadir' && !g.checkin);
-  const q=ciQ.trim().toLowerCase();
-  const res = q ? G.filter(g=> g.name.toLowerCase().includes(q) || (g.code||'').toLowerCase()===q || (g.phone||'').replace(/\D/g,'').endsWith(q.replace(/\D/g,'')||'x')).slice(0,12) : expect.slice(0,10);
-  root.innerHTML = `<div class="ci-top"><div class="wrap ci-top-in">
-      <span class="logo" style="color:#fff"><svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true"><circle cx="15" cy="20" r="10.5" fill="none" stroke="#fff" stroke-width="3"/><circle cx="25" cy="20" r="10.5" fill="none" stroke="#fff" stroke-width="3"/><path d="M20 11.1a10.5 10.5 0 0 1 0 17.8 10.5 10.5 0 0 1 0-17.8z" fill="#fff"/></svg><span>Penerima tamu</span></span>
-      <label class="ci-ses"><span class="sr-only">Sesi acara</span><select id="ciSes" class="input">${S.events.map((e,i)=>`<option value="${i}" ${i===ciSession?'selected':''}>${esc(e.type||'Acara '+(i+1))}${e.start?' · '+esc(e.start):''}</option>`).join('')}</select></label>
-      ${CLOUD.pinMode?'':'<a class="btn btn-sm ci-exit" href="#dashboard">Selesai</a>'}</div></div>
-    <div class="wrap ci-body">
-      <div class="ci-stats"><div><b class="num">${arrived.length}</b><span>undangan datang</span></div><div><b class="num">${ppl}</b><span>orang di lokasi</span></div><div><b class="num">${expect.length}</b><span>belum datang (konfirmasi hadir)</span></div><div><b class="num">#${String(S.giftNo||0).padStart(3,'0')}</b><span>nomor kado terakhir</span></div></div>
-      <div class="ci-grid"><div>
-        <div class="ci-search"><svg class="icon"><use href="#i-search"/></svg><input class="input" id="ciQ" placeholder="Cari nama tamu atau ketik kode SP-…" value="${esc(ciQ)}" autocomplete="off" aria-label="Cari tamu atau kode"></div>
-        <div class="ci-actions"><label class="btn btn-primary" for="ciScan" style="cursor:pointer">${ico('camera')}Scan QR</label><input type="file" id="ciScan" accept="image/*" capture="environment" hidden><button class="btn btn-ghost" data-act="ci-walkin">${ico('plus')}Tamu tidak ada di daftar</button></div>
-        <p class="muted" style="font-size:13px;margin:4px 0 14px">Scan QR membuka kamera HP. Di laptop, pilih foto kartu masuk tamu.</p>
-        <h3 class="ci-h">${q?`Hasil untuk “${esc(ciQ)}”`:`Konfirmasi hadir, belum datang · ${esc(ev?.type||'')}`}</h3>
-        <div class="ci-list">${res.map(g=>`<button class="ci-card ${g.checkin?'in':''}" data-act="ci-open" data-id="${g.id}"><span class="av">${esc(initials(g.name))}</span><span class="ci-info"><b>${esc(g.name)}</b><small>${esc(g.group)} · ${esc(sessionNames(g))}</small></span><span class="ci-st">${g.checkin?`<span class="status s-mute">Masuk ${esc(g.checkin.time)}${g.checkin.gift?` · #${String(g.checkin.gift).padStart(3,'0')}`:''}</span>`:`<span class="status ${stLabel[g.status][1]}">${g.status==='hadir'?`${g.pax} orang`:stLabel[g.status][0]}</span>`}</span></button>`).join('') || `<div class="empty">${q?'Nama tidak ditemukan. Coba ejaan lain, atau tambahkan sebagai tamu tambahan.':'Semua tamu yang konfirmasi hadir sudah datang.'}</div>`}</div>
+  const arrived = pool.filter(g=>g.checkin && g.checkin.session===ciSession).sort((a,b)=>b.checkin.ts-a.checkin.ts);
+  const ppl = arrived.reduce((a,g)=>a+(g.checkin.pax||1),0);
+  const expectAll = pool.filter(g=>inSes(g) && g.status==='hadir');
+  const notYet = expectAll.filter(g=>!g.checkin);
+  const pct = expectAll.length ? Math.round((expectAll.length-notYet.length)/expectAll.length*100) : 0;
+  const q=ciQ.trim().toLowerCase(); const qd=q.replace(/\D/g,'');
+  const match = g => g.name.toLowerCase().includes(q) || (g.code||'').toLowerCase()===q || (g.code||'').toLowerCase().includes(q) && q.length>=4 || (qd.length>=4 && (g.phone||'').replace(/\D/g,'').endsWith(qd));
+  let list, title;
+  if(q){ list = pool.filter(match).sort((a,b)=>(!!a.checkin)-(!!b.checkin)).slice(0,30); title = `${list.length} hasil untuk “${esc(ciQ)}”`; }
+  else if(ciTab==='sudah'){ list = arrived; title = ''; }
+  else if(ciTab==='semua'){ list = pool.filter(inSes).sort((a,b)=>a.name.localeCompare(b.name)); title=''; }
+  else { list = notYet.sort((a,b)=>a.name.localeCompare(b.name)); title=''; }
+  const row = g => { const c=g.checkin; const other = c && c.session!==ciSession;
+    return `<li><button class="ci2-row ${c?'in':''}" data-act="ci-open" data-id="${esc(g.id)}">
+      <span class="av">${c?ico('check'):esc(initials(g.name))}</span>
+      <span class="ci2-info"><b>${esc(g.name)}</b><small>${esc(g.group||'')}${g.status==='hadir'?` · RSVP ${g.pax||1} orang`:g.status==='tidak'?' · RSVP tidak hadir':' · belum RSVP'}${g.walkin?' · tamu tambahan':''}</small></span>
+      <span class="ci2-st">${c?`<span class="ci2-in">Masuk ${esc(c.time)}${c.gift?` · ${giftNo(c.gift)}`:''}${other?` · ${esc(S.events[c.session]?.type||'')}`:''}</span>`:`<span class="ci2-pill">Check-in</span>`}</span></button></li>`; };
+  const help = ciHelpSeen ? '' : `<div class="ci2-help"><b>Cara pakai</b><ol><li><span>1</span><p>Tamu datang, minta tunjukkan <b>QR di undangan</b> mereka.</p></li><li><span>2</span><p>Ketuk <b>Scan QR</b>. Tidak punya QR? <b>Cari namanya</b>.</p></li><li><span>3</span><p>Cek jumlah orang dan kado, lalu ketuk <b>Check-in</b>.</p></li></ol><button class="btn btn-soft btn-sm" data-act="ci-help-ok">Mengerti</button></div>`;
+  root.innerHTML = `
+    <header class="ci2-top"><div class="ci2-top-in">
+      <div class="ci2-brand"><b>Buku tamu</b><span>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</span></div>
+      <label class="ci2-ses"><span>Sesi</span><select id="ciSes" aria-label="Sesi acara">${S.events.map((e,i)=>`<option value="${i}" ${i===ciSession?'selected':''}>${esc(e.type||'Acara '+(i+1))}${e.start?' · '+esc(e.start):''}</option>`).join('')}</select></label>
+      <button class="ci2-ib" data-act="ci-menu" aria-label="Pengaturan">${ico('menu')}</button>
+    </div>
+    <div class="ci2-prog"><div class="ci2-bar"><span style="width:${pct}%"></span></div><div class="ci2-nums"><span><b class="num">${expectAll.length-notYet.length}</b>/${expectAll.length} undangan datang</span><span><b class="num">${ppl}</b> orang di lokasi</span><span>Kado terakhir <b class="num">${giftNo(S.giftNo||0)}</b></span></div></div></header>
+    <main class="ci2-main">
+      <div class="ci2-col">
+        ${help}
+        <button class="ci2-scan" data-act="ci-scan">${ico('qr')}<span><b>Scan QR tamu</b><small>Arahkan kamera ke kartu masuk di undangan</small></span></button>
+        <div class="ci2-search">${ico('search')}<input class="input" id="ciQ" placeholder="Atau cari nama / kode SP-…" value="${esc(ciQ)}" autocomplete="off" enterkeyhint="search" aria-label="Cari tamu atau kode">${ciQ?`<button class="ci2-clear" data-act="ci-clear" aria-label="Hapus pencarian">${ico('x')}</button>`:''}</div>
+        ${q?`<p class="ci2-h">${title}</p>`:`<div class="ci2-tabs" role="tablist">${[['belum','Belum',notYet.length],['sudah','Sudah',arrived.length],['semua','Semua',pool.filter(inSes).length]].map(([k,l,n])=>`<button role="tab" data-citab="${k}" aria-selected="${ciTab===k}">${l}<span class="num">${n}</span></button>`).join('')}</div>`}
+        <ul class="ci2-list">${list.map(row).join('') || `<li class="ci2-empty">${q?`Tidak ada tamu bernama “${esc(ciQ)}”.`:ciTab==='sudah'?'Belum ada yang check-in.':'Semua tamu yang konfirmasi hadir sudah datang 🎉'}</li>`}</ul>
+        <button class="ci2-walk" data-act="ci-walkin">${ico('plus')}<span><b>Tamu tidak ada di daftar?</b><small>Catat sebagai tamu tambahan</small></span></button>
       </div>
-      <aside class="panel-c ci-feed"><h3>Baru datang</h3>${arrived.length?`<ul class="feed">${arrived.sort((a,b)=>b.checkin.ts-a.checkin.ts).slice(0,14).map(g=>`<li><span class="av">${esc(initials(g.name))}</span><div><b>${esc(g.name)}</b> · ${g.checkin.pax} orang<small>${esc(g.checkin.time)}${g.checkin.gift?` · Kado #${String(g.checkin.gift).padStart(3,'0')}`:''} <button class="linkbtn" data-act="ci-undo" data-id="${g.id}">Batalkan</button></small></div></li>`).join('')}</ul>`:`<p class="muted">Tamu yang check-in akan muncul di sini.</p>`}</aside></div>
-    </div>`;
+      <aside class="ci2-side"><h3>Baru datang</h3>${arrived.length?`<ul class="ci2-feed">${arrived.slice(0,12).map(g=>`<li><span class="av">${esc(initials(g.name))}</span><div><b>${esc(g.name)}</b><small>${esc(g.checkin.time)} · ${g.checkin.pax} orang${g.checkin.gift?' · kado '+giftNo(g.checkin.gift):''}</small></div></li>`).join('')}</ul>`:'<p class="muted" style="font-size:14px">Tamu yang check-in muncul di sini.</p>'}</aside>
+    </main>`;
+}
+function ciMenu(){
+  openModal(`<span class="eyebrow">Pengaturan</span><h2 class="display" style="font-size:28px;margin:8px 0 14px">Buku tamu</h2>
+    <div class="toggle-row"><div><b>Layar sapa untuk tamu</b><div class="muted" style="font-size:14px">Setelah check-in, tampilkan “Selamat datang, nama tamu” layar penuh. Cocok kalau tablet menghadap tamu.</div></div><label class="switch"><input type="checkbox" id="ciGreetT" ${ciGreetOn?'checked':''} aria-label="Layar sapa"><span></span></label></div>
+    <div class="toggle-row"><div><b>Tampilkan panduan lagi</b><div class="muted" style="font-size:14px">Untuk petugas baru.</div></div><button class="btn btn-ghost btn-sm" data-act="ci-help-again">Tampilkan</button></div>
+    ${CLOUD.pinMode?'':'<div style="margin-top:18px"><a class="btn btn-ghost btn-block" href="#dashboard">Keluar dari mode penerima tamu</a></div>'}`);
+  $('#ciGreetT').addEventListener('change',e=>{ ciGreetOn=e.target.checked; lsSet('sp-ci-greet', ciGreetOn?'1':'0'); });
 }
 function ciOpen(id){
   const g=G.find(x=>x.id===id); if(!g) return;
-  if(g.checkin){ openModal(`<span class="eyebrow">Sudah check-in</span><h2 class="display" style="font-size:32px;margin:8px 0">${esc(g.name)}</h2><p class="muted">Masuk pukul ${esc(g.checkin.time)} · ${g.checkin.pax} orang${g.checkin.gift?` · Kado #${String(g.checkin.gift).padStart(3,'0')}`:''}</p><div class="form-foot"><button class="btn btn-ghost" data-act="ci-undo" data-id="${g.id}">Batalkan check-in</button><button class="btn btn-primary" data-act="close">Tutup</button></div>`); return; }
-  const inSes = guestEvents(g).some(e=>e.i===ciSession);
-  let pax = g.pax || 1;
-  openModal(`<span class="eyebrow">${esc(g.group)} · ${esc(g.code)}</span><h2 class="display" style="font-size:34px;margin:8px 0 6px">${esc(g.name)}</h2>
-    <p class="muted">${g.status==='hadir'?`Konfirmasi hadir ${g.pax} orang`:g.status==='tidak'?'Sebelumnya mengabari tidak bisa hadir':'Belum menjawab RSVP'}</p>
-    ${inSes?'':`<div class="warn-box">${ico('cal')}<span>Tamu ini diundang ke <b>${esc(sessionNames(g))}</b>, bukan ${esc(S.events[ciSession]?.type||'')}. Tetap bisa di-check-in.</span></div>`}
-    <div class="ci-pax"><span>Jumlah yang datang</span><div class="pax-step"><button type="button" data-cp="-1" aria-label="Kurangi">−</button><output id="ciPax" class="num">${pax}</output><button type="button" data-cp="1" aria-label="Tambah">+</button></div></div>
-    <div class="toggle-row"><div><b>Membawa kado atau amplop</b><div class="muted" style="font-size:14px">Dapat nomor #${String((S.giftNo||0)+1).padStart(3,'0')} untuk ditempel di kado.</div></div><label class="switch"><input type="checkbox" id="ciGift" checked aria-label="Membawa kado"><span></span></label></div>
-    <div class="form-foot"><button class="btn btn-ghost" data-act="close">Batal</button><button class="btn btn-primary" data-act="ci-confirm" data-id="${g.id}">${ico('check')}Check-in</button></div>`);
-  $('#modalRoot').addEventListener('click',e=>{ const b=e.target.closest('[data-cp]'); if(!b) return; pax=Math.max(1,Math.min(12,pax+ +b.dataset.cp)); $('#ciPax').textContent=pax; });
+  const c=g.checkin;
+  if(c){
+    openModal(`<div class="ci2-sheet"><div class="ci2-state warn">${ico('check')}<div><b>Sudah check-in</b><span>Masuk pukul ${esc(c.time)} · ${c.pax} orang${c.gift?' · kado '+giftNo(c.gift):''}${c.session!==ciSession?' · di '+esc(S.events[c.session]?.type||''):''}</span></div></div>
+      <h2 class="ci2-name">${esc(g.name)}</h2><p class="muted">${esc(g.group||'')} · ${esc(g.code||'')}</p>
+      <p class="ci2-note">Kalau ini orang yang sama, persilakan masuk. Tidak perlu check-in dua kali.</p>
+      <div class="ci2-btns"><button class="btn btn-ghost" data-act="ci-undo" data-id="${esc(g.id)}">Batalkan check-in</button><button class="btn btn-primary" data-act="ci-next">OK</button></div></div>`);
+    return;
+  }
+  const inS = guestEvents(g).some(e=>e.i===ciSession);
+  let pax = Math.max(1, g.pax || 1), gift = false;
+  const render = () => {
+    $('#ciPax').textContent = pax; $('#ciGo').innerHTML = `${ico('check')}Check-in ${pax} orang${gift?` · kado ${giftNo((S.giftNo||0)+1)}`:''}`;
+    $$('[data-gift]').forEach(b=>b.setAttribute('aria-pressed', String((b.dataset.gift==='1')===gift)));
+    $('#ciPaxNote').textContent = g.status==='hadir' && pax!==g.pax ? `Berbeda dari RSVP (${g.pax} orang)` : '';
+  };
+  openModal(`<div class="ci2-sheet">
+    <span class="eyebrow">${esc(g.group||'Tamu')} · ${esc(g.code||'')}</span>
+    <h2 class="ci2-name">${esc(g.name)}</h2>
+    <div class="ci2-chips">${g.status==='hadir'?`<span class="status s-ok">RSVP hadir · ${g.pax} orang</span>`:g.status==='tidak'?`<span class="status s-no">RSVP tidak hadir</span>`:`<span class="status s-wait">Belum RSVP</span>`}${g.arrive?`<span class="status s-mute">Rencana ${esc(g.arrive)}</span>`:''}</div>
+    ${inS?'':`<div class="ci2-state warn">${ico('cal')}<div><b>Diundang ke ${esc(sessionNames(g))}</b><span>Bukan ${esc(S.events[ciSession]?.type||'')}. Tetap bisa check-in kalau memang diizinkan.</span></div></div>`}
+    <div class="ci2-field"><span>Jumlah yang datang</span><div class="ci2-step"><button type="button" data-cp="-1" aria-label="Kurangi">−</button><output id="ciPax" class="num">${pax}</output><button type="button" data-cp="1" aria-label="Tambah">+</button></div><small id="ciPaxNote" class="ci2-diff"></small></div>
+    <div class="ci2-field"><span>Membawa kado atau amplop?</span><div class="ci2-seg"><button type="button" data-gift="0" aria-pressed="true">Tidak</button><button type="button" data-gift="1" aria-pressed="false">Ya, beri nomor</button></div></div>
+    <button class="btn btn-primary btn-block ci2-go" id="ciGo" data-act="ci-confirm" data-id="${esc(g.id)}"></button>
+    <button class="btn btn-ghost btn-block" data-act="close" style="margin-top:8px">Batal</button></div>`);
+  render();
+  $('#modalRoot').addEventListener('click',e=>{ const b=e.target.closest('[data-cp]'); if(b){ pax=Math.max(1,Math.min(20,pax+ +b.dataset.cp)); render(); } const gb=e.target.closest('[data-gift]'); if(gb){ gift = gb.dataset.gift==='1'; render(); } });
+  ciOpen.state = () => ({pax, gift});
 }
 async function ciConfirm(id){
-  const g=G.find(x=>x.id===id); const pax=+($('#ciPax')?.textContent||1); const gift=$('#ciGift')?.checked;
-  if(ciAuth()){ const b=$('[data-act=ci-confirm]'); if(b){ b.disabled=true; b.textContent='Menyimpan…'; } const r=await ciRpc('ci_checkin',{p_id:id, p_pax:pax, p_gift:!!gift, p_session:ciSession}); if(r.error){ if(b){ b.disabled=false; b.textContent='Check-in'; } return; }
-    Object.assign(g, fromRow(r.data)); if(g.checkin && g.checkin.gift) S.giftNo=Math.max(S.giftNo||0, g.checkin.gift); if(CLOUD.lastG.size||CLOUD.inv) CLOUD.lastG.set(g.id, CLOUD.inv?JSON.stringify(toRow(g)):''); closeModal(); ciQ=''; renderCheckin(); greet(g); return; }
-  let no=null; if(gift){ S.giftNo=(S.giftNo||0)+1; no=S.giftNo; save(); }
-  g.checkin={ts:Date.now(), time:nowTime(), pax, gift:no, session:ciSession}; if(g.status==='belum') g.status='hadir'; if(!g.pax) g.pax=pax; saveG(); closeModal(); ciQ=''; renderCheckin(); greet(g);
+  const g=G.find(x=>x.id===id); if(!g) return; const st = ciOpen.state ? ciOpen.state() : {pax:1,gift:false}; const {pax, gift} = st;
+  const b=$('#ciGo'); if(b){ b.disabled=true; b.textContent='Menyimpan…'; }
+  if(ciAuth()){ const r=await ciRpc('ci_checkin',{p_id:id, p_pax:pax, p_gift:!!gift, p_session:ciSession}); if(r.error){ if(b){ b.disabled=false; b.textContent='Coba lagi'; } return; }
+    Object.assign(g, fromRow(r.data)); if(g.checkin && g.checkin.gift) S.giftNo=Math.max(S.giftNo||0, g.checkin.gift); if(CLOUD.inv) CLOUD.lastG.set(g.id, JSON.stringify(toRow(g))); }
+  else { let no=null; if(gift){ S.giftNo=(S.giftNo||0)+1; no=S.giftNo; save(); } g.checkin={ts:Date.now(), time:nowTime(), pax, gift:no, session:ciSession}; if(g.status==='belum') g.status='hadir'; if(!g.pax) g.pax=pax; saveG(); }
+  if(navigator.vibrate) try{ navigator.vibrate(60); }catch(e){}
+  closeModal(); ciQ=''; renderCheckin();
+  if(ciGreetOn) greet(g);
+  ciDone(g);
 }
+function ciDone(g){
+  const r=$('#toastRoot'); clearTimeout(toast.t);
+  r.innerHTML = `<div class="toast ci2-toast">${ico('check')}<span><b>${esc(g.name)}</b> masuk${g.checkin.gift?` · kado <b>${giftNo(g.checkin.gift)}</b>`:''}</span><button class="linkbtn" data-act="ci-undo" data-id="${esc(g.id)}">Batalkan</button>${ciFromScan?`<button class="btn btn-sm" data-act="ci-scan" style="background:#fff;color:var(--ink)">Scan berikutnya</button>`:''}</div>`;
+  toast.t = setTimeout(()=> r.innerHTML='', 7000);
+}
+
+/* scanner kamera langsung */
+let ciStream=null, ciRaf=0;
+async function ciScanOpen(){
+  ciFromScan=true;
+  const ov=document.createElement('div'); ov.className='ci2-cam'; ov.id='ciCam';
+  ov.innerHTML = `<video playsinline muted autoplay></video><div class="ci2-mask"><div class="ci2-frame"><i></i><i></i><i></i><i></i><span class="ci2-line"></span></div></div>
+    <div class="ci2-cam-top"><b>Scan kartu masuk</b><button class="ci2-ib light" data-act="ci-scan-close" aria-label="Tutup">${ico('x')}</button></div>
+    <div class="ci2-cam-msg" id="ciCamMsg">Arahkan QR di HP tamu ke dalam kotak</div>
+    <div class="ci2-cam-bot"><button class="btn" data-act="ci-scan-close" style="background:#fff;color:var(--ink)">${ico('search')}Cari nama saja</button><label class="btn" style="background:rgba(255,255,255,.16);color:#fff;cursor:pointer" for="ciScan">${ico('camera')}Pakai foto</label><input type="file" id="ciScan" accept="image/*" capture="environment" hidden></div>`;
+  document.body.appendChild(ov); document.body.style.overflow='hidden';
+  const msg = t => { const m=$('#ciCamMsg'); if(m) m.textContent=t; };
+  if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)){ msg('Kamera tidak tersedia di perangkat ini. Pakai foto atau cari nama.'); return; }
+  try{
+    ciStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}, width:{ideal:1280}, height:{ideal:720}}, audio:false});
+    const v=ov.querySelector('video'); v.srcObject=ciStream; await v.play().catch(()=>{});
+    const det = ('BarcodeDetector' in window) ? new BarcodeDetector({formats:['qr_code']}) : null;
+    const cv=document.createElement('canvas'), cx=cv.getContext('2d',{willReadFrequently:true}); let last=0; ciScanLoop=true;
+    const tick = async ts => {
+      if(!ciScanLoop) return; ciRaf=requestAnimationFrame(tick); if(ts-last<140 || v.readyState<2) return; last=ts;
+      let val=null;
+      try{
+        if(det){ const r=await det.detect(v); if(r[0]) val=r[0].rawValue; }
+        else if(typeof jsQR==='function'){ const w=Math.min(720, v.videoWidth), h=Math.round(v.videoHeight*w/v.videoWidth); cv.width=w; cv.height=h; cx.drawImage(v,0,0,w,h); const c=jsQR(cx.getImageData(0,0,w,h).data,w,h,{inversionAttempts:'dontInvert'}); if(c) val=c.data; }
+      }catch(e){}
+      if(!val) return; val=String(val).trim();
+      const m = val.match(/SP-[A-Z0-9]{4}/i); const code = m ? m[0].toUpperCase() : val.toUpperCase();
+      const g = G.find(x=>x.code===code);
+      if(!g){ if(ciLastScan!==code){ ciLastScan=code; msg('QR ini bukan kartu masuk undangan ini'); ov.classList.add('bad'); setTimeout(()=>ov.classList.remove('bad'),900); } return; }
+      ciLastScan=''; ov.classList.add('ok'); if(navigator.vibrate) try{ navigator.vibrate(40); }catch(e){}
+      ciScanClose(); ciOpen(g.id);
+    };
+    ciRaf=requestAnimationFrame(tick);
+  }catch(e){ msg(e && e.name==='NotAllowedError' ? 'Izin kamera ditolak. Izinkan kamera di pengaturan browser, atau pakai foto / cari nama.' : 'Kamera tidak bisa dibuka. Pakai foto atau cari nama.'); }
+}
+function ciScanClose(){ ciScanLoop=false; cancelAnimationFrame(ciRaf); if(ciStream){ ciStream.getTracks().forEach(t=>t.stop()); ciStream=null; } $('#ciCam')?.remove(); document.body.style.overflow=''; }
+document.addEventListener('click', e=>{
+  const t=e.target.closest('[data-citab]'); if(t){ ciTab=t.dataset.citab; renderCheckin(); return; }
+  const el=e.target.closest('[data-act]'); if(!el) return; const a=el.dataset.act;
+  if(a==='ci-scan'){ $('#toastRoot').innerHTML=''; ciScanOpen(); }
+  if(a==='ci-scan-close'){ ciFromScan=false; ciScanClose(); if(el.closest('.ci2-cam-bot')) setTimeout(()=>$('#ciQ')?.focus(),50); }
+  if(a==='ci-clear'){ ciQ=''; renderCheckin(); $('#ciQ')?.focus(); }
+  if(a==='ci-menu') ciMenu();
+  if(a==='ci-help-ok'){ ciHelpSeen=true; lsSet('sp-ci-help','1'); renderCheckin(); }
+  if(a==='ci-help-again'){ ciHelpSeen=false; lsSet('sp-ci-help','0'); closeModal(); renderCheckin(); }
+  if(a==='ci-next'){ closeModal(); }
+});
+document.addEventListener('change', e=>{ if(e.target.id==='ciScan' && e.target.files[0] && $('#ciCam')){ const f=e.target.files[0]; ciScanClose(); ciScanFile(f); e.target.value=''; e.stopImmediatePropagation(); } }, true);
+
 function greet(g){
   const t=themeById(S.theme); const el=document.createElement('div'); el.className='greet'; el.setAttribute('role','dialog'); el.setAttribute('aria-label','Layar sapa tamu'); el.setAttribute('style', themeStyle(t,S.accent,fontOf()));
   el.innerHTML = `<div class="pat"></div><div class="greet-card"><div class="k-label">Selamat datang</div><div class="gname">${esc(g.name)}</div><p>Terima kasih telah hadir di hari bahagia<br><b>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</b></p>${g.checkin.gift?`<div class="gift-no"><small>Nomor kado</small><b class="num">#${String(g.checkin.gift).padStart(3,'0')}</b></div>`:''}<small class="muted-t">${g.checkin.pax} orang · ketuk untuk menutup</small></div>`;
@@ -3164,7 +3397,7 @@ function subscribeRealtime(){
 function liveRefresh(){
   if($('#modalRoot').innerHTML) return;
   const h=location.hash.slice(1);
-  if((h==='checkin' || CLOUD.pinMode) && document.activeElement?.id!=='ciQ') renderCheckin();
+  if((h==='checkin' || CLOUD.pinMode) && document.activeElement?.id!=='ciQ' && !document.getElementById('ciCam')) renderCheckin();
   else if(h==='dashboard' && !['gSearch'].includes(document.activeElement?.id)) renderDash();
 }
 async function guestLoad(){
