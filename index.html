@@ -1775,7 +1775,7 @@ function openAuth(next, mode){
     otpStep(nm, v); });
 }
 function otpStep(name, email){
-  openModal(`<div class="auth"><span class="eyebrow">Verifikasi email</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">Masukkan kode</h2><p class="muted">Kode 6 angka sudah dikirim ke <b style="color:var(--ink)">${esc(email)}</b>.</p>
+  openModal(`<div class="auth"><span class="eyebrow">Verifikasi email</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">${CLOUD.on?'Cek email kamu':'Masukkan kode'}</h2><p class="muted">${CLOUD.on?`Link masuk sudah dikirim ke <b style="color:var(--ink)">${esc(email)}</b>. Buka emailnya di perangkat ini lalu ketuk <b style="color:var(--ink)">Log In</b>. Kalau emailnya berisi kode 6 angka, ketik di bawah.`:`Kode 6 angka sudah dikirim ke <b style="color:var(--ink)">${esc(email)}</b>.`}</p>
     <form id="otpForm" style="margin-top:20px;display:grid;gap:14px" novalidate><label for="otp" class="sr-only">Kode verifikasi</label><input class="input otp" id="otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="••••••"><span class="err" hidden></span>
     <button class="btn btn-primary btn-block">Verifikasi & masuk</button></form>
     <p class="muted" style="font-size:13px;margin-top:14px">${CLOUD.on?'Tidak ada email? Cek folder Spam atau Promosi.':'Prototype: ketik 6 angka apa saja.'} <button class="linkbtn" data-act="login">Ganti email</button></p></div>`);
@@ -2030,7 +2030,7 @@ async function cloudInit(){
   }
   const { data:{ session } } = await CLOUD.sb.auth.getSession();
   if(session) await ownerLoad(session.user);
-  CLOUD.sb.auth.onAuthStateChange((ev, s)=>{ if(ev==='SIGNED_IN' && s && CLOUD.uid!==s.user.id){ ownerLoad(s.user).then(()=>route()); } });
+  CLOUD.sb.auth.onAuthStateChange((ev, s)=>{ if(ev==='SIGNED_IN' && s && CLOUD.uid!==s.user.id){ ownerLoad(s.user).then(()=>{ closeModal(); renderAuthSlot(); if(!location.hash || location.hash==='#') location.hash='#dashboard'; route(); }); } });
 }
 async function storePhoto(dataUrl){
   if(!(CLOUD.on && CLOUD.uid) || !String(dataUrl).startsWith('data:')) return dataUrl;
