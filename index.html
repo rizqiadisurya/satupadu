@@ -919,6 +919,94 @@ html.boot-app #bootSkel .bs-app{display:flex}
 .fp-list li small{font-size:13px}
 .fp-foot{text-align:center;font-size:13px}
 @media print{ #siteHeader,#footerWrap,.fp-foot,[data-act=cat-print]{display:none !important} .fp{padding:0} }
+/* ===== Editor undangan ===== */
+.ed{height:100vh;height:100dvh;display:flex;flex-direction:column;background:#F4EFF0}
+.ed-top{flex:none;height:62px;display:flex;align-items:center;gap:14px;padding:0 16px;background:#fff;border-bottom:1px solid var(--line);z-index:5}
+.ed-title{display:flex;flex-direction:column;min-width:0;line-height:1.2}
+.ed-title b{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ed-save{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+.ed-save::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.ed-save[data-s=saving]::before{background:var(--warn);animation:pulse 1s infinite}
+.ed-tools{margin-left:auto;display:flex;align-items:center;gap:8px}
+.ed-ib{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;color:var(--ink)}
+.ed-ib:disabled{opacity:.35;cursor:default}
+.ed-ib .icon{width:18px;height:18px}
+.ed-dev{display:flex;background:var(--paper,#f6f1f2);border-radius:10px;padding:3px;gap:2px}
+.ed-dev button{border:0;background:transparent;padding:7px 10px;border-radius:8px;font:inherit;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer}
+.ed-dev button[aria-pressed=true]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.ed-body{flex:1;min-height:0;display:grid;grid-template-columns:240px minmax(0,1fr) 380px}
+.ed-rail{background:#fff;border-right:1px solid var(--line);overflow:auto;padding:14px 10px 30px}
+.ed-grp{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:14px 10px 6px}
+.ed-item{display:flex;align-items:center;border-radius:10px}
+.ed-item.sel{background:var(--blush,#f6e9ec)}
+.ed-pick{flex:1;display:flex;align-items:center;gap:10px;border:0;background:none;padding:10px;font:inherit;font-size:14.5px;font-weight:600;color:var(--ink);cursor:pointer;text-align:left;border-radius:10px;min-height:42px}
+.ed-pick .icon{width:18px;height:18px;color:var(--muted);flex:none}
+.ed-item.sel .ed-pick{color:var(--beet)}
+.ed-item.sel .ed-pick .icon{color:var(--beet)}
+.ed-item.off .ed-pick span{color:var(--muted);text-decoration:line-through;text-decoration-color:#cbb9bf}
+.ed-vis{border:0;background:none;width:34px;height:34px;border-radius:8px;display:grid;place-items:center;color:var(--muted);cursor:pointer;flex:none}
+.ed-vis:hover{background:#fff}
+.ed-vis .icon{width:17px;height:17px}
+.ed-canvas{overflow:auto;display:flex;flex-direction:column;align-items:center;padding:28px 20px 40px;gap:12px}
+.ed-device{background:#1d1416;border-radius:38px;padding:10px;box-shadow:0 24px 60px rgba(60,20,30,.22);transition:width .35s cubic-bezier(.2,.8,.2,1);flex:none}
+.ed-device.hp{width:380px}
+.ed-device.wide{width:min(100%,980px);border-radius:16px;padding:8px}
+.ed-device .screen{height:calc(100dvh - 62px - 120px);min-height:520px;overflow:auto;border-radius:30px;background:#fff;position:relative;scrollbar-width:thin}
+.ed-device.wide .screen{border-radius:10px;background:#ece4e6}
+.ed-device.wide .screen .inv{max-width:460px;margin:0 auto;box-shadow:0 0 40px rgba(0,0,0,.12)}
+.ed-hint{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.ed-hint .icon{width:15px;height:15px}
+#edScreen section[id]{cursor:pointer;transition:box-shadow .2s}
+@media (hover:hover){#edScreen section[id]:hover{box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--beet) 55%,transparent)}}
+#edScreen section[id].ed-on{box-shadow:inset 0 0 0 2px var(--beet)}
+@media (hover:hover){#edScreen section[id]:hover::before{content:"Edit";position:absolute;top:8px;right:8px;z-index:6;background:var(--beet);color:#fff;font:700 11px/1 'Plus Jakarta Sans',system-ui,sans-serif;padding:5px 9px;border-radius:99px}}
+#edScreen section[id].ed-on::before{content:"Edit";position:absolute;top:8px;right:8px;z-index:6;background:var(--beet);color:#fff;font:700 11px/1 'Plus Jakarta Sans',system-ui,sans-serif;padding:5px 9px;border-radius:99px;letter-spacing:.04em}
+#edScreen .cover{min-height:640px}
+.ed-insp{background:#fff;border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.ed-insp-h{flex:none;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:18px 20px 14px;border-bottom:1px solid var(--line)}
+.ed-insp-h h2{font-family:var(--display);font-size:24px;line-height:1.15;margin-top:4px}
+.ed-insp-b{flex:1;overflow:auto;padding:18px 20px 40px}
+.ed-insp-b #stepForm{display:block;border:0;padding:0;margin:0;box-shadow:none;background:none;border-radius:0;max-width:none}
+.ed-insp-b .fieldset{border:0;padding:0;margin:0 0 22px}
+.ed-insp-b .fieldset legend{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:0;margin-bottom:10px}
+.ed-save{white-space:nowrap}
+.ed-insp-b .fieldset{margin:0 0 18px}
+.ed-insp-b .fgrid{grid-template-columns:1fr 1fr;gap:14px 12px}
+.ed-insp-b .fgrid > .field:not(.full){min-width:0}
+.ed-insp-b .theme-pick{grid-template-columns:repeat(3,1fr)}
+.ed-insp-b .form-foot{display:none}
+.ed-done,.ed-grab{display:none}
+.ed-open{display:flex;gap:10px;align-items:center;padding:12px 14px;margin:6px 0 10px;border:1px dashed var(--line);border-radius:12px;color:var(--ink);font-weight:700;font-size:14px;text-decoration:none}
+.ed-open .icon{width:18px;height:18px;color:var(--beet)}
+.ed-open small{display:block;font-weight:500;color:var(--muted);font-size:12px}
+.ed-note{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.ed-note .icon{width:20px;height:20px;color:var(--beet);flex:none;margin-top:2px}
+.ed-note b{display:block;font-size:14.5px}
+.ed-note span{font-size:13.5px}
+@media (max-width:1180px){ .ed-body{grid-template-columns:200px minmax(0,1fr) 340px} .ed-tools .btn span{display:none} }
+@media (max-width:899px){
+  .ed-top{height:56px;gap:8px;padding:0 10px}
+  .ed-back span,.ed-dev,.ed-tools [data-act=view-as]{display:none}
+  .ed-body{display:block;position:relative}
+  .ed-canvas{position:absolute;inset:0 0 64px 0;padding:0}
+  .ed-device,.ed-device.hp{width:100%;height:100%;border-radius:0;padding:0;box-shadow:none;background:#fff}
+  .ed-device .screen{height:100%;min-height:0;border-radius:0}
+  .ed-hint{display:none}
+  .ed-rail{position:fixed;left:0;right:0;bottom:0;height:64px;z-index:40;display:flex;gap:6px;align-items:center;overflow-x:auto;padding:8px 10px calc(8px + env(safe-area-inset-bottom));border-right:0;border-top:1px solid var(--line);scrollbar-width:none}
+  .ed-grp{display:none}
+  .ed-item{flex:none;border:1px solid var(--line);border-radius:99px;background:#fff}
+  .ed-item.sel{background:var(--ink);border-color:var(--ink)}
+  .ed-item.sel .ed-pick,.ed-item.sel .ed-pick .icon{color:#fff}
+  .ed-pick{padding:8px 12px;font-size:13.5px;min-height:40px;white-space:nowrap}
+  .ed-vis{display:none}
+  .ed-insp{position:fixed;left:0;right:0;bottom:0;z-index:60;max-height:78dvh;border-radius:22px 22px 0 0;border:0;box-shadow:0 -18px 50px rgba(0,0,0,.25);transform:translateY(105%);transition:transform .38s cubic-bezier(.2,.8,.2,1)}
+  .ed-insp.open{transform:none}
+  .ed-grab{display:block;width:44px;height:5px;border-radius:99px;background:#dccdd2;margin:10px auto 0}
+  .ed-insp-h{padding:10px 18px 12px}
+  .ed-done{display:inline-flex}
+  .ed-insp-b{padding:16px 18px calc(28px + env(safe-area-inset-bottom))}
+  body.ed-sheet-open::after{content:"";position:fixed;inset:0;background:rgba(20,10,14,.28);z-index:55}
+}
 </style>
 </head>
 <body>
@@ -946,6 +1034,8 @@ html.boot-app #bootSkel .bs-app{display:flex}
     <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-family" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8" cy="6.5" r="2.5"/><circle cx="16" cy="6.5" r="2.5"/><circle cx="12" cy="13" r="2"/><path d="M3.5 20v-3.5a4.5 4.5 0 0 1 4.5-4.5M20.5 20v-3.5a4.5 4.5 0 0 0-4.5-4.5M8.5 20v-1.5a3.5 3.5 0 0 1 7 0V20"/></g></symbol>
     <symbol id="i-food" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h18a9 9 0 0 1-18 0z"/><path d="M12 4v2M8 5.5l.8 1.6M16 5.5l-.8 1.6M2 20h20"/></g></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 7L4 12l5 5M4 12h11a5 5 0 0 1 0 10h-2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 24 24"><path d="M15 7l5 5-5 5M20 12H9a5 5 0 0 0 0 10h2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></symbol>
     <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></symbol>
     <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.5" cy="16" r="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/></symbol>
@@ -1159,7 +1249,7 @@ html.boot-app #bootSkel .bs-app{display:flex}
     <aside class="stepper" id="stepper" aria-label="Langkah"></aside>
     <div>
       <div class="mobile-progress" id="mobileProgress"></div>
-      <form class="form-card" id="stepForm" novalidate></form>
+      <div id="stepHome"><form class="form-card" id="stepForm" novalidate></form></div>
     </div>
     <div class="preview-col">
       <span class="lbl"><i></i>Pratinjau langsung</span>
@@ -1183,6 +1273,7 @@ html.boot-app #bootSkel .bs-app{display:flex}
 </main>
 
 <!-- ============ CHECK-IN ============ -->
+<div data-view="edit" hidden><div class="ed" id="editor"></div></div>
 <div data-view="keluarga" hidden><div id="keluarga"></div></div>
 <div data-view="katering" hidden><div id="katering"></div></div>
 <div data-view="checkin" hidden><div class="ci-shell" id="checkin"></div></div>
@@ -1369,7 +1460,7 @@ const DEFAULT = {
 };
 let S = Object.assign(structuredClone(DEFAULT), store.get('sp-state') || {});
 if(S.v !== DEFAULT.v) S = structuredClone(DEFAULT);
-const save = () => { if(CLOUD.guestMode||CLOUD.pinMode||CLOUD.famMode||CLOUD.catMode) return; cloudSave(); if(!store.set('sp-state', S) && !save.warned){ save.warned=1; toast('Memori browser penuh: foto tetap tampil, tapi hilang saat halaman ditutup'); } const el = $('#saveState'); if(el) el.textContent = 'Tersimpan otomatis'; };
+const save = () => { try{ edTrack(); }catch(e){} if(CLOUD.guestMode||CLOUD.pinMode||CLOUD.famMode||CLOUD.catMode) return; cloudSave(); if(!store.set('sp-state', S) && !save.warned){ save.warned=1; toast('Memori browser penuh: foto tetap tampil, tapi hilang saat halaman ditutup'); } const el = $('#saveState'); if(el) el.textContent = 'Tersimpan otomatis'; };
 
 const OPENINGS = {
   islam:{salam:'Assalamu’alaikum Warahmatullahi Wabarakatuh', text:'Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami.', quote:'“Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan untukmu dari jenismu sendiri, agar kamu merasa tenteram kepadanya.” — QS. Ar-Rum: 21'},
@@ -1546,7 +1637,7 @@ function rsvpForm(guest, g){
     <div class="opt" role="group" aria-label="Kehadiran"><button type="button" data-att="hadir" aria-pressed="true">Hadir</button><button type="button" data-att="tidak" aria-pressed="false">Tidak bisa</button></div>
     <div data-paxwrap><span style="font-size:13px;font-weight:700">Jumlah orang</span>
     <div class="pax"><button type="button" data-pax="-1" aria-label="Kurangi">−</button><output data-paxv>${pax}</output><button type="button" data-pax="1" aria-label="Tambah">+</button></div>
-    ${(()=>{ const me=mainEvent(g); const sl=slotsFor(me); if(!sl.length) return ''; return `<span style="font-size:13px;font-weight:700;display:block;margin-top:12px">Perkiraan jam datang ke ${esc(me.type||'acara')} <span style="font-weight:500;opacity:.7">(opsional)</span></span><div class="arr" role="group" aria-label="Perkiraan jam datang" style="margin-top:8px">${sl.map(x=>`<button type="button" data-arr="${x}" aria-pressed="${g&&g.arrive===x}">${x}</button>`).join('')}</div><span class="arr-note">Membantu kami mengatur antrean dan katering.</span>`; })()}</div>
+    ${(()=>{ if(S.arriveOn===false) return ''; const me=mainEvent(g); const sl=slotsFor(me); if(!sl.length) return ''; return `<span style="font-size:13px;font-weight:700;display:block;margin-top:12px">Perkiraan jam datang ke ${esc(me.type||'acara')} <span style="font-weight:500;opacity:.7">(opsional)</span></span><div class="arr" role="group" aria-label="Perkiraan jam datang" style="margin-top:8px">${sl.map(x=>`<button type="button" data-arr="${x}" aria-pressed="${g&&g.arrive===x}">${x}</button>`).join('')}</div><span class="arr-note">Membantu kami mengatur antrean dan katering.</span>`; })()}</div>
     <button class="ibtn solid" style="justify-content:center;margin-top:6px">Kirim konfirmasi</button>
   </form>`;
 }
@@ -1672,7 +1763,7 @@ function stepDone(i){
   return S.published;
 }
 function renderStepper(){
-  $('#stepper').innerHTML = `<p class="save"><i></i><span id="saveState">Tersimpan otomatis</span></p>` + STEPS.map((s,i)=>`
+  $('#stepper').innerHTML = `<p class="save"><i></i><span id="saveState">Tersimpan otomatis</span></p>` + (stepDone(0)&&stepDone(1)?`<a class="ed-open" href="#edit">${ico('edit')}<span>Buka editor lengkap<small>Edit bebas per bagian</small></span></a>`:'') + STEPS.map((s,i)=>`
     <button type="button" data-step="${i}" ${i===S.step?'aria-current="step"':''} class="${i!==S.step&&stepDone(i)?'done':''}">
       <span class="k">${i!==S.step&&stepDone(i)?ico('check'):i+1}</span><span>${s.k}<small>${s.d}</small></span>
     </button>`).join('');
@@ -1681,7 +1772,11 @@ function renderStepper(){
 const fld = (id,label,val,opt={}) => `<div class="field ${opt.full?'full':''}"><label for="${id}">${label}</label>${opt.area?`<textarea class="input" id="${id}" data-bind="${opt.bind}" rows="2" placeholder="${esc(opt.ph||'')}">${esc(val)}</textarea>`:`<input class="input" id="${id}" data-bind="${opt.bind}" value="${esc(val)}" type="${opt.type||'text'}" placeholder="${esc(opt.ph||'')}" ${opt.req?'required':''} autocomplete="off">`}${opt.hint?`<span class="hint">${opt.hint}</span>`:''}<span class="err" hidden></span></div>`;
 const photoFld = (who,label) => { const ph=S[who].photo; return `<div class="field full"><label>${label}</label><div class="up"><span class="thumb" ${ph?`style="background-image:url(${ph})"`:''}>${ph?'':esc(initials(S[who].name)||'?')}</span><label class="btn btn-soft btn-sm" for="up-${who}" style="cursor:pointer">${ico('up')}${ph?'Ganti foto':'Pilih foto'}</label><input type="file" id="up-${who}" data-photo="${who}" accept="image/*" hidden>${ph?`<button type="button" class="btn btn-ghost btn-sm" data-act="rm-photo" data-who="${who}">Hapus</button>`:''}</div><span class="hint">Opsional. Foto otomatis diperkecil supaya undangan ringan dibuka. Tanpa foto, inisial yang tampil.</span></div>`; };
 function renderStep(){
-  const f = $('#stepForm'); const i = S.step; let h='';
+  if(EDIT.on){ const p=edPanel(EDIT.panel); $('#edInspT').textContent=p[1]; $('#edInspG').textContent=p[3]; $('#stepForm').innerHTML = edPanelHTML(p[0]) || '<p class="muted">Tidak ada pengaturan.</p>'; return; }
+  renderStepCore();
+}
+function renderStepCore(onlyHTML, iOverride){
+  const f = $('#stepForm'); const i = iOverride ?? S.step; let h='';
   if(i===0){
     h = `<span class="eyebrow">Langkah 1 dari 5</span><h2>Siapa yang menikah?</h2><p class="sub">Nama panggilan dipakai di sampul dan pesan WhatsApp. Kamu bisa ubah semuanya nanti.</p>
     <fieldset class="fieldset"><legend>Mempelai wanita</legend><div class="fgrid">
@@ -1751,6 +1846,7 @@ function renderStep(){
     </div></div>`}
     ${ready?'':'<p class="err" style="margin-top:14px;color:var(--warn);font-weight:600">Lengkapi item bertanda ! dulu supaya undangan tidak menampilkan data kosong ke tamu.</p>'}`;
   }
+  if(onlyHTML) return h;
   const last = i===4;
   h += `<div class="form-foot">
     ${i>0?`<button type="button" class="btn btn-ghost" data-act="prev">Kembali</button>`:'<span></span>'}
@@ -1761,7 +1857,7 @@ function renderStep(){
 }
 function setPath(obj, path, val){ const ks=path.split('.'); let o=obj; ks.slice(0,-1).forEach(k=>o=o[k]); o[ks.at(-1)]=val; }
 let pvT;
-function refreshPreview(){ clearTimeout(pvT); pvT=setTimeout(()=>{ const s=$('#builderScreen'); const top=s.scrollTop; s.innerHTML = invHTML({idp:'b', watermark:!S.published, guest:'Bapak Budi & Keluarga'}); s.scrollTop=top; bindInv(s); },120); }
+function refreshPreview(){ clearTimeout(pvT); pvT=setTimeout(()=>{ if(EDIT.on){ const s=$('#edScreen'); const top=s.scrollTop; s.innerHTML = invHTML({idp:'e', watermark:!S.published, guest:'Bapak Budi & Keluarga'}); s.scrollTop=top; bindInv(s); edMark(); return; } const s=$('#builderScreen'); const top=s.scrollTop; s.innerHTML = invHTML({idp:'b', watermark:!S.published, guest:'Bapak Budi & Keluarga'}); s.scrollTop=top; bindInv(s); },120); }
 $('#stepForm').addEventListener('input', e=>{
   const b = e.target.dataset.bind; if(!b) return;
   let v = e.target.type==='checkbox' ? e.target.checked : e.target.value;
@@ -2003,6 +2099,120 @@ function openCover(){
     setTimeout(()=>{ slot.classList.add('swap'); setTimeout(()=>{ slot.replaceChildren(box, cue); slot.classList.remove('swap'); slot.classList.add('swapped'); $$('b.num', box).forEach(odometer); }, 320); }, 260);
   }
 }
+
+/* ---------- Editor undangan (untuk undangan yang sudah ada) ---------- */
+const ED_PANELS = [
+  ['mempelai','Mempelai','heart','Isi undangan', null, ['cover','salam']],
+  ['acara','Acara','cal','Isi undangan', null, ['acara']],
+  ['galeri','Galeri foto','camera','Isi undangan', 'galleryOn', ['galeri']],
+  ['hadiah','Amplop digital','gift','Isi undangan', 'gift.on', ['hadiah']],
+  ['ucapan','Ucapan & doa','chat','Isi undangan', 'wishesOn', ['ucapan']],
+  ['rsvp','Konfirmasi hadir','rsvp','Isi undangan', null, ['rsvp']],
+  ['musik','Musik latar','music','Isi undangan', 'music', []],
+  ['tema','Tema, warna & huruf','eye','Tampilan', null, []],
+  ['urutan','Urutan bagian','menu','Tampilan', null, []],
+  ['salam','Salam pembuka','text','Pengaturan', null, []],
+  ['link','Alamat link','copy','Pengaturan', null, []]
+];
+let EDIT = {on:false, panel:'mempelai', dev:'hp', undo:[], redo:[], last:null, snapT:null, restoring:false, sheet:false};
+const edPanel = k => ED_PANELS.find(p=>p[0]===k) || ED_PANELS[0];
+const getPath = (o,p) => p.split('.').reduce((a,k)=>a&&a[k], o);
+function edSnapshot(){ return JSON.stringify(pickData()); }
+function edTrack(){
+  if(!EDIT.on || EDIT.restoring) return;
+  clearTimeout(EDIT.snapT);
+  EDIT.snapT = setTimeout(()=>{ const now=edSnapshot(); if(EDIT.last && now!==EDIT.last){ EDIT.undo.push(EDIT.last); if(EDIT.undo.length>60) EDIT.undo.shift(); EDIT.redo=[]; } EDIT.last=now; edTools(); }, 600);
+  const st=$('#edSave'); if(st){ st.dataset.s='saving'; st.textContent='Menyimpan…'; clearTimeout(st._t); st._t=setTimeout(()=>{ st.dataset.s='ok'; st.textContent = S.published ? 'Tersimpan · tayang' : 'Draf tersimpan'; st.title = S.published ? 'Perubahan langsung terlihat oleh tamu' : 'Belum dipublikasikan'; }, 900); }
+}
+function edRestore(json){
+  EDIT.restoring=true; const d=JSON.parse(json); Object.assign(S, d); EDIT.last=json; save(); renderStep(); refreshPreview(); EDIT.restoring=false; edTools(); edRail();
+}
+function edTools(){ const u=$('[data-act=ed-undo]'), r=$('[data-act=ed-redo]'); if(u) u.disabled=!EDIT.undo.length; if(r) r.disabled=!EDIT.redo.length; }
+function stepBody(i){ return renderStepCore(true, i).replace(/^\s*<span class="eyebrow">[\s\S]*?<\/span><h2>[\s\S]*?<\/h2><p class="sub">[\s\S]*?<\/p>/, ''); }
+function pickPart(html, sel, withNext){ const d=document.createElement('div'); d.innerHTML=html; const el=d.querySelector(sel); if(!el) return ''; let out=el.outerHTML; if(withNext && el.nextElementSibling && el.nextElementSibling.matches(withNext)) out+=el.nextElementSibling.outerHTML; return out; }
+function edPanelHTML(k){
+  const s3 = () => stepBody(3);
+  const togRow = b => { const d=document.createElement('div'); d.innerHTML=s3(); const inp=d.querySelector(`[data-bind="${b}"]`); return inp ? inp.closest('.toggle-row') : null; };
+  if(k==='mempelai') return stepBody(0);
+  if(k==='acara') return stepBody(1);
+  if(k==='tema') return stepBody(2);
+  if(k==='galeri'){ const r=togRow('galleryOn'); return r ? r.outerHTML : ''; }
+  if(k==='musik'){ const r=togRow('music'); return r ? r.outerHTML : ''; }
+  if(k==='ucapan'){ const r=togRow('wishesOn'); return (r?r.outerHTML:'') + `<p class="hint" style="margin-top:12px">Ucapan dari tamu bisa kamu sembunyikan satu per satu di <a href="#dashboard" data-dtab-go="ucapan">Dashboard → Ucapan</a>.</p>`; }
+  if(k==='hadiah'){ const d=document.createElement('div'); d.innerHTML=s3(); const inp=d.querySelector('[data-bind="gift.on"]'); const row=inp.closest('.toggle-row'); return row.outerHTML + (row.nextElementSibling?row.nextElementSibling.outerHTML:''); }
+  if(k==='urutan'){ return pickPart(s3(), '.sec-order') ? `<div class="field">${pickPart(s3(), '.sec-order')}</div><p class="hint">Bagian yang sedang dimatikan tetap ada di urutan, tapi tidak tampil ke tamu.</p>` : ''; }
+  if(k==='salam'){ const d=document.createElement('div'); d.innerHTML=s3(); const sel=d.querySelector('#opening'); return sel ? sel.closest('.field').outerHTML : ''; }
+  if(k==='link'){ const d=document.createElement('div'); d.innerHTML=stepBody(4); const inp=d.querySelector('#slug'); return (inp ? inp.closest('.field').outerHTML : '') + (S.published?`<p class="hint" style="margin-top:12px">Hati-hati: kalau alamat diganti, link yang sudah terkirim ke tamu tidak berlaku lagi.</p>`:''); }
+  if(k==='rsvp'){ const first=S.events.find(e=>e.date);
+    return `<div class="toggle-row"><div><b>Tanya jam datang</b><div class="muted" style="font-size:14px">Tamu memilih perkiraan jam datang. Dipakai untuk grafik keramaian dan hitungan katering.</div></div><label class="switch"><input type="checkbox" data-bind="arriveOn" ${S.arriveOn!==false?'checked':''} aria-label="Tanya jam datang"><span></span></label></div>
+      <div class="ed-note">${ico('cal')}<div><b>Batas konfirmasi</b><span class="muted">${first?esc(fmtShort(addDays(first.date,-7))):'H-7'} (otomatis H-7 dari acara pertama)</span></div></div>
+      <div class="ed-note">${ico('qr')}<div><b>Kartu masuk QR</b><span class="muted">Tamu yang menjawab hadir otomatis mendapat QR untuk check-in di hari H.</span></div></div>
+      <a class="btn btn-soft btn-sm" href="#dashboard" data-dtab-go="tamu" style="margin-top:14px">Lihat jawaban tamu</a>`; }
+  return '';
+}
+function edRail(){
+  const rail=$('#edRail'); if(!rail) return; let grp='';
+  rail.innerHTML = ED_PANELS.map(([k,l,ic,g,tog])=>{ const on = tog ? !!getPath(S,tog) : true; const head = g!==grp ? `<div class="ed-grp">${g}</div>` : ''; grp=g;
+    return `${head}<div class="ed-item ${EDIT.panel===k?'sel':''} ${on?'':'off'}"><button type="button" class="ed-pick" data-ed="${k}" aria-current="${EDIT.panel===k}">${ico(ic)}<span>${l}</span></button>${tog?`<button type="button" class="ed-vis" data-act="ed-vis" data-k="${tog}" aria-pressed="${on}" aria-label="${on?'Sembunyikan':'Tampilkan'} ${l}" title="${on?'Tampil di undangan':'Disembunyikan'}">${ico(on?'eye':'mute')}</button>`:''}</div>`; }).join('');
+}
+function edSelect(k, fromPreview){
+  EDIT.panel=k; stopPrev(); renderStep(); edRail();
+  if(innerWidth<900) edSheet(true);
+  if(!fromPreview){ const p=edPanel(k); const id=p[5].map(x=>'e-'+x).find(x=>$('#'+x)); if(id) $('#'+id).scrollIntoView({behavior:'smooth', block:'start'}); }
+  edMark();
+}
+function edMark(){ const p=edPanel(EDIT.panel); $$('#edScreen section[id]').forEach(s=>s.classList.toggle('ed-on', p[5].includes(s.id.replace(/^e-/,'')))); }
+function edSheet(open){ EDIT.sheet=open; const ins=$('#edInsp'); if(ins) ins.classList.toggle('open', open); document.body.classList.toggle('ed-sheet-open', open && innerWidth<900); }
+function renderEditor(){
+  const root=$('#editor');
+  if(!root.dataset.built){ root.dataset.built=1;
+    root.innerHTML = `<header class="ed-top">
+        <a class="btn btn-ghost btn-sm ed-back" href="#dashboard">${ico('home')}<span>Dashboard</span></a>
+        <div class="ed-title"><b>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</b><span class="ed-save" id="edSave" data-s="ok"></span></div>
+        <div class="ed-tools">
+          <button type="button" class="ed-ib" data-act="ed-undo" aria-label="Urungkan" title="Urungkan (Ctrl+Z)">${ico('undo')}</button>
+          <button type="button" class="ed-ib" data-act="ed-redo" aria-label="Ulangi" title="Ulangi (Ctrl+Shift+Z)">${ico('redo')}</button>
+          <div class="seg ed-dev" role="group" aria-label="Ukuran pratinjau"><button type="button" data-dev="hp" aria-pressed="true">HP</button><button type="button" data-dev="wide" aria-pressed="false">Layar lebar</button></div>
+          <button type="button" class="btn btn-ghost btn-sm" data-act="view-as" data-id="">${ico('eye')}<span>Lihat sebagai tamu</span></button>
+          <span id="edPub"></span>
+        </div></header>
+      <div class="ed-body">
+        <nav class="ed-rail" id="edRail" aria-label="Bagian undangan"></nav>
+        <div class="ed-canvas"><div class="ed-device hp" id="edDevice"><div class="screen" id="edScreen"></div></div><p class="ed-hint">${ico('edit')}Klik bagian mana saja di pratinjau untuk mengeditnya</p></div>
+        <aside class="ed-insp" id="edInsp" aria-label="Pengaturan bagian"><div class="ed-grab" aria-hidden="true"></div><div class="ed-insp-h"><div><span class="eyebrow" id="edInspG"></span><h2 id="edInspT"></h2></div><button type="button" class="btn btn-primary btn-sm ed-done" data-act="ed-done">Selesai</button></div><div class="ed-insp-b" id="edInspBody"></div></aside>
+      </div>`;
+    root.addEventListener('submit', e=>{ if(EDIT.on){ e.preventDefault(); e.stopPropagation(); } }, true);
+    root.addEventListener('click', e=>{
+      const pk=e.target.closest('[data-ed]'); if(pk){ edSelect(pk.dataset.ed); return; }
+      const dv=e.target.closest('[data-dev]'); if(dv){ EDIT.dev=dv.dataset.dev; $('#edDevice').className='ed-device '+EDIT.dev; $$('[data-dev]').forEach(b=>b.setAttribute('aria-pressed', b===dv)); return; }
+      const go=e.target.closest('[data-dtab-go]'); if(go){ dTab=go.dataset.dtabGo; }
+    });
+    $('#edScreen').addEventListener('click', e=>{
+      const sec=e.target.closest('section[id]'); if(!sec) return; e.preventDefault(); e.stopPropagation();
+      const key=sec.id.replace(/^e-/,''); const p=ED_PANELS.find(x=>x[5].includes(key)) || (key.startsWith('cover')?ED_PANELS[0]:null);
+      if(p) edSelect(p[0], true);
+    }, true);
+  }
+  const insp=$('#edInspBody'); const sf=$('#stepForm'); if(sf.parentElement!==insp) insp.appendChild(sf);
+  $('#edPub').innerHTML = S.published ? `<a class="btn btn-primary btn-sm" href="${esc(pubURL())}" target="_blank" rel="noopener">${ico('copy')}<span>Buka link</span></a>` : `<button type="button" class="btn btn-primary btn-sm" data-act="ed-publish">Publikasikan</button>`;
+  const st=$('#edSave'); if(st && !st.textContent) st.textContent = S.published ? 'Tersimpan · tayang' : 'Draf tersimpan'; st.title = S.published ? 'Perubahan langsung terlihat oleh tamu' : 'Belum dipublikasikan';
+  EDIT.on=true; if(!EDIT.last) EDIT.last=edSnapshot();
+  edRail(); renderStep(); refreshPreview(); edTools();
+}
+function edLeave(){ if(!EDIT.on) return; EDIT.on=false; edSheet(false); const sf=$('#stepForm'); const home=$('#stepHome'); if(sf && home && sf.parentElement!==home) home.appendChild(sf); }
+document.addEventListener('click', e=>{
+  const el=e.target.closest('[data-act]'); if(!el || !EDIT.on) return; const a=el.dataset.act;
+  if(a==='ed-undo' && EDIT.undo.length){ EDIT.redo.push(edSnapshot()); edRestore(EDIT.undo.pop()); toast('Perubahan diurungkan'); }
+  if(a==='ed-redo' && EDIT.redo.length){ EDIT.undo.push(edSnapshot()); edRestore(EDIT.redo.pop()); }
+  if(a==='ed-vis'){ const k=el.dataset.k; setPath(S,k,!getPath(S,k)); save(); edRail(); renderStep(); refreshPreview(); toast(getPath(S,k)?'Bagian ditampilkan':'Bagian disembunyikan dari tamu'); }
+  if(a==='ed-done') edSheet(false);
+  if(a==='ed-publish'){ S.step=4; save(); location.hash='buat'; }
+});
+document.addEventListener('keydown', e=>{
+  if(!EDIT.on || !(e.ctrlKey||e.metaKey) || e.key.toLowerCase()!=='z') return;
+  if(e.target.matches('input,textarea,select')) return;
+  e.preventDefault(); $(`[data-act=${e.shiftKey?'ed-redo':'ed-undo'}]`)?.click();
+});
 
 /* ---------- Guest view ---------- */
 let guestBig=false, guestMusic=true, guestId=null;
@@ -2275,7 +2485,7 @@ function renderDashCore(){
   const arrived = G.filter(g=>g.checkin);
   const head = `<div class="dash-head"><div><span class="eyebrow">Dashboard pasangan</span><h1>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</h1>
     <div class="meta"><span class="status ${S.published?'s-ok':'s-wait'}">${S.published?`Aktif selamanya · ${esc((PLANS.find(p=>p.id===S.plan)||PLANS[2]).name)}`:'Contoh data · belum dipublikasikan'}</span><span class="num">${esc(fmtDate(S.events[0].date))}</span><span>${S.published&&CLOUD.on?`<a href="${esc(pubURL())}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">${esc(pubHost()+S.slug)}</a>`:esc(pubHost()+S.slug)}</span></div></div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">${S.published&&S.plan==='undangan'?`<button class="btn btn-soft btn-sm" data-act="upgrade">${ico('up')}Upgrade paket</button>`:''}<button class="btn btn-ghost btn-sm" data-act="view-as" data-id="">${ico('eye')}Lihat sebagai tamu</button><a class="btn btn-ghost btn-sm" href="#buat">${ico('edit')}Edit undangan</a></div></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">${S.published&&S.plan==='undangan'?`<button class="btn btn-soft btn-sm" data-act="upgrade">${ico('up')}Upgrade paket</button>`:''}<button class="btn btn-ghost btn-sm" data-act="view-as" data-id="">${ico('eye')}Lihat sebagai tamu</button><a class="btn btn-ghost btn-sm" href="#edit">${ico('edit')}Edit undangan</a></div></div>
     <div class="dtabs" role="tablist">${DT.map(([k,l])=>`<button role="tab" data-dtab="${k}" aria-selected="${dTab===k}">${l}${k==='tamu'?`<span class="cnt num">${total}</span>`:k==='ucapan'?`<span class="cnt num">${W.length}</span>`:k==='harih'&&arrived.length?`<span class="cnt num">${arrived.length}</span>`:k==='keluarga'&&(G_ALL||G).some(isPending)?`<span class="cnt num" style="background:var(--warn);color:#fff">${(G_ALL||G).filter(isPending).length}</span>`:''}</button>`).join('')}</div>`;
   let body='';
   if(dTab==='ringkasan'){
@@ -2636,7 +2846,7 @@ function renderCheckout(){
     <div class="line total"><span>Total</span><b class="num">${rupiah(T.total)}</b></div>
     <ul class="co-trust"><li>${ico('check')}Sekali bayar, aktif selamanya</li><li>${ico('check')}${esc(pubHost())}${esc(S.slug)}</li><li>${ico('check')}Garansi uang kembali 7 hari</li></ul></aside>`;
   if(CO.stage==='form'){
-    root.innerHTML = `<div class="co-head"><a class="linkbtn" href="#buat">← Kembali ke editor</a><h1 class="display">${coMode()==='upgrade'?'Upgrade paket':'Publikasikan undangan'}</h1></div>${steps}
+    root.innerHTML = `<div class="co-head"><a class="linkbtn" href="#${S.published?'edit':'buat'}">← Kembali ke editor</a><h1 class="display">${coMode()==='upgrade'?'Upgrade paket':'Publikasikan undangan'}</h1></div>${steps}
     <div class="co-grid"><form class="form-card co-form" id="coForm" novalidate>
       ${coMode()==='upgrade' ? `<h2 class="co-h">Upgrade</h2><div class="plan-pick"><label><input type="radio" checked disabled><span><b>Undangan + Tamu</b><small>Import Excel, grup & sesi, kirim WhatsApp sekaligus, QR check-in hari H</small></span><b class="num">+${rupiah(UPGRADE_PRICE)}</b></label></div>`
       : `<h2 class="co-h">Paket</h2><div class="plan-pick">${PLANS.filter(p=>p.price).map(p=>`<label><input type="radio" name="coPlan" value="${p.id}" ${(CO.plan||S.plan)===p.id?'checked':''}><span><b>${p.name}</b><small>${p.items.filter(x=>x[1]).slice(0,3).map(x=>x[0]).join(' · ')}</small></span><b class="num">${rupiah(p.price)}</b></label>`).join('')}</div>`}
@@ -2835,7 +3045,7 @@ document.addEventListener('click', e=>{
 document.addEventListener('click', e=>{ const m=$('#acctMenu'); if(m && !m.hidden && !e.target.closest('.acct')) m.hidden=true; });
 
 /* ---------- Cloud: Supabase + Midtrans ---------- */
-const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','catering','gallery','galleryOn','groups','slug'];
+const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','catering','arriveOn','gallery','galleryOn','groups','slug'];
 const pickData = () => { const d={}; DATA_KEYS.forEach(k=>{ if(S[k]!==undefined) d[k]=S[k]; }); return d; };
 const toRow = g => ({invitation_id:CLOUD.inv.id, id:g.id, name:g.name, phone:g.phone||'', grp:g.group||'Tanpa grup', sessions:g.sessions||[], code:g.code, status:g.status, pax:g.pax||0, sent:!!g.sent, walkin:!!g.walkin, checkin:g.checkin||null, fam:g.fam||null, approved:g.approved!==false, arrive:g.arrive||''});
 const fromRow = r => { const g={id:r.id, name:r.name, phone:r.phone||'', group:r.grp||'Tanpa grup', sessions:r.sessions||[], code:r.code, status:r.status||'belum', pax:r.pax||0, sent:!!r.sent, walkin:!!r.walkin, fam:r.fam||null, arrive:r.arrive||''}; if(r.approved===false) g.approved=false; if(r.checkin) g.checkin=r.checkin; return g; };
@@ -3016,7 +3226,7 @@ async function waitPaid(orderId, tries=0){
 }
 
 /* ---------- Router ---------- */
-const VIEWS = ['beranda','tema','buat','undangan','dashboard','checkout','tagihan','checkin','keluarga','katering'];
+const VIEWS = ['beranda','tema','buat','undangan','dashboard','checkout','tagihan','checkin','keluarga','katering','edit'];
 let bootDoneCalled=false;
 function bootDone(){ if(bootDoneCalled) return; bootDoneCalled=true; const h=document.documentElement; if(!h.classList.contains('boot-guest') && !h.classList.contains('boot-app')) return;
   const ph=$('#g-cover .cv-photo'); const m=ph && (ph.getAttribute('style')||'').match(/url\((['"]?)(.*?)\1\)/);
@@ -3043,7 +3253,9 @@ function route(){
   if(h!=='checkout') clearInterval(CO.timer);
   if(h!=='undangan') stopBgm(); if(h!=='buat') stopPrev();
   $$('[data-view]').forEach(v=> v.hidden = v.dataset.view!==h);
-  const full = h==='undangan' || h==='checkin' || h==='keluarga' || h==='katering';
+  if(h==='buat' && S.published) h='edit';
+  if(h!=='edit') edLeave();
+  const full = h==='undangan' || h==='checkin' || h==='keluarga' || h==='katering' || h==='edit';
   $('#siteHeader').hidden = full; $('#footerWrap').hidden = full || ['dashboard','buat','checkout'].includes(h);
   document.body.style.overflow='';
   $$('.nav a').forEach(a=>{ if(a.dataset.nav!==(scrollTo?'harga':h)) a.removeAttribute('aria-current'); else a.setAttribute('aria-current','page'); });
@@ -3051,6 +3263,7 @@ function route(){
   if(h==='beranda'){ renderHero(); renderStrip(); renderPlans(); }
   if(h==='tema') renderCatalog();
   if(h==='buat'){ renderStep(); refreshPreview(); }
+  if(h==='edit'){ document.body.style.overflow='hidden'; renderEditor(); }
   if(h==='undangan') renderGuest();
   if(h==='dashboard') renderDash();
   if(h==='checkout') renderCheckout();
