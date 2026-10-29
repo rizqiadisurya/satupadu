@@ -436,6 +436,7 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .acct-id{padding:10px 12px 12px;border-bottom:1px solid var(--line);margin-bottom:4px;display:grid}
 .or{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13px;margin:16px 0}
 .or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.linkbtn:disabled{color:var(--muted);text-decoration:none;cursor:default;opacity:.8}
 .otp{letter-spacing:.6em;font-size:28px;text-align:center;font-variant-numeric:tabular-nums;min-height:60px;padding-left:.6em}
 .font-pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .font-pick button{border:2px solid var(--line);border-radius:14px;background:#fff;padding:12px;cursor:pointer;display:grid;gap:4px;text-align:left}
@@ -1754,41 +1755,70 @@ function renderAuthSlot(){
   const m=$('#authSlotM'); if(m) m.innerHTML = u ? `<a href="#tagihan">${ico('receipt')} Tagihan · ${esc(u.name)}</a><a href="#beranda" data-act="logout">Keluar</a>` : `<a href="#beranda" data-act="login">Masuk atau daftar</a>`;
 }
 let authNext=null;
+const lsGet=k=>{ try{ return localStorage.getItem(k)||''; }catch(e){ return ''; } };
+const lsSet=(k,v)=>{ try{ localStorage.setItem(k,v); }catch(e){} };
+function knownNames(){ try{ return JSON.parse(lsGet('sp-names')||'{}'); }catch(e){ return {}; } }
 function openAuth(next, mode){
-  authNext = next || null;
+  if(next!==undefined) authNext = next || null;
+  const last=lsGet('sp-last-email');
   openModal(`<div class="auth"><span class="eyebrow">${mode==='publish'?'Satu langkah lagi':'Akun Satu Padu Kita'}</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">${mode==='publish'?'Simpan undanganmu ke akun':'Masuk atau daftar'}</h2>
-    <p class="muted">${mode==='publish'?'Undangan yang sudah kamu buat ikut tersimpan. Tidak perlu isi ulang.':'Pakai email. Kami kirim kode 6 angka, tanpa kata sandi.'}</p>
-    <form id="authForm" class="fgrid" style="margin-top:20px" novalidate>
-      <div class="field full"><label for="au-name">Nama kamu</label><input class="input" id="au-name" autocomplete="name" placeholder="Nadia Larasati" value="${esc(S.bride.name)}"></div>
-      <div class="field full"><label for="au-mail">Email</label><input class="input" id="au-mail" type="email" autocomplete="email" placeholder="nama@email.com" required><span class="err" hidden></span></div>
-      <button class="btn btn-primary btn-block full" style="grid-column:1/-1">Kirim kode</button>
+    <p class="muted">${mode==='publish'?'Undangan yang sudah kamu buat ikut tersimpan. Tidak perlu isi ulang.':'Cukup email. Belum punya akun? Otomatis kami buatkan.'}</p>
+    <form id="authForm" style="margin-top:20px;display:grid;gap:14px" novalidate>
+      <div class="field"><label for="au-mail">Email</label><input class="input" id="au-mail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="nama@email.com" value="${esc(last)}" required><span class="err" hidden></span></div>
+      <button class="btn btn-primary btn-block">Lanjut</button>
     </form>
     ${CLOUD.on && !CLOUD.cfg.googleLogin ? '' : `<div class="or"><span>atau</span></div>
     <button class="btn btn-ghost btn-block" data-act="google-login"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.6h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.2z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1a10 10 0 0 0 0 9.2z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.8-2.8A10 10 0 0 0 3.1 7.4L6.4 10C7.2 7.7 9.4 5.9 12 5.9z"/></svg>Lanjut dengan Google</button>`}
-    <p class="muted" style="font-size:12.5px;margin-top:14px">Dengan melanjutkan, kamu setuju dengan Syarat & Kebijakan Privasi Satu Padu Kita.</p></div>`);
-  $('#authForm').addEventListener('submit',ev=>{ ev.preventDefault(); const m=$('#au-mail'); const v=m.value.trim();
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ m.setAttribute('aria-invalid','true'); const er=m.parentElement.querySelector('.err'); er.textContent='Masukkan email yang valid, misal nadia@gmail.com'; er.hidden=false; m.focus(); return; }
-    const nm=$('#au-name').value.trim()||'Pengguna';
-    if(CLOUD.on){ const b=$('#authForm button'); b.disabled=true; b.textContent='Mengirim kode…';
-      CLOUD.sb.auth.signInWithOtp({email:v, options:{shouldCreateUser:true, data:{name:nm}, emailRedirectTo: location.origin+'/#'+(location.hash.slice(1)||'dashboard')}}).then(({error})=>{
-        if(error){ b.disabled=false; b.textContent='Kirim kode'; const er=m.parentElement.querySelector('.err'); er.textContent = /rate|limit|seconds/i.test(error.message)?'Terlalu sering. Tunggu sebentar lalu coba lagi.':error.message; er.hidden=false; return; }
-        otpStep(nm, v); });
-      return; }
-    otpStep(nm, v); });
+    <p class="muted" style="font-size:12.5px;margin-top:14px">Tanpa kata sandi. Kami kirim kode 6 angka ke emailmu. Dengan melanjutkan, kamu setuju dengan Syarat & Kebijakan Privasi Satu Padu Kita.</p></div>`);
+  setTimeout(()=>{ const m=$('#au-mail'); if(m){ m.focus(); m.select(); } },60);
+  $('#authForm').addEventListener('submit',async ev=>{ ev.preventDefault(); const m=$('#au-mail'); const v=m.value.trim().toLowerCase(); const er=m.parentElement.querySelector('.err');
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ m.setAttribute('aria-invalid','true'); er.textContent='Masukkan email yang valid, misal nadia@gmail.com'; er.hidden=false; m.focus(); return; }
+    const b=$('#authForm button'); b.disabled=true; b.textContent='Mengirim kode…';
+    const err=await sendCode(v);
+    if(err){ b.disabled=false; b.textContent='Lanjut'; er.textContent=err; er.hidden=false; return; }
+    lsSet('sp-last-email', v); otpStep(v); });
 }
-function otpStep(name, email){
-  openModal(`<div class="auth"><span class="eyebrow">Verifikasi email</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">Masukkan kode</h2><p class="muted">Kode 6 angka sudah dikirim ke <b style="color:var(--ink)">${esc(email)}</b>.${CLOUD.on?' Bisa juga ketuk link di email itu, asal dibuka di perangkat ini.':''}</p>
+async function sendCode(email){
+  if(!CLOUD.on) return null;
+  const { error } = await CLOUD.sb.auth.signInWithOtp({email, options:{shouldCreateUser:true, emailRedirectTo: location.origin+'/#'+(location.hash.slice(1)||'dashboard')}});
+  if(!error) return null;
+  return /rate|limit|seconds/i.test(error.message) ? 'Terlalu sering meminta kode. Tunggu sebentar lalu coba lagi.' : error.message;
+}
+function otpStep(email){
+  openModal(`<div class="auth"><span class="eyebrow">Verifikasi email</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">Masukkan kode</h2><p class="muted">Kode 6 angka sudah dikirim ke <b style="color:var(--ink)">${esc(email)}</b>. <button class="linkbtn" data-act="login">Ganti</button></p>
     <form id="otpForm" style="margin-top:20px;display:grid;gap:14px" novalidate><label for="otp" class="sr-only">Kode verifikasi</label><input class="input otp" id="otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="••••••"><span class="err" hidden></span>
-    <button class="btn btn-primary btn-block">Verifikasi & masuk</button></form>
-    <p class="muted" style="font-size:13px;margin-top:14px">${CLOUD.on?'Tidak ada email? Cek folder Spam atau Promosi.':'Prototype: ketik 6 angka apa saja.'} <button class="linkbtn" data-act="login">Ganti email</button></p></div>`);
+    <button class="btn btn-primary btn-block">Masuk</button></form>
+    <p class="muted" style="font-size:13px;margin-top:14px">${CLOUD.on?'Belum masuk? Cek folder Spam atau Promosi.':'Prototype: ketik 6 angka apa saja.'} <button class="linkbtn" id="otpResend" disabled>Kirim ulang (60)</button></p></div>`);
   setTimeout(()=>$('#otp')?.focus(),60);
+  let left=60; const rs=$('#otpResend');
+  const tick=setInterval(()=>{ if(!document.body.contains(rs)) return clearInterval(tick); left--; if(left<=0){ clearInterval(tick); rs.disabled=false; rs.textContent='Kirim ulang kode'; } else rs.textContent=`Kirim ulang (${left})`; },1000);
+  rs.addEventListener('click',async()=>{ rs.disabled=true; rs.textContent='Mengirim…'; const e=await sendCode(email); if(e){ toast(e); rs.disabled=false; rs.textContent='Kirim ulang kode'; return; } toast('Kode baru sudah dikirim'); otpStep(email); });
   $('#otp').addEventListener('input',e=>{ e.target.value=e.target.value.replace(/\D/g,'').slice(0,6); if(e.target.value.length===6) $('#otpForm').requestSubmit(); });
-  $('#otpForm').addEventListener('submit',async ev=>{ ev.preventDefault(); const v=$('#otp').value; const er=$('#otpForm .err'); if(v.length<6){ er.textContent='Kode terdiri dari 6 angka'; er.hidden=false; return; }
-    if(CLOUD.on){ const b=$('#otpForm button'); b.disabled=true; b.textContent='Memeriksa…';
-      const { data, error } = await CLOUD.sb.auth.verifyOtp({email, token:v, type:'email'}); /* signup memakai tipe yang sama sejak supabase-js 2.x */
-      if(error){ b.disabled=false; b.textContent='Verifikasi & masuk'; er.textContent='Kode salah atau sudah kedaluwarsa. Minta kode baru bila perlu.'; er.hidden=false; return; }
-      await ownerLoad(data.user); closeModal(); renderAuthSlot(); toast('Halo, '+S.user.name.split(' ')[0]+'!'); const n=authNext; authNext=null; if(n) n(); else route(); return; }
-    finishLogin(name,email); });
+  $('#otpForm').addEventListener('submit',async ev=>{ ev.preventDefault(); const inp=$('#otp'); const v=inp.value; const er=$('#otpForm .err'); if(v.length<6){ er.textContent='Kode terdiri dari 6 angka'; er.hidden=false; return; }
+    const b=$('#otpForm button'); b.disabled=true; b.textContent='Memeriksa…';
+    if(CLOUD.on){
+      const { data, error } = await CLOUD.sb.auth.verifyOtp({email, token:v, type:'email'});
+      if(error){ b.disabled=false; b.textContent='Masuk'; er.textContent='Kode salah atau sudah kedaluwarsa. Coba lagi atau kirim ulang kode.'; er.hidden=false; inp.value=''; inp.focus(); return; }
+      clearInterval(tick); await ownerLoad(data.user); return afterLogin(!(data.user.user_metadata&&data.user.user_metadata.name)); }
+    clearInterval(tick); const nm=knownNames()[email];
+    S.user={name:nm||email.split('@')[0], email}; save(); afterLogin(!nm); });
+}
+function afterLogin(isNew){
+  if(isNew) return nameStep();
+  closeModal(); renderAuthSlot(); toast('Halo lagi, '+S.user.name.split(' ')[0]+'!'); const n=authNext; authNext=null; if(n) n(); else route();
+}
+function nameStep(){
+  const guess = S.bride.name && S.bride.name!=='Nadia Larasati' ? S.bride.name : '';
+  openModal(`<div class="auth"><span class="eyebrow">Akun baru</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">Mau dipanggil siapa?</h2><p class="muted">Dipakai untuk sapaan dan tagihan. Bisa diganti kapan saja.</p>
+    <form id="nameForm" style="margin-top:20px;display:grid;gap:14px" novalidate><div class="field"><label for="au-name">Nama kamu</label><input class="input" id="au-name" autocomplete="name" autocapitalize="words" placeholder="Nadia Larasati" value="${esc(guess)}"><span class="err" hidden></span></div>
+    <button class="btn btn-primary btn-block">Mulai</button></form></div>`);
+  setTimeout(()=>$('#au-name')?.focus(),60);
+  $('#nameForm').addEventListener('submit',async ev=>{ ev.preventDefault(); const i=$('#au-name'); const nm=i.value.trim().replace(/\s+/g,' ').slice(0,60); const er=$('#nameForm .err');
+    if(!nm){ er.textContent='Isi nama dulu, ya'; er.hidden=false; i.focus(); return; }
+    const b=$('#nameForm button'); b.disabled=true; b.textContent='Menyimpan…';
+    if(CLOUD.on){ const { error } = await CLOUD.sb.auth.updateUser({data:{name:nm}}); if(error){ b.disabled=false; b.textContent='Mulai'; er.textContent='Gagal menyimpan. Coba lagi.'; er.hidden=false; return; } }
+    else { const k=knownNames(); k[S.user.email]=nm; lsSet('sp-names', JSON.stringify(k)); }
+    S.user.name=nm; save(); closeModal(); renderAuthSlot(); toast('Selamat datang, '+nm.split(' ')[0]+'!'); const n=authNext; authNext=null; if(n) n(); else route(); });
 }
 function finishLogin(name,email){ S.user={name,email}; save(); closeModal(); renderAuthSlot(); toast('Halo, '+name.split(' ')[0]+'!'); const n=authNext; authNext=null; if(n) n(); else route(); }
 
@@ -2032,7 +2062,7 @@ async function cloudInit(){
   }
   const { data:{ session } } = await CLOUD.sb.auth.getSession();
   if(session) await ownerLoad(session.user);
-  CLOUD.sb.auth.onAuthStateChange((ev, s)=>{ if(ev==='SIGNED_IN' && s && CLOUD.uid!==s.user.id){ ownerLoad(s.user).then(()=>{ closeModal(); renderAuthSlot(); if(!location.hash || location.hash==='#') location.hash='#dashboard'; route(); }); } });
+  CLOUD.sb.auth.onAuthStateChange((ev, s)=>{ if(ev==='SIGNED_IN' && s && CLOUD.uid!==s.user.id){ ownerLoad(s.user).then(()=>{ if(!location.hash || location.hash==='#') location.hash='#dashboard'; route(); if(!(s.user.user_metadata&&s.user.user_metadata.name)) nameStep(); else { closeModal(); renderAuthSlot(); } }); } });
 }
 async function storePhoto(dataUrl){
   if(!(CLOUD.on && CLOUD.uid) || !String(dataUrl).startsWith('data:')) return dataUrl;
