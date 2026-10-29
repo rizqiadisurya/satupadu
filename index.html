@@ -2989,7 +2989,7 @@ async function cloudPay(btn){
     await cloudSaveNow();
     const { data:{ session } } = await CLOUD.sb.auth.getSession();
     if(!session){ reset(); openAuth(()=>renderCheckout(),'publish'); return; }
-    const r = await fetch('/api/pay/create',{method:'POST', headers:{'Content-Type':'application/json', Authorization:'Bearer '+session.access_token}, body:JSON.stringify({plan:CO.plan||S.plan, voucher:CO.applied||'', method:CO.method})});
+    const r = await fetch('/api/pay/create',{method:'POST', headers:{'Content-Type':'application/json', Authorization:'Bearer '+session.access_token}, body:JSON.stringify({plan:coItems().plan, voucher:CO.applied||'', method:CO.method})});
     const j = await r.json().catch(()=>({}));
     if(!r.ok){ reset(); toast(j.error||'Gagal membuat pembayaran'); return; }
     await ensureSnap();

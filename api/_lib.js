@@ -30,7 +30,7 @@ async function userFromReq(req) {
 function priceFor(inv, plan, voucher) {
   const upgrade = inv.published && inv.plan === 'undangan' && plan === 'tamu';
   if (!upgrade && inv.published && inv.plan === 'tamu') throw Object.assign(new Error('Paket sudah paling lengkap'), { status: 400 });
-  if (!upgrade && inv.published && inv.plan === 'undangan' && plan === 'undangan') throw Object.assign(new Error('Paket ini sudah aktif'), { status: 400 });
+  if (!upgrade && inv.published && inv.plan === 'undangan' && plan === 'undangan') throw Object.assign(new Error('Paket Undangan sudah aktif. Pilih Undangan + Tamu untuk upgrade.'), { status: 400 });
   const item = upgrade ? 'Upgrade ke Undangan + Tamu' : PLANS[plan]?.name;
   const price = upgrade ? UPGRADE_PRICE : PLANS[plan]?.price;
   if (!price) throw Object.assign(new Error('Paket tidak dikenal'), { status: 400 });
