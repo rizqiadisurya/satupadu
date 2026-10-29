@@ -292,3 +292,14 @@ grant select, update, delete on public.wishes to authenticated;
 grant select on public.gift_confirmations, public.invoices to authenticated;
 grant all on all tables in schema public to service_role;
 grant usage, select on all sequences in schema public to service_role;
+
+-- ============ STORAGE MUSIK (lagu unggahan pengantin) ============
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('music', 'music', true, 15728640, array['audio/mpeg','audio/mp3','audio/mp4','audio/x-m4a','audio/aac','audio/ogg','audio/wav','audio/x-wav','audio/webm'])
+on conflict (id) do update set public = true, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+drop policy if exists music_insert_own on storage.objects;
+create policy music_insert_own on storage.objects for insert to authenticated
+  with check (bucket_id = 'music' and (storage.foldername(name))[1] = auth.uid()::text);
+drop policy if exists music_delete_own on storage.objects;
+create policy music_delete_own on storage.objects for delete to authenticated
+  using (bucket_id = 'music' and (storage.foldername(name))[1] = auth.uid()::text);

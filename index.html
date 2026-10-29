@@ -277,6 +277,29 @@ textarea.input{min-height:96px;resize:vertical}
 .mobile-progress{display:none}
 .up{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .up .thumb{width:64px;height:80px;border-radius:32px 32px 10px 10px;background:var(--blush) center/cover no-repeat;display:grid;place-items:center;color:var(--beet);font-family:var(--display);font-size:22px;border:1px solid var(--line);flex:none}
+.music-pick{width:100%;margin-top:12px;display:grid;gap:12px}
+.m-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:var(--soft,#f4ecee);padding:4px;border-radius:12px}
+.m-tabs button{border:0;background:transparent;border-radius:9px;padding:9px 6px;font:inherit;font-size:13.5px;font-weight:600;color:var(--muted);cursor:pointer;min-height:40px}
+.m-tabs button[aria-selected=true]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.m-list{display:grid;gap:8px}
+.m-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1.5px solid var(--line);border-radius:14px;background:#fff;cursor:pointer}
+.m-item.sel{border-color:var(--beet);background:color-mix(in srgb,var(--beet) 5%,#fff)}
+.m-item .m-meta{flex:1;min-width:0;display:grid}
+.m-item .m-meta b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.m-item .m-meta span{font-size:13px;color:var(--muted)}
+.m-play{flex:none;width:40px;height:40px;border-radius:50%;border:0;background:var(--beet);color:#fff;display:grid;place-items:center;cursor:pointer}
+.m-play.on{background:var(--ink)}
+.m-play .icon{width:16px;height:16px}
+.m-radio{flex:none;width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center}
+.m-item.sel .m-radio{border-color:var(--beet)}
+.m-item.sel .m-radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--beet)}
+.m-drop{display:flex;flex-direction:column;align-items:center;gap:6px;padding:22px 16px;border:1.5px dashed var(--line);border-radius:14px;text-align:center;cursor:pointer;background:#fff}
+.m-drop:hover{border-color:var(--beet)}
+.m-note{font-size:12.5px;color:var(--muted);line-height:1.5}
+.m-warn{font-size:13px;line-height:1.5;padding:10px 12px;border-radius:10px;background:#fff6e5;color:#7a4b00}
+.m-ok{font-size:13px;line-height:1.5;padding:10px 12px;border-radius:10px;background:#eaf6ee;color:#1f5f35}
+.m-start{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px}
+.m-start input{width:84px}
 .gal-edit{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
 .gal-edit .g{position:relative;aspect-ratio:1;border-radius:12px;background:var(--blush) center/cover;border:1px solid var(--line)}
 .gal-edit .g button{position:absolute;top:6px;right:6px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(36,21,27,.75);color:#fff;cursor:pointer;display:grid;place-items:center}
@@ -676,6 +699,8 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
     <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
     <symbol id="i-rsvp" viewBox="0 0 24 24"><path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
     <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></symbol>
     <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.5" cy="16" r="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/></symbol>
     <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M17 9l4 6M21 9l-4 6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
     <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4h-9A1.5 1.5 0 0 0 4 5.5v9A1.5 1.5 0 0 0 5.5 16H8" fill="none" stroke="currentColor" stroke-width="1.9"/></symbol>
@@ -1001,7 +1026,7 @@ const DEFAULT = {
   opening:'islam',
   theme:'kawung', accent:null,
   gift:{on:true, bank:'BCA', acct:'8720112345', holder:'Nadia Larasati'},
-  wishesOn:true, music:true, gallery:[], galleryOn:true,
+  wishesOn:true, music:true, musicSrc:{type:'lib', id:'piano-senja'}, musicStart:0, gallery:[], galleryOn:true,
   slug:'rizky-nadia', plan:'tamu', published:false,
   order:['salam','acara','galeri','rsvp','hadiah','ucapan'], font:'tema', groups:null, user:null, invoices:[], giftNo:0,
   step:0
@@ -1365,7 +1390,8 @@ function renderStep(){
       <div class="toggle-row"><div><b>Ucapan &amp; doa</b><div class="muted" style="font-size:14px">Kamu bisa menyembunyikan ucapan tertentu dari dashboard.</div></div><label class="switch"><input type="checkbox" data-bind="wishesOn" ${S.wishesOn?'checked':''} aria-label="Ucapan dan doa"><span></span></label></div>
       <div class="toggle-row" style="flex-wrap:wrap"><div><b>Galeri foto</b><div class="muted" style="font-size:14px">Maksimal 8 foto. Foto pertama tampil paling besar.</div></div><label class="switch"><input type="checkbox" data-bind="galleryOn" ${S.galleryOn?'checked':''} aria-label="Galeri foto"><span></span></label>
         ${S.galleryOn?`<div class="gal-edit" style="width:100%">${S.gallery.map((g,k)=>`<div class="g" style="background-image:url(${g})"><button type="button" data-act="rm-gal" data-k="${k}" aria-label="Hapus foto ${k+1}">${ico('x')}</button></div>`).join('')}${S.gallery.length<8?`<label class="add" for="up-gal">${ico('plus')}<span>Tambah foto<br><span style="font-weight:500;color:var(--muted)">${S.gallery.length}/8</span></span></label><input type="file" id="up-gal" data-photo="gallery" accept="image/*" multiple hidden>`:''}</div>`:''}</div>
-      <div class="toggle-row"><div><b>Musik latar</b><div class="muted" style="font-size:14px">Tidak diputar otomatis keras. Tamu bisa mematikannya sekali ketuk.</div></div><label class="switch"><input type="checkbox" data-bind="music" ${S.music?'checked':''} aria-label="Musik latar"><span></span></label></div>
+      <div class="toggle-row" style="flex-wrap:wrap"><div><b>Musik latar</b><div class="muted" style="font-size:14px">Mulai pelan saat tamu membuka undangan. Tamu bisa mematikannya sekali ketuk.</div></div><label class="switch"><input type="checkbox" data-bind="music" ${S.music?'checked':''} aria-label="Musik latar"><span></span></label>
+        ${S.music?musicPickerHTML():''}</div>
     </div>
     <div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Urutan bagian undangan</span><ol class="sec-order">${(S.order||DEFAULT.order).map((k,i,arr)=>{ const off=(k==='galeri'&&(!S.galleryOn||!S.gallery.length))||(k==='hadiah'&&!S.gift.on)||(k==='ucapan'&&!S.wishesOn); return `<li class="${off?'off':''}"><span class="num muted">${i+1}</span><b>${SECTION_LABELS[k]}</b>${off?'<span class="chip">Tidak tampil</span>':''}<span class="mv"><button type="button" class="btn btn-ghost btn-sm" data-move="${k}" data-dir="-1" ${i===0?'disabled':''} aria-label="Naikkan ${SECTION_LABELS[k]}">↑</button><button type="button" class="btn btn-ghost btn-sm" data-move="${k}" data-dir="1" ${i===arr.length-1?'disabled':''} aria-label="Turunkan ${SECTION_LABELS[k]}">↓</button></span></li>`; }).join('')}</ol><span class="hint">Sampul selalu paling atas dan ucapan terima kasih selalu paling bawah.</span></div>`;
   }
@@ -1396,7 +1422,7 @@ $('#stepForm').addEventListener('input', e=>{
   let v = e.target.type==='checkbox' ? e.target.checked : e.target.value;
   if(b==='slug'){ v = v.toLowerCase().replace(/[^a-z0-9-]/g,'-').replace(/-+/g,'-'); }
   setPath(S,b,v);
-  if(b==='gift.on' || b==='galleryOn'){ renderStep(); }
+  if(b==='gift.on' || b==='galleryOn' || b==='music'){ if(b==='music') stopPrev(); renderStep(); }
   e.target.removeAttribute('aria-invalid'); const err=e.target.closest('.field')?.querySelector('.err'); if(err) err.hidden=true;
   save(); refreshPreview();
 });
@@ -1435,6 +1461,135 @@ $('#stepForm').addEventListener('click', e=>{
 });
 $('#stepper').addEventListener('click', e=>{ const b=e.target.closest('[data-step]'); if(b) goStep(+b.dataset.step); });
 
+/* ---------- Musik ---------- */
+const MUSIC_LIB = [
+  {id:'piano-senja', name:'Piano Senja', mood:'Romantis, pelan', dur:'1:15'},
+  {id:'kotak-musik', name:'Kotak Musik', mood:'Manis dan ringan', dur:'1:08'},
+  {id:'petik-akustik', name:'Petik Akustik', mood:'Hangat, santai', dur:'1:10'},
+  {id:'gamelan-lembut', name:'Gamelan Lembut', mood:'Nuansa Jawa', dur:'1:12'},
+  {id:'kecapi-suling', name:'Kecapi Suling', mood:'Nuansa Sunda', dur:'1:14'}
+];
+const BLOCKED_LINK = /(youtube\.com|youtu\.be|spotify\.com|music\.apple|joox\.com|soundcloud\.com|tiktok\.com|deezer\.com)/i;
+let mTab = null, PREV = null, prevKey = null, mLinkState = null, BGM = null;
+const musicBase = () => location.protocol==='file:' ? 'music/' : '/music/';
+function musicURL(src){ src = src || S.musicSrc; if(!src) return ''; if(src.type==='lib') return musicBase()+(src.id||'piano-senja')+'.mp3'; return src.url||''; }
+function musicLabel(src){ src = src || S.musicSrc || {}; if(src.type==='lib'){ const t=MUSIC_LIB.find(x=>x.id===src.id); return t?t.name:'Musik pilihan'; } return src.name || (src.type==='upload'?'Lagu unggahan':'Lagu dari link'); }
+function normalizeLink(u){
+  u = u.trim(); let m;
+  if((m = u.match(/drive\.google\.com\/file\/d\/([^/?#]+)/)) || (m = u.match(/drive\.google\.com\/open\?id=([^&#]+)/))) return 'https://drive.google.com/uc?export=download&id='+m[1];
+  if(/dropbox\.com/.test(u)){ const x=u.replace(/([?&])dl=[01]&?/,'$1').replace(/[?&]$/,''); return x + (x.includes('?')?'&':'?') + 'raw=1'; }
+  return u;
+}
+function probeAudio(url){
+  return new Promise((res,rej)=>{ const a=new Audio(); let done=false; const fin=(ok,v)=>{ if(done) return; done=true; a.removeAttribute('src'); a.load(); ok?res(v):rej(v); };
+    a.preload='metadata'; a.onloadedmetadata=()=>fin(true, a.duration); a.onerror=()=>fin(false,'error'); setTimeout(()=>fin(false,'timeout'), 12000); a.src=url; });
+}
+const fmtSec = s => !isFinite(s) ? '' : `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+function stopPrev(){ if(PREV){ PREV.pause(); PREV.removeAttribute('src'); } PREV=null; prevKey=null; $$('.m-play.on').forEach(b=>{ b.classList.remove('on'); b.innerHTML=ico('play'); }); }
+function togglePrev(key, url, start){
+  if(prevKey===key){ stopPrev(); return; }
+  stopPrev(); if(!url) return;
+  stopBgm();
+  PREV = new Audio(url); prevKey = key; PREV.volume = .8;
+  PREV.addEventListener('loadedmetadata',()=>{ if(start && start < PREV.duration) PREV.currentTime = start; }, {once:true});
+  PREV.addEventListener('ended', stopPrev);
+  PREV.play().catch(()=>{ if(prevKey===key){ toast('Lagu tidak bisa diputar. Coba file atau link lain.'); stopPrev(); } });
+  const b=$(`.m-play[data-mplay="${key}"]`); if(b){ b.classList.add('on'); b.innerHTML=ico('pause'); }
+}
+function musicPickerHTML(){
+  const src = S.musicSrc || {type:'lib', id:'piano-senja'};
+  const tab = mTab || src.type || 'lib';
+  const playBtn = (key, label) => `<button type="button" class="m-play ${prevKey===key?'on':''}" data-mplay="${key}" aria-label="${prevKey===key?'Hentikan':'Dengarkan'} ${esc(label||'lagu')}">${ico(prevKey===key?'pause':'play')}</button>`;
+  let body = '';
+  if(tab==='lib'){
+    body = `<div class="m-list" role="radiogroup" aria-label="Musik pilihan Satu Padu Kita">${MUSIC_LIB.map(t=>{ const sel = src.type==='lib' && src.id===t.id;
+      return `<div class="m-item ${sel?'sel':''}" data-mpick="${t.id}" role="radio" aria-checked="${sel}" tabindex="0">${playBtn('lib:'+t.id, t.name)}<div class="m-meta"><b>${t.name}</b><span>${t.mood} · ${t.dur}</span></div><span class="m-radio" aria-hidden="true"></span></div>`; }).join('')}</div>
+      <p class="m-note">Instrumen asli buatan Satu Padu Kita. Bebas dipakai, aman dari klaim hak cipta.</p>`;
+  } else if(tab==='upload'){
+    const has = src.type==='upload' && src.url;
+    body = `${has?`<div class="m-item sel">${playBtn('cur', src.name)}<div class="m-meta"><b>${esc(src.name||'Lagu unggahan')}</b><span>${src.temp?'Mode demo: hilang setelah halaman dimuat ulang':'Tersimpan di akunmu'}</span></div></div>`:''}
+      <label class="m-drop" for="up-music">${ico(has?'edit':'up')}<b>${has?'Ganti lagu':'Pilih file lagu'}</b><span class="m-note">MP3 atau M4A, maksimal 15 MB</span></label>
+      <input type="file" id="up-music" accept="audio/mpeg,audio/mp3,audio/mp4,audio/x-m4a,audio/aac,audio/ogg,audio/wav,.mp3,.m4a,.aac,.ogg,.wav" hidden>
+      <p class="m-note">Dengan mengunggah, kamu menyatakan punya hak memakai lagu ini.</p>`;
+  } else {
+    const has = src.type==='link' && src.url;
+    body = `<div class="field" style="margin:0"><label for="m-link">Link file audio</label><div style="display:flex;gap:8px"><input class="input" id="m-link" type="url" inputmode="url" autocapitalize="off" spellcheck="false" placeholder="https://…/lagu.mp3" value="${has?esc(src.orig||src.url):''}" style="flex:1;min-width:0"><button type="button" class="btn btn-ghost" data-act="m-link-check">Pakai</button></div></div>
+      ${mLinkState?`<div class="${mLinkState.ok?'m-ok':'m-warn'}" role="status">${mLinkState.msg}</div>`:''}
+      ${has?`<div class="m-item sel">${playBtn('cur', src.name)}<div class="m-meta"><b>${esc(src.name)}</b><span>Dari link</span></div></div>`:''}
+      <p class="m-note">Bisa link langsung ke file .mp3/.m4a, Google Drive (akses "Siapa saja yang memiliki link"), atau Dropbox. Link YouTube dan Spotify tidak bisa dipakai sebagai musik latar karena aturan platformnya.</p>`;
+  }
+  const showStart = src.type===tab && tab!=='lib';
+  const start = `<div class="m-start"><label for="m-start">Mulai dari detik</label><input class="input" id="m-start" type="number" inputmode="numeric" min="0" max="900" step="1" value="${+S.musicStart||0}"><span class="m-note">Lewati intro panjang, misal langsung ke reff.</span></div>`;
+  return `<div class="music-pick">
+    <div class="m-tabs" role="tablist" aria-label="Sumber musik">${[['lib','Pilihan kami'],['upload','Unggah lagu'],['link','Pakai link']].map(([k,l])=>`<button type="button" role="tab" data-mtab="${k}" aria-selected="${tab===k}">${l}</button>`).join('')}</div>
+    ${body}${showStart ? start : ''}
+    <div class="m-note m-cur">Sedang dipakai: <b style="color:var(--ink)">${esc(musicLabel(src))}</b></div>
+  </div>`;
+}
+async function storeMusic(file){
+  if(CLOUD.on && CLOUD.uid){
+    const ext=(file.name.split('.').pop()||'mp3').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,5)||'mp3';
+    const path=`${CLOUD.uid}/${(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36))}.${ext}`;
+    const { error } = await CLOUD.sb.storage.from('music').upload(path, file, {contentType:file.type||'audio/mpeg', upsert:false, cacheControl:'31536000'});
+    if(error) throw error;
+    return {url: CLOUD.sb.storage.from('music').getPublicUrl(path).data.publicUrl, temp:false};
+  }
+  return {url: URL.createObjectURL(file), temp:true};
+}
+async function handleMusicFile(file){
+  if(!file) return;
+  if(!/^audio\//.test(file.type) && !/\.(mp3|m4a|aac|ogg|wav)$/i.test(file.name)){ toast('File itu bukan lagu. Pilih MP3 atau M4A.'); return; }
+  if(file.size > 15*1024*1024){ toast('Ukuran lagu maksimal 15 MB. Coba kompres ke MP3 dulu.'); return; }
+  const lbl=$('label[for=up-music] b'); if(lbl) lbl.textContent='Mengunggah…';
+  try{
+    const r = await storeMusic(file);
+    stopPrev(); S.musicSrc = {type:'upload', url:r.url, name:file.name.replace(/\.[^.]+$/,'').replace(/[-_]+/g,' ').trim().slice(0,60), temp:r.temp}; S.musicStart=0; mTab='upload';
+    save(); renderStep(); refreshPreview(); toast('Lagu dipasang');
+  }catch(e){ toast('Upload lagu gagal: '+(e.message||'coba lagi')); renderStep(); }
+}
+async function checkMusicLink(){
+  const inp=$('#m-link'); if(!inp) return; const raw=inp.value.trim();
+  if(!raw){ mLinkState={ok:false,msg:'Tempel link lagunya dulu.'}; renderStep(); return; }
+  if(!/^https?:\/\//i.test(raw)){ mLinkState={ok:false,msg:'Link harus diawali https://'}; renderStep(); return; }
+  if(BLOCKED_LINK.test(raw)){ mLinkState={ok:false,msg:'Link YouTube, Spotify, dan sejenisnya tidak bisa diputar sebagai musik latar. Unduh lagunya sebagai MP3 lalu pilih <b>Unggah lagu</b>, atau pakai link langsung ke file audio.'}; renderStep(); $('#m-link').value=raw; return; }
+  const url = normalizeLink(raw); const b=$('[data-act=m-link-check]'); if(b){ b.disabled=true; b.textContent='Memeriksa…'; }
+  try{
+    const d = await probeAudio(url);
+    let name = decodeURIComponent((raw.split('?')[0].split('/').pop()||'')).replace(/\.[^.]+$/,'').replace(/[-_]+/g,' ').trim();
+    if(!name || /^(view|uc|open|edit)$/i.test(name) || name.length>60) name='Lagu dari link';
+    stopPrev(); S.musicSrc={type:'link', url, orig:raw, name}; S.musicStart=0; mLinkState={ok:true,msg:`Link bisa diputar${fmtSec(d)?' · durasi '+fmtSec(d):''}. Sudah dipasang.`};
+    save(); renderStep(); refreshPreview(); mLinkState=null;
+  }catch(e){ mLinkState={ok:false,msg:'Link ini tidak bisa diputar. Pastikan link mengarah langsung ke file audio dan bisa dibuka tanpa login.'}; renderStep(); const i=$('#m-link'); if(i) i.value=raw; }
+}
+$('#stepForm').addEventListener('click', e=>{
+  const t=e.target.closest('[data-mtab]'); if(t){ e.preventDefault(); stopPrev(); mTab=t.dataset.mtab; mLinkState=null; renderStep(); return; }
+  const pl=e.target.closest('[data-mplay]'); if(pl){ e.preventDefault(); e.stopPropagation(); const k=pl.dataset.mplay;
+    if(k.startsWith('lib:')){ const id=k.slice(4); togglePrev(k, musicURL({type:'lib',id}), (S.musicSrc&&S.musicSrc.type==='lib'&&S.musicSrc.id===id)?+S.musicStart||0:0); }
+    else togglePrev(k, musicURL(), +S.musicStart||0); return; }
+  const pk=e.target.closest('[data-mpick]'); if(pk){ const id=pk.dataset.mpick; if(!(S.musicSrc&&S.musicSrc.type==='lib'&&S.musicSrc.id===id)){ S.musicSrc={type:'lib', id}; S.musicStart=0; save(); refreshPreview(); renderStep(); } return; }
+  if(e.target.closest('[data-act=m-link-check]')){ e.preventDefault(); checkMusicLink(); }
+});
+$('#stepForm').addEventListener('keydown', e=>{
+  if(e.target.matches && e.target.matches('.m-item[data-mpick]') && (e.key===' '||e.key==='Enter')){ e.preventDefault(); e.target.click(); }
+  if(e.target.id==='m-link' && e.key==='Enter'){ e.preventDefault(); checkMusicLink(); }
+});
+$('#stepForm').addEventListener('change', e=>{
+  if(e.target.id==='up-music'){ handleMusicFile(e.target.files[0]); e.target.value=''; }
+  if(e.target.id==='m-start'){ S.musicStart=Math.max(0,Math.min(900,Math.round(+e.target.value||0))); e.target.value=S.musicStart; save(); if(PREV) stopPrev(); }
+});
+let bgmFade=null;
+function startBgm(){
+  const url = musicURL(); if(!S.music || !guestMusic || !url) return;
+  try{
+    if(!BGM){ BGM = new Audio(); BGM.preload='auto'; BGM.addEventListener('ended',()=>{ BGM.currentTime=+S.musicStart||0; BGM.play().catch(()=>{}); }); }
+    if(BGM.dataset.src!==url){ BGM.src=url; BGM.dataset.src=url; BGM.addEventListener('loadedmetadata',()=>{ const st=+S.musicStart||0; if(st && st<BGM.duration) BGM.currentTime=st; },{once:true}); }
+    clearInterval(bgmFade); BGM.volume=0; const p=BGM.play(); if(p) p.catch(()=>{});
+    let v=0; bgmFade=setInterval(()=>{ v=Math.min(.55, v+.03); try{ BGM.volume=v; }catch(e){} if(v>=.55) clearInterval(bgmFade); }, 120);
+  }catch(e){}
+}
+function stopBgm(){ clearInterval(bgmFade); if(BGM){ BGM.pause(); } }
+window.__spMusic = () => ({src:S.musicSrc, start:S.musicStart, prev: PREV?{paused:PREV.paused,t:PREV.currentTime}:null, bgm: BGM?{paused:BGM.paused,t:BGM.currentTime,vol:BGM.volume}:null});
+
 /* ---------- Guest view ---------- */
 let guestBig=false, guestMusic=true, guestId=null;
 const guestObj = () => CLOUD.guestMode ? CLOUD.guest : (guestId ? G.find(g=>g.id===guestId) : null);
@@ -1462,6 +1617,7 @@ function renderGuest(){
   $('#g-cover').style.minHeight='100vh';
 }
 function openGuest(){
+  startBgm();
   const col=$('#guestCol'); col.classList.remove('locked'); document.body.style.overflow='';
   ($('#g-salam')||$('#g-acara')).scrollIntoView({behavior:'smooth'});
 }
@@ -1704,7 +1860,7 @@ document.addEventListener('click', e=>{
   if(a==='publish'){ CO.stage='form'; CO.plan=S.plan; if(!S.user) openAuth(()=>{ location.hash='checkout'; },'publish'); else location.hash='checkout'; }
   if(a==='open-inv') openGuest();
   if(a==='g-big'){ guestBig=!guestBig; const y=window.scrollY; renderGuest(); openGuest(); window.scrollTo(0,y); }
-  if(a==='g-music'){ guestMusic=!guestMusic; el.innerHTML=ico(guestMusic&&S.music?'music':'mute'); el.setAttribute('aria-pressed',guestMusic); toast(guestMusic?'Musik dinyalakan':'Musik dimatikan'); }
+  if(a==='g-music'){ guestMusic=!guestMusic; if(guestMusic){ if(!$('#guestCol')?.classList.contains('locked')) startBgm(); } else stopBgm(); el.innerHTML=ico(guestMusic&&S.music?'music':'mute'); el.setAttribute('aria-pressed',guestMusic); toast(guestMusic?'Musik dinyalakan':'Musik dimatikan'); }
   if(a==='rsvp-again'){ const box=el.closest('[data-rsvp]'); const g=G.find(x=>x.id===(el.dataset.gid||box.dataset.gid)); box.innerHTML = rsvpForm(g?g.name:guestLabel(), g); bindInv(box); }
   if(a==='gift-confirm'){
     el.parentElement.innerHTML = `<form class="form" data-giftform><label for="gfn">Nama pengirim</label><input class="in" id="gfn" value="${esc(el.dataset.name||'')}" required><label for="gfa">Jumlah (opsional)</label><input class="in" id="gfa" inputmode="numeric" placeholder="Contoh: 250000"><label for="gff">Bukti transfer (opsional)</label><input class="in" id="gff" type="file" accept="image/*"><button class="ibtn solid" style="justify-content:center">Kirim konfirmasi</button></form>`;
@@ -2040,7 +2196,7 @@ document.addEventListener('click', e=>{
 document.addEventListener('click', e=>{ const m=$('#acctMenu'); if(m && !m.hidden && !e.target.closest('.acct')) m.hidden=true; });
 
 /* ---------- Cloud: Supabase + Midtrans ---------- */
-const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','gallery','galleryOn','groups','slug'];
+const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','gallery','galleryOn','groups','slug'];
 const pickData = () => { const d={}; DATA_KEYS.forEach(k=>{ if(S[k]!==undefined) d[k]=S[k]; }); return d; };
 const toRow = g => ({invitation_id:CLOUD.inv.id, id:g.id, name:g.name, phone:g.phone||'', grp:g.group||'Tanpa grup', sessions:g.sessions||[], code:g.code, status:g.status, pax:g.pax||0, sent:!!g.sent, walkin:!!g.walkin, checkin:g.checkin||null});
 const fromRow = r => { const g={id:r.id, name:r.name, phone:r.phone||'', group:r.grp||'Tanpa grup', sessions:r.sessions||[], code:r.code, status:r.status||'belum', pax:r.pax||0, sent:!!r.sent, walkin:!!r.walkin}; if(r.checkin) g.checkin=r.checkin; return g; };
@@ -2229,6 +2385,7 @@ function route(){
   if(h==='harga'){ h='beranda'; scrollTo='harga-sec'; }
   if(!VIEWS.includes(h)) h='beranda';
   if(h!=='checkout') clearInterval(CO.timer);
+  if(h!=='undangan') stopBgm(); if(h!=='buat') stopPrev();
   $$('[data-view]').forEach(v=> v.hidden = v.dataset.view!==h);
   const full = h==='undangan' || h==='checkin';
   $('#siteHeader').hidden = full; $('#footerWrap').hidden = full || ['dashboard','buat','checkout'].includes(h);
