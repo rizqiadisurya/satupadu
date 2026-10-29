@@ -591,6 +591,12 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
   .vrow{flex-direction:column}
 }
 
+.spin{width:48px;height:48px;border-radius:50%;border:4px solid var(--blush);border-top-color:var(--beet);margin:0 auto 18px;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pin-card{display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap;margin-top:16px}
+.pin-row{display:flex;gap:12px;align-items:center}
+.pin{font-family:var(--display);font-size:34px;letter-spacing:.18em;background:var(--paper);border:1px dashed #D3BCC4;border-radius:12px;padding:4px 14px}
+.cloud-404{min-height:100vh;display:grid;place-items:center;text-align:center;padding:24px;background:var(--paper)}
 /* Responsive */
 @media (max-width:1080px){
   .builder{grid-template-columns:1fr 340px}
@@ -924,6 +930,7 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 'use strict';
 
 /* ---------- Utilities ---------- */
+const CLOUD = {on:false, sb:null, cfg:null, uid:null, inv:null, guestMode:false, pinMode:false, slug:null, pin:null, code:null, guest:null, lastG:new Map()};
 const $ = (s, r=document) => r.querySelector(s);
 const $$ = (s, r=document) => [...r.querySelectorAll(s)];
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -1000,7 +1007,7 @@ const DEFAULT = {
 };
 let S = Object.assign(structuredClone(DEFAULT), store.get('sp-state') || {});
 if(S.v !== DEFAULT.v) S = structuredClone(DEFAULT);
-const save = () => { if(!store.set('sp-state', S) && !save.warned){ save.warned=1; toast('Memori browser penuh: foto tetap tampil, tapi hilang saat halaman ditutup'); } const el = $('#saveState'); if(el) el.textContent = 'Tersimpan otomatis'; };
+const save = () => { if(CLOUD.guestMode||CLOUD.pinMode) return; cloudSave(); if(!store.set('sp-state', S) && !save.warned){ save.warned=1; toast('Memori browser penuh: foto tetap tampil, tapi hilang saat halaman ditutup'); } const el = $('#saveState'); if(el) el.textContent = 'Tersimpan otomatis'; };
 
 const OPENINGS = {
   islam:{salam:'Assalamu’alaikum Warahmatullahi Wabarakatuh', text:'Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami.', quote:'“Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan untukmu dari jenismu sendiri, agar kamu merasa tenteram kepadanya.” — QS. Ar-Rum: 21'},
@@ -1028,7 +1035,7 @@ let G = store.get('sp-guests') || seedGuests();
 function makeCode(g){ const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let h=7; for(const c of (g.id+g.name)) h=(h*31+c.charCodeAt(0))>>>0; let code; do{ let x=h, s=''; for(let i=0;i<4;i++){ s+=A[x%32]; x=Math.floor(x/32); } code='SP-'+s; h=(h*1103515245+12345)>>>0; } while(G.some(o=>o!==g && o.code===code)); return code; }
 G.forEach(g=>{ if(!Array.isArray(g.sessions)) g.sessions = (S.events.length>1 && /Kantor|Tetangga/.test(g.group)) ? [S.events.length-1] : S.events.map((e,i)=>i); if(!g.code) g.code=makeCode(g); });
 if(!S.groups) S.groups=[...GROUPS];
-const saveG = () => store.set('sp-guests', G);
+const saveG = () => { if(CLOUD.guestMode||CLOUD.pinMode) return; if(!CLOUD.uid) store.set('sp-guests', G); cloudSyncGuests(); };
 saveG();
 let W = store.get('sp-wishes') || [
   {n:'Ani Wulandari', t:'2 jam lalu', m:'Selamat Nadia & Rizky! Semoga jadi keluarga yang sakinah, mawaddah, warahmah. Sampai ketemu di Graha Sawala ya.', att:true, show:true},
@@ -1037,7 +1044,7 @@ let W = store.get('sp-wishes') || [
   {n:'Bella Permata', t:'kemarin', m:'Maaf belum bisa hadir karena di luar kota, doa terbaik untuk kalian berdua.', att:false, show:true},
   {n:'Hana Halim', t:'2 hari lalu', m:'Happy wedding Nadia sayang, cantik banget undangannya!', att:true, show:true}
 ];
-const saveW = () => store.set('sp-wishes', W);
+const saveW = () => { if(CLOUD.guestMode||CLOUD.pinMode||CLOUD.uid) return; store.set('sp-wishes', W); };
 let GIFTS = [
   {n:'Om Darmawan', bank:'BCA', amt:500000, t:'Hari ini, 09.12'},
   {n:'Fitri Rahayu', bank:'BCA', amt:250000, t:'Kemarin, 20.41'},
@@ -1189,10 +1196,18 @@ function bindInv(root){
       if(a){ att=a.dataset.att; f.querySelectorAll('[data-att]').forEach(b=>b.setAttribute('aria-pressed', b===a)); f.querySelector('[data-paxwrap]').hidden = att!=='hadir'; }
       if(p){ pax=Math.min(6,Math.max(1,pax+ +p.dataset.pax)); f.querySelector('[data-paxv]').textContent=pax; }
     });
-    f.addEventListener('submit',e=>{
+    f.addEventListener('submit',async e=>{
       e.preventDefault();
       const n = f.querySelector('input').value.trim();
       if(!n){ f.querySelector('input').focus(); return; }
+      if(CLOUD.guestMode){
+        const btn=f.querySelector('button.solid'); btn.disabled=true; btn.textContent='Mengirim…';
+        const { data, error } = await CLOUD.sb.rpc('rsvp',{p_slug:CLOUD.slug, p_code:CLOUD.guest?.code||null, p_name:n, p_status:att, p_pax:pax});
+        if(error){ btn.disabled=false; btn.textContent='Kirim konfirmasi'; toast('Gagal mengirim: '+error.message); return; }
+        CLOUD.guest = fromRow(data); G=[CLOUD.guest];
+        if(!CLOUD.code){ CLOUD.code=data.code; try{ history.replaceState(null,'',`/u/${CLOUD.slug}?to=${data.code}`); }catch(err){} }
+        f.parentElement.dataset.gid = CLOUD.guest.id; f.parentElement.innerHTML = rsvpDone(CLOUD.guest, att, data.pax); return;
+      }
       const gid = f.closest('[data-rsvp]')?.dataset.gid;
       let g = (gid && G.find(x=>x.id===gid)) || G.find(x=>x.name.toLowerCase()===n.toLowerCase());
       if(g){ g.status=att; g.pax= att==='hadir'?pax:0; }
@@ -1204,11 +1219,12 @@ function bindInv(root){
   });
   root.querySelectorAll('[data-wishform]').forEach(f=>{
     if(f.dataset.bound) return; f.dataset.bound=1;
-    f.addEventListener('submit',e=>{
+    f.addEventListener('submit',async e=>{
       e.preventDefault();
       const [n,m] = [f.querySelector('input').value.trim(), f.querySelector('textarea').value.trim()];
       if(!n||!m){ (n?f.querySelector('textarea'):f.querySelector('input')).focus(); return; }
-      W.unshift({n,m,t:'baru saja',att:false,show:true}); saveW();
+      if(CLOUD.guestMode){ const { error } = await CLOUD.sb.rpc('add_wish',{p_slug:CLOUD.slug, p_name:n, p_message:m, p_code:CLOUD.guest?.code||null}); if(error){ toast('Ucapan gagal terkirim: '+error.message); return; } }
+      W.unshift({n,m,t:'baru saja',att:CLOUD.guest?.status==='hadir',show:true}); saveW();
       f.querySelector('textarea').value='';
       root.querySelectorAll('[data-wishlist]').forEach(l=>l.innerHTML=wishList());
       toast('Ucapan terkirim');
@@ -1399,8 +1415,8 @@ $('#stepForm').addEventListener('change', async e=>{
     const files=[...e.target.files].filter(f=>f.type.startsWith('image/'));
     if(!files.length){ toast('File itu bukan foto. Pilih JPG atau PNG.'); return; }
     try{
-      if(who==='gallery'){ const room=8-S.gallery.length; for(const f of files.slice(0,room)) S.gallery.push(await shrink(f)); if(files.length>room) toast(`Hanya ${room} foto yang ditambahkan, galeri maksimal 8`); }
-      else { S[who].photo = await shrink(files[0], 600); }
+      if(who==='gallery'){ const room=8-S.gallery.length; for(const f of files.slice(0,room)){ const u=await storePhoto(await shrink(f)); if(u) S.gallery.push(u); } if(files.length>room) toast(`Hanya ${room} foto yang ditambahkan, galeri maksimal 8`); }
+      else { const u=await storePhoto(await shrink(files[0], 600)); if(u) S[who].photo=u; }
     }catch(err){ toast('Foto tidak bisa dibaca. Coba foto lain.'); return; }
     save(); renderStep(); refreshPreview(); return;
   } if(e.target.name==='plan'){ S.plan=e.target.value; save(); renderStep(); } if(e.target.id==='opening'){ S.opening=e.target.value; save(); refreshPreview(); } });
@@ -1420,8 +1436,8 @@ $('#stepper').addEventListener('click', e=>{ const b=e.target.closest('[data-ste
 
 /* ---------- Guest view ---------- */
 let guestBig=false, guestMusic=true, guestId=null;
-const guestObj = () => guestId ? G.find(g=>g.id===guestId) : null;
-const guestLabel = () => guestObj()?.name || 'Bapak Budi & Keluarga';
+const guestObj = () => CLOUD.guestMode ? CLOUD.guest : (guestId ? G.find(g=>g.id===guestId) : null);
+const guestLabel = () => guestObj()?.name || (CLOUD.guestMode ? 'Bapak/Ibu/Saudara/i' : 'Bapak Budi & Keluarga');
 function renderGuest(){
   const t = themeById(S.theme);
   const sh = $('#guestShell');
@@ -1429,7 +1445,7 @@ function renderGuest(){
   const g = guestObj();
   sh.innerHTML = `
     <div class="guest-col locked" id="guestCol">
-      <div class="g-top"><a class="pill-btn" href="#${g?'dashboard':'beranda'}" aria-label="Kembali">← ${g?'Dashboard':'SatuPadu'}</a>
+      <div class="g-top">${CLOUD.guestMode?'<span></span>':`<a class="pill-btn" href="#${g?'dashboard':'beranda'}" aria-label="Kembali">← ${g?'Dashboard':'SatuPadu'}</a>`}
         <span style="display:flex;gap:8px"><button class="pill-btn" data-act="g-big" aria-pressed="${guestBig}" aria-label="Perbesar teks" style="${guestBig?'background:var(--beet);color:#fff':''}">Aa</button><button class="pill-btn" data-act="g-music" aria-pressed="${guestMusic}" aria-label="${guestMusic?'Matikan musik':'Nyalakan musik'}">${ico(guestMusic&&S.music?'music':'mute')}</button></span></div>
       <div id="guestInv" style="margin-top:-58px">${invHTML({gate:true, idp:'g', guest:guestLabel(), guestObj:g, big:guestBig})}</div>
       <nav class="g-nav" aria-label="Navigasi undangan">
@@ -1456,7 +1472,7 @@ const stLabel = {hadir:['Hadir','s-ok'],tidak:['Tidak hadir','s-no'],belum:['Bel
 const PRO = ['import','bulk','groups','harih','remind'];
 const isLocked = f => S.published && S.plan==='undangan' && PRO.includes(f);
 const lockNote = (what) => `<div class="lock-card">${ico('lock')}<div><b>${what} ada di paket Undangan + Tamu</b><p class="muted">Upgrade cukup bayar selisihnya, ${rupiah(UPGRADE_PRICE)}. Data tamu dan undanganmu tetap.</p></div><button class="btn btn-primary btn-sm" data-act="upgrade">Upgrade</button></div>`;
-function link(g){ return `https://satupadu.id/${S.slug}?to=${encodeURIComponent(g.name)}`; }
+function link(g){ return CLOUD.on ? `${location.origin}/u/${(CLOUD.inv&&CLOUD.inv.slug)||S.slug}?to=${g.code}` : `https://satupadu.id/${S.slug}?to=${encodeURIComponent(g.code||g.name)}`; }
 function waMsg(g){ const ev=guestEvents(g); return `Halo ${g.name},\n\nDengan penuh syukur, kami ${S.bride.nick} & ${S.groom.nick} mengundang Anda ke ${ev.map(e=>e.type).join(' dan ')} pernikahan kami, ${fmtDate((ev[0]||S.events[0]).date)}.\n\nUndangan lengkap dan konfirmasi kehadiran:\n${link(g)}\n\nTerima kasih 🙏`; }
 function waUrl(g){ return `https://wa.me/${(g.phone||'').replace(/^0/,'62')}?text=${encodeURIComponent(waMsg(g))}`; }
 const filteredGuests = () => { const q=gQ.toLowerCase(); return G.filter(g=>(gStatus==='semua'||g.status===gStatus) && (gGroup==='semua'||g.group===gGroup) && (!q||g.name.toLowerCase().includes(q)||(g.phone||'').includes(q)||(g.code||'').toLowerCase().includes(q))); };
@@ -1521,6 +1537,7 @@ function renderDash(){
       const ppl = arrived.reduce((a,g)=>a+g.checkin.pax,0);
       const gifts = arrived.filter(g=>g.checkin.gift).length;
       body = `<div class="harih-hero"><div><span class="eyebrow">Hari H</span><h2 class="display" style="font-size:34px;margin-top:8px">Buku tamu digital dengan QR</h2><p class="muted" style="max-width:56ch;margin-top:8px">Setiap tamu yang konfirmasi hadir mendapat kartu masuk QR di undangannya. Penerima tamu cukup membuka mode ini di HP atau tablet, lalu cari nama atau scan QR.</p></div><a class="btn btn-primary" href="#checkin">${ico('qr')}Buka mode penerima tamu</a></div>
+      ${CLOUD.inv?`<div class="panel-c pin-card"><div><b>Link untuk penerima tamu</b><p class="muted" style="font-size:14px;margin-top:4px">Kirim ke petugas penerima tamu. Mereka tidak perlu akun, cukup link dan PIN ini. Bisa dibuka di beberapa HP sekaligus.</p></div><div class="pin-row"><span class="pin num">${esc(CLOUD.inv.checkin_pin)}</span><button class="btn btn-soft btn-sm" data-act="copy" data-v="${esc(`${location.origin}/u/${CLOUD.inv.slug}/checkin?pin=${CLOUD.inv.checkin_pin}`)}">${ico('copy')}Salin link</button></div></div>`:''}
       <div class="tiles" style="margin-top:20px">
         <div class="tile" style="--c:var(--ok)"><div class="l">Sudah datang</div><div class="v">${arrived.length}</div><div class="s">undangan · ${ppl} orang</div></div>
         <div class="tile" style="--c:var(--warn)"><div class="l">Konfirmasi hadir, belum datang</div><div class="v">${expect.length}</div><div class="s">${expect.reduce((a,g)=>a+g.pax,0)} orang diharapkan</div></div>
@@ -1688,7 +1705,7 @@ document.addEventListener('click', e=>{
   if(a==='rsvp-again'){ const box=el.closest('[data-rsvp]'); const g=G.find(x=>x.id===(el.dataset.gid||box.dataset.gid)); box.innerHTML = rsvpForm(g?g.name:guestLabel(), g); bindInv(box); }
   if(a==='gift-confirm'){
     el.parentElement.innerHTML = `<form class="form" data-giftform><label for="gfn">Nama pengirim</label><input class="in" id="gfn" value="${esc(el.dataset.name||'')}" required><label for="gfa">Jumlah (opsional)</label><input class="in" id="gfa" inputmode="numeric" placeholder="Contoh: 250000"><label for="gff">Bukti transfer (opsional)</label><input class="in" id="gff" type="file" accept="image/*"><button class="ibtn solid" style="justify-content:center">Kirim konfirmasi</button></form>`;
-    const f=$('[data-giftform]'); f.addEventListener('submit',ev=>{ ev.preventDefault(); const n=f.querySelector('#gfn').value.trim(); if(!n) return; const amt=parseInt(f.querySelector('#gfa').value.replace(/\D/g,''))||0; GIFTS.unshift({n,bank:S.gift.bank,amt,t:'Baru saja'}); f.outerHTML=`<div class="ok-box"><b>Terima kasih, ${esc(n)}.</b><p style="font-size:14px;margin-top:4px">Konfirmasimu sudah kami terima.</p></div>`; });
+    const f=$('[data-giftform]'); f.addEventListener('submit',ev=>{ ev.preventDefault(); const n=f.querySelector('#gfn').value.trim(); if(!n) return; const amt=parseInt(f.querySelector('#gfa').value.replace(/\D/g,''))||0; if(CLOUD.guestMode){ CLOUD.sb.rpc('add_gift',{p_slug:CLOUD.slug, p_name:n, p_amount:amt}).then(({error})=>{ if(error) toast('Konfirmasi gagal: '+error.message); }); } else GIFTS.unshift({n,bank:S.gift.bank,amt,t:'Baru saja'}); f.outerHTML=`<div class="ok-box"><b>Terima kasih, ${esc(n)}.</b><p style="font-size:14px;margin-top:4px">Konfirmasimu sudah kami terima.</p></div>`; });
   }
   if(a==='add-guest'){
     const groups=[...new Set([...(S.groups||[]),...G.map(g=>g.group)])];
@@ -1711,7 +1728,7 @@ document.addEventListener('click', e=>{
   }
   if(a==='bulk-go'){ const ids = el.dataset.mode==='remind' ? G.filter(g=>g.status==='belum').map(g=>g.id) : [...sel]; G.forEach(g=>{ if(ids.includes(g.id)) g.sent=true; }); saveG(); sel.clear(); closeModal(); renderDash(); toast(el.dataset.n+' pesan masuk antrean kirim'); }
   if(a==='bulk-clear'){ sel.clear(); renderDash(); }
-  if(a==='toggle-wish'){ const w=W[+el.dataset.k]; w.show=!w.show; saveW(); renderDash(); }
+  if(a==='toggle-wish'){ const w=W[+el.dataset.k]; w.show=!w.show; saveW(); if(CLOUD.uid && w.id) CLOUD.sb.from('wishes').update({hidden:!w.show}).eq('id',w.id).then(({error})=>{ if(error) toast('Gagal menyimpan: '+error.message); }); renderDash(); }
 });
 
 /* Preview sheet on mobile builder */
@@ -1744,21 +1761,32 @@ function openAuth(next, mode){
       <div class="field full"><label for="au-mail">Email</label><input class="input" id="au-mail" type="email" autocomplete="email" placeholder="nama@email.com" required><span class="err" hidden></span></div>
       <button class="btn btn-primary btn-block full" style="grid-column:1/-1">Kirim kode</button>
     </form>
-    <div class="or"><span>atau</span></div>
-    <button class="btn btn-ghost btn-block" data-act="google-login"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.6h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.2z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1a10 10 0 0 0 0 9.2z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.8-2.8A10 10 0 0 0 3.1 7.4L6.4 10C7.2 7.7 9.4 5.9 12 5.9z"/></svg>Lanjut dengan Google</button>
+    ${CLOUD.on && !CLOUD.cfg.googleLogin ? '' : `<div class="or"><span>atau</span></div>
+    <button class="btn btn-ghost btn-block" data-act="google-login"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.6h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.2z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1a10 10 0 0 0 0 9.2z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.8-2.8A10 10 0 0 0 3.1 7.4L6.4 10C7.2 7.7 9.4 5.9 12 5.9z"/></svg>Lanjut dengan Google</button>`}
     <p class="muted" style="font-size:12.5px;margin-top:14px">Dengan melanjutkan, kamu setuju dengan Syarat & Kebijakan Privasi SatuPadu.</p></div>`);
   $('#authForm').addEventListener('submit',ev=>{ ev.preventDefault(); const m=$('#au-mail'); const v=m.value.trim();
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ m.setAttribute('aria-invalid','true'); const er=m.parentElement.querySelector('.err'); er.textContent='Masukkan email yang valid, misal nadia@gmail.com'; er.hidden=false; m.focus(); return; }
-    otpStep($('#au-name').value.trim()||'Pengguna', v); });
+    const nm=$('#au-name').value.trim()||'Pengguna';
+    if(CLOUD.on){ const b=$('#authForm button'); b.disabled=true; b.textContent='Mengirim kode…';
+      CLOUD.sb.auth.signInWithOtp({email:v, options:{shouldCreateUser:true, data:{name:nm}, emailRedirectTo: location.origin+'/#'+(location.hash.slice(1)||'dashboard')}}).then(({error})=>{
+        if(error){ b.disabled=false; b.textContent='Kirim kode'; const er=m.parentElement.querySelector('.err'); er.textContent = /rate|limit|seconds/i.test(error.message)?'Terlalu sering. Tunggu sebentar lalu coba lagi.':error.message; er.hidden=false; return; }
+        otpStep(nm, v); });
+      return; }
+    otpStep(nm, v); });
 }
 function otpStep(name, email){
   openModal(`<div class="auth"><span class="eyebrow">Verifikasi email</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">Masukkan kode</h2><p class="muted">Kode 6 angka sudah dikirim ke <b style="color:var(--ink)">${esc(email)}</b>.</p>
     <form id="otpForm" style="margin-top:20px;display:grid;gap:14px" novalidate><label for="otp" class="sr-only">Kode verifikasi</label><input class="input otp" id="otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="••••••"><span class="err" hidden></span>
     <button class="btn btn-primary btn-block">Verifikasi & masuk</button></form>
-    <p class="muted" style="font-size:13px;margin-top:14px">Prototype: ketik 6 angka apa saja. <button class="linkbtn" data-act="login">Ganti email</button></p></div>`);
+    <p class="muted" style="font-size:13px;margin-top:14px">${CLOUD.on?'Tidak ada email? Cek folder Spam atau Promosi.':'Prototype: ketik 6 angka apa saja.'} <button class="linkbtn" data-act="login">Ganti email</button></p></div>`);
   setTimeout(()=>$('#otp')?.focus(),60);
   $('#otp').addEventListener('input',e=>{ e.target.value=e.target.value.replace(/\D/g,'').slice(0,6); if(e.target.value.length===6) $('#otpForm').requestSubmit(); });
-  $('#otpForm').addEventListener('submit',ev=>{ ev.preventDefault(); const v=$('#otp').value; if(v.length<6){ const er=$('#otpForm .err'); er.textContent='Kode terdiri dari 6 angka'; er.hidden=false; return; } finishLogin(name,email); });
+  $('#otpForm').addEventListener('submit',async ev=>{ ev.preventDefault(); const v=$('#otp').value; const er=$('#otpForm .err'); if(v.length<6){ er.textContent='Kode terdiri dari 6 angka'; er.hidden=false; return; }
+    if(CLOUD.on){ const b=$('#otpForm button'); b.disabled=true; b.textContent='Memeriksa…';
+      const { data, error } = await CLOUD.sb.auth.verifyOtp({email, token:v, type:'email'});
+      if(error){ b.disabled=false; b.textContent='Verifikasi & masuk'; er.textContent='Kode salah atau sudah kedaluwarsa. Minta kode baru bila perlu.'; er.hidden=false; return; }
+      await ownerLoad(data.user); closeModal(); renderAuthSlot(); toast('Halo, '+S.user.name.split(' ')[0]+'!'); const n=authNext; authNext=null; if(n) n(); else route(); return; }
+    finishLogin(name,email); });
 }
 function finishLogin(name,email){ S.user={name,email}; save(); closeModal(); renderAuthSlot(); toast('Halo, '+name.split(' ')[0]+'!'); const n=authNext; authNext=null; if(n) n(); else route(); }
 
@@ -1788,7 +1816,7 @@ function renderCheckout(){
       : `<h2 class="co-h">Paket</h2><div class="plan-pick">${PLANS.filter(p=>p.price).map(p=>`<label><input type="radio" name="coPlan" value="${p.id}" ${(CO.plan||S.plan)===p.id?'checked':''}><span><b>${p.name}</b><small>${p.items.filter(x=>x[1]).slice(0,3).map(x=>x[0]).join(' · ')}</small></span><b class="num">${rupiah(p.price)}</b></label>`).join('')}</div>`}
       <h2 class="co-h">Kode voucher</h2>
       <div class="vrow"><input class="input" id="coV" placeholder="Masukkan kode" value="${esc(CO.voucher)}" aria-label="Kode voucher" autocomplete="off"><button type="button" class="btn btn-ghost" data-act="apply-voucher">Pakai</button></div>
-      <p class="hint" id="coVmsg" style="margin-top:6px;font-size:13px;${CO.applied?'color:var(--ok);font-weight:700':'color:var(--muted)'}">${CO.applied?`${esc(VOUCHERS[CO.applied].label)} dipakai.`:'Coba SATUPADU10 di prototype ini.'}</p>
+      <p class="hint" id="coVmsg" style="margin-top:6px;font-size:13px;${CO.applied?'color:var(--ok);font-weight:700':'color:var(--muted)'}">${CO.applied?`${esc(VOUCHERS[CO.applied].label)} dipakai.`:(CLOUD.on?'Punya kode voucher? Masukkan di sini.':'Coba SATUPADU10 di prototype ini.')}</p>
       <h2 class="co-h">Metode pembayaran</h2>
       <div class="pay-opts" role="radiogroup" aria-label="Metode pembayaran">
         ${[['qris','QRIS','Scan dari m-banking atau e-wallet apa pun','qr'],['va','Virtual Account','BCA, Mandiri, BNI, BRI','receipt'],['ewallet','E-wallet','GoPay, OVO, DANA, ShopeePay','wa']].map(([k,l,d,i])=>`<label class="pay-opt"><input type="radio" name="coM" value="${k}" ${CO.method===k?'checked':''}><span class="pi">${ico(i)}</span><span><b>${l}</b><small>${d}</small></span></label>`).join('')}
@@ -1796,9 +1824,10 @@ function renderCheckout(){
       ${CO.method==='va'?`<div class="seg" style="margin-top:12px" role="group" aria-label="Bank">${['BCA','Mandiri','BNI','BRI'].map(b=>`<button type="button" data-bank="${b}" aria-pressed="${CO.bank===b}">${b}</button>`).join('')}</div>`:''}
       ${CO.method==='ewallet'?`<div class="seg" style="margin-top:12px" role="group" aria-label="E-wallet">${['GoPay','OVO','DANA','ShopeePay'].map(b=>`<button type="button" data-wallet="${b}" aria-pressed="${CO.wallet===b}">${b}</button>`).join('')}</div>`:''}
       <div class="form-foot"><span class="muted" style="font-size:13px">Tagihan dikirim ke ${esc(S.user.email)}</span><button class="btn btn-primary">Bayar ${rupiah(T.total)}</button></div>
-      <p class="muted" style="font-size:12.5px">Prototype: tidak ada pembayaran sungguhan yang diproses.</p>
+      ${CLOUD.on?`<p class="muted" style="font-size:12.5px">Pembayaran diproses aman oleh Midtrans${CLOUD.cfg.midtransProduction?'':' (mode uji coba / sandbox)'}.</p>`:'<p class="muted" style="font-size:12.5px">Prototype: tidak ada pembayaran sungguhan yang diproses.</p>'}
+      ${CLOUD.pendingOrder?`<div class="warn-box" style="margin-top:12px">${ico('receipt')}<span>Ada pembayaran yang belum selesai (${esc(CLOUD.pendingOrder)}). <button type="button" class="linkbtn" data-act="co-check">Cek status</button></span></div>`:''}
     </form>${summary}</div>`;
-    $('#coForm').addEventListener('submit',ev=>{ ev.preventDefault(); CO.stage='pending'; CO.end=Date.now()+15*60*1000; renderCheckout(); window.scrollTo(0,0); });
+    $('#coForm').addEventListener('submit',ev=>{ ev.preventDefault(); if(CLOUD.on){ cloudPay(ev.target.querySelector('.form-foot .btn-primary')); return; } CO.stage='pending'; CO.end=Date.now()+15*60*1000; renderCheckout(); window.scrollTo(0,0); });
     $('#coForm').addEventListener('change',ev=>{ if(ev.target.name==='coPlan'){ CO.plan=ev.target.value; renderCheckout(); } if(ev.target.name==='coM'){ CO.method=ev.target.value; renderCheckout(); } });
     $('#coV').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); applyVoucher(); } });
   }
@@ -1814,6 +1843,10 @@ function renderCheckout(){
     </div>${summary}</div>`;
     const tick=()=>{ const s=Math.max(0,Math.round((CO.end-Date.now())/1000)); const el=$('#coTimer'); if(el) el.textContent=`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`; if(!s){ clearInterval(CO.timer); CO.stage='form'; toast('Waktu pembayaran habis. Silakan buat ulang.'); renderCheckout(); } };
     tick(); CO.timer=setInterval(tick,1000);
+  }
+  if(CO.stage==='waiting'){
+    root.innerHTML = `<div class="co-head"><h1 class="display">Menunggu konfirmasi pembayaran</h1></div>${steps}
+    <div class="co-done form-card"><div class="spin" aria-hidden="true"></div><h2 class="display" style="font-size:30px">Sebentar ya…</h2><p class="muted" style="max-width:46ch;margin:10px auto 0">Kami menunggu konfirmasi dari Midtrans. Untuk Virtual Account, selesaikan transfer dulu; halaman ini akan berubah otomatis begitu pembayaran diterima.</p><p class="muted num" style="margin-top:12px;font-size:13px">${esc(CLOUD.pendingOrder||'')}</p><div style="display:flex;gap:10px;justify-content:center;margin-top:20px"><button class="btn btn-ghost" data-act="co-back">Kembali</button><button class="btn btn-primary" data-act="co-check">Cek status sekarang</button></div></div>`;
   }
   if(CO.stage==='done'){
     const inv=(S.invoices||[])[0];
@@ -1860,8 +1893,11 @@ let ciSession = null, ciQ='';
 const nowTime = () => new Intl.DateTimeFormat('id-ID',{hour:'2-digit',minute:'2-digit'}).format(new Date());
 function defaultSession(){ const i=S.events.findIndex(e=>/resepsi/i.test(e.type)); return i>-1?i:0; }
 function renderCheckin(){
+  const root=$('#checkin');
+  if(CLOUD.pinMode && CLOUD.needPin){ root.innerHTML = `<div class="ci-top"><div class="wrap ci-top-in"><span class="logo" style="color:#fff"><span>Penerima tamu</span></span></div></div><div class="wrap" style="max-width:420px;padding:60px 0"><form id="pinF" class="form-card" style="display:grid;gap:14px"><span class="eyebrow">Mode penerima tamu</span><h1 class="display" style="font-size:32px">Masukkan PIN</h1><p class="muted">PIN 6 angka diberikan oleh pasangan pengantin dari dashboard SatuPadu.</p><label for="pinI" class="sr-only">PIN</label><input class="input otp" id="pinI" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="••••••">${CLOUD.pinError?`<span class="err">${esc(CLOUD.pinError)}</span>`:''}<button class="btn btn-primary btn-block">Masuk</button></form></div>`;
+    $('#pinF').addEventListener('submit',async ev=>{ ev.preventDefault(); CLOUD.pin=$('#pinI').value.trim(); await pinLoad(); if(!CLOUD.needPin){ try{ history.replaceState(null,'',`/u/${CLOUD.slug}/checkin?pin=${CLOUD.pin}`); }catch(e){} } renderCheckin(); }); setTimeout(()=>$('#pinI')?.focus(),50); return; }
   if(ciSession==null || !S.events[ciSession]) ciSession=defaultSession();
-  const root=$('#checkin'); const ev=S.events[ciSession];
+  const ev=S.events[ciSession];
   if(isLocked('harih')){ root.innerHTML=`<div class="wrap" style="padding:60px 0">${lockNote('QR check-in hari H')}<p style="margin-top:16px"><a class="linkbtn" href="#dashboard">← Kembali ke dashboard</a></p></div>`; return; }
   const inSes = g => guestEvents(g).some(e=>e.i===ciSession);
   const arrived = G.filter(g=>g.checkin && g.checkin.session===ciSession);
@@ -1872,7 +1908,7 @@ function renderCheckin(){
   root.innerHTML = `<div class="ci-top"><div class="wrap ci-top-in">
       <span class="logo" style="color:#fff"><svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true"><circle cx="15" cy="20" r="10.5" fill="none" stroke="#fff" stroke-width="3"/><circle cx="25" cy="20" r="10.5" fill="none" stroke="#fff" stroke-width="3"/><path d="M20 11.1a10.5 10.5 0 0 1 0 17.8 10.5 10.5 0 0 1 0-17.8z" fill="#fff"/></svg><span>Penerima tamu</span></span>
       <label class="ci-ses"><span class="sr-only">Sesi acara</span><select id="ciSes" class="input">${S.events.map((e,i)=>`<option value="${i}" ${i===ciSession?'selected':''}>${esc(e.type||'Acara '+(i+1))}${e.start?' · '+esc(e.start):''}</option>`).join('')}</select></label>
-      <a class="btn btn-sm ci-exit" href="#dashboard">Selesai</a></div></div>
+      ${CLOUD.pinMode?'':'<a class="btn btn-sm ci-exit" href="#dashboard">Selesai</a>'}</div></div>
     <div class="wrap ci-body">
       <div class="ci-stats"><div><b class="num">${arrived.length}</b><span>undangan datang</span></div><div><b class="num">${ppl}</b><span>orang di lokasi</span></div><div><b class="num">${expect.length}</b><span>belum datang (konfirmasi hadir)</span></div><div><b class="num">#${String(S.giftNo||0).padStart(3,'0')}</b><span>nomor kado terakhir</span></div></div>
       <div class="ci-grid"><div>
@@ -1898,8 +1934,10 @@ function ciOpen(id){
     <div class="form-foot"><button class="btn btn-ghost" data-act="close">Batal</button><button class="btn btn-primary" data-act="ci-confirm" data-id="${g.id}">${ico('check')}Check-in</button></div>`);
   $('#modalRoot').addEventListener('click',e=>{ const b=e.target.closest('[data-cp]'); if(!b) return; pax=Math.max(1,Math.min(12,pax+ +b.dataset.cp)); $('#ciPax').textContent=pax; });
 }
-function ciConfirm(id){
+async function ciConfirm(id){
   const g=G.find(x=>x.id===id); const pax=+($('#ciPax')?.textContent||1); const gift=$('#ciGift')?.checked;
+  if(ciAuth()){ const b=$('[data-act=ci-confirm]'); if(b){ b.disabled=true; b.textContent='Menyimpan…'; } const r=await ciRpc('ci_checkin',{p_id:id, p_pax:pax, p_gift:!!gift, p_session:ciSession}); if(r.error){ if(b){ b.disabled=false; b.textContent='Check-in'; } return; }
+    Object.assign(g, fromRow(r.data)); if(g.checkin && g.checkin.gift) S.giftNo=Math.max(S.giftNo||0, g.checkin.gift); if(CLOUD.lastG.size||CLOUD.inv) CLOUD.lastG.set(g.id, CLOUD.inv?JSON.stringify(toRow(g)):''); closeModal(); ciQ=''; renderCheckin(); greet(g); return; }
   let no=null; if(gift){ S.giftNo=(S.giftNo||0)+1; no=S.giftNo; save(); }
   g.checkin={ts:Date.now(), time:nowTime(), pax, gift:no, session:ciSession}; if(g.status==='belum') g.status='hadir'; if(!g.pax) g.pax=pax; saveG(); closeModal(); ciQ=''; renderCheckin(); greet(g);
 }
@@ -1927,6 +1965,7 @@ function ciWalkin(){
     <div class="form-foot full" style="grid-column:1/-1"><button type="button" class="btn btn-ghost" data-act="close">Batal</button><button class="btn btn-primary">Lanjut check-in</button></div></form>`);
   setTimeout(()=>$('#wk-n')?.focus(),60);
   $('#wkF').addEventListener('submit',ev=>{ ev.preventDefault(); const n=$('#wk-n').value.trim(); if(!n){ $('#wk-n').setAttribute('aria-invalid','true'); $('#wkF .err').hidden=false; return; }
+    if(ciAuth()){ ciRpc('ci_walkin',{p_name:n, p_grp:$('#wk-g').value, p_session:ciSession}).then(r=>{ if(r.error) return; const g=fromRow(r.data); G.unshift(g); if(CLOUD.inv) CLOUD.lastG.set(g.id, JSON.stringify(toRow(g))); ciOpen(g.id); }); return; }
     const g={id:'w'+Date.now(),name:n,phone:'',group:$('#wk-g').value,status:'hadir',pax:1,sent:false,walkin:true,sessions:[ciSession]}; g.code=makeCode(g); G.unshift(g); saveG(); ciOpen(g.id); });
 }
 document.addEventListener('input',e=>{ if(e.target.id==='ciQ'){ ciQ=e.target.value; const p=e.target.selectionStart; renderCheckin(); const s=$('#ciQ'); s.focus(); s.setSelectionRange(p,p); } });
@@ -1942,18 +1981,22 @@ document.addEventListener('click', e=>{
   const a=el.dataset.act;
   if(a==='login'){ e.preventDefault(); openAuth(); }
   if(a==='login-co'){ openAuth(()=>renderCheckout(),'publish'); }
+  if(a==='google-login' && CLOUD.on){ CLOUD.sb.auth.signInWithOAuth({provider:'google', options:{redirectTo: location.origin+'/#'+(location.hash.slice(1)||'dashboard')}}); return; }
   if(a==='google-login'){ finishLogin(S.bride.name||'Pengguna Google', (S.bride.nick||'pengguna').toLowerCase()+'@gmail.com'); }
+  if(a==='logout' && CLOUD.uid){ CLOUD.sb.auth.signOut().finally(()=>{ try{ ['sp-state','sp-guests','sp-wishes'].forEach(k=>localStorage.removeItem(k)); }catch(err){} location.href='/'; }); return; }
   if(a==='logout'){ S.user=null; save(); renderAuthSlot(); toast('Kamu sudah keluar'); if(['tagihan','checkout'].includes(location.hash.slice(1))) location.hash='beranda'; }
   if(a==='acct-menu'){ const m=$('#acctMenu'); m.hidden=!m.hidden; el.setAttribute('aria-expanded',!m.hidden); return; }
   if(a==='apply-voucher') applyVoucher();
   if(a==='co-back'){ clearInterval(CO.timer); CO.stage='form'; renderCheckout(); }
   if(a==='co-paid') completePayment();
+  if(a==='co-check' && CLOUD.pendingOrder){ clearTimeout(CO.waitT); CO.stage='waiting'; renderCheckout(); waitPaid(CLOUD.pendingOrder); }
   if(a==='co-reset'){ CO.stage='form'; }
   if(a==='upgrade'){ closeModal(); CO.stage='form'; if(!S.user) openAuth(()=>{ location.hash='checkout'; },'publish'); else { location.hash='checkout'; if(location.hash==='#checkout') renderCheckout(); } }
   if(a==='inv') invoiceModal(+el.dataset.k);
   if(a==='ci-open') ciOpen(el.dataset.id);
   if(a==='ci-confirm') ciConfirm(el.dataset.id);
   if(a==='ci-walkin') ciWalkin();
+  if(a==='ci-undo' && ciAuth()){ const g=G.find(x=>x.id===el.dataset.id); ciRpc('ci_undo',{p_id:el.dataset.id}).then(r=>{ if(r.error||!g) return; delete g.checkin; if(CLOUD.inv) CLOUD.lastG.set(g.id, JSON.stringify(toRow(g))); closeModal(); if(location.hash==='#checkin'||CLOUD.pinMode) renderCheckin(); else renderDash(); toast('Check-in '+g.name+' dibatalkan'); }); return; }
   if(a==='ci-undo'){ const g=G.find(x=>x.id===el.dataset.id); if(g){ delete g.checkin; saveG(); closeModal(); if(location.hash==='#checkin') renderCheckin(); else renderDash(); toast('Check-in '+g.name+' dibatalkan'); } }
   if(a==='groups') groupsModal();
   if(a==='grp-del'){ const gname=el.dataset.g; G.forEach(g=>{ if(g.group===gname) g.group='Tanpa grup'; }); S.groups=(S.groups||[]).filter(x=>x!==gname); if(gGroup===gname) gGroup='semua'; saveG(); save(); groupsModal(); renderDash(); }
@@ -1964,9 +2007,191 @@ document.addEventListener('click', e=>{
 });
 document.addEventListener('click', e=>{ const m=$('#acctMenu'); if(m && !m.hidden && !e.target.closest('.acct')) m.hidden=true; });
 
+/* ---------- Cloud: Supabase + Midtrans ---------- */
+const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','gallery','galleryOn','groups','slug'];
+const pickData = () => { const d={}; DATA_KEYS.forEach(k=>{ if(S[k]!==undefined) d[k]=S[k]; }); return d; };
+const toRow = g => ({invitation_id:CLOUD.inv.id, id:g.id, name:g.name, phone:g.phone||'', grp:g.group||'Tanpa grup', sessions:g.sessions||[], code:g.code, status:g.status, pax:g.pax||0, sent:!!g.sent, walkin:!!g.walkin, checkin:g.checkin||null});
+const fromRow = r => { const g={id:r.id, name:r.name, phone:r.phone||'', group:r.grp||'Tanpa grup', sessions:r.sessions||[], code:r.code, status:r.status||'belum', pax:r.pax||0, sent:!!r.sent, walkin:!!r.walkin}; if(r.checkin) g.checkin=r.checkin; return g; };
+function relTime(iso){ const d=(Date.now()-new Date(iso))/1000; if(d<60) return 'baru saja'; if(d<3600) return Math.floor(d/60)+' menit lalu'; if(d<86400) return Math.floor(d/3600)+' jam lalu'; if(d<172800) return 'kemarin'; return fmtShort(String(iso).slice(0,10)); }
+function loadScript(src, attrs={}){ return new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; Object.entries(attrs).forEach(([k,v])=>s.setAttribute(k,v)); s.onload=res; s.onerror=rej; document.head.appendChild(s); }); }
+const setSaveState = t => { const el=$('#saveState'); if(el) el.textContent=t; };
+async function cloudInit(){
+  if(!/^https?:$/.test(location.protocol)) return;
+  let cfg; try{ const r=await fetch('/api/config',{cache:'no-store'}); if(!r.ok) return; cfg=await r.json(); }catch(e){ return; }
+  if(!cfg || !cfg.supabaseUrl || !cfg.supabaseAnonKey) return;
+  if(!window.supabase){ try{ await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js'); }catch(e){ return; } }
+  CLOUD.cfg=cfg; CLOUD.sb=window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {auth:{persistSession:true, autoRefreshToken:true, detectSessionInUrl:true}}); CLOUD.on=true;
+  const m = location.pathname.match(/^\/u\/([a-z0-9-]+)(\/checkin)?\/?$/);
+  if(m){
+    CLOUD.slug=m[1]; const qs=new URLSearchParams(location.search);
+    if(m[2]){ CLOUD.pinMode=true; CLOUD.pin=qs.get('pin')||''; await pinLoad(); setInterval(()=>{ if(!CLOUD.needPin) pinLoad().then(liveRefresh); }, 8000); }
+    else { CLOUD.guestMode=true; CLOUD.code=(qs.get('to')||'').toUpperCase(); await guestLoad(); }
+    return;
+  }
+  const { data:{ session } } = await CLOUD.sb.auth.getSession();
+  if(session) await ownerLoad(session.user);
+  CLOUD.sb.auth.onAuthStateChange((ev, s)=>{ if(ev==='SIGNED_IN' && s && CLOUD.uid!==s.user.id){ ownerLoad(s.user).then(()=>route()); } });
+}
+async function storePhoto(dataUrl){
+  if(!(CLOUD.on && CLOUD.uid) || !String(dataUrl).startsWith('data:')) return dataUrl;
+  try{
+    const blob = await (await fetch(dataUrl)).blob();
+    const path = `${CLOUD.uid}/${(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2))}.jpg`;
+    const { error } = await CLOUD.sb.storage.from('photos').upload(path, blob, {contentType:'image/jpeg', upsert:false, cacheControl:'31536000'});
+    if(error) throw error;
+    return CLOUD.sb.storage.from('photos').getPublicUrl(path).data.publicUrl;
+  }catch(e){ toast('Upload foto gagal: '+(e.message||'coba lagi')); return null; }
+}
+async function ownerLoad(user){
+  const sb=CLOUD.sb; CLOUD.uid=user.id;
+  S.user={id:user.id, name:(user.user_metadata&&user.user_metadata.name)||user.email.split('@')[0], email:user.email};
+  let { data:inv } = await sb.from('invitations').select('*').eq('owner',user.id).maybeSingle();
+  if(!inv){
+    for(const who of ['bride','groom']) if(S[who].photo) S[who].photo = await storePhoto(S[who].photo) || undefined;
+    if(S.gallery && S.gallery.length) S.gallery = (await Promise.all(S.gallery.map(storePhoto))).filter(Boolean);
+    let slug = (S.slug||'undangan').toLowerCase().replace(/[^a-z0-9-]/g,'-').replace(/^-+/,'').slice(0,36) || 'undangan';
+    if(slug.length<3) slug = slug+'-sp';
+    for(let i=0;i<6 && !inv;i++){
+      const r = await sb.from('invitations').insert({slug, data:{...pickData(), slug}}).select().single();
+      if(!r.error){ inv=r.data; break; }
+      if(r.error.code==='23505'){ slug=(S.slug||'undangan').slice(0,32)+'-'+Math.random().toString(36).slice(2,5); continue; }
+      toast('Gagal menyimpan ke akun: '+r.error.message); return;
+    }
+    if(!inv) return;
+    G=[]; W=[]; GIFTS=[]; S.invoices=[]; S.giftNo=0;
+  }
+  CLOUD.inv=inv;
+  Object.assign(S, inv.data||{}, {slug:inv.slug, published:inv.published, giftNo:inv.gift_no});
+  if(inv.plan!=='coba') S.plan=inv.plan;
+  const [g,w,gf,iv] = await Promise.all([
+    sb.from('guests').select('*').eq('invitation_id',inv.id).order('created_at',{ascending:false}),
+    sb.from('wishes').select('*').eq('invitation_id',inv.id).order('created_at',{ascending:false}),
+    sb.from('gift_confirmations').select('*').eq('invitation_id',inv.id).order('created_at',{ascending:false}),
+    sb.from('invoices').select('*').order('created_at',{ascending:false})]);
+  G = (g.data||[]).map(fromRow);
+  CLOUD.lastG = new Map(G.map(x=>[x.id, JSON.stringify(toRow(x))]));
+  W = (w.data||[]).map(x=>({id:x.id, n:x.name, m:x.message, t:relTime(x.created_at), att:x.attending, show:!x.hidden}));
+  GIFTS = (gf.data||[]).map(x=>({n:x.name, bank:x.bank, amt:Number(x.amount), t:fmtDT(x.created_at)}));
+  const ivs = iv.data||[];
+  S.invoices = ivs.filter(x=>x.status==='paid').map(x=>({no:x.id, date:x.paid_at||x.created_at, item:x.item, price:x.price, disc:x.discount, voucher:x.voucher, total:x.total, method:x.method, status:'Lunas', upgrade:/Upgrade/.test(x.item)}));
+  const pend = ivs.find(x=>x.status==='pending' && Date.now()-new Date(x.created_at) < 60*60*1000);
+  CLOUD.pendingOrder = pend ? pend.id : null;
+  subscribeRealtime(); renderAuthSlot();
+}
+let csT;
+function cloudSave(){
+  if(!CLOUD.on || !CLOUD.inv || CLOUD.guestMode || CLOUD.pinMode) return;
+  setSaveState('Menyimpan…'); clearTimeout(csT); csT=setTimeout(cloudSaveNow, 900);
+}
+async function cloudSaveNow(){
+  if(!CLOUD.on || !CLOUD.inv) return; clearTimeout(csT);
+  const r = await CLOUD.sb.from('invitations').update({data:pickData(), slug:S.slug}).eq('id',CLOUD.inv.id).select('slug').single();
+  if(r.error){
+    if(r.error.code==='23505') toast(`Alamat ${S.slug} sudah dipakai. Coba alamat lain.`);
+    else if(r.error.code==='23514') toast('Alamat minimal 3 karakter, hanya huruf kecil, angka, dan strip');
+    else toast('Gagal menyimpan: '+r.error.message);
+    setSaveState('Belum tersimpan');
+  } else { CLOUD.inv.slug=r.data.slug; setSaveState('Tersimpan ke akun'); }
+}
+let cgT;
+function cloudSyncGuests(){ if(!CLOUD.on || !CLOUD.inv || CLOUD.guestMode || CLOUD.pinMode) return; clearTimeout(cgT); cgT=setTimeout(cloudSyncGuestsNow, 500); }
+async function cloudSyncGuestsNow(){
+  if(!CLOUD.on || !CLOUD.inv) return; clearTimeout(cgT);
+  const cur = new Map(G.map(g=>[g.id, JSON.stringify(toRow(g))]));
+  const up=[]; for(const [id,j] of cur) if(CLOUD.lastG.get(id)!==j) up.push(JSON.parse(j));
+  const del=[...CLOUD.lastG.keys()].filter(id=>!cur.has(id));
+  const prev = CLOUD.lastG; CLOUD.lastG = cur;
+  try{
+    for(let i=0;i<up.length;i+=500){ const { error } = await CLOUD.sb.from('guests').upsert(up.slice(i,i+500), {onConflict:'invitation_id,id'}); if(error) throw error; }
+    if(del.length){ const { error } = await CLOUD.sb.from('guests').delete().eq('invitation_id',CLOUD.inv.id).in('id',del); if(error) throw error; }
+  }catch(e){ CLOUD.lastG = prev; toast('Daftar tamu gagal tersimpan: '+(e.message||'coba lagi')); }
+}
+function subscribeRealtime(){
+  const sb=CLOUD.sb, id=CLOUD.inv.id;
+  if(CLOUD.ch) sb.removeChannel(CLOUD.ch);
+  CLOUD.ch = sb.channel('inv-'+id)
+    .on('postgres_changes',{event:'*',schema:'public',table:'guests',filter:`invitation_id=eq.${id}`}, p=>{
+      if(p.eventType==='DELETE'){ if(p.old&&p.old.id){ G=G.filter(x=>x.id!==p.old.id); CLOUD.lastG.delete(p.old.id); } }
+      else { const g=fromRow(p.new); const i=G.findIndex(x=>x.id===g.id); if(i>-1) G[i]=g; else G.unshift(g); CLOUD.lastG.set(g.id, JSON.stringify(toRow(g))); }
+      liveRefresh(); })
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'wishes',filter:`invitation_id=eq.${id}`}, p=>{
+      if(!W.some(w=>w.id===p.new.id)) W.unshift({id:p.new.id, n:p.new.name, m:p.new.message, t:'baru saja', att:p.new.attending, show:!p.new.hidden}); liveRefresh(); })
+    .subscribe();
+}
+function liveRefresh(){
+  if($('#modalRoot').innerHTML) return;
+  const h=location.hash.slice(1);
+  if((h==='checkin' || CLOUD.pinMode) && document.activeElement?.id!=='ciQ') renderCheckin();
+  else if(h==='dashboard' && !['gSearch'].includes(document.activeElement?.id)) renderDash();
+}
+async function guestLoad(){
+  const { data, error } = await CLOUD.sb.rpc('get_public_invitation',{p_slug:CLOUD.slug, p_code:CLOUD.code||null});
+  if(error || !data){ CLOUD.notFound=true; return; }
+  Object.assign(S, data.data||{}); S.published=true; S.plan=data.plan;
+  W = (data.wishes||[]).map(x=>({n:x.name, m:x.message, t:relTime(x.created_at), att:x.attending, show:true}));
+  CLOUD.guest = data.guest ? fromRow({...data.guest}) : null;
+  G = CLOUD.guest ? [CLOUD.guest] : [];
+  document.title = `Undangan ${S.bride.nick||''} & ${S.groom.nick||''}`;
+}
+async function pinLoad(){
+  if(!CLOUD.pin){ CLOUD.needPin=true; return; }
+  const { data, error } = await CLOUD.sb.rpc('ci_guests',{p_slug:CLOUD.slug, p_pin:CLOUD.pin});
+  if(error){ CLOUD.pinError=error.message; CLOUD.needPin=true; return; }
+  CLOUD.needPin=false; CLOUD.pinError=null;
+  Object.assign(S, data.data||{}); S.giftNo=data.gift_no; S.plan='tamu'; S.published=true;
+  G = (data.guests||[]).map(fromRow);
+}
+const ciAuth = () => CLOUD.on ? (CLOUD.pinMode ? {p_slug:CLOUD.slug, p_pin:CLOUD.pin} : (CLOUD.inv ? {p_slug:CLOUD.inv.slug, p_pin:CLOUD.inv.checkin_pin} : null)) : null;
+async function ciRpc(fn, args){ const a=ciAuth(); if(!a) return {local:true}; if(!CLOUD.pinMode) await cloudSyncGuestsNow(); const { data, error } = await CLOUD.sb.rpc(fn, {...a, ...args}); if(error){ toast(error.message); return {error}; } return {data}; }
+function ensureSnap(){
+  if(window.snap) return Promise.resolve();
+  const src = CLOUD.cfg.midtransProduction ? 'https://app.midtrans.com/snap/snap.js' : 'https://app.sandbox.midtrans.com/snap/snap.js';
+  return loadScript(src, {'data-client-key':CLOUD.cfg.midtransClientKey});
+}
+async function cloudPay(btn){
+  if(!CLOUD.cfg.midtransClientKey){ toast('Pembayaran belum dikonfigurasi di server'); return; }
+  const reset = () => { btn.disabled=false; btn.textContent=btn.dataset.label; };
+  btn.dataset.label=btn.textContent; btn.disabled=true; btn.textContent='Menyiapkan pembayaran…';
+  try{
+    await cloudSaveNow();
+    const { data:{ session } } = await CLOUD.sb.auth.getSession();
+    if(!session){ reset(); openAuth(()=>renderCheckout(),'publish'); return; }
+    const r = await fetch('/api/pay/create',{method:'POST', headers:{'Content-Type':'application/json', Authorization:'Bearer '+session.access_token}, body:JSON.stringify({plan:CO.plan||S.plan, voucher:CO.applied||'', method:CO.method})});
+    const j = await r.json().catch(()=>({}));
+    if(!r.ok){ reset(); toast(j.error||'Gagal membuat pembayaran'); return; }
+    await ensureSnap();
+    CLOUD.pendingOrder=j.orderId;
+    window.snap.pay(j.token, {
+      onSuccess:()=>{ CO.stage='waiting'; renderCheckout(); waitPaid(j.orderId); },
+      onPending:()=>{ CO.stage='waiting'; renderCheckout(); waitPaid(j.orderId); },
+      onError:()=>{ reset(); toast('Pembayaran gagal. Coba metode lain.'); },
+      onClose:()=>{ reset(); toast('Pembayaran belum selesai. Kamu bisa lanjutkan dari halaman ini.'); }
+    });
+  }catch(e){ reset(); toast('Gagal memuat pembayaran: '+(e.message||'periksa koneksi')); }
+}
+async function waitPaid(orderId, tries=0){
+  const { data } = await CLOUD.sb.from('invoices').select('*').eq('id',orderId).maybeSingle();
+  if(data && data.status==='paid'){
+    const { data:inv } = await CLOUD.sb.from('invitations').select('*').eq('id',CLOUD.inv.id).single();
+    if(inv){ CLOUD.inv=inv; S.plan=inv.plan; S.published=inv.published; }
+    S.invoices = [{no:data.id, date:data.paid_at||data.created_at, item:data.item, price:data.price, disc:data.discount, voucher:data.voucher, total:data.total, method:data.method, status:'Lunas', upgrade:/Upgrade/.test(data.item)}, ...(S.invoices||[]).filter(x=>x.no!==data.id)];
+    CLOUD.pendingOrder=null; CO.stage='done'; store.set('sp-state',S); renderCheckout(); return;
+  }
+  if(data && ['expired','failed'].includes(data.status)){ CLOUD.pendingOrder=null; CO.stage='form'; toast('Pembayaran kedaluwarsa atau gagal. Silakan buat ulang.'); renderCheckout(); return; }
+  if(tries>100) return;
+  CO.waitT = setTimeout(()=>waitPaid(orderId, tries+1), 3000);
+}
+
 /* ---------- Router ---------- */
 const VIEWS = ['beranda','tema','buat','undangan','dashboard','checkout','tagihan','checkin'];
 function route(){
+  if(CLOUD.guestMode || CLOUD.pinMode){
+    const v = CLOUD.guestMode ? 'undangan' : 'checkin';
+    $$('[data-view]').forEach(x=> x.hidden = x.dataset.view!==v); $('#siteHeader').hidden=true; $('#footerWrap').hidden=true; closeModal();
+    if(CLOUD.guestMode && CLOUD.notFound){ $('#guestShell').innerHTML = `<div class="cloud-404" style="width:100%"><div><h1 class="display" style="font-size:36px">Undangan tidak ditemukan</h1><p class="muted" style="margin-top:10px">Link mungkin salah ketik, atau undangan belum dipublikasikan oleh pasangan.</p></div></div>`; return; }
+    if(CLOUD.guestMode) renderGuest(); else renderCheckin();
+    return;
+  }
   let h = (location.hash||'').slice(1) || 'beranda';
   let scrollTo = null;
   if(h==='harga'){ h='beranda'; scrollTo='harga-sec'; }
@@ -1989,7 +2214,7 @@ function route(){
   if(scrollTo) setTimeout(()=> $('#'+scrollTo).scrollIntoView({behavior:'smooth'}), 40); else window.scrollTo(0,0);
 }
 window.addEventListener('hashchange', route);
-route();
+cloudInit().catch(e=>console.warn('cloud init', e)).finally(route);
 setInterval(()=> $$('[data-count]').forEach(el=> el.innerHTML = countHTML(el.dataset.count)), 30000);
 })();
 </script>
