@@ -15,6 +15,10 @@
     {
       "source": "/u/:slug/katering",
       "destination": "/index.html"
+    },
+    {
+      "source": "/u/:slug/album",
+      "destination": "/index.html"
     }
   ],
   "headers": [
