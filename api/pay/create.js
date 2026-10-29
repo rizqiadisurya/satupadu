@@ -27,11 +27,13 @@ module.exports = async (req, res) => {
     };
     if (METHODS[body.method]) payload.enabled_payments = METHODS[body.method];
     const base = IS_PROD() ? 'https://app.midtrans.com' : 'https://app.sandbox.midtrans.com';
-    const r = await fetch(`${base}/snap/v1/transactions`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json', Authorization: 'Basic ' + Buffer.from(env('MIDTRANS_SERVER_KEY') + ':').toString('base64') }, body: JSON.stringify(payload) });
-    const snap = await r.json();
+    const r = await fetch(`${base}/snap/v1/transactions`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json', Authorization: 'Basic ' + Buffer.from(env('MIDTRANS_SERVER_KEY').trim() + ':').toString('base64') }, body: JSON.stringify(payload) });
+    const raw = await r.text();
+    let snap = {}; try { snap = JSON.parse(raw); } catch (e) {}
     if (!r.ok || !snap.token) {
+      console.error('Midtrans Snap error', r.status, raw.slice(0, 500));
       await sb(`/rest/v1/invoices?id=eq.${orderId}`, { method: 'PATCH', body: { status: 'failed' } });
-      return send(res, 502, { error: (snap.error_messages && snap.error_messages.join(', ')) || 'Gagal membuat transaksi Midtrans' });
+      return send(res, 502, { error: ((snap.error_messages && snap.error_messages.join(', ')) || snap.status_message || 'Gagal membuat transaksi Midtrans') + ` (Midtrans ${r.status})` });
     }
     send(res, 200, { orderId, token: snap.token, redirectUrl: snap.redirect_url, total: p.total });
   } catch (e) { send(res, e.status || 500, { error: e.message || 'Terjadi kesalahan' }); }

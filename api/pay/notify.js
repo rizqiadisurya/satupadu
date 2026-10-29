@@ -4,7 +4,7 @@ module.exports = async (req, res) => {
   if (req.method !== 'POST') return send(res, 200, { ok: true, info: 'SatuPadu Midtrans webhook' });
   try {
     const n = await readBody(req);
-    const expected = sha512(`${n.order_id}${n.status_code}${n.gross_amount}${env('MIDTRANS_SERVER_KEY')}`);
+    const expected = sha512(`${n.order_id}${n.status_code}${n.gross_amount}${env('MIDTRANS_SERVER_KEY').trim()}`);
     if (!n.order_id || n.signature_key !== expected) return send(res, 403, { error: 'Signature tidak valid' });
     const rows = await sb(`/rest/v1/invoices?id=eq.${encodeURIComponent(n.order_id)}&select=*`);
     const inv = rows && rows[0];
