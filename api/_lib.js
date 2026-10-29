@@ -13,7 +13,7 @@ const VOUCHERS = { SATUPADU10: { type: 'pct', v: 10 }, NIKAHHEMAT: { type: 'amt'
 async function sb(path, { method = 'GET', body, headers = {}, key = SERVICE(), token } = {}) {
   const r = await fetch(`${SB_URL()}${path}`, {
     method,
-    headers: { apikey: key, Authorization: `Bearer ${token || key}`, 'Content-Type': 'application/json', Prefer: 'return=representation', ...headers },
+    headers: { apikey: key, ...((token || !key.startsWith('sb_')) ? { Authorization: `Bearer ${token || key}` } : {}), 'Content-Type': 'application/json', Prefer: 'return=representation', ...headers },
     body: body ? JSON.stringify(body) : undefined,
   });
   const text = await r.text();
