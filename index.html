@@ -1373,7 +1373,7 @@ function renderStep(){
     const ready = checks.every(c=>c[1]);
     h = `<span class="eyebrow">Langkah 5 dari 5</span><h2>${S.published?'Undanganmu sudah tayang':'Siap dibagikan?'}</h2><p class="sub">${S.published?'Kirim link ke tamu dari dashboard. Kamu masih bisa mengubah isinya kapan saja.':'Periksa sekali lagi, pilih alamat link, lalu bayar sekali untuk mulai membagikan.'}</p>
     <ul class="check-list">${checks.map(([l,ok,k])=>`<li>${ok?`<span class="status s-ok" style="padding:4px">${ico('check')}</span>`:`<span class="status s-wait" style="padding:4px">!</span>`}${l}<span class="st">${ok?'<span class="muted">Lengkap</span>':`<button type="button" class="btn btn-soft btn-sm" data-step="${k}">Lengkapi</button>`}</span></li>`).join('')}</ul>
-    <div class="field"><label for="slug">Alamat undangan</label><div class="slug"><span>satupadu.id/</span><input id="slug" data-bind="slug" value="${esc(S.slug)}" autocomplete="off" aria-describedby="slugHint"></div><span class="hint" id="slugHint">Huruf kecil, angka, dan tanda strip. Tamu akan melihat link ini.</span><span class="err" hidden></span></div>
+    <div class="field"><label for="slug">Alamat undangan</label><div class="slug"><span>${pubHost()}</span><input id="slug" data-bind="slug" value="${esc(S.slug)}" autocomplete="off" aria-describedby="slugHint"></div><span class="hint" id="slugHint">Huruf kecil, angka, dan tanda strip. Tamu akan melihat link ini.</span><span class="err" hidden></span></div>
     ${S.published?'':`<div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Paket</span><div class="plan-pick">
       ${PLANS.filter(p=>p.price).map(p=>`<label><input type="radio" name="plan" value="${p.id}" ${S.plan===p.id?'checked':''}><span><b>${p.name}</b><small>${p.items.filter(x=>x[1]).slice(0,3).map(x=>x[0]).join(' · ')}</small></span><b class="num">${rupiah(p.price)}</b></label>`).join('')}
     </div></div>`}
@@ -1472,6 +1472,8 @@ const stLabel = {hadir:['Hadir','s-ok'],tidak:['Tidak hadir','s-no'],belum:['Bel
 const PRO = ['import','bulk','groups','harih','remind'];
 const isLocked = f => S.published && S.plan==='undangan' && PRO.includes(f);
 const lockNote = (what) => `<div class="lock-card">${ico('lock')}<div><b>${what} ada di paket Undangan + Tamu</b><p class="muted">Upgrade cukup bayar selisihnya, ${rupiah(UPGRADE_PRICE)}. Data tamu dan undanganmu tetap.</p></div><button class="btn btn-primary btn-sm" data-act="upgrade">Upgrade</button></div>`;
+function pubHost(){ return CLOUD.on ? location.host+'/u/' : 'satupadu.id/'; }
+function pubURL(){ return 'https://'+pubHost()+((CLOUD.inv&&CLOUD.inv.slug)||S.slug); }
 function link(g){ return CLOUD.on ? `${location.origin}/u/${(CLOUD.inv&&CLOUD.inv.slug)||S.slug}?to=${g.code}` : `https://satupadu.id/${S.slug}?to=${encodeURIComponent(g.code||g.name)}`; }
 function waMsg(g){ const ev=guestEvents(g); return `Halo ${g.name},\n\nDengan penuh syukur, kami ${S.bride.nick} & ${S.groom.nick} mengundang Anda ke ${ev.map(e=>e.type).join(' dan ')} pernikahan kami, ${fmtDate((ev[0]||S.events[0]).date)}.\n\nUndangan lengkap dan konfirmasi kehadiran:\n${link(g)}\n\nTerima kasih 🙏`; }
 function waUrl(g){ return `https://wa.me/${(g.phone||'').replace(/^0/,'62')}?text=${encodeURIComponent(waMsg(g))}`; }
@@ -1482,7 +1484,7 @@ function renderDash(){
   const pax = hadir.reduce((a,g)=>a+g.pax,0);
   const arrived = G.filter(g=>g.checkin);
   const head = `<div class="dash-head"><div><span class="eyebrow">Dashboard pasangan</span><h1>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</h1>
-    <div class="meta"><span class="status ${S.published?'s-ok':'s-wait'}">${S.published?`Aktif selamanya · ${esc((PLANS.find(p=>p.id===S.plan)||PLANS[2]).name)}`:'Contoh data · belum dipublikasikan'}</span><span class="num">${esc(fmtDate(S.events[0].date))}</span><span>satupadu.id/${esc(S.slug)}</span></div></div>
+    <div class="meta"><span class="status ${S.published?'s-ok':'s-wait'}">${S.published?`Aktif selamanya · ${esc((PLANS.find(p=>p.id===S.plan)||PLANS[2]).name)}`:'Contoh data · belum dipublikasikan'}</span><span class="num">${esc(fmtDate(S.events[0].date))}</span><span>${S.published&&CLOUD.on?`<a href="${esc(pubURL())}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">${esc(pubHost()+S.slug)}</a>`:esc(pubHost()+S.slug)}</span></div></div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">${S.published&&S.plan==='undangan'?`<button class="btn btn-soft btn-sm" data-act="upgrade">${ico('up')}Upgrade paket</button>`:''}<button class="btn btn-ghost btn-sm" data-act="view-as" data-id="">${ico('eye')}Lihat sebagai tamu</button><a class="btn btn-ghost btn-sm" href="#buat">${ico('edit')}Edit undangan</a></div></div>
     <div class="dtabs" role="tablist">${DT.map(([k,l])=>`<button role="tab" data-dtab="${k}" aria-selected="${dTab===k}">${l}${k==='tamu'?`<span class="cnt num">${total}</span>`:k==='ucapan'?`<span class="cnt num">${W.length}</span>`:k==='harih'&&arrived.length?`<span class="cnt num">${arrived.length}</span>`:''}</button>`).join('')}</div>`;
   let body='';
@@ -1801,14 +1803,14 @@ function coTotals(){ const it=coItems(); let disc=0; const v=CO.applied&&VOUCHER
 function renderCheckout(){
   const root=$('#checkout'); clearInterval(CO.timer);
   if(!S.user){ root.innerHTML = `<div class="co-empty"><span class="eyebrow">Checkout</span><h1 class="display">Masuk dulu untuk membayar</h1><p class="muted">Undanganmu sudah tersimpan di perangkat ini dan akan ikut masuk ke akun.</p><button class="btn btn-primary" data-act="login-co">Masuk atau daftar</button></div>`; return; }
-  if(coMode()==='done-already' && CO.stage!=='done'){ root.innerHTML = `<div class="co-empty"><span class="status s-ok">Aktif selamanya</span><h1 class="display">Paketmu sudah paling lengkap</h1><p class="muted">Undangan + Tamu sudah aktif untuk satupadu.id/${esc(S.slug)}.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn btn-primary" href="#dashboard">Buka dashboard</a><a class="btn btn-ghost" href="#tagihan">Lihat tagihan</a></div></div>`; return; }
+  if(coMode()==='done-already' && CO.stage!=='done'){ root.innerHTML = `<div class="co-empty"><span class="status s-ok">Aktif selamanya</span><h1 class="display">Paketmu sudah paling lengkap</h1><p class="muted">Undangan + Tamu sudah aktif untuk ${esc(pubHost())}${esc(S.slug)}.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn btn-primary" href="#dashboard">Buka dashboard</a><a class="btn btn-ghost" href="#tagihan">Lihat tagihan</a></div></div>`; return; }
   const T=coTotals();
   const steps = `<ol class="co-steps">${['Paket','Pembayaran','Selesai'].map((s,i)=>`<li class="${(CO.stage==='form'&&i===0)||(CO.stage==='pending'&&i===1)||(CO.stage==='done'&&i===2)?'on':''} ${(CO.stage==='pending'&&i<1)||(CO.stage==='done'&&i<2)?'ok':''}"><span>${i+1}</span>${s}</li>`).join('')}</ol>`;
   const summary = `<aside class="co-sum"><div class="co-inv" style="${themeStyle(themeById(S.theme),S.accent,fontOf())}"><div class="pat2"></div><small>The wedding of</small><b>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</b><small>${esc(fmtShort(S.events[0].date))}</small></div>
     <div class="line"><span>${esc(T.name)}</span><b class="num">${rupiah(T.price)}</b></div>
     ${T.disc?`<div class="line ok"><span>Voucher ${esc(CO.applied)}</span><b class="num">−${rupiah(T.disc)}</b></div>`:''}
     <div class="line total"><span>Total</span><b class="num">${rupiah(T.total)}</b></div>
-    <ul class="co-trust"><li>${ico('check')}Sekali bayar, aktif selamanya</li><li>${ico('check')}satupadu.id/${esc(S.slug)}</li><li>${ico('check')}Garansi uang kembali 7 hari</li></ul></aside>`;
+    <ul class="co-trust"><li>${ico('check')}Sekali bayar, aktif selamanya</li><li>${ico('check')}${esc(pubHost())}${esc(S.slug)}</li><li>${ico('check')}Garansi uang kembali 7 hari</li></ul></aside>`;
   if(CO.stage==='form'){
     root.innerHTML = `<div class="co-head"><a class="linkbtn" href="#buat">← Kembali ke editor</a><h1 class="display">${coMode()==='upgrade'?'Upgrade paket':'Publikasikan undangan'}</h1></div>${steps}
     <div class="co-grid"><form class="form-card co-form" id="coForm" novalidate>
@@ -1852,8 +1854,8 @@ function renderCheckout(){
     const inv=(S.invoices||[])[0];
     root.innerHTML = `<div class="co-head"><h1 class="display">Pembayaran berhasil</h1></div>${steps}
     <div class="co-done form-card"><div class="okc">${ico('check')}</div><h2 class="display" style="font-size:34px">${inv&&inv.upgrade?'Paket Undangan + Tamu aktif':'Undanganmu sudah tayang'}</h2>
-      <p class="muted" style="max-width:46ch;margin:10px auto 0">satupadu.id/${esc(S.slug)} aktif selamanya. Bukti bayar ${esc(inv?.no||'')} sudah dikirim ke ${esc(S.user.email)}.</p>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px"><button class="btn btn-ghost" data-act="copy" data-v="https://satupadu.id/${esc(S.slug)}">${ico('copy')}Salin link</button><a class="btn btn-ghost" href="#tagihan">${ico('receipt')}Lihat tagihan</a><a class="btn btn-primary" href="#dashboard" data-act="co-reset">Kirim ke tamu</a></div></div>`;
+      <p class="muted" style="max-width:46ch;margin:10px auto 0">${esc(pubHost())}${esc(S.slug)} aktif selamanya. Bukti bayar ${esc(inv?.no||'')} sudah dikirim ke ${esc(S.user.email)}.</p>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px"><button class="btn btn-ghost" data-act="copy" data-v="${esc(pubURL())}">${ico('copy')}Salin link</button><a class="btn btn-ghost" href="#tagihan">${ico('receipt')}Lihat tagihan</a><a class="btn btn-primary" href="#dashboard" data-act="co-reset">Kirim ke tamu</a></div></div>`;
   }
 }
 function applyVoucher(){ const c=($('#coV').value||'').trim().toUpperCase(); CO.voucher=c; if(VOUCHERS[c]){ CO.applied=c; renderCheckout(); toast(VOUCHERS[c].label+' dipakai'); } else { CO.applied=null; const m=$('#coVmsg'); m.textContent= c?`Kode "${c}" tidak berlaku. Periksa ejaannya.`:'Masukkan kode voucher dulu.'; m.style.color='var(--no)'; m.style.fontWeight='700'; } }
@@ -1873,7 +1875,7 @@ function renderTagihan(){
   const inv=S.invoices||[];
   root.innerHTML = `<div class="page-head" style="padding-bottom:20px"><span class="eyebrow">Akun</span><h1>Akun &amp; tagihan</h1></div>
   <div class="acct-grid"><div class="panel-c acct-card"><span class="av-btn big">${esc(initials(S.user.name))}</span><div><b style="font-size:18px">${esc(S.user.name)}</b><div class="muted">${esc(S.user.email)}</div></div>
-    <div class="acct-stat"><span class="muted">Undangan</span><b>satupadu.id/${esc(S.slug)}</b><span class="status ${S.published?'s-ok':'s-wait'}">${S.published?'Aktif selamanya · '+esc((PLANS.find(p=>p.id===S.plan)||{}).name||''):'Belum dipublikasikan'}</span></div>
+    <div class="acct-stat"><span class="muted">Undangan</span><b>${esc(pubHost())}${esc(S.slug)}</b><span class="status ${S.published?'s-ok':'s-wait'}">${S.published?'Aktif selamanya · '+esc((PLANS.find(p=>p.id===S.plan)||{}).name||''):'Belum dipublikasikan'}</span></div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">${S.published&&S.plan==='undangan'?`<button class="btn btn-soft btn-sm" data-act="upgrade">Upgrade paket</button>`:''}${S.published?'':`<a class="btn btn-primary btn-sm" href="#buat">Lanjut ke editor</a>`}<button class="btn btn-ghost btn-sm" data-act="logout">${ico('logout')}Keluar</button></div></div>
   <div><h2 class="co-h" style="margin-top:0">Riwayat tagihan</h2>
   ${inv.length?`<div class="tbl-wrap" style="display:block"><table><thead><tr><th>Nomor</th><th>Tanggal</th><th>Item</th><th>Metode</th><th class="num">Total</th><th>Status</th><th></th></tr></thead><tbody>${inv.map((x,k)=>`<tr><td class="nm num">${esc(x.no)}</td><td class="muted">${esc(fmtDT(x.date))}</td><td>${esc(x.item)}</td><td>${esc(x.method)}</td><td class="num">${rupiah(x.total)}</td><td><span class="status s-ok">${esc(x.status)}</span></td><td style="text-align:right"><button class="btn btn-ghost btn-sm" data-act="inv" data-k="${k}">Lihat</button></td></tr>`).join('')}</tbody></table></div>`
@@ -1883,7 +1885,7 @@ function invoiceModal(k){
   const x=(S.invoices||[])[k]; if(!x) return;
   openModal(`<div class="invoice"><div class="inv-top"><span class="logo" style="pointer-events:none"><svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true"><circle cx="15" cy="20" r="10.5" fill="none" stroke="#7D1D3F" stroke-width="3"/><circle cx="25" cy="20" r="10.5" fill="none" stroke="#7D1D3F" stroke-width="3"/><path d="M20 11.1a10.5 10.5 0 0 1 0 17.8 10.5 10.5 0 0 1 0-17.8z" fill="#7D1D3F"/></svg><span>Satu<b>Padu</b></span></span><span class="status s-ok">${esc(x.status)}</span></div>
     <h2 class="display" style="font-size:28px;margin:18px 0 4px">Bukti pembayaran</h2><p class="muted num">${esc(x.no)} · ${esc(fmtDT(x.date))}</p>
-    <div class="inv-meta"><div><small class="muted">Ditagihkan ke</small><b>${esc(S.user.name)}</b><span class="muted">${esc(S.user.email)}</span></div><div><small class="muted">Undangan</small><b>satupadu.id/${esc(S.slug)}</b><span class="muted">${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</span></div></div>
+    <div class="inv-meta"><div><small class="muted">Ditagihkan ke</small><b>${esc(S.user.name)}</b><span class="muted">${esc(S.user.email)}</span></div><div><small class="muted">Undangan</small><b>${esc(pubHost())}${esc(S.slug)}</b><span class="muted">${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</span></div></div>
     <div class="line"><span>${esc(x.item)}</span><b class="num">${rupiah(x.price)}</b></div>${x.disc?`<div class="line ok"><span>Voucher ${esc(x.voucher)}</span><b class="num">−${rupiah(x.disc)}</b></div>`:''}<div class="line total"><span>Dibayar via ${esc(x.method)}</span><b class="num">${rupiah(x.total)}</b></div>
     <div class="form-foot"><button class="btn btn-ghost" data-act="copy" data-v="${esc(x.no)}">${ico('copy')}Salin nomor</button><button class="btn btn-primary" data-act="close">Tutup</button></div></div>`);
 }
