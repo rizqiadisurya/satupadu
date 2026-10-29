@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SatuPadu Undangan Digital</title>
+<title>Satu Padu Kita Undangan Digital</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Marcellus&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -699,13 +699,13 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 <!-- ============ HEADER ============ -->
 <header class="site-header" id="siteHeader">
   <div class="wrap">
-    <a class="logo" href="#beranda" aria-label="SatuPadu beranda">
+    <a class="logo" href="#beranda" aria-label="Satu Padu Kita beranda">
       <svg viewBox="0 0 40 40" aria-hidden="true">
         <circle cx="15" cy="20" r="10.5" fill="none" stroke="#7D1D3F" stroke-width="3"/>
         <circle cx="25" cy="20" r="10.5" fill="none" stroke="#7D1D3F" stroke-width="3"/>
         <path d="M20 11.1a10.5 10.5 0 0 1 0 17.8 10.5 10.5 0 0 1 0-17.8z" fill="#7D1D3F"/>
       </svg>
-      <span>Satu<b>Padu</b></span>
+      <span>Satu Padu <b>Kita</b></span>
     </a>
     <nav class="nav" aria-label="Utama">
       <a href="#tema" data-nav="tema">Tema</a>
@@ -851,7 +851,7 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
         <details><summary>Berapa lama undangan aktif?</summary><p>Selamanya, di semua paket. Link yang sudah kamu kirim ke tamu tidak akan mati setelah acara, jadi ucapan dan foto tetap bisa dibuka sebagai kenang-kenangan.</p></details>
         <details><summary>Boleh ganti tema setelah bayar?</summary><p>Boleh, berkali-kali. Semua isi undangan tetap tersimpan, hanya tampilannya yang berubah.</p></details>
         <details><summary>Bagaimana cara mengirim ke tamu?</summary><p>Setiap tamu punya link dengan namanya sendiri. Kirim satu per satu dari WhatsApp pribadimu dengan satu ketukan, atau kirim sekaligus di paket Undangan + Tamu.</p></details>
-        <details><summary>Amplop digital aman?</summary><p>Uang tidak lewat SatuPadu. Tamu transfer langsung ke rekening atau e-wallet kalian, lalu bisa mengirim konfirmasi supaya kalian tahu siapa pengirimnya.</p></details>
+        <details><summary>Amplop digital aman?</summary><p>Uang tidak lewat Satu Padu Kita. Tamu transfer langsung ke rekening atau e-wallet kalian, lalu bisa mengirim konfirmasi supaya kalian tahu siapa pengirimnya.</p></details>
       </div>
     </div>
   </section>
@@ -917,7 +917,7 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
   <div class="guest-shell" id="guestShell"></div>
 </div>
 
-<div id="footerWrap"><footer class="footer"><div class="wrap"><span><b style="color:var(--ink)">SatuPadu</b> · Undangan digital pernikahan · Prototype desain</span><span>Jakarta, Indonesia</span></div></footer></div>
+<div id="footerWrap"><footer class="footer"><div class="wrap"><span><b style="color:var(--ink)">Satu Padu Kita</b> · Undangan digital pernikahan · Prototype desain</span><span>Jakarta, Indonesia</span></div></footer></div>
 
 <div id="modalRoot"></div>
 <div id="toastRoot" aria-live="polite"></div>
@@ -1162,7 +1162,7 @@ function invHTML(opts={}){
       <p class="lead">Merupakan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
       <div class="names" style="font-size:38px">${esc(nick1)} <span style="color:var(--t-accent);font-style:italic">&amp;</span> ${esc(nick2)}</div>
     </section>
-    <div class="foot">Dibuat dengan SatuPadu</div>
+    <div class="foot">Dibuat dengan Satu Padu Kita</div>
   </div>`;
 }
 function addDays(d,n){ const x=new Date(d+'T00:00:00'); x.setDate(x.getDate()+n); return x.toISOString().slice(0,10); }
@@ -1445,7 +1445,7 @@ function renderGuest(){
   const g = guestObj();
   sh.innerHTML = `
     <div class="guest-col locked" id="guestCol">
-      <div class="g-top">${CLOUD.guestMode?'<span></span>':`<a class="pill-btn" href="#${g?'dashboard':'beranda'}" aria-label="Kembali">← ${g?'Dashboard':'SatuPadu'}</a>`}
+      <div class="g-top">${CLOUD.guestMode?'<span></span>':`<a class="pill-btn" href="#${g?'dashboard':'beranda'}" aria-label="Kembali">← ${g?'Dashboard':'Satu Padu Kita'}</a>`}
         <span style="display:flex;gap:8px"><button class="pill-btn" data-act="g-big" aria-pressed="${guestBig}" aria-label="Perbesar teks" style="${guestBig?'background:var(--beet);color:#fff':''}">Aa</button><button class="pill-btn" data-act="g-music" aria-pressed="${guestMusic}" aria-label="${guestMusic?'Matikan musik':'Nyalakan musik'}">${ico(guestMusic&&S.music?'music':'mute')}</button></span></div>
       <div id="guestInv" style="margin-top:-58px">${invHTML({gate:true, idp:'g', guest:guestLabel(), guestObj:g, big:guestBig})}</div>
       <nav class="g-nav" aria-label="Navigasi undangan">
@@ -1472,9 +1472,9 @@ const stLabel = {hadir:['Hadir','s-ok'],tidak:['Tidak hadir','s-no'],belum:['Bel
 const PRO = ['import','bulk','groups','harih','remind'];
 const isLocked = f => S.published && S.plan==='undangan' && PRO.includes(f);
 const lockNote = (what) => `<div class="lock-card">${ico('lock')}<div><b>${what} ada di paket Undangan + Tamu</b><p class="muted">Upgrade cukup bayar selisihnya, ${rupiah(UPGRADE_PRICE)}. Data tamu dan undanganmu tetap.</p></div><button class="btn btn-primary btn-sm" data-act="upgrade">Upgrade</button></div>`;
-function pubHost(){ return CLOUD.on ? location.host+'/u/' : 'satupadu.id/'; }
+function pubHost(){ return CLOUD.on ? location.host+'/u/' : 'satupadukita.vercel.app/u/'; }
 function pubURL(){ return 'https://'+pubHost()+((CLOUD.inv&&CLOUD.inv.slug)||S.slug); }
-function link(g){ return CLOUD.on ? `${location.origin}/u/${(CLOUD.inv&&CLOUD.inv.slug)||S.slug}?to=${g.code}` : `https://satupadu.id/${S.slug}?to=${encodeURIComponent(g.code||g.name)}`; }
+function link(g){ return CLOUD.on ? `${location.origin}/u/${(CLOUD.inv&&CLOUD.inv.slug)||S.slug}?to=${g.code}` : `https://satupadukita.vercel.app/u/${S.slug}?to=${encodeURIComponent(g.code||g.name)}`; }
 function waMsg(g){ const ev=guestEvents(g); return `Halo ${g.name},\n\nDengan penuh syukur, kami ${S.bride.nick} & ${S.groom.nick} mengundang Anda ke ${ev.map(e=>e.type).join(' dan ')} pernikahan kami, ${fmtDate((ev[0]||S.events[0]).date)}.\n\nUndangan lengkap dan konfirmasi kehadiran:\n${link(g)}\n\nTerima kasih 🙏`; }
 function waUrl(g){ return `https://wa.me/${(g.phone||'').replace(/^0/,'62')}?text=${encodeURIComponent(waMsg(g))}`; }
 const filteredGuests = () => { const q=gQ.toLowerCase(); return G.filter(g=>(gStatus==='semua'||g.status===gStatus) && (gGroup==='semua'||g.group===gGroup) && (!q||g.name.toLowerCase().includes(q)||(g.phone||'').includes(q)||(g.code||'').toLowerCase().includes(q))); };
@@ -1756,7 +1756,7 @@ function renderAuthSlot(){
 let authNext=null;
 function openAuth(next, mode){
   authNext = next || null;
-  openModal(`<div class="auth"><span class="eyebrow">${mode==='publish'?'Satu langkah lagi':'Akun SatuPadu'}</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">${mode==='publish'?'Simpan undanganmu ke akun':'Masuk atau daftar'}</h2>
+  openModal(`<div class="auth"><span class="eyebrow">${mode==='publish'?'Satu langkah lagi':'Akun Satu Padu Kita'}</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">${mode==='publish'?'Simpan undanganmu ke akun':'Masuk atau daftar'}</h2>
     <p class="muted">${mode==='publish'?'Undangan yang sudah kamu buat ikut tersimpan. Tidak perlu isi ulang.':'Pakai email. Kami kirim kode 6 angka, tanpa kata sandi.'}</p>
     <form id="authForm" class="fgrid" style="margin-top:20px" novalidate>
       <div class="field full"><label for="au-name">Nama kamu</label><input class="input" id="au-name" autocomplete="name" placeholder="Nadia Larasati" value="${esc(S.bride.name)}"></div>
@@ -1765,7 +1765,7 @@ function openAuth(next, mode){
     </form>
     ${CLOUD.on && !CLOUD.cfg.googleLogin ? '' : `<div class="or"><span>atau</span></div>
     <button class="btn btn-ghost btn-block" data-act="google-login"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.6h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.2z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1a10 10 0 0 0 0 9.2z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.8-2.8A10 10 0 0 0 3.1 7.4L6.4 10C7.2 7.7 9.4 5.9 12 5.9z"/></svg>Lanjut dengan Google</button>`}
-    <p class="muted" style="font-size:12.5px;margin-top:14px">Dengan melanjutkan, kamu setuju dengan Syarat & Kebijakan Privasi SatuPadu.</p></div>`);
+    <p class="muted" style="font-size:12.5px;margin-top:14px">Dengan melanjutkan, kamu setuju dengan Syarat & Kebijakan Privasi Satu Padu Kita.</p></div>`);
   $('#authForm').addEventListener('submit',ev=>{ ev.preventDefault(); const m=$('#au-mail'); const v=m.value.trim();
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ m.setAttribute('aria-invalid','true'); const er=m.parentElement.querySelector('.err'); er.textContent='Masukkan email yang valid, misal nadia@gmail.com'; er.hidden=false; m.focus(); return; }
     const nm=$('#au-name').value.trim()||'Pengguna';
@@ -1838,7 +1838,7 @@ function renderCheckout(){
     root.innerHTML = `<div class="co-head"><button class="linkbtn" data-act="co-back">← Ganti metode</button><h1 class="display">Selesaikan pembayaran</h1></div>${steps}
     <div class="co-grid"><div class="form-card co-pay">
       ${CO.method==='qris'?`<h2 class="co-h">Scan QRIS</h2><p class="muted">Buka m-banking atau e-wallet, pilih scan QR, lalu bayar ${rupiah(T.total)}.</p><div class="qris">${qrSVG('SATUPADU|'+S.slug+'|'+T.total,220)}<span class="num" id="coTimer">15:00</span><small class="muted">Berlaku sampai waktu habis</small></div>`:''}
-      ${CO.method==='va'?`<h2 class="co-h">Virtual Account ${esc(CO.bank)}</h2><p class="muted">Transfer tepat ${rupiah(T.total)} ke nomor berikut.</p><div class="va"><span class="num">${va.replace(/(\d{4})(?=\d)/g,'$1 ')}</span><button class="btn btn-soft btn-sm" data-act="copy" data-v="${va}">${ico('copy')}Salin</button></div><ol class="howto"><li>Buka aplikasi ${esc(CO.bank)} atau ATM, pilih Transfer › Virtual Account.</li><li>Masukkan nomor di atas, periksa nama <b>SatuPadu · ${esc(S.user.name)}</b>.</li><li>Konfirmasi. Status berubah otomatis dalam 1 menit.</li></ol><p class="muted" style="font-size:13px">Sisa waktu <b class="num" id="coTimer">15:00</b></p>`:''}
+      ${CO.method==='va'?`<h2 class="co-h">Virtual Account ${esc(CO.bank)}</h2><p class="muted">Transfer tepat ${rupiah(T.total)} ke nomor berikut.</p><div class="va"><span class="num">${va.replace(/(\d{4})(?=\d)/g,'$1 ')}</span><button class="btn btn-soft btn-sm" data-act="copy" data-v="${va}">${ico('copy')}Salin</button></div><ol class="howto"><li>Buka aplikasi ${esc(CO.bank)} atau ATM, pilih Transfer › Virtual Account.</li><li>Masukkan nomor di atas, periksa nama <b>Satu Padu Kita · ${esc(S.user.name)}</b>.</li><li>Konfirmasi. Status berubah otomatis dalam 1 menit.</li></ol><p class="muted" style="font-size:13px">Sisa waktu <b class="num" id="coTimer">15:00</b></p>`:''}
       ${CO.method==='ewallet'?`<h2 class="co-h">Bayar dengan ${esc(CO.wallet)}</h2><p class="muted">Kami kirim notifikasi pembayaran ke aplikasi ${esc(CO.wallet)}. Buka aplikasinya dan setujui ${rupiah(T.total)}.</p><div class="va"><span>Menunggu persetujuan di ${esc(CO.wallet)}…</span></div><p class="muted" style="font-size:13px">Sisa waktu <b class="num" id="coTimer">15:00</b></p>`:''}
       <div class="form-foot"><button class="btn btn-ghost" data-act="co-back">Ganti metode</button><button class="btn btn-primary" data-act="co-paid">Saya sudah bayar</button></div>
       <p class="muted" style="font-size:12.5px">Prototype: tekan "Saya sudah bayar" untuk mensimulasikan pembayaran berhasil.</p>
@@ -1883,7 +1883,7 @@ function renderTagihan(){
 }
 function invoiceModal(k){
   const x=(S.invoices||[])[k]; if(!x) return;
-  openModal(`<div class="invoice"><div class="inv-top"><span class="logo" style="pointer-events:none"><svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true"><circle cx="15" cy="20" r="10.5" fill="none" stroke="#7D1D3F" stroke-width="3"/><circle cx="25" cy="20" r="10.5" fill="none" stroke="#7D1D3F" stroke-width="3"/><path d="M20 11.1a10.5 10.5 0 0 1 0 17.8 10.5 10.5 0 0 1 0-17.8z" fill="#7D1D3F"/></svg><span>Satu<b>Padu</b></span></span><span class="status s-ok">${esc(x.status)}</span></div>
+  openModal(`<div class="invoice"><div class="inv-top"><span class="logo" style="pointer-events:none"><svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true"><circle cx="15" cy="20" r="10.5" fill="none" stroke="#7D1D3F" stroke-width="3"/><circle cx="25" cy="20" r="10.5" fill="none" stroke="#7D1D3F" stroke-width="3"/><path d="M20 11.1a10.5 10.5 0 0 1 0 17.8 10.5 10.5 0 0 1 0-17.8z" fill="#7D1D3F"/></svg><span>Satu Padu <b>Kita</b></span></span><span class="status s-ok">${esc(x.status)}</span></div>
     <h2 class="display" style="font-size:28px;margin:18px 0 4px">Bukti pembayaran</h2><p class="muted num">${esc(x.no)} · ${esc(fmtDT(x.date))}</p>
     <div class="inv-meta"><div><small class="muted">Ditagihkan ke</small><b>${esc(S.user.name)}</b><span class="muted">${esc(S.user.email)}</span></div><div><small class="muted">Undangan</small><b>${esc(pubHost())}${esc(S.slug)}</b><span class="muted">${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</span></div></div>
     <div class="line"><span>${esc(x.item)}</span><b class="num">${rupiah(x.price)}</b></div>${x.disc?`<div class="line ok"><span>Voucher ${esc(x.voucher)}</span><b class="num">−${rupiah(x.disc)}</b></div>`:''}<div class="line total"><span>Dibayar via ${esc(x.method)}</span><b class="num">${rupiah(x.total)}</b></div>
@@ -1896,7 +1896,7 @@ const nowTime = () => new Intl.DateTimeFormat('id-ID',{hour:'2-digit',minute:'2-
 function defaultSession(){ const i=S.events.findIndex(e=>/resepsi/i.test(e.type)); return i>-1?i:0; }
 function renderCheckin(){
   const root=$('#checkin');
-  if(CLOUD.pinMode && CLOUD.needPin){ root.innerHTML = `<div class="ci-top"><div class="wrap ci-top-in"><span class="logo" style="color:#fff"><span>Penerima tamu</span></span></div></div><div class="wrap" style="max-width:420px;padding:60px 0"><form id="pinF" class="form-card" style="display:grid;gap:14px"><span class="eyebrow">Mode penerima tamu</span><h1 class="display" style="font-size:32px">Masukkan PIN</h1><p class="muted">PIN 6 angka diberikan oleh pasangan pengantin dari dashboard SatuPadu.</p><label for="pinI" class="sr-only">PIN</label><input class="input otp" id="pinI" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="••••••">${CLOUD.pinError?`<span class="err">${esc(CLOUD.pinError)}</span>`:''}<button class="btn btn-primary btn-block">Masuk</button></form></div>`;
+  if(CLOUD.pinMode && CLOUD.needPin){ root.innerHTML = `<div class="ci-top"><div class="wrap ci-top-in"><span class="logo" style="color:#fff"><span>Penerima tamu</span></span></div></div><div class="wrap" style="max-width:420px;padding:60px 0"><form id="pinF" class="form-card" style="display:grid;gap:14px"><span class="eyebrow">Mode penerima tamu</span><h1 class="display" style="font-size:32px">Masukkan PIN</h1><p class="muted">PIN 6 angka diberikan oleh pasangan pengantin dari dashboard Satu Padu Kita.</p><label for="pinI" class="sr-only">PIN</label><input class="input otp" id="pinI" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="••••••">${CLOUD.pinError?`<span class="err">${esc(CLOUD.pinError)}</span>`:''}<button class="btn btn-primary btn-block">Masuk</button></form></div>`;
     $('#pinF').addEventListener('submit',async ev=>{ ev.preventDefault(); CLOUD.pin=$('#pinI').value.trim(); await pinLoad(); if(!CLOUD.needPin){ try{ history.replaceState(null,'',`/u/${CLOUD.slug}/checkin?pin=${CLOUD.pin}`); }catch(e){} } renderCheckin(); }); setTimeout(()=>$('#pinI')?.focus(),50); return; }
   if(ciSession==null || !S.events[ciSession]) ciSession=defaultSession();
   const ev=S.events[ciSession];

@@ -1,4 +1,4 @@
-// Helper bersama untuk fungsi serverless SatuPadu (tanpa dependensi npm).
+// Helper bersama untuk fungsi serverless Satu Padu Kita (tanpa dependensi npm).
 const crypto = require('crypto');
 const env = (k, d = '') => process.env[k] || d;
 const SB_URL = () => env('SUPABASE_URL').replace(/\/$/, '');
