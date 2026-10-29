@@ -1,7 +1,7 @@
 // Webhook notifikasi Midtrans. Atur URL ini di Midtrans Dashboard → Settings → Payment → Notification URL.
 const { env, sb, sha512, send, readBody } = require('../_lib');
 module.exports = async (req, res) => {
-  if (req.method !== 'POST') return send(res, 200, { ok: true, info: 'Sahitya Midtrans webhook' });
+  if (req.method !== 'POST') return send(res, 200, { ok: true, info: 'Sakara Midtrans webhook' });
   try {
     const n = await readBody(req);
     const expected = sha512(`${n.order_id}${n.status_code}${n.gross_amount}${env('MIDTRANS_SERVER_KEY').trim()}`);

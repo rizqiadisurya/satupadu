@@ -1,4 +1,4 @@
-// Helper bersama untuk fungsi serverless Sahitya (tanpa dependensi npm).
+// Helper bersama untuk fungsi serverless Sakara (tanpa dependensi npm).
 const crypto = require('crypto');
 const env = (k, d = '') => process.env[k] || d;
 const SB_URL = () => env('SUPABASE_URL').replace(/\/$/, '');
@@ -8,7 +8,7 @@ const IS_PROD = () => env('MIDTRANS_IS_PRODUCTION') === 'true';
 
 const PLANS = { undangan: { name: 'Paket Undangan', price: 179000 }, tamu: { name: 'Paket Undangan + Tamu', price: 399000 } };
 const UPGRADE_PRICE = 220000;
-const VOUCHERS = { SAHITYA10: { type: 'pct', v: 10 }, NIKAHHEMAT: { type: 'amt', v: 25000 } };
+const VOUCHERS = { SAKARA10: { type: 'pct', v: 10 }, NIKAHHEMAT: { type: 'amt', v: 25000 } };
 
 async function sb(path, { method = 'GET', body, headers = {}, key = SERVICE(), token } = {}) {
   const r = await fetch(`${SB_URL()}${path}`, {

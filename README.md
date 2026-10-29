@@ -1,4 +1,4 @@
-# Sahitya
+# Sakara
 
 Undangan digital pernikahan. Satu undangan, dipadu untuk setiap tamu.
 

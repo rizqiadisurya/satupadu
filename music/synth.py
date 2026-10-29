@@ -1,4 +1,4 @@
-"""Sahitya - original instrumental tracks, synthesized from scratch (no samples, no copyrighted material)."""
+"""Sakara - original instrumental tracks, synthesized from scratch (no samples, no copyrighted material)."""
 import numpy as np, subprocess, sys, os
 
 SR = 44100
@@ -95,7 +95,7 @@ class Track:
         pcm = (st * 32767).astype('<i2').tobytes()
         subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-f', 's16le', '-ar', str(SR), '-ac', '2', '-i', '-',
                         '-c:a', 'libmp3lame', '-b:a', '112k', '-metadata', f'title={title}',
-                        '-metadata', 'artist=Sahitya', path], input=pcm, check=True)
+                        '-metadata', 'artist=Sakara', path], input=pcm, check=True)
 
 # Chords as MIDI note lists
 def triad(root, minor=False):

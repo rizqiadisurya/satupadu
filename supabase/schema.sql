@@ -1,4 +1,4 @@
--- Sahitya · skema database Supabase
+-- Sakara · skema database Supabase
 -- Jalankan sekali di Supabase → SQL Editor. Aman dijalankan ulang.
 
 create extension if not exists pgcrypto;
