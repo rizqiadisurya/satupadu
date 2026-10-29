@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
     };
     if (METHODS[body.method]) payload.enabled_payments = METHODS[body.method];
     const base = IS_PROD() ? 'https://app.midtrans.com' : 'https://app.sandbox.midtrans.com';
-    const r = await fetch(`${base}/snap/v1/transactions`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json', Authorization: 'Basic ' + Buffer.from(env('MIDTRANS_SERVER_KEY').trim() + ':').toString('base64') }, body: JSON.stringify(payload) });
+    const r = await fetch(`${base}/snap/v1/transactions`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-Override-Notification': `${site}/api/pay/notify`, Authorization: 'Basic ' + Buffer.from(env('MIDTRANS_SERVER_KEY').trim() + ':').toString('base64') }, body: JSON.stringify(payload) });
     const raw = await r.text();
     let snap = {}; try { snap = JSON.parse(raw); } catch (e) {}
     if (!r.ok || !snap.token) {
