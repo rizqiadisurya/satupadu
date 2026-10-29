@@ -1,4 +1,4 @@
--- Satu Padu Kita · migrasi 002: akun keluarga, jam kedatangan, katering. Aman dijalankan ulang.
+-- Sahitya · migrasi 002: akun keluarga, jam kedatangan, katering. Aman dijalankan ulang.
 
 alter table public.guests add column if not exists fam text;
 alter table public.guests add column if not exists approved boolean not null default true;
