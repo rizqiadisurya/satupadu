@@ -1775,7 +1775,7 @@ function openAuth(next, mode){
     otpStep(nm, v); });
 }
 function otpStep(name, email){
-  openModal(`<div class="auth"><span class="eyebrow">Verifikasi email</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">${CLOUD.on?'Cek email kamu':'Masukkan kode'}</h2><p class="muted">${CLOUD.on?`Link masuk sudah dikirim ke <b style="color:var(--ink)">${esc(email)}</b>. Buka emailnya di perangkat ini lalu ketuk <b style="color:var(--ink)">Log In</b>. Kalau emailnya berisi kode 6 angka, ketik di bawah.`:`Kode 6 angka sudah dikirim ke <b style="color:var(--ink)">${esc(email)}</b>.`}</p>
+  openModal(`<div class="auth"><span class="eyebrow">Verifikasi email</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">Masukkan kode</h2><p class="muted">Kode 6 angka sudah dikirim ke <b style="color:var(--ink)">${esc(email)}</b>.${CLOUD.on?' Bisa juga ketuk link di email itu, asal dibuka di perangkat ini.':''}</p>
     <form id="otpForm" style="margin-top:20px;display:grid;gap:14px" novalidate><label for="otp" class="sr-only">Kode verifikasi</label><input class="input otp" id="otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="••••••"><span class="err" hidden></span>
     <button class="btn btn-primary btn-block">Verifikasi & masuk</button></form>
     <p class="muted" style="font-size:13px;margin-top:14px">${CLOUD.on?'Tidak ada email? Cek folder Spam atau Promosi.':'Prototype: ketik 6 angka apa saja.'} <button class="linkbtn" data-act="login">Ganti email</button></p></div>`);
@@ -1783,7 +1783,7 @@ function otpStep(name, email){
   $('#otp').addEventListener('input',e=>{ e.target.value=e.target.value.replace(/\D/g,'').slice(0,6); if(e.target.value.length===6) $('#otpForm').requestSubmit(); });
   $('#otpForm').addEventListener('submit',async ev=>{ ev.preventDefault(); const v=$('#otp').value; const er=$('#otpForm .err'); if(v.length<6){ er.textContent='Kode terdiri dari 6 angka'; er.hidden=false; return; }
     if(CLOUD.on){ const b=$('#otpForm button'); b.disabled=true; b.textContent='Memeriksa…';
-      const { data, error } = await CLOUD.sb.auth.verifyOtp({email, token:v, type:'email'});
+      const { data, error } = await CLOUD.sb.auth.verifyOtp({email, token:v, type:'email'}); /* signup memakai tipe yang sama sejak supabase-js 2.x */
       if(error){ b.disabled=false; b.textContent='Verifikasi & masuk'; er.textContent='Kode salah atau sudah kedaluwarsa. Minta kode baru bila perlu.'; er.hidden=false; return; }
       await ownerLoad(data.user); closeModal(); renderAuthSlot(); toast('Halo, '+S.user.name.split(' ')[0]+'!'); const n=authNext; authNext=null; if(n) n(); else route(); return; }
     finishLogin(name,email); });
