@@ -7,6 +7,14 @@
     {
       "source": "/u/:slug/checkin",
       "destination": "/index.html"
+    },
+    {
+      "source": "/u/:slug/keluarga",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/u/:slug/katering",
+      "destination": "/index.html"
     }
   ],
   "headers": [

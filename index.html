@@ -827,6 +827,98 @@ html.boot-app #bootSkel .bs-app{display:flex}
 @media (max-width:640px){#bootSkel .bs-row{grid-template-columns:1fr 1fr}}
 #bootSkel .bs-brand{position:absolute;bottom:22px;left:0;right:0;text-align:center;font:600 12px/1 'Plus Jakarta Sans',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#B9A4AB}
 @media (prefers-reduced-motion: reduce){.sk::after,.sk-img::after{animation:none}.inv.anim .cover .cv-in,.inv.anim .cover .card{animation:none}}
+/* ===== Jam kedatangan & keramaian (di undangan) ===== */
+.inv .arr{display:flex;flex-wrap:wrap;gap:6px}
+.inv .arr button{border:1.5px solid color-mix(in srgb,var(--t-fg) 22%,transparent);background:transparent;color:var(--t-fg);border-radius:999px;padding:8px 12px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;min-height:40px;font-variant-numeric:tabular-nums}
+.inv .arr button[aria-pressed=true]{background:var(--t-accent);border-color:var(--t-accent);color:var(--t-bg)}
+.inv .arr-note{font-size:12px;opacity:.7}
+.inv .crowd{max-width:340px;margin:18px auto 0;padding:16px;border-radius:18px;background:color-mix(in srgb,var(--t-soft) 85%,transparent);border:1px solid color-mix(in srgb,var(--t-accent) 22%,transparent);text-align:left}
+.inv .crowd-h{display:flex;align-items:center;gap:8px;font-size:14px}
+.inv .crowd-h .icon{width:18px;height:18px;color:var(--t-accent)}
+.inv .crowd-h span{margin-left:auto;font-size:12px;opacity:.7}
+.inv .crowd p{font-size:13.5px;margin-top:10px;line-height:1.5}
+.inv .crowd p small{display:block;opacity:.6;font-size:11.5px;margin-top:2px}
+.crowd-bars{display:flex;gap:4px;align-items:flex-end;height:96px;margin-top:12px}
+.crowd-bars .cb{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.crowd-bars .cb-col{position:relative;width:100%;height:74px;display:flex;align-items:flex-end;justify-content:center}
+.crowd-bars .cb-col span{width:100%;max-width:26px;border-radius:6px 6px 2px 2px;background:color-mix(in srgb,var(--t-accent,var(--beet)) 35%,transparent)}
+.crowd-bars .cb.pk .cb-col span{background:var(--t-accent,var(--beet))}
+.crowd-bars .cb-col i{position:absolute;bottom:0;width:40%;max-width:10px;border-radius:3px;background:var(--ok,#2f7a4f)}
+.crowd-bars small{font-size:9.5px;opacity:.7;font-variant-numeric:tabular-nums;white-space:nowrap}
+.crowd-live{display:flex;gap:10px;align-items:center;margin-top:12px;padding:10px 12px;border-radius:12px;background:#fff}
+.crowd-live .dot{width:12px;height:12px;border-radius:50%;flex:none;box-shadow:0 0 0 0 currentColor;animation:pulse 1.8s infinite}
+.crowd-live b{display:block;font-size:15px;color:#221a1d}
+.crowd-live small{font-size:12px;color:#5b4a50}
+.lv-ok{color:#2f7a4f}.lv-ok .dot{background:#2f7a4f}
+.lv-mid{color:#b7791f}.lv-mid .dot{background:#d69e2e}
+.lv-hi{color:#b83232}.lv-hi .dot{background:#c53030}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,currentColor 45%,transparent)}70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
+
+/* ===== Dashboard: keluarga & katering ===== */
+.fam-intro{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:20px}
+.fam-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.fam-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:18px;display:grid;gap:12px}
+.fam-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.fam-top b{display:block;font-size:17px}
+.fam-top small{font-size:13px}
+.fam-meter{height:10px;border-radius:99px;background:var(--blush,#f6e9ec);overflow:hidden}
+.fam-meter span{display:block;height:100%;background:var(--beet);border-radius:99px;transition:width .6s}
+.fam-meter.big{height:14px;margin-top:16px}
+.fam-q{font-size:14px;color:var(--muted)}
+.fam-q b{color:var(--ink);font-size:18px}
+.fam-link{display:flex;gap:8px}
+.fam-link .input{min-height:38px;font-size:12.5px;padding:8px 10px;color:var(--muted)}
+.fam-pend{margin-bottom:20px}
+.fam-pend h3{display:flex;align-items:center;gap:8px}
+.fam-pend ul{list-style:none;display:grid;gap:8px;margin:12px 0 0;padding:0}
+.fam-pend li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;flex-wrap:wrap}
+.fam-pend li small{display:block;font-size:12.5px}
+.fam-acts{display:flex;gap:6px}
+.cnt{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 7px;border-radius:99px;background:var(--blush,#f6e9ec);color:var(--beet);font-size:12px;font-weight:800}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.cat-card{background:var(--card,#fff);border:1px solid var(--line,#eadde1);border-radius:var(--r-md,18px);padding:20px;display:grid;gap:12px}
+.cat-top b{display:block;font-size:18px}
+.cat-top small{font-size:13px;color:var(--muted)}
+.cat-big{display:flex;align-items:baseline;gap:10px}
+.cat-big .num{font-family:var(--display,Georgia,serif);font-size:56px;line-height:1;color:var(--beet,#7a1f3d)}
+.cat-big small{font-size:14px;color:var(--muted);font-weight:600}
+.cat-break{list-style:none;display:grid;gap:6px;font-size:14px;padding:0;margin:0}
+.cat-break li{display:flex;justify-content:space-between;gap:12px;padding-bottom:6px;border-bottom:1px dashed var(--line,#eadde1)}
+.cat-break li span{color:var(--muted)}
+.cat-break li.act b{color:var(--ok,#2f7a4f)}
+.cat-foot{font-size:12.5px}
+.cat-ctl{display:grid;gap:6px;margin-top:14px}
+.cat-ctl label{font-size:14px;font-weight:600}
+.cat-ctl > div{display:flex;align-items:center;gap:12px}
+.cat-ctl input[type=range]{flex:1;accent-color:var(--beet)}
+.cat-ctl output{min-width:44px;text-align:right;font-weight:800}
+.arr-panel{margin-top:20px}
+.arr-panel .crowd-bars{height:150px}
+.arr-panel .crowd-bars .cb-col{height:124px}
+.arr-panel .crowd-bars small{font-size:11px}
+@media (max-width:760px){ .dash-nav{grid-template-columns:repeat(7,1fr) !important} .dash-nav button{font-size:10px !important;padding:6px 2px !important} .dash-nav button .icon{width:20px;height:20px} }
+
+/* ===== Halaman keluarga & vendor ===== */
+.fp{max-width:560px;margin:0 auto;padding:28px 18px 60px;display:grid;gap:16px;font-size:16.5px}
+.fp.wide{max-width:960px}
+.fp-head{display:grid;gap:8px}
+.fp-head .display{font-size:34px;line-height:1.1}
+.logo-sm{font-weight:800;font-size:15px;color:var(--ink)}
+.logo-sm b{color:var(--beet)}
+.fp-q{font-size:15px;color:var(--muted)}
+.fp-q b{color:var(--ink);font-size:20px}
+.fp-card{background:var(--card,#fff);border:1px solid var(--line);border-radius:var(--r-md,18px);padding:18px;display:grid;gap:12px}
+.fp-card label{display:grid;gap:4px}
+.fp-card label .muted{font-size:14.5px}
+.fp-card textarea{font-size:17px;line-height:1.5;min-height:150px;resize:vertical}
+.fp-card h2{font-size:19px;display:flex;align-items:center;gap:8px}
+.fp-prev{font-size:14px;color:var(--muted);min-height:20px}
+.fp-list{list-style:none;display:grid;gap:8px;padding:0;margin:0}
+.fp-list li{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--line);border-radius:12px}
+.fp-list li > div{flex:1;min-width:0;display:grid}
+.fp-list li small{font-size:13px}
+.fp-foot{text-align:center;font-size:13px}
+@media print{ #siteHeader,#footerWrap,.fp-foot,[data-act=cat-print]{display:none !important} .fp{padding:0} }
 </style>
 </head>
 <body>
@@ -852,6 +944,8 @@ html.boot-app #bootSkel .bs-app{display:flex}
     <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3.5 6.5h17v11h-17z M3.8 7l8.2 6.2L20.2 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
     <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-family" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8" cy="6.5" r="2.5"/><circle cx="16" cy="6.5" r="2.5"/><circle cx="12" cy="13" r="2"/><path d="M3.5 20v-3.5a4.5 4.5 0 0 1 4.5-4.5M20.5 20v-3.5a4.5 4.5 0 0 0-4.5-4.5M8.5 20v-1.5a3.5 3.5 0 0 1 7 0V20"/></g></symbol>
+    <symbol id="i-food" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h18a9 9 0 0 1-18 0z"/><path d="M12 4v2M8 5.5l.8 1.6M16 5.5l-.8 1.6M2 20h20"/></g></symbol>
     <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></symbol>
     <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></symbol>
     <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.5" cy="16" r="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/></symbol>
@@ -1089,6 +1183,8 @@ html.boot-app #bootSkel .bs-app{display:flex}
 </main>
 
 <!-- ============ CHECK-IN ============ -->
+<div data-view="keluarga" hidden><div id="keluarga"></div></div>
+<div data-view="katering" hidden><div id="katering"></div></div>
 <div data-view="checkin" hidden><div class="ci-shell" id="checkin"></div></div>
 
 <!-- ============ UNDANGAN (TAMU) ============ -->
@@ -1273,7 +1369,7 @@ const DEFAULT = {
 };
 let S = Object.assign(structuredClone(DEFAULT), store.get('sp-state') || {});
 if(S.v !== DEFAULT.v) S = structuredClone(DEFAULT);
-const save = () => { if(CLOUD.guestMode||CLOUD.pinMode) return; cloudSave(); if(!store.set('sp-state', S) && !save.warned){ save.warned=1; toast('Memori browser penuh: foto tetap tampil, tapi hilang saat halaman ditutup'); } const el = $('#saveState'); if(el) el.textContent = 'Tersimpan otomatis'; };
+const save = () => { if(CLOUD.guestMode||CLOUD.pinMode||CLOUD.famMode||CLOUD.catMode) return; cloudSave(); if(!store.set('sp-state', S) && !save.warned){ save.warned=1; toast('Memori browser penuh: foto tetap tampil, tapi hilang saat halaman ditutup'); } const el = $('#saveState'); if(el) el.textContent = 'Tersimpan otomatis'; };
 
 const OPENINGS = {
   islam:{salam:'Assalamu’alaikum Warahmatullahi Wabarakatuh', text:'Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami.', quote:'“Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan untukmu dari jenismu sendiri, agar kamu merasa tenteram kepadanya.” — QS. Ar-Rum: 21'},
@@ -1301,7 +1397,8 @@ let G = store.get('sp-guests') || seedGuests();
 function makeCode(g){ const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let h=7; for(const c of (g.id+g.name)) h=(h*31+c.charCodeAt(0))>>>0; let code; do{ let x=h, s=''; for(let i=0;i<4;i++){ s+=A[x%32]; x=Math.floor(x/32); } code='SP-'+s; h=(h*1103515245+12345)>>>0; } while(G.some(o=>o!==g && o.code===code)); return code; }
 G.forEach(g=>{ if(!Array.isArray(g.sessions)) g.sessions = (S.events.length>1 && /Kantor|Tetangga/.test(g.group)) ? [S.events.length-1] : S.events.map((e,i)=>i); if(!g.code) g.code=makeCode(g); });
 if(!S.groups) S.groups=[...GROUPS];
-const saveG = () => { if(CLOUD.guestMode||CLOUD.pinMode) return; if(!CLOUD.uid) store.set('sp-guests', G); cloudSyncGuests(); };
+let G_ALL = null;
+const saveG = () => { if(CLOUD.guestMode||CLOUD.pinMode||CLOUD.famMode||CLOUD.catMode) return; if(!CLOUD.uid) store.set('sp-guests', G); cloudSyncGuests(); };
 saveG();
 let W = store.get('sp-wishes') || [
   {n:'Ani Wulandari', t:'2 jam lalu', m:'Selamat Nadia & Rizky! Semoga jadi keluarga yang sakinah, mawaddah, warahmah. Sampai ketemu di Graha Sawala ya.', att:true, show:true},
@@ -1310,7 +1407,7 @@ let W = store.get('sp-wishes') || [
   {n:'Bella Permata', t:'kemarin', m:'Maaf belum bisa hadir karena di luar kota, doa terbaik untuk kalian berdua.', att:false, show:true},
   {n:'Hana Halim', t:'2 hari lalu', m:'Happy wedding Nadia sayang, cantik banget undangannya!', att:true, show:true}
 ];
-const saveW = () => { if(CLOUD.guestMode||CLOUD.pinMode||CLOUD.uid) return; store.set('sp-wishes', W); };
+const saveW = () => { if(CLOUD.guestMode||CLOUD.pinMode||CLOUD.famMode||CLOUD.catMode||CLOUD.uid) return; store.set('sp-wishes', W); };
 let GIFTS = [
   {n:'Om Darmawan', bank:'BCA', amt:500000, t:'Hari ini, 09.12'},
   {n:'Fitri Rahayu', bank:'BCA', amt:250000, t:'Kemarin, 20.41'},
@@ -1339,7 +1436,7 @@ function passHTML(g){
   return `<div class="pass"><div class="k-label" style="color:#7D1D3F">Kartu masuk</div><div class="qr">${qrSVG(g.code)}</div><b class="pc">${esc(g.code)}</b><p>Tunjukkan ke penerima tamu saat datang${g.pax?` · ${g.pax} orang`:''}.</p></div>`;
 }
 function rsvpDone(g, att, pax){
-  return `<div class="ok-box"><b style="font-family:var(--t-font);font-size:24px">Terima kasih, ${esc(g?g.name:'')}</b><p style="margin-top:6px;font-size:14px">${att==='hadir'?`Kami catat ${pax} orang akan hadir. Sampai jumpa di hari bahagia kami.`:'Terima kasih sudah mengabari. Doa kalian sangat berarti untuk kami.'}</p>${att==='hadir'&&g?passHTML(g):''}<button class="ibtn" style="margin-top:12px" data-act="rsvp-again" data-gid="${g?esc(g.id):''}">Ubah jawaban</button></div>`;
+  return `<div class="ok-box"><b style="font-family:var(--t-font);font-size:24px">Terima kasih, ${esc(g?g.name:'')}</b><p style="margin-top:6px;font-size:14px">${att==='hadir'?`Kami catat ${pax} orang akan hadir${g&&g.arrive?`, perkiraan datang pukul ${esc(g.arrive)}`:''}. Sampai jumpa di hari bahagia kami.`:'Terima kasih sudah mengabari. Doa kalian sangat berarti untuk kami.'}</p>${att==='hadir'&&g?passHTML(g):''}<button class="ibtn" style="margin-top:12px" data-act="rsvp-again" data-gid="${g?esc(g.id):''}">Ubah jawaban</button></div>`;
 }
 function invHTML(opts={}){
   const t = themeById(opts.theme || S.theme);
@@ -1381,6 +1478,7 @@ function invHTML(opts={}){
             ${e.date?`<a class="ibtn" href="${calUrl(e)}" target="_blank" rel="noopener">${ico('cal')}Simpan ke kalender</a>`:''}
           </div>
         </div>`).join('')}
+      ${(()=>{ const me=mainEvent(gobj); return me ? `<div class="crowd" data-crowd data-ev="${me.i}" hidden></div>` : ''; })()}
     </section>`;
   if(S.galleryOn && S.gallery.length) sec.galeri = `<section id="${id}-galeri"><h3>Galeri</h3><p class="lead">Potongan cerita kami menuju hari ini.</p><div class="gal">${S.gallery.map((g,k)=>`<button type="button" data-act="zoom" data-k="${k}" style="background-image:url(${g})" aria-label="Perbesar foto ${k+1}"></button>`).join('')}</div></section>`;
   const answered = gobj && gobj.status!=='belum';
@@ -1447,7 +1545,8 @@ function rsvpForm(guest, g){
     <span style="font-size:13px;font-weight:700">Apakah akan hadir?</span>
     <div class="opt" role="group" aria-label="Kehadiran"><button type="button" data-att="hadir" aria-pressed="true">Hadir</button><button type="button" data-att="tidak" aria-pressed="false">Tidak bisa</button></div>
     <div data-paxwrap><span style="font-size:13px;font-weight:700">Jumlah orang</span>
-    <div class="pax"><button type="button" data-pax="-1" aria-label="Kurangi">−</button><output data-paxv>${pax}</output><button type="button" data-pax="1" aria-label="Tambah">+</button></div></div>
+    <div class="pax"><button type="button" data-pax="-1" aria-label="Kurangi">−</button><output data-paxv>${pax}</output><button type="button" data-pax="1" aria-label="Tambah">+</button></div>
+    ${(()=>{ const me=mainEvent(g); const sl=slotsFor(me); if(!sl.length) return ''; return `<span style="font-size:13px;font-weight:700;display:block;margin-top:12px">Perkiraan jam datang ke ${esc(me.type||'acara')} <span style="font-weight:500;opacity:.7">(opsional)</span></span><div class="arr" role="group" aria-label="Perkiraan jam datang" style="margin-top:8px">${sl.map(x=>`<button type="button" data-arr="${x}" aria-pressed="${g&&g.arrive===x}">${x}</button>`).join('')}</div><span class="arr-note">Membantu kami mengatur antrean dan katering.</span>`; })()}</div>
     <button class="ibtn solid" style="justify-content:center;margin-top:6px">Kirim konfirmasi</button>
   </form>`;
 }
@@ -1455,13 +1554,15 @@ function wishList(){
   return W.filter(w=>w.show).slice(0,6).map(w=>`<div class="wish"><b>${esc(w.n)}</b>${w.att?'<span class="att">Hadir</span>':''}<small>${esc(w.t)}</small><p>${esc(w.m)}</p></div>`).join('');
 }
 function bindInv(root){
+  renderCrowd(root);
   root.querySelectorAll('[data-rsvpform]').forEach(f=>{
     if(f.dataset.bound) return; f.dataset.bound=1;
-    let att='hadir', pax=+f.querySelector('[data-paxv]').textContent||2;
+    let att='hadir', pax=+f.querySelector('[data-paxv]').textContent||2, arrive=(f.querySelector('[data-arr][aria-pressed=true]')||{}).dataset?.arr||'';
     f.addEventListener('click',e=>{
       const a = e.target.closest('[data-att]'); const p = e.target.closest('[data-pax]');
       if(a){ att=a.dataset.att; f.querySelectorAll('[data-att]').forEach(b=>b.setAttribute('aria-pressed', b===a)); f.querySelector('[data-paxwrap]').hidden = att!=='hadir'; }
       if(p){ pax=Math.min(6,Math.max(1,pax+ +p.dataset.pax)); f.querySelector('[data-paxv]').textContent=pax; }
+      const ar = e.target.closest('[data-arr]'); if(ar){ arrive = arrive===ar.dataset.arr ? '' : ar.dataset.arr; f.querySelectorAll('[data-arr]').forEach(b=>b.setAttribute('aria-pressed', b.dataset.arr===arrive)); }
     });
     f.addEventListener('submit',async e=>{
       e.preventDefault();
@@ -1469,7 +1570,7 @@ function bindInv(root){
       if(!n){ f.querySelector('input').focus(); return; }
       if(CLOUD.guestMode){
         const btn=f.querySelector('button.solid'); btn.disabled=true; btn.textContent='Mengirim…';
-        const { data, error } = await CLOUD.sb.rpc('rsvp',{p_slug:CLOUD.slug, p_code:CLOUD.guest?.code||null, p_name:n, p_status:att, p_pax:pax});
+        const { data, error } = await CLOUD.sb.rpc('rsvp',{p_slug:CLOUD.slug, p_code:CLOUD.guest?.code||null, p_name:n, p_status:att, p_pax:pax, p_arrive: att==='hadir'?arrive:''});
         if(error){ btn.disabled=false; btn.textContent='Kirim konfirmasi'; toast('Gagal mengirim: '+error.message); return; }
         CLOUD.guest = fromRow(data); G=[CLOUD.guest];
         if(!CLOUD.code){ CLOUD.code=data.code; try{ history.replaceState(null,'',`/u/${CLOUD.slug}?to=${data.code}`); }catch(err){} }
@@ -1477,8 +1578,8 @@ function bindInv(root){
       }
       const gid = f.closest('[data-rsvp]')?.dataset.gid;
       let g = (gid && G.find(x=>x.id===gid)) || G.find(x=>x.name.toLowerCase()===n.toLowerCase());
-      if(g){ g.status=att; g.pax= att==='hadir'?pax:0; }
-      else { g = {id:'g'+Date.now(),name:n,group:'Lewat undangan',phone:'',status:att,pax:att==='hadir'?pax:0,sent:true,sessions:S.events.map((e,i)=>i)}; g.code=makeCode(g); G.unshift(g); }
+      if(g){ g.status=att; g.pax= att==='hadir'?pax:0; g.arrive = att==='hadir'?arrive:''; }
+      else { g = {id:'g'+Date.now(),name:n,group:'Lewat undangan',phone:'',status:att,pax:att==='hadir'?pax:0,sent:true,sessions:S.events.map((e,i)=>i),arrive:att==='hadir'?arrive:''}; g.code=makeCode(g); G.unshift(g); }
       saveG();
       f.parentElement.dataset.gid = g.id;
       f.parentElement.innerHTML = rsvpDone(g, att, pax);
@@ -1937,7 +2038,7 @@ function openGuest(){
 
 /* ---------- Dashboard ---------- */
 let dTab='ringkasan', gQ='', gStatus='semua', gGroup='semua', sel=new Set();
-const DT = [['ringkasan','Ringkasan','home'],['tamu','Tamu','users'],['harih','Hari H','qr'],['ucapan','Ucapan','chat'],['hadiah','Hadiah','gift']];
+const DT = [['ringkasan','Ringkasan','home'],['tamu','Tamu','users'],['keluarga','Keluarga','family'],['katering','Katering','food'],['harih','Hari H','qr'],['ucapan','Ucapan','chat'],['hadiah','Hadiah','gift']];
 const stLabel = {hadir:['Hadir','s-ok'],tidak:['Tidak hadir','s-no'],belum:['Belum menjawab','s-wait']};
 const PRO = ['import','bulk','groups','harih','remind'];
 const isLocked = f => S.published && S.plan==='undangan' && PRO.includes(f);
@@ -1949,14 +2050,233 @@ function waMsg(g){ const ev=guestEvents(g); return `Halo ${g.name},\n\nDengan pe
 function waUrl(g){ return `https://wa.me/${(g.phone||'').replace(/^0/,'62')}?text=${encodeURIComponent(waMsg(g))}`; }
 const filteredGuests = () => { const q=gQ.toLowerCase(); return G.filter(g=>(gStatus==='semua'||g.status===gStatus) && (gGroup==='semua'||g.group===gGroup) && (!q||g.name.toLowerCase().includes(q)||(g.phone||'').includes(q)||(g.code||'').toLowerCase().includes(q))); };
 const sesChips = g => guestEvents(g).map(e=>`<span class="chip chip-ses">${esc(e.type)}</span>`).join(' ');
-function renderDash(){
+/* ---------- Akun keluarga · jam kedatangan · katering ---------- */
+const genToken = () => { const A='abcdefghjkmnpqrstuvwxyz23456789'; const r=new Uint8Array(18); (crypto.getRandomValues?crypto.getRandomValues(r):r.forEach((_,i)=>r[i]=Math.random()*255)); return [...r].map(b=>A[b%A.length]).join(''); };
+const isPending = g => g.approved===false;
+const famById = id => (S.families||[]).find(f=>f.id===id);
+const famUsed = f => G.filter(g=>g.fam===f.id).length;
+function famLink(f){ return CLOUD.on ? `${location.origin}/u/${(CLOUD.inv&&CLOUD.inv.slug)||S.slug}/keluarga?k=${f.token}` : `${location.href.split('#')[0]}#keluarga-${f.token}`; }
+function catToken(){ if(CLOUD.on && CLOUD.inv) return CLOUD.inv.catering_token; if(!S.cateringToken){ S.cateringToken=genToken(); save(); } return S.cateringToken; }
+function catLink(){ return CLOUD.on ? `${location.origin}/u/${(CLOUD.inv&&CLOUD.inv.slug)||S.slug}/katering?k=${catToken()}` : `${location.href.split('#')[0]}#katering-${catToken()}`; }
+
+/* jam kedatangan */
+const toMin = t => { const m=String(t||'').match(/(\d{1,2})[.:](\d{2})/); return m ? (+m[1])*60+(+m[2]) : null; };
+const fromMin = m => `${String(Math.floor(m/60)).padStart(2,'0')}.${String(m%60).padStart(2,'0')}`;
+function slotsFor(e){ const a=toMin(e&&e.start); if(a==null) return []; let b=toMin(e.end); if(b==null||b<=a) b=a+180; const out=[]; for(let t=a; t<b; t+=30) out.push(fromMin(t)); return out.slice(0,14); }
+function mainEvent(g){ const ev=guestEvents(g).filter(e=>e.start); return ev.length ? ev[ev.length-1] : null; }
+function seedArrivals(){
+  if(S.arrSeeded) return; const ev=S.events.filter(e=>e.start); const main=ev[ev.length-1]; const sl=slotsFor(main); if(!sl.length) return;
+  const w=sl.map((_,i)=>Math.exp(-Math.pow((i-sl.length*0.45)/(sl.length*0.28),2)));
+  G.forEach((g,k)=>{ if(g.status==='hadir' && g.arrive===undefined){ let x=((k*2654435761)>>>0)%1000/1000*w.reduce((a,b)=>a+b,0), i=0; while(x>w[i] && i<w.length-1){ x-=w[i]; i++; } g.arrive=sl[i]; } });
+  S.arrSeeded=true;
+}
+function arrivalCounts(list, e){ const sl=slotsFor(e); const c=Object.fromEntries(sl.map(s=>[s,0])); list.forEach(g=>{ if(g.status==='hadir' && g.arrive && c[g.arrive]!==undefined) c[g.arrive]+=Math.max(1,g.pax||1); }); return {slots:sl, c}; }
+function crowdBars(slots, c, opts={}){
+  const max=Math.max(1,...slots.map(s=>c[s]||0)); const peak=slots.reduce((a,s)=>(c[s]||0)>(c[a]||0)?s:a, slots[0]);
+  return `<div class="crowd-bars" role="img" aria-label="Perkiraan jumlah tamu per jam. Paling ramai sekitar pukul ${peak}.">${slots.map(s=>{ const v=c[s]||0, h=Math.max(4,Math.round(v/max*100)); const act=opts.actual?opts.actual[s]||0:null;
+    return `<div class="cb ${s===peak&&v?'pk':''}"><div class="cb-col"><span style="height:${h}%"></span>${act!=null?`<i style="height:${Math.min(100,Math.round(act/max*100))}%"></i>`:''}</div><small>${s}</small></div>`; }).join('')}</div>`;
+}
+function crowdAdvice(slots, c){
+  const tot=slots.reduce((a,s)=>a+(c[s]||0),0); if(tot<3) return '';
+  const peak=slots.reduce((a,s)=>(c[s]||0)>(c[a]||0)?s:a, slots[0]);
+  const calm=slots.filter(s=>s!==peak).reduce((a,s)=>(c[s]||0)<(c[a]||0)?s:a, slots.find(s=>s!==peak)||slots[0]);
+  return `Paling ramai sekitar pukul <b>${peak}</b>. Ingin lebih leluasa? Datang sekitar <b>${calm}</b>.`;
+}
+let crowdCache={t:0, d:null};
+async function crowdData(){
+  if(CLOUD.guestMode){ if(Date.now()-crowdCache.t<55000 && crowdCache.d) return crowdCache.d; const { data } = await CLOUD.sb.rpc('crowd',{p_slug:CLOUD.slug}); crowdCache={t:Date.now(), d:data}; return data; }
+  const slots={}; G.forEach(g=>{ if(!isPending(g) && g.status==='hadir' && g.arrive) slots[g.arrive]=(slots[g.arrive]||0)+Math.max(1,g.pax||1); });
+  const now=Date.now(); const recent=G.filter(g=>g.checkin && now-g.checkin.ts<30*60000).reduce((a,g)=>a+(g.checkin.pax||1),0);
+  return {slots, recent, arrived:G.filter(g=>g.checkin).reduce((a,g)=>a+(g.checkin.pax||1),0), now};
+}
+async function renderCrowd(root){
+  const el=root.querySelector('[data-crowd]'); if(!el) return;
+  const e=S.events[+el.dataset.ev]; if(!e) return; const sl=slotsFor(e); if(!sl.length){ el.remove(); return; }
+  let d; try{ d=await crowdData(); }catch(err){ d=null; } if(!d){ el.hidden=true; return; }
+  const c=Object.fromEntries(sl.map(s=>[s, d.slots[s]||0])); const tot=sl.reduce((a,s)=>a+c[s],0);
+  const day = e.date===new Date(Date.now()+7*36e5).toISOString().slice(0,10);
+  const nowMin = (()=>{ const x=new Date(); return x.getHours()*60+x.getMinutes(); })();
+  const live = day && nowMin>=toMin(sl[0])-60 && nowMin<=toMin(sl[sl.length-1])+90;
+  if(tot<3 && !live){ el.hidden=true; return; }
+  let liveHTML='';
+  if(live){ const cur=fromMin(Math.floor(nowMin/30)*30); const exp=Math.max(4, c[cur]||0, ...sl.map(s=>c[s]))*0.6; const r=d.recent/(exp||1);
+    const lv = r<.4 ? ['Lengang','lv-ok','Pas untuk datang sekarang'] : r<.85 ? ['Sedang','lv-mid','Antrean salaman masih wajar'] : ['Ramai','lv-hi','Antrean salaman cukup panjang'];
+    liveHTML = `<div class="crowd-live ${lv[1]}"><span class="dot"></span><div><b>Sekarang: ${lv[0]}</b><small>${lv[2]} · ${d.recent} tamu tiba dalam 30 menit terakhir</small></div></div>`; }
+  el.hidden=false;
+  el.innerHTML = `<div class="crowd-h">${ico('users')}<b>${live?'Keramaian di lokasi':'Perkiraan keramaian'}</b><span>${esc(e.type||'Acara')}</span></div>${liveHTML}${tot>=3?crowdBars(sl,c):''}<p>${tot>=3?crowdAdvice(sl,c):''} <small>Dari jam datang yang dipilih tamu saat konfirmasi.</small></p>`;
+  if(live && !el.dataset.tick){ el.dataset.tick=1; setInterval(()=>{ if(document.body.contains(el)) renderCrowd(root); }, 60000); }
+}
+
+/* katering */
+const catSet = () => Object.assign({rate:50, defPax:2, buffer:10}, S.catering||{});
+function catCalc(st, set){
+  const fromBelum = Math.round(st.belum*set.rate/100*set.defPax);
+  const est = st.hadir_pax + fromBelum; const rec = est ? Math.ceil(est*(1+set.buffer/100)/10)*10 : 0;
+  return {fromBelum, est, rec, extra: rec-est};
+}
+function catStatsLocal(){
+  return S.events.map((e,i)=>{ const list=G.filter(g=>!isPending(g) && (!g.sessions||!g.sessions.length||g.sessions.includes(i)));
+    return {i, invited:list.length, hadir:list.filter(g=>g.status==='hadir').length, hadir_pax:list.filter(g=>g.status==='hadir').reduce((a,g)=>a+(g.pax||0),0), belum:list.filter(g=>g.status==='belum').length, tidak:list.filter(g=>g.status==='tidak').length, checkin_pax:list.filter(g=>g.checkin&&(g.checkin.session||0)===i).reduce((a,g)=>a+(g.checkin.pax||0),0)}; });
+}
+function catCardsHTML(events, stats, set, vendor){
+  return `<div class="cat-grid">${events.map((e,i)=>{ const st=stats.find(x=>x.i===i)||{invited:0,hadir:0,hadir_pax:0,belum:0,tidak:0,checkin_pax:0}; const k=catCalc(st,set); if(!(e.type||e.date||e.venue)) return '';
+    return `<div class="cat-card"><div class="cat-top"><div><b>${esc(e.type||'Acara '+(i+1))}</b><small>${e.date?esc(fmtShort(e.date)):''}${e.start?` · ${esc(e.start)}${e.end?'–'+esc(e.end):''}`:''}${e.venue?` · ${esc(e.venue)}`:''}</small></div></div>
+      <div class="cat-big"><span class="num">${k.rec}</span><small>porsi disarankan</small></div>
+      <ul class="cat-break">
+        <li><span>Pasti hadir</span><b class="num">${st.hadir_pax} orang</b></li>
+        <li><span>Perkiraan dari ${st.belum} undangan yang belum menjawab</span><b class="num">+${k.fromBelum}</b></li>
+        <li><span>Cadangan ${set.buffer}% untuk tamu tambahan</span><b class="num">+${k.extra}</b></li>
+        ${st.checkin_pax?`<li class="act"><span>Sudah datang (check-in)</span><b class="num">${st.checkin_pax} orang</b></li>`:''}
+      </ul>
+      ${vendor?'':`<div class="cat-foot muted">${st.invited} undangan · ${st.hadir} konfirmasi hadir · ${st.tidak} tidak hadir</div>`}</div>`; }).join('')}</div>`;
+}
+
+/* tab Keluarga (dashboard) */
+function famTabHTML(){
+  const all = G_ALL || G; const fams = S.families||[]; const pend = all.filter(isPending);
+  const card = f => { const used=all.filter(g=>g.fam===f.id).length, ok=all.filter(g=>g.fam===f.id && !isPending(g)).length, pd=used-ok, pct=Math.min(100,Math.round(used/(f.quota||1)*100));
+    return `<div class="fam-card"><div class="fam-top"><div><b>${esc(f.name)}</b><small class="muted">${ok} disetujui${pd?` · <span style="color:var(--warn)">${pd} menunggu</span>`:''}</small></div><button class="btn btn-ghost btn-sm" data-act="fam-edit" data-f="${f.id}">Ubah</button></div>
+      <div class="fam-meter"><span style="width:${pct}%;${pct>=100?'background:var(--no)':''}"></span></div><div class="fam-q num"><b>${used}</b> dari ${f.quota} jatah</div>
+      <div class="fam-link"><input class="input" readonly value="${esc(famLink(f))}" aria-label="Link ${esc(f.name)}"><button class="btn btn-soft btn-sm" data-act="copy" data-v="${esc(famLink(f))}">${ico('copy')}Salin</button></div>
+      <a class="btn btn-ghost btn-sm" style="width:100%;justify-content:center" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(`Assalamu'alaikum. Ini link untuk menambahkan tamu dari ${f.name} ke undangan pernikahan ${S.bride.nick} & ${S.groom.nick}. Jatahnya ${f.quota} tamu.\n\nCukup ketik nama (dan nomor WA kalau ada), satu per baris:\n${famLink(f)}\n\nTerima kasih 🙏`)}">${ico('wa')}Kirim link lewat WhatsApp</a></div>`; };
+  return `<div class="fam-intro"><div><h3 style="font-family:var(--display);font-size:26px">Akun keluarga</h3><p class="muted" style="max-width:62ch;margin-top:6px">Beri orang tua dan keluarga link khusus untuk menambah tamu mereka sendiri, tanpa perlu akun. Setiap keluarga punya jatah. Nama yang mereka tambahkan masuk ke daftar setelah kalian setujui.</p></div><button class="btn btn-primary btn-sm" data-act="fam-add">${ico('plus')}Tambah keluarga</button></div>
+    ${pend.length?`<div class="panel-c fam-pend"><h3>Menunggu persetujuan <span class="cnt num">${pend.length}</span><button class="btn btn-primary btn-sm" data-act="fam-approve-all" style="margin-left:auto">Setujui semua</button></h3>
+      <ul>${pend.slice(0,60).map(g=>`<li><div><b>${esc(g.name)}</b><small class="muted">${esc(famById(g.fam)?.name||g.group)}${g.phone?' · '+esc(g.phone):''}</small></div><div class="fam-acts"><button class="btn btn-soft btn-sm" data-act="fam-ok" data-id="${g.id}">${ico('check')}Setujui</button><button class="btn btn-ghost btn-sm" data-act="fam-no" data-id="${g.id}" aria-label="Tolak ${esc(g.name)}">Tolak</button></div></li>`).join('')}</ul>${pend.length>60?`<p class="muted" style="font-size:13px">+${pend.length-60} lainnya</p>`:''}</div>`:''}
+    ${fams.length?`<div class="fam-grid">${fams.map(card).join('')}</div>`:`<div class="empty"><b style="color:var(--ink)">Belum ada akun keluarga.</b><br>Contoh: “Keluarga ${esc(S.bride.nick)}” jatah 150 dan “Keluarga ${esc(S.groom.nick)}” jatah 150.<br><button class="btn btn-primary btn-sm" data-act="fam-quick" style="margin-top:12px">Buat dua akun keluarga sekarang</button></div>`}`;
+}
+function famModal(id){
+  const f = id ? famById(id) : {name:'', quota:100};
+  openModal(`<div><span class="eyebrow">${id?'Ubah':'Tambah'} akun keluarga</span><h2 class="display" style="font-size:30px;margin:8px 0 16px">${id?esc(f.name):'Keluarga baru'}</h2>
+    <form id="famForm" style="display:grid;gap:14px" novalidate>
+      <div class="field"><label for="fm-n">Nama keluarga</label><input class="input" id="fm-n" value="${esc(f.name)}" placeholder="Keluarga ${esc(S.bride.nick)}" required></div>
+      <div class="field"><label for="fm-q">Jatah tamu</label><input class="input" id="fm-q" type="number" inputmode="numeric" min="1" max="5000" value="${f.quota}"><span class="hint">Jumlah nama undangan yang boleh mereka tambahkan.</span></div>
+      <button class="btn btn-primary btn-block">${id?'Simpan':'Buat link keluarga'}</button>
+      ${id?`<div style="display:flex;gap:10px;flex-wrap:wrap"><button type="button" class="btn btn-ghost btn-sm" data-act="fam-rotate" data-f="${id}">Ganti link (link lama tidak berlaku)</button><button type="button" class="btn btn-ghost btn-sm" style="color:var(--no)" data-act="fam-del" data-f="${id}">Hapus keluarga</button></div>`:''}
+    </form></div>`);
+  $('#famForm').addEventListener('submit', async ev=>{ ev.preventDefault(); const n=$('#fm-n').value.trim(); const q=Math.max(1,Math.min(5000,+$('#fm-q').value||100)); if(!n){ $('#fm-n').focus(); return; }
+    const x = id ? Object.assign(f,{name:n, quota:q}) : {id:'f'+Date.now().toString(36), name:n, quota:q, token:genToken()};
+    if(!id) (S.families=S.families||[]).push(x);
+    if(await famPersist(x)){ save(); closeModal(); renderDash(); toast(id?'Tersimpan':'Link keluarga siap dibagikan'); } });
+}
+async function famPersist(f){
+  if(!(CLOUD.on && CLOUD.inv)) return true;
+  const { error } = await CLOUD.sb.from('families').upsert({invitation_id:CLOUD.inv.id, id:f.id, name:f.name, quota:f.quota, token:f.token}, {onConflict:'invitation_id,id'});
+  if(error){ toast('Gagal menyimpan: '+error.message); return false; } return true;
+}
+async function famRemove(id){
+  if(CLOUD.on && CLOUD.inv){ const { error } = await CLOUD.sb.from('families').delete().eq('invitation_id',CLOUD.inv.id).eq('id',id); if(error){ toast('Gagal menghapus: '+error.message); return; } }
+  S.families=(S.families||[]).filter(f=>f.id!==id); G=G.filter(g=>!(g.fam===id && isPending(g))); G.forEach(g=>{ if(g.fam===id) g.fam=null; }); saveG(); save(); closeModal(); renderDash(); toast('Akun keluarga dihapus');
+}
+document.addEventListener('click', async e=>{
+  const el=e.target.closest('[data-act]'); if(!el) return; const a=el.dataset.act;
+  if(a==='fam-add') famModal(null);
+  if(a==='fam-edit') famModal(el.dataset.f);
+  if(a==='fam-quick'){ S.families=[{id:'f1',name:'Keluarga '+S.bride.nick,quota:150,token:genToken()},{id:'f2',name:'Keluarga '+S.groom.nick,quota:150,token:genToken()}]; for(const f of S.families) if(!(await famPersist(f))) return; save(); renderDash(); toast('Dua akun keluarga siap'); }
+  if(a==='fam-rotate'){ const f=famById(el.dataset.f); f.token=genToken(); if(await famPersist(f)){ save(); closeModal(); renderDash(); toast('Link baru dibuat. Kirim ulang ke keluarga.'); } }
+  if(a==='fam-del'){ if(el.dataset.sure){ famRemove(el.dataset.f); } else { el.dataset.sure=1; el.textContent='Yakin? Ketuk sekali lagi'; } }
+  if(a==='fam-ok'){ const g=G.find(x=>x.id===el.dataset.id); if(g){ g.approved=true; saveG(); renderDash(); toast(`${g.name} masuk daftar tamu`); } }
+  if(a==='fam-no'){ const g=G.find(x=>x.id===el.dataset.id); if(g){ G=G.filter(x=>x!==g); saveG(); renderDash(); toast(`${g.name} tidak ditambahkan`); } }
+  if(a==='fam-approve-all'){ const n=G.filter(isPending).length; G.forEach(g=>{ if(isPending(g)) g.approved=true; }); saveG(); renderDash(); toast(`${n} tamu disetujui`); }
+  if(a==='cat-rotate' && CLOUD.on && CLOUD.inv){ const t=genToken(); const { error } = await CLOUD.sb.from('invitations').update({catering_token:t}).eq('id',CLOUD.inv.id); if(error){ toast('Gagal: '+error.message); return; } CLOUD.inv.catering_token=t; renderDash(); toast('Link vendor diganti'); }
+  else if(a==='cat-rotate'){ S.cateringToken=genToken(); save(); renderDash(); toast('Link vendor diganti'); }
+  if(a==='fp-rm'){ famPageRemove(el.dataset.id); }
+  if(a==='cat-print') window.print();
+});
+
+/* tab Katering (dashboard) */
+function catTabHTML(){
+  const set=catSet(); const st=catStatsLocal(); const tot=S.events.map((e,i)=>catCalc(st[i],set).rec);
+  return `<div class="fam-intro"><div><h3 style="font-family:var(--display);font-size:26px">Hitungan katering</h3><p class="muted" style="max-width:62ch;margin-top:6px">Perkiraan porsi per sesi, dihitung langsung dari konfirmasi tamu dan ikut berubah setiap ada RSVP baru. Atur asumsinya sesuai pengalaman keluarga kalian.</p></div></div>
+    ${catCardsHTML(S.events, st, set, false)}
+    <div class="dgrid" style="margin-top:20px">
+      <div class="panel-c"><h3>Asumsi hitungan</h3>
+        <div class="cat-ctl"><label for="cs-rate">Undangan yang belum menjawab, diperkirakan datang</label><div><input type="range" id="cs-rate" min="0" max="100" step="5" value="${set.rate}"><output class="num">${set.rate}%</output></div></div>
+        <div class="cat-ctl"><label for="cs-pax">Rata-rata orang per undangan yang belum menjawab</label><div><input type="range" id="cs-pax" min="1" max="4" step="0.5" value="${set.defPax}"><output class="num">${set.defPax}</output></div></div>
+        <div class="cat-ctl"><label for="cs-buf">Cadangan untuk tamu tambahan</label><div><input type="range" id="cs-buf" min="0" max="30" step="5" value="${set.buffer}"><output class="num">${set.buffer}%</output></div></div>
+        <p class="muted" style="font-size:13px;margin-top:6px">Hasil dibulatkan ke atas per 10 porsi.</p></div>
+      <div class="panel-c"><h3>Link untuk vendor katering</h3><p class="muted" style="font-size:14px">Vendor bisa memantau angka terbaru tanpa akun. Yang terlihat hanya jumlah per sesi, bukan nama tamu.</p>
+        <div class="fam-link" style="margin-top:12px"><input class="input" readonly value="${esc(catLink())}" aria-label="Link vendor katering"><button class="btn btn-soft btn-sm" data-act="copy" data-v="${esc(catLink())}">${ico('copy')}Salin</button></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(`Halo, ini link perkiraan porsi katering untuk pernikahan ${S.bride.nick} & ${S.groom.nick}. Angkanya diperbarui otomatis dari konfirmasi tamu:\n${catLink()}`)}">${ico('wa')}Kirim ke vendor</a><button class="btn btn-ghost btn-sm" data-act="cat-rotate">Ganti link</button></div></div>
+    </div>`;
+}
+let catT=null;
+document.addEventListener('input', e=>{
+  const m={'cs-rate':['rate','%'],'cs-pax':['defPax',''],'cs-buf':['buffer','%']}[e.target.id]; if(!m) return;
+  S.catering=Object.assign(catSet(), {[m[0]]:+e.target.value}); e.target.nextElementSibling.textContent=e.target.value+m[1];
+  $('.cat-grid').outerHTML = catCardsHTML(S.events, catStatsLocal(), catSet(), false);
+  clearTimeout(catT); catT=setTimeout(save, 400);
+});
+
+/* halaman keluarga (untuk orang tua) */
+let FP = {token:null, fam:null, guests:[], info:null, err:null};
+async function famPageLoad(){
+  if(CLOUD.on && CLOUD.famMode){ const { data, error } = await CLOUD.sb.rpc('fam_load',{p_slug:CLOUD.slug, p_token:FP.token}); if(error){ FP.err=error.message; return; }
+    FP.fam=data.family; FP.guests=data.guests||[]; FP.info={bride:data.bride, groom:data.groom, date:data.date}; return; }
+  const f=(S.families||[]).find(x=>x.token===FP.token); if(!f){ FP.err='Link keluarga tidak berlaku'; return; }
+  FP.fam=f; FP.guests=G.filter(g=>g.fam===f.id).map(g=>({id:g.id,name:g.name,phone:g.phone,approved:!isPending(g),status:g.status})); FP.info={bride:S.bride.nick, groom:S.groom.nick, date:S.events[0]?.date};
+}
+function parseNames(txt){
+  return txt.split(/\n+/).map(l=>l.trim()).filter(Boolean).map(l=>{ const m=l.match(/(\+?62|0)8[\d\s-]{7,15}\d/); const phone=m?m[0].replace(/[\s-]/g,''):''; const name=(m?l.replace(m[0],''):l).replace(/[,;|\t]+\s*$/,'').replace(/\s{2,}/g,' ').replace(/^[\d.)\-•*]+\s+/,'').trim(); return {name, phone}; }).filter(x=>x.name.length>1);
+}
+function renderFamPage(){
+  const root=$('#keluarga');
+  if(FP.err){ root.innerHTML=`<div class="fp"><div class="fp-card" style="text-align:center"><h1 class="display" style="font-size:30px">Link tidak berlaku</h1><p class="muted" style="margin-top:10px">${esc(FP.err)}. Minta link terbaru ke pengantin.</p></div></div>`; return; }
+  const f=FP.fam, used=FP.guests.length, left=Math.max(0,f.quota-used), pct=Math.min(100,Math.round(used/(f.quota||1)*100)), pend=FP.guests.filter(g=>!g.approved).length;
+  root.innerHTML = `<div class="fp">
+    <div class="fp-head"><span class="logo-sm">Satu Padu <b>Kita</b></span><span class="eyebrow">Undangan ${esc(FP.info.bride)} &amp; ${esc(FP.info.groom)}${FP.info.date?' · '+esc(fmtShort(FP.info.date)):''}</span><h1 class="display">Daftar tamu ${esc(f.name)}</h1>
+      <div class="fam-meter big"><span style="width:${pct}%"></span></div><p class="fp-q"><b class="num">${used}</b> dari ${f.quota} tamu · sisa <b class="num">${left}</b></p></div>
+    <form class="fp-card" id="fpForm" novalidate><label for="fp-t"><b>Tambah tamu</b><span class="muted">Satu nama per baris. Nomor WhatsApp boleh ditulis di belakang nama.</span></label>
+      <textarea class="input" id="fp-t" rows="5" placeholder="Pak Haji Darmawan, 081234567890\nBu Siti dan keluarga\nOm Bambang 0813 1111 2222" ${left?'':'disabled'}></textarea>
+      <div class="fp-prev" id="fpPrev" aria-live="polite"></div>
+      <button class="btn btn-primary btn-block" ${left?'':'disabled'}>${left?'Tambahkan ke daftar':'Jatah sudah penuh'}</button></form>
+    <div class="fp-card"><h2>Tamu dari ${esc(f.name)} <span class="cnt num">${used}</span></h2>${pend?`<p class="muted" style="font-size:15px;margin:4px 0 10px">${pend} nama sedang dicek oleh ${esc(FP.info.bride)} &amp; ${esc(FP.info.groom)} sebelum undangannya dikirim.</p>`:''}
+      ${FP.guests.length?`<ul class="fp-list">${FP.guests.map(g=>`<li><div><b>${esc(g.name)}</b>${g.phone?`<small class="muted num">${esc(g.phone)}</small>`:''}</div>${g.approved?`<span class="status ${g.status==='hadir'?'s-ok':g.status==='tidak'?'s-no':'s-mute'}">${g.status==='hadir'?'Akan hadir':g.status==='tidak'?'Tidak hadir':'Disetujui'}</span>`:`<span class="status s-wait">Menunggu</span><button class="btn btn-ghost btn-sm" data-act="fp-rm" data-id="${esc(g.id)}" aria-label="Hapus ${esc(g.name)}">Hapus</button>`}</li>`).join('')}</ul>`:'<p class="muted">Belum ada nama. Mulai dari kerabat terdekat.</p>'}</div>
+    <p class="fp-foot muted">Halaman ini khusus untuk ${esc(f.name)}. Jangan bagikan link ke orang lain.</p></div>`;
+  const ta=$('#fp-t'), pv=$('#fpPrev');
+  ta && ta.addEventListener('input',()=>{ const p=parseNames(ta.value); pv.innerHTML = p.length ? `${p.length} nama akan ditambahkan${p.length>left?` · <b style="color:var(--no)">melebihi sisa jatah ${left}</b>`:''}` : ''; });
+  $('#fpForm').addEventListener('submit', async ev=>{ ev.preventDefault(); const p=parseNames(ta.value); if(!p.length){ ta.focus(); return; } if(p.length>left){ toast(`Sisa jatah ${left} nama. Kurangi dulu, ya.`); return; }
+    const b=ev.target.querySelector('button'); b.disabled=true; b.textContent='Menyimpan…';
+    if(CLOUD.on && CLOUD.famMode){ const { data, error } = await CLOUD.sb.rpc('fam_add',{p_slug:CLOUD.slug, p_token:FP.token, p_items:p}); if(error){ b.disabled=false; b.textContent='Tambahkan ke daftar'; toast(error.message); return; } FP.guests=data.guests||[]; }
+    else { p.forEach((x,k)=>{ const g={id:'f'+Date.now().toString(36)+k, name:x.name, phone:x.phone, group:FP.fam.name, status:'belum', pax:0, sent:false, sessions:S.events.map((e,i)=>i), fam:FP.fam.id, approved:false}; g.code=makeCode(g); G.unshift(g); }); saveG(); await famPageLoad(); }
+    toast(`${p.length} nama ditambahkan. Pengantin akan mengeceknya.`); renderFamPage(); });
+}
+async function famPageRemove(id){
+  if(CLOUD.on && CLOUD.famMode){ const { error } = await CLOUD.sb.rpc('fam_remove',{p_slug:CLOUD.slug, p_token:FP.token, p_id:id}); if(error){ toast(error.message); return; } }
+  else { G=G.filter(g=>!(g.id===id && isPending(g))); saveG(); }
+  await famPageLoad(); renderFamPage();
+}
+
+/* halaman vendor katering */
+let CP = {token:null, d:null, err:null};
+async function catPageLoad(){
+  if(CLOUD.on && CLOUD.catMode){ const { data, error } = await CLOUD.sb.rpc('catering',{p_slug:CLOUD.slug, p_token:CP.token}); if(error){ CP.err=error.message; return; } CP.d=data; return; }
+  if(CP.token!==S.cateringToken){ CP.err='Link katering tidak berlaku'; return; }
+  CP.d={bride:S.bride.nick, groom:S.groom.nick, events:S.events, settings:S.catering||{}, stats:catStatsLocal(), updated:new Date().toISOString()};
+}
+function renderCatPage(){
+  const root=$('#katering');
+  if(CP.err){ root.innerHTML=`<div class="fp"><div class="fp-card" style="text-align:center"><h1 class="display" style="font-size:30px">Link tidak berlaku</h1><p class="muted" style="margin-top:10px">${esc(CP.err)}. Minta link terbaru ke pengantin.</p></div></div>`; return; }
+  const d=CP.d, set=Object.assign({rate:50,defPax:2,buffer:10}, d.settings||{});
+  root.innerHTML = `<div class="fp wide"><div class="fp-head"><span class="logo-sm">Satu Padu <b>Kita</b></span><span class="eyebrow">Untuk vendor katering</span><h1 class="display">Pernikahan ${esc(d.bride)} &amp; ${esc(d.groom)}</h1><p class="muted">Perkiraan porsi dari konfirmasi tamu. Diperbarui otomatis setiap menit · terakhir ${esc(fmtDT(d.updated))}</p></div>
+    ${catCardsHTML(d.events||[], d.stats||[], set, true)}
+    <div class="fp-card" style="margin-top:16px"><b>Cara menghitung</b><p class="muted" style="font-size:15px;margin-top:6px">Tamu yang sudah konfirmasi hadir dihitung sesuai jumlah orangnya. Undangan yang belum menjawab diperkirakan ${set.rate}% datang dengan rata-rata ${set.defPax} orang. Lalu ditambah cadangan ${set.buffer}%, dibulatkan ke atas per 10 porsi.</p>
+    <button class="btn btn-ghost btn-sm" data-act="cat-print" style="margin-top:12px">Cetak / simpan PDF</button></div>
+    <p class="fp-foot muted">Nama tamu tidak ditampilkan di halaman ini.</p></div>`;
+}
+
+(function famSeed(){ if(S.famInit) return; S.famInit=true; S.families=[{id:'f1',name:'Keluarga '+S.bride.nick,quota:150,token:genToken()},{id:'f2',name:'Keluarga '+S.groom.nick,quota:120,token:genToken()}];
+  [['Pak Haji Darmawan','081234567890','f1'],['Bu Siti Aminah','','f1'],['Om Bambang Sutejo','081311112222','f1'],['Tante Rina Kusuma','','f2']].forEach(([n,ph,f],k)=>{ const g={id:'fs'+k, name:n, phone:ph, group:famById(f).name, status:'belum', pax:0, sent:false, sessions:S.events.map((e,i)=>i), fam:f, approved:false}; g.code=makeCode(g); G.push(g); });
+  G.slice(0,40).forEach((g,k)=>{ if(!g.fam && !isPending(g) && k%3===0) g.fam = k%2?'f2':'f1'; });
+  seedArrivals(); saveG(); save(); })();
+function renderDash(){ const all=G; G_ALL=all; G=all.filter(g=>!isPending(g)); try{ renderDashCore(); } finally { G=all; } }
+function renderDashCore(){
   const total=G.length, hadir=G.filter(g=>g.status==='hadir'), tidak=G.filter(g=>g.status==='tidak').length, belum=G.filter(g=>g.status==='belum').length, sent=G.filter(g=>g.sent).length;
   const pax = hadir.reduce((a,g)=>a+g.pax,0);
   const arrived = G.filter(g=>g.checkin);
   const head = `<div class="dash-head"><div><span class="eyebrow">Dashboard pasangan</span><h1>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</h1>
     <div class="meta"><span class="status ${S.published?'s-ok':'s-wait'}">${S.published?`Aktif selamanya · ${esc((PLANS.find(p=>p.id===S.plan)||PLANS[2]).name)}`:'Contoh data · belum dipublikasikan'}</span><span class="num">${esc(fmtDate(S.events[0].date))}</span><span>${S.published&&CLOUD.on?`<a href="${esc(pubURL())}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">${esc(pubHost()+S.slug)}</a>`:esc(pubHost()+S.slug)}</span></div></div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">${S.published&&S.plan==='undangan'?`<button class="btn btn-soft btn-sm" data-act="upgrade">${ico('up')}Upgrade paket</button>`:''}<button class="btn btn-ghost btn-sm" data-act="view-as" data-id="">${ico('eye')}Lihat sebagai tamu</button><a class="btn btn-ghost btn-sm" href="#buat">${ico('edit')}Edit undangan</a></div></div>
-    <div class="dtabs" role="tablist">${DT.map(([k,l])=>`<button role="tab" data-dtab="${k}" aria-selected="${dTab===k}">${l}${k==='tamu'?`<span class="cnt num">${total}</span>`:k==='ucapan'?`<span class="cnt num">${W.length}</span>`:k==='harih'&&arrived.length?`<span class="cnt num">${arrived.length}</span>`:''}</button>`).join('')}</div>`;
+    <div class="dtabs" role="tablist">${DT.map(([k,l])=>`<button role="tab" data-dtab="${k}" aria-selected="${dTab===k}">${l}${k==='tamu'?`<span class="cnt num">${total}</span>`:k==='ucapan'?`<span class="cnt num">${W.length}</span>`:k==='harih'&&arrived.length?`<span class="cnt num">${arrived.length}</span>`:k==='keluarga'&&(G_ALL||G).some(isPending)?`<span class="cnt num" style="background:var(--warn);color:#fff">${(G_ALL||G).filter(isPending).length}</span>`:''}</button>`).join('')}</div>`;
   let body='';
   if(dTab==='ringkasan'){
     const pct = n => (total? n/total*100 : 0).toFixed(1)+'%';
@@ -2016,9 +2336,13 @@ function renderDash(){
         <div class="tile" style="--c:var(--gold)"><div class="l">Kado & amplop tercatat</div><div class="v">${gifts}</div><div class="s">nomor terakhir #${String(S.giftNo||0).padStart(3,'0')}</div></div>
         <div class="tile"><div class="l">Tamu tambahan</div><div class="v">${G.filter(g=>g.walkin).length}</div><div class="s">tidak ada di daftar</div></div>
       </div>
+      ${(()=>{ const ev=S.events.filter(e=>e.start); const me=ev[ev.length-1]; const {slots,c}=arrivalCounts(G,me||{}); if(!slots.length) return ''; const act=Object.fromEntries(slots.map(x=>[x,0])); G.forEach(g=>{ if(g.checkin&&g.checkin.time){ const m=toMin(g.checkin.time); const k=fromMin(Math.floor(m/30)*30); if(act[k]!==undefined) act[k]+=g.checkin.pax||1; } });
+        return `<div class="panel-c arr-panel"><h3>Perkiraan kedatangan · ${esc(me.type||'Acara')} <span class="legend" style="margin:0"><span><i style="background:var(--beet)"></i>Rencana datang</span><span><i style="background:var(--ok)"></i>Sudah tiba</span></span></h3>${crowdBars(slots,c,{actual:act})}<p class="muted" style="font-size:13px;margin-top:10px">${crowdAdvice(slots,c)||'Belum banyak tamu yang memilih jam datang.'} Tamu bisa melihat status ramai atau lengang di undangannya saat hari H.</p></div>`; })()}
       <div class="panel-c" style="margin-top:20px"><h3>Daftar kedatangan</h3>${arrived.length?`<ul class="feed">${arrived.sort((a,b)=>b.checkin.ts-a.checkin.ts).map(g=>`<li><span class="av">${esc(initials(g.name))}</span><div><b>${esc(g.name)}</b> · ${g.checkin.pax} orang${g.checkin.gift?` · Kado #${String(g.checkin.gift).padStart(3,'0')}`:''}<small>${esc(g.checkin.time)} · ${esc(S.events[g.checkin.session]?.type||'')}${g.walkin?' · tamu tambahan':''}</small></div></li>`).join('')}</ul>`:`<div class="empty">Belum ada tamu yang datang. Daftar ini terisi otomatis saat penerima tamu melakukan check-in.</div>`}</div>`;
     }
   }
+  if(dTab==='keluarga') body = famTabHTML();
+  if(dTab==='katering') body = catTabHTML();
   if(dTab==='ucapan'){
     body = `<p class="muted" style="margin-bottom:16px">Ucapan yang disembunyikan tidak tampil di undangan, tapi tetap tersimpan di sini.</p><div class="wish-admin">${W.map((w,k)=>`<div class="w ${w.show?'':'hid'}"><div><b>${esc(w.n)}</b> ${w.att?'<span class="status s-ok">Hadir</span>':''} <span class="muted" style="font-size:13px">${esc(w.t)}</span><p style="margin-top:6px">${esc(w.m)}</p></div><button class="btn btn-ghost btn-sm" data-act="toggle-wish" data-k="${k}">${w.show?'Sembunyikan':'Tampilkan'}</button></div>`).join('')}</div>`;
   }
@@ -2511,10 +2835,10 @@ document.addEventListener('click', e=>{
 document.addEventListener('click', e=>{ const m=$('#acctMenu'); if(m && !m.hidden && !e.target.closest('.acct')) m.hidden=true; });
 
 /* ---------- Cloud: Supabase + Midtrans ---------- */
-const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','gallery','galleryOn','groups','slug'];
+const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','catering','gallery','galleryOn','groups','slug'];
 const pickData = () => { const d={}; DATA_KEYS.forEach(k=>{ if(S[k]!==undefined) d[k]=S[k]; }); return d; };
-const toRow = g => ({invitation_id:CLOUD.inv.id, id:g.id, name:g.name, phone:g.phone||'', grp:g.group||'Tanpa grup', sessions:g.sessions||[], code:g.code, status:g.status, pax:g.pax||0, sent:!!g.sent, walkin:!!g.walkin, checkin:g.checkin||null});
-const fromRow = r => { const g={id:r.id, name:r.name, phone:r.phone||'', group:r.grp||'Tanpa grup', sessions:r.sessions||[], code:r.code, status:r.status||'belum', pax:r.pax||0, sent:!!r.sent, walkin:!!r.walkin}; if(r.checkin) g.checkin=r.checkin; return g; };
+const toRow = g => ({invitation_id:CLOUD.inv.id, id:g.id, name:g.name, phone:g.phone||'', grp:g.group||'Tanpa grup', sessions:g.sessions||[], code:g.code, status:g.status, pax:g.pax||0, sent:!!g.sent, walkin:!!g.walkin, checkin:g.checkin||null, fam:g.fam||null, approved:g.approved!==false, arrive:g.arrive||''});
+const fromRow = r => { const g={id:r.id, name:r.name, phone:r.phone||'', group:r.grp||'Tanpa grup', sessions:r.sessions||[], code:r.code, status:r.status||'belum', pax:r.pax||0, sent:!!r.sent, walkin:!!r.walkin, fam:r.fam||null, arrive:r.arrive||''}; if(r.approved===false) g.approved=false; if(r.checkin) g.checkin=r.checkin; return g; };
 function relTime(iso){ const d=(Date.now()-new Date(iso))/1000; if(d<60) return 'baru saja'; if(d<3600) return Math.floor(d/60)+' menit lalu'; if(d<86400) return Math.floor(d/3600)+' jam lalu'; if(d<172800) return 'kemarin'; return fmtShort(String(iso).slice(0,10)); }
 function loadScript(src, attrs={}){ return new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; Object.entries(attrs).forEach(([k,v])=>s.setAttribute(k,v)); s.onload=res; s.onerror=rej; document.head.appendChild(s); }); }
 const setSaveState = t => { const el=$('#saveState'); if(el) el.textContent=t; };
@@ -2524,9 +2848,11 @@ async function cloudInit(){
   if(!cfg || !cfg.supabaseUrl || !cfg.supabaseAnonKey) return;
   if(!window.supabase){ try{ await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js'); }catch(e){ return; } }
   CLOUD.cfg=cfg; CLOUD.sb=window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {auth:{persistSession:true, autoRefreshToken:true, detectSessionInUrl:true}}); CLOUD.on=true;
-  const m = location.pathname.match(/^\/u\/([a-z0-9-]+)(\/checkin)?\/?$/);
+  const m = location.pathname.match(/^\/u\/([a-z0-9-]+)(\/(?:checkin|keluarga|katering))?\/?$/);
   if(m){
     CLOUD.slug=m[1]; const qs=new URLSearchParams(location.search);
+    if(m[2]==='/keluarga'){ CLOUD.famMode=true; FP.token=qs.get('k')||''; await famPageLoad(); return; }
+    if(m[2]==='/katering'){ CLOUD.catMode=true; CP.token=qs.get('k')||''; await catPageLoad(); setInterval(()=>catPageLoad().then(()=>{ if(!CP.err) renderCatPage(); }), 60000); return; }
     if(m[2]){ CLOUD.pinMode=true; CLOUD.pin=qs.get('pin')||''; await pinLoad(); setInterval(()=>{ if(!CLOUD.needPin) pinLoad().then(liveRefresh); }, 8000); }
     else { CLOUD.guestMode=true; CLOUD.code=(qs.get('to')||'').toUpperCase(); await guestLoad(); }
     return;
@@ -2568,11 +2894,13 @@ async function ownerLoad(user){
   CLOUD.inv=inv;
   Object.assign(S, inv.data||{}, {slug:inv.slug, published:inv.published, giftNo:inv.gift_no});
   if(inv.plan!=='coba') S.plan=inv.plan;
-  const [g,w,gf,iv] = await Promise.all([
+  const [g,w,gf,iv,fm] = await Promise.all([
     sb.from('guests').select('*').eq('invitation_id',inv.id).order('created_at',{ascending:false}),
     sb.from('wishes').select('*').eq('invitation_id',inv.id).order('created_at',{ascending:false}),
     sb.from('gift_confirmations').select('*').eq('invitation_id',inv.id).order('created_at',{ascending:false}),
-    sb.from('invoices').select('*').order('created_at',{ascending:false})]);
+    sb.from('invoices').select('*').order('created_at',{ascending:false}),
+    sb.from('families').select('*').eq('invitation_id',inv.id).order('created_at')]);
+  S.families = (fm.data||[]).map(x=>({id:x.id, name:x.name, quota:x.quota, token:x.token}));
   G = (g.data||[]).map(fromRow);
   CLOUD.lastG = new Map(G.map(x=>[x.id, JSON.stringify(toRow(x))]));
   W = (w.data||[]).map(x=>({id:x.id, n:x.name, m:x.message, t:relTime(x.created_at), att:x.attending, show:!x.hidden}));
@@ -2688,7 +3016,7 @@ async function waitPaid(orderId, tries=0){
 }
 
 /* ---------- Router ---------- */
-const VIEWS = ['beranda','tema','buat','undangan','dashboard','checkout','tagihan','checkin'];
+const VIEWS = ['beranda','tema','buat','undangan','dashboard','checkout','tagihan','checkin','keluarga','katering'];
 let bootDoneCalled=false;
 function bootDone(){ if(bootDoneCalled) return; bootDoneCalled=true; const h=document.documentElement; if(!h.classList.contains('boot-guest') && !h.classList.contains('boot-app')) return;
   const ph=$('#g-cover .cv-photo'); const m=ph && (ph.getAttribute('style')||'').match(/url\((['"]?)(.*?)\1\)/);
@@ -2697,6 +3025,7 @@ function bootDone(){ if(bootDoneCalled) return; bootDoneCalled=true; const h=doc
   Promise.all([img, fonts]).then(()=>{ h.classList.add('boot-done'); setTimeout(()=>{ h.classList.remove('boot-guest','boot-app'); const b=$('#bootSkel'); if(b) b.remove(); }, 500); });
 }
 function route(){
+  if(CLOUD.famMode || CLOUD.catMode){ const v=CLOUD.famMode?'keluarga':'katering'; $$('[data-view]').forEach(x=> x.hidden = x.dataset.view!==v); $('#siteHeader').hidden=true; $('#footerWrap').hidden=true; closeModal(); CLOUD.famMode?renderFamPage():renderCatPage(); bootDone(); return; }
   if(CLOUD.guestMode || CLOUD.pinMode){
     const v = CLOUD.guestMode ? 'undangan' : 'checkin';
     $$('[data-view]').forEach(x=> x.hidden = x.dataset.view!==v); $('#siteHeader').hidden=true; $('#footerWrap').hidden=true; closeModal();
@@ -2706,13 +3035,15 @@ function route(){
   }
   setTimeout(bootDone, 0);
   let h = (location.hash||'').slice(1) || 'beranda';
+  if(h.startsWith('keluarga-')){ FP={token:h.slice(9),fam:null,guests:[],info:null,err:null}; famPageLoad().then(renderFamPage); h='keluarga'; }
+  else if(h.startsWith('katering-')){ CP={token:h.slice(9),d:null,err:null}; catPageLoad().then(renderCatPage); h='katering'; }
   let scrollTo = null;
   if(h==='harga'){ h='beranda'; scrollTo='harga-sec'; }
   if(!VIEWS.includes(h)) h='beranda';
   if(h!=='checkout') clearInterval(CO.timer);
   if(h!=='undangan') stopBgm(); if(h!=='buat') stopPrev();
   $$('[data-view]').forEach(v=> v.hidden = v.dataset.view!==h);
-  const full = h==='undangan' || h==='checkin';
+  const full = h==='undangan' || h==='checkin' || h==='keluarga' || h==='katering';
   $('#siteHeader').hidden = full; $('#footerWrap').hidden = full || ['dashboard','buat','checkout'].includes(h);
   document.body.style.overflow='';
   $$('.nav a').forEach(a=>{ if(a.dataset.nav!==(scrollTo?'harga':h)) a.removeAttribute('aria-current'); else a.setAttribute('aria-current','page'); });

@@ -303,3 +303,5 @@ create policy music_insert_own on storage.objects for insert to authenticated
 drop policy if exists music_delete_own on storage.objects;
 create policy music_delete_own on storage.objects for delete to authenticated
   using (bucket_id = 'music' and (storage.foldername(name))[1] = auth.uid()::text);
+
+-- ===== Migrasi berikutnya ada di supabase/migration-002-keluarga-katering.sql =====
