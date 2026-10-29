@@ -6,7 +6,7 @@
 <title>Satu Padu Kita Undangan Digital</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Marcellus&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Marcellus&family=Oswald:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* Layout idea: a beet-red editorial frame around one living invitation — the same invitation renders in the hero, catalog, builder, guest view and dashboard. */
 :root{
@@ -684,9 +684,157 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+/* ===== Tema berlayout: sampul ===== */
+.inv .cover .cv-slot{display:flex;flex-direction:column;align-items:center;gap:0;transition:opacity .3s,transform .3s}
+.inv .cover .cv-slot.swap{opacity:0;transform:translateY(8px)}
+.inv .cover .cv-slot.swapped{animation:cvIn .6s cubic-bezier(.2,.7,.2,1) both}
+.inv .open{display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.inv .open .icon{width:17px;height:17px}
+.inv .cv-count{margin:18px 0 4px}
+.inv .cv-cue{margin-top:14px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.75}
+.inv .cv-cue .icon{width:18px;height:18px;animation:cue 1.6s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* Sekar Ayu */
+.inv.lay-sekar .cover{justify-content:flex-start;padding:64px 22px 48px;gap:0}
+.inv.lay-sekar .cover .k-label{letter-spacing:.24em;font-size:10.5px}
+.inv.lay-sekar .cover .names{font-size:52px;line-height:.95;margin:14px 0 6px}
+.inv.lay-sekar .cover .names .amp{font-size:.62em;margin:2px 0}
+.inv.lay-sekar .cv-stage{position:relative;width:100%;max-width:330px;height:226px;margin:0 auto 18px;display:flex;justify-content:center;align-items:flex-end}
+.inv.lay-sekar .cv-stage .sun{position:absolute;left:0;right:0;bottom:0;height:150px;border-radius:999px 999px 0 0;background:repeating-radial-gradient(circle at 50% 100%, transparent 0 9px, color-mix(in srgb,var(--t-bg) 14%,transparent) 9px 10px), linear-gradient(180deg, color-mix(in srgb,var(--t-accent) 30%,var(--t-bg)), var(--t-accent))}
+.inv.lay-sekar .cv-bouquet{position:relative;width:170px;height:224px;margin-bottom:-6px;filter:drop-shadow(0 6px 10px rgba(47,51,38,.18))}
+.inv.lay-sekar .cv-stage .tape{position:absolute;bottom:34px;left:50%;width:74px;height:22px;transform:translateX(-50%) rotate(-4deg);background:color-mix(in srgb,#fff 72%,transparent);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.inv.lay-sekar .cover .to{margin-top:6px}
+.inv.lay-sekar .cover .open{background:var(--t-accent)}
+.inv.lay-sekar section:not(.cover):nth-of-type(even){background:color-mix(in srgb,var(--t-accent) 9%,transparent)}
+
+/* Kamboja Senja */
+.inv.lay-kamboja .cover{background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 48%,var(--sky3) 100%);color:#fff;overflow:hidden;gap:0}
+.inv.lay-kamboja .cover .k-label{color:#fff;letter-spacing:.3em;font-size:10.5px;position:relative;z-index:2}
+.inv.lay-kamboja .cover .names{display:flex;flex-direction:column;align-items:center;font-size:58px;line-height:.92;text-transform:uppercase;letter-spacing:.02em;font-weight:600;color:#fff;margin:14px 0 4px;position:relative;z-index:2;text-shadow:0 2px 18px rgba(20,30,80,.25)}
+.inv.lay-kamboja .cover .names .amp{font-family:'Great Vibes',cursive;text-transform:none;color:var(--t-accent);font-size:.7em;margin:-10px 0 -8px;font-style:normal;text-shadow:none}
+.inv.lay-kamboja .cover .vline{width:1px;height:70px;background:linear-gradient(#fff,transparent);margin:8px auto 10px;opacity:.8}
+.inv.lay-kamboja .cover .to{color:#fff;opacity:.95;position:relative;z-index:2;text-transform:uppercase;letter-spacing:.12em;font-size:11px}
+.inv.lay-kamboja .cover .to b{color:#fff;font-size:22px;letter-spacing:.04em}
+.inv.lay-kamboja .cover .open{background:#141B33;color:#fff;position:relative;z-index:2;letter-spacing:.1em;text-transform:uppercase;font-size:13px}
+.inv.lay-kamboja .cover .count div{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35);color:#fff;backdrop-filter:blur(4px)}
+.inv.lay-kamboja .cover .cv-cue{color:#fff}
+.inv.lay-kamboja .cl{position:absolute;width:110px;height:110px;z-index:1;pointer-events:none}
+.inv.lay-kamboja .cl span{position:absolute;width:46px;height:46px;filter:drop-shadow(0 4px 8px rgba(30,20,60,.25))}
+.inv.lay-kamboja .cl span svg{width:100%;height:100%}
+.inv.lay-kamboja .cl.tr{top:6px;right:-18px}
+.inv.lay-kamboja .cl.bl{bottom:12px;left:-18px;transform:rotate(180deg)}
+.inv.lay-kamboja .petals{position:absolute;inset:0;z-index:1;pointer-events:none}
+.inv.lay-kamboja .petals i{position:absolute;left:var(--x);top:var(--y);width:18px;height:18px;transform:scale(var(--s)) rotate(var(--r));opacity:.85}
+.inv.lay-kamboja .petals i svg{width:100%;height:100%}
+.inv.anim.lay-kamboja .petals i{top:-30px;animation:fall var(--t) linear var(--d) infinite}
+@keyframes fall{0%{transform:translate(0,0) scale(var(--s)) rotate(var(--r));opacity:0}10%{opacity:.9}100%{transform:translate(-60px,110vh) scale(var(--s)) rotate(calc(var(--r) + 300deg));opacity:.6}}
+.inv.lay-kamboja h3{text-transform:uppercase;letter-spacing:.04em;font-weight:600;font-size:26px;line-height:1.15}
+.inv.lay-kamboja .names{font-weight:600}
+.inv.lay-kamboja section:not(.cover):nth-of-type(odd){background:color-mix(in srgb,var(--t-accent) 7%,transparent)}
+
+/* Lentera Hijau */
+.inv.lay-lentera .cover{justify-content:flex-start;padding:62px 14px 30px;gap:0}
+.inv.lay-lentera .cover .pill{display:inline-block;padding:6px 14px;border-radius:999px;background:color-mix(in srgb,var(--t-accent) 16%,#fff);color:var(--t-accent);font-size:12px;font-weight:700;letter-spacing:.04em}
+.inv.lay-lentera .cover .names{font-style:italic;font-size:46px;line-height:1.02;margin:14px 0 6px;color:var(--t-fg)}
+.inv.lay-lentera .cover .names .amp{display:inline;font-size:1em;margin:0}
+.inv.lay-lentera .cover .date{font-size:13px;font-weight:600;opacity:.8;margin-bottom:18px}
+.inv.lay-lentera .cv-card{position:relative;width:100%;max-width:360px;border-radius:26px;overflow:visible}
+.inv.lay-lentera .cv-photo{height:360px;border-radius:26px;background:var(--t-soft) center/cover no-repeat}
+.inv.lay-lentera .cv-sprig{position:absolute;left:50%;top:296px;width:170px;transform:translateX(-50%);z-index:2;filter:drop-shadow(0 3px 6px rgba(0,0,0,.12))}
+.inv.lay-lentera .cv-guest{position:relative;margin:-58px 12px 0;padding:62px 16px 22px;background:var(--t-bg);border-radius:22px;box-shadow:0 10px 30px rgba(30,58,43,.12)}
+.inv.lay-lentera .cover .to{margin-top:0}
+.inv.lay-lentera .cover .to b{font-style:italic;font-size:26px}
+.inv.lay-lentera .cover .open{background:var(--t-accent)}
+.inv.lay-lentera h3{font-style:italic}
+
+/* Arunika */
+.inv.lay-arunika .cover{position:relative;overflow:hidden;color:#FBF6EC;justify-content:space-between;padding:84px 24px 54px;background:#3A3427}
+.inv.lay-arunika .cover .cv-photo{position:absolute;inset:0;background:#6E6450 center/cover no-repeat;transform:scale(1.04)}
+.inv.anim.lay-arunika .cover .cv-photo{animation:kb 14s ease-out both}
+@keyframes kb{from{transform:scale(1.14)}to{transform:scale(1.02)}}
+.inv.lay-arunika .cover .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,16,10,.38) 0%,rgba(20,16,10,.05) 38%,rgba(20,16,10,.55) 72%,rgba(20,16,10,.82) 100%)}
+.inv.lay-arunika .cover > *:not(.cv-photo):not(.shade){position:relative;z-index:2}
+.inv.lay-arunika .cover .top{display:flex;flex-direction:column;align-items:center;gap:6px}
+.inv.lay-arunika .cover .top .k-label{color:#FBF6EC}
+.inv.lay-arunika .cover .top b{font-family:var(--body);font-weight:600;letter-spacing:.3em;font-size:15px}
+.inv.lay-arunika .cover .names{font-family:'Great Vibes',cursive;font-size:64px;line-height:1;color:#FFF8EA;margin:auto 0 6px;font-weight:400;text-shadow:0 4px 24px rgba(0,0,0,.35)}
+.inv.lay-arunika .cover .names .amp{display:block;font-size:.55em;color:#E9D7AE;margin:0}
+.inv.lay-arunika .cv-line{width:160px;height:14px;margin:6px auto 18px}
+.inv.lay-arunika .cover .to{color:#FBF6EC;opacity:.95}
+.inv.lay-arunika .cover .to b{color:#fff}
+.inv.lay-arunika .cover .open{background:transparent;border:1px solid rgba(255,248,234,.8);color:#FFF8EA;backdrop-filter:blur(6px)}
+.inv.lay-arunika .cover .count div{background:rgba(255,248,234,.12);border-color:rgba(255,248,234,.35);color:#fff}
+.inv.lay-arunika .cover .cv-cue{color:#FBF6EC}
+
+/* ===== Kartu katalog: sampul hidup ===== */
+.tcard .cover.tc-wrap{padding:0;display:block;overflow:hidden;background:var(--t-bg)}
+.tc-live{position:absolute;top:0;left:0;width:360px;height:450px;transform-origin:0 0;transform:scale(var(--tcs,.75));pointer-events:none}
+.tc-live .inv{height:100%;overflow:hidden}
+.tc-live .inv .cover{min-height:450px;height:450px}
+.tc-live .inv.lay-lentera .cover{padding-top:34px}
+.tc-live .inv.lay-lentera .cv-photo{height:200px}
+.tc-live .inv.lay-lentera .cv-sprig{top:140px}
+.tc-live .inv.lay-sekar .cover{padding-top:40px}
+.tc-live .inv.lay-arunika .cover{padding-top:56px;padding-bottom:40px}
+.tp{position:relative;overflow:hidden}
+
+/* ===== Animasi masuk & reveal ===== */
+@keyframes cvIn{from{opacity:0;transform:translateY(18px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+.inv.anim .cover .cv-in{animation:cvIn .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0) * 110ms + 120ms)}
+.inv.anim .cover .card{animation:cvIn 1s cubic-bezier(.2,.7,.2,1) .1s both}
+.inv.anim [data-rv]{transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1),clip-path 1.1s cubic-bezier(.65,0,.25,1),filter .8s;transition-delay:calc(var(--rk,0) * 90ms)}
+.inv.anim [data-rv=up]:not(.in){opacity:0;transform:translateY(26px)}
+.inv.anim [data-rv=clip]:not(.in){clip-path:inset(12% 50% 12% 50% round 14px);transform:scale(1.06)}
+.inv.anim [data-rv=clip].in{clip-path:inset(0 0 0 0 round 0)}
+.inv.anim [data-rv=draw]:not(.in){clip-path:inset(0 50% 0 50%);opacity:.2}
+.inv.anim [data-rv=draw].in{clip-path:inset(0 0 0 0)}
+.inv.anim h3 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.inv.anim h3 .w > span{display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.75,.2,1);transition-delay:calc(var(--wi,0) * 60ms)}
+.inv.anim h3.in .w > span{transform:none}
+.odo{display:inline-block;height:1em;overflow:hidden;vertical-align:top;line-height:1}
+.odo-col{display:flex;flex-direction:column;transition:transform 1.4s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--k,0) * 90ms)}
+.odo-col > span{height:1em;line-height:1}
+.odo-go .odo-col{transform:translateY(calc(var(--d) * -1em))}
+
+/* Dock navigasi mengambang */
+.g-nav{bottom:12px;margin:0 12px;border-radius:22px;background:rgba(28,20,24,.9);border:0;box-shadow:0 12px 34px rgba(0,0,0,.28);padding:6px}
+.g-nav button{color:#E9DDE1;min-height:50px}
+.g-nav button.active{color:#fff;background:rgba(255,255,255,.14)}
+.guest-col:not(.locked) .g-nav{animation:dockIn .7s cubic-bezier(.2,.8,.2,1) .5s both}
+@keyframes dockIn{from{transform:translateY(120%);opacity:0}to{transform:none;opacity:1}}
+
+/* ===== Skeleton ===== */
+.sk{position:relative;overflow:hidden;background:#ECE3E6;border-radius:10px}
+.sk::after,.sk-img:not(.sk-done)::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.65) 50%,transparent 80%);transform:translateX(-100%);animation:shim 1.25s ease-in-out infinite}
+@keyframes shim{to{transform:translateX(100%)}}
+.sk-img{position:relative;overflow:hidden}
+.sk-img:not(.sk-done){background-image:none !important;background-color:color-mix(in srgb,var(--t-fg,#222) 9%,var(--t-bg,#fff)) !important}
+#bootSkel{display:none;position:fixed;inset:0;z-index:9999;background:#FBF7F5;justify-content:center;transition:opacity .45s ease}
+html.boot-guest #bootSkel,html.boot-app #bootSkel{display:flex}
+html.boot-guest body > :not(#bootSkel):not(script){visibility:hidden}
+html.boot-done #bootSkel{opacity:0;pointer-events:none}
+html.boot-done body > *{visibility:visible !important}
+#bootSkel .bs-col{width:100%;max-width:440px;padding:70px 26px 40px;display:flex;flex-direction:column;align-items:center;gap:14px}
+#bootSkel .bs-arch{width:100%;max-width:300px;padding:34px 24px;border-radius:200px 200px 24px 24px;border:1px solid #EADDE1;display:flex;flex-direction:column;align-items:center;gap:14px}
+#bootSkel .bs-app{display:none;width:100%;max-width:1100px;padding:24px;gap:16px;flex-direction:column}
+html.boot-app #bootSkel .bs-col{display:none}
+html.boot-app #bootSkel .bs-app{display:flex}
+#bootSkel .bs-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:640px){#bootSkel .bs-row{grid-template-columns:1fr 1fr}}
+#bootSkel .bs-brand{position:absolute;bottom:22px;left:0;right:0;text-align:center;font:600 12px/1 'Plus Jakarta Sans',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#B9A4AB}
+@media (prefers-reduced-motion: reduce){.sk::after,.sk-img::after{animation:none}.inv.anim .cover .cv-in,.inv.anim .cover .card{animation:none}}
 </style>
 </head>
 <body>
+<script>(function(){try{var h=document.documentElement,p=location.pathname;if(/^\/u\/[a-z0-9-]+/.test(p)){h.classList.add('boot-guest');}else if(/^#(dashboard|tagihan|checkout)/.test(location.hash)&&Object.keys(localStorage).some(function(k){return /^sb-.*-auth-token$/.test(k)})){h.classList.add('boot-app');}setTimeout(function(){h.classList.add('boot-done')},9000);}catch(e){}})();</script>
+<div id="bootSkel" aria-hidden="true">
+  <div class="bs-col">
+    <div class="bs-arch"><div class="sk" style="width:120px;height:10px"></div><div class="sk" style="width:190px;height:44px;border-radius:14px"></div><div class="sk" style="width:46px;height:26px;border-radius:99px"></div><div class="sk" style="width:170px;height:44px;border-radius:14px"></div><div class="sk" style="width:110px;height:12px;margin-top:6px"></div><div class="sk" style="width:90px;height:10px;margin-top:18px"></div><div class="sk" style="width:180px;height:20px"></div><div class="sk" style="width:170px;height:46px;border-radius:99px;margin-top:10px"></div></div>
+  </div>
+  <div class="bs-app"><div class="sk" style="width:220px;height:28px"></div><div class="sk" style="width:340px;max-width:80%;height:14px"></div><div class="bs-row"><div class="sk" style="height:96px;border-radius:16px"></div><div class="sk" style="height:96px;border-radius:16px"></div><div class="sk" style="height:96px;border-radius:16px"></div><div class="sk" style="height:96px;border-radius:16px"></div></div><div class="sk" style="height:58px;border-radius:14px"></div><div class="sk" style="height:58px;border-radius:14px"></div><div class="sk" style="height:58px;border-radius:14px"></div><div class="sk" style="height:58px;border-radius:14px"></div><div class="sk" style="height:58px;border-radius:14px"></div></div>
+  <div class="bs-brand">Satu Padu Kita</div>
+</div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -699,6 +847,8 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
     <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
     <symbol id="i-rsvp" viewBox="0 0 24 24"><path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
     <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3.5 6.5h17v11h-17z M3.8 7l8.2 6.2L20.2 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></symbol>
     <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></symbol>
     <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.5" cy="16" r="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/></symbol>
@@ -1013,6 +1163,93 @@ function themeStyle(t, accent, font){
   const a = accent || t.accent; const tt = {...t, accent:a};
   return `--t-bg:${t.bg};--t-fg:${t.fg};--t-accent:${a};--t-soft:${t.soft};--t-font:${font||t.font};--t-pattern:${t.pat(tt)};--t-size:${t.size};`;
 }
+/* ---------- Tema berlayout khusus (sampul unik + ilustrasi SVG orisinal) ---------- */
+const svgData = s => 'data:image/svg+xml,'+encodeURIComponent(s);
+function sceneSVG(p){
+  // pemandangan orisinal: langit, matahari, bukit, rerumputan, dua sosok bergandeng tangan
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${p.sky1}"/><stop offset=".62" stop-color="${p.sky2}"/><stop offset="1" stop-color="${p.sky3}"/></linearGradient>
+  <radialGradient id="g" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="${p.sun}" stop-opacity=".95"/><stop offset="1" stop-color="${p.sun}" stop-opacity="0"/></radialGradient></defs>
+  <rect width="400" height="520" fill="url(#s)"/>
+  <circle cx="268" cy="250" r="120" fill="url(#g)"/><circle cx="268" cy="250" r="34" fill="${p.sun}" opacity=".9"/>
+  <path d="M0 300 C70 270 130 282 190 296 C260 312 320 280 400 288 V520 H0Z" fill="${p.h1}"/>
+  <path d="M0 340 C90 318 160 336 230 330 C300 324 350 344 400 336 V520 H0Z" fill="${p.h2}"/>
+  <path d="M0 392 C80 376 170 398 260 386 C320 378 360 392 400 388 V520 H0Z" fill="${p.h3}"/>
+  <g fill="${p.fig}"><circle cx="176" cy="323" r="7.5"/><path d="M168 332 q8 -4 16 0 l5 44 h-26z"/><path d="M171 376 h6 l-1 26 h-4z M180 376 h6 l-1 26 h-4z"/>
+  <circle cx="212" cy="318" r="8"/><path d="M203 328 q9 -4 18 0 l2 46 h-22z"/><path d="M205 374 h6 v28 h-5z M214 374 h6 v28 h-5z"/>
+  <path d="M188 345 q6 4 15 0" stroke="${p.fig}" stroke-width="3" fill="none"/></g>
+  <g stroke="${p.grass}" stroke-width="1.4" opacity=".7">${Array.from({length:46},(_,i)=>{const x=i*9+((i*37)%7);const h=10+((i*53)%14);return `<path d="M${x} 520 q2 -${h} ${(i%2?3:-3)} -${h+8}"/>`;}).join('')}</g>
+  </svg>`;
+}
+const ART = {
+  bouquet:(a)=>`<svg class="cv-bouquet" viewBox="0 0 200 260" aria-hidden="true">
+    <g fill="none" stroke="${a}" stroke-width="2.2" stroke-linecap="round">
+      <path d="M100 252 C98 200 92 150 70 96"/><path d="M100 252 C102 196 108 140 128 82"/><path d="M100 252 C100 190 100 130 100 58"/>
+      <path d="M100 252 C94 210 80 176 52 150"/><path d="M100 252 C108 214 124 186 150 166"/></g>
+    <g fill="${a}" opacity=".85"><path d="M84 150 q-22 -6 -30 -24 q20 2 30 24z"/><path d="M116 140 q22 -8 32 -26 q-22 2 -32 26z"/><path d="M98 196 q-20 -2 -30 -16 q18 -2 30 16z"/><path d="M104 182 q18 -6 26 -20 q-18 0 -26 20z"/></g>
+    ${[[70,94,15],[128,80,14],[100,56,16],[52,148,12],[150,164,12]].map(([x,y,r])=>`<g transform="translate(${x} ${y})">${[0,72,144,216,288].map(d=>`<ellipse rx="${r*.42}" ry="${r*.8}" cy="${-r*.62}" transform="rotate(${d})" fill="#FFFDF7" stroke="${a}" stroke-width="1.1"/>`).join('')}<circle r="${r*.22}" fill="#E8C66A"/></g>`).join('')}
+    ${[[86,118],[114,110],[100,92]].map(([x,y])=>`<ellipse cx="${x}" cy="${y}" rx="4.5" ry="9" fill="#FFFDF7" stroke="${a}" stroke-width="1.1"/>`).join('')}
+  </svg>`,
+  kamboja:(c='#FFFFFF', core='#F2C14E')=>`<svg viewBox="-20 -20 40 40" aria-hidden="true">${[0,72,144,216,288].map(d=>`<path d="M0 0 C-7 -6 -6 -17 0 -18 C6 -17 7 -6 0 0Z" transform="rotate(${d}) rotate(14)" fill="${c}"/>`).join('')}<circle r="3.4" fill="${core}"/></svg>`,
+  sprig:(a)=>`<svg class="cv-sprig" viewBox="0 0 220 90" aria-hidden="true"><path d="M8 70 C60 40 120 34 212 46" fill="none" stroke="${a}" stroke-width="2" stroke-linecap="round"/>
+    ${Array.from({length:9},(_,i)=>{const x=24+i*21, y=60-i*2.6-(i>4?(i-4)*-1.2:0);return `<ellipse cx="${x}" cy="${y-9}" rx="7" ry="11" transform="rotate(${-28+i*3} ${x} ${y})" fill="${a}" opacity="${.55+(i%3)*.15}"/><ellipse cx="${x+6}" cy="${y+8}" rx="6" ry="10" transform="rotate(${148+i*3} ${x+6} ${y})" fill="${a}" opacity="${.45+(i%2)*.2}"/>`;}).join('')}
+    <g transform="translate(116 30)">${[0,60,120,180,240,300].map(d=>`<ellipse rx="5" ry="10" cy="-9" transform="rotate(${d})" fill="#FFFFFF" stroke="${a}" stroke-width=".8"/>`).join('')}<circle r="4" fill="#E9D7A5"/></g></svg>`,
+  line:(a)=>`<svg class="cv-line" viewBox="0 0 160 14" aria-hidden="true"><path d="M0 7 H66 M94 7 H160" stroke="${a}" stroke-width="1"/><path d="M80 1 L86 7 L80 13 L74 7Z" fill="none" stroke="${a}" stroke-width="1"/></svg>`
+};
+const LAYOUT_THEMES = [
+  {id:'sekar', layout:'sekar', name:'Sekar Ayu', region:'Nasional', tags:['Floral','Minimalis'], bg:'#F7F3EA', fg:'#2F3326', accent:'#7E8A55', soft:'#ECE8D6', font:"'Cormorant Garamond', Georgia, serif",
+    pat:(t)=>`radial-gradient(circle at 20% 30%, #2F332608 0 .6px, transparent 1px), radial-gradient(circle at 70% 80%, #2F33260a 0 .7px, transparent 1.1px)`, size:'7px 7px, 11px 11px', thumb:(t)=>`radial-gradient(120% 60% at 50% 105%, ${t.accent} 0 46%, transparent 47%), ${t.bg}`},
+  {id:'kamboja', layout:'kamboja', name:'Kamboja Senja', region:'Bali', tags:['Floral','Modern'], bg:'#FBF5F0', fg:'#1E2B57', accent:'#E07A5F', soft:'#F4E4DA', font:"'Oswald', 'Plus Jakarta Sans', sans-serif",
+    pat:(t)=>`radial-gradient(circle at 30% 40%, ${t.accent}12 0 2px, transparent 2.5px)`, size:'38px 38px', thumb:()=>`linear-gradient(180deg,#24388F,#4A6CD4 50%,#F2B8A2)`, sky:['#22357F','#4766CF','#F3B7A1']},
+  {id:'lentera', layout:'lentera', name:'Lentera Hijau', region:'Nasional', tags:['Modern','Floral'], bg:'#F6F2E7', fg:'#1E3A2B', accent:'#2E5A41', soft:'#E5ECDD', font:"'Cormorant Garamond', Georgia, serif",
+    pat:(t)=>`linear-gradient(90deg, ${t.accent}08 1px, transparent 1px)`, size:'28px 28px', photo:true, thumb:(t)=>`linear-gradient(180deg, ${t.bg} 0 34%, #C9D3B8 34% 100%)`,
+    scene:{sky1:'#F3E6CF',sky2:'#E9C9A0',sky3:'#C9B68E',sun:'#FFF2D6',h1:'#A9B58C',h2:'#8C9C6E',h3:'#6F8355',fig:'#3A3328',grass:'#56693F'}},
+  {id:'arunika', layout:'arunika', name:'Arunika', region:'Nasional', tags:['Modern','Minimalis'], bg:'#E3DCCB', fg:'#2A251C', accent:'#7A6545', soft:'#D3CAB5', font:"'Cormorant Garamond', Georgia, serif",
+    pat:(t)=>`radial-gradient(circle, ${t.fg}0d 0 .7px, transparent 1px)`, size:'9px 9px', photo:true, script:true, thumb:()=>`linear-gradient(180deg,#8F8670,#3A3427)`,
+    scene:{sky1:'#B9B19C',sky2:'#D9C7A4',sky3:'#C2A97F',sun:'#FFF1D2',h1:'#8D8166',h2:'#6E6450',h3:'#4E473A',fig:'#26221B',grass:'#3E392D'}}
+];
+THEMES.unshift(...LAYOUT_THEMES);
+TAGS.includes('Foto') || TAGS.push('Foto');
+LAYOUT_THEMES.filter(t=>t.photo).forEach(t=>t.tags.push('Foto'));
+function coverPhoto(t){ return S.coverPhoto || (S.gallery&&S.gallery[0]) || S.bride.photo || svgData(sceneSVG(t.scene||LAYOUT_THEMES[2].scene)); }
+function coverHTML(t, d){
+  const a = d.accent; const L = t.layout;
+  const open = d.gate ? `<button class="open cv-in" style="--i:6" data-act="open-inv">${ico('mail')}<span>Buka undangan</span></button>` : '';
+  const to = `<div class="to cv-in" style="--i:5">Kepada Yth.<b data-guestname>${esc(d.guest)}</b></div>`;
+  if(L==='sekar') return `<section class="cover cv-sekar" id="${d.id}-cover">
+      <div class="k-label cv-in" style="--i:0" data-scramble="${esc(d.dateLong)}">Undangan pernikahan</div>
+      <div class="names cv-in" style="--i:1">${esc(d.n1)}<span class="amp">&amp;</span>${esc(d.n2)}</div>
+      <div class="cv-stage cv-in" style="--i:2"><div class="sun"></div>${ART.bouquet(a)}<div class="tape"></div></div>
+      <div class="cv-slot">${to}${open}</div>
+    </section>`;
+  if(L==='kamboja'){
+    const [s1,s2,s3] = t.sky; const petals = Array.from({length:14},(_,i)=>`<i style="--x:${(i*37+11)%100}%;--y:${(i*53)%90}%;--d:${(i*0.73)%7}s;--t:${7+(i%5)*1.6}s;--s:${.5+(i%4)*.18};--r:${(i*47)%360}deg">${ART.kamboja('#FFFFFF','#F2C14E')}</i>`).join('');
+    const cluster = (cls) => `<div class="cl ${cls}">${[[0,0,1.25,10],[34,18,.95,40],[8,44,.8,70],[52,52,.7,20]].map(([x,y,s,r])=>`<span style="left:${x}px;top:${y}px;transform:scale(${s}) rotate(${r}deg)">${ART.kamboja('#FFF8F3','#F2C14E')}</span>`).join('')}</div>`;
+    return `<section class="cover cv-kamboja" id="${d.id}-cover" style="--sky1:${s1};--sky2:${s2};--sky3:${s3}">
+      <div class="petals" aria-hidden="true">${petals}</div>${cluster('tr')}${cluster('bl')}
+      <div class="k-label cv-in" style="--i:0" data-scramble="${esc(d.dateLong)}">The wedding of</div>
+      <div class="names cv-in" style="--i:1"><span>${esc(d.n1)}</span><span class="amp">&amp;</span><span>${esc(d.n2)}</span></div>
+      <div class="vline cv-in" style="--i:2"></div>
+      <div class="cv-slot">${to}${open}</div>
+    </section>`;
+  }
+  if(L==='lentera') return `<section class="cover cv-lentera" id="${d.id}-cover">
+      <div class="pill cv-in" style="--i:0" data-scramble="${esc(d.dateLong)}">The wedding of</div>
+      <div class="names cv-in" style="--i:1">${esc(d.n1)} <span class="amp">&amp;</span> ${esc(d.n2)}</div>
+      <div class="date cv-in" style="--i:2">${esc(d.dateLong)}</div>
+      <div class="cv-card cv-in" style="--i:3"><div class="cv-photo" style="background-image:url('${d.photo}')"></div>${ART.sprig(a)}
+        <div class="cv-guest"><div class="cv-slot">${to.replace('cv-in','')}${open.replace('cv-in','')}</div></div></div>
+    </section>`;
+  if(L==='arunika') return `<section class="cover cv-arunika" id="${d.id}-cover">
+      <div class="cv-photo" style="background-image:url('${d.photo}')"></div><div class="shade"></div>
+      <div class="top cv-in" style="--i:0"><span class="k-label">Wedding day</span><b class="num" data-scramble="${esc(d.dateLong)}">${esc(d.dateDots)}</b></div>
+      <div class="names cv-in" style="--i:1">${esc(d.n1)}<span class="amp">&amp;</span>${esc(d.n2)}</div>
+      ${ART.line('#F3E9D6').replace('class="cv-line"','class="cv-line cv-in" style="--i:2"')}
+      <div class="cv-slot">${to}${open}</div>
+    </section>`;
+  return '';
+}
+const dateDots = d => { if(!d) return ''; const [y,m,dd]=d.split('-'); return `${dd}.${m}.${y.slice(2)}`; };
 
 /* ---------- State ---------- */
 const DEFAULT = {
@@ -1170,18 +1407,19 @@ function invHTML(opts={}){
     </section>`;
   const order = (S.order||DEFAULT.order).filter(k=>sec[k]);
   return `
-  <div class="inv${big}" style="${themeStyle(t, S.accent, fontOf())};--t-op:${op2}" data-inv>
+  <div class="inv${big}${t.layout?' lay-'+t.layout:''}" style="${themeStyle(t, S.accent, fontOf())};--t-op:${op2}" data-inv>
     <div class="pat"></div>
     ${opts.watermark ? `<span class="wm">Pratinjau · belum dipublikasikan</span>`:''}
+    ${t.layout ? coverHTML(t, {id, guest, n1:nick1, n2:nick2, dateLong:first?fmtShort(first.date):'', dateDots:first?dateDots(first.date):'', accent:S.accent||t.accent, gate:opts.gate, photo:t.photo?coverPhoto(t):''}) : `
     <section class="cover" id="${id}-cover">
       <div class="card">
-        <div class="k-label">Undangan Pernikahan</div>
+        <div class="k-label" data-scramble="${first ? esc(fmtShort(first.date)) : ''}">Undangan Pernikahan</div>
         <div class="names">${esc(nick1)}<span class="amp">&amp;</span>${esc(nick2)}</div>
         <div class="date">${first ? esc(fmtShort(first.date)) : 'Tanggal acara'}</div>
-        <div class="to">Kepada Yth.<b data-guestname>${esc(guest)}</b></div>
-        ${opts.gate ? `<button class="open" data-act="open-inv">Buka undangan</button>` : ''}
+        <div class="cv-slot"><div class="to">Kepada Yth.<b data-guestname>${esc(guest)}</b></div>
+        ${opts.gate ? `<button class="open" data-act="open-inv">${ico('mail')}<span>Buka undangan</span></button>` : ''}</div>
       </div>
-    </section>
+    </section>`}
     ${order.map(k=>sec[k]).join('')}
     <section>
       <h3>Terima kasih</h3>
@@ -1272,9 +1510,9 @@ $('#tryGuest').addEventListener('input', e=>{
 /* ---------- Theme cards ---------- */
 function tcard(t){
   return `<article class="tcard">
-    <div class="cover" style="${themeStyle(t)}"><div class="frame"></div>
+    ${t.layout ? `<div class="cover tc-wrap" style="${themeStyle(t)}"><div class="tc-live" data-tclive>${tcLive(t)}</div></div>` : `<div class="cover" style="${themeStyle(t)}"><div class="frame"></div>
       <div class="inner"><small>The Wedding of</small><div class="nm">${esc(S.bride.nick||'Nadia')}<i>&amp;</i>${esc(S.groom.nick||'Rizky')}</div><small>${esc(fmtShort(S.events[0].date||'2027-02-14'))}</small></div>
-    </div>
+    </div>`}
     <div class="meta">
       <div class="top"><h3>${esc(t.name)}</h3><span class="reg">${esc(t.region)}</span></div>
       <div class="chips">${t.tags.map(x=>`<span class="chip">${esc(x)}</span>`).join('')}</div>
@@ -1282,13 +1520,16 @@ function tcard(t){
     </div>
   </article>`;
 }
-function renderStrip(){ $('#themeStrip').innerHTML = ['kawung','songket','taman','senja'].map(id=>tcard(themeById(id))).join(''); }
+function tcLive(t){ const d0=S.events.find(e=>e.date)?.date||'2027-02-14'; return `<div class="inv lay-${t.layout}" style="${themeStyle(t)}"><div class="pat"></div>${coverHTML(t,{id:'tc'+t.id, guest:'Tamu undangan', n1:S.bride.nick||'Nadia', n2:S.groom.nick||'Rizky', dateLong:fmtShort(d0), dateDots:dateDots(d0), accent:t.accent, gate:true, photo:t.photo?coverPhoto(t):''}).replace(/data-act="open-inv"/g,'tabindex="-1" aria-hidden="true"').replace(/ id="tc[a-z]+-cover"/,'')}</div>`; }
+function fitLive(root){ $$('[data-tclive]', root||document).forEach(el=>{ const w=el.parentElement.clientWidth, h=el.parentElement.clientHeight; if(w) el.style.setProperty('--tcs', Math.max(w/360, h/450)); }); }
+addEventListener('resize', ()=>fitLive());
+function renderStrip(){ $('#themeStrip').innerHTML = ['sekar','kamboja','lentera','arunika'].map(id=>tcard(themeById(id))).join(''); fitLive($('#themeStrip')); }
 let catTag='Semua', catQ='';
 function renderCatalog(){
   $('#tagFilter').innerHTML = TAGS.map(t=>`<button type="button" data-tag="${t}" aria-pressed="${t===catTag}">${t}</button>`).join('');
   const q = catQ.toLowerCase();
   const list = THEMES.filter(t => (catTag==='Semua'||t.tags.includes(catTag)) && (!q || (t.name+' '+t.region+' '+t.tags.join(' ')).toLowerCase().includes(q) || (q.includes('jawa')&&t.id==='kawung') || (q.includes('minang')&&t.id==='songket') || (q.includes('batak')&&t.id==='ulos') || (q.includes('bugis')&&t.id==='lontar')));
-  $('#themeGrid').innerHTML = list.length ? list.map(tcard).join('') : `<div class="empty"><b style="color:var(--ink)">Belum ada tema untuk “${esc(catQ)}”.</b><br>Coba kata lain, atau <button class="btn btn-ghost btn-sm" data-act="clear-filter" style="margin-top:10px">tampilkan semua tema</button></div>`;
+  setTimeout(()=>fitLive($('#themeGrid')),0); $('#themeGrid').innerHTML = list.length ? list.map(tcard).join('') : `<div class="empty"><b style="color:var(--ink)">Belum ada tema untuk “${esc(catQ)}”.</b><br>Coba kata lain, atau <button class="btn btn-ghost btn-sm" data-act="clear-filter" style="margin-top:10px">tampilkan semua tema</button></div>`;
 }
 $('#tagFilter').addEventListener('click',e=>{ const b=e.target.closest('[data-tag]'); if(!b) return; catTag=b.dataset.tag; renderCatalog(); });
 $('#themeSearch').addEventListener('input',e=>{ catQ=e.target.value; renderCatalog(); });
@@ -1366,8 +1607,8 @@ function renderStep(){
   }
   if(i===2){
     const t = themeById(S.theme);
-    h = `<span class="eyebrow">Langkah 3 dari 5</span><h2>Pilih tampilan</h2><p class="sub">Semua tema termasuk di semua paket. Isi undangan tidak berubah saat ganti tema.</p>
-    <div class="theme-pick" role="group" aria-label="Tema">${THEMES.map(x=>`<button type="button" data-pick="${x.id}" aria-pressed="${x.id===S.theme}"><div class="tp" style="${themeStyle(x)}">${esc((S.bride.nick||'N')[0])}&amp;${esc((S.groom.nick||'R')[0])}</div><span>${esc(x.name)}</span></button>`).join('')}</div>
+    h = `<span class="eyebrow">Langkah 3 dari 5</span><h2>Pilih tampilan</h2><p class="sub">Semua tema termasuk di semua paket. Isi undangan tidak berubah saat ganti tema.</p>${t.photo?`<p class="hint" style="margin:-6px 0 14px">${ico('camera')} Tema ${esc(t.name)} memakai foto pertama di galeri sebagai sampul. Belum ada foto? Kami tampilkan ilustrasi dulu.</p>`:''}
+    <div class="theme-pick" role="group" aria-label="Tema">${THEMES.map(x=>`<button type="button" data-pick="${x.id}" aria-pressed="${x.id===S.theme}"><div class="tp" style="${themeStyle(x)}${x.thumb?`background:${x.thumb(x)};`:''}">${esc((S.bride.nick||'N')[0])}&amp;${esc((S.groom.nick||'R')[0])}</div><span>${esc(x.name)}</span></button>`).join('')}</div>
     <div class="field" style="margin-top:26px"><label>Warna aksen</label><div class="swatches" role="group" aria-label="Warna aksen">
       <button type="button" class="sw" style="background:${t.accent}" data-acc="" aria-pressed="${!S.accent}" aria-label="Warna bawaan tema"></button>
       ${ACCENTS.filter(a=>a!==t.accent).map(a=>`<button type="button" class="sw" style="background:${a}" data-acc="${a}" aria-pressed="${S.accent===a}" aria-label="Aksen ${a}"></button>`).join('')}
@@ -1590,6 +1831,75 @@ function startBgm(){
 function stopBgm(){ clearInterval(bgmFade); if(BGM){ BGM.pause(); } }
 window.__spMusic = () => ({src:S.musicSrc, start:S.musicStart, prev: PREV?{paused:PREV.paused,t:PREV.currentTime}:null, bgm: BGM?{paused:BGM.paused,t:BGM.currentTime,vol:BGM.volume}:null});
 
+/* ---------- Animasi undangan (ringan, tanpa library) ---------- */
+const REDUCED = () => { try{ return matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){ return false; } };
+const SCR_CH = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+function scramble(el, to, dur=900){
+  if(!el) return; if(REDUCED()){ el.textContent=to; return; }
+  const from = el.textContent; const len = Math.max(from.length, to.length); const t0 = performance.now();
+  const step = now => { const p = Math.min(1, (now-t0)/dur); let out='';
+    for(let i=0;i<len;i++){ const reveal = p*len*1.15 - i*0.9; const c = to[i]||'';
+      out += reveal>=1 ? c : (c===' ' ? ' ' : (reveal>0 || i<from.length) ? SCR_CH[(Math.random()*SCR_CH.length)|0] : ''); }
+    el.textContent = p>=1 ? to : out; if(p<1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+function odometer(el){
+  if(!el || el.dataset.odo) return; el.dataset.odo='1';
+  const txt = el.textContent.trim(); if(!/^\d+$/.test(txt) || REDUCED()) return;
+  el.innerHTML = [...txt].map((ch,i)=>`<span class="odo"><span class="odo-col" style="--d:${ch};--k:${i}">${'0123456789'.split('').map(n=>`<span>${n}</span>`).join('')}</span></span>`).join('');
+  el.setAttribute('aria-label', txt);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('odo-go')));
+}
+function splitWords(h){
+  if(h.dataset.split) return; h.dataset.split='1';
+  const walk = node => { [...node.childNodes].forEach(c=>{ if(c.nodeType===3){ const parts=c.textContent.split(/(\s+)/); const f=document.createDocumentFragment();
+        parts.forEach(w=>{ if(!w) return; if(/^\s+$/.test(w)){ f.appendChild(document.createTextNode(w)); return; } const o=document.createElement('span'); o.className='w'; const i=document.createElement('span'); i.textContent=w; o.appendChild(i); f.appendChild(o); });
+        c.replaceWith(f); } else if(c.nodeType===1) walk(c); }); };
+  walk(h); $$('.w > span', h).forEach((s,i)=>s.style.setProperty('--wi', i));
+}
+let invIO = null;
+function enhanceInv(root){
+  const inv = root.querySelector('[data-inv]'); if(!inv) return;
+  shimmerImages(inv);
+  if(REDUCED() || !('IntersectionObserver' in window)) return;
+  inv.classList.add('anim');
+  $$('section:not(.cover)', inv).forEach(sec=>{
+    let k=0;
+    $$(':scope > h3', sec).forEach(h=>{ splitWords(h); h.dataset.rv='mask'; });
+    $$(':scope > .orn', sec).forEach(o=>o.dataset.rv='draw');
+    $$(':scope > .lead, :scope > .names, :scope > .and, :scope > .count, :scope > .ev, :scope > .bank, :scope > [data-rsvp], :scope > .form, :scope > [data-wishlist], :scope > [data-giftconfirm], .person h4, .person p', sec).forEach(e=>{ if(!e.dataset.rv){ e.dataset.rv='up'; e.style.setProperty('--rk', Math.min(k++,6)); } });
+    $$('.person .ph, .gal button', sec).forEach((e,i)=>{ e.dataset.rv='clip'; e.style.setProperty('--rk', Math.min(i,5)); });
+  });
+  if(invIO) invIO.disconnect();
+  // clip-path ikut memengaruhi perhitungan IntersectionObserver, jadi elemen clip/draw diamati lewat induknya
+  const proxy = new Map();
+  invIO = new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ const el=en.target; invIO.unobserve(el);
+      const kids = proxy.get(el); if(kids){ kids.forEach(k=>k.classList.add('in')); if(!el.dataset.rv) return; }
+      el.classList.add('in'); if(el.classList.contains('count')) $$('b.num', el).forEach(odometer); } }), {rootMargin:'0px 0px -8% 0px', threshold:.12});
+  $$('[data-rv]', inv).forEach(e=>{ if(e.dataset.rv==='clip' || e.dataset.rv==='draw'){ const par=e.parentElement; if(!proxy.has(par)) proxy.set(par, []); proxy.get(par).push(e); invIO.observe(par); } else invIO.observe(e); });
+}
+function shimmerImages(inv){
+  $$('.person .ph, .gal button, .cv-photo', inv).forEach(el=>{
+    const m = (el.getAttribute('style')||'').match(/url\((['"]?)(.*?)\1\)/); if(!m || el.dataset.sk) return;
+    const src = m[2]; if(src.startsWith('data:image/svg')) return;
+    el.dataset.sk='1'; el.classList.add('sk-img');
+    const im = new Image(); im.onload = im.onerror = () => el.classList.add('sk-done'); im.src = src;
+    if(im.complete) el.classList.add('sk-done');
+  });
+}
+function openCover(){
+  const cv = $('#g-cover'); if(!cv || cv.classList.contains('is-open')) return;
+  cv.classList.add('is-open');
+  const sc = cv.querySelector('[data-scramble]'); if(sc) setTimeout(()=>scramble(sc, sc.dataset.scramble, 950), 120);
+  const slot = cv.querySelector('.cv-slot') || cv.querySelector('.card');
+  const first = guestEvents(guestObj()).find(e=>e.date);
+  if(slot && first){
+    const box = document.createElement('div'); box.className='cv-count count'; box.setAttribute('data-count', first.date); box.innerHTML = countHTML(first.date);
+    const cue = document.createElement('div'); cue.className='cv-cue'; cue.innerHTML = `<span>Gulir ke bawah</span>${ico('down')}`;
+    setTimeout(()=>{ slot.classList.add('swap'); setTimeout(()=>{ slot.replaceChildren(box, cue); slot.classList.remove('swap'); slot.classList.add('swapped'); $$('b.num', box).forEach(odometer); }, 320); }, 260);
+  }
+}
+
 /* ---------- Guest view ---------- */
 let guestBig=false, guestMusic=true, guestId=null;
 const guestObj = () => CLOUD.guestMode ? CLOUD.guest : (guestId ? G.find(g=>g.id===guestId) : null);
@@ -1612,14 +1922,14 @@ function renderGuest(){
         ${S.wishesOn?`<button data-go="g-ucapan">${ico('chat')}Ucapan</button>`:`<button data-go="g-cover">${ico('home')}Awal</button>`}
       </nav>
     </div>`;
-  bindInv(sh);
+  bindInv(sh); enhanceInv(sh);
   document.body.style.overflow='hidden';
   $('#g-cover').style.minHeight='100vh';
 }
 function openGuest(){
   startBgm();
-  const col=$('#guestCol'); col.classList.remove('locked'); document.body.style.overflow='';
-  ($('#g-salam')||$('#g-acara')).scrollIntoView({behavior:'smooth'});
+  const col=$('#guestCol'); if(!col.classList.contains('locked')) return; col.classList.remove('locked'); document.body.style.overflow='';
+  openCover();
 }
 
 /* ---------- Dashboard ---------- */
@@ -1833,7 +2143,7 @@ function demoModal(id){
     <p class="muted">Demo ini sudah memakai nama dan acara kalian. Gulir di dalam layar untuk melihat semua bagian, termasuk RSVP dan amplop digital.</p>
     <ul class="ticks" style="margin:20px 0 26px"><li style="grid-template-columns:24px 1fr;color:var(--ink)"><span style="color:var(--ok)">${ico('check')}</span><span style="color:var(--ink)">Termasuk di semua paket</span></li><li style="grid-template-columns:24px 1fr"><span style="color:var(--ok)">${ico('check')}</span><span style="color:var(--ink)">Warna aksen bisa diganti</span></li></ul>
     <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary" data-act="use-theme" data-t="${id}">Pakai tema ini</button><button class="btn btn-ghost" data-act="close">Tutup</button></div></div></div>`, true);
-  bindInv($('#demoScreen'));
+  bindInv($('#demoScreen')); enhanceInv($('#demoScreen'));
 }
 
 /* ---------- Global click actions ---------- */
@@ -2372,14 +2682,22 @@ async function waitPaid(orderId, tries=0){
 
 /* ---------- Router ---------- */
 const VIEWS = ['beranda','tema','buat','undangan','dashboard','checkout','tagihan','checkin'];
+let bootDoneCalled=false;
+function bootDone(){ if(bootDoneCalled) return; bootDoneCalled=true; const h=document.documentElement; if(!h.classList.contains('boot-guest') && !h.classList.contains('boot-app')) return;
+  const ph=$('#g-cover .cv-photo'); const m=ph && (ph.getAttribute('style')||'').match(/url\((['"]?)(.*?)\1\)/);
+  const img = m ? new Promise(r=>{ const i=new Image(); i.onload=i.onerror=r; i.src=m[2]; setTimeout(r,1800); }) : Promise.resolve();
+  const fonts = (document.fonts && document.fonts.ready) ? Promise.race([document.fonts.ready, new Promise(r=>setTimeout(r,1400))]) : Promise.resolve();
+  Promise.all([img, fonts]).then(()=>{ h.classList.add('boot-done'); setTimeout(()=>{ h.classList.remove('boot-guest','boot-app'); const b=$('#bootSkel'); if(b) b.remove(); }, 500); });
+}
 function route(){
   if(CLOUD.guestMode || CLOUD.pinMode){
     const v = CLOUD.guestMode ? 'undangan' : 'checkin';
     $$('[data-view]').forEach(x=> x.hidden = x.dataset.view!==v); $('#siteHeader').hidden=true; $('#footerWrap').hidden=true; closeModal();
-    if(CLOUD.guestMode && CLOUD.notFound){ $('#guestShell').innerHTML = `<div class="cloud-404" style="width:100%"><div><h1 class="display" style="font-size:36px">Undangan tidak ditemukan</h1><p class="muted" style="margin-top:10px">Link mungkin salah ketik, atau undangan belum dipublikasikan oleh pasangan.</p></div></div>`; return; }
+    if(CLOUD.guestMode && CLOUD.notFound){ $('#guestShell').innerHTML = `<div class="cloud-404" style="width:100%"><div><h1 class="display" style="font-size:36px">Undangan tidak ditemukan</h1><p class="muted" style="margin-top:10px">Link mungkin salah ketik, atau undangan belum dipublikasikan oleh pasangan.</p></div></div>`; bootDone(); return; }
     if(CLOUD.guestMode) renderGuest(); else renderCheckin();
-    return;
+    bootDone(); return;
   }
+  setTimeout(bootDone, 0);
   let h = (location.hash||'').slice(1) || 'beranda';
   let scrollTo = null;
   if(h==='harga'){ h='beranda'; scrollTo='harga-sec'; }
