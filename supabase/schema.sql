@@ -284,3 +284,11 @@ create policy photos_insert_own on storage.objects for insert to authenticated
 drop policy if exists photos_delete_own on storage.objects;
 create policy photos_delete_own on storage.objects for delete to authenticated
   using (bucket_id = 'photos' and (storage.foldername(name))[1] = auth.uid()::text);
+
+-- ============ HAK AKSES API (jika "Automatically expose new tables" dimatikan) ============
+grant usage on schema public to anon, authenticated;
+grant select, insert, update, delete on public.invitations, public.guests to authenticated;
+grant select, update, delete on public.wishes to authenticated;
+grant select on public.gift_confirmations, public.invoices to authenticated;
+grant all on all tables in schema public to service_role;
+grant usage, select on all sequences in schema public to service_role;
