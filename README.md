@@ -23,7 +23,7 @@ Tanpa variabel lingkungan, website berjalan dalam **mode demo** (data di browser
 | `MIDTRANS_SERVER_KEY` | Server key Midtrans (rahasia) |
 | `MIDTRANS_CLIENT_KEY` | Client key Midtrans |
 | `MIDTRANS_IS_PRODUCTION` | `false` untuk sandbox |
-| `SITE_URL` | opsional, mis. `https://satupadukita.vercel.app` |
+| `SITE_URL` | opsional, mis. `https://undangansakara.vercel.app` |
 
 5. **Midtrans** → Settings → Payment → Notification URL = `https://<domain>/api/pay/notify`.
 6. Redeploy di Vercel.

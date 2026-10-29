@@ -896,7 +896,7 @@ html.boot-app #bootSkel .bs-app{display:flex}
 .arr-panel .crowd-bars{height:150px}
 .arr-panel .crowd-bars .cb-col{height:124px}
 .arr-panel .crowd-bars small{font-size:11px}
-@media (max-width:760px){ .dash-nav{grid-template-columns:repeat(7,1fr) !important} .dash-nav button{font-size:10px !important;padding:6px 2px !important} .dash-nav button .icon{width:20px;height:20px} }
+@media (max-width:760px){ .dash-nav{display:flex !important;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;gap:2px;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)} .dash-nav::-webkit-scrollbar{display:none} .dash-nav button{flex:0 0 auto;min-width:66px;scroll-snap-align:start;font-size:11px !important;padding:6px 4px !important} .dash-nav button .icon{width:20px;height:20px} .dash-nav.end{-webkit-mask-image:none;mask-image:none} }
 
 /* ===== Halaman keluarga & vendor ===== */
 .fp{max-width:560px;margin:0 auto;padding:28px 18px 60px;display:grid;gap:16px;font-size:16.5px}
@@ -1005,7 +1005,7 @@ html.boot-app #bootSkel .bs-app{display:flex}
   .ed-insp-h{padding:10px 18px 12px}
   .ed-done{display:inline-flex}
   .ed-insp-b{padding:16px 18px calc(28px + env(safe-area-inset-bottom))}
-  body.ed-sheet-open::after{content:"";position:fixed;inset:0;background:rgba(20,10,14,.28);z-index:55}
+  body.ed-sheet-open::after{content:"";position:fixed;inset:0;background:rgba(20,10,14,.28);z-index:55;cursor:pointer}
 }
 /* ===== Mode penerima tamu v2 ===== */
 .ci-shell{background:#F7F2F3}
@@ -2508,6 +2508,7 @@ function edSelect(k, fromPreview){
   edMark();
 }
 function edMark(){ const p=edPanel(EDIT.panel); $$('#edScreen section[id]').forEach(s=>s.classList.toggle('ed-on', p[5].includes(s.id.replace(/^e-/,'')))); }
+document.addEventListener('click', e=>{ if(document.body.classList.contains('ed-sheet-open') && (e.target===document.body || e.target===document.documentElement)) edSheet(false); });
 function edSheet(open){ EDIT.sheet=open; const ins=$('#edInsp'); if(ins) ins.classList.toggle('open', open); document.body.classList.toggle('ed-sheet-open', open && innerWidth<900); }
 function renderEditor(){
   const root=$('#editor');
@@ -2599,9 +2600,9 @@ const stLabel = {hadir:['Hadir','s-ok'],tidak:['Tidak hadir','s-no'],belum:['Bel
 const PRO = ['import','bulk','groups','harih','remind'];
 const isLocked = f => S.published && S.plan==='undangan' && PRO.includes(f);
 const lockNote = (what) => `<div class="lock-card">${ico('lock')}<div><b>${what} ada di paket Undangan + Tamu</b><p class="muted">Upgrade cukup bayar selisihnya, ${rupiah(UPGRADE_PRICE)}. Data tamu dan undanganmu tetap.</p></div><button class="btn btn-primary btn-sm" data-act="upgrade">Upgrade</button></div>`;
-function pubHost(){ return CLOUD.on ? location.host+'/u/' : 'satupadukita.vercel.app/u/'; }
+function pubHost(){ return CLOUD.on ? location.host+'/u/' : 'undangansakara.vercel.app/u/'; }
 function pubURL(){ return 'https://'+pubHost()+((CLOUD.inv&&CLOUD.inv.slug)||S.slug); }
-function link(g){ return CLOUD.on ? `${location.origin}/u/${(CLOUD.inv&&CLOUD.inv.slug)||S.slug}?to=${g.code}` : `https://satupadukita.vercel.app/u/${S.slug}?to=${encodeURIComponent(g.code||g.name)}`; }
+function link(g){ return CLOUD.on ? `${location.origin}/u/${(CLOUD.inv&&CLOUD.inv.slug)||S.slug}?to=${g.code}` : `https://undangansakara.vercel.app/u/${S.slug}?to=${encodeURIComponent(g.code||g.name)}`; }
 function waMsg(g){ const ev=guestEvents(g); return `Halo ${g.name},\n\nDengan penuh syukur, kami ${S.bride.nick} & ${S.groom.nick} mengundang Anda ke ${ev.map(e=>e.type).join(' dan ')} pernikahan kami, ${fmtDate((ev[0]||S.events[0]).date)}.\n\nUndangan lengkap dan konfirmasi kehadiran:\n${link(g)}\n\nTerima kasih 🙏`; }
 function waUrl(g){ return `https://wa.me/${(g.phone||'').replace(/^0/,'62')}?text=${encodeURIComponent(waMsg(g))}`; }
 const filteredGuests = () => { const q=gQ.toLowerCase(); return G.filter(g=>(gStatus==='semua'||g.status===gStatus) && (gGroup==='semua'||g.group===gGroup) && (!q||g.name.toLowerCase().includes(q)||(g.phone||'').includes(q)||(g.code||'').toLowerCase().includes(q))); };
@@ -2911,7 +2912,9 @@ function renderDashCore(){
     <div class="tbl-wrap" style="display:block"><table><thead><tr><th>Dari</th><th>Ke</th><th class="num">Jumlah</th><th>Waktu</th></tr></thead><tbody>${GIFTS.map(g=>`<tr><td class="nm">${esc(g.n)}</td><td>${esc(g.bank)}</td><td class="num">${g.amt?rupiah(g.amt):'—'}</td><td class="muted">${esc(g.t)}</td></tr>`).join('')}</tbody></table></div>` + kadoAdminHTML();
   }
   $('#dash').innerHTML = head + body;
-  $('#dashNav').innerHTML = DT.map(([k,l,i])=>`<button role="tab" data-dtab="${k}" aria-selected="${dTab===k}">${ico(i)}${l}</button>`).join('');
+  const dn=$('#dashNav'), dsl=dn.scrollLeft; dn.innerHTML = DT.map(([k,l,i])=>`<button role="tab" data-dtab="${k}" aria-selected="${dTab===k}">${ico(i)}${l}</button>`).join(''); dn.scrollLeft=dsl;
+  if(!dn._sc){ dn._sc=1; dn.addEventListener('scroll',()=>dn.classList.toggle('end', dn.scrollLeft+dn.clientWidth>=dn.scrollWidth-4),{passive:true}); }
+  const dsel=dn.querySelector('[aria-selected=true]'); if(dsel && dn.scrollWidth>dn.clientWidth){ const r=dsel.offsetLeft, w=dsel.offsetWidth; if(r<dn.scrollLeft || r+w>dn.scrollLeft+dn.clientWidth) dn.scrollLeft=r-dn.clientWidth/2+w/2; }
 }
 document.addEventListener('input', e=>{ if(e.target.id==='gSearch'){ gQ=e.target.value; const pos=e.target.selectionStart; renderDash(); const s=$('#gSearch'); s.focus(); s.setSelectionRange(pos,pos); } });
 document.addEventListener('change', e=>{

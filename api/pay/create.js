@@ -15,7 +15,8 @@ module.exports = async (req, res) => {
     const p = priceFor(inv, plan, body.voucher);
     const orderId = `SP-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
     await sb('/rest/v1/invoices', { method: 'POST', body: { id: orderId, invitation_id: inv.id, owner: user.id, item: p.item, plan: p.upgrade ? 'tamu' : plan, price: p.price, discount: p.discount, voucher: p.voucher, total: p.total, method: body.method || '', status: 'pending' } });
-    const site = env('SITE_URL') || `https://${req.headers.host}`;
+    const host = String(req.headers['x-forwarded-host'] || req.headers.host || '').split(',')[0].trim();
+    const site = /\.vercel\.app$|^localhost/.test(host) ? `https://${host}` : (env('SITE_URL') || `https://${host}`);
     const items = [{ id: p.upgrade ? 'upgrade' : plan, price: p.price, quantity: 1, name: p.item.slice(0, 50) }];
     if (p.discount) items.push({ id: 'voucher', price: -p.discount, quantity: 1, name: `Voucher ${p.voucher}` });
     const payload = {
