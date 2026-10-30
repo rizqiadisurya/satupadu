@@ -809,13 +809,20 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 #edScreen .inv.lay-draperi .cover.dp-photo{min-height:640px}
 .dp-photo .dp-box{position:absolute;inset:0;container-type:size;overflow:hidden}
 .dp-photo .dp-stage{position:absolute;left:50%;top:50%;width:max(100cqw,calc(100cqh * 2 / 3));aspect-ratio:2/3;transform:translate(-50%,-50%);background:center/cover no-repeat;container-type:inline-size}
-.dp-photo .dp-txt{position:absolute;left:18%;right:18%;top:17%;display:flex;flex-direction:column;align-items:center;text-align:center;color:#FBF7F0;text-shadow:0 1px 12px rgba(20,32,52,.45)}
+.dp-photo .dp-txt{position:absolute;left:12%;right:12%;top:15%;display:flex;flex-direction:column;align-items:center;text-align:center;color:#FBF7F0;text-shadow:0 1px 12px rgba(20,32,52,.45)}
 .inv.lay-draperi .dp-photo .k-label{font-size:2.1cqi;letter-spacing:.42em}
-.inv.lay-draperi .dp-photo .names{font-size:11cqi;margin:2.2cqi 0 1cqi;text-shadow:0 2px 16px rgba(20,32,52,.5)}
+.inv.lay-draperi .dp-photo .names{font-size:10cqi;margin:1.8cqi 0 .8cqi;text-shadow:0 2px 16px rgba(20,32,52,.5)}
 .inv.lay-draperi .dp-photo .date{font-size:2.2cqi;margin:0}
 .inv.lay-draperi .dp-photo .dp-open .open{margin-top:5cqi;font-size:2cqi;padding:2.2cqi 4.4cqi;background:rgba(251,247,240,.14);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);text-shadow:none}
 .dp-photo .dp-card{position:absolute;left:31.5%;width:37%;top:var(--dp-cy);height:var(--dp-ch);display:grid;place-items:center;text-align:center}
 .dp-photo .dp-ini{position:absolute;left:50%;top:var(--dp-seal);transform:translate(-50%,-50%);font:italic 600 2.3cqi/1 'Cormorant Garamond',serif;color:var(--dp-ink);letter-spacing:.04em;opacity:.9;text-shadow:0 -1px 0 rgba(0,0,0,.35)}
+.inv.lay-draperi .dp-photo .dp-to .to{margin:4.5cqi 0 0;color:#FBF7F0;font-size:1.9cqi;letter-spacing:.32em;text-transform:uppercase;opacity:.92}
+.inv.lay-draperi .dp-photo .dp-to .to b{display:block;color:#FFFBF4;font-family:var(--t-font);font-style:italic;font-weight:600;font-size:5.6cqi;letter-spacing:0;text-transform:none;margin-top:1.2cqi;line-height:1.15;text-wrap:balance;text-shadow:0 2px 14px rgba(20,32,52,.55)}
+.inv.lay-draperi .dp-photo .cv-count{margin-top:4cqi;gap:1.6cqi}
+.inv.lay-draperi .dp-photo .cv-count>div{background:rgba(251,247,240,.14);border:1px solid rgba(251,247,240,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#FBF7F0;box-shadow:none}
+.inv.lay-draperi .dp-photo .cv-count b,.inv.lay-draperi .dp-photo .cv-count small{color:#FBF7F0;opacity:1}
+.inv.lay-draperi .dp-photo .cv-cue{color:#FBF7F0;margin-top:2.4cqi}
+.inv.lay-draperi .dp-photo .is-open .dp-to .to,.inv.lay-draperi .dp-photo.is-open .dp-to .to{margin-top:3cqi}
 .inv.lay-draperi .dp-photo .dp-card .to{margin:0;color:#7A6B5B;font-size:1.35cqi;letter-spacing:.2em;text-transform:uppercase;text-shadow:none}
 .inv.lay-draperi .dp-photo .dp-card .to b{display:block;color:var(--dp-name);font-family:var(--t-font);font-style:italic;font-size:2.9cqi;letter-spacing:0;text-transform:none;margin-top:.3cqi;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:34cqi}
 
@@ -2284,9 +2291,9 @@ function coverHTML(t, d){
           <div class="names cv-in" style="--i:1">${esc(d.n1)}<span class="amp">&amp;</span>${esc(d.n2)}</div>
           <div class="date cv-in" style="--i:2">${esc(d.dateLong)}</div>
           <div class="cv-slot dp-open">${open}</div>
+          <div class="dp-to">${to.replace('--i:5','--i:4')}</div>
         </div>
         <span class="dp-ini" aria-hidden="true">${esc((d.n1||'?')[0])}${esc((d.n2||'?')[0])}</span>
-        <div class="dp-card cv-slot">${to}</div>
       </div></div>
     </section>`;
   if(L==='draperi') return `<section class="cover cv-draperi" id="${d.id}-cover" style="--fab:${t.fabric}">
