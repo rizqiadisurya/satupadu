@@ -2528,14 +2528,14 @@ const FEATS = [
   ]],
   ['Tamu & konfirmasi', [
     ['RSVP, ucapan & doa', 0,1,1],
-    ['Amplop digital & kado patungan', 0,1,1, 1],
+    ['Amplop digital & kado patungan', 0,1,1],
     ['Daftar tamu & status per nama', 0,1,1, 1],
     ['Akun keluarga (keluarga tambah tamu sendiri)', 0,1,1],
-    ['Import tamu dari Excel/CSV', 0,0,1, 1],
+    ['Import tamu dari Excel/CSV', 0,0,1],
     ['Grup tamu (keluarga, kantor, dst.)', 0,0,1]
   ]],
   ['Kirim undangan', [
-    ['Kirim WhatsApp satu per satu', 0,1,1, 1],
+    ['Kirim WhatsApp satu per satu', 0,1,1],
     ['Tulis sendiri template pesan WhatsApp', 0,1,1],
     ['Kirim WhatsApp ke semua tamu sekaligus', 0,0,1, 1],
     ['Pengingat H-3 untuk yang belum jawab', 0,0,1]
@@ -2574,7 +2574,7 @@ function renderPlans(){
       <div class="price num">${p.price?rupiah(p.price):'Rp0'} <small>${p.note}</small></div>
       ${p.fit?`<p class="plan-fit">${p.fit}</p>`:''}
       <ul>${FEATS.flatMap(g=>g[1]).filter(r=>r[4]).map(r=>{ const on=r[PLAN_COL[p.id]]; return `<li class="${on?'':'off'}">${ico(on?'check':'x')}${r[0]}</li>`; }).join('')}</ul>
-      <a class="plan-more" href="#bandingkan">Lihat semua fitur →</a>
+      <a class="plan-more" href="#bandingkan">Lihat detail paket →</a>
       ${planCta(p)}
     </div>`).join('');
 }
