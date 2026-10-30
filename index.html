@@ -3855,7 +3855,7 @@ document.addEventListener('click', e=>{
   const a=el.dataset.act;
   if(a==='login'){ e.preventDefault(); openAuth(); }
   if(a==='login-co'){ openAuth(()=>renderCheckout(),'publish'); }
-  if(a==='google-login' && CLOUD.on){ const dest = authMode==='publish' ? 'checkout' : (location.hash.slice(1)||'dashboard'); lsSet('sp-after-login', dest); el.disabled=true; el.lastChild.textContent='Menghubungkan ke Google…';
+  if(a==='google-login' && CLOUD.on){ const hv=location.hash.slice(1); const dest = authMode==='publish' ? 'checkout' : (!hv||['beranda','harga'].includes(hv) ? 'dashboard' : hv); lsSet('sp-after-login', dest); el.disabled=true; el.lastChild.textContent='Menghubungkan ke Google…';
     CLOUD.sb.auth.signInWithOAuth({provider:'google', options:{redirectTo: location.origin+'/', queryParams:{prompt:'select_account'}}}).then(({error})=>{ if(error){ el.disabled=false; el.lastChild.textContent='Lanjut dengan Google'; toast('Login Google belum bisa: '+error.message); } }); return; }
   if(a==='google-login'){ finishLogin(S.bride.name||'Pengguna Google', (S.bride.nick||'pengguna').toLowerCase()+'@gmail.com'); }
   if(a==='logout' && CLOUD.uid){ CLOUD.sb.auth.signOut().finally(()=>{ try{ ['sp-state','sp-guests','sp-wishes'].forEach(k=>localStorage.removeItem(k)); }catch(err){} location.href='/'; }); return; }
@@ -3908,7 +3908,6 @@ async function cloudInit(){
   }
   const { data:{ session } } = await CLOUD.sb.auth.getSession();
   if(session) await ownerLoad(session.user);
-  if(session && (!location.hash || location.hash==='#' || location.hash==='#beranda') && !lsGet('sp-after-login')) history.replaceState(null,'',location.pathname+location.search+'#dashboard');
   const after = lsGet('sp-after-login'); if(after){ try{ localStorage.removeItem('sp-after-login'); }catch(e){} if(session){ history.replaceState(null,'',location.pathname+'#'+after); } }
   const oauthErr = new URLSearchParams(location.hash.slice(1)||location.search).get('error_description'); if(oauthErr){ history.replaceState(null,'',location.pathname+'#beranda'); setTimeout(()=>toast('Login dibatalkan atau gagal. Coba lagi, ya.'),400); }
   CLOUD.sb.auth.onAuthStateChange((ev, s)=>{ if(ev==='SIGNED_IN' && s && CLOUD.uid!==s.user.id){ demoAfterLogin(s.user.id); ownerLoad(s.user).then(()=>{ if(!location.hash || location.hash==='#') location.hash='#dashboard'; route(); if(!(s.user.user_metadata&&s.user.user_metadata.name)) nameStep(); else { closeModal(); renderAuthSlot(); } }); } });
