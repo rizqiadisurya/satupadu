@@ -1638,6 +1638,7 @@ html.intro .hero h1,html.intro .hero .lede,html.intro .hero .try,html.intro .her
 #demoNudge .dn-x:hover{background:var(--blush,#F6E9EC)}
 @media (max-width:560px){ #demoNudge{left:16px;right:16px;width:auto;bottom:calc(84px + env(safe-area-inset-bottom))} }
 @media (prefers-reduced-motion:reduce){ #demoNudge{transition:none} }
+.foot-links{display:flex;gap:18px;flex-wrap:wrap;align-items:center}.foot-links a{color:inherit}.foot-links a:hover{color:var(--beet)}
 /* ===== Mode demo & persiapan ===== */
 .demo-ban{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;background:#FFF6E6;border:1px solid #F1D9A8;border-radius:18px;padding:16px 18px;margin-bottom:22px}
 .demo-ban.prep{background:var(--blush,#F6E9EC);border-color:#E9CDD5}
@@ -1926,7 +1927,7 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
   <div class="guest-shell" id="guestShell"></div>
 </div>
 
-<div id="footerWrap"><footer class="footer"><div class="wrap"><span><b style="color:var(--ink)">Sakara</b> · Undangan digital pernikahan</span><span>Jakarta, Indonesia</span></div></footer></div>
+<div id="footerWrap"><footer class="footer"><div class="wrap"><span><b style="color:var(--ink)">Sakara</b> · Undangan digital pernikahan</span><span class="foot-links"><a href="/privasi">Kebijakan Privasi</a><a href="/syarat">Syarat Layanan</a><span>Jakarta, Indonesia</span></span></div></footer></div>
 
 <div id="modalRoot"></div>
 <div id="toastRoot" aria-live="polite"></div>
@@ -3485,7 +3486,7 @@ function openAuth(next, mode){
       <button class="btn btn-primary btn-block">Lanjut</button>
     </form>
 
-    <p class="muted" style="font-size:12.5px;margin-top:14px">Lewat email, kami kirim kode 6 angka. Dengan melanjutkan, kamu setuju dengan Syarat & Kebijakan Privasi Sakara.</p></div>`);
+    <p class="muted" style="font-size:12.5px;margin-top:14px">Lewat email, kami kirim kode 6 angka. Dengan melanjutkan, kamu setuju dengan <a href="/syarat" target="_blank" rel="noopener">Syarat</a> &amp; <a href="/privasi" target="_blank" rel="noopener">Kebijakan Privasi</a> Sakara.</p></div>`);
   setTimeout(()=>{ const m=$('#au-mail'); if(m && !(CLOUD.on && CLOUD.cfg.googleLogin) && matchMedia('(hover:hover)').matches){ m.focus(); m.select(); } },60);
   $('#authForm').addEventListener('submit',async ev=>{ ev.preventDefault(); const m=$('#au-mail'); const v=m.value.trim().toLowerCase(); const er=m.parentElement.querySelector('.err');
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ m.setAttribute('aria-invalid','true'); er.textContent='Masukkan email yang valid, misal nadia@gmail.com'; er.hidden=false; m.focus(); return; }

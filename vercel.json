@@ -19,6 +19,14 @@
     {
       "source": "/u/:slug/album",
       "destination": "/index.html"
+    },
+    {
+      "source": "/privasi",
+      "destination": "/privasi.html"
+    },
+    {
+      "source": "/syarat",
+      "destination": "/syarat.html"
     }
   ],
   "headers": [
