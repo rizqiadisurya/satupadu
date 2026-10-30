@@ -102,6 +102,12 @@ const actions = {
     await sb(`/auth/v1/admin/users/${b.user_id}`, { method: 'PUT', body: { ban_duration: b.ban ? '876000h' : 'none' } });
     return { ok: true };
   },
+  async finance() {
+    const inv = await sb('/rest/v1/invoices?status=eq.paid&select=id,item,plan,price,discount,voucher,total,method,created_at,paid_at,owner,invitation_id&order=paid_at.desc&limit=5000');
+    const users = await sb('/rest/v1/admin_users?select=id,email,name,slug,bride,groom');
+    const by = {}; users.forEach(u => by[u.id] = u);
+    return { invoices: inv.map(i => { const u = by[i.owner] || {}; return { ...i, email: u.email || '', name: u.name || '', slug: u.slug || '', couple: [u.bride, u.groom].filter(Boolean).join(' & ') }; }) };
+  },
   async stats() {
     const day = 864e5, now = Date.now();
     const users = await sb('/rest/v1/admin_users?select=id,created_at,published,plan,paid_total,guests,theme');

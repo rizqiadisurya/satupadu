@@ -898,6 +898,35 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
   .adm-sec .f{grid-template-columns:1fr}
   .adm-phone{width:min(375px,100%)}
 }
+.fin-range{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:-6px 0 18px}
+.fin-range button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;font:inherit;font-size:14px;cursor:pointer}
+.fin-range button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.fin-range .input{width:auto;min-height:38px;padding:6px 10px}
+.fin-l{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.fin-l small{display:block;font-size:12px;color:var(--muted)}
+.fin-l.minus b{color:#9A2A36}
+.fin-l.sub{border-bottom:1px solid var(--ink);font-weight:700}
+.fin-l.total{border:0;border-top:2px solid var(--ink);margin-top:4px;font-size:18px;font-weight:800}
+.fin-profit b{color:#1E6B3A}.fin-profit.neg b{color:#9A2A36}
+.adm-fin tr.fin-tot td{background:#FAF6F4;font-weight:700;border-top:2px solid var(--line)}
+.fin-fees{display:grid;gap:8px}
+.fin-fees>div{display:grid;grid-template-columns:1fr 110px 140px;gap:8px;align-items:center;font-size:14px}
+.fin-fees label,.fin-costs label{position:relative;display:block}
+.fin-fees i,.fin-costs i{position:absolute;top:50%;translate:0 -50%;font-style:normal;color:var(--muted);font-size:13px;pointer-events:none}
+.fin-fees label:first-of-type i{right:12px}.fin-fees label:last-of-type i{left:10px}
+.fin-fees label:last-of-type .input{padding-left:40px}
+.fin-fees .input,.fin-costs .input{min-height:40px;font-size:14px}
+.fin-costs{display:grid;gap:8px}
+.fin-costs>div{display:grid;grid-template-columns:1fr 150px auto;gap:8px;align-items:center}
+.fin-costs i{left:12px}.fin-costs label .input{padding-left:36px}
+@media (max-width:820px){
+  .adm-fin thead{display:none}.adm-fin,.adm-fin tbody{display:block}
+  .adm-fin tr{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .adm-fin td{border:0;padding:0}.adm-fin td:first-child{grid-column:1/-1}
+  .adm-fin td[data-l]::before{content:attr(data-l);display:block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .adm-fin td.num{text-align:left}.adm-fin tr.fin-tot td[colspan]{grid-column:1/-1}
+  .fin-fees>div{grid-template-columns:1fr 90px 120px}
+}
 /* Konfigurasi admin */
 html.ff-off-demo [data-nav=demo],html.ff-off-demo [data-mnav=demo]{display:none !important}
 html.ff-off-musik [data-act=g-music]{display:none !important}
@@ -2280,6 +2309,7 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
     <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M2.5 20c.5-3.5 3.2-5.5 6.5-5.5s6 2 6.5 5.5M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.8c2 .6 3.2 2.4 3.5 5.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
     <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5H18v3M4 7.5V17a2 2 0 0 0 2 2h13a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1H6.5A2.5 2.5 0 0 1 4 7.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="16" cy="13.5" r="1.2" fill="currentColor"/></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
     <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 21h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     <symbol id="i-text" viewBox="0 0 24 24"><path d="M3 18L8 6l5 12M4.8 14h6.4M15 18l3-7.5 3 7.5M15.8 16h4.4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -5499,7 +5529,7 @@ document.addEventListener('click', e=>{
 /* ---------- Router ---------- */
 /* ---------- Panel admin (/admin) ---------- */
 const ADM = { tok: (()=>{ try{ return sessionStorage.getItem('sp-adm')||''; }catch(e){ return ''; } })(), me:null, tab:'ringkasan', stats:null, users:null, q:'', cfg:null, edit:null, draft:null, busy:false, err:'' };
-const ADM_TABS = [['ringkasan','Ringkasan','home'],['pengguna','Pengguna & undangan','users'],['tema','Tema','eye'],['fitur','Fitur & harga','gift'],['akun','Akun admin','lock']];
+const ADM_TABS = [['ringkasan','Ringkasan','home'],['keuangan','Keuangan','wallet'],['pengguna','Pengguna & undangan','users'],['tema','Tema','eye'],['fitur','Fitur & harga','gift'],['akun','Akun admin','lock']];
 const ADM_FONTS = [["","Bawaan tema"],["'Cormorant Garamond', Georgia, serif","Cormorant Garamond"],["'Bodoni Moda', Georgia, serif","Bodoni Moda"],["'Lora', Georgia, serif","Lora"],["'Marcellus', Georgia, serif","Marcellus"],["'Oswald', 'Plus Jakarta Sans', sans-serif","Oswald"],["'Great Vibes', cursive","Great Vibes (sambung)"],["'Itim', 'Mali', cursive","Itim (ceria)"],["'Patrick Hand', cursive","Patrick Hand (tulisan tangan)"],["'Permanent Marker', cursive","Permanent Marker (spidol)"],["'Plus Jakarta Sans', sans-serif","Plus Jakarta Sans"]];
 const ADM_SECS = [['salam','Salam & mempelai'],['acara','Waktu & tempat'],['cerita','Kisah cinta'],['galeri','Galeri foto'],['rsvp','Konfirmasi kehadiran'],['hadiah','Tanda kasih'],['kado','Kado patungan'],['ucapan','Ucapan & doa']];
 async function admApi(action, body={}){
@@ -5530,6 +5560,7 @@ async function admRenderTab(){
   const m = $('#admMain'); if(!m) return;
   try{
     if(ADM.tab==='ringkasan'){ if(!ADM.stats) ADM.stats = await admApi('stats'); m.innerHTML = admStatsHTML(ADM.stats); }
+    if(ADM.tab==='keuangan'){ if(!ADM.cfg) await admLoadCfg(); if(!FIN.rows) FIN.rows = (await admApi('finance')).invoices; m.innerHTML = admFinHTML(); }
     if(ADM.tab==='pengguna'){ if(!ADM.users) ADM.users = (await admApi('users',{q:ADM.q})).users; m.innerHTML = admUsersHTML(); }
     if(ADM.tab==='tema'){ if(!ADM.cfg) await admLoadCfg(); m.innerHTML = ADM.edit ? admThemeEditHTML() : admThemesHTML(); if(ADM.edit) admPreview(); }
     if(ADM.tab==='fitur'){ if(!ADM.cfg) await admLoadCfg(); m.innerHTML = admFeatHTML(); }
@@ -5676,12 +5707,19 @@ document.addEventListener('click', async e=>{
   const a = t.closest('[data-adm]')?.dataset.adm;
   try{
     if(a==='logout'){ admLogout(); return; }
-    if(a==='reload'||a==='refresh'){ ADM.stats=null; ADM.users=null; ADM.cfg=null; admRenderTab(); return; }
+    if(a==='reload'||a==='refresh'){ ADM.stats=null; ADM.users=null; ADM.cfg=null; FIN.rows=null; admRenderTab(); return; }
     if(a==='tback'){ ADM.edit=null; admRenderTab(); return; }
     if(a==='treset'){ if(!confirm('Kembalikan tema ini ke pengaturan bawaan?')) return; const keep=(ADM.cfg.themes[ADM.edit]||{}); ADM.cfg.themes[ADM.edit] = {}; if(keep.order!=null) ADM.cfg.themes[ADM.edit].order=keep.order; if(keep.hidden) ADM.cfg.themes[ADM.edit].hidden=true; ADM.draft=JSON.parse(JSON.stringify(ADM.cfg.themes[ADM.edit])); await admSaveThemes('Tema dikembalikan ke bawaan'); admRenderTab(); return; }
     if(a==='tsave'){ ADM.cfg.themes[ADM.edit] = admDraftClean(ADM.draft); await admSaveThemes(); return; }
+    if(a==='finsave'){ const c=finReadForm(); finSetCfg(c); await admApi('config_set',{key:'prices', value:ADM.cfg.prices}); toast('Pengaturan keuangan tersimpan'); admRenderTab(); return; }
+    if(a==='fincost'){ const c=finReadForm(); c.costs.push({name:'',amount:0}); finSetCfg(c); admRenderTab(); setTimeout(()=>{ const x=$$('[data-fin-cost][data-f=name]').pop(); x&&x.focus(); },60); return; }
+    if(a==='fincsv'){ const [fa,fb]=finRange(); const rows=finCalc((FIN.rows||[]).filter(r=>{ const t=new Date(r.paid_at||r.created_at); return (!fa||t>=fa)&&t<=fb; })); const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
+      const csv=['Tanggal,Pengguna,Email,Undangan,Item,Voucher,Metode,Harga,Diskon,Kotor,Biaya PG,Pajak,Bersih'].concat(rows.map(r=>[ (r.paid_at||r.created_at).slice(0,10), r.name, r.email, r.slug, r.item, r.voucher, r.method, r.list, r.disc, r.gross, r.fee, r.tax, r.net ].map(q).join(','))).join('\n');
+      const blob=new Blob(['\ufeff'+csv],{type:'text/csv'}); const u=URL.createObjectURL(blob); const l=document.createElement('a'); l.href=u; l.download=`keuangan-sakara-${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(l); l.click(); l.remove(); setTimeout(()=>URL.revokeObjectURL(u),2000); return; }
     if(a==='psave'){ const v={}; $$('[data-adm-price]').forEach(i=>{ const n=parseInt(i.value.replace(/\D/g,''),10); if(n>=1000) v[i.dataset.admPrice]=n; }); ADM.cfg.prices=v; await admApi('config_set',{key:'prices', value:v}); applyConfig(ADM.cfg); try{ localStorage.setItem('sp-appcfg', JSON.stringify(ADM.cfg)); }catch(err){} toast('Harga tersimpan'); return; }
   }catch(err){ toast(err.message); return; }
+  const fr = t.closest('[data-fin-range]'); if(fr){ FIN.range=fr.dataset.finRange; if(FIN.range==='custom' && !FIN.from){ const d=new Date(); FIN.to=d.toISOString().slice(0,10); FIN.from=new Date(d.getFullYear(),d.getMonth(),1).toISOString().slice(0,10); } $('#admMain').innerHTML=admFinHTML(); return; }
+  const cd = t.closest('[data-fin-costdel]'); if(cd){ const c=finReadForm(); c.costs.splice(+cd.dataset.finCostdel,1); finSetCfg(c); $('#admMain').innerHTML=admFinHTML(); return; }
   const ed = t.closest('[data-adm-tedit]'); if(ed){ ADM.edit=ed.dataset.admTedit; ADM.draft=JSON.parse(JSON.stringify(ADM.cfg.themes[ADM.edit]||{})); admRenderTab(); $('#admMain')?.scrollTo?.(0,0); window.scrollTo(0,0); return; }
   const mv = t.closest('[data-adm-mv]'); if(mv){ const ov=ADM.cfg.themes; const order = THEMES.map((x,i)=>[x,i]).sort((p,q)=>{ const oa=(ov[p[0].id]||{}).order, ob=(ov[q[0].id]||{}).order; return (Number.isFinite(oa)?oa:1e4+p[1])-(Number.isFinite(ob)?ob:1e4+q[1]); }).map(x=>x[0].id);
     const i=order.indexOf(mv.dataset.admMv), j=i+(+mv.dataset.d); if(j<0||j>=order.length) return; [order[i],order[j]]=[order[j],order[i]]; order.forEach((id,n)=>{ ov[id]=Object.assign(ov[id]||{}, {order:n}); });
@@ -5695,6 +5733,7 @@ document.addEventListener('change', async e=>{
     if(t.dataset.admPub){ await admApi('inv_update',{invitation_id:t.dataset.admPub, published:t.checked}); toast(t.checked?'Undangan ditayangkan':'Undangan diturunkan'); const u=(ADM.users||[]).find(x=>x.invitation_id===t.dataset.admPub); if(u) u.published=t.checked; return; }
     if(t.dataset.admPlan){ if(!confirm('Ubah paket undangan ini secara manual?')){ admRenderTab(); return; } await admApi('inv_update',{invitation_id:t.dataset.admPlan, plan:t.value}); toast('Paket diubah'); const u=(ADM.users||[]).find(x=>x.invitation_id===t.dataset.admPlan); if(u) u.plan=t.value; return; }
     if(t.dataset.admThide){ const ov=ADM.cfg.themes; ov[t.dataset.admThide]=Object.assign(ov[t.dataset.admThide]||{}, {hidden:!t.checked}); if(t.checked) delete ov[t.dataset.admThide].hidden; await admSaveThemes(t.checked?'Tema ditampilkan di katalog':'Tema disembunyikan dari katalog'); admRenderTab(); return; }
+    if(t.dataset.finFrom!==undefined || t.dataset.finTo!==undefined){ if(t.dataset.finFrom!==undefined) FIN.from=t.value; else FIN.to=t.value; $('#admMain').innerHTML=admFinHTML(); return; }
     if(t.dataset.admFf){ ADM.cfg.features[t.dataset.admFf] = t.checked; if(t.checked) delete ADM.cfg.features[t.dataset.admFf]; await admApi('config_set',{key:'features', value:ADM.cfg.features}); applyConfig(ADM.cfg); try{ localStorage.setItem('sp-appcfg', JSON.stringify(ADM.cfg)); }catch(err){} toast('Fitur diperbarui'); return; }
   }catch(err){ toast(err.message); admRenderTab(); return; }
   admDraftInput(t);
@@ -5712,6 +5751,84 @@ function admDraftInput(t){
 document.addEventListener('input', e=>{ const t=e.target; if(t.closest && t.closest('#admin .adm-tform') && (t.dataset.td||t.dataset.tdTitle||t.dataset.tdKick)) admDraftInput(t);
   if(t.dataset && t.dataset.admPrice!==undefined){ const n=t.value.replace(/\D/g,''); t.value = n ? (+n).toLocaleString('id-ID') : ''; } });
 document.addEventListener('click', e=>{ const r=e.target.closest && e.target.closest('[data-td-reset]'); if(!r||!ADM.draft) return; delete ADM.draft[r.dataset.tdReset]; const b=THEME_BASE.get(ADM.edit)||{}; const inp=r.parentElement.querySelector('input[type=color]'); if(inp) inp.value=b[r.dataset.tdReset]||'#000000'; admPreview(); });
+
+/* ---------- Admin: Keuangan ---------- */
+const FIN_METHODS = [['qris','QRIS'],['gopay','GoPay'],['shopeepay','ShopeePay'],['bank_transfer','Virtual Account'],['echannel','Mandiri Bill'],['permata','Permata VA'],['credit_card','Kartu kredit'],['lainnya','Lainnya']];
+const FIN_DEFAULT = { fees:{ qris:{pct:0.7,flat:0}, gopay:{pct:2,flat:0}, shopeepay:{pct:2,flat:0}, bank_transfer:{pct:0,flat:4000}, echannel:{pct:0,flat:4000}, permata:{pct:0,flat:4000}, credit_card:{pct:2.9,flat:2000}, lainnya:{pct:2,flat:0} }, tax:0.5, costs:[] };
+const finCfg = () => { const f = (ADM.cfg && ADM.cfg.prices && ADM.cfg.prices.fin) || {}; return { fees:{...FIN_DEFAULT.fees, ...(f.fees||{})}, tax: Number.isFinite(f.tax)?f.tax:FIN_DEFAULT.tax, costs: Array.isArray(f.costs)?f.costs:[] }; };
+const FIN = { range:'bulan', from:'', to:'', rows:null };
+function finRange(){ const now=new Date(), d0=x=>{ const y=new Date(x); y.setHours(0,0,0,0); return y; };
+  if(FIN.range==='bulan') return [new Date(now.getFullYear(),now.getMonth(),1), now];
+  if(FIN.range==='30') return [d0(Date.now()-29*864e5), now];
+  if(FIN.range==='90') return [d0(Date.now()-89*864e5), now];
+  if(FIN.range==='tahun') return [new Date(now.getFullYear(),0,1), now];
+  if(FIN.range==='custom' && FIN.from && FIN.to) return [new Date(FIN.from+'T00:00:00'), new Date(FIN.to+'T23:59:59')];
+  return [null, now]; }
+function finCalc(rows){
+  const c = finCfg();
+  return rows.map(r=>{ const key = c.fees[r.method] ? r.method : 'lainnya'; const f = c.fees[key]; const gross = r.total, list = r.price || r.total;
+    const fee = Math.round(gross * (+f.pct||0) / 100 + (+f.flat||0)); const tax = Math.round(gross * c.tax / 100);
+    return { ...r, list, disc: r.discount||0, gross, fee, tax, net: gross - fee - tax, mkey:key }; });
+}
+function admFinHTML(){
+  const c = finCfg(); const [a,b] = finRange();
+  const rows = finCalc((FIN.rows||[]).filter(r=>{ const t=new Date(r.paid_at||r.created_at); return (!a || t>=a) && t<=b; }));
+  const sum = k => rows.reduce((s,r)=>s+r[k],0);
+  const months = a ? Math.max(1, (b-a)/(30.44*864e5)) : Math.max(1, rows.length ? (b-new Date(rows[rows.length-1].paid_at||rows[rows.length-1].created_at))/(30.44*864e5) : 1);
+  const opsMonthly = c.costs.reduce((s,x)=>s+(+x.amount||0),0); const ops = Math.round(opsMonthly * months);
+  const L = sum('list'), D = sum('disc'), G = sum('gross'), F = sum('fee'), T = sum('tax'), N = sum('net'), P = N - ops;
+  const pct = (x) => G ? ` <small>${(x/G*100).toLocaleString('id-ID',{maximumFractionDigits:1})}%</small>` : '';
+  const line = (l, v, cls='', note='') => `<div class="fin-l ${cls}"><span>${l}${note?`<small>${note}</small>`:''}</span><b class="num">${v<0?'−':''}${rupiah(Math.abs(v))}</b></div>`;
+  const byM = {}; rows.forEach(r=>{ byM[r.mkey]=byM[r.mkey]||{n:0,g:0,f:0}; byM[r.mkey].n++; byM[r.mkey].g+=r.gross; byM[r.mkey].f+=r.fee; });
+  const rangeBtn = (k,l) => `<button type="button" data-fin-range="${k}" aria-pressed="${FIN.range===k}">${l}</button>`;
+  return `<header class="adm-head"><div><span class="eyebrow">Keuangan</span><h1 class="display">Dari kotor sampai bersih</h1><p class="muted" style="margin:6px 0 0">Dihitung dari transaksi yang sudah lunas. Biaya payment gateway, pajak, dan biaya operasional bisa kamu atur di bawah.</p></div>
+    <button type="button" class="btn btn-ghost btn-sm" data-adm="fincsv">${ico('copy')}Unduh CSV</button></header>
+  <div class="fin-range">${rangeBtn('bulan','Bulan ini')}${rangeBtn('30','30 hari')}${rangeBtn('90','3 bulan')}${rangeBtn('tahun','Tahun ini')}${rangeBtn('semua','Semua')}${rangeBtn('custom','Pilih tanggal')}
+    ${FIN.range==='custom'?`<input type="date" class="input" data-fin-from value="${FIN.from}"><span>s/d</span><input type="date" class="input" data-fin-to value="${FIN.to}">`:''}</div>
+  <div class="adm-tiles">
+    <div class="adm-tile"><span>Pendapatan kotor</span><b class="num">${rupiah(G)}</b><small>${rows.length} transaksi lunas</small></div>
+    <div class="adm-tile"><span>Potongan & pajak</span><b class="num">${rupiah(F+T)}</b><small>Payment gateway ${rupiah(F)} · pajak ${rupiah(T)}</small></div>
+    <div class="adm-tile"><span>Bersih dari transaksi</span><b class="num">${rupiah(N)}</b><small>rata-rata ${rupiah(rows.length?Math.round(N/rows.length):0)} per pengguna</small></div>
+    <div class="adm-tile fin-profit ${P<0?'neg':''}"><span>Laba bersih</span><b class="num">${P<0?'−':''}${rupiah(Math.abs(P))}</b><small>setelah biaya operasional ${rupiah(ops)}${G?` · margin ${(P/G*100).toLocaleString('id-ID',{maximumFractionDigits:1})}%`:''}</small></div>
+  </div>
+  <div class="adm-grid2">
+    <section class="adm-card"><h2>Rincian perhitungan</h2>
+      ${line('Harga normal paket', L, '', 'sebelum voucher')}
+      ${line('Diskon voucher', -D, 'minus')}
+      ${line('Pendapatan kotor', G, 'sub')}
+      ${line('Biaya payment gateway', -F, 'minus', 'sesuai metode bayar tiap transaksi')}
+      ${line(`Pajak (${c.tax.toLocaleString('id-ID')}% dari kotor)`, -T, 'minus')}
+      ${line('Bersih dari transaksi', N, 'sub')}
+      ${line('Biaya operasional', -ops, 'minus', `${rupiah(opsMonthly)}/bulan × ${months.toLocaleString('id-ID',{maximumFractionDigits:1})} bulan`)}
+      ${line('Laba bersih', P, 'total')}
+    </section>
+    <section class="adm-card"><h2>Per metode pembayaran</h2>${Object.keys(byM).length?`<table class="adm-tbl"><thead><tr><th>Metode</th><th class="num">Transaksi</th><th class="num">Kotor</th><th class="num">Biaya</th></tr></thead><tbody>${Object.entries(byM).map(([k,v])=>`<tr><td>${esc((FIN_METHODS.find(m=>m[0]===k)||[k,k])[1])}</td><td class="num">${v.n}</td><td class="num">${rupiah(v.g)}</td><td class="num">${rupiah(v.f)}</td></tr>`).join('')}</tbody></table>`:'<p class="muted">Belum ada transaksi di periode ini.</p>'}</section>
+  </div>
+  <section class="adm-card" style="padding:0"><h2 style="padding:20px 22px 0">Per pengguna yang sudah bayar</h2><div class="tbl-wrap" style="display:block"><table class="adm-tbl adm-fin"><thead><tr><th>Pengguna</th><th>Tanggal</th><th>Item</th><th>Metode</th><th class="num">Harga</th><th class="num">Diskon</th><th class="num">Kotor</th><th class="num">Biaya PG</th><th class="num">Pajak</th><th class="num">Bersih</th></tr></thead><tbody>
+    ${rows.map(r=>`<tr><td><b>${esc(r.couple||r.name||r.email.split('@')[0]||'—')}</b><small>${esc(r.email)}</small></td><td data-l="Tanggal">${admDate(r.paid_at||r.created_at)}</td><td data-l="Item">${esc(r.item)}${r.voucher?`<small>${esc(r.voucher)}</small>`:''}</td><td data-l="Metode">${esc((FIN_METHODS.find(m=>m[0]===r.mkey)||['',r.method||'—'])[1])}</td><td class="num" data-l="Harga">${rupiah(r.list)}</td><td class="num" data-l="Diskon">${r.disc?'−'+rupiah(r.disc):'—'}</td><td class="num" data-l="Kotor">${rupiah(r.gross)}</td><td class="num" data-l="Biaya PG">−${rupiah(r.fee)}</td><td class="num" data-l="Pajak">−${rupiah(r.tax)}</td><td class="num" data-l="Bersih"><b>${rupiah(r.net)}</b></td></tr>`).join('') || '<tr><td colspan="10" class="muted" style="padding:22px">Belum ada transaksi lunas di periode ini.</td></tr>'}
+    ${rows.length?`<tr class="fin-tot"><td colspan="4"><b>Total</b></td><td class="num">${rupiah(L)}</td><td class="num">−${rupiah(D)}</td><td class="num">${rupiah(G)}</td><td class="num">−${rupiah(F)}</td><td class="num">−${rupiah(T)}</td><td class="num"><b>${rupiah(N)}</b></td></tr>`:''}
+  </tbody></table></div></section>
+  <div class="adm-grid2">
+    <section class="adm-card"><h2>Biaya payment gateway</h2><p class="muted" style="margin:-4px 0 12px;font-size:14px">Isi sesuai kontrak Midtrans-mu. Nilai awal hanya perkiraan umum, cek lagi di dashboard Midtrans.</p>
+      <div class="fin-fees">${FIN_METHODS.map(([k,l])=>`<div><span>${l}</span><label><input class="input num" data-fin-fee="${k}" data-f="pct" inputmode="decimal" value="${String(c.fees[k].pct).replace('.',',')}"><i>%</i></label><label><i>+Rp</i><input class="input num" data-fin-fee="${k}" data-f="flat" inputmode="numeric" value="${(+c.fees[k].flat||0).toLocaleString('id-ID')}"></label></div>`).join('')}</div></section>
+    <section class="adm-card"><h2>Pajak & biaya operasional</h2>
+      <label class="lbl">Pajak dari pendapatan kotor (%)</label><input class="input num" data-fin-tax inputmode="decimal" value="${String(c.tax).replace('.',',')}" style="max-width:160px">
+      <p class="muted" style="font-size:13px;margin:6px 0 0">Mis. PPh final UMKM 0,5%. Isi 0 kalau belum dipakai. Konsultasikan ke konsultan pajak untuk angka yang tepat.</p>
+      <label class="lbl" style="margin-top:18px">Biaya operasional per bulan</label>
+      <div class="fin-costs">${c.costs.map((x,i)=>`<div><input class="input" data-fin-cost="${i}" data-f="name" value="${esc(x.name||'')}" placeholder="Nama biaya"><label><i>Rp</i><input class="input num" data-fin-cost="${i}" data-f="amount" inputmode="numeric" value="${(+x.amount||0).toLocaleString('id-ID')}"></label><button type="button" class="btn btn-ghost btn-sm" data-fin-costdel="${i}" aria-label="Hapus">${ico('x')}</button></div>`).join('')}</div>
+      <button type="button" class="btn btn-ghost btn-sm" data-adm="fincost" style="margin-top:8px">${ico('plus')}Tambah biaya</button>
+      <p class="muted" style="font-size:13px;margin:8px 0 0">Contoh: Vercel, Supabase, domain, kredit AI Figma, iklan.</p></section>
+  </div>
+  <button type="button" class="btn btn-primary" data-adm="finsave">Simpan pengaturan keuangan</button>`;
+}
+function finReadForm(){
+  const c = finCfg(); const num = v => parseFloat(String(v).replace(/\./g,'').replace(',','.'))||0;
+  $$('[data-fin-fee]').forEach(i=>{ const k=i.dataset.finFee; c.fees[k]={...c.fees[k]}; if(i.dataset.f==='pct') c.fees[k].pct = parseFloat(i.value.replace(',','.'))||0; else c.fees[k].flat = num(i.value); });
+  const tx = $('[data-fin-tax]'); if(tx) c.tax = parseFloat(tx.value.replace(',','.'))||0;
+  c.costs = $$('[data-fin-cost][data-f=name]').map(i=>({ name:i.value.trim(), amount: num(($(`[data-fin-cost="${i.dataset.finCost}"][data-f=amount]`)||{}).value||0) }));
+  return c;
+}
+function finSetCfg(c){ ADM.cfg.prices = {...(ADM.cfg.prices||{}), fin:c}; }
 
 /* ---------- Konfigurasi dari panel admin (tema, fitur, harga) ---------- */
 const APPCFG = {themes:{}, features:{}, prices:{}};
