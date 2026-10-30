@@ -4732,6 +4732,7 @@ function route(){
   }
   setTimeout(bootDone, 0);
   let h = (location.hash||'').slice(1) || 'beranda';
+  if(location.hash==='#beranda' || location.hash==='#') history.replaceState(null,'',location.pathname+location.search);
   if(h.startsWith('keluarga-')){ FP={token:h.slice(9),fam:null,guests:[],info:null,err:null}; famPageLoad().then(renderFamPage); h='keluarga'; }
   else if(h.startsWith('katering-')){ CP={token:h.slice(9),d:null,err:null}; catPageLoad().then(renderCatPage); h='katering'; }
   let scrollTo = null;
