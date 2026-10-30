@@ -746,6 +746,46 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .inv .cv-cue .icon{width:18px;height:18px;animation:cue 1.6s ease-in-out infinite}
 @keyframes cue{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
+
+/* Draperi */
+.inv.lay-draperi .cover{position:relative;overflow:hidden;justify-content:center;padding:130px 22px 110px;gap:0;color:#F5EFE6;background:var(--fab)}
+.inv.lay-draperi .dp-velvet{position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(255,255,255,.07),transparent 26%,transparent 70%,rgba(0,0,0,.35)),
+  repeating-linear-gradient(90deg,rgba(0,0,0,.34) 0,rgba(0,0,0,.08) 9px,rgba(255,255,255,.13) 19px,rgba(255,255,255,.04) 26px,rgba(0,0,0,.26) 37px,rgba(0,0,0,.34) 41px),
+  repeating-linear-gradient(90deg,transparent 0,rgba(255,255,255,.05) 31px,transparent 63px,rgba(0,0,0,.12) 89px,transparent 113px),
+  radial-gradient(120% 70% at 50% 45%,rgba(255,255,255,.10),transparent 60%),var(--fab)}
+.inv.lay-draperi .dp-velvet::after{content:"";position:absolute;inset:0;opacity:.18;mix-blend-mode:overlay;background-image:radial-gradient(circle,rgba(255,255,255,.6) 0 .5px,transparent .8px);background-size:3px 3px}
+.inv.lay-draperi .dp-swag{position:absolute;top:0;left:-2%;width:104%;height:120px;z-index:2;filter:drop-shadow(0 8px 10px rgba(0,0,0,.35))}
+.inv.lay-draperi .dp-side{position:absolute;top:0;bottom:0;width:30%;z-index:1;background:
+  repeating-linear-gradient(90deg,rgba(0,0,0,.38) 0,rgba(255,255,255,.12) 7px,rgba(0,0,0,.18) 12px,rgba(0,0,0,.4) 16px),var(--fab);filter:drop-shadow(0 0 14px rgba(0,0,0,.45))}
+.inv.lay-draperi .dp-side.l{left:0;clip-path:polygon(0 0,100% 0,62% 34%,22% 56%,34% 64%,58% 100%,0 100%);border-radius:0}
+.inv.lay-draperi .dp-side.r{right:0;clip-path:polygon(0 0,100% 0,100% 100%,42% 100%,66% 64%,78% 56%,38% 34%)}
+.inv.lay-draperi .cover .k-label{position:relative;z-index:3;font-family:var(--t-font);font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:#F5EFE6;opacity:.9}
+.inv.lay-draperi .cover .names{position:relative;z-index:3;font-family:'Great Vibes',cursive;font-weight:400;font-size:54px;line-height:1.05;margin:8px 0 2px;color:#FFFBF4;text-shadow:0 2px 14px rgba(0,0,0,.35);display:flex;flex-direction:column;align-items:center}
+.inv.lay-draperi .cover .names .amp{font-size:.6em;margin:-6px 0;color:#E9D9B4;opacity:.95}
+.inv.lay-draperi .cover .date{position:relative;z-index:3;font-family:var(--t-font);letter-spacing:.28em;text-transform:uppercase;font-size:12.5px;opacity:.85;margin-bottom:22px}
+.inv.lay-draperi .dp-env{position:relative;z-index:3;width:min(300px,86%);margin:0 auto}
+.inv.lay-draperi .dp-paper{position:relative;background:linear-gradient(160deg,#FFFBF3,#EFE6D6);border-radius:6px;padding:92px 18px 24px;color:#3B3128;box-shadow:0 18px 40px rgba(0,0,0,.4),inset 0 0 0 1px rgba(255,255,255,.6);text-align:center}
+.inv.lay-draperi .dp-flap{position:absolute;left:0;right:0;top:0;height:58px;background:linear-gradient(180deg,#F6EEDF,#E6DBC6);clip-path:polygon(0 0,100% 0,50% 100%);filter:drop-shadow(0 2px 2px rgba(0,0,0,.08))}
+.inv.lay-draperi .dp-flap::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 6px 0,transparent 3px,rgba(255,255,255,.9) 3.5px 4.5px,transparent 5px) 0 0/12px 8px repeat-x;opacity:.8}
+.inv.lay-draperi .dp-seal{position:absolute;left:50%;top:34px;width:46px;height:46px;margin-left:-23px;border-radius:50%;display:grid;place-items:center;font:italic 600 15px/1 'Cormorant Garamond',serif;letter-spacing:.04em;color:color-mix(in srgb,var(--fab) 30%,#fff);background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--fab) 70%,#fff),var(--fab) 55%,color-mix(in srgb,var(--fab) 70%,#000));box-shadow:0 3px 6px rgba(0,0,0,.35),inset 0 0 0 4px color-mix(in srgb,var(--fab) 80%,#000)}
+.inv.lay-draperi .dp-paper .to{margin-top:0;color:#6A5B4C;font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+.inv.lay-draperi .dp-paper .to b{display:block;color:#2F261E;font-family:var(--t-font);font-size:24px;letter-spacing:0;text-transform:none;font-style:italic;margin-top:4px}
+.inv.lay-draperi .dp-fl{position:absolute;z-index:4;width:132px;pointer-events:none;filter:drop-shadow(0 4px 6px rgba(0,0,0,.25))}
+.inv.lay-draperi .dp-fl.a{left:-46px;top:-38px;transform:rotate(-8deg)}
+.inv.lay-draperi .dp-fl.b{right:-44px;bottom:-42px;transform:rotate(172deg)}
+.inv.lay-draperi .dp-open{position:relative;z-index:5}
+.inv.lay-draperi .cover .open{margin-top:26px;background:transparent;color:#FFFBF4;border:1px solid rgba(255,251,244,.6);font-family:var(--t-font);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:12px}
+.inv.lay-draperi .dp-tulle{position:absolute;left:-10%;right:-10%;bottom:-30px;height:170px;z-index:2;pointer-events:none;background:
+  radial-gradient(40% 60% at 15% 70%,rgba(255,255,255,.34),transparent 70%),radial-gradient(35% 55% at 45% 85%,rgba(255,255,255,.28),transparent 70%),
+  radial-gradient(38% 60% at 78% 72%,rgba(255,255,255,.32),transparent 70%),radial-gradient(30% 50% at 95% 95%,rgba(255,255,255,.26),transparent 70%);filter:blur(3px)}
+.inv.lay-draperi section:not(.cover):nth-of-type(even){background:color-mix(in srgb,var(--t-accent) 7%,transparent)}
+.tc-live .inv.lay-draperi .cover{justify-content:flex-start;padding-top:104px}
+.tc-live .inv.lay-draperi .cover .names{font-size:36px}
+.tc-live .inv.lay-draperi .cover .date{margin-bottom:14px}
+.tc-live .inv.lay-draperi .dp-paper{padding-top:70px}
+.tc-live .inv.lay-draperi .dp-seal{top:20px}
+
 /* Sekar Ayu */
 .inv.lay-sekar .cover{justify-content:flex-start;padding:64px 22px 48px;gap:0}
 .inv.lay-sekar .cover .k-label{letter-spacing:.24em;font-size:10.5px}
@@ -910,6 +950,15 @@ html.boot-done #gate:not(.show):not(.open){opacity:0;pointer-events:none}
 @keyframes gateDraw{to{stroke-dashoffset:0}}
 @keyframes gateFade{to{opacity:1}}
 @keyframes gateBar{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+
+#gate.drape{background:radial-gradient(60% 50% at 50% 50%,color-mix(in srgb,var(--fab) 55%,#fff) 0%,var(--fab) 80%)}
+#gate.drape .gd{background-image:linear-gradient(180deg,rgba(255,255,255,.06),transparent 30%,rgba(0,0,0,.3)),repeating-linear-gradient(90deg,rgba(0,0,0,.36) 0,rgba(0,0,0,.08) 10px,rgba(255,255,255,.14) 21px,rgba(0,0,0,.28) 38px,rgba(0,0,0,.36) 44px);background-color:var(--fab);background-size:auto;box-shadow:none;transition:transform 1.4s cubic-bezier(.7,0,.2,1) .2s,filter 1.4s ease .2s}
+#gate.drape .gd::before,#gate.drape .gd::after{display:none}
+#gate.drape .gd.l{box-shadow:inset -18px 0 30px -12px rgba(0,0,0,.45)}
+#gate.drape .gd.r{box-shadow:inset 18px 0 30px -12px rgba(0,0,0,.45)}
+#gate.drape.open .gd.l{transform:translateX(-58%) scaleX(.42);filter:brightness(.8)}
+#gate.drape.open .gd.r{transform:translateX(58%) scaleX(.42);filter:brightness(.8)}
+#gate.drape .gmed{box-shadow:0 0 0 7px rgba(255,255,255,.12),0 0 0 8px rgba(217,195,143,.6),0 24px 60px rgba(0,0,0,.45)}
 @media (prefers-reduced-motion: reduce){ #gate .gd{transition:opacity .5s ease} #gate.open .gd.l,#gate.open .gd.r{transform:none;opacity:0} #gate .gmed .pt{animation-duration:.01s} }
 #bootSkel{display:none;position:fixed;inset:0;z-index:9999;background:#FBF7F5;justify-content:center;transition:opacity .45s ease}
 html.boot-app #bootSkel{display:flex}
@@ -1469,7 +1518,7 @@ html.boot-app #bootSkel .bs-app{display:flex}
 .inv.prem .lead{max-width:32ch;line-height:1.65}
 .inv.prem .ibtn{min-height:44px}
 /* Salam & mempelai */
-.inv.prem .p-salam>h3{font-size:30px;max-width:16ch;text-align:center}
+.inv.prem section.p-salam:not(.cover)>h3{font-size:clamp(24px,7vw,30px);max-width:none;text-wrap:balance;text-align:center;overflow-wrap:normal;word-break:normal}
 .inv.prem section:not(.cover)>h3{text-align:center}
 .inv.prem section:not(.cover)>h3{overflow-wrap:break-word}
 .inv.prem.lay-kamboja .p-salam>h3{font-size:22px;max-width:none;letter-spacing:.02em}
@@ -2097,7 +2146,7 @@ const THEMES = [
   {id:'gigibalang', name:'Gigi Balang', region:'Betawi', tags:['Adat','Modern'], bg:'#FFF6E8', fg:'#3A2410', accent:'#C2541E', soft:'#F5E1C4', font:"'Bodoni Moda', Georgia, serif",
     pat:(t)=>`linear-gradient(135deg, ${t.accent}2b 25%, transparent 25%), linear-gradient(225deg, ${t.accent}2b 25%, transparent 25%), radial-gradient(circle at 50% 70%, #2F7A5A22 0 3px, transparent 4px)`, size:'22px 22px, 22px 22px, 44px 44px'}
 ];
-const TAGS = ['Semua','Adat','Minimalis','Floral','Modern','Religi'];
+const TAGS = ['Semua','Draperi','Adat','Minimalis','Floral','Modern','Religi'];
 const ACCENTS = ['#7D1D3F','#8A5A2B','#D4A64A','#B4566E','#2F6F6B','#3D6B4F','#1F3A5F'];
 const themeById = id => THEMES.find(t=>t.id===id) || THEMES[0];
 function themeStyle(t, accent, font){
@@ -2135,6 +2184,13 @@ const ART = {
   sprig:(a)=>`<svg class="cv-sprig" viewBox="0 0 220 90" aria-hidden="true"><path d="M8 70 C60 40 120 34 212 46" fill="none" stroke="${a}" stroke-width="2" stroke-linecap="round"/>
     ${Array.from({length:9},(_,i)=>{const x=24+i*21, y=60-i*2.6-(i>4?(i-4)*-1.2:0);return `<ellipse cx="${x}" cy="${y-9}" rx="7" ry="11" transform="rotate(${-28+i*3} ${x} ${y})" fill="${a}" opacity="${.55+(i%3)*.15}"/><ellipse cx="${x+6}" cy="${y+8}" rx="6" ry="10" transform="rotate(${148+i*3} ${x+6} ${y})" fill="${a}" opacity="${.45+(i%2)*.2}"/>`;}).join('')}
     <g transform="translate(116 30)">${[0,60,120,180,240,300].map(d=>`<ellipse rx="5" ry="10" cy="-9" transform="rotate(${d})" fill="#FFFFFF" stroke="${a}" stroke-width=".8"/>`).join('')}<circle r="4" fill="#E9D7A5"/></g></svg>`,
+  florets:(c1,c2)=>`<svg class="cv-florets" viewBox="0 0 160 120" aria-hidden="true">${[[34,70,13,c1],[62,52,15,c2],[92,66,12,c1],[56,86,11,'#FFFFFF'],[118,50,11,'#FFFFFF'],[82,34,10,c1],[128,78,9,c2],[20,94,9,'#FFFFFF']].map(([x,y,r,c])=>`<g transform="translate(${x} ${y})">${Array.from({length:7},(_,k)=>{const ang=k*51.4, rr=r*.55; const cx=Math.cos(ang*Math.PI/180)*rr, cy=Math.sin(ang*Math.PI/180)*rr; return `<g transform="translate(${cx.toFixed(1)} ${cy.toFixed(1)})">${[0,90,180,270].map(d=>`<ellipse rx="${(r*.2).toFixed(1)}" ry="${(r*.34).toFixed(1)}" cy="${(-r*.26).toFixed(1)}" transform="rotate(${d+k*13})" fill="${c}" opacity=".93"/>`).join('')}</g>`;}).join('')}<circle r="${(r*.18).toFixed(1)}" fill="#F3EBD9"/></g>`).join('')}
+    <g fill="none" stroke="#8C9A7A" stroke-width="1.2" stroke-linecap="round"><path d="M10 112 C30 96 44 90 60 88"/><path d="M150 104 C138 94 128 88 118 84"/><path d="M4 60 C14 66 22 70 30 72"/></g>
+    <g fill="#FFFFFF" opacity=".9">${[[8,52],[14,46],[150,40],[144,34],[154,58],[26,104],[140,96]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="1.8"/>`).join('')}</g></svg>`,
+  swag:(f)=>`<svg class="dp-swag" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="dpg${f.slice(1)}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset=".35" stop-color="#fff" stop-opacity=".16"/><stop offset=".75" stop-color="#000" stop-opacity=".05"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></linearGradient><linearGradient id="dpgs${f.slice(1)}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".6" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+    <rect width="400" height="22" fill="${f}"/><rect width="400" height="22" fill="#000" opacity=".25"/>
+    ${[0,1,2].map(i=>{const x=i*133.3; return `<path d="M${x} 14 Q${x+66.6} 118 ${x+133.3} 14 Z" fill="${f}"/><path d="M${x} 14 Q${x+66.6} 118 ${x+133.3} 14 Z" fill="url(#dpg${f.slice(1)})"/><path d="M${x+2} 16 Q${x+66.6} 116 ${x+131.3} 16" fill="none" stroke="#D9C38F" stroke-width="1.6" opacity=".85"/><path d="M${x+8} 22 Q${x+66.6} 98 ${x+125} 22" fill="none" stroke="url(#dpgs${f.slice(1)})" stroke-width="7"/><path d="M${x+18} 30 Q${x+66.6} 82 ${x+115} 30" fill="none" stroke="#000" stroke-opacity=".18" stroke-width="5"/>`;}).join('')}
+    ${[0,133.3,266.6,400].map(x=>`<g transform="translate(${x} 16)"><circle r="7" fill="${f}"/><circle r="7" fill="#000" opacity=".2"/><path d="M-3 4 L-4 34 M0 4 L0 38 M3 4 L4 34" stroke="#D9C38F" stroke-width="1.4"/><circle r="3.2" cy="2" fill="#D9C38F"/></g>`).join('')}</svg>`,
   line:(a)=>`<svg class="cv-line" viewBox="0 0 160 14" aria-hidden="true"><path d="M0 7 H66 M94 7 H160" stroke="${a}" stroke-width="1"/><path d="M80 1 L86 7 L80 13 L74 7Z" fill="none" stroke="${a}" stroke-width="1"/></svg>`
 };
 const LAYOUT_THEMES = [
@@ -2147,7 +2203,13 @@ const LAYOUT_THEMES = [
     scene:{sky1:'#F3E6CF',sky2:'#E9C9A0',sky3:'#C9B68E',sun:'#FFF2D6',h1:'#A9B58C',h2:'#8C9C6E',h3:'#6F8355',fig:'#3A3328',grass:'#56693F'}},
   {id:'arunika', layout:'arunika', name:'Arunika', region:'Nasional', tags:['Modern','Minimalis'], bg:'#E3DCCB', fg:'#2A251C', accent:'#7A6545', soft:'#D3CAB5', font:"'Cormorant Garamond', Georgia, serif",
     pat:(t)=>`radial-gradient(circle, ${t.fg}0d 0 .7px, transparent 1px)`, size:'9px 9px', photo:true, script:true, thumb:()=>`linear-gradient(180deg,#8F8670,#3A3427)`,
-    scene:{sky1:'#B9B19C',sky2:'#D9C7A4',sky3:'#C2A97F',sun:'#FFF1D2',h1:'#8D8166',h2:'#6E6450',h3:'#4E473A',fig:'#26221B',grass:'#3E392D'}}
+    scene:{sky1:'#B9B19C',sky2:'#D9C7A4',sky3:'#C2A97F',sun:'#FFF1D2',h1:'#8D8166',h2:'#6E6450',h3:'#4E473A',fig:'#26221B',grass:'#3E392D'}},
+  {id:'draperi-biru', layout:'draperi', name:'Draperi Biru Kabut', region:'Nasional', tags:['Draperi','Floral','Modern'], bg:'#EEF1F5', fg:'#1D2A40', accent:'#4D6893', soft:'#DDE4EE', font:"'Cormorant Garamond', Georgia, serif",
+    fabric:'#2E4466', fl:['#9DB3D6','#C9D6EA'], pat:(t)=>`radial-gradient(circle, ${t.accent}12 0 .8px, transparent 1.2px)`, size:'14px 14px', thumb:()=>`repeating-linear-gradient(90deg,#24385A 0 9px,#3A557E 14px,#24385A 22px)`},
+  {id:'draperi-zamrud', layout:'draperi', name:'Draperi Zamrud', region:'Nasional', tags:['Draperi','Floral','Adat'], bg:'#F1F0E8', fg:'#1B2B22', accent:'#7B2D33', soft:'#E2E5D6', font:"'Cormorant Garamond', Georgia, serif",
+    fabric:'#1E3B2E', fl:['#D98C6E','#E8B9A4'], pat:(t)=>`radial-gradient(circle, ${t.accent}12 0 .8px, transparent 1.2px)`, size:'14px 14px', thumb:()=>`repeating-linear-gradient(90deg,#16301F 0 9px,#2C5340 14px,#16301F 22px)`},
+  {id:'draperi-mawar', layout:'draperi', name:'Draperi Mawar', region:'Nasional', tags:['Draperi','Floral','Minimalis'], bg:'#FAF2F2', fg:'#3E2229', accent:'#9C4D61', soft:'#F2DFE3', font:"'Cormorant Garamond', Georgia, serif",
+    fabric:'#9A5468', fl:['#F2C7D0','#FFFFFF'], pat:(t)=>`radial-gradient(circle, ${t.accent}10 0 .8px, transparent 1.2px)`, size:'14px 14px', thumb:()=>`repeating-linear-gradient(90deg,#84465A 0 9px,#B26C80 14px,#84465A 22px)`}
 ];
 THEMES.unshift(...LAYOUT_THEMES);
 TAGS.includes('Foto') || TAGS.push('Foto');
@@ -2180,6 +2242,18 @@ function coverHTML(t, d){
       <div class="date cv-in" style="--i:2">${esc(d.dateLong)}</div>
       <div class="cv-card cv-in" style="--i:3"><div class="cv-photo" style="background-image:url('${d.photo}')"></div>${ART.sprig(a)}
         <div class="cv-guest"><div class="cv-slot">${to.replace('cv-in','')}${open.replace('cv-in','')}</div></div></div>
+    </section>`;
+  if(L==='draperi') return `<section class="cover cv-draperi" id="${d.id}-cover" style="--fab:${t.fabric}">
+      <div class="dp-velvet" aria-hidden="true"></div>${ART.swag(t.fabric)}
+      <div class="dp-side l" aria-hidden="true"></div><div class="dp-side r" aria-hidden="true"></div>
+      <div class="k-label cv-in" style="--i:0" data-scramble="${esc(d.dateLong)}">The wedding of</div>
+      <div class="names cv-in" style="--i:1">${esc(d.n1)}<span class="amp">&amp;</span>${esc(d.n2)}</div>
+      <div class="date cv-in" style="--i:2">${esc(d.dateLong)}</div>
+      <div class="dp-env cv-in" style="--i:3"><div class="dp-fl a">${ART.florets(t.fl[0],t.fl[1])}</div><div class="dp-fl b">${ART.florets(t.fl[0],t.fl[1])}</div>
+        <div class="dp-paper"><div class="dp-flap"></div><span class="dp-seal">${esc((d.n1||'?')[0])}${esc((d.n2||'?')[0])}</span>
+          <div class="cv-slot">${to.replace('cv-in','')}</div></div></div>
+      <div class="cv-slot dp-open">${open}</div>
+      <div class="dp-tulle" aria-hidden="true"></div>
     </section>`;
   if(L==='arunika') return `<section class="cover cv-arunika" id="${d.id}-cover">
       <div class="cv-photo" style="background-image:url('${d.photo}')"></div><div class="shade"></div>
@@ -4701,6 +4775,7 @@ function gateTheme(){
   const g=$('#gate'); if(!g) return; const t=themeById(S.theme); if(!t) return;
   const dark = lum(t.fg) < lum(t.bg) ? t.fg : t.bg, light = dark===t.fg ? t.bg : t.fg;
   g.style.setProperty('--gd', lum(dark)<.12 ? dark : '#2B1A21'); g.style.setProperty('--gm', light);
+  g.classList.toggle('drape', t.layout==='draperi'); if(t.fabric) g.style.setProperty('--fab', t.fabric);
   const n=$('#gateNames'); const n1=S.bride.nick||'', n2=S.groom.nick||''; if(n && n1 && n2){ n.innerHTML=`<small>The wedding of</small>${esc(n1)} &amp; ${esc(n2)}`; n.classList.add('on'); }
 }
 function gateOpen(){
