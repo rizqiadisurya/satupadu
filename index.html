@@ -1627,6 +1627,29 @@ html.intro .hero h1,html.intro .hero .lede,html.intro .hero .try,html.intro .her
 .hc-dots button::after{content:"";position:absolute;inset:-10px -4px}
 .hc-dots button[aria-pressed="true"]{width:24px;background:var(--beet)}
 @media (prefers-reduced-motion: reduce){ #heroScreen .hs{transition:none} }
+
+/* ===== Mode demo & persiapan ===== */
+.demo-ban{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;background:#FFF6E6;border:1px solid #F1D9A8;border-radius:18px;padding:16px 18px;margin-bottom:22px}
+.demo-ban.prep{background:var(--blush,#F6E9EC);border-color:#E9CDD5}
+.demo-ban .db-ic{width:42px;height:42px;border-radius:12px;background:#fff;display:grid;place-items:center;color:#9A6A12}
+.demo-ban.prep .db-ic{color:var(--beet)}
+.demo-ban .db-t{display:grid;gap:3px;min-width:0}
+.demo-ban .db-t b{font-size:16px}
+.demo-ban .db-t span{font-size:14px;color:#6E5B52;line-height:1.5}
+.demo-ban .db-a{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:760px){ .demo-ban{grid-template-columns:auto minmax(0,1fr)} .demo-ban .db-a{grid-column:1/-1;justify-content:flex-start} }
+#demoPill{position:fixed;z-index:85;left:50%;transform:translateX(-50%);top:12px;display:none;align-items:center;gap:10px;background:rgba(36,22,27,.92);color:#fff;border-radius:99px;padding:6px 6px 6px 14px;font-size:13px;box-shadow:0 10px 30px -10px rgba(0,0,0,.45);backdrop-filter:blur(8px);white-space:nowrap}
+html.demo:not([data-dv="dashboard"]) #demoPill{display:flex}
+html.demo[data-dv="edit"] #demoPill{top:auto;bottom:16px}
+html.demo[data-dv="checkin"] #demoPill{top:auto;bottom:16px}
+#demoPill .dp-dot{width:8px;height:8px;border-radius:50%;background:#F2B544;box-shadow:0 0 0 4px rgba(242,181,68,.25)}
+#demoPill .dp-btn{border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:99px;padding:6px 12px;font:inherit;font-size:12.5px;cursor:pointer;text-decoration:none}
+#demoPill .dp-btn:hover{background:rgba(255,255,255,.24)}
+html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
+@media (max-width:560px){ #demoPill .dp-x{display:none} html.demo[data-dv="undangan"] #demoPill{top:auto;bottom:96px} }
+.demo-intro .di-list{list-style:none;margin:16px 0 4px;padding:0;display:grid;gap:8px}
+.demo-intro .di-list li{display:flex;gap:10px;align-items:center;font-size:15px}
+.demo-intro .di-list .icon{color:var(--ok);width:18px;height:18px}
 </style>
 </head>
 <body>
@@ -1690,6 +1713,7 @@ html.intro .hero h1,html.intro .hero .lede,html.intro .hero .try,html.intro .her
     </a>
     <nav class="nav" aria-label="Utama">
       <a href="#tema" data-nav="tema">Tema</a>
+      <a href="#demo" data-nav="demo">Lihat demo</a>
       <a href="#harga" data-nav="harga">Harga</a>
       <a href="#buat" data-nav="buat">Buat undangan</a>
       <a href="#dashboard" data-nav="dashboard">Dashboard</a>
@@ -1704,9 +1728,9 @@ html.intro .hero h1,html.intro .hero .lede,html.intro .hero .try,html.intro .her
 <div class="mobile-menu" id="mobileMenu" hidden>
   <a href="#tema">Tema</a>
   <a href="#harga">Harga</a>
-  <a href="#buat">Buat undangan</a>
-  <a href="#dashboard">Dashboard</a>
-  <a href="#undangan">Lihat contoh undangan</a>
+  <a href="#demo" data-mnav="demo">Lihat demo</a>
+  <a href="#buat" data-mnav="buat">Buat undangan</a>
+  <a href="#dashboard" data-mnav="dashboard">Dashboard</a>
   <div id="authSlotM" style="display:grid;gap:6px"></div>
   <a class="btn btn-primary" href="#buat" style="margin-top:8px" id="ctaTopM">Mulai gratis</a>
 </div>
@@ -1787,7 +1811,7 @@ html.intro .hero h1,html.intro .hero .lede,html.intro .hero .try,html.intro .her
       <div>
         <h2 class="display" style="font-size:clamp(32px,4vw,50px);margin-top:12px">Tahu siapa yang datang, bukan sekadar angka.</h2>
         <p class="muted" style="font-size:17px;margin-top:16px;max-width:50ch">Daftar tamu dari Mama yang dikirim lewat WhatsApp? Tempel saja, atau import dari Excel. Kelompokkan per keluarga dan kantor, lalu lihat satu per satu siapa yang sudah jawab dan siapa yang perlu diingatkan.</p>
-        <div class="hero-ctas"><a class="btn btn-ghost" href="#dashboard">Lihat dashboard contoh</a></div>
+        <div class="hero-ctas"><a class="btn btn-ghost" href="#demo">Coba demo dashboard</a></div>
       </div>
     </div>
   </section>
@@ -2069,7 +2093,8 @@ const DEFAULT = {
 };
 let S = Object.assign(structuredClone(DEFAULT), store.get('sp-state') || {});
 if(S.v !== DEFAULT.v) S = structuredClone(DEFAULT);
-const save = () => { try{ edTrack(); }catch(e){} if(CLOUD.guestMode||CLOUD.pinMode||CLOUD.famMode||CLOUD.catMode) return; cloudSave(); if(!store.set('sp-state', S) && !save.warned){ save.warned=1; toast('Memori browser penuh: foto tetap tampil, tapi hilang saat halaman ditutup'); } const el = $('#saveState'); if(el) el.textContent = 'Tersimpan otomatis'; };
+const DEMO = {on:false, saved:null};
+const save = () => { try{ edTrack(); }catch(e){} if(DEMO.on) return; if(CLOUD.guestMode||CLOUD.pinMode||CLOUD.famMode||CLOUD.catMode) return; cloudSave(); if(!store.set('sp-state', S) && !save.warned){ save.warned=1; toast('Memori browser penuh: foto tetap tampil, tapi hilang saat halaman ditutup'); } const el = $('#saveState'); if(el) el.textContent = 'Tersimpan otomatis'; };
 
 const OPENINGS = {
   islam:{salam:'Assalamu’alaikum Warahmatullahi Wabarakatuh', text:'Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami.', quote:'“Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan untukmu dari jenismu sendiri, agar kamu merasa tenteram kepadanya.” — QS. Ar-Rum: 21'},
@@ -2098,7 +2123,7 @@ function makeCode(g){ const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let h=7; for(c
 G.forEach(g=>{ if(!Array.isArray(g.sessions)) g.sessions = (S.events.length>1 && /Kantor|Tetangga/.test(g.group)) ? [S.events.length-1] : S.events.map((e,i)=>i); if(!g.code) g.code=makeCode(g); });
 if(!S.groups) S.groups=[...GROUPS];
 let G_ALL = null;
-const saveG = () => { if(CLOUD.guestMode||CLOUD.pinMode||CLOUD.famMode||CLOUD.catMode) return; if(!CLOUD.uid) store.set('sp-guests', G); cloudSyncGuests(); };
+const saveG = () => { if(DEMO.on||CLOUD.guestMode||CLOUD.pinMode||CLOUD.famMode||CLOUD.catMode) return; if(!CLOUD.uid) store.set('sp-guests', G); cloudSyncGuests(); };
 saveG();
 let W = store.get('sp-wishes') || [
   {n:'Ani Wulandari', t:'2 jam lalu', m:'Selamat Nadia & Rizky! Semoga jadi keluarga yang sakinah, mawaddah, warahmah. Sampai ketemu di Graha Sawala ya.', att:true, show:true},
@@ -2107,7 +2132,7 @@ let W = store.get('sp-wishes') || [
   {n:'Bella Permata', t:'kemarin', m:'Maaf belum bisa hadir karena di luar kota, doa terbaik untuk kalian berdua.', att:false, show:true},
   {n:'Hana Halim', t:'2 hari lalu', m:'Happy wedding Nadia sayang, cantik banget undangannya!', att:true, show:true}
 ];
-const saveW = () => { if(CLOUD.guestMode||CLOUD.pinMode||CLOUD.famMode||CLOUD.catMode||CLOUD.uid) return; store.set('sp-wishes', W); };
+const saveW = () => { if(DEMO.on||CLOUD.guestMode||CLOUD.pinMode||CLOUD.famMode||CLOUD.catMode||CLOUD.uid) return; store.set('sp-wishes', W); };
 let GIFTS = [
   {n:'Om Darmawan', bank:'BCA', amt:500000, t:'Hari ini, 09.12'},
   {n:'Fitri Rahayu', bank:'BCA', amt:250000, t:'Kemarin, 20.41'},
@@ -2761,7 +2786,7 @@ function edTrack(){
   if(!EDIT.on || EDIT.restoring) return;
   clearTimeout(EDIT.snapT);
   EDIT.snapT = setTimeout(()=>{ const now=edSnapshot(); if(EDIT.last && now!==EDIT.last){ EDIT.undo.push(EDIT.last); if(EDIT.undo.length>60) EDIT.undo.shift(); EDIT.redo=[]; } EDIT.last=now; edTools(); }, 600);
-  const st=$('#edSave'); if(st){ st.dataset.s='saving'; st.textContent='Menyimpan…'; clearTimeout(st._t); st._t=setTimeout(()=>{ st.dataset.s='ok'; st.textContent = S.published ? 'Tersimpan · tayang' : 'Draf tersimpan'; st.title = S.published ? 'Perubahan langsung terlihat oleh tamu' : 'Belum dipublikasikan'; }, 900); }
+  const st=$('#edSave'); if(st){ st.dataset.s='saving'; st.textContent='Menyimpan…'; clearTimeout(st._t); st._t=setTimeout(()=>{ st.dataset.s='ok'; st.textContent = DEMO.on ? 'Demo · tidak disimpan' : S.published ? 'Tersimpan · tayang' : 'Draf tersimpan'; st.title = S.published ? 'Perubahan langsung terlihat oleh tamu' : 'Belum dipublikasikan'; }, 900); }
 }
 function edRestore(json){
   EDIT.restoring=true; const d=JSON.parse(json); Object.assign(S, d); EDIT.last=json; save(); renderStep(); refreshPreview(); EDIT.restoring=false; edTools(); edRail();
@@ -2837,7 +2862,7 @@ function renderEditor(){
   }
   const insp=$('#edInspBody'); const sf=$('#stepForm'); if(sf.parentElement!==insp) insp.appendChild(sf);
   $('#edPub').innerHTML = S.published ? `<a class="btn btn-primary btn-sm" href="${esc(pubURL())}" target="_blank" rel="noopener">${ico('copy')}<span>Buka link</span></a>` : `<button type="button" class="btn btn-primary btn-sm" data-act="ed-publish">Publikasikan</button>`;
-  const st=$('#edSave'); if(st && !st.textContent) st.textContent = S.published ? 'Tersimpan · tayang' : 'Draf tersimpan'; st.title = S.published ? 'Perubahan langsung terlihat oleh tamu' : 'Belum dipublikasikan';
+  const st=$('#edSave'); if(st && (!st.textContent||DEMO.on||st.textContent.startsWith('Demo'))) st.textContent = DEMO.on ? 'Demo · tidak disimpan' : S.published ? 'Tersimpan · tayang' : 'Draf tersimpan'; st.title = S.published ? 'Perubahan langsung terlihat oleh tamu' : 'Belum dipublikasikan';
   EDIT.on=true; if(!EDIT.last) EDIT.last=edSnapshot();
   edRail(); renderStep(); refreshPreview(); edTools();
 }
@@ -2890,6 +2915,8 @@ function openGuest(){
 
 /* ---------- Dashboard ---------- */
 let dTab='ringkasan', gQ='', gStatus='semua', gGroup='semua', sel=new Set();
+const isPrep = () => !DEMO.on && !S.published && !!S.user;
+const dtList = () => isPrep() ? DT.filter(([k])=>['tamu','keluarga'].includes(k)) : DT;
 const DT = [['ringkasan','Ringkasan','home'],['tamu','Tamu','users'],['keluarga','Keluarga','family'],['katering','Katering','food'],['harih','Hari H','qr'],['ucapan','Ucapan','chat'],['kenangan','Kenangan','heart'],['hadiah','Hadiah','gift']];
 const stLabel = {hadir:['Hadir','s-ok'],tidak:['Tidak hadir','s-no'],belum:['Belum menjawab','s-wait']};
 const PRO = ['import','bulk','groups','harih','remind'];
@@ -3137,10 +3164,11 @@ function renderDashCore(){
   const total=G.length, hadir=G.filter(g=>g.status==='hadir'), tidak=G.filter(g=>g.status==='tidak').length, belum=G.filter(g=>g.status==='belum').length, sent=G.filter(g=>g.sent).length;
   const pax = hadir.reduce((a,g)=>a+g.pax,0);
   const arrived = G.filter(g=>g.checkin);
-  const head = `<div class="dash-head"><div><span class="eyebrow">Dashboard pasangan</span><h1>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</h1>
-    <div class="meta"><span class="status ${S.published?'s-ok':'s-wait'}">${S.published?`Aktif selamanya · ${esc((PLANS.find(p=>p.id===S.plan)||PLANS[2]).name)}`:'Contoh data · belum dipublikasikan'}</span><span class="num">${esc(fmtDate(S.events[0].date))}</span><span>${S.published&&CLOUD.on?`<a href="${esc(pubURL())}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">${esc(pubHost()+S.slug)}</a>`:esc(pubHost()+S.slug)}</span></div></div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">${S.published&&S.plan==='undangan'?`<button class="btn btn-soft btn-sm" data-act="upgrade">${ico('up')}Upgrade paket</button>`:''}<button class="btn btn-ghost btn-sm" data-act="view-as" data-id="">${ico('eye')}Lihat sebagai tamu</button><a class="btn btn-ghost btn-sm" href="#edit">${ico('edit')}Edit undangan</a></div></div>
-    <div class="dtabs" role="tablist">${DT.map(([k,l])=>`<button role="tab" data-dtab="${k}" aria-selected="${dTab===k}">${l}${k==='tamu'?`<span class="cnt num">${total}</span>`:k==='ucapan'?`<span class="cnt num">${W.length}</span>`:k==='harih'&&arrived.length?`<span class="cnt num">${arrived.length}</span>`:k==='keluarga'&&(G_ALL||G).some(isPending)?`<span class="cnt num" style="background:var(--warn);color:#fff">${(G_ALL||G).filter(isPending).length}</span>`:''}</button>`).join('')}</div>`;
+  if(isPrep() && !dtList().some(([k])=>k===dTab)) dTab='tamu';
+  const head = (DEMO.on ? demoBanner() : isPrep() ? prepBanner() : '') + `<div class="dash-head"><div><span class="eyebrow">${DEMO.on?'Demo · dashboard contoh':isPrep()?'Daftar tamu':'Dashboard pasangan'}</span><h1>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</h1>
+    <div class="meta"><span class="status ${DEMO.on?'s-wait':S.published?'s-ok':'s-wait'}">${DEMO.on?'Data contoh':S.published?`Aktif selamanya · ${esc((PLANS.find(p=>p.id===S.plan)||PLANS[2]).name)}`:'Belum dipublikasikan'}</span><span class="num">${esc(fmtDate(S.events[0].date))}</span><span>${S.published&&CLOUD.on?`<a href="${esc(pubURL())}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">${esc(pubHost()+S.slug)}</a>`:esc(pubHost()+S.slug)}</span></div></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">${isPrep()?`<a class="btn btn-ghost btn-sm" href="#buat">${ico('edit')}Lanjutkan undangan</a>`:`${S.published&&S.plan==='undangan'&&!DEMO.on?`<button class="btn btn-soft btn-sm" data-act="upgrade">${ico('up')}Upgrade paket</button>`:''}<button class="btn btn-ghost btn-sm" data-act="view-as" data-id="">${ico('eye')}Lihat sebagai tamu</button><a class="btn btn-ghost btn-sm" href="#edit">${ico('edit')}Edit undangan</a>`}</div></div>
+    <div class="dtabs" role="tablist">${dtList().map(([k,l])=>`<button role="tab" data-dtab="${k}" aria-selected="${dTab===k}">${l}${k==='tamu'?`<span class="cnt num">${total}</span>`:k==='ucapan'?`<span class="cnt num">${W.length}</span>`:k==='harih'&&arrived.length?`<span class="cnt num">${arrived.length}</span>`:k==='keluarga'&&(G_ALL||G).some(isPending)?`<span class="cnt num" style="background:var(--warn);color:#fff">${(G_ALL||G).filter(isPending).length}</span>`:''}</button>`).join('')}</div>`;
   let body='';
   if(dTab==='ringkasan'){
     const pct = n => (total? n/total*100 : 0).toFixed(1)+'%';
@@ -3220,7 +3248,7 @@ function renderDashCore(){
     <div class="tbl-wrap" style="display:block"><table><thead><tr><th>Dari</th><th>Ke</th><th class="num">Jumlah</th><th>Waktu</th></tr></thead><tbody>${GIFTS.map(g=>`<tr><td class="nm">${esc(g.n)}</td><td>${esc(g.bank)}</td><td class="num">${g.amt?rupiah(g.amt):'—'}</td><td class="muted">${esc(g.t)}</td></tr>`).join('')}</tbody></table></div>` + kadoAdminHTML();
   }
   $('#dash').innerHTML = head + body;
-  const dn=$('#dashNav'), dsl=dn.scrollLeft; dn.innerHTML = DT.map(([k,l,i])=>`<button role="tab" data-dtab="${k}" aria-selected="${dTab===k}">${ico(i)}${l}</button>`).join(''); dn.scrollLeft=dsl;
+  const dn=$('#dashNav'), dsl=dn.scrollLeft; dn.innerHTML = dtList().map(([k,l,i])=>`<button role="tab" data-dtab="${k}" aria-selected="${dTab===k}">${ico(i)}${l}</button>`).join(''); dn.scrollLeft=dsl;
   if(!dn._sc){ dn._sc=1; dn.addEventListener('scroll',()=>dn.classList.toggle('end', dn.scrollLeft+dn.clientWidth>=dn.scrollWidth-4),{passive:true}); }
   const dsel=dn.querySelector('[aria-selected=true]'); if(dsel && dn.scrollWidth>dn.clientWidth){ const r=dsel.offsetLeft, w=dsel.offsetWidth; if(r<dn.scrollLeft || r+w>dn.scrollLeft+dn.clientWidth) dn.scrollLeft=r-dn.clientWidth/2+w/2; }
 }
@@ -3417,13 +3445,17 @@ $('#mobileMenu').addEventListener('click',e=>{ if(e.target.closest('a')){ $('#mo
 const UPGRADE_PRICE = 220000;
 const VOUCHERS = {SAKARA10:{type:'pct',v:10,label:'Diskon 10%'}, NIKAHHEMAT:{type:'amt',v:25000,label:'Potongan Rp25.000'}};
 function renderAuthSlot(){
-  const u=S.user;
+  const real = (DEMO.on && DEMO.saved) ? DEMO.saved.S : S;
+  const u=real.user;
   const html = u ? `<div class="acct"><button class="av-btn" data-act="acct-menu" aria-expanded="false" aria-label="Akun ${esc(u.name)}">${esc(initials(u.name)||'U')}</button><div class="acct-menu" id="acctMenu" hidden><div class="acct-id"><b>${esc(u.name)}</b><small class="muted">${esc(u.email)}</small></div><a href="#dashboard">${ico('home')}Undangan saya</a><a href="#tagihan">${ico('receipt')}Tagihan</a><button data-act="logout">${ico('logout')}Keluar</button></div></div>`
     : `<button class="btn btn-ghost btn-sm" data-act="login">Masuk</button>`;
   const a=$('#authSlot'); if(a) a.innerHTML=html;
-  { const has = !!u && !!(CLOUD.inv || S.published);
+  { const stage = !u ? 'visitor' : (real.published ? 'paid' : 'draft');
     ['#ctaTop','#ctaTopM'].forEach(id=>{ const c=$(id); if(c) c.hidden = !!u; });
-    $$('[data-nav=buat], #mobileMenu a[href="#buat"], #mobileMenu a[href="#edit"]').forEach(x=>{ x.textContent = has ? 'Edit undangan' : 'Buat undangan'; x.setAttribute('href', has ? '#edit' : '#buat'); });
+    const set = (k, show, label, href) => $$(`[data-nav=${k}], [data-mnav=${k}]`).forEach(x=>{ x.hidden=!show; if(label) x.textContent=label; if(href) x.setAttribute('href', href); });
+    set('demo', stage==='visitor');
+    set('buat', stage!=='visitor', stage==='paid'?'Edit undangan':'Undangan saya', stage==='paid'?'#edit':'#buat');
+    set('dashboard', stage!=='visitor', stage==='paid'?'Dashboard':'Daftar tamu', '#dashboard');
   }
   const m=$('#authSlotM'); if(m) m.innerHTML = u ? `<a href="#tagihan">${ico('receipt')} Tagihan · ${esc(u.name)}</a><a href="#beranda" data-act="logout">Keluar</a>` : `<a href="#beranda" data-act="login">Masuk atau daftar</a>`;
 }
@@ -3943,11 +3975,11 @@ function subscribeRealtime(){
   const sb=CLOUD.sb, id=CLOUD.inv.id;
   if(CLOUD.ch) sb.removeChannel(CLOUD.ch);
   CLOUD.ch = sb.channel('inv-'+id)
-    .on('postgres_changes',{event:'*',schema:'public',table:'guests',filter:`invitation_id=eq.${id}`}, p=>{
+    .on('postgres_changes',{event:'*',schema:'public',table:'guests',filter:`invitation_id=eq.${id}`}, p=>{ if(DEMO.on) return;
       if(p.eventType==='DELETE'){ if(p.old&&p.old.id){ G=G.filter(x=>x.id!==p.old.id); CLOUD.lastG.delete(p.old.id); } }
       else { const g=fromRow(p.new); const i=G.findIndex(x=>x.id===g.id); if(i>-1) G[i]=g; else G.unshift(g); CLOUD.lastG.set(g.id, JSON.stringify(toRow(g))); }
       liveRefresh(); })
-    .on('postgres_changes',{event:'INSERT',schema:'public',table:'wishes',filter:`invitation_id=eq.${id}`}, p=>{
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'wishes',filter:`invitation_id=eq.${id}`}, p=>{ if(DEMO.on) return;
       if(!W.some(w=>w.id===p.new.id)) W.unshift({id:p.new.id, n:p.new.name, m:p.new.message, t:'baru saja', att:p.new.attending, show:!p.new.hidden}); liveRefresh(); })
     .subscribe();
 }
@@ -4033,7 +4065,7 @@ const PL_DEMO = [{id:'p1',item:'k1',name:'Om Darmawan',amount:1000000,msg:'Semog
 let PL = store.get('sp-pledges') || PL_DEMO;
 let WLP = null;
 let ALB = store.get('sp-album') || [];
-const localMode = () => !CLOUD.uid && !CLOUD.guestMode && !CLOUD.albumMode;
+const localMode = () => !DEMO.on && !CLOUD.uid && !CLOUD.guestMode && !CLOUD.albumMode;
 const savePL = () => { if(localMode()) store.set('sp-pledges', PL); };
 const saveALB = () => { if(localMode() && !store.set('sp-album', ALB)) toast('Memori browser penuh. Di versi online foto disimpan di server.'); };
 function wlProg(id){
@@ -4541,6 +4573,71 @@ function aniScan(root){
   groups.forEach(([sel,stag])=>{ $$(sel, root).forEach((el,i)=>{ if(el.dataset.ani) return; el.dataset.ani='1'; el.classList.add('ani'); el.style.setProperty('--ad', (stag?Math.min(i,6)*70:0)+'ms'); aniIO.observe(el); }); });
 }
 
+
+/* ---------- Mode demo ---------- */
+function demoData(){
+  const s = structuredClone(DEFAULT);
+  Object.assign(s, {published:true, plan:'tamu', slug:'nadia-rizky', giftNo:9, user:null, invoices:[], famInit:true, wlInit:true, storyInit:true, step:0,
+    wishlist:{on:true, items:[{id:'k1',name:'Kulkas dua pintu',price:6000000,note:'Untuk dapur rumah baru kami'},{id:'k2',name:'Mesin cuci',price:4500000,note:''},{id:'k3',name:'Set alat masak',price:1500000,note:'Panci, wajan, dan pisau'}]},
+    story:{on:true, items:[{id:'c1',date:'Maret 2022',title:'Pertama bertemu',text:'Kami berkenalan di acara kantor teman. Obrolan singkat soal kopi ternyata berlanjut sampai larut malam.'},{id:'c2',date:'Agustus 2024',title:'Melangkah lebih serius',text:'Setelah dua tahun saling mengenal, kami memberanikan diri bertemu keluarga satu sama lain.'},{id:'c3',date:'Oktober 2026',title:'Lamaran',text:'Dengan restu kedua keluarga, kami sepakat melangkah ke jenjang pernikahan.'}]},
+    groups:[...GROUPS], cateringToken:'demo00catering00', families:[{id:'f1',name:'Keluarga Nadia',quota:150,token:'demo00keluarga01'},{id:'f2',name:'Keluarga Rizky',quota:120,token:'demo00keluarga02'}]});
+  const g = seedGuests(); const last=s.events.length-1;
+  g.forEach(x=>{ x.sessions = (s.events.length>1 && /Kantor|Tetangga/.test(x.group)) ? [last] : s.events.map((e,i)=>i); x.code=makeCode(x); });
+  g.slice(0,40).forEach((x,k)=>{ if(k%3===0) x.fam = k%2?'f2':'f1'; });
+  [['Pak Haji Darmawan','081234567890','f1'],['Bu Siti Aminah','','f1'],['Tante Rina Kusuma','','f2']].forEach(([n,ph,f],k)=>{ const x={id:'fs'+k,name:n,phone:ph,group:'Keluarga '+(f==='f1'?'Nadia':'Rizky'),status:'belum',pax:0,sent:false,sessions:s.events.map((e,i)=>i),fam:f,approved:false}; x.code=makeCode(x); g.push(x); });
+  const now=Date.now(); let gift=0;
+  g.filter(x=>x.status==='hadir').slice(0,16).forEach((x,k)=>{ const t=new Date(now-(k*9+4)*60000); x.checkin={ts:t.getTime(), time:new Intl.DateTimeFormat('id-ID',{hour:'2-digit',minute:'2-digit'}).format(t), pax:x.pax||1, gift:k%2===0?++gift:0, session:last}; });
+  const W0=[{n:'Ani Wulandari',t:'2 jam lalu',m:'Selamat Nadia & Rizky! Semoga jadi keluarga yang sakinah, mawaddah, warahmah. Sampai ketemu di Graha Sawala ya.',att:true,show:true},{n:'Om Darmawan',t:'5 jam lalu',m:'Barakallah, semoga lancar sampai hari H. Salam untuk Bapak dan Ibu.',att:true,show:true},{n:'Teman kantor Rizky',t:'kemarin',m:'Congrats bro! Akhirnya. Kami datang rombongan setelah Jumatan, aman.',att:true,show:true},{n:'Bella Permata',t:'kemarin',m:'Maaf belum bisa hadir karena di luar kota, doa terbaik untuk kalian berdua.',att:false,show:true},{n:'Hana Halim',t:'2 hari lalu',m:'Happy wedding Nadia sayang, cantik banget undangannya!',att:true,show:true}];
+  const GF=[{n:'Om Darmawan',bank:'BCA',amt:0,t:'Hari ini, 09.12'},{n:'Fitri Rahayu',bank:'BCA',amt:0,t:'Kemarin, 20.41'},{n:'Keluarga Halim',bank:'BCA',amt:0,t:'Kemarin, 18.05'}];
+  return {S:s, G:g, W:W0, GIFTS:GF, PL:structuredClone(PL_DEMO), ALB:[]};
+}
+function enterDemo(){
+  if(DEMO.on) return;
+  DEMO.saved = {S, G, W, GIFTS, PL, ALB, uid:CLOUD.uid, inv:CLOUD.inv, dTab, editOn:EDIT.on};
+  const d = demoData(); S=d.S; G=d.G; W=d.W; GIFTS=d.GIFTS; PL=d.PL; ALB=d.ALB; WLP=null;
+  CLOUD.uid=null; CLOUD.inv=null; dTab='ringkasan'; DEMO.on=true;
+  document.documentElement.classList.add('demo'); demoPill(); renderAuthSlot();
+}
+function exitDemo(){
+  if(!DEMO.on) return; const v=DEMO.saved;
+  S=v.S; G=v.G; W=v.W; GIFTS=v.GIFTS; PL=v.PL; ALB=v.ALB; CLOUD.uid=v.uid; CLOUD.inv=v.inv; dTab=v.dTab||'ringkasan';
+  DEMO.on=false; DEMO.saved=null; document.documentElement.classList.remove('demo'); demoPill(); renderAuthSlot();
+  const ed=$('#editor'); if(ed) delete ed.dataset.built;
+}
+function demoPill(){
+  let p=$('#demoPill');
+  if(!DEMO.on){ if(p) p.remove(); return; }
+  if(!p){ p=document.createElement('div'); p.id='demoPill'; p.setAttribute('role','status'); document.body.appendChild(p); }
+  p.innerHTML=`<span class="dp-dot" aria-hidden="true"></span><span><b>Mode demo</b><span class="dp-x"> · data contoh, tidak disimpan</span></span><a href="#dashboard" class="dp-btn dp-back">Dashboard</a><button type="button" class="dp-btn" data-act="demo-exit">Keluar</button>`;
+}
+function demoBanner(){
+  return `<div class="demo-ban" role="note"><div class="db-ic" aria-hidden="true">${ico('eye')}</div><div class="db-t"><b>Kamu sedang melihat demo</b><span>Ini dashboard contoh milik pasangan Nadia &amp; Rizky. Silakan klik apa saja, tidak ada yang tersimpan dan tidak ada pesan yang benar-benar terkirim.</span></div><div class="db-a"><button type="button" class="btn btn-primary btn-sm" data-act="demo-start">Buat undanganku</button><button type="button" class="btn btn-ghost btn-sm" data-act="demo-exit">Keluar dari demo</button></div></div>`;
+}
+function prepBanner(){
+  const n=G.length;
+  return `<div class="demo-ban prep" role="note"><div class="db-ic" aria-hidden="true">${ico('users')}</div><div class="db-t"><b>${n?`${n} tamu sudah kamu siapkan`:'Siapkan daftar tamu dari sekarang'}</b><span>Tempel daftar dari keluarga atau import Excel. Tombol kirim WhatsApp terbuka setelah undanganmu dipublikasikan.</span></div><div class="db-a"><button type="button" class="btn btn-primary btn-sm" data-act="prep-publish">Publikasikan undangan</button></div></div>`;
+}
+function demoIntro(){
+  try{ if(sessionStorage.getItem('sp-demo-intro')) return; sessionStorage.setItem('sp-demo-intro','1'); }catch(e){}
+  openModal(`<div class="demo-intro"><span class="eyebrow">Mode demo</span><h2 class="display" style="font-size:32px;margin:8px 0 10px">Ini dashboard contoh</h2>
+    <p class="muted">Kamu akan melihat undangan dan dashboard milik pasangan contoh, Nadia &amp; Rizky, lengkap dengan ${G.filter(g=>g.approved!==false).length} tamu. Coba klik apa saja: lihat siapa yang sudah menjawab, buka mode penerima tamu, atau ubah undangannya di editor.</p>
+    <ul class="di-list"><li>${ico('check')}Tidak ada yang tersimpan</li><li>${ico('check')}Tidak ada pesan WhatsApp yang terkirim</li><li>${ico('check')}Undanganmu sendiri tidak tersentuh</li></ul>
+    <div class="form-foot"><button class="btn btn-ghost" data-act="demo-start">Buat undangan sendiri</button><button class="btn btn-primary" data-act="close">Mulai lihat demo</button></div></div>`);
+}
+function prepLock(){
+  openModal(`<h2 class="display" style="font-size:28px;padding-right:44px">Kirim setelah dipublikasikan</h2><p class="muted" style="margin:8px 0 18px">Daftar tamumu sudah tersimpan. Begitu undangan dipublikasikan, setiap tamu langsung punya link dengan namanya sendiri dan kamu bisa mengirimnya lewat WhatsApp.</p><div class="form-foot"><button class="btn btn-ghost" data-act="close">Nanti dulu</button><button class="btn btn-primary" data-act="prep-publish">Publikasikan undangan</button></div>`);
+}
+document.addEventListener('click', e=>{
+  const wa = e.target.closest('a[href*="wa.me"]');
+  if(wa && DEMO.on){ e.preventDefault(); e.stopImmediatePropagation(); toast('Mode demo: pesan tidak dikirim. Di undanganmu sendiri, tombol ini membuka WhatsApp.'); return; }
+  if(isPrep() && (wa || e.target.closest('[data-act=bulk-send],[data-act=remind]'))){ e.preventDefault(); e.stopImmediatePropagation(); prepLock(); return; }
+  const el=e.target.closest('[data-act]'); if(!el) return; const a=el.dataset.act;
+  if(DEMO.on && ['upgrade','ed-publish','logout','login'].includes(a)){ e.preventDefault(); e.stopImmediatePropagation(); closeModal(); exitDemo(); location.hash = a==='login'||a==='logout' ? '#beranda' : '#buat'; return; }
+  if(a==='demo-exit'){ closeModal(); exitDemo(); location.hash='#beranda'; }
+  if(a==='demo-start'){ closeModal(); exitDemo(); location.hash='#buat'; }
+  if(a==='prep-publish'){ closeModal(); S.step=4; save(); location.hash='#buat'; }
+}, true);
+
 /* ---------- Router ---------- */
 const VIEWS = ['beranda','tema','buat','undangan','dashboard','checkout','tagihan','checkin','keluarga','katering','edit','album'];
 let bootDoneCalled=false;
@@ -4568,6 +4665,10 @@ function route(){
   else if(h.startsWith('katering-')){ CP={token:h.slice(9),d:null,err:null}; catPageLoad().then(renderCatPage); h='katering'; }
   let scrollTo = null;
   if(h==='harga'){ h='beranda'; scrollTo='harga-sec'; }
+  if(h==='demo'){ if(!DEMO.on) enterDemo(); h='dashboard'; history.replaceState(null,'',location.pathname+location.search+'#dashboard'); setTimeout(demoIntro,60); }
+  else if(DEMO.on && !['dashboard','edit','undangan','checkin'].includes(h)) exitDemo();
+  else if(h==='dashboard' && !DEMO.on && !S.user && !S.published && !CLOUD.uid){ enterDemo(); setTimeout(demoIntro,60); }
+  document.documentElement.dataset.dv = h;
   if(!VIEWS.includes(h)) h='beranda';
   if(h!=='checkout') clearInterval(CO.timer);
   if(h!=='undangan') stopBgm(); if(h!=='buat') stopPrev();
@@ -4577,7 +4678,7 @@ function route(){
   const full = h==='undangan' || h==='checkin' || h==='keluarga' || h==='katering' || h==='edit' || h==='album';
   $('#siteHeader').hidden = full; $('#footerWrap').hidden = full || ['dashboard','buat','checkout'].includes(h);
   document.body.style.overflow='';
-  $$('.nav a').forEach(a=>{ if(a.dataset.nav!==(scrollTo?'harga':(h==='edit'?'buat':h))) a.removeAttribute('aria-current'); else a.setAttribute('aria-current','page'); });
+  $$('.nav a').forEach(a=>{ if(a.dataset.nav!==(scrollTo?'harga':(DEMO.on?'demo':(h==='edit'?'buat':h)))) a.removeAttribute('aria-current'); else a.setAttribute('aria-current','page'); });
   closeModal(); renderAuthSlot();
   if(h==='beranda'){ renderHero(); renderStrip(); renderPlans(); }
   if(h==='tema') renderCatalog();
