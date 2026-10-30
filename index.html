@@ -1528,6 +1528,81 @@ html.boot-app #bootSkel .bs-app{display:flex}
 .inv[data-fp]:not([data-fp="tema"]) :is(.cd4 b,.count b,.ev2-d b,.cd4 i){font-family:var(--t-sub);font-weight:600}
 .inv[data-fp]:not([data-fp="tema"]) .ev2-w{font-family:var(--t-sub) !important;font-size:15.5px !important;font-weight:600 !important;line-height:1.35;margin:2px 0}
 .inv[data-fp="klasik"] .ev2-w{letter-spacing:.06em !important}
+
+/* ===== Pesan WhatsApp ===== */
+.wa-ed{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:760px){ .wa-ed{grid-template-columns:minmax(0,1fr)} }
+.wa-ed .hint{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.5}
+#waTa{width:100%;font-size:15px;line-height:1.55;resize:vertical;min-height:220px}
+.wa-phone{margin-top:8px;background:#EFE7DD;border-radius:18px;padding:16px;min-height:220px}
+.wa-bubble{background:#DCF8C6;border-radius:4px 14px 14px 14px;padding:10px 12px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:14px;line-height:1.5;color:#1f2c22;white-space:normal;overflow-wrap:anywhere;box-shadow:0 1px 1px rgba(0,0,0,.08);max-width:100%}
+.wa-bubble u{color:#2A6BB0}
+.modal .wa-bubble{white-space:pre-wrap}
+.modal .wa-phone .wa-bubble{white-space:normal}
+
+/* ===== Animasi website ===== */
+.ani{opacity:0;transform:translateY(22px);transition:opacity .75s cubic-bezier(.2,.7,.2,1) var(--ad,0ms),transform .75s cubic-bezier(.2,.7,.2,1) var(--ad,0ms)}
+.ani.in{opacity:1;transform:none}
+[data-view]:not([hidden]):not([data-view="undangan"]):not([data-view="edit"]):not([data-view="checkin"]){animation:viewIn .45s cubic-bezier(.2,.7,.2,1)}
+@keyframes viewIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hero h1{animation:heroUp .9s cubic-bezier(.2,.7,.2,1) both}
+.hero .lede{animation:heroUp .9s cubic-bezier(.2,.7,.2,1) .12s both}
+.hero .try{animation:heroUp .9s cubic-bezier(.2,.7,.2,1) .24s both}
+.hero-stage .phone{animation:phoneIn 1.1s cubic-bezier(.2,.7,.2,1) .2s both, phoneFloat 7s ease-in-out 1.4s infinite}
+@keyframes heroUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes phoneIn{from{opacity:0;transform:translateY(40px) rotate(-3deg) scale(.96)}to{opacity:1;transform:none}}
+@keyframes phoneFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+html.intro .hero h1,html.intro .hero .lede,html.intro .hero .try,html.intro .hero-stage .phone{animation-delay:3.2s,3.2s}
+.btn{transition:transform .18s ease, box-shadow .25s ease, background-color .2s ease, color .2s ease, border-color .2s ease}
+.btn:active{transform:scale(.97)}
+.btn-primary:hover{box-shadow:0 10px 24px -12px rgba(125,29,63,.6);transform:translateY(-1px)}
+.nav a{position:relative;transition:color .2s ease, background-color .2s ease}
+.nav a:not([aria-current="page"])::after{content:"";position:absolute;left:12px;right:12px;bottom:4px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.nav a:not([aria-current="page"]):hover::after{transform:scaleX(1)}
+.tcard,.plan,.step,.panel-c.kd-a{transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease}
+@media (hover:hover){ .tcard:hover,.plan:hover{transform:translateY(-6px);box-shadow:0 24px 44px -28px rgba(60,20,35,.45)} }
+.faq details[open] p{animation:heroUp .45s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion: reduce){ .ani{opacity:1;transform:none;transition:none} [data-view]:not([hidden]){animation:none !important} .hero h1,.hero .lede,.hero .try,.hero-stage .phone{animation:none} .tcard:hover,.plan:hover{transform:none} }
+
+/* ===== Padding mobile ===== */
+@media (max-width:560px){
+  .wrap{width:calc(100% - 28px)}
+  .hero{padding:16px 0 36px}
+  .hero h1{margin:6px 0 14px}
+  .section{padding:44px 0}
+  .section-head{gap:10px;margin-bottom:22px}
+  .steps{gap:24px}
+  .plan{padding:20px 18px}
+  .cta-final{padding:28px 20px;border-radius:22px}
+  .footer{padding:28px 0 36px}
+  .page-head{padding:24px 0 16px}
+  .empty{padding:36px 16px}
+  .modal{padding:10px}
+  .modal .panel{padding:20px 16px;border-radius:22px}
+  .modal .close{right:10px;top:10px}
+  .form-card{padding:18px 14px}
+  .builder{padding:12px 0 72px}
+  .dash{padding:16px 0 86px}
+  .panel-c{padding:16px}
+  .panel-c h3{margin-bottom:12px}
+  .tiles{gap:10px}
+  .tile{padding:14px 14px}
+  .tile .v{font-size:32px}
+  .harih-hero{padding:18px}
+  .co-head{padding:20px 0 4px}
+  .co-grid{padding:8px 0 80px}
+  .co-empty{padding:44px 0}
+  .ci-body{padding:14px 0 72px}
+  .greet-card{padding:32px 20px}
+  .fp{padding:18px 14px 44px;gap:12px}
+  .fp-card{padding:16px}
+  .acct-card{padding:16px}
+  .kd-adm{margin-top:20px;padding-top:18px}
+  .al{padding:18px 14px 44px}
+  .ed-canvas{padding:14px 10px 24px}
+  .ed-insp-b{padding:14px 14px calc(24px + env(safe-area-inset-bottom))}
+  .mobile-menu{padding:12px 16px 18px}
+}
 </style>
 </head>
 <body>
@@ -2248,7 +2323,7 @@ function renderCatalog(){
   $('#tagFilter').innerHTML = TAGS.map(t=>`<button type="button" data-tag="${t}" aria-pressed="${t===catTag}">${t}</button>`).join('');
   const q = catQ.toLowerCase();
   const list = THEMES.filter(t => (catTag==='Semua'||t.tags.includes(catTag)) && (!q || (t.name+' '+t.region+' '+t.tags.join(' ')).toLowerCase().includes(q) || (q.includes('jawa')&&t.id==='kawung') || (q.includes('minang')&&t.id==='songket') || (q.includes('batak')&&t.id==='ulos') || (q.includes('bugis')&&t.id==='lontar')));
-  setTimeout(()=>fitLive($('#themeGrid')),0); $('#themeGrid').innerHTML = list.length ? list.map(tcard).join('') : `<div class="empty"><b style="color:var(--ink)">Belum ada tema untuk “${esc(catQ)}”.</b><br>Coba kata lain, atau <button class="btn btn-ghost btn-sm" data-act="clear-filter" style="margin-top:10px">tampilkan semua tema</button></div>`;
+  setTimeout(()=>{ fitLive($('#themeGrid')); aniScan($('[data-view=tema]')); },0); $('#themeGrid').innerHTML = list.length ? list.map(tcard).join('') : `<div class="empty"><b style="color:var(--ink)">Belum ada tema untuk “${esc(catQ)}”.</b><br>Coba kata lain, atau <button class="btn btn-ghost btn-sm" data-act="clear-filter" style="margin-top:10px">tampilkan semua tema</button></div>`;
 }
 $('#tagFilter').addEventListener('click',e=>{ const b=e.target.closest('[data-tag]'); if(!b) return; catTag=b.dataset.tag; renderCatalog(); });
 $('#themeSearch').addEventListener('input',e=>{ catQ=e.target.value; renderCatalog(); });
@@ -2786,8 +2861,20 @@ const lockNote = (what) => `<div class="lock-card">${ico('lock')}<div><b>${what}
 function pubHost(){ return CLOUD.on ? location.host+'/u/' : 'undangansakara.vercel.app/u/'; }
 function pubURL(){ return 'https://'+pubHost()+((CLOUD.inv&&CLOUD.inv.slug)||S.slug); }
 function link(g){ return CLOUD.on ? `${location.origin}/u/${(CLOUD.inv&&CLOUD.inv.slug)||S.slug}?to=${g.code}` : `https://undangansakara.vercel.app/u/${S.slug}?to=${encodeURIComponent(g.code||g.name)}`; }
-function waMsg(g){ const ev=guestEvents(g); return `Halo ${g.name},\n\nDengan penuh syukur, kami ${S.bride.nick} & ${S.groom.nick} mengundang Anda ke ${ev.map(e=>e.type).join(' dan ')} pernikahan kami, ${fmtDate((ev[0]||S.events[0]).date)}.\n\nUndangan lengkap dan konfirmasi kehadiran:\n${link(g)}\n\nTerima kasih 🙏`; }
-function waUrl(g){ return `https://wa.me/${(g.phone||'').replace(/^0/,'62')}?text=${encodeURIComponent(waMsg(g))}`; }
+const WA_DEF = {
+  invite:'Halo {nama},\n\nDengan penuh syukur, kami {pasangan} mengundang Anda ke {acara} pernikahan kami, {tanggal}.\n\nUndangan lengkap dan konfirmasi kehadiran:\n{link}\n\nTerima kasih 🙏',
+  remind:'Halo {nama},\n\nMengingatkan kembali, kami {pasangan} akan melangsungkan {acara} pada {tanggal}. Mohon bantu konfirmasi kehadiran lewat link berikut, ya:\n{link}\n\nTerima kasih 🙏'
+};
+const WA_TOKENS = [['{nama}','Nama tamu'],['{pasangan}','Nama kalian'],['{acara}','Acara'],['{tanggal}','Tanggal'],['{link}','Link undangan']];
+const waTpl = kind => (kind==='remind' ? S.waTplR : S.waTpl) || WA_DEF[kind==='remind'?'remind':'invite'];
+function waFill(tpl, g){
+  const ev=guestEvents(g), d=(ev[0]||S.events[0]||{}).date;
+  let out = tpl.replace(/\{nama\}/g, g.name||'').replace(/\{pasangan\}/g, `${S.bride.nick} & ${S.groom.nick}`).replace(/\{acara\}/g, ev.map(e=>e.type).filter(Boolean).join(' dan ')||'acara').replace(/\{tanggal\}/g, d?fmtDate(d):'').replace(/\{link\}/g, link(g));
+  if(!/\{link\}/.test(tpl)) out += `\n\n${link(g)}`;
+  return out;
+}
+function waMsg(g, kind){ return waFill(waTpl(kind), g); }
+function waUrl(g, kind){ return `https://wa.me/${(g.phone||'').replace(/^0/,'62')}?text=${encodeURIComponent(waMsg(g, kind))}`; }
 const filteredGuests = () => { const q=gQ.toLowerCase(); return G.filter(g=>(gStatus==='semua'||g.status===gStatus) && (gGroup==='semua'||g.group===gGroup) && (!q||g.name.toLowerCase().includes(q)||(g.phone||'').includes(q)||(g.code||'').toLowerCase().includes(q))); };
 const sesChips = g => guestEvents(g).map(e=>`<span class="chip chip-ses">${esc(e.type)}</span>`).join(' ');
 /* ---------- Akun keluarga · jam kedatangan · katering ---------- */
@@ -3049,6 +3136,7 @@ function renderDashCore(){
       <div class="right">
         ${isLocked('groups')?'':`<button class="btn btn-ghost btn-sm" data-act="groups">${ico('users')}Kelola grup</button>`}
         ${isLocked('import')?`<button class="btn btn-ghost btn-sm" data-act="upgrade">${ico('lock')}Import Excel</button>`:`<label class="btn btn-ghost btn-sm" for="importFile" style="cursor:pointer">${ico('up')}Import Excel/CSV</label><input type="file" id="importFile" accept=".xlsx,.xls,.csv,text/csv" hidden>`}
+        <button class="btn btn-ghost btn-sm" data-act="wa-tpl" data-kind="invite">${ico('wa')}Pesan WhatsApp</button>
         <button class="btn btn-ghost btn-sm" data-act="cards-print">${ico('qr')}Kartu cetak</button>
         <button class="btn btn-primary btn-sm" data-act="add-guest">${ico('plus')}Tambah tamu</button></div>
     </div>
@@ -3269,7 +3357,7 @@ document.addEventListener('click', e=>{
     const targets = a==='remind' ? G.filter(g=>g.status==='belum') : G.filter(g=>sel.has(g.id));
     const ex = targets[0];
     openModal(`<span class="eyebrow">${a==='remind'?'Pengingat':'Kirim undangan'}</span><h2 class="display" style="font-size:30px;margin:8px 0">Kirim ke ${targets.length} tamu</h2><p class="muted">Setiap tamu menerima link dengan namanya sendiri. Contoh pesan untuk ${esc(ex?.name||'tamu')}:</p>
-      <pre style="white-space:pre-wrap;background:#EAF6EE;border-radius:14px;padding:16px;font-family:var(--body);font-size:14px;margin:16px 0;border:1px solid #CFE8D7">${esc(ex?waMsg(ex):'')}</pre>
+      <div class="wa-bubble" style="margin:16px 0 8px">${esc(ex?waMsg(ex, a==='remind'?'remind':'invite'):'')}</div><p style="margin:0 0 14px"><button class="linkbtn" data-act="wa-tpl" data-kind="${a==='remind'?'remind':'invite'}">Ubah isi pesan</button></p>
       <div class="form-foot"><button class="btn btn-ghost" data-act="close">Batal</button><button class="btn btn-primary" data-act="bulk-go" data-n="${targets.length}" data-mode="${a}">${ico('wa')}Kirim ${targets.length} pesan</button></div>
       <p class="muted" style="font-size:12.5px">Prototype: pengiriman massal disimulasikan. Di paket Undangan, kirim satu per satu lewat tombol Kirim WA.</p>`);
   }
@@ -3703,7 +3791,7 @@ document.addEventListener('click', e=>{
 document.addEventListener('click', e=>{ const m=$('#acctMenu'); if(m && !m.hidden && !e.target.closest('.acct')) m.hidden=true; });
 
 /* ---------- Cloud: Supabase + Midtrans ---------- */
-const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','catering','arriveOn','wishlist','story','fontPair','albumOn','thanksMsg','thanksMsg2','thanked','gallery','galleryOn','groups','slug'];
+const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','catering','arriveOn','wishlist','story','fontPair','waTpl','waTplR','albumOn','thanksMsg','thanksMsg2','thanked','gallery','galleryOn','groups','slug'];
 const pickData = () => { const d={}; DATA_KEYS.forEach(k=>{ if(S[k]!==undefined) d[k]=S[k]; }); return d; };
 const toRow = g => ({invitation_id:CLOUD.inv.id, id:g.id, name:g.name, phone:g.phone||'', grp:g.group||'Tanpa grup', sessions:g.sessions||[], code:g.code, status:g.status, pax:g.pax||0, sent:!!g.sent, walkin:!!g.walkin, checkin:g.checkin||null, fam:g.fam||null, approved:g.approved!==false, arrive:g.arrive||''});
 const fromRow = r => { const g={id:r.id, name:r.name, phone:r.phone||'', group:r.grp||'Tanpa grup', sessions:r.sessions||[], code:r.code, status:r.status||'belum', pax:r.pax||0, sent:!!r.sent, walkin:!!r.walkin, fam:r.fam||null, arrive:r.arrive||''}; if(r.approved===false) g.approved=false; if(r.checkin) g.checkin=r.checkin; return g; };
@@ -4380,6 +4468,42 @@ function playGate(){
   gateTheme(); requestAnimationFrame(()=>gateOpen());
 }
 
+
+/* ---------- Editor pesan WhatsApp ---------- */
+let WAK='invite';
+function waTplModal(kind){
+  WAK = kind || WAK; const ex = G.find(g=>!isPending(g)) || {name:'Bapak Budi & Keluarga', code:'SP-CONTOH', sessions:S.events.map((e,i)=>i)};
+  const tpl = waTpl(WAK);
+  openModal(`<h2 class="display" style="font-size:30px">Pesan WhatsApp</h2><p class="muted" style="margin:6px 0 16px">Tulis sesukamu. Bagian dalam kurung kurawal otomatis diganti sesuai tiap tamu, jadi satu template berlaku untuk semua.</p>
+    <div class="seg" role="tablist" aria-label="Jenis pesan" style="margin-bottom:14px"><button type="button" role="tab" data-wak="invite" aria-pressed="${WAK==='invite'}" aria-selected="${WAK==='invite'}">Undangan</button><button type="button" role="tab" data-wak="remind" aria-pressed="${WAK==='remind'}" aria-selected="${WAK==='remind'}">Pengingat</button></div>
+    <div class="wa-ed"><div class="wa-ed-l"><label for="waTa" class="sr">Isi pesan</label><textarea class="input" id="waTa" rows="11">${esc(tpl)}</textarea>
+      <div class="thx-chips"><span class="muted">Sisipkan:</span>${WA_TOKENS.map(([t,l])=>`<button type="button" class="chip" data-watok="${t}">${l}</button>`).join('')}</div>
+      <p class="hint" id="waWarn" ${/\{link\}/.test(tpl)?'hidden':''}>Tanpa {link}, link undangan otomatis ditambahkan di akhir pesan supaya tamu tetap bisa membukanya.</p>
+      <p class="hint">Format WhatsApp juga bisa dipakai: *tebal*, _miring_.</p></div>
+    <div class="wa-ed-r"><small class="muted">Pratinjau untuk ${esc(ex.name)}</small><div class="wa-phone"><div class="wa-bubble" id="waPrev">${waFmt(waFill(tpl, ex))}</div></div></div></div>
+    <div class="form-foot"><button class="btn btn-ghost" data-act="wa-reset">Kembalikan bawaan</button><button class="btn btn-primary" data-act="wa-save">Simpan pesan</button></div>`, true);
+  const ta=$('#waTa'); ta.addEventListener('input',()=>{ $('#waPrev').innerHTML=waFmt(waFill(ta.value, ex)); $('#waWarn').hidden=/\{link\}/.test(ta.value); });
+  waTplModal.ex=ex;
+}
+function waFmt(t){ return esc(t).replace(/\*([^*\n]+)\*/g,'<b>$1</b>').replace(/_([^_\n]+)_/g,'<i>$1</i>').replace(/~([^~\n]+)~/g,'<s>$1</s>').replace(/\n/g,'<br>').replace(/(https?:\/\/[^\s<]+)/g,'<u>$1</u>'); }
+document.addEventListener('click', e=>{
+  const k=e.target.closest('[data-wak]'); if(k){ const ta=$('#waTa'); if(ta) { const cur=ta.value; if(cur!==waTpl(WAK)){ if(WAK==='remind') S.waTplR=cur; else S.waTpl=cur; save(); } } waTplModal(k.dataset.wak); return; }
+  const tk=e.target.closest('[data-watok]'); if(tk){ const ta=$('#waTa'); const a=ta.selectionStart, b=ta.selectionEnd; ta.setRangeText(tk.dataset.watok, a, b, 'end'); ta.focus(); ta.dispatchEvent(new Event('input',{bubbles:true})); return; }
+  const el=e.target.closest('[data-act]'); if(!el) return; const a=el.dataset.act;
+  if(a==='wa-tpl'){ waTplModal(el.dataset.kind||'invite'); }
+  if(a==='wa-reset'){ const ta=$('#waTa'); ta.value=WA_DEF[WAK]; ta.dispatchEvent(new Event('input',{bubbles:true})); }
+  if(a==='wa-save'){ const v=$('#waTa').value.trim(); const def=WA_DEF[WAK]; if(WAK==='remind') S.waTplR = (v && v!==def) ? v : undefined; else S.waTpl = (v && v!==def) ? v : undefined; save(); closeModal(); if(location.hash==='#dashboard') renderDash(); toast('Pesan WhatsApp disimpan. Tombol Kirim WA sekarang memakai pesan ini.'); }
+});
+
+/* ---------- Animasi website ---------- */
+let aniIO=null;
+function aniScan(root){
+  if(REDUCED() || !('IntersectionObserver' in window) || !root) return;
+  if(!aniIO) aniIO = new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); aniIO.unobserve(en.target); } }), {rootMargin:'0px 0px -6% 0px', threshold:.08});
+  const groups = [['.section-head > *',0],['.steps .step',1],['.split > *',1],['.ticks li',1],['.theme-strip > *',1],['.plans > *',1],['.price-note',0],['.faq details',1],['.cta-final',0],['#themeGrid > *',1],['.page-head > *',1],['.acct-grid > *',1],['.mini-dash .row',1]];
+  groups.forEach(([sel,stag])=>{ $$(sel, root).forEach((el,i)=>{ if(el.dataset.ani) return; el.dataset.ani='1'; el.classList.add('ani'); el.style.setProperty('--ad', (stag?Math.min(i,6)*70:0)+'ms'); aniIO.observe(el); }); });
+}
+
 /* ---------- Router ---------- */
 const VIEWS = ['beranda','tema','buat','undangan','dashboard','checkout','tagihan','checkin','keluarga','katering','edit','album'];
 let bootDoneCalled=false;
@@ -4431,6 +4555,7 @@ function route(){
   if(h==='checkin') renderCheckin();
   if(h==='album'){ albumLoad().then(renderAlbum); }
   if(scrollTo) setTimeout(()=> $('#'+scrollTo).scrollIntoView({behavior:'smooth'}), 40); else window.scrollTo(0,0);
+  setTimeout(()=>aniScan($(`[data-view="${h}"]`)), 30);
 }
 window.addEventListener('hashchange', route);
 cloudInit().catch(e=>console.warn('cloud init', e)).finally(route);
