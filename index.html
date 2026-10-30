@@ -531,7 +531,7 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .co-inv small{font-size:11px;letter-spacing:.18em;text-transform:uppercase}
 .line{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
 .line.ok{color:var(--ok)}
-.line.total{border:0;font-size:18px;padding-top:14px}
+.line.total{border:0;font-size:18px;padding-top:14px;align-items:baseline}
 .line.total b{font-family:var(--display);font-size:30px;font-weight:500}
 .co-trust{list-style:none;padding:12px 0 0;margin:6px 0 0;border-top:1px solid var(--line);display:grid;gap:8px;font-size:14px;color:var(--muted)}
 .co-trust li{display:flex;gap:8px;align-items:center}
@@ -547,18 +547,35 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .okc svg{width:34px;height:34px}
 .co-empty{text-align:center;padding:80px 0;display:grid;gap:14px;justify-items:center}
 .co-empty h1{font-family:var(--display);font-weight:500;font-size:clamp(30px,4vw,44px)}
-.acct-grid{display:grid;grid-template-columns:320px 1fr;gap:28px;align-items:start}
+.acct-grid{display:grid;grid-template-columns:minmax(0,330px) minmax(0,1fr);gap:28px;align-items:start}
+.acct-grid .tbl-wrap{overflow-x:auto}
+.acct-grid td.nm{white-space:nowrap;font-size:13.5px;letter-spacing:0}
+.acct-grid td.td-date{white-space:nowrap;line-height:1.35}
+.acct-grid td.td-date small{display:block;font-size:12.5px}
+.acct-grid td.td-item{min-width:140px}
+.acct-grid td.td-total{white-space:nowrap;line-height:1.35}
+.acct-grid td.td-total small{display:block;font-size:12.5px;color:var(--muted)}
+.inv-no{border:0;background:none;padding:0;font:inherit;color:var(--beet);text-decoration:underline;text-underline-offset:3px;cursor:pointer;white-space:nowrap}
+.inv-no:hover{color:var(--ink)}
+.acct-grid td:last-child{white-space:nowrap}
 .acct-card{display:grid;gap:16px;min-width:0}
 .acct-card>*{min-width:0}
 .acct-stat{min-width:0}
-.acct-stat b,.acct-stat a.acct-link{overflow-wrap:break-word;min-width:0}
+.acct-stat b,.acct-stat a.acct-link{overflow-wrap:anywhere;min-width:0}
 .acct-stat a.acct-link{color:var(--ink);font-weight:600;text-decoration:none}
 .acct-stat a.acct-link:hover{text-decoration:underline}
-.acct-row{display:flex;align-items:flex-start;gap:8px;justify-content:space-between}
-.acct-stat{display:grid;gap:6px;padding:14px;border-radius:12px;background:var(--paper)}
-.invoice .inv-top{display:flex;justify-content:space-between;align-items:center}
-.inv-meta{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0;padding:16px;border-radius:14px;background:var(--paper)}
-.inv-meta > div{display:grid;gap:2px}
+.acct-row{display:flex;align-items:center;gap:10px;justify-content:space-between;width:100%}
+.acct-row .acct-link{flex:1 1 auto}
+.acct-row .btn{flex:none;width:40px;height:40px;padding:0}
+.acct-stat{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding:14px 16px;border-radius:12px;background:var(--paper);justify-items:start}
+.acct-stat .status{white-space:normal;max-width:100%}
+.invoice .inv-top{display:flex;align-items:center;padding-right:48px}
+.invoice .inv-title{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:22px 0 4px}
+.invoice .inv-title h2{margin:0}
+.inv-meta{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px 24px;margin:22px 0;padding:18px 20px;border-radius:16px;background:#fff;border:1px solid var(--line)}
+.inv-meta > div{display:grid;gap:3px;min-width:0;align-content:start}
+.inv-meta b,.inv-meta span{overflow-wrap:anywhere}
+.inv-meta small{font-size:12px;letter-spacing:.06em;text-transform:uppercase}
 /* check-in */
 .ci-shell{min-height:100vh;background:var(--paper)}
 .ci-top{background:var(--beet-deep);color:#fff;position:sticky;top:0;z-index:30}
@@ -608,7 +625,15 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 @keyframes fadein{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}
 @media (max-width:900px){
   .dash-nav{grid-template-columns:repeat(5,1fr)}
-  .co-grid,.ci-grid,.acct-grid,.gm{grid-template-columns:1fr}
+  .co-grid,.ci-grid,.gm{grid-template-columns:1fr}
+  .acct-grid{grid-template-columns:minmax(0,1fr)}
+  .acct-grid table,.acct-grid tbody{display:block;width:100%}
+  .acct-grid thead{display:none}
+  .acct-grid tr{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"no st" "it to" "dt to";gap:4px 12px;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .acct-grid tr:last-child{border-bottom:0}
+  .acct-grid td{display:block;padding:0 !important;border:0 !important;min-width:0 !important}
+  .acct-grid td.nm{grid-area:no}.acct-grid td.td-item{grid-area:it;font-weight:600}.acct-grid td.td-date{grid-area:dt;font-size:13px}.acct-grid td.td-date small{display:inline;margin-left:4px}
+  .acct-grid td.td-total{grid-area:to;text-align:right;align-self:center}.acct-grid td:last-child{grid-area:st;justify-self:end}
   .co-sum{position:static;order:-1}
   .ci-stats{grid-template-columns:repeat(2,1fr)}
   .ci-feed{position:static}
@@ -3432,20 +3457,21 @@ function renderTagihan(){
     <div class="acct-stat"><span class="muted">Undangan</span>${S.published&&CLOUD.on?`<div class="acct-row"><a class="acct-link" href="${esc(pubURL())}" target="_blank" rel="noopener">${esc(pubHost())}<wbr>${esc(S.slug)}</a><button class="btn btn-ghost btn-sm" data-act="copy" data-v="${esc(pubURL())}" aria-label="Salin link undangan">${ico('copy')}</button></div>`:`<b>${esc(pubHost())}<wbr>${esc(S.slug)}</b>`}<span class="status ${S.published?'s-ok':'s-wait'}">${S.published?'Aktif selamanya · '+esc((PLANS.find(p=>p.id===S.plan)||{}).name||''):'Belum dipublikasikan'}</span></div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">${S.published&&S.plan==='undangan'?`<button class="btn btn-soft btn-sm" data-act="upgrade">Upgrade paket</button>`:''}${S.published?'':`<a class="btn btn-primary btn-sm" href="#buat">Lanjut ke editor</a>`}<button class="btn btn-ghost btn-sm" data-act="logout">${ico('logout')}Keluar</button></div></div>
   <div><h2 class="co-h" style="margin-top:0">Riwayat tagihan</h2>
-  ${inv.length?`<div class="tbl-wrap" style="display:block"><table><thead><tr><th>Nomor</th><th>Tanggal</th><th>Item</th><th>Metode</th><th class="num">Total</th><th>Status</th><th></th></tr></thead><tbody>${inv.map((x,k)=>`<tr><td class="nm num">${esc(x.no)}</td><td class="muted">${esc(fmtDT(x.date))}</td><td>${esc(x.item)}</td><td>${esc(x.method)}</td><td class="num">${rupiah(x.total)}</td><td><span class="status s-ok">${esc(x.status)}</span></td><td style="text-align:right"><button class="btn btn-ghost btn-sm" data-act="inv" data-k="${k}">Lihat</button></td></tr>`).join('')}</tbody></table></div>`
+  ${inv.length?`<div class="tbl-wrap" style="display:block"><table><thead><tr><th>Nomor</th><th>Tanggal</th><th>Item</th><th class="num">Total</th><th>Status</th></tr></thead><tbody>${inv.map((x,k)=>`<tr><td class="nm num"><button type="button" class="inv-no" data-act="inv" data-k="${k}" title="Lihat bukti pembayaran">${esc(x.no)}</button></td><td class="muted td-date">${(()=>{ const [d,t]=fmtDT(x.date).split(' pukul '); return `${esc(d)}${t?`<small>pukul ${esc(t)}</small>`:''}`; })()}</td><td class="td-item">${esc(x.item)}</td><td class="num td-total">${rupiah(x.total)}<small>${esc(methodName(x.method))}</small></td><td><span class="status s-ok">${esc(x.status)}</span></td></tr>`).join('')}</tbody></table></div>`
   :`<div class="empty">Belum ada tagihan. Tagihan muncul di sini setelah kamu mempublikasikan undangan.<br><a class="btn btn-primary btn-sm" href="#buat" style="margin-top:14px">Buka editor</a></div>`}</div></div>`;
 }
 function invoiceModal(k){
   const x=(S.invoices||[])[k]; if(!x) return;
-  openModal(`<div class="invoice"><div class="inv-top"><span class="logo" style="pointer-events:none"><svg viewBox="0 0 100 100" aria-hidden="true" width="30" height="30"><g transform="rotate(0 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><g transform="rotate(90 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><g transform="rotate(180 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><g transform="rotate(270 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><path d="M50 45 L55 50 L50 55 L45 50 Z" fill="#B08A4E"/></svg><span>Sakara</span></span><span class="status s-ok">${esc(x.status)}</span></div>
-    <h2 class="display" style="font-size:28px;margin:18px 0 4px">Bukti pembayaran</h2><p class="muted num">${esc(x.no)} · ${esc(fmtDT(x.date))}</p>
-    <div class="inv-meta"><div><small class="muted">Ditagihkan ke</small><b>${esc(S.user.name)}</b><span class="muted">${esc(S.user.email)}</span></div><div><small class="muted">Undangan</small><b>${esc(pubHost())}${esc(S.slug)}</b><span class="muted">${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</span></div></div>
-    <div class="line"><span>${esc(x.item)}</span><b class="num">${rupiah(x.price)}</b></div>${x.disc?`<div class="line ok"><span>Voucher ${esc(x.voucher)}</span><b class="num">−${rupiah(x.disc)}</b></div>`:''}<div class="line total"><span>Dibayar via ${esc(x.method)}</span><b class="num">${rupiah(x.total)}</b></div>
+  openModal(`<div class="invoice"><div class="inv-top"><span class="logo" style="pointer-events:none"><svg viewBox="0 0 100 100" aria-hidden="true" width="30" height="30"><g transform="rotate(0 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><g transform="rotate(90 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><g transform="rotate(180 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><g transform="rotate(270 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><path d="M50 45 L55 50 L50 55 L45 50 Z" fill="#B08A4E"/></svg><span>Sakara</span></span></div>
+    <div class="inv-title"><h2 class="display" style="font-size:28px">Bukti pembayaran</h2><span class="status s-ok">${esc(x.status)}</span></div><p class="muted num">${esc(x.no)} · ${esc(fmtDT(x.date))}</p>
+    <div class="inv-meta"><div><small class="muted">Ditagihkan ke</small><b>${esc(S.user.name)}</b><span class="muted">${esc(S.user.email)}</span></div><div><small class="muted">Undangan</small><b>${esc(pubHost())}<wbr>${esc(S.slug)}</b><span class="muted">${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</span></div></div>
+    <div class="line"><span>${esc(x.item)}</span><b class="num">${rupiah(x.price)}</b></div>${x.disc?`<div class="line ok"><span>Voucher ${esc(x.voucher)}</span><b class="num">−${rupiah(x.disc)}</b></div>`:''}<div class="line total"><span>Dibayar via ${esc(({qris:'QRIS',va:'Virtual Account',bank_transfer:'Transfer bank',gopay:'GoPay',ewallet:'E-wallet',shopeepay:'ShopeePay'})[String(x.method||'').toLowerCase()]||x.method)}</span><b class="num">${rupiah(x.total)}</b></div>
     <div class="form-foot"><button class="btn btn-ghost" data-act="copy" data-v="${esc(x.no)}">${ico('copy')}Salin nomor</button><button class="btn btn-primary" data-act="close">Tutup</button></div></div>`);
 }
 
 /* ---------- Check-in (hari H) ---------- */
 let ciSession = null, ciQ='';
+const methodName = m => ({qris:'QRIS',va:'Virtual Account',bank_transfer:'Transfer bank',gopay:'GoPay',ewallet:'E-wallet',shopeepay:'ShopeePay'})[String(m||'').toLowerCase()]||m||'';
 const nowTime = () => new Intl.DateTimeFormat('id-ID',{hour:'2-digit',minute:'2-digit'}).format(new Date());
 function defaultSession(){ const i=S.events.findIndex(e=>/resepsi/i.test(e.type)); return i>-1?i:0; }
 /* ---------- Mode penerima tamu v2 ---------- */
