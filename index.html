@@ -814,9 +814,43 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 @keyframes shim{to{transform:translateX(100%)}}
 .sk-img{position:relative;overflow:hidden}
 .sk-img:not(.sk-done){background-image:none !important;background-color:color-mix(in srgb,var(--t-fg,#222) 9%,var(--t-bg,#fff)) !important}
+/* ===== Gerbang pembuka undangan ===== */
+#gate{display:none;position:fixed;inset:0;z-index:10000;perspective:1800px;overflow:hidden;--gd:#2B1A21;--gm:#FBF6F0;--gl:#D8B878;background:radial-gradient(60% 50% at 50% 50%, #FFF8EC 0%, var(--gm) 60%);transition:opacity .45s ease 1.25s}
+html.boot-guest #gate,#gate.show{display:block}
+html.boot-done #gate:not(.show):not(.open){opacity:0;pointer-events:none}
+#gate .gd{position:absolute;top:0;bottom:0;width:50.4%;background-color:var(--gd);background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%3E%3Cpath%20transform%3D%22rotate%280%2030%2030%29%22%20d%3D%22M30%2026%20C25.5%2021.5%2025.5%2011.5%2030%205%20C34.5%2011.5%2034.5%2021.5%2030%2026%20Z%22%20fill%3D%22none%22%20stroke%3D%22rgba%28222%2C190%2C128%2C.22%29%22%20stroke-width%3D%221%22/%3E%3Cpath%20transform%3D%22rotate%2890%2030%2030%29%22%20d%3D%22M30%2026%20C25.5%2021.5%2025.5%2011.5%2030%205%20C34.5%2011.5%2034.5%2021.5%2030%2026%20Z%22%20fill%3D%22none%22%20stroke%3D%22rgba%28222%2C190%2C128%2C.22%29%22%20stroke-width%3D%221%22/%3E%3Cpath%20transform%3D%22rotate%28180%2030%2030%29%22%20d%3D%22M30%2026%20C25.5%2021.5%2025.5%2011.5%2030%205%20C34.5%2011.5%2034.5%2021.5%2030%2026%20Z%22%20fill%3D%22none%22%20stroke%3D%22rgba%28222%2C190%2C128%2C.22%29%22%20stroke-width%3D%221%22/%3E%3Cpath%20transform%3D%22rotate%28270%2030%2030%29%22%20d%3D%22M30%2026%20C25.5%2021.5%2025.5%2011.5%2030%205%20C34.5%2011.5%2034.5%2021.5%2030%2026%20Z%22%20fill%3D%22none%22%20stroke%3D%22rgba%28222%2C190%2C128%2C.22%29%22%20stroke-width%3D%221%22/%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%221.6%22%20fill%3D%22rgba%28222%2C190%2C128%2C.35%29%22/%3E%3Ccircle%20cx%3D%220%22%20cy%3D%220%22%20r%3D%221.2%22%20fill%3D%22rgba%28222%2C190%2C128%2C.25%29%22/%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%220%22%20r%3D%221.2%22%20fill%3D%22rgba%28222%2C190%2C128%2C.25%29%22/%3E%3Ccircle%20cx%3D%220%22%20cy%3D%2260%22%20r%3D%221.2%22%20fill%3D%22rgba%28222%2C190%2C128%2C.25%29%22/%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%2260%22%20r%3D%221.2%22%20fill%3D%22rgba%28222%2C190%2C128%2C.25%29%22/%3E%3C/svg%3E");background-size:60px 60px;transition:transform 1.25s cubic-bezier(.45,0,.2,1) .22s, background-color .5s ease, filter 1.25s ease .22s;will-change:transform;backface-visibility:hidden}
+#gate .gd.l{left:0;transform-origin:0 50%;background-position:right 0 top 0;box-shadow:inset -1px 0 0 rgba(216,184,120,.55)}
+#gate .gd.r{right:0;transform-origin:100% 50%;background-position:left 0 top 0;box-shadow:inset 1px 0 0 rgba(216,184,120,.55)}
+#gate .gd::before{content:"";position:absolute;top:22px;bottom:22px;border:1px solid rgba(216,184,120,.55)}
+#gate .gd.l::before{left:22px;right:10px;border-right:0;border-top-left-radius:100% 34vh}
+#gate .gd.r::before{right:22px;left:10px;border-left:0;border-top-right-radius:100% 34vh}
+#gate .gd::after{content:"";position:absolute;top:50%;width:10px;height:42px;margin-top:-21px;border-radius:6px;border:1.5px solid rgba(216,184,120,.7)}
+#gate .gd.l::after{right:18px}
+#gate .gd.r::after{left:18px}
+#gate .gm{position:absolute;left:50%;top:50%;width:164px;height:164px;margin:-82px 0 0 -82px;border-radius:50%;background:var(--gm);box-shadow:0 0 0 7px rgba(216,184,120,.28),0 0 0 8px rgba(216,184,120,.55),0 24px 60px rgba(0,0,0,.35);display:grid;place-items:center;align-content:center;gap:8px;z-index:2;transition:transform .45s cubic-bezier(.4,0,.2,1), opacity .4s ease}
+#gate .gm svg{width:78px;height:78px;overflow:visible}
+#gate .gm .pt{fill:none;stroke:var(--gd);stroke-width:2.6;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;animation:gateDraw 1.3s cubic-bezier(.6,0,.3,1) forwards}
+#gate .gm .pt:nth-of-type(2){animation-delay:.12s}#gate .gm .pt:nth-of-type(3){animation-delay:.24s}#gate .gm .pt:nth-of-type(4){animation-delay:.36s}
+#gate .gm .sd{fill:#B08A4E;opacity:0;animation:gateFade .5s ease 1.1s forwards}
+#gate .gm b{font:600 11px/1 'Cormorant Garamond',Georgia,serif;letter-spacing:.42em;margin-right:-.42em;text-transform:uppercase;color:var(--gd);opacity:0;animation:gateFade .6s ease .9s forwards}
+#gate .gn{position:absolute;left:0;right:0;top:calc(50% + 112px);text-align:center;font:italic 500 26px/1.2 'Cormorant Garamond',Georgia,serif;color:var(--gl);letter-spacing:.02em;opacity:0;transition:opacity .6s ease;z-index:2;padding:0 24px;text-shadow:0 2px 12px rgba(0,0,0,.35)}
+#gate .gn.on{opacity:1}
+#gate .gn small{display:block;font:600 10.5px/1 'Plus Jakarta Sans',system-ui,sans-serif;font-style:normal;letter-spacing:.3em;text-transform:uppercase;opacity:.8;margin-bottom:10px}
+#gate .gbar{position:absolute;left:50%;top:calc(50% - 128px);width:64px;height:2px;margin-left:-32px;border-radius:2px;background:rgba(216,184,120,.25);overflow:hidden;z-index:2;transition:opacity .3s}
+#gate .gbar::after{content:"";position:absolute;inset:0;width:40%;background:var(--gl);animation:gateBar 1.1s ease-in-out infinite}
+#gate.open .gbar{opacity:0}
+#gate.open .gm{transform:scale(.6);opacity:0}
+#gate.open .gn{opacity:0;transition-duration:.3s}
+#gate.open .gd.l{transform:rotateY(-104deg);filter:brightness(.7)}
+#gate.open .gd.r{transform:rotateY(104deg);filter:brightness(.7)}
+#gate.open{opacity:0;pointer-events:none;background:transparent}
+@keyframes gateDraw{to{stroke-dashoffset:0}}
+@keyframes gateFade{to{opacity:1}}
+@keyframes gateBar{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+@media (prefers-reduced-motion: reduce){ #gate .gd{transition:opacity .5s ease} #gate.open .gd.l,#gate.open .gd.r{transform:none;opacity:0} #gate .gm .pt{animation-duration:.01s} }
 #bootSkel{display:none;position:fixed;inset:0;z-index:9999;background:#FBF7F5;justify-content:center;transition:opacity .45s ease}
-html.boot-guest #bootSkel,html.boot-app #bootSkel{display:flex}
-html.boot-guest body > :not(#bootSkel):not(script){visibility:hidden}
+html.boot-app #bootSkel{display:flex}
+html.boot-guest body > :not(#bootSkel):not(#gate):not(script){visibility:hidden}
 html.boot-done #bootSkel{opacity:0;pointer-events:none}
 html.boot-done body > *{visibility:visible !important}
 #bootSkel .bs-col{width:100%;max-width:440px;padding:70px 26px 40px;display:flex;flex-direction:column;align-items:center;gap:14px}
@@ -1427,6 +1461,7 @@ html.boot-app #bootSkel .bs-app{display:flex}
 </head>
 <body>
 <script>(function(){try{var h=document.documentElement,p=location.pathname;if(/^\/u\/[a-z0-9-]+/.test(p)){h.classList.add('boot-guest');}else if(/^#(dashboard|tagihan|checkout)/.test(location.hash)&&Object.keys(localStorage).some(function(k){return /^sb-.*-auth-token$/.test(k)})){h.classList.add('boot-app');}setTimeout(function(){h.classList.add('boot-done')},9000);}catch(e){}})();</script>
+<div id="gate" aria-hidden="true"><div class="gd l"></div><div class="gd r"></div><div class="gbar"></div><div class="gm"><svg viewBox="0 0 100 100" aria-hidden="true"><path class="pt" pathLength="100" transform="rotate(0 50 50)" d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z"/><path class="pt" pathLength="100" transform="rotate(90 50 50)" d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z"/><path class="pt" pathLength="100" transform="rotate(180 50 50)" d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z"/><path class="pt" pathLength="100" transform="rotate(270 50 50)" d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z"/><circle class="sd" transform="rotate(0 50 50)" cx="50" cy="27" r="3.2"/><circle class="sd" transform="rotate(90 50 50)" cx="50" cy="27" r="3.2"/><circle class="sd" transform="rotate(180 50 50)" cx="50" cy="27" r="3.2"/><circle class="sd" transform="rotate(270 50 50)" cx="50" cy="27" r="3.2"/><path class="sd" d="M50 45 L55 50 L50 55 L45 50 Z"/></svg><b>Sakara</b></div><div class="gn" id="gateNames"></div></div>
 <div id="bootSkel" aria-hidden="true">
   <div class="bs-col">
     <div class="bs-arch"><div class="sk" style="width:120px;height:10px"></div><div class="sk" style="width:190px;height:44px;border-radius:14px"></div><div class="sk" style="width:46px;height:26px;border-radius:99px"></div><div class="sk" style="width:170px;height:44px;border-radius:14px"></div><div class="sk" style="width:110px;height:12px;margin-top:6px"></div><div class="sk" style="width:90px;height:10px;margin-top:18px"></div><div class="sk" style="width:180px;height:20px"></div><div class="sk" style="width:170px;height:46px;border-radius:99px;margin-top:10px"></div></div>
@@ -4251,6 +4286,28 @@ document.addEventListener('click', e=>{ const el=e.target.closest('[data-act]');
   if(a==='st-up'){ const i=+el.dataset.i; if(i>0){ const x=S.story.items; [x[i-1],x[i]]=[x[i],x[i-1]]; delete S.story.demo; save(); renderStep(); refreshPreview(); } }
 });
 
+
+/* ---------- Gerbang pembuka ---------- */
+const GATE={t0:performance.now(), busy:false};
+const lum = hex => { const m=String(hex||'').replace('#','').match(/^([0-9a-f]{6})$/i); if(!m) return .5; const n=parseInt(m[1],16); const c=[n>>16&255,n>>8&255,n&255].map(v=>{ v/=255; return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4); }); return .2126*c[0]+.7152*c[1]+.0722*c[2]; };
+function gateTheme(){
+  const g=$('#gate'); if(!g) return; const t=themeById(S.theme); if(!t) return;
+  const dark = lum(t.fg) < lum(t.bg) ? t.fg : t.bg, light = dark===t.fg ? t.bg : t.fg;
+  g.style.setProperty('--gd', lum(dark)<.12 ? dark : '#2B1A21'); g.style.setProperty('--gm', light);
+  const n=$('#gateNames'); const n1=S.bride.nick||'', n2=S.groom.nick||''; if(n && n1 && n2){ n.innerHTML=`<small>The wedding of</small>${esc(n1)} &amp; ${esc(n2)}`; n.classList.add('on'); }
+}
+function gateOpen(){
+  const g=$('#gate'); if(!g || g.classList.contains('open')) return Promise.resolve();
+  const wait = Math.max(0, 1700 - (performance.now()-GATE.t0));
+  return new Promise(res=>setTimeout(()=>{ g.classList.add('open'); setTimeout(()=>{ g.classList.remove('show','open'); g.style.display='none'; GATE.busy=false; res(); }, 1800); }, wait));
+}
+function playGate(){
+  const g=$('#gate'); if(!g || GATE.busy) return; GATE.busy=true; GATE.t0=performance.now();
+  g.style.display=''; g.classList.remove('open'); g.classList.add('show');
+  $$('.pt,.sd,b', g).forEach(x=>{ x.style.animation='none'; void x.getBoundingClientRect(); x.style.animation=''; });
+  gateTheme(); requestAnimationFrame(()=>gateOpen());
+}
+
 /* ---------- Router ---------- */
 const VIEWS = ['beranda','tema','buat','undangan','dashboard','checkout','tagihan','checkin','keluarga','katering','edit','album'];
 let bootDoneCalled=false;
@@ -4258,7 +4315,9 @@ function bootDone(){ if(bootDoneCalled) return; bootDoneCalled=true; const h=doc
   const ph=$('#g-cover .cv-photo'); const m=ph && (ph.getAttribute('style')||'').match(/url\((['"]?)(.*?)\1\)/);
   const img = m ? new Promise(r=>{ const i=new Image(); i.onload=i.onerror=r; i.src=m[2]; setTimeout(r,1800); }) : Promise.resolve();
   const fonts = (document.fonts && document.fonts.ready) ? Promise.race([document.fonts.ready, new Promise(r=>setTimeout(r,1400))]) : Promise.resolve();
-  Promise.all([img, fonts]).then(()=>{ h.classList.add('boot-done'); setTimeout(()=>{ h.classList.remove('boot-guest','boot-app'); const b=$('#bootSkel'); if(b) b.remove(); }, 500); });
+  const guest = h.classList.contains('boot-guest');
+  if(guest){ GATE.busy=true; gateTheme(); $('#gate')?.classList.add('show'); }
+  Promise.all([img, fonts]).then(()=>{ h.classList.add('boot-done'); if(guest) gateOpen(); setTimeout(()=>{ h.classList.remove('boot-guest','boot-app'); const b=$('#bootSkel'); if(b) b.remove(); }, 500); });
 }
 function route(){
   if(CLOUD.albumMode){ $$('[data-view]').forEach(x=> x.hidden = x.dataset.view!=='album'); $('#siteHeader').hidden=true; $('#footerWrap').hidden=true; closeModal(); renderAlbum(); bootDone(); return; }
@@ -4291,7 +4350,8 @@ function route(){
   if(h==='tema') renderCatalog();
   if(h==='buat'){ renderStep(); refreshPreview(); }
   if(h==='edit'){ document.body.style.overflow='hidden'; renderEditor(); }
-  if(h==='undangan') renderGuest();
+  const prevView=route.prev; route.prev=h;
+  if(h==='undangan'){ renderGuest(); if(prevView!=='undangan' && !document.documentElement.classList.contains('boot-guest')) playGate(); }
   if(h==='dashboard') renderDash();
   if(h==='checkout') renderCheckout();
   if(h==='tagihan') renderTagihan();
