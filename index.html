@@ -930,6 +930,46 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
   .adm-fin td.num{text-align:left}.adm-fin tr.fin-tot td[colspan]{grid-column:1/-1}
   .fin-fees>div{grid-template-columns:1fr 90px 120px}
 }
+
+/* Admin responsif: tabel jadi kartu, tidak ada yang keluar garis */
+.adm-main,.adm-card,.adm-tile,.adm-grid2>*{min-width:0}
+.adm-card .tbl-wrap{overflow-x:auto;max-width:100%;border:0}
+.adm-grid2{grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr))}
+.adm-tiles{grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr))}
+.adm-tile b{font-size:clamp(22px,2.4vw,30px);overflow-wrap:anywhere}
+.adm-head>div{min-width:0;flex:1 1 280px}
+.fin-fees>div{grid-template-columns:minmax(0,1fr) minmax(0,96px) minmax(0,130px)}
+.fin-costs>div{grid-template-columns:minmax(0,1fr) minmax(0,140px) auto}
+.fin-l b{white-space:nowrap}
+@media (max-width:1180px){
+  .adm-tbl thead{display:none}
+  .adm-tbl,.adm-tbl tbody{display:block;width:100%}
+  .adm-tbl tr{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px 16px;padding:14px 4px;border-bottom:1px solid var(--line)}
+  .adm-card[style*="padding:0"] .adm-tbl tr{padding:14px 18px}
+  .adm-tbl td{border:0;padding:0;min-width:0;overflow-wrap:anywhere}
+  .adm-tbl td:first-child{grid-column:1/-1}
+  .adm-tbl td[data-l]::before{content:attr(data-l);display:block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .adm-tbl td.num{text-align:left}
+  .adm-tbl td[colspan]{grid-column:1/-1}
+  .adm-tbl tr.fin-tot{background:#FAF6F4}.adm-tbl tr.fin-tot td{background:transparent;border:0}
+  .adm-users td:nth-child(2){grid-column:1/-1}
+  .adm-users .adm-sel{width:100%}
+}
+@media (max-width:560px){
+  .adm-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .adm-tile{padding:14px}
+  .adm-card{padding:18px 16px;border-radius:16px}
+  .fin-fees>div{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:6px}
+  .fin-fees>div>span{grid-column:1/-1;font-weight:700}
+  .fin-costs>div{grid-template-columns:minmax(0,1fr) auto}
+  .fin-costs>div>label{grid-column:1/2}
+  .fin-costs>div>button{grid-row:1/3;grid-column:2;align-self:center}
+  .fin-range{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-right:-14px;padding-right:14px}
+  .fin-range button{white-space:nowrap}
+  .adm-search{min-width:0;width:100%}
+  .adm-bars{gap:3px}
+  .adm-acts{width:100%}.adm-acts .btn{flex:1}
+}
 /* Konfigurasi admin */
 html.ff-off-demo [data-nav=demo],html.ff-off-demo [data-mnav=demo]{display:none !important}
 html.ff-off-musik [data-act=g-music]{display:none !important}
@@ -5568,6 +5608,8 @@ async function renderAdmin(){
     <main class="adm-main" id="admMain"><div class="adm-center"><div class="spin"></div></div></main></div>`;
   admRenderTab();
 }
+function admLabelTables(root){ $$('.adm-tbl', root||document).forEach(t=>{ const hs=$$('thead th', t).map(h=>h.textContent.trim()); $$('tbody tr', t).forEach(tr=>{ let i=0; [...tr.children].forEach(td=>{ if(!td.hasAttribute('data-l') && hs[i] && i>0) td.setAttribute('data-l', hs[i]); i += +(td.getAttribute('colspan')||1); }); }); }); }
+if(!window._admMO){ window._admMO = new MutationObserver(()=>{ const m=$('#admMain'); if(m) admLabelTables(m); }); addEventListener('DOMContentLoaded',()=>{}); setTimeout(()=>{ const a=$('#admin'); if(a) window._admMO.observe(a,{childList:true,subtree:true}); },0); }
 async function admRenderTab(){
   const m = $('#admMain'); if(!m) return;
   try{
