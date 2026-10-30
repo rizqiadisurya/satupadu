@@ -1009,6 +1009,14 @@ html.boot-app #bootSkel .bs-app{display:flex}
 .fp-card label{display:grid;gap:4px}
 .fp-card label .muted{font-size:14.5px}
 .fp-card textarea{font-size:17px;line-height:1.5;min-height:150px;resize:vertical}
+.fp-ex{display:grid;gap:8px;background:#FFF8EC;border:1px solid #EBD3A6;border-radius:14px;padding:14px 16px;font-size:14.5px}
+.fp-ex[hidden]{display:none}
+.fp-ex-box{display:grid;gap:2px;background:#fff;border:1px dashed #E2C99A;border-radius:10px;padding:10px 12px;font-size:15.5px;color:var(--ink)}
+.fp-ex p{margin:0;color:var(--muted);line-height:1.5}
+.fp-pl{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
+.fp-pl li{display:flex;justify-content:space-between;gap:12px;padding:8px 12px;background:var(--blush);border-radius:10px;font-size:15px}
+.fp-pl li small{color:var(--muted);white-space:nowrap}
+.fp-pl li.more{background:none;color:var(--muted);padding:2px 12px}
 .fp-card h2{font-size:19px;display:flex;align-items:center;gap:8px}
 .fp-prev{font-size:14px;color:var(--muted);min-height:20px}
 .fp-list{list-style:none;display:grid;gap:8px;padding:0;margin:0}
@@ -3195,14 +3203,17 @@ function renderFamPage(){
     <div class="fp-head"><span class="logo-sm">Sakara</span><span class="eyebrow">Undangan ${esc(FP.info.bride)} &amp; ${esc(FP.info.groom)}${FP.info.date?' · '+esc(fmtShort(FP.info.date)):''}</span><h1 class="display">Daftar tamu ${esc(f.name)}</h1>
       <div class="fam-meter big"><span style="width:${pct}%"></span></div><p class="fp-q"><b class="num">${used}</b> dari ${f.quota} tamu · sisa <b class="num">${left}</b></p></div>
     <form class="fp-card" id="fpForm" novalidate><label for="fp-t"><b>Tambah tamu</b><span class="muted">Tulis satu nama per baris. Nomor WhatsApp boleh ditambahkan di belakang nama.</span></label>
-      <textarea class="input" id="fp-t" rows="5" placeholder="Pak Haji Darmawan, 081234567890\nBu Siti dan keluarga\nOm Bambang 0813 1111 2222" ${left?'':'disabled'}></textarea>
+      <textarea class="input" id="fp-t" rows="5" placeholder="Tulis atau tempel nama di sini…" ${left?'':'disabled'}></textarea>
+      <div class="fp-ex" id="fpEx"><b>Contoh cara menulis</b>
+        <div class="fp-ex-box"><span>Pak Haji Darmawan, 081234567890</span><span>Bu Siti dan keluarga</span><span>Om Bambang 0813 1111 2222</span></div>
+        <p>Satu baris untuk satu undangan. Nomor boleh pakai spasi atau tanda strip, dan boleh juga dikosongkan.</p></div>
       <div class="fp-prev" id="fpPrev" aria-live="polite"></div>
       <button class="btn btn-primary btn-block" ${left?'':'disabled'}>${left?'Tambahkan ke daftar':'Jatah sudah penuh'}</button></form>
     <div class="fp-card"><h2>Tamu dari ${esc(f.name)} <span class="cnt num">${used}</span></h2>${pend?`<p class="muted" style="font-size:15px;margin:4px 0 10px">${pend} nama sedang dicek oleh ${esc(FP.info.bride)} &amp; ${esc(FP.info.groom)} sebelum undangannya dikirim.</p>`:''}
       ${FP.guests.length?`<ul class="fp-list">${FP.guests.map(g=>`<li><div><b>${esc(g.name)}</b>${g.phone?`<small class="muted num">${esc(g.phone)}</small>`:''}</div>${g.approved?`<span class="status ${g.status==='hadir'?'s-ok':g.status==='tidak'?'s-no':'s-mute'}">${g.status==='hadir'?'Akan hadir':g.status==='tidak'?'Tidak hadir':'Disetujui'}</span>`:`<span class="status s-wait">Menunggu</span><button class="btn btn-ghost btn-sm" data-act="fp-rm" data-id="${esc(g.id)}" aria-label="Hapus ${esc(g.name)}">Hapus</button>`}</li>`).join('')}</ul>`:'<p class="muted">Belum ada nama. Mulai saja dari kerabat yang paling dekat.</p>'}</div>
     <p class="fp-foot muted">Halaman ini khusus untuk ${esc(f.name)}. Jangan bagikan link ke orang lain.</p></div>`;
   const ta=$('#fp-t'), pv=$('#fpPrev');
-  ta && ta.addEventListener('input',()=>{ const p=parseNames(ta.value); pv.innerHTML = p.length ? `${p.length} nama akan ditambahkan${p.length>left?` · <b style="color:var(--no)">melebihi sisa jatah ${left}</b>`:''}` : ''; });
+  ta && ta.addEventListener('input',()=>{ const p=parseNames(ta.value); const ex=$('#fpEx'); if(ex) ex.hidden=!!p.length; pv.innerHTML = p.length ? `<b>${p.length} nama akan ditambahkan</b>${p.length>left?` · <b style="color:var(--no)">melebihi sisa jatah ${left}</b>`:''}<ul class="fp-pl">${p.slice(0,8).map(x=>`<li><span>${esc(x.name)}</span>${x.phone?`<small class="num">${esc(x.phone)}</small>`:'<small>tanpa nomor</small>'}</li>`).join('')}${p.length>8?`<li class="more">dan ${p.length-8} nama lainnya</li>`:''}</ul>` : ''; });
   $('#fpForm').addEventListener('submit', async ev=>{ ev.preventDefault(); const p=parseNames(ta.value); if(!p.length){ ta.focus(); return; } if(p.length>left){ toast(`Sisa jatah ${left} nama. Kurangi dulu, ya.`); return; }
     const b=ev.target.querySelector('button'); b.disabled=true; b.textContent='Menyimpan…';
     if(CLOUD.on && CLOUD.famMode){ const { data, error } = await CLOUD.sb.rpc('fam_add',{p_slug:CLOUD.slug, p_token:FP.token, p_items:p}); if(error){ b.disabled=false; b.textContent='Tambahkan ke daftar'; toast(error.message); return; } FP.guests=data.guests||[]; }
