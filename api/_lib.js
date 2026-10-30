@@ -27,12 +27,22 @@ async function userFromReq(req) {
   if (!token) return null;
   try { return await sb('/auth/v1/user', { key: ANON() || SERVICE(), token }); } catch (e) { return null; }
 }
-function priceFor(inv, plan, voucher) {
+// Harga dari panel admin (app_config.prices) bila ada; jatuh ke nilai bawaan.
+async function loadPrices() {
+  try {
+    const rows = await sb('/rest/v1/app_config?key=eq.prices&select=value');
+    const v = rows && rows[0] && rows[0].value || {};
+    const ok = n => Number.isInteger(n) && n >= 1000 && n <= 50000000;
+    return { undangan: ok(v.undangan) ? v.undangan : PLANS.undangan.price, tamu: ok(v.tamu) ? v.tamu : PLANS.tamu.price, upgrade: ok(v.upgrade) ? v.upgrade : UPGRADE_PRICE };
+  } catch (e) { return { undangan: PLANS.undangan.price, tamu: PLANS.tamu.price, upgrade: UPGRADE_PRICE }; }
+}
+function priceFor(inv, plan, voucher, prices) {
+  prices = prices || { undangan: PLANS.undangan.price, tamu: PLANS.tamu.price, upgrade: UPGRADE_PRICE };
   const upgrade = inv.published && inv.plan === 'undangan' && plan === 'tamu';
   if (!upgrade && inv.published && inv.plan === 'tamu') throw Object.assign(new Error('Paket sudah paling lengkap'), { status: 400 });
   if (!upgrade && inv.published && inv.plan === 'undangan' && plan === 'undangan') throw Object.assign(new Error('Paket Undangan sudah aktif. Pilih Undangan + Tamu untuk upgrade.'), { status: 400 });
   const item = upgrade ? 'Upgrade ke Undangan + Tamu' : PLANS[plan]?.name;
-  const price = upgrade ? UPGRADE_PRICE : PLANS[plan]?.price;
+  const price = upgrade ? prices.upgrade : prices[plan];
   if (!price) throw Object.assign(new Error('Paket tidak dikenal'), { status: 400 });
   const v = VOUCHERS[String(voucher || '').toUpperCase()];
   let discount = 0;
@@ -47,4 +57,4 @@ async function readBody(req) {
   if (typeof req.body === 'string') { try { return JSON.parse(req.body); } catch (e) { return {}; } }
   return await new Promise(resolve => { let d = ''; req.on('data', c => d += c); req.on('end', () => { try { resolve(JSON.parse(d || '{}')); } catch (e) { resolve({}); } }); });
 }
-module.exports = { env, SB_URL, SERVICE, ANON, IS_PROD, sb, userFromReq, priceFor, sha512, send, readBody, PLANS };
+module.exports = { env, SB_URL, SERVICE, ANON, IS_PROD, sb, userFromReq, priceFor, loadPrices, sha512, send, readBody, PLANS, UPGRADE_PRICE };

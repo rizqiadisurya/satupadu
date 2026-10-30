@@ -788,6 +788,131 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .tc-live .inv.lay-draperi .dp-paper{padding-top:70px}
 .tc-live .inv.lay-draperi .dp-seal{top:20px}
 .inv .cover[style*="--fit"]>*:not([class*="tirai"]):not(.go-cvst):not(.dg-cvstk):not(.dp-box):not(.petals):not(.cv-photo):not(.shade):not(.dp-velvet):not(.dp-side):not(.dp-tulle){zoom:var(--fit)}
+/* ===== Panel admin ===== */
+[data-view=admin]{background:#F6F1EE;min-height:100vh}
+.adm{display:grid;grid-template-columns:248px 1fr;min-height:100vh}
+.adm-side{position:sticky;top:0;height:100vh;background:#fff;border-right:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;gap:6px}
+.adm-brand{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);padding:0 8px;font-size:18px}
+.adm-badge{align-self:flex-start;margin:4px 8px 18px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--beet);background:var(--blush);padding:4px 10px;border-radius:99px}
+.adm-side nav{display:grid;gap:2px}
+.adm-side nav button{display:flex;align-items:center;gap:12px;border:0;background:transparent;text-align:left;padding:11px 12px;border-radius:12px;font:inherit;font-size:15px;color:var(--ink);cursor:pointer}
+.adm-side nav button .icon{width:18px;height:18px;opacity:.7}
+.adm-side nav button:hover{background:#F6F1EE}
+.adm-side nav button[aria-current=true]{background:var(--blush);color:var(--beet);font-weight:700}
+.adm-me{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 8px 0;border-top:1px solid var(--line)}
+.adm-main{padding:34px clamp(18px,4vw,48px) 80px;min-width:0}
+.adm-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.adm-head h1{font-size:clamp(26px,3vw,34px);margin:4px 0 0}
+.adm-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;margin-bottom:18px;min-width:0}
+.adm-card h2{font-size:17px;margin:0 0 14px;font-family:var(--body);font-weight:800}
+.adm-grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;align-items:start}
+.adm-grid2>.adm-card{margin-bottom:0}.adm-grid2{margin-bottom:18px}
+.adm-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:18px}
+.adm-tile{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px;display:grid;gap:4px}
+.adm-tile span{font-size:13px;font-weight:700;color:var(--muted)}
+.adm-tile b{font-size:30px;line-height:1.1;font-family:var(--display)}
+.adm-tile small{font-size:12.5px;color:var(--muted)}
+.adm-bars{display:grid;grid-template-columns:repeat(14,1fr);gap:6px;height:170px;align-items:end}
+.adm-bars>div{display:grid;grid-template-rows:1fr auto auto;height:100%;text-align:center;align-items:end}
+.adm-bars i{display:block;background:var(--beet);border-radius:6px 6px 2px 2px;min-height:3px;opacity:.85}
+.adm-bars b{font-size:11px;margin-top:4px}.adm-bars small{font-size:10.5px;color:var(--muted)}
+.adm-rank{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.adm-rank li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14.5px}
+.adm-tbl{width:100%;border-collapse:collapse;font-size:14px}
+.adm-tbl th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+.adm-tbl td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.adm-tbl td small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.adm-tbl .num{text-align:right}
+.adm-users tr.ban td{background:#FBEDEE}
+.adm-sel{min-height:38px;padding:6px 10px;width:auto;font-size:14px}
+.adm-st{font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;background:#eee;white-space:nowrap}
+.adm-st.st-paid{background:#E3F2E8;color:#1E6B3A}.adm-st.st-pending{background:#FFF3DA;color:#8A5A00}.adm-st.st-failed,.adm-st.st-expired{background:#F6E1E3;color:#8E1F2B}
+.adm-search{display:flex;gap:8px;min-width:min(420px,100%)}
+.adm-themes{list-style:none;margin:0;padding:0}
+.adm-themes li{display:grid;grid-template-columns:52px 1fr auto auto auto;gap:14px;align-items:center;padding:12px 20px;border-bottom:1px solid var(--line)}
+.adm-themes li:last-child{border-bottom:0}
+.adm-themes li.off{opacity:.55}
+.adm-themes .sw{width:52px;height:64px;border-radius:10px;border:1px solid var(--line)}
+.adm-themes .nm small{display:block;color:var(--muted);font-size:13px}
+.adm-themes .mv{display:flex;gap:4px}
+.adm-tog{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);min-width:150px;justify-content:flex-end}
+.adm-tedit{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:24px;align-items:start}
+.adm-tprev{position:sticky;top:20px;display:grid;justify-items:center;gap:8px}
+.adm-phone{width:375px;height:min(760px,calc(100vh - 80px));border-radius:42px;background:#1B1416;padding:12px;box-shadow:0 30px 60px rgba(40,10,20,.25)}
+.adm-phone-in{width:100%;height:100%;border-radius:32px;overflow:auto;background:#fff;scrollbar-width:none}
+.adm-phone-in .inv .cover{min-height:640px}
+.adm-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.adm-col{display:grid;gap:6px;font-size:13px;font-weight:700;position:relative}
+.adm-col input[type=color]{width:100%;height:46px;border:1px solid var(--line);border-radius:12px;padding:3px;background:#fff;cursor:pointer}
+.adm-x{position:absolute;right:4px;top:-2px;border:0;background:transparent;cursor:pointer;color:var(--muted);font-size:14px}
+.adm-secs{display:grid;gap:10px}
+.adm-sec{border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.adm-sec.off{background:#FAF6F4}.adm-sec.off .f{opacity:.45}
+.adm-sec .h{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.adm-sec .h b{margin-right:auto}
+.adm-sec .f{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.adm-sec .f .input{min-height:40px;font-size:14px}
+.adm-mini{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;cursor:pointer}
+.adm-mini input{width:17px;height:17px;accent-color:var(--beet)}
+.adm-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.adm-sub{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:18px 0 2px;font-family:var(--body)}
+.adm-price{display:grid;gap:6px;margin-bottom:14px;font-weight:700;font-size:14.5px}
+.adm-rp{position:relative}.adm-rp i{position:absolute;left:14px;top:50%;translate:0 -50%;font-style:normal;color:var(--muted)}.adm-rp .input{padding-left:42px}
+.adm-admins{list-style:none;margin:0 0 6px;padding:0}
+.adm-admins li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.adm-admins small{display:block;color:var(--muted);font-size:12.5px}
+.adm-form{display:grid}.adm-form>.btn{justify-self:start}.adm-form>.adm-mini{margin-top:12px}
+.adm-tbl .switch{display:inline-block}
+.adm-form .lbl,.adm-login .lbl,.adm-card .lbl{display:block;font-size:13.5px;font-weight:700;margin:12px 0 6px}
+.adm-center{min-height:100vh;display:grid;place-items:center;padding:24px}
+.adm-login{width:min(420px,100%);padding:30px}
+.adm-login .adm-brand{padding:0;margin-bottom:18px}
+.adm-back{display:inline-block;margin-top:16px;border:0;background:transparent;color:var(--beet);font:inherit;font-weight:700;font-size:14px;cursor:pointer;text-decoration:none;padding:0}
+.adm-head .adm-back{margin:0 0 6px}
+.adm-msg.err{color:var(--no);font-size:14px;margin:12px 0 0}
+.adm-err{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px}
+.adm-acts{display:flex;gap:8px;flex-wrap:wrap}
+@media (max-width:1100px){.adm-tedit{grid-template-columns:1fr}.adm-tprev{position:static}}
+@media (max-width:820px){
+  .adm{grid-template-columns:1fr}
+  .adm-side{position:sticky;top:0;height:auto;z-index:5;flex-direction:row;align-items:center;padding:10px 12px;overflow-x:auto;gap:4px;border-right:0;border-bottom:1px solid var(--line)}
+  .adm-side .adm-brand,.adm-badge{display:none}
+  .adm-side nav{display:flex;gap:4px}
+  .adm-side nav button{white-space:nowrap;padding:9px 12px;font-size:14px}
+  .adm-me{margin:0 0 0 auto;border:0;padding:0}.adm-me b{display:none}
+  .adm-main{padding:22px 14px 60px}
+  .adm-themes li{grid-template-columns:44px 1fr auto;grid-template-areas:"sw nm btn" "mv mv tog";row-gap:10px;padding:12px 14px}
+  .adm-themes .sw{width:44px;height:54px;grid-area:sw}.adm-themes .nm{grid-area:nm}.adm-themes li>.btn{grid-area:btn}
+  .adm-themes .mv{grid-area:mv}
+  .adm-tog{min-width:0;grid-area:tog}
+  .adm-side{padding:8px 10px}
+  .adm-users thead{display:none}
+  .adm-users,.adm-users tbody{display:block}
+  .adm-users tr{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .adm-users td{border:0;padding:0;min-width:0}
+  .adm-users td:nth-child(1),.adm-users td:nth-child(2){grid-column:1 / -1}
+  .adm-users td[data-l]::before{content:attr(data-l);display:block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+  .adm-users td.num{text-align:left}
+  .adm-users .adm-sel{width:100%}
+  .adm-cols{grid-template-columns:repeat(2,1fr)}
+  .adm-sec .f{grid-template-columns:1fr}
+  .adm-phone{width:min(375px,100%)}
+}
+/* Konfigurasi admin */
+html.ff-off-demo [data-nav=demo],html.ff-off-demo [data-mnav=demo]{display:none !important}
+html.ff-off-musik [data-act=g-music]{display:none !important}
+.inv.nd-all section:not(.p-end)::before,.inv.nd-all section:not(.p-end)::after,.inv.nd-all .qband::before,.inv.nd-all :is(.dg-stk,.go-stk,.dp-body,.dp-fly,.dg-cvstk,.go-cvst,.petals,.cl){display:none !important}
+.inv.nd-cover .cover :is(.dp-fly,.dg-cvstk,.go-cvst,.petals,.cl,.go-hands){display:none !important}
+.inv.nd-salam section[id$="-salam"]::before,.inv.nd-salam section[id$="-salam"]::after{display:none !important}
+.inv.nd-acara section[id$="-acara"]::before,.inv.nd-acara section[id$="-acara"]::after{display:none !important}
+.inv.nd-cerita section[id$="-cerita"]::before,.inv.nd-cerita section[id$="-cerita"]::after{display:none !important}
+.inv.nd-galeri section[id$="-galeri"]::before,.inv.nd-galeri section[id$="-galeri"]::after{display:none !important}
+.inv.nd-rsvp section[id$="-rsvp"]::before,.inv.nd-rsvp section[id$="-rsvp"]::after{display:none !important}
+.inv.nd-hadiah section[id$="-hadiah"]::before,.inv.nd-hadiah section[id$="-hadiah"]::after{display:none !important}
+.inv.nd-kado section[id$="-kado"]::before,.inv.nd-kado section[id$="-kado"]::after{display:none !important}
+.inv.nd-ucapan section[id$="-ucapan"]::before,.inv.nd-ucapan section[id$="-ucapan"]::after{display:none !important}
+.inv.nd-salam .qband::before{display:none !important}
+.inv.nd-penutup section.p-end :is(.dg-win,.go-strip){display:none !important}
 /* ===== Gerak saat digulir: semua tema ===== */
 .inv.anim [data-rv=left]:not(.in){opacity:0;transform:translateX(-34px) rotate(-1.5deg)}
 .inv.anim [data-rv=right]:not(.in){opacity:0;transform:translateX(34px) rotate(1.5deg)}
@@ -2397,6 +2522,7 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
 <div data-view="keluarga" hidden><div id="keluarga"></div></div>
 <div data-view="katering" hidden><div id="katering"></div></div>
 <div data-view="album" hidden><div id="album"></div></div>
+<div data-view="admin" hidden><div id="admin"></div></div>
 <div data-view="checkin" hidden><div class="ci-shell" id="checkin"></div></div>
 
 <!-- ============ UNDANGAN (TAMU) ============ -->
@@ -2738,6 +2864,17 @@ function rsvpDone(g, att, pax){
   return `<div class="ok-box"><b style="font-family:var(--t-font);font-size:24px">Terima kasih, ${esc(g?g.name:'')}</b><p style="margin-top:6px;font-size:14px">${att==='hadir'?`Kami catat ${pax} orang akan hadir${g&&g.arrive?`, perkiraan datang pukul ${esc(g.arrive)}`:''}. Sampai jumpa di hari bahagia kami.`:'Terima kasih sudah mengabari. Doa Anda tetap sangat berarti bagi kami.'}</p>${att==='hadir'&&g?passHTML(g):''}<button class="ibtn" style="margin-top:12px" data-act="rsvp-again" data-gid="${g?esc(g.id):''}">Ubah jawaban</button></div>`;
 }
 function invHTML(opts={}){
+  const t = themeById(opts.theme || S.theme), o = themeOv(t.id);
+  const kOld = {...P_KICK}; if(o.kick) Object.entries(o.kick).forEach(([k,v])=>{ if(typeof v==='string') P_KICK[k]=v; });
+  let html; try{ html = invHTML0(opts); } finally { Object.assign(P_KICK, kOld); }
+  const hide = new Set([...(o.hide||[]), ...SEC_FEATS.filter(k=>!ff(k))]);
+  hide.forEach(k=>{ html = html.replace(new RegExp(`<section id="[^"]*-${k}"[^>]*>[\\s\\S]*?</section>`), ''); });
+  Object.entries(o.titles||{}).forEach(([k,v])=>{ if(!v) return; html = html.replace(new RegExp(`(<section id="[^"]*-${k}"[^>]*>[\\s\\S]*?<h3[^>]*>)[\\s\\S]*?(</h3>)`), (m,a,b)=>a+esc(v)+b); });
+  const nd = (o.nodeco||[]).map(k=>' nd-'+k).join('') + (ff('musik')?'':' ff-nomusic');
+  if(nd) html = html.replace('<div class="inv', '<div class="inv'+nd);
+  return html;
+}
+function invHTML0(opts={}){
   const t = themeById(opts.theme || S.theme);
   const gobj = opts.guestObj || null;
   const guest = opts.guest ?? gobj?.name ?? 'Bapak/Ibu/Saudara/i';
@@ -2946,12 +3083,12 @@ function tcard(t){
 function tcLive(t){ const d0=S.events.find(e=>e.date)?.date||'2027-02-14'; return `<div class="inv lay-${t.layout}" style="${themeStyle(t)}"><div class="pat"></div>${coverHTML(t,{id:'tc'+t.id, guest:'Tamu undangan', n1:S.bride.nick||'Nadia', n2:S.groom.nick||'Rizky', dateLong:fmtShort(d0), dateDots:dateDots(d0), accent:t.accent, gate:true, photo:t.photo?coverPhoto(t):''}).replace(/data-act="open-inv"/g,'tabindex="-1" aria-hidden="true"').replace(/ id="tc[a-z]+-cover"/,'')}</div>`; }
 function fitLive(root){ $$('[data-tclive]', root||document).forEach(el=>{ const w=el.parentElement.clientWidth, h=el.parentElement.clientHeight; if(w) el.style.setProperty('--tcs', Math.max(w/360, h/450)); }); }
 addEventListener('resize', ()=>fitLive());
-function renderStrip(){ $('#themeStrip').innerHTML = ['sekar','kamboja','lentera','arunika'].map(id=>tcard(themeById(id))).join(''); fitLive($('#themeStrip')); }
+function renderStrip(){ $('#themeStrip').innerHTML = themeOrder(['sekar','kamboja','lentera','arunika'].map(themeById)).concat(themeOrder(THEMES)).filter((t,i,a)=>a.indexOf(t)===i).slice(0,4).map(tcard).join(''); fitLive($('#themeStrip')); }
 let catTag='Semua', catQ='';
 function renderCatalog(){
   $('#tagFilter').innerHTML = TAGS.map(t=>`<button type="button" data-tag="${t}" aria-pressed="${t===catTag}">${t}</button>`).join('');
   const q = catQ.toLowerCase();
-  const list = THEMES.filter(t => (catTag==='Semua'||t.tags.includes(catTag)) && (!q || (t.name+' '+t.region+' '+t.tags.join(' ')).toLowerCase().includes(q) || (q.includes('jawa')&&t.id==='kawung') || (q.includes('minang')&&t.id==='songket') || (q.includes('batak')&&t.id==='ulos') || (q.includes('bugis')&&t.id==='lontar')));
+  const list = themeOrder(THEMES).filter(t => (catTag==='Semua'||t.tags.includes(catTag)) && (!q || (t.name+' '+t.region+' '+t.tags.join(' ')).toLowerCase().includes(q) || (q.includes('jawa')&&t.id==='kawung') || (q.includes('minang')&&t.id==='songket') || (q.includes('batak')&&t.id==='ulos') || (q.includes('bugis')&&t.id==='lontar')));
   setTimeout(()=>{ fitLive($('#themeGrid')); aniScan($('[data-view=tema]')); },0); $('#themeGrid').innerHTML = list.length ? list.map(tcard).join('') : `<div class="empty"><b style="color:var(--ink)">Belum ada tema untuk “${esc(catQ)}”.</b><br>Coba kata lain, atau <button class="btn btn-ghost btn-sm" data-act="clear-filter" style="margin-top:10px">tampilkan semua tema</button></div>`;
 }
 $('#tagFilter').addEventListener('click',e=>{ const b=e.target.closest('[data-tag]'); if(!b) return; catTag=b.dataset.tag; renderCatalog(); });
@@ -3089,7 +3226,7 @@ function renderStepCore(onlyHTML, iOverride){
   if(i===2){
     const t = themeById(S.theme);
     h = `<span class="eyebrow">Langkah 3 dari 5</span><h2>Pilih tampilan yang kalian banget</h2><p class="sub">Semua tema bisa dipakai di paket apa pun. Ganti sesukamu, isi undangannya tetap aman.</p>${t.photo?`<p class="hint" style="margin:-6px 0 14px">${ico('camera')} Tema ${esc(t.name)} memakai foto pertama di galeri sebagai sampul. Belum ada foto? Kami tampilkan ilustrasi dulu.</p>`:''}
-    <div class="theme-pick" role="group" aria-label="Tema">${THEMES.map(x=>`<button type="button" data-pick="${x.id}" aria-pressed="${x.id===S.theme}"><div class="tp" style="${themeStyle(x)}${x.thumb?`background:${x.thumb(x)};`:''}">${esc((S.bride.nick||'N')[0])}&amp;${esc((S.groom.nick||'R')[0])}</div><span>${esc(x.name)}</span></button>`).join('')}</div>
+    <div class="theme-pick" role="group" aria-label="Tema">${themeOrder(THEMES).concat(THEMES.filter(x=>themeHidden(x.id)&&x.id===S.theme)).map(x=>`<button type="button" data-pick="${x.id}" aria-pressed="${x.id===S.theme}"><div class="tp" style="${themeStyle(x)}${x.thumb?`background:${x.thumb(x)};`:''}">${esc((S.bride.nick||'N')[0])}&amp;${esc((S.groom.nick||'R')[0])}</div><span>${esc(x.name)}</span></button>`).join('')}</div>
     <div class="field" style="margin-top:26px"><label>Warna aksen</label><div class="swatches" role="group" aria-label="Warna aksen">
       <button type="button" class="sw" style="background:${t.accent}" data-acc="" aria-pressed="${!S.accent}" aria-label="Warna bawaan tema"></button>
       ${ACCENTS.filter(a=>a!==t.accent).map(a=>`<button type="button" class="sw" style="background:${a}" data-acc="${a}" aria-pressed="${S.accent===a}" aria-label="Aksen ${a}"></button>`).join('')}
@@ -3303,7 +3440,7 @@ $('#stepForm').addEventListener('change', e=>{
 });
 let bgmFade=null;
 function startBgm(){
-  const url = musicURL(); if(!S.music || !guestMusic || !url) return;
+  const url = musicURL(); if(!S.music || !guestMusic || !url || !ff('musik')) return;
   try{
     if(!BGM){ BGM = new Audio(); BGM.preload='auto'; BGM.addEventListener('ended',()=>{ BGM.currentTime=+S.musicStart||0; BGM.play().catch(()=>{}); }); }
     if(BGM.dataset.src!==url){ BGM.src=url; BGM.dataset.src=url; BGM.addEventListener('loadedmetadata',()=>{ const st=+S.musicStart||0; if(st && st<BGM.duration) BGM.currentTime=st; },{once:true}); }
@@ -4088,7 +4225,7 @@ $('#menuBtn').addEventListener('click',()=>{ const m=$('#mobileMenu'); const ope
 $('#mobileMenu').addEventListener('click',e=>{ if(e.target.closest('a')){ $('#mobileMenu').hidden=true; $('#menuBtn').setAttribute('aria-expanded','false'); } });
 
 /* ---------- Account ---------- */
-const UPGRADE_PRICE = 220000;
+let UPGRADE_PRICE = 220000;
 const VOUCHERS = {SAKARA10:{type:'pct',v:10,label:'Diskon 10%'}, NIKAHHEMAT:{type:'amt',v:25000,label:'Potongan Rp25.000'}};
 function renderAuthSlot(){
   if($('#plans') && $('#plans').children.length) renderPlans();
@@ -4522,6 +4659,7 @@ async function cloudInit(){
   if(!cfg || !cfg.supabaseUrl || !cfg.supabaseAnonKey) return;
   if(!window.supabase){ try{ await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js'); }catch(e){ return; } }
   CLOUD.cfg=cfg; CLOUD.sb=window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {auth:{persistSession:true, autoRefreshToken:true, detectSessionInUrl:true}}); CLOUD.on=true;
+  await loadAppConfig();
   const m = location.pathname.match(/^\/u\/([a-z0-9-]+)(\/(?:checkin|keluarga|katering|album))?\/?$/);
   if(m){
     CLOUD.slug=m[1]; const qs=new URLSearchParams(location.search);
@@ -5359,7 +5497,256 @@ document.addEventListener('click', e=>{
 }, true);
 
 /* ---------- Router ---------- */
-const VIEWS = ['bandingkan','beranda','tema','buat','undangan','dashboard','checkout','tagihan','checkin','keluarga','katering','edit','album'];
+/* ---------- Panel admin (/admin) ---------- */
+const ADM = { tok: (()=>{ try{ return sessionStorage.getItem('sp-adm')||''; }catch(e){ return ''; } })(), me:null, tab:'ringkasan', stats:null, users:null, q:'', cfg:null, edit:null, draft:null, busy:false, err:'' };
+const ADM_TABS = [['ringkasan','Ringkasan','home'],['pengguna','Pengguna & undangan','users'],['tema','Tema','eye'],['fitur','Fitur & harga','gift'],['akun','Akun admin','lock']];
+const ADM_FONTS = [["","Bawaan tema"],["'Cormorant Garamond', Georgia, serif","Cormorant Garamond"],["'Bodoni Moda', Georgia, serif","Bodoni Moda"],["'Lora', Georgia, serif","Lora"],["'Marcellus', Georgia, serif","Marcellus"],["'Oswald', 'Plus Jakarta Sans', sans-serif","Oswald"],["'Great Vibes', cursive","Great Vibes (sambung)"],["'Itim', 'Mali', cursive","Itim (ceria)"],["'Patrick Hand', cursive","Patrick Hand (tulisan tangan)"],["'Permanent Marker', cursive","Permanent Marker (spidol)"],["'Plus Jakarta Sans', sans-serif","Plus Jakarta Sans"]];
+const ADM_SECS = [['salam','Salam & mempelai'],['acara','Waktu & tempat'],['cerita','Kisah cinta'],['galeri','Galeri foto'],['rsvp','Konfirmasi kehadiran'],['hadiah','Tanda kasih'],['kado','Kado patungan'],['ucapan','Ucapan & doa']];
+async function admApi(action, body={}){
+  const r = await fetch('/api/admin', {method:'POST', headers:{'Content-Type':'application/json', ...(ADM.tok?{Authorization:'Bearer '+ADM.tok}:{})}, body:JSON.stringify({action, ...body})});
+  let j={}; try{ j=await r.json(); }catch(e){}
+  if(r.status===401 && action!=='login'){ admLogout(); }
+  if(!r.ok) throw new Error(j.error || ('Gagal ('+r.status+')'));
+  return j;
+}
+function admSetTok(t){ ADM.tok=t||''; try{ t?sessionStorage.setItem('sp-adm',t):sessionStorage.removeItem('sp-adm'); }catch(e){} }
+function admLogout(){ admSetTok(''); ADM.me=null; ADM.stats=null; ADM.users=null; ADM.cfg=null; renderAdmin(); }
+const admDate = iso => iso ? new Intl.DateTimeFormat('id-ID',{day:'numeric',month:'short',year:'numeric'}).format(new Date(iso)) : '—';
+const admTime = iso => iso ? new Intl.DateTimeFormat('id-ID',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(iso)) : '—';
+async function renderAdmin(){
+  const el = $('#admin'); if(!el) return;
+  document.title = 'Admin · Sakara';
+  if(!ADM.tok){ el.innerHTML = admLoginHTML(); return; }
+  if(!ADM.me){ el.innerHTML = `<div class="adm-center"><div class="spin"></div></div>`; try{ ADM.me=(await admApi('me')).admin; }catch(e){ admLogout(); return; } }
+  if(ADM.me.must_change){ el.innerHTML = admMustHTML(); return; }
+  el.innerHTML = `<div class="adm">
+    <aside class="adm-side"><a class="adm-brand" href="/">${$('.brand')?.innerHTML||'Sakara'}</a><span class="adm-badge">Admin</span>
+      <nav>${ADM_TABS.map(([k,l,ic])=>`<button type="button" data-adm-tab="${k}" aria-current="${ADM.tab===k}">${ico(ic)}<span>${l}</span></button>`).join('')}</nav>
+      <div class="adm-me"><b>${esc(ADM.me.username)}</b><button type="button" class="btn btn-ghost btn-sm" data-adm="logout">Keluar</button></div></aside>
+    <main class="adm-main" id="admMain"><div class="adm-center"><div class="spin"></div></div></main></div>`;
+  admRenderTab();
+}
+async function admRenderTab(){
+  const m = $('#admMain'); if(!m) return;
+  try{
+    if(ADM.tab==='ringkasan'){ if(!ADM.stats) ADM.stats = await admApi('stats'); m.innerHTML = admStatsHTML(ADM.stats); }
+    if(ADM.tab==='pengguna'){ if(!ADM.users) ADM.users = (await admApi('users',{q:ADM.q})).users; m.innerHTML = admUsersHTML(); }
+    if(ADM.tab==='tema'){ if(!ADM.cfg) await admLoadCfg(); m.innerHTML = ADM.edit ? admThemeEditHTML() : admThemesHTML(); if(ADM.edit) admPreview(); }
+    if(ADM.tab==='fitur'){ if(!ADM.cfg) await admLoadCfg(); m.innerHTML = admFeatHTML(); }
+    if(ADM.tab==='akun'){ const r = await admApi('admins_list'); m.innerHTML = admAkunHTML(r.admins); }
+  }catch(e){ m.innerHTML = `<div class="adm-err"><b>Belum bisa memuat data.</b><p>${esc(e.message)}</p><button class="btn btn-ghost btn-sm" data-adm="reload">Coba lagi</button></div>`; }
+}
+async function admLoadCfg(){ ADM.cfg = (await admApi('config_get')).config || {}; ['themes','features','prices'].forEach(k=>{ if(!ADM.cfg[k]) ADM.cfg[k]={}; }); applyConfig(ADM.cfg); try{ localStorage.setItem('sp-appcfg', JSON.stringify(ADM.cfg)); }catch(e){} }
+function admLoginHTML(){ return `<div class="adm-center"><form class="adm-card adm-login" data-adm-form="login">
+  <div class="adm-brand">${$('.brand')?.innerHTML||'Sakara'}</div><span class="eyebrow">Panel admin</span><h1 class="display" style="font-size:30px;margin:6px 0 18px">Masuk sebagai admin</h1>
+  <label class="lbl" for="admU">Username</label><input class="input" id="admU" name="username" autocomplete="username" required>
+  <label class="lbl" for="admP">Sandi</label><input class="input" id="admP" name="password" type="password" autocomplete="current-password" required>
+  ${ADM.err?`<p class="adm-msg err">${esc(ADM.err)}</p>`:''}
+  <button class="btn btn-primary btn-block" style="margin-top:18px">Masuk</button>
+  <a class="adm-back" href="/">← Kembali ke Sakara</a></form></div>`; }
+function admMustHTML(){ return `<div class="adm-center"><form class="adm-card adm-login" data-adm-form="pw">
+  <span class="eyebrow">Langkah pertama</span><h1 class="display" style="font-size:28px;margin:6px 0 8px">Ganti sandi dulu, ya</h1>
+  <p class="muted" style="margin:0 0 16px">Sandi bawaan cuma untuk masuk pertama kali. Buat sandi sendiri supaya panel ini aman.</p>
+  <label class="lbl">Username</label><input class="input" name="username" value="${esc(ADM.me.username)}" autocomplete="username" required>
+  <label class="lbl">Email (opsional)</label><input class="input" name="email" type="email" value="${esc(ADM.me.email||'')}">
+  <label class="lbl">Sandi sekarang</label><input class="input" name="old" type="password" autocomplete="current-password" required>
+  <label class="lbl">Sandi baru (min. 8 karakter)</label><input class="input" name="new" type="password" autocomplete="new-password" minlength="8" required>
+  <label class="lbl">Ulangi sandi baru</label><input class="input" name="new2" type="password" autocomplete="new-password" minlength="8" required>
+  ${ADM.err?`<p class="adm-msg err">${esc(ADM.err)}</p>`:''}
+  <button class="btn btn-primary btn-block" style="margin-top:18px">Simpan & lanjut</button>
+  <button type="button" class="adm-back" data-adm="logout">Keluar</button></form></div>`; }
+function admStatsHTML(s){
+  const tile = (l,v,sub) => `<div class="adm-tile"><span>${l}</span><b class="num">${v}</b>${sub?`<small>${sub}</small>`:''}</div>`;
+  const days = Array.from({length:14},(_,i)=>{ const d=new Date(Date.now()+7*3600e3-(13-i)*864e5).toISOString().slice(0,10); return [d, s.signups[d]||0]; });
+  const mx = Math.max(1,...days.map(d=>d[1]));
+  const themes = Object.entries(s.themes||{}).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  return `<header class="adm-head"><div><span class="eyebrow">Ringkasan</span><h1 class="display">Apa kabar Sakara hari ini</h1></div><button class="btn btn-ghost btn-sm" data-adm="refresh">${ico('undo')}Muat ulang</button></header>
+  <div class="adm-tiles">${tile('Pengguna',s.users,`+${s.new7} minggu ini · +${s.new30} 30 hari`)}${tile('Undangan tayang',s.published,`Coba ${s.byPlan.coba} · Undangan ${s.byPlan.undangan} · Lengkap ${s.byPlan.tamu}`)}${tile('Pendapatan',rupiah(s.revenue),`${s.paidCount} transaksi lunas`)}${tile('Total tamu',s.guests.toLocaleString('id-ID'),'di semua undangan')}</div>
+  <div class="adm-grid2">
+    <section class="adm-card"><h2>Pendaftar 14 hari terakhir</h2><div class="adm-bars">${days.map(([d,n])=>`<div title="${d}: ${n}"><i style="height:${Math.round(n/mx*100)}%"></i><b>${n||''}</b><small>${+d.slice(8)}</small></div>`).join('')}</div></section>
+    <section class="adm-card"><h2>Tema paling dipakai</h2>${themes.length?`<ol class="adm-rank">${themes.map(([id,n])=>`<li><span>${esc(themeById(id).name)}</span><b class="num">${n}</b></li>`).join('')}</ol>`:'<p class="muted">Belum ada data.</p>'}</section>
+  </div>
+  <section class="adm-card"><h2>Transaksi terbaru</h2><div class="tbl-wrap" style="display:block"><table class="adm-tbl"><thead><tr><th>Waktu</th><th>Pengguna</th><th>Item</th><th>Metode</th><th class="num">Total</th><th>Status</th></tr></thead><tbody>
+    ${(s.invoices||[]).map(i=>`<tr><td>${admTime(i.created_at)}</td><td>${esc(i.email||'—')}</td><td>${esc(i.item)}${i.voucher?` <span class="chip">${esc(i.voucher)}</span>`:''}</td><td>${esc(i.method||'—')}</td><td class="num">${rupiah(i.total)}</td><td><span class="adm-st st-${i.status}">${({paid:'Lunas',pending:'Menunggu',expired:'Kedaluwarsa',failed:'Gagal'})[i.status]||i.status}</span></td></tr>`).join('') || '<tr><td colspan="6" class="muted">Belum ada transaksi.</td></tr>'}
+  </tbody></table></div></section>
+  <div class="adm-grid2">
+    <section class="adm-card"><h2>Mode demo (14 hari)</h2>${(s.demo||[]).length?`<div class="tbl-wrap" style="display:block"><table class="adm-tbl"><thead><tr><th>Hari</th><th class="num">Pengunjung</th><th class="num">Coba fitur</th><th class="num">Klik mulai</th><th class="num">Login</th></tr></thead><tbody>${s.demo.map(d=>`<tr><td>${admDate(d.hari)}</td><td class="num">${d.pengunjung_demo}</td><td class="num">${d.mencoba_fitur}</td><td class="num">${d.klik_mulai}</td><td class="num">${d.jadi_login}</td></tr>`).join('')}</tbody></table></div>`:'<p class="muted">Belum ada kunjungan demo.</p>'}</section>
+    <section class="adm-card"><h2>Fitur demo terpopuler</h2>${(s.demoFeatures||[]).length?`<ol class="adm-rank">${s.demoFeatures.map(f=>`<li><span>${esc(f.event)} · ${esc(f.detail||'—')}</span><b class="num">${f.orang} org</b></li>`).join('')}</ol>`:'<p class="muted">Belum ada data.</p>'}</section>
+  </div>`;
+}
+function admUsersHTML(){
+  const u = ADM.users||[];
+  return `<header class="adm-head"><div><span class="eyebrow">Pengguna & undangan</span><h1 class="display">${u.length} pengguna</h1></div>
+    <form class="adm-search" data-adm-form="search"><input class="input" name="q" value="${esc(ADM.q)}" placeholder="Cari email, nama, atau alamat link"><button class="btn btn-ghost btn-sm">Cari</button></form></header>
+  <section class="adm-card" style="padding:0"><div class="tbl-wrap" style="display:block"><table class="adm-tbl adm-users"><thead><tr><th>Pengguna</th><th>Undangan</th><th>Paket</th><th>Tayang</th><th class="num">Tamu</th><th class="num">Dibayar</th><th>Akses</th></tr></thead><tbody>
+  ${u.map(x=>{ const banned = x.banned_until && new Date(x.banned_until)>new Date(); return `<tr${banned?' class="ban"':''}>
+    <td><b>${esc(x.name||x.email.split('@')[0])}</b><small>${esc(x.email)}</small><small>Daftar ${admDate(x.created_at)} · aktif ${admDate(x.last_sign_in_at)}</small></td>
+    <td>${x.invitation_id?`<b>${esc((x.bride||'?')+' & '+(x.groom||'?'))}</b><small>${x.slug?`<a href="/u/${esc(x.slug)}" target="_blank" rel="noopener">/u/${esc(x.slug)}</a>`:'—'} · ${esc(themeById(x.theme).name)}</small>`:'<span class="muted">Belum membuat</span>'}</td>
+    <td data-l="Paket">${x.invitation_id?`<select class="input adm-sel" data-adm-plan="${x.invitation_id}">${['coba','undangan','tamu'].map(p=>`<option value="${p}"${x.plan===p?' selected':''}>${({coba:'Coba',undangan:'Undangan',tamu:'Undangan + Tamu'})[p]}</option>`).join('')}</select>`:'—'}</td>
+    <td data-l="Tayang">${x.invitation_id?`<label class="switch"><input type="checkbox" data-adm-pub="${x.invitation_id}" ${x.published?'checked':''} aria-label="Tayangkan undangan"><span></span></label>`:'—'}</td>
+    <td class="num" data-l="Tamu">${x.guests||0}<small>${x.hadir||0} hadir</small></td>
+    <td class="num" data-l="Dibayar">${x.paid_total?rupiah(x.paid_total):'—'}</td>
+    <td data-l="Akses"><button type="button" class="btn btn-ghost btn-sm" data-adm-ban="${x.id}" data-ban="${banned?0:1}">${banned?'Buka blokir':'Blokir'}</button></td></tr>`; }).join('') || '<tr><td colspan="7" class="muted" style="padding:24px">Tidak ada pengguna yang cocok.</td></tr>'}
+  </tbody></table></div></section>`;
+}
+function admThemesHTML(){
+  const all = THEMES.slice(); const ov = ADM.cfg.themes||{};
+  const sorted = all.map((t,i)=>[t,i]).sort((a,b)=>{ const oa=(ov[a[0].id]||{}).order, ob=(ov[b[0].id]||{}).order; return (Number.isFinite(oa)?oa:1e4+a[1])-(Number.isFinite(ob)?ob:1e4+b[1]); }).map(x=>x[0]);
+  return `<header class="adm-head"><div><span class="eyebrow">Tema</span><h1 class="display">${all.length} tema</h1><p class="muted" style="margin:6px 0 0">Atur tema mana yang tampil di katalog, urutannya, dan isi tiap bagian. Tema yang disembunyikan tetap jalan untuk pasangan yang sudah memakainya.</p></div></header>
+  <section class="adm-card" style="padding:6px 0"><ul class="adm-themes">${sorted.map((t,i)=>{ const o=ov[t.id]||{}; const n=(o.hide||[]).length; return `<li class="${o.hidden?'off':''}">
+    <span class="sw" style="background:${t.thumb?t.thumb(t):`linear-gradient(135deg,${t.bg},${t.accent})`}"></span>
+    <div class="nm"><b>${esc(t.name)}</b><small>${esc(t.region)} · ${esc(t.tags.join(', '))}${n?` · ${n} bagian disembunyikan`:''}${Object.keys(o).filter(k=>!['hidden','order'].includes(k)).length?' · <em>diubah</em>':''}</small></div>
+    <div class="mv"><button type="button" class="btn btn-ghost btn-sm" data-adm-mv="${t.id}" data-d="-1" ${i===0?'disabled':''} aria-label="Naikkan">↑</button><button type="button" class="btn btn-ghost btn-sm" data-adm-mv="${t.id}" data-d="1" ${i===sorted.length-1?'disabled':''} aria-label="Turunkan">↓</button></div>
+    <label class="adm-tog"><span>${o.hidden?'Tersembunyi':'Tampil'}</span><span class="switch"><input type="checkbox" data-adm-thide="${t.id}" ${o.hidden?'':'checked'} aria-label="Tampilkan ${esc(t.name)} di katalog"><span></span></span></label>
+    <button type="button" class="btn btn-primary btn-sm" data-adm-tedit="${t.id}">Atur</button></li>`; }).join('')}</ul></section>`;
+}
+function admThemeEditHTML(){
+  const t = themeById(ADM.edit), b = THEME_BASE.get(t.id) || t, d = ADM.draft;
+  const col = (k,l) => `<label class="adm-col"><span>${l}</span><input type="color" data-td="${k}" value="${esc(d[k]||b[k]||'#000000')}"><button type="button" class="adm-x" data-td-reset="${k}" title="Kembalikan">↺</button></label>`;
+  return `<header class="adm-head"><div><button type="button" class="adm-back" data-adm="tback">← Semua tema</button><h1 class="display">${esc(d.name||b.name)}</h1></div>
+    <div class="adm-acts"><button type="button" class="btn btn-ghost btn-sm" data-adm="treset">Kembalikan bawaan</button><button type="button" class="btn btn-primary btn-sm" data-adm="tsave">Simpan tema</button></div></header>
+  <div class="adm-tedit"><div class="adm-tform">
+    <section class="adm-card"><h2>Identitas</h2>
+      <label class="lbl">Nama tema</label><input class="input" data-td="name" value="${esc(d.name||'')}" placeholder="${esc(b.name)}">
+      <label class="lbl">Tag (pisahkan dengan koma)</label><input class="input" data-td="tags" value="${esc((d.tags||[]).join(', '))}" placeholder="${esc(b.tags.join(', '))}">
+      <label class="adm-row"><span>Tampil di katalog</span><span class="switch"><input type="checkbox" data-td="shown" ${d.hidden?'':'checked'}><span></span></span></label></section>
+    <section class="adm-card"><h2>Warna & huruf</h2><div class="adm-cols">${col('bg','Latar')}${col('fg','Teks')}${col('accent','Aksen')}${col('soft','Lembut')}</div>
+      <label class="lbl">Huruf judul</label><select class="input" data-td="font">${ADM_FONTS.map(([v,l])=>`<option value="${esc(v)}"${(d.font||'')===v?' selected':''}>${l}</option>`).join('')}</select></section>
+    <section class="adm-card"><h2>Bagian undangan</h2><p class="muted" style="margin:-4px 0 12px;font-size:14px">Matikan bagian yang tidak cocok untuk tema ini, ubah judul bawaannya, atau sembunyikan hiasannya. Pasangan tetap bisa mengatur isi bagian dari editor mereka.</p>
+      <div class="adm-secs">${ADM_SECS.map(([k,l])=>`<div class="adm-sec${(d.hide||[]).includes(k)?' off':''}"><div class="h"><b>${l}</b>
+        <label class="adm-mini"><input type="checkbox" data-td-sec="${k}" ${(d.hide||[]).includes(k)?'':'checked'}> Tampil</label>
+        <label class="adm-mini"><input type="checkbox" data-td-deco="${k}" ${(d.nodeco||[]).includes(k)?'':'checked'}> Hiasan</label></div>
+        <div class="f"><input class="input" data-td-title="${k}" value="${esc((d.titles||{})[k]||'')}" placeholder="Judul bawaan"><input class="input" data-td-kick="${k}" value="${esc((d.kick||{})[k]??'')}" placeholder="Teks kecil di atas judul (opsional)"></div></div>`).join('')}
+        <div class="adm-sec"><div class="h"><b>Sampul</b><label class="adm-mini"><input type="checkbox" data-td-deco="cover" ${(d.nodeco||[]).includes('cover')?'':'checked'}> Hiasan</label></div></div>
+        <div class="adm-sec"><div class="h"><b>Penutup</b><label class="adm-mini"><input type="checkbox" data-td-deco="penutup" ${(d.nodeco||[]).includes('penutup')?'':'checked'}> Hiasan</label></div></div>
+        <div class="adm-sec"><div class="h"><b>Semua hiasan & stiker</b><label class="adm-mini"><input type="checkbox" data-td-deco="all" ${(d.nodeco||[]).includes('all')?'':'checked'}> Tampil</label></div></div>
+      </div></section></div>
+    <div class="adm-tprev"><div class="adm-phone"><div class="adm-phone-in" id="admPrev"></div></div><small class="muted">Pratinjau langsung, pakai data contoh</small></div></div>`;
+}
+function admDraftClean(d){ const o={}; ['name','bg','fg','accent','soft','font'].forEach(k=>{ if(d[k]) o[k]=d[k]; }); if(d.tags&&d.tags.length) o.tags=d.tags; if(d.hidden) o.hidden=true; if(Number.isFinite(d.order)) o.order=d.order;
+  ['hide','nodeco'].forEach(k=>{ if(d[k]&&d[k].length) o[k]=d[k].slice(); }); ['titles','kick'].forEach(k=>{ const v={}; Object.entries(d[k]||{}).forEach(([a,b])=>{ if(b!=='' && b!=null) v[a]=b; }); if(Object.keys(v).length) o[k]=v; }); return o; }
+function admPreview(){
+  const box = $('#admPrev'); if(!box || !ADM.edit) return;
+  const keep = ADM.cfg.themes[ADM.edit]; ADM.cfg.themes[ADM.edit] = admDraftClean(ADM.draft); applyConfig(ADM.cfg);
+  try{ box.innerHTML = invHTML({theme:ADM.edit, idp:'ap', guest:'Tamu undangan'}); } finally { if(keep) ADM.cfg.themes[ADM.edit]=keep; else delete ADM.cfg.themes[ADM.edit]; applyConfig(ADM.cfg); }
+  $$('.cv-in', box).forEach(x=>x.style.animation='none');
+}
+async function admSaveThemes(msg){ await admApi('config_set',{key:'themes', value:ADM.cfg.themes}); applyConfig(ADM.cfg); try{ localStorage.setItem('sp-appcfg', JSON.stringify(ADM.cfg)); }catch(e){} toast(msg||'Tersimpan. Langsung berlaku di situs.'); }
+function admFeatHTML(){
+  const groups = [...new Set(FEATURE_LIST.map(f=>f[2]))]; const p = ADM.cfg.prices||{};
+  const pr = (k,l,base) => `<label class="adm-price"><span>${l}</span><div class="adm-rp"><i>Rp</i><input class="input num" inputmode="numeric" data-adm-price="${k}" value="${(p[k]||base).toLocaleString('id-ID')}"></div><small class="muted">Bawaan ${rupiah(base)}</small></label>`;
+  return `<header class="adm-head"><div><span class="eyebrow">Fitur & harga</span><h1 class="display">Atur yang tersedia untuk pasangan</h1></div></header>
+  <div class="adm-grid2"><section class="adm-card"><h2>Fitur</h2><p class="muted" style="margin:-4px 0 6px;font-size:14px">Fitur yang dimatikan hilang dari editor, dashboard, dan undangan. Data yang sudah ada tidak terhapus, jadi bisa dinyalakan lagi kapan saja.</p>
+    ${groups.map(g=>`<h3 class="adm-sub">${g}</h3>${FEATURE_LIST.filter(f=>f[2]===g).map(([k,l])=>`<label class="adm-row"><span>${l}</span><span class="switch"><input type="checkbox" data-adm-ff="${k}" ${ADM.cfg.features[k]===false?'':'checked'}><span></span></span></label>`).join('')}`).join('')}</section>
+  <section class="adm-card"><h2>Harga paket</h2><p class="muted" style="margin:-4px 0 12px;font-size:14px">Berlaku untuk halaman harga dan tagihan di server. Teks promosi yang menyebut harga (misalnya di beranda) perlu disesuaikan terpisah.</p>
+    ${pr('undangan','Paket Undangan',PRICE_BASE.undangan||129000)}${pr('tamu','Paket Undangan + Tamu',PRICE_BASE.tamu||349000)}${pr('upgrade','Upgrade Undangan → Undangan + Tamu',UPGRADE_BASE)}
+    <button type="button" class="btn btn-primary" data-adm="psave" style="margin-top:14px">Simpan harga</button></section></div>`;
+}
+function admAkunHTML(list){
+  return `<header class="adm-head"><div><span class="eyebrow">Akun admin</span><h1 class="display">Siapa saja yang bisa masuk</h1></div></header>
+  <div class="adm-grid2"><section class="adm-card"><h2>Akunmu</h2><form data-adm-form="pw" class="adm-form">
+    <label class="lbl">Username</label><input class="input" name="username" value="${esc(ADM.me.username)}" autocomplete="username" required>
+    <label class="lbl">Email</label><input class="input" name="email" type="email" value="${esc(ADM.me.email||'')}">
+    <label class="lbl">Sandi sekarang</label><input class="input" name="old" type="password" autocomplete="current-password" required>
+    <label class="lbl">Sandi baru (min. 8 karakter)</label><input class="input" name="new" type="password" autocomplete="new-password" minlength="8" required>
+    <label class="lbl">Ulangi sandi baru</label><input class="input" name="new2" type="password" autocomplete="new-password" minlength="8" required>
+    <button class="btn btn-primary" style="margin-top:14px">Simpan perubahan</button></form></section>
+  <section class="adm-card"><h2>Semua admin</h2><ul class="adm-admins">${list.map(a=>`<li><div><b>${esc(a.username)}</b><small>${esc(a.email||'tanpa email')} · masuk terakhir ${admTime(a.last_login)}${a.must_change?' · belum ganti sandi':''}</small></div>${a.id===ADM.me.id?'<span class="chip">Kamu</span>':`<button type="button" class="btn btn-ghost btn-sm" data-adm-del="${a.id}" data-n="${esc(a.username)}">Hapus</button>`}</li>`).join('')}</ul>
+    <h3 class="adm-sub">Tambah admin</h3><form data-adm-form="add" class="adm-form">
+    <label class="lbl">Username</label><input class="input" name="username" required placeholder="mis. dewi" autocomplete="off">
+    <label class="lbl">Email</label><input class="input" name="email" type="email" placeholder="nama@email.com" autocomplete="off">
+    <label class="lbl">Sandi awal (min. 8 karakter)</label><input class="input" name="password" type="password" minlength="8" required autocomplete="new-password">
+    <label class="adm-mini" style="margin-top:10px"><input type="checkbox" name="must" checked> Wajib ganti sandi saat pertama masuk</label>
+    <button class="btn btn-primary" style="margin-top:14px">Tambah admin</button></form></section></div>`;
+}
+document.addEventListener('submit', async e=>{
+  const f = e.target.closest('[data-adm-form]'); if(!f) return; e.preventDefault();
+  const v = Object.fromEntries(new FormData(f)); const k = f.dataset.admForm; const btn=f.querySelector('button:not([type=button])'); if(btn) btn.disabled=true;
+  try{
+    if(k==='login'){ const r = await admApi('login',{username:v.username, password:v.password}); admSetTok(r.token); ADM.me=r.admin; ADM.err=''; renderAdmin(); return; }
+    if(k==='pw'){ if(v.new!==v.new2) throw new Error('Ulangi sandi baru belum sama'); const r = await admApi('change_password',{old:v.old, new:v.new, username:v.username, email:v.email}); admSetTok(r.token); ADM.me=r.admin; ADM.err=''; toast('Sandi tersimpan'); renderAdmin(); return; }
+    if(k==='add'){ await admApi('admin_add',{username:v.username, email:v.email, password:v.password, must_change:!!v.must}); toast('Admin ditambahkan'); admRenderTab(); return; }
+    if(k==='search'){ ADM.q=v.q||''; ADM.users=null; admRenderTab(); return; }
+  }catch(err){ if(k==='login'||(k==='pw'&&ADM.me&&ADM.me.must_change)){ ADM.err=err.message; renderAdmin(); } else toast(err.message); }
+  finally{ if(btn) btn.disabled=false; }
+});
+document.addEventListener('click', async e=>{
+  const t = e.target; if(!t.closest || !t.closest('#admin')) return;
+  const tab = t.closest('[data-adm-tab]'); if(tab){ ADM.tab=tab.dataset.admTab; ADM.edit=null; $$('[data-adm-tab]').forEach(b=>b.setAttribute('aria-current', b===tab)); admRenderTab(); return; }
+  const a = t.closest('[data-adm]')?.dataset.adm;
+  try{
+    if(a==='logout'){ admLogout(); return; }
+    if(a==='reload'||a==='refresh'){ ADM.stats=null; ADM.users=null; ADM.cfg=null; admRenderTab(); return; }
+    if(a==='tback'){ ADM.edit=null; admRenderTab(); return; }
+    if(a==='treset'){ if(!confirm('Kembalikan tema ini ke pengaturan bawaan?')) return; const keep=(ADM.cfg.themes[ADM.edit]||{}); ADM.cfg.themes[ADM.edit] = {}; if(keep.order!=null) ADM.cfg.themes[ADM.edit].order=keep.order; if(keep.hidden) ADM.cfg.themes[ADM.edit].hidden=true; ADM.draft=JSON.parse(JSON.stringify(ADM.cfg.themes[ADM.edit])); await admSaveThemes('Tema dikembalikan ke bawaan'); admRenderTab(); return; }
+    if(a==='tsave'){ ADM.cfg.themes[ADM.edit] = admDraftClean(ADM.draft); await admSaveThemes(); return; }
+    if(a==='psave'){ const v={}; $$('[data-adm-price]').forEach(i=>{ const n=parseInt(i.value.replace(/\D/g,''),10); if(n>=1000) v[i.dataset.admPrice]=n; }); ADM.cfg.prices=v; await admApi('config_set',{key:'prices', value:v}); applyConfig(ADM.cfg); try{ localStorage.setItem('sp-appcfg', JSON.stringify(ADM.cfg)); }catch(err){} toast('Harga tersimpan'); return; }
+  }catch(err){ toast(err.message); return; }
+  const ed = t.closest('[data-adm-tedit]'); if(ed){ ADM.edit=ed.dataset.admTedit; ADM.draft=JSON.parse(JSON.stringify(ADM.cfg.themes[ADM.edit]||{})); admRenderTab(); $('#admMain')?.scrollTo?.(0,0); window.scrollTo(0,0); return; }
+  const mv = t.closest('[data-adm-mv]'); if(mv){ const ov=ADM.cfg.themes; const order = THEMES.map((x,i)=>[x,i]).sort((p,q)=>{ const oa=(ov[p[0].id]||{}).order, ob=(ov[q[0].id]||{}).order; return (Number.isFinite(oa)?oa:1e4+p[1])-(Number.isFinite(ob)?ob:1e4+q[1]); }).map(x=>x[0].id);
+    const i=order.indexOf(mv.dataset.admMv), j=i+(+mv.dataset.d); if(j<0||j>=order.length) return; [order[i],order[j]]=[order[j],order[i]]; order.forEach((id,n)=>{ ov[id]=Object.assign(ov[id]||{}, {order:n}); });
+    try{ await admSaveThemes('Urutan katalog tersimpan'); }catch(err){ toast(err.message); } admRenderTab(); return; }
+  const del = t.closest('[data-adm-del]'); if(del){ if(!confirm(`Hapus admin "${del.dataset.n}"?`)) return; try{ await admApi('admin_remove',{id:+del.dataset.admDel}); toast('Admin dihapus'); admRenderTab(); }catch(err){ toast(err.message); } return; }
+  const ban = t.closest('[data-adm-ban]'); if(ban){ const on=ban.dataset.ban==='1'; if(!confirm(on?'Blokir pengguna ini? Ia tidak bisa masuk lagi sampai dibuka blokirnya.':'Buka blokir pengguna ini?')) return; try{ await admApi('user_ban',{user_id:ban.dataset.admBan, ban:on}); toast(on?'Pengguna diblokir':'Blokir dibuka'); ADM.users=null; admRenderTab(); }catch(err){ toast(err.message); } return; }
+});
+document.addEventListener('change', async e=>{
+  const t = e.target; if(!t.closest || !t.closest('#admin')) return;
+  try{
+    if(t.dataset.admPub){ await admApi('inv_update',{invitation_id:t.dataset.admPub, published:t.checked}); toast(t.checked?'Undangan ditayangkan':'Undangan diturunkan'); const u=(ADM.users||[]).find(x=>x.invitation_id===t.dataset.admPub); if(u) u.published=t.checked; return; }
+    if(t.dataset.admPlan){ if(!confirm('Ubah paket undangan ini secara manual?')){ admRenderTab(); return; } await admApi('inv_update',{invitation_id:t.dataset.admPlan, plan:t.value}); toast('Paket diubah'); const u=(ADM.users||[]).find(x=>x.invitation_id===t.dataset.admPlan); if(u) u.plan=t.value; return; }
+    if(t.dataset.admThide){ const ov=ADM.cfg.themes; ov[t.dataset.admThide]=Object.assign(ov[t.dataset.admThide]||{}, {hidden:!t.checked}); if(t.checked) delete ov[t.dataset.admThide].hidden; await admSaveThemes(t.checked?'Tema ditampilkan di katalog':'Tema disembunyikan dari katalog'); admRenderTab(); return; }
+    if(t.dataset.admFf){ ADM.cfg.features[t.dataset.admFf] = t.checked; if(t.checked) delete ADM.cfg.features[t.dataset.admFf]; await admApi('config_set',{key:'features', value:ADM.cfg.features}); applyConfig(ADM.cfg); try{ localStorage.setItem('sp-appcfg', JSON.stringify(ADM.cfg)); }catch(err){} toast('Fitur diperbarui'); return; }
+  }catch(err){ toast(err.message); admRenderTab(); return; }
+  admDraftInput(t);
+});
+let admPrevT;
+function admDraftInput(t){
+  const d = ADM.draft; if(!d || !t.closest('.adm-tform')) return;
+  if(t.dataset.td){ const k=t.dataset.td; if(k==='shown'){ if(t.checked) delete d.hidden; else d.hidden=true; } else if(k==='tags'){ d.tags=t.value.split(',').map(x=>x.trim()).filter(Boolean); } else d[k]=t.value; }
+  if(t.dataset.tdSec){ const k=t.dataset.tdSec; d.hide=(d.hide||[]).filter(x=>x!==k); if(!t.checked) d.hide.push(k); t.closest('.adm-sec').classList.toggle('off', !t.checked); }
+  if(t.dataset.tdDeco){ const k=t.dataset.tdDeco; d.nodeco=(d.nodeco||[]).filter(x=>x!==k); if(!t.checked) d.nodeco.push(k); }
+  if(t.dataset.tdTitle){ d.titles=d.titles||{}; d.titles[t.dataset.tdTitle]=t.value; }
+  if(t.dataset.tdKick){ d.kick=d.kick||{}; d.kick[t.dataset.tdKick]=t.value; }
+  clearTimeout(admPrevT); admPrevT=setTimeout(admPreview, 160);
+}
+document.addEventListener('input', e=>{ const t=e.target; if(t.closest && t.closest('#admin .adm-tform') && (t.dataset.td||t.dataset.tdTitle||t.dataset.tdKick)) admDraftInput(t);
+  if(t.dataset && t.dataset.admPrice!==undefined){ const n=t.value.replace(/\D/g,''); t.value = n ? (+n).toLocaleString('id-ID') : ''; } });
+document.addEventListener('click', e=>{ const r=e.target.closest && e.target.closest('[data-td-reset]'); if(!r||!ADM.draft) return; delete ADM.draft[r.dataset.tdReset]; const b=THEME_BASE.get(ADM.edit)||{}; const inp=r.parentElement.querySelector('input[type=color]'); if(inp) inp.value=b[r.dataset.tdReset]||'#000000'; admPreview(); });
+
+/* ---------- Konfigurasi dari panel admin (tema, fitur, harga) ---------- */
+const APPCFG = {themes:{}, features:{}, prices:{}};
+const SEC_FEATS = ['cerita','galeri','hadiah','kado','ucapan','rsvp'];
+const FEATURE_LIST = [
+  ['cerita','Kisah cinta','Bagian undangan'],['galeri','Galeri foto','Bagian undangan'],['hadiah','Amplop digital / tanda kasih','Bagian undangan'],['kado','Kado patungan','Bagian undangan'],['ucapan','Ucapan & doa','Bagian undangan'],['rsvp','Konfirmasi kehadiran (RSVP)','Bagian undangan'],['musik','Musik latar','Bagian undangan'],
+  ['d_keluarga','Tab Keluarga','Dashboard pasangan'],['d_katering','Tab Katering','Dashboard pasangan'],['d_harih','Tab Hari H (check-in)','Dashboard pasangan'],['d_kenangan','Tab Kenangan / album','Dashboard pasangan'],['d_hadiah','Tab Hadiah','Dashboard pasangan'],
+  ['demo','Mode demo untuk pengunjung','Situs']
+];
+const ff = k => APPCFG.features[k] !== false;
+const themeOv = id => APPCFG.themes[id] || {};
+const themeHidden = id => !!themeOv(id).hidden;
+const THEME_BASE = new Map(), PRICE_BASE = {}, ED_ALL = ED_PANELS.slice(), DT_ALL = DT.slice();
+let UPGRADE_BASE = UPGRADE_PRICE;
+function applyConfig(cfg){
+  cfg = cfg || {}; APPCFG.themes = cfg.themes || {}; APPCFG.features = cfg.features || {}; APPCFG.prices = cfg.prices || {};
+  THEMES.forEach(t=>{ if(!THEME_BASE.has(t.id)) THEME_BASE.set(t.id, {name:t.name, tags:t.tags.slice(), bg:t.bg, fg:t.fg, accent:t.accent, soft:t.soft, font:t.font});
+    const b=THEME_BASE.get(t.id), o=themeOv(t.id); Object.assign(t, b, {tags:b.tags.slice()});
+    ['name','bg','fg','accent','soft','font'].forEach(k=>{ if(typeof o[k]==='string' && o[k].trim()) t[k]=o[k].trim(); });
+    if(Array.isArray(o.tags) && o.tags.length) t.tags = o.tags.slice(); });
+  THEMES.forEach(t=>t.tags.forEach(x=>{ if(!TAGS.includes(x)) TAGS.push(x); }));
+  PLANS.forEach(p=>{ if(!(p.id in PRICE_BASE)) PRICE_BASE[p.id]=p.price; const v=APPCFG.prices[p.id]; p.price = (p.price && Number.isInteger(v) && v>=1000) ? v : PRICE_BASE[p.id]; });
+  UPGRADE_PRICE = Number.isInteger(APPCFG.prices.upgrade) && APPCFG.prices.upgrade>=1000 ? APPCFG.prices.upgrade : UPGRADE_BASE;
+  ED_PANELS.splice(0, ED_PANELS.length, ...ED_ALL.filter(p=>ff(p[0])));
+  DT.splice(0, DT.length, ...DT_ALL.filter(d=>ff('d_'+d[0])));
+  if(!DT.some(d=>d[0]===dTab)) dTab = DT[0] ? DT[0][0] : 'ringkasan';
+  document.documentElement.classList.toggle('ff-off-demo', !ff('demo'));
+  document.documentElement.classList.toggle('ff-off-musik', !ff('musik'));
+}
+const themeOrder = list => list.filter(t=>!themeHidden(t.id)).map((t,i)=>[t,i]).sort((a,b)=>{ const oa=themeOv(a[0].id).order, ob=themeOv(b[0].id).order; return (Number.isFinite(oa)?oa:1e4+a[1]) - (Number.isFinite(ob)?ob:1e4+b[1]); }).map(x=>x[0]);
+try{ applyConfig(JSON.parse(localStorage.getItem('sp-appcfg')||'null')); }catch(e){}
+async function loadAppConfig(){
+  if(!CLOUD.sb) return; try{ const { data, error } = await CLOUD.sb.from('app_config').select('key,value'); if(error || !data) return; const o={}; data.forEach(r=>o[r.key]=r.value); applyConfig(o); try{ localStorage.setItem('sp-appcfg', JSON.stringify(o)); }catch(e){} }catch(e){}
+}
+const VIEWS = ['admin','bandingkan','beranda','tema','buat','undangan','dashboard','checkout','tagihan','checkin','keluarga','katering','edit','album'];
 let bootDoneCalled=false;
 function bootDone(){ if(bootDoneCalled) return; bootDoneCalled=true; const h=document.documentElement; if(!h.classList.contains('boot-guest') && !h.classList.contains('boot-app')) return;
   const ph=$('#g-cover .cv-photo'); const m=ph && (ph.getAttribute('style')||'').match(/url\((['"]?)(.*?)\1\)/);
@@ -5381,11 +5768,13 @@ function route(){
   }
   setTimeout(bootDone, 0);
   let h = (location.hash||'').slice(1) || 'beranda';
+  if(location.pathname.replace(/\/+$/,'')==='/admin') h='admin';
   if(location.hash==='#beranda' || location.hash==='#') history.replaceState(null,'',location.pathname+location.search);
   if(h.startsWith('keluarga-')){ FP={token:h.slice(9),fam:null,guests:[],info:null,err:null}; famPageLoad().then(renderFamPage); h='keluarga'; }
   else if(h.startsWith('katering-')){ CP={token:h.slice(9),d:null,err:null}; catPageLoad().then(renderCatPage); h='katering'; }
   let scrollTo = null;
   if(h==='harga'){ h='beranda'; scrollTo='harga-sec'; }
+  if(h==='demo' && !ff('demo')) h='beranda';
   if(h==='demo'){ if(!DEMO.on) enterDemo(); h='dashboard'; history.replaceState(null,'',location.pathname+location.search+'#dashboard'); setTimeout(demoIntro,60); }
   else if(DEMO.on && !['dashboard','edit','undangan','checkin'].includes(h)) exitDemo();
   else if(h==='dashboard' && !DEMO.on && !S.user && !S.published && !CLOUD.uid){ enterDemo(); setTimeout(demoIntro,60); }
@@ -5397,13 +5786,14 @@ function route(){
   if(h==='buat' && S.published){ h='edit'; history.replaceState(null,'',location.pathname+location.search+'#edit'); }
   $$('[data-view]').forEach(v=> v.hidden = v.dataset.view!==h);
   if(h!=='edit') edLeave();
-  const full = h==='undangan' || h==='checkin' || h==='keluarga' || h==='katering' || h==='edit' || h==='album';
+  const full = h==='admin' || h==='undangan' || h==='checkin' || h==='keluarga' || h==='katering' || h==='edit' || h==='album';
   $('#siteHeader').hidden = full; $('#footerWrap').hidden = full || ['dashboard','buat','checkout'].includes(h);
   document.body.style.overflow='';
   $$('.nav a').forEach(a=>{ if(a.dataset.nav!==(scrollTo?'harga':(DEMO.on?'demo':(h==='edit'?'buat':h==='bandingkan'?'harga':h)))) a.removeAttribute('aria-current'); else a.setAttribute('aria-current','page'); });
   closeModal(); renderAuthSlot();
   if(h==='beranda'){ renderHero(); renderStrip(); renderPlans(); }
   if(h==='tema') renderCatalog();
+  if(h==='admin') renderAdmin();
   if(h==='buat'){ renderStep(); refreshPreview(); }
   if(h==='edit'){ document.body.style.overflow='hidden'; renderEditor(); }
   const prevView=route.prev; route.prev=h;
