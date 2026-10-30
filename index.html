@@ -152,7 +152,7 @@ img{max-width:100%}
 .plan.feature .tag{background:#fff}
 .plan h3{font-size:20px;font-weight:800}
 .price{font-family:var(--display);font-size:46px;font-weight:500;letter-spacing:-.02em;line-height:1}
-.price small{font-family:var(--body);font-size:14px;font-weight:600;letter-spacing:0;opacity:.75}
+.price small{font-family:var(--body);font-size:14px;font-weight:600;letter-spacing:0;opacity:.75;white-space:nowrap;display:inline-block}
 .plan ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:15px}
 .plan li{display:flex;gap:10px;align-items:flex-start}
 .plan li svg{margin-top:3px;color:var(--ok);flex:none}
@@ -1801,7 +1801,7 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
             <a class="btn btn-primary" href="#buat">Buat undangan gratis</a>
           </div>
         </div>
-        <p class="hero-assure"><span>Gratis sampai undanganmu jadi</span><span>Mulai Rp179.000, sekali bayar</span><span>Nggak cocok? Uang kembali 7 hari</span></p>
+        <p class="hero-assure"><span>Gratis sampai undanganmu jadi</span><span>Mulai Rp129.000, sekali bayar</span><span>Nggak cocok? Uang kembali 7 hari</span></p>
       </div>
       <div class="hero-stage">
         <div class="phone"><div class="screen" id="heroScreen"></div></div>
@@ -2467,7 +2467,7 @@ $('#themeSearch').addEventListener('input',e=>{ catQ=e.target.value; renderCatal
 /* ---------- Pricing ---------- */
 const PLANS = [
   {id:'coba', name:'Coba', price:0, note:'gratis', tag:'Gratis dicoba', fit:'Buat kamu yang mau lihat hasilnya dulu sebelum mutusin.', items:[['Semua tema dan warna',1],['Isi semua data + pratinjau penuh',1],['Bagikan ke tamu',0],['Daftar tamu & RSVP per nama',0]], cta:'Mulai gratis'},
-  {id:'undangan', name:'Undangan', price:179000, note:'sekali bayar', tag:'Kirim sendiri', fit:'Pas buat acara intim yang tamunya kamu kirimi sendiri satu-satu.', items:[['Semua tema dan warna',1],['Link personal per tamu',1],['RSVP, ucapan, amplop digital',1],['Kirim manual lewat WhatsApp',1],['Daftar tamu & grup',0]], cta:'Pilih Undangan'},
+  {id:'undangan', name:'Undangan', price:129000, note:'sekali bayar', tag:'Kirim sendiri', fit:'Pas buat acara intim yang tamunya kamu kirimi sendiri satu-satu.', items:[['Semua tema dan warna',1],['Link personal per tamu',1],['RSVP, ucapan, amplop digital',1],['Daftar tamu & RSVP per nama',1],['Kirim manual lewat WhatsApp',1],['Import Excel, grup & QR check-in',0]], cta:'Pilih Undangan'},
   {id:'tamu', name:'Undangan + Tamu', price:399000, note:'sekali bayar', tag:'Paling lengkap', fit:'Buat acara besar. Dari kirim undangan sampai meja penerima tamu, semua beres.', feature:1, items:[['Semua di paket Undangan',1],['Import tamu dari Excel/CSV',1],['Grup, sesi acara, rekap RSVP per nama',1],['Kirim WhatsApp sekaligus + pengingat H-3',1],['QR check-in di hari H',1]], cta:'Pilih Undangan + Tamu'}
 ];
 const PLAN_RANK = {coba:0, undangan:1, tamu:2};
@@ -3531,7 +3531,7 @@ $('#menuBtn').addEventListener('click',()=>{ const m=$('#mobileMenu'); const ope
 $('#mobileMenu').addEventListener('click',e=>{ if(e.target.closest('a')){ $('#mobileMenu').hidden=true; $('#menuBtn').setAttribute('aria-expanded','false'); } });
 
 /* ---------- Account ---------- */
-const UPGRADE_PRICE = 220000;
+const UPGRADE_PRICE = 270000;
 const VOUCHERS = {SAKARA10:{type:'pct',v:10,label:'Diskon 10%'}, NIKAHHEMAT:{type:'amt',v:25000,label:'Potongan Rp25.000'}};
 function renderAuthSlot(){
   if($('#plans') && $('#plans').children.length) renderPlans();
