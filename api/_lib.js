@@ -6,8 +6,8 @@ const SERVICE = () => env('SUPABASE_SERVICE_ROLE_KEY');
 const ANON = () => env('SUPABASE_ANON_KEY');
 const IS_PROD = () => env('MIDTRANS_IS_PRODUCTION') === 'true';
 
-const PLANS = { undangan: { name: 'Paket Undangan', price: 129000 }, tamu: { name: 'Paket Undangan + Tamu', price: 399000 } };
-const UPGRADE_PRICE = 270000;
+const PLANS = { undangan: { name: 'Paket Undangan', price: 129000 }, tamu: { name: 'Paket Undangan + Tamu', price: 349000 } };
+const UPGRADE_PRICE = 220000;
 const VOUCHERS = { SAKARA10: { type: 'pct', v: 10 }, NIKAHHEMAT: { type: 'amt', v: 25000 } };
 
 async function sb(path, { method = 'GET', body, headers = {}, key = SERVICE(), token } = {}) {
