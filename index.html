@@ -4699,6 +4699,10 @@ function prepLock(){
   openModal(`<h2 class="display" style="font-size:28px;padding-right:44px">Kirim setelah dipublikasikan</h2><p class="muted" style="margin:8px 0 18px">Daftar tamumu sudah tersimpan. Begitu undangan dipublikasikan, setiap tamu langsung punya link dengan namanya sendiri dan kamu bisa mengirimnya lewat WhatsApp.</p><div class="form-foot"><button class="btn btn-ghost" data-act="close">Nanti dulu</button><button class="btn btn-primary" data-act="prep-publish">Publikasikan undangan</button></div>`);
 }
 document.addEventListener('click', e=>{
+  const pl = DEMO.on && e.target.closest('a[href*="/u/"]');
+  if(pl){ e.preventDefault(); e.stopImmediatePropagation(); demoLog('act','buka-link'); location.hash='#undangan'; toast('Mode demo: ini undangan contoh, belum punya link sungguhan'); return; }
+  const cp = DEMO.on && e.target.closest('[data-act=copy][data-v*="/u/"]');
+  if(cp){ e.preventDefault(); e.stopImmediatePropagation(); toast('Mode demo: link contoh tidak bisa dibagikan. Link asli muncul setelah undanganmu dipublikasikan'); return; }
   const wa = e.target.closest('a[href*="wa.me"]');
   if(wa && DEMO.on){ e.preventDefault(); e.stopImmediatePropagation(); toast('Mode demo: pesan tidak dikirim'); demoLog('act','kirim-wa'); demoNudge('wa'); return; }
   if(isPrep() && (wa || e.target.closest('[data-act=bulk-send],[data-act=remind]'))){ e.preventDefault(); e.stopImmediatePropagation(); prepLock(); return; }
