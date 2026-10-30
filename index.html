@@ -799,7 +799,9 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .adm-side nav button .icon{width:18px;height:18px;opacity:.7}
 .adm-side nav button:hover{background:#F6F1EE}
 .adm-side nav button[aria-current=true]{background:var(--blush);color:var(--beet);font-weight:700}
-.adm-me{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 8px 0;border-top:1px solid var(--line)}
+.adm-home{margin-top:auto;display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;color:var(--ink);text-decoration:none;font-size:15px}
+.adm-home .icon{width:18px;height:18px;opacity:.7}.adm-home:hover{background:#F6F1EE}
+.adm-me{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 8px 0;border-top:1px solid var(--line)}
 .adm-main{padding:34px clamp(18px,4vw,48px) 80px;min-width:0}
 .adm-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px}
 .adm-head h1{font-size:clamp(26px,3vw,34px);margin:4px 0 0}
@@ -874,18 +876,19 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .adm-acts{display:flex;gap:8px;flex-wrap:wrap}
 @media (max-width:1100px){.adm-tedit{grid-template-columns:1fr}.adm-tprev{position:static}}
 @media (max-width:820px){
-  .adm{grid-template-columns:1fr}
-  .adm-side{position:sticky;top:0;height:auto;z-index:5;flex-direction:row;align-items:center;padding:10px 12px;overflow-x:auto;gap:4px;border-right:0;border-bottom:1px solid var(--line)}
+  .adm{grid-template-columns:minmax(0,1fr)}
+  .adm-side,.adm-side nav{min-width:0}
+  .adm-side{position:sticky;top:0;height:auto;z-index:5;flex-direction:row;flex-wrap:wrap;align-items:center;padding:8px 12px;gap:4px;border-right:0;border-bottom:1px solid var(--line)}
   .adm-side .adm-brand,.adm-badge{display:none}
-  .adm-side nav{display:flex;gap:4px}
+  .adm-side nav{display:flex;gap:4px;order:3;flex-basis:100%;overflow-x:auto;scrollbar-width:none}
   .adm-side nav button{white-space:nowrap;padding:9px 12px;font-size:14px}
-  .adm-me{margin:0 0 0 auto;border:0;padding:0}.adm-me b{display:none}
+  .adm-home{order:1;margin:0;white-space:nowrap;padding:8px 10px;font-size:14px;font-weight:700;color:var(--beet)}
+  .adm-me{order:2;margin:0 0 0 auto;border:0;padding:0}.adm-me b{display:none}
   .adm-main{padding:22px 14px 60px}
   .adm-themes li{grid-template-columns:44px 1fr auto;grid-template-areas:"sw nm btn" "mv mv tog";row-gap:10px;padding:12px 14px}
   .adm-themes .sw{width:44px;height:54px;grid-area:sw}.adm-themes .nm{grid-area:nm}.adm-themes li>.btn{grid-area:btn}
   .adm-themes .mv{grid-area:mv}
   .adm-tog{min-width:0;grid-area:tog}
-  .adm-side{padding:8px 10px}
   .adm-users thead{display:none}
   .adm-users,.adm-users tbody{display:block}
   .adm-users tr{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;padding:14px 16px;border-bottom:1px solid var(--line)}
@@ -5560,6 +5563,7 @@ async function renderAdmin(){
   el.innerHTML = `<div class="adm">
     <aside class="adm-side"><a class="adm-brand" href="/">${$('.brand')?.innerHTML||'Sakara'}</a><span class="adm-badge">Admin</span>
       <nav>${ADM_TABS.map(([k,l,ic])=>`<button type="button" data-adm-tab="${k}" aria-current="${ADM.tab===k}">${ico(ic)}<span>${l}</span></button>`).join('')}</nav>
+      <a class="adm-home" href="/">${ico('home')}<span>Ke beranda Sakara</span></a>
       <div class="adm-me"><b>${esc(ADM.me.username)}</b><button type="button" class="btn btn-ghost btn-sm" data-adm="logout">Keluar</button></div></aside>
     <main class="adm-main" id="admMain"><div class="adm-center"><div class="spin"></div></div></main></div>`;
   admRenderTab();
