@@ -377,7 +377,9 @@ textarea.input{min-height:96px;resize:vertical}
 .inv .bank{background:var(--t-soft);border-radius:18px;padding:18px;max-width:320px;margin:16px auto 0;text-align:left;border:1px solid color-mix(in srgb,var(--t-accent) 25%,transparent)}
 .inv .bank .bn{font-weight:800;font-size:13px;letter-spacing:.1em}
 .inv .bank .ac{font-family:var(--t-font);font-size:26px;margin:6px 0 2px;font-variant-numeric:tabular-nums}
-.inv .bank .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.inv .bank .row{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.inv .bank .ac{white-space:nowrap;font-size:clamp(20px,6.4vw,26px)}
+.inv .bank .bank-copy{margin-top:12px;min-height:40px}
 .inv .wish{text-align:left;max-width:320px;margin:10px auto 0;padding:14px 16px;border-radius:16px;background:color-mix(in srgb,var(--t-soft) 85%,transparent)}
 .inv .wish b{font-size:14px}
 .inv .wish small{opacity:.65;font-size:12px;margin-left:6px}
@@ -2645,8 +2647,9 @@ function invHTML(opts={}){
       <p class="lead">Doa restu Anda adalah hadiah terindah bagi kami. Bila ingin memberi tanda kasih, bisa melalui rekening berikut.</p>
       <div class="bank">
         <div class="bn">${esc(S.gift.bank)}</div>
-        <div class="row"><div class="ac">${esc(S.gift.acct.replace(/(\d{4})(?=\d)/g,'$1 '))}</div><button class="ibtn" data-act="copy" data-v="${esc(S.gift.acct)}" aria-label="Salin nomor rekening">${ico('copy')}Salin</button></div>
+        <div class="row"><div class="ac">${esc(S.gift.acct.replace(/(\d{4})(?=\d)/g,'$1 '))}</div></div>
         <div style="font-size:13px;opacity:.8">a.n. ${esc(S.gift.holder)}</div>
+        <button class="ibtn bank-copy" data-act="copy" data-v="${esc(S.gift.acct)}" aria-label="Salin nomor rekening">${ico('copy')}Salin</button>
       </div>
       <p class="gift-note">Tidak perlu konfirmasi. Cukup tulis nama Anda di berita transfer supaya kami bisa mengenali dan berterima kasih.</p>
       <div data-giftconfirm><button class="gift-opt" data-act="gift-confirm" data-name="${esc(guest==='Bapak/Ibu/Saudara/i'?'':guest)}">Ingin menitipkan nama dan doa? <span>(opsional)</span></button></div>
@@ -4595,7 +4598,7 @@ function kdStep(card, it, step){
   if(step===2){
     const g=S.gift||{};
     box.innerHTML = `<div class="kd-pay"><span class="kd-lbl">Silakan transfer ${esc(rupiah(KD.amt))} ke</span>
-      <div class="bank"><div class="bn">${esc(g.bank||'Rekening')}</div><div class="row"><div class="ac">${esc((g.acct||'—').replace(/(\d{4})(?=\d)/g,'$1 '))}</div>${g.acct?`<button type="button" class="ibtn" data-act="copy" data-v="${esc(g.acct)}" aria-label="Salin nomor rekening">${ico('copy')}Salin</button>`:''}</div><div style="font-size:13px;opacity:.8">a.n. ${esc(g.holder||'')}</div></div>
+      <div class="bank"><div class="bn">${esc(g.bank||'Rekening')}</div><div class="row"><div class="ac">${esc((g.acct||'—').replace(/(\d{4})(?=\d)/g,'$1 '))}</div></div><div style="font-size:13px;opacity:.8">a.n. ${esc(g.holder||'')}</div>${g.acct?`<button type="button" class="ibtn bank-copy" data-act="copy" data-v="${esc(g.acct)}" aria-label="Salin nomor rekening">${ico('copy')}Salin</button>`:''}</div>
       <p class="kd-hint">Setelah transfer, ketuk tombol di bawah supaya progres bertambah dan tamu lain tidak membeli barang yang sama.</p>
       <div class="kd-acts"><button type="button" class="ibtn" data-act="kd-back">Ubah</button><button type="button" class="ibtn solid" data-act="kd-confirm">Catat patungan saya</button></div></div>`;
   }
