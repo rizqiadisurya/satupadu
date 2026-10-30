@@ -787,6 +787,22 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .tc-live .inv.lay-draperi .cover .date{margin-bottom:14px}
 .tc-live .inv.lay-draperi .dp-paper{padding-top:70px}
 .tc-live .inv.lay-draperi .dp-seal{top:20px}
+/* ===== Gerak saat digulir: semua tema ===== */
+.inv.anim [data-rv=left]:not(.in){opacity:0;transform:translateX(-34px) rotate(-1.5deg)}
+.inv.anim [data-rv=right]:not(.in){opacity:0;transform:translateX(34px) rotate(1.5deg)}
+.inv.anim [data-rv=zoom]:not(.in){opacity:0;transform:scale(.86)}
+.inv.anim [data-rv=rise]:not(.in){opacity:0;transform:translateY(30px);filter:blur(6px);letter-spacing:.18em}
+.inv.anim [data-rv=rise]{transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1),filter .9s,letter-spacing 1.1s cubic-bezier(.2,.7,.2,1)}
+.inv.anim section:not(.cover)>h3{translate:0 calc(var(--sp,0) * 16px)}
+.inv.anim section:not(.cover):not(.p-end)::before{transition:opacity .8s ease,scale 1s cubic-bezier(.3,1.5,.5,1);margin-top:calc(var(--sp,0) * -26px)}
+.inv.anim section:not(.cover):not(.p-end):not(.sec-in)::before{opacity:0;scale:.5}
+.inv.anim section:not(.cover):not(.p-end)::after{transition:opacity .8s ease .2s,scale 1s cubic-bezier(.3,1.5,.5,1) .2s}
+.inv.anim section:not(.cover):not(.p-end):not(.sec-in)::after{opacity:0;scale:.6}
+.inv.anim>.cover{opacity:calc(1 - var(--cp,0) * .5)}
+.inv.anim>.cover>:is(.k-label,.names,.date,.cv-slot,.card,.go-std,.go-hands,.dg-arc,.top,.vline,.pill,.cv-card,.amp),.inv.anim .dp-photo .dp-txt{translate:0 calc(var(--cp,0) * -70px)}
+.inv.anim .p-ph,.inv.anim .tl-ph{transition:scale 1.2s cubic-bezier(.2,.7,.2,1)}
+.inv.anim section:not(.sec-in) .p-ph{scale:.92}
+@media (prefers-reduced-motion:reduce){.inv.anim section::before,.inv.anim section>h3,.inv.anim>.cover>*{translate:none !important;margin-top:0 !important}}
 /* ===== Goresan Merah (garis gambar tangan) ===== */
 .inv.prem.lay-goresan{container-type:inline-size;font-family:'Patrick Hand',cursive;background:#F3EFEA;color:#2B1B17;overflow-x:clip;font-size:17px}
 .inv.prem.lay-goresan>.pat{display:none}
@@ -3335,7 +3351,15 @@ function enhanceInv(root){
     $$(':scope > .orn', sec).forEach(o=>o.dataset.rv='draw');
     $$(':scope > .kick, .p-card, .qband, :scope > .cd4, .ev2, .tl li, :scope > .lead, :scope > .names, :scope > .and, :scope > .count, :scope > .ev, :scope > .bank, :scope > [data-rsvp], :scope > .form, :scope > [data-wishlist], :scope > [data-giftconfirm], .person h4, .person p', sec).forEach(e=>{ if(!e.dataset.rv){ e.dataset.rv='up'; e.style.setProperty('--rk', Math.min(k++,6)); } });
     $$('.person .ph, .gal button', sec).forEach((e,i)=>{ e.dataset.rv='clip'; e.style.setProperty('--rk', Math.min(i,5)); });
+    // variasi gerak saat digulir (semua tema)
+    $$('.p-card, .ev2, .tl li', sec).forEach((e,i)=>{ e.dataset.rv = i%2 ? 'right' : 'left'; });
+    $$('.kd-list > *, [data-wishlist] > *, .opt, .acts', sec).forEach((e,i)=>{ if(!e.dataset.rv){ e.dataset.rv='up'; e.style.setProperty('--rk', Math.min(i,6)); } });
+    $$('.go-cal, .go-strip, .go-see, .dg-win, :scope > .cd4, :scope > .bank, .qband', sec).forEach(e=>{ e.dataset.rv='zoom'; });
+    $$(':scope > h3', sec).forEach(h=>{ h.dataset.rv='rise'; });
   });
+  if(!inv._secIO){ inv._secIO = new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('sec-in'); inv._secIO.unobserve(en.target); } }), {rootMargin:'0px 0px -12% 0px', threshold:.05}); }
+  $$('section:not(.cover)', inv).forEach(sec=>inv._secIO.observe(sec));
+  requestAnimationFrame(parTick);
   if(invIO) invIO.disconnect();
   // clip-path ikut memengaruhi perhitungan IntersectionObserver, jadi elemen clip/draw diamati lewat induknya
   const proxy = new Map();
@@ -5100,7 +5124,11 @@ function premDecorate(secs){
 }
 /* Parallax ringan untuk foto */
 let parRaf=0;
-function parTick(){ parRaf=0; if(REDUCED()) return; $$('.inv.prem [data-par]').forEach(el=>{ const r=el.getBoundingClientRect(); const vh=innerHeight; if(r.bottom<0||r.top>vh) return; const p=((r.top+r.height/2)-vh/2)/vh; el.style.backgroundPosition=`center ${50+p*14}%`; }); }
+function parTick(){ parRaf=0; if(REDUCED()) return; const vh=innerHeight; $$('.inv.prem [data-par]').forEach(el=>{ const r=el.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return; const p=((r.top+r.height/2)-vh/2)/vh; el.style.backgroundPosition=`center ${50+p*14}%`; });
+  $$('.inv.anim').forEach(inv=>{ if(!inv.offsetParent && inv.getClientRects().length===0) return;
+    $$(':scope > section', inv).forEach(sec=>{ const r=sec.getBoundingClientRect(); if(r.bottom<-200||r.top>vh+200) return;
+      if(sec.classList.contains('cover')){ const cp=Math.min(1,Math.max(0,-r.top/Math.max(1,r.height))); sec.style.setProperty('--cp', cp.toFixed(3)); }
+      else { const p=Math.max(-1,Math.min(1,((r.top+Math.min(r.height,vh)/2)-vh/2)/vh)); sec.style.setProperty('--sp', p.toFixed(3)); } }); }); }
 document.addEventListener('scroll', ()=>{ if(!parRaf) parRaf=requestAnimationFrame(parTick); }, {capture:true, passive:true});
 
 /* Editor: Kisah cinta */
