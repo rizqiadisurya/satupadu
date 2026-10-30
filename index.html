@@ -2872,7 +2872,7 @@ function renderEditor(){
     }, true);
   }
   const insp=$('#edInspBody'); const sf=$('#stepForm'); if(sf.parentElement!==insp) insp.appendChild(sf);
-  $('#edPub').innerHTML = S.published ? `<a class="btn btn-primary btn-sm" href="${esc(pubURL())}" target="_blank" rel="noopener">${ico('copy')}<span>Buka link</span></a>` : `<button type="button" class="btn btn-primary btn-sm" data-act="ed-publish">Publikasikan</button>`;
+  $('#edPub').innerHTML = DEMO.on ? '' : S.published ? `<a class="btn btn-primary btn-sm" href="${esc(pubURL())}" target="_blank" rel="noopener">${ico('copy')}<span>Buka link</span></a>` : `<button type="button" class="btn btn-primary btn-sm" data-act="ed-publish">Publikasikan</button>`;
   const st=$('#edSave'); if(st && (!st.textContent||DEMO.on||st.textContent.startsWith('Demo'))) st.textContent = DEMO.on ? 'Demo · tidak disimpan' : S.published ? 'Tersimpan · tayang' : 'Draf tersimpan'; st.title = S.published ? 'Perubahan langsung terlihat oleh tamu' : 'Belum dipublikasikan';
   EDIT.on=true; if(!EDIT.last) EDIT.last=edSnapshot();
   edRail(); renderStep(); refreshPreview(); edTools();
@@ -3177,7 +3177,7 @@ function renderDashCore(){
   const arrived = G.filter(g=>g.checkin);
   if(isPrep() && !dtList().some(([k])=>k===dTab)) dTab='tamu';
   const head = (DEMO.on ? demoBanner() : isPrep() ? prepBanner() : '') + `<div class="dash-head"><div><span class="eyebrow">${DEMO.on?'Demo · dashboard contoh':isPrep()?'Daftar tamu':'Dashboard pasangan'}</span><h1>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</h1>
-    <div class="meta"><span class="status ${DEMO.on?'s-wait':S.published?'s-ok':'s-wait'}">${DEMO.on?'Data contoh':S.published?`Aktif selamanya · ${esc((PLANS.find(p=>p.id===S.plan)||PLANS[2]).name)}`:'Belum dipublikasikan'}</span><span class="num">${esc(fmtDate(S.events[0].date))}</span><span>${S.published&&CLOUD.on?`<a href="${esc(pubURL())}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">${esc(pubHost()+S.slug)}</a>`:esc(pubHost()+S.slug)}</span></div></div>
+    <div class="meta"><span class="status ${DEMO.on?'s-wait':S.published?'s-ok':'s-wait'}">${DEMO.on?'Data contoh':S.published?`Aktif selamanya · ${esc((PLANS.find(p=>p.id===S.plan)||PLANS[2]).name)}`:'Belum dipublikasikan'}</span><span class="num">${esc(fmtDate(S.events[0].date))}</span>${DEMO.on?'':`<span>${S.published&&CLOUD.on?`<a href="${esc(pubURL())}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">${esc(pubHost()+S.slug)}</a>`:esc(pubHost()+S.slug)}</span>`}</div></div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">${isPrep()?`<a class="btn btn-ghost btn-sm" href="#buat">${ico('edit')}Lanjutkan undangan</a>`:`${S.published&&S.plan==='undangan'&&!DEMO.on?`<button class="btn btn-soft btn-sm" data-act="upgrade">${ico('up')}Upgrade paket</button>`:''}<button class="btn btn-ghost btn-sm" data-act="view-as" data-id="">${ico('eye')}Lihat sebagai tamu</button><a class="btn btn-ghost btn-sm" href="#edit">${ico('edit')}Edit undangan</a>`}</div></div>
     <div class="dtabs" role="tablist">${dtList().map(([k,l])=>`<button role="tab" data-dtab="${k}" aria-selected="${dTab===k}">${l}${k==='tamu'?`<span class="cnt num">${total}</span>`:k==='ucapan'?`<span class="cnt num">${W.length}</span>`:k==='harih'&&arrived.length?`<span class="cnt num">${arrived.length}</span>`:k==='keluarga'&&(G_ALL||G).some(isPending)?`<span class="cnt num" style="background:var(--warn);color:#fff">${(G_ALL||G).filter(isPending).length}</span>`:''}</button>`).join('')}</div>`;
   let body='';
@@ -4667,7 +4667,7 @@ function enterDemo(){
   DEMO.sid = 'd'+Math.random().toString(36).slice(2,12)+Date.now().toString(36); DEMO.t0=Date.now(); DEMO.nudged={}; DEMO.lastNudge=0;
   try{ sessionStorage.setItem('sp-demo-sid', DEMO.sid); }catch(e){}
   demoLog('open', DEMO.src || (document.referrer && !document.referrer.includes(location.host) ? 'luar' : 'langsung')); DEMO.src='';
-  document.documentElement.classList.add('demo'); demoPill(); renderAuthSlot();
+  document.documentElement.classList.add('demo'); demoPill(); renderAuthSlot(); const ed0=$('#editor'); if(ed0) delete ed0.dataset.built;
 }
 function exitDemo(){
   if(!DEMO.on) return; const v=DEMO.saved; demoLog('exit','',demoSecs()); demoNudgeClose();
