@@ -161,7 +161,15 @@ img{max-width:100%}
 .plan li.off svg{color:var(--muted)}
 .plan .btn{margin-top:auto}
 .plan.feature .btn-primary{background:#fff;color:var(--beet)}
-.price-note{margin-top:22px;display:flex;gap:10px 28px;flex-wrap:wrap;font-size:14.5px;color:var(--muted);font-weight:600}
+.price-note{margin-top:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:#FFF8EC;border:1px solid #EBD3A6;border-radius:20px;overflow:hidden}
+.price-note .pn{display:flex;gap:14px;align-items:flex-start;padding:22px 24px}
+.price-note .pn + .pn{border-left:1px solid #EBD3A6}
+.price-note .pn-ic{flex:none;width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid #EBD3A6;display:grid;place-items:center;color:var(--beet)}
+.price-note .pn-ic .icon{width:18px;height:18px}
+.price-note b{display:block;font-size:16.5px;line-height:1.35;color:var(--ink)}
+.price-note .pn span:not(.pn-ic){display:block;margin-top:4px;font-size:14px;line-height:1.55;color:#6E5B52}
+.price-note a{color:var(--beet);font-weight:600;white-space:nowrap}
+@media (max-width:860px){ .price-note{grid-template-columns:1fr} .price-note .pn + .pn{border-left:0;border-top:1px solid #EBD3A6} .price-note .pn{padding:18px} }
 
 /* FAQ */
 .faq{max-width:820px}
@@ -1845,7 +1853,11 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
         <p>Tidak ada biaya per tamu, tidak ada add-on yang muncul belakangan, dan linknya tidak kedaluwarsa.</p>
       </div>
       <div class="plans" id="plans"></div>
-      <div class="price-note"><span>Semua paket: aktif selamanya</span><span>Bebas edit sampai 30 hari setelah acara</span><span>Garansi uang kembali 7 hari</span></div>
+      <div class="price-note" role="list" aria-label="Berlaku untuk semua paket">
+        <div class="pn" role="listitem"><span class="pn-ic" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><div><b>Aktif selamanya</b><span>Link undangan tidak pernah kedaluwarsa. Tamu bisa membukanya lagi kapan pun.</span></div></div>
+        <div class="pn" role="listitem"><span class="pn-ic" aria-hidden="true"><svg class="icon"><use href="#i-edit"/></svg></span><div><b>Bebas edit sampai 30 hari setelah acara</b><span>Salah ketik atau mau ganti foto? Ubah sendiri, tamu langsung melihat versi terbaru.</span></div></div>
+        <div class="pn" role="listitem"><span class="pn-ic" aria-hidden="true"><svg class="icon"><use href="#i-undo"/></svg></span><div><b>Garansi uang kembali 7 hari</b><span>Kalau ternyata tidak cocok, dana kembali penuh. <a href="/syarat">Baca ketentuannya</a></span></div></div>
+      </div>
     </div>
   </section>
 
