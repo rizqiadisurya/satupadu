@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20100%20100%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20transform%3D%22rotate%280%2050%2050%29%22%3E%3Cpath%20d%3D%22M50%2044%20C42.5%2036%2042.5%2019%2050%209%20C57.5%2019%2057.5%2036%2050%2044%20Z%22%20fill%3D%22none%22%20stroke%3D%22%236B1E36%22%20stroke-width%3D%225%22%20stroke-linejoin%3D%22round%22/%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2227%22%20r%3D%222.2%22%20fill%3D%22%23B08A4E%22/%3E%3C/g%3E%3Cg%20transform%3D%22rotate%2890%2050%2050%29%22%3E%3Cpath%20d%3D%22M50%2044%20C42.5%2036%2042.5%2019%2050%209%20C57.5%2019%2057.5%2036%2050%2044%20Z%22%20fill%3D%22none%22%20stroke%3D%22%236B1E36%22%20stroke-width%3D%225%22%20stroke-linejoin%3D%22round%22/%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2227%22%20r%3D%222.2%22%20fill%3D%22%23B08A4E%22/%3E%3C/g%3E%3Cg%20transform%3D%22rotate%28180%2050%2050%29%22%3E%3Cpath%20d%3D%22M50%2044%20C42.5%2036%2042.5%2019%2050%209%20C57.5%2019%2057.5%2036%2050%2044%20Z%22%20fill%3D%22none%22%20stroke%3D%22%236B1E36%22%20stroke-width%3D%225%22%20stroke-linejoin%3D%22round%22/%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2227%22%20r%3D%222.2%22%20fill%3D%22%23B08A4E%22/%3E%3C/g%3E%3Cg%20transform%3D%22rotate%28270%2050%2050%29%22%3E%3Cpath%20d%3D%22M50%2044%20C42.5%2036%2042.5%2019%2050%209%20C57.5%2019%2057.5%2036%2050%2044%20Z%22%20fill%3D%22none%22%20stroke%3D%22%236B1E36%22%20stroke-width%3D%225%22%20stroke-linejoin%3D%22round%22/%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2227%22%20r%3D%222.2%22%20fill%3D%22%23B08A4E%22/%3E%3C/g%3E%3Cpath%20d%3D%22M50%2046%20L54%2050%20L50%2054%20L46%2050%20Z%22%20fill%3D%22%23B08A4E%22/%3E%3C/svg%3E">
 <title>Sakara Undangan Digital</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,8 +62,8 @@ img{max-width:100%}
 /* Header */
 .site-header{position:sticky;top:0;z-index:40;background:rgba(251,247,247,.86);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
 .site-header .wrap{display:flex;align-items:center;gap:24px;height:68px}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:19px;letter-spacing:-.02em;color:var(--ink);background:none;border:0;padding:0;cursor:pointer}
-.logo svg{width:34px;height:34px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:21px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);background:none;border:0;padding:0;cursor:pointer}
+.logo svg{width:36px;height:36px;flex:none}
 .logo b{color:var(--beet);font-weight:800}
 .nav{display:flex;gap:4px;margin-left:12px}
 .nav a{padding:8px 12px;border-radius:999px;text-decoration:none;font-weight:600;font-size:14.5px;color:var(--muted)}
@@ -903,7 +904,7 @@ html.boot-app #bootSkel .bs-app{display:flex}
 .fp.wide{max-width:960px}
 .fp-head{display:grid;gap:8px}
 .fp-head .display{font-size:34px;line-height:1.1}
-.logo-sm{font-weight:800;font-size:15px;color:var(--ink)}
+.logo-sm{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:16px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink)}
 .logo-sm b{color:var(--beet)}
 .fp-q{font-size:15px;color:var(--muted)}
 .fp-q b{color:var(--ink);font-size:20px}
@@ -1355,6 +1356,73 @@ html.boot-app #bootSkel .bs-app{display:flex}
 .inv .gift-opt span{font-weight:500;opacity:.7;text-decoration:none}
 .inv .gift-form{max-width:320px;margin:12px auto 0;text-align:left}
 .inv .gift-fh{font-size:13px;opacity:.8;margin-bottom:2px}
+/* ===== Isi undangan premium ===== */
+.inv.prem section:not(.cover){padding:64px 20px}
+.inv.prem .kick{display:block;font-family:var(--body);font-size:11.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--t-accent);margin:0 0 10px}
+.inv.prem section:not(.cover)>h3{font-size:38px;line-height:1.08;margin:0 auto 14px;max-width:12ch}
+.inv.prem .lead{max-width:32ch;line-height:1.65}
+.inv.prem .ibtn{min-height:44px}
+/* Salam & mempelai */
+.inv.prem .p-salam>h3{font-size:30px;max-width:16ch;text-align:center}
+.inv.prem section:not(.cover)>h3{text-align:center}
+.inv.prem section:not(.cover)>h3{overflow-wrap:break-word}
+.inv.prem.lay-kamboja .p-salam>h3{font-size:22px;max-width:none;letter-spacing:.02em}
+.inv.prem.lay-kamboja section:not(.cover)>h3{font-size:30px}
+.inv.prem .p-couple{display:grid;gap:18px;margin:34px auto 0;max-width:360px}
+.inv.prem .p-card{background:var(--t-bg);border:1px solid color-mix(in srgb,var(--t-accent) 18%,transparent);border-radius:24px;overflow:hidden;text-align:left;box-shadow:0 18px 40px -26px color-mix(in srgb,var(--t-fg) 45%,transparent)}
+.inv.prem .p-ph{aspect-ratio:4/5;background:var(--t-soft) center/cover no-repeat;position:relative}
+.inv.prem .p-ph.ph-empty{display:grid;place-items:center;background:radial-gradient(120% 90% at 50% 110%, color-mix(in srgb,var(--t-accent) 30%,var(--t-soft)) 0 40%, var(--t-soft) 70%)}
+.inv.prem .p-ph.ph-empty span{font-family:var(--t-font);font-size:120px;line-height:1;color:color-mix(in srgb,var(--t-accent) 55%,var(--t-bg));font-style:italic}
+.inv.prem .p-body{padding:20px 20px 22px;display:grid;gap:4px}
+.inv.prem .p-body .kick{margin:0 0 2px;font-size:10.5px}
+.inv.prem .p-body h4{font-family:var(--t-font);font-size:28px;line-height:1.1;font-weight:500;margin:0}
+.inv.prem .p-body p{font-size:13.5px;opacity:.78;line-height:1.5;margin:0}
+.inv.prem .p-ig{justify-self:start;margin-top:8px;font-size:13px;font-weight:700;color:var(--t-accent);text-decoration:none;border:1px solid color-mix(in srgb,var(--t-accent) 35%,transparent);border-radius:99px;padding:6px 12px}
+.inv.prem .p-amp{font-family:var(--t-font);font-style:italic;font-size:54px;line-height:.6;color:var(--t-accent);text-align:center;margin:4px 0}
+.inv.prem .qband{margin:46px -20px -64px;padding:56px 28px 60px;background:var(--t-accent);color:var(--t-bg);text-align:center;position:relative}
+.inv.prem .qband .orn{color:var(--t-bg);opacity:.7;margin-bottom:14px}
+.inv.prem .qband blockquote{margin:0 auto;max-width:30ch;font-family:var(--t-font);font-size:21px;line-height:1.45;font-style:italic}
+.inv.prem .qband figcaption{display:inline-block;margin-top:18px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:99px;background:color-mix(in srgb,var(--t-bg) 18%,transparent)}
+/* Acara */
+.inv.prem .cd4{display:flex;justify-content:center;align-items:flex-start;gap:6px;margin:8px auto 26px;padding:20px 12px;max-width:340px;border-radius:22px;background:var(--t-soft)}
+.inv.prem .cd4>div{display:grid;gap:4px;min-width:56px}
+.inv.prem .cd4 b{font-family:var(--t-font);font-size:38px;line-height:1;font-weight:500;font-variant-numeric:tabular-nums}
+.inv.prem .cd4 small{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.65}
+.inv.prem .cd4 i{font-style:normal;font-family:var(--t-font);font-size:30px;line-height:1.1;opacity:.35}
+.inv.prem .ev2{display:grid;grid-template-columns:84px 1fr;gap:0;max-width:360px;margin:0 auto 14px;text-align:left;background:var(--t-bg);border:1px solid color-mix(in srgb,var(--t-accent) 18%,transparent);border-radius:22px;overflow:hidden}
+.inv.prem .ev2-d{background:var(--t-accent);color:var(--t-bg);display:grid;align-content:center;justify-items:center;padding:16px 6px;text-align:center}
+.inv.prem .ev2-d b{font-family:var(--t-font);font-size:42px;line-height:1;font-weight:500}
+.inv.prem .ev2-d span{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-top:4px}
+.inv.prem .ev2-b{padding:18px 18px 18px;display:grid;gap:3px}
+.inv.prem .ev2-b .kick{font-size:10.5px;margin:0}
+.inv.prem .ev2-w{font-family:var(--t-font);font-size:22px;line-height:1.15}
+.inv.prem .ev2-t{font-size:13.5px;font-weight:700;opacity:.85}
+.inv.prem .ev2-v{font-size:14.5px;font-weight:700;margin-top:8px}
+.inv.prem .ev2-a{font-size:13px;opacity:.72;line-height:1.45}
+.inv.prem .ev2 .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.inv.prem .ev2 .acts .ibtn{padding:9px 14px;font-size:13px}
+/* Kisah cinta */
+.inv .tl{list-style:none;margin:26px auto 0;padding:0 0 0 26px;max-width:340px;text-align:left;position:relative}
+.inv .tl::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:1.5px;background:color-mix(in srgb,var(--t-accent) 35%,transparent)}
+.inv .tl li{position:relative;padding:0 0 28px}
+.inv .tl li::before{content:"";position:absolute;left:-26px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--t-bg);border:2px solid var(--t-accent);box-sizing:border-box}
+.inv .tl-d{display:block;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t-accent)}
+.inv .tl b{display:block;font-family:var(--t-font);font-size:23px;line-height:1.2;font-weight:500;margin:4px 0 6px}
+.inv .tl p{font-size:14px;line-height:1.6;opacity:.82;margin:0}
+.inv .tl-ph{aspect-ratio:3/2;border-radius:16px;background:var(--t-soft) center/cover no-repeat;margin-bottom:12px}
+/* Galeri */
+.inv.prem .gal.pg{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:360px;margin:22px auto 0}
+.inv.prem .gal.pg button{aspect-ratio:1;border-radius:16px}
+.inv.prem .gal.pg button.feat{grid-column:1/-1;aspect-ratio:4/5;border-radius:22px}
+/* Kartu form & ucapan */
+.inv.prem [data-rsvp],.inv.prem [data-wishform]{max-width:360px;margin-left:auto;margin-right:auto;background:var(--t-bg);border:1px solid color-mix(in srgb,var(--t-accent) 16%,transparent);border-radius:22px;padding:20px;text-align:left;box-shadow:0 18px 40px -30px color-mix(in srgb,var(--t-fg) 50%,transparent)}
+.inv.prem [data-rsvp] .form{margin:0}
+.inv.prem section:nth-of-type(even):not(.cover){background:color-mix(in srgb,var(--t-soft) 45%,var(--t-bg))}
+/* Tema editor: kisah cinta */
+.st-it{grid-template-columns:64px 1fr 36px}
+.st-mv{display:grid;gap:6px}
+.st-it textarea.input{min-height:72px;resize:vertical}
+
 </style>
 </head>
 <body>
@@ -1411,11 +1479,7 @@ html.boot-app #bootSkel .bs-app{display:flex}
 <header class="site-header" id="siteHeader">
   <div class="wrap">
     <a class="logo" href="#beranda" aria-label="Sakara beranda">
-      <svg viewBox="0 0 40 40" aria-hidden="true">
-        <circle cx="15" cy="20" r="10.5" fill="none" stroke="#7D1D3F" stroke-width="3"/>
-        <circle cx="25" cy="20" r="10.5" fill="none" stroke="#7D1D3F" stroke-width="3"/>
-        <path d="M20 11.1a10.5 10.5 0 0 1 0 17.8 10.5 10.5 0 0 1 0-17.8z" fill="#7D1D3F"/>
-      </svg>
+      <svg viewBox="0 0 100 100" aria-hidden="true"><g transform="rotate(0 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><g transform="rotate(90 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><g transform="rotate(180 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><g transform="rotate(270 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><path d="M50 45 L55 50 L50 55 L45 50 Z" fill="#B08A4E"/></svg>
       <span>Sakara</span>
     </a>
     <nav class="nav" aria-label="Utama">
@@ -1855,7 +1919,7 @@ let GIFTS = [
 ];
 
 /* ---------- Invitation renderer ---------- */
-const SECTION_LABELS = {salam:'Salam & mempelai', acara:'Waktu & tempat', galeri:'Galeri foto', rsvp:'Konfirmasi kehadiran', hadiah:'Tanda kasih', kado:'Kado patungan', ucapan:'Ucapan & doa'};
+const SECTION_LABELS = {salam:'Salam & mempelai', acara:'Waktu & tempat', galeri:'Galeri foto', rsvp:'Konfirmasi kehadiran', hadiah:'Tanda kasih', kado:'Kado patungan', cerita:'Kisah cinta', ucapan:'Ucapan & doa'};
 const FONTS = {tema:['Bawaan tema',null], bodoni:['Bodoni Moda',"'Bodoni Moda', Georgia, serif"], cormorant:['Cormorant Garamond',"'Cormorant Garamond', Georgia, serif"], marcellus:['Marcellus',"'Marcellus', Georgia, serif"], script:['Great Vibes',"'Great Vibes', 'Cormorant Garamond', cursive"]};
 const fontOf = () => (FONTS[S.font]||FONTS.tema)[1];
 function qrSVG(text, px=168){
@@ -1948,9 +2012,12 @@ function invHTML(opts={}){
       </form>
       <div data-wishlist style="margin-top:18px">${wishList()}</div>
     </section>`;
+  const prem = !!t.layout;
+  { const c=storySecHTML(id); if(c) sec.cerita=c; }
+  if(prem){ sec.salam=premSalam(id, op); sec.acara=premAcara(id, ev, first, gobj, mapUrl, calUrl); if(sec.galeri) sec.galeri=premGaleri(id); premDecorate(sec); }
   const order = secOrder().filter(k=>sec[k]);
   return `
-  <div class="inv${big}${t.layout?' lay-'+t.layout:''}" style="${themeStyle(t, S.accent, fontOf())};--t-op:${op2}" data-inv>
+  <div class="inv${big}${t.layout?' lay-'+t.layout+' prem':''}" style="${themeStyle(t, S.accent, fontOf())};--t-op:${op2}" data-inv>
     <div class="pat"></div>
     ${opts.watermark ? `<span class="wm">Pratinjau · belum dipublikasikan</span>`:''}
     ${t.layout ? coverHTML(t, {id, guest, n1:nick1, n2:nick2, dateLong:first?fmtShort(first.date):'', dateDots:first?dateDots(first.date):'', accent:S.accent||t.accent, gate:opts.gate, photo:t.photo?coverPhoto(t):''}) : `
@@ -1964,7 +2031,8 @@ function invHTML(opts={}){
       </div>
     </section>`}
     ${order.map(k=>sec[k]).join('')}
-    <section>
+    <section class="p-end">
+      ${t.layout?'<span class="kick">Sampai jumpa</span>':''}
       <h3>Terima kasih</h3>
       <p class="lead">Merupakan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
       <div class="names" style="font-size:38px">${esc(nick1)} <span style="color:var(--t-accent);font-style:italic">&amp;</span> ${esc(nick2)}</div>
@@ -2184,7 +2252,7 @@ function renderStepCore(onlyHTML, iOverride){
       <div class="toggle-row" style="flex-wrap:wrap"><div><b>Musik latar</b><div class="muted" style="font-size:14px">Mulai pelan saat tamu membuka undangan. Tamu bisa mematikannya sekali ketuk.</div></div><label class="switch"><input type="checkbox" data-bind="music" ${S.music?'checked':''} aria-label="Musik latar"><span></span></label>
         ${S.music?musicPickerHTML():''}</div>
     </div>
-    <div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Urutan bagian undangan</span><ol class="sec-order">${secOrder().map((k,i,arr)=>{ const off=(k==='galeri'&&(!S.galleryOn||!S.gallery.length))||(k==='hadiah'&&!S.gift.on)||(k==='kado'&&!(S.wishlist&&S.wishlist.on&&S.wishlist.items.length))||(k==='ucapan'&&!S.wishesOn); return `<li class="${off?'off':''}"><span class="num muted">${i+1}</span><b>${SECTION_LABELS[k]}</b>${off?'<span class="chip">Tidak tampil</span>':''}<span class="mv"><button type="button" class="btn btn-ghost btn-sm" data-move="${k}" data-dir="-1" ${i===0?'disabled':''} aria-label="Naikkan ${SECTION_LABELS[k]}">↑</button><button type="button" class="btn btn-ghost btn-sm" data-move="${k}" data-dir="1" ${i===arr.length-1?'disabled':''} aria-label="Turunkan ${SECTION_LABELS[k]}">↓</button></span></li>`; }).join('')}</ol><span class="hint">Sampul selalu paling atas dan ucapan terima kasih selalu paling bawah.</span></div>`;
+    <div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Urutan bagian undangan</span><ol class="sec-order">${secOrder().map((k,i,arr)=>{ const off=(k==='galeri'&&(!S.galleryOn||!S.gallery.length))||(k==='hadiah'&&!S.gift.on)||(k==='kado'&&!(S.wishlist&&S.wishlist.on&&S.wishlist.items.length))||(k==='cerita'&&!(S.story&&S.story.on&&S.story.items.length))||(k==='ucapan'&&!S.wishesOn); return `<li class="${off?'off':''}"><span class="num muted">${i+1}</span><b>${SECTION_LABELS[k]}</b>${off?'<span class="chip">Tidak tampil</span>':''}<span class="mv"><button type="button" class="btn btn-ghost btn-sm" data-move="${k}" data-dir="-1" ${i===0?'disabled':''} aria-label="Naikkan ${SECTION_LABELS[k]}">↑</button><button type="button" class="btn btn-ghost btn-sm" data-move="${k}" data-dir="1" ${i===arr.length-1?'disabled':''} aria-label="Turunkan ${SECTION_LABELS[k]}">↓</button></span></li>`; }).join('')}</ol><span class="hint">Sampul selalu paling atas dan ucapan terima kasih selalu paling bawah.</span></div>`;
   }
   if(i===4){
     const checks = [['Nama kedua mempelai', !!(S.bride.name&&S.groom.name), 0],['Minimal satu acara dengan tanggal & tempat', S.events.some(e=>e.date&&e.venue), 1],['Tema dipilih', !!S.theme, 2],['Rekening amplop digital', !S.gift.on || !!S.gift.acct, 3]];
@@ -2418,7 +2486,7 @@ function enhanceInv(root){
     let k=0;
     $$(':scope > h3', sec).forEach(h=>{ splitWords(h); h.dataset.rv='mask'; });
     $$(':scope > .orn', sec).forEach(o=>o.dataset.rv='draw');
-    $$(':scope > .lead, :scope > .names, :scope > .and, :scope > .count, :scope > .ev, :scope > .bank, :scope > [data-rsvp], :scope > .form, :scope > [data-wishlist], :scope > [data-giftconfirm], .person h4, .person p', sec).forEach(e=>{ if(!e.dataset.rv){ e.dataset.rv='up'; e.style.setProperty('--rk', Math.min(k++,6)); } });
+    $$(':scope > .kick, .p-card, .qband, :scope > .cd4, .ev2, .tl li, :scope > .lead, :scope > .names, :scope > .and, :scope > .count, :scope > .ev, :scope > .bank, :scope > [data-rsvp], :scope > .form, :scope > [data-wishlist], :scope > [data-giftconfirm], .person h4, .person p', sec).forEach(e=>{ if(!e.dataset.rv){ e.dataset.rv='up'; e.style.setProperty('--rk', Math.min(k++,6)); } });
     $$('.person .ph, .gal button', sec).forEach((e,i)=>{ e.dataset.rv='clip'; e.style.setProperty('--rk', Math.min(i,5)); });
   });
   if(invIO) invIO.disconnect();
@@ -2455,6 +2523,7 @@ function openCover(){
 const ED_PANELS = [
   ['mempelai','Mempelai','heart','Isi undangan', null, ['cover','salam']],
   ['acara','Acara','cal','Isi undangan', null, ['acara']],
+  ['cerita','Kisah cinta','heart','Isi undangan', 'story.on', ['cerita']],
   ['galeri','Galeri foto','camera','Isi undangan', 'galleryOn', ['galeri']],
   ['hadiah','Amplop digital','gift','Isi undangan', 'gift.on', ['hadiah']],
   ['kado','Kado patungan','gift','Isi undangan', 'wishlist.on', ['kado']],
@@ -2486,6 +2555,7 @@ function edPanelHTML(k){
   const s3 = () => stepBody(3);
   const togRow = b => { const d=document.createElement('div'); d.innerHTML=s3(); const inp=d.querySelector(`[data-bind="${b}"]`); return inp ? inp.closest('.toggle-row') : null; };
   if(k==='kado') return kadoPanelHTML();
+  if(k==='cerita') return storyPanelHTML();
   if(k==='mempelai') return stepBody(0);
   if(k==='acara') return stepBody(1);
   if(k==='tema') return stepBody(2);
@@ -3119,7 +3189,10 @@ function renderAuthSlot(){
   const html = u ? `<div class="acct"><button class="av-btn" data-act="acct-menu" aria-expanded="false" aria-label="Akun ${esc(u.name)}">${esc(initials(u.name)||'U')}</button><div class="acct-menu" id="acctMenu" hidden><div class="acct-id"><b>${esc(u.name)}</b><small class="muted">${esc(u.email)}</small></div><a href="#dashboard">${ico('home')}Undangan saya</a><a href="#tagihan">${ico('receipt')}Tagihan</a><button data-act="logout">${ico('logout')}Keluar</button></div></div>`
     : `<button class="btn btn-ghost btn-sm" data-act="login">Masuk</button>`;
   const a=$('#authSlot'); if(a) a.innerHTML=html;
-  [['#ctaTop'],['#ctaTopM']].forEach(([id])=>{ const c=$(id); if(!c) return; const has=u && (CLOUD.inv || S.published); c.textContent = u ? (has?'Buka dashboard':'Lanjutkan undangan') : 'Mulai gratis'; c.setAttribute('href', u ? (has?'#dashboard':'#buat') : '#buat'); });
+  { const has = !!u && !!(CLOUD.inv || S.published);
+    ['#ctaTop','#ctaTopM'].forEach(id=>{ const c=$(id); if(c) c.hidden = !!u; });
+    $$('[data-nav=buat], #mobileMenu a[href="#buat"], #mobileMenu a[href="#edit"]').forEach(x=>{ x.textContent = has ? 'Edit undangan' : 'Buat undangan'; x.setAttribute('href', has ? '#edit' : '#buat'); });
+  }
   const m=$('#authSlotM'); if(m) m.innerHTML = u ? `<a href="#tagihan">${ico('receipt')} Tagihan · ${esc(u.name)}</a><a href="#beranda" data-act="logout">Keluar</a>` : `<a href="#beranda" data-act="login">Masuk atau daftar</a>`;
 }
 let authNext=null;
@@ -3282,7 +3355,7 @@ function renderTagihan(){
 }
 function invoiceModal(k){
   const x=(S.invoices||[])[k]; if(!x) return;
-  openModal(`<div class="invoice"><div class="inv-top"><span class="logo" style="pointer-events:none"><svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true"><circle cx="15" cy="20" r="10.5" fill="none" stroke="#7D1D3F" stroke-width="3"/><circle cx="25" cy="20" r="10.5" fill="none" stroke="#7D1D3F" stroke-width="3"/><path d="M20 11.1a10.5 10.5 0 0 1 0 17.8 10.5 10.5 0 0 1 0-17.8z" fill="#7D1D3F"/></svg><span>Sakara</span></span><span class="status s-ok">${esc(x.status)}</span></div>
+  openModal(`<div class="invoice"><div class="inv-top"><span class="logo" style="pointer-events:none"><svg viewBox="0 0 100 100" aria-hidden="true" width="30" height="30"><g transform="rotate(0 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><g transform="rotate(90 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><g transform="rotate(180 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><g transform="rotate(270 50 50)"><path d="M50 44 C42.5 36 42.5 19 50 9 C57.5 19 57.5 36 50 44 Z" fill="none" stroke="#6B1E36" stroke-width="4.2" stroke-linejoin="round"/><circle cx="50" cy="27" r="3.4" fill="#B08A4E"/></g><path d="M50 45 L55 50 L50 55 L45 50 Z" fill="#B08A4E"/></svg><span>Sakara</span></span><span class="status s-ok">${esc(x.status)}</span></div>
     <h2 class="display" style="font-size:28px;margin:18px 0 4px">Bukti pembayaran</h2><p class="muted num">${esc(x.no)} · ${esc(fmtDT(x.date))}</p>
     <div class="inv-meta"><div><small class="muted">Ditagihkan ke</small><b>${esc(S.user.name)}</b><span class="muted">${esc(S.user.email)}</span></div><div><small class="muted">Undangan</small><b>${esc(pubHost())}${esc(S.slug)}</b><span class="muted">${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</span></div></div>
     <div class="line"><span>${esc(x.item)}</span><b class="num">${rupiah(x.price)}</b></div>${x.disc?`<div class="line ok"><span>Voucher ${esc(x.voucher)}</span><b class="num">−${rupiah(x.disc)}</b></div>`:''}<div class="line total"><span>Dibayar via ${esc(x.method)}</span><b class="num">${rupiah(x.total)}</b></div>
@@ -3522,7 +3595,7 @@ document.addEventListener('click', e=>{
 document.addEventListener('click', e=>{ const m=$('#acctMenu'); if(m && !m.hidden && !e.target.closest('.acct')) m.hidden=true; });
 
 /* ---------- Cloud: Supabase + Midtrans ---------- */
-const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','catering','arriveOn','wishlist','albumOn','thanksMsg','thanksMsg2','thanked','gallery','galleryOn','groups','slug'];
+const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','catering','arriveOn','wishlist','story','albumOn','thanksMsg','thanksMsg2','thanked','gallery','galleryOn','groups','slug'];
 const pickData = () => { const d={}; DATA_KEYS.forEach(k=>{ if(S[k]!==undefined) d[k]=S[k]; }); return d; };
 const toRow = g => ({invitation_id:CLOUD.inv.id, id:g.id, name:g.name, phone:g.phone||'', grp:g.group||'Tanpa grup', sessions:g.sessions||[], code:g.code, status:g.status, pax:g.pax||0, sent:!!g.sent, walkin:!!g.walkin, checkin:g.checkin||null, fam:g.fam||null, approved:g.approved!==false, arrive:g.arrive||''});
 const fromRow = r => { const g={id:r.id, name:r.name, phone:r.phone||'', group:r.grp||'Tanpa grup', sessions:r.sessions||[], code:r.code, status:r.status||'belum', pax:r.pax||0, sent:!!r.sent, walkin:!!r.walkin, fam:r.fam||null, arrive:r.arrive||''}; if(r.approved===false) g.approved=false; if(r.checkin) g.checkin=r.checkin; return g; };
@@ -3567,6 +3640,7 @@ async function ownerLoad(user){
   let { data:inv } = await sb.from('invitations').select('*').eq('owner',user.id).maybeSingle();
   if(!inv){
     if(S.wishlist && S.wishlist.demo) S.wishlist={on:false, items:[]};
+    if(S.story && S.story.demo) S.story={on:false, items:[]};
     for(const who of ['bride','groom']) if(S[who].photo) S[who].photo = await storePhoto(S[who].photo) || undefined;
     if(S.gallery && S.gallery.length) S.gallery = (await Promise.all(S.gallery.map(storePhoto))).filter(Boolean);
     let slug = (S.slug||'undangan').toLowerCase().replace(/[^a-z0-9-]/g,'-').replace(/^-+/,'').slice(0,36) || 'undangan';
@@ -3583,6 +3657,7 @@ async function ownerLoad(user){
   CLOUD.inv=inv;
   Object.assign(S, inv.data||{}, {slug:inv.slug, published:inv.published, giftNo:inv.gift_no});
   if(!(inv.data||{}).wishlist) S.wishlist={on:false, items:[]};
+  if(!(inv.data||{}).story) S.story={on:false, items:[]};
   if(!(inv.data||{}).thanked) S.thanked=[];
   if(inv.plan!=='coba') S.plan=inv.plan;
   const [g,w,gf,iv,fm] = await Promise.all([
@@ -3654,6 +3729,7 @@ async function guestLoad(){
   if(error || !data){ CLOUD.notFound=true; return; }
   Object.assign(S, data.data||{}); S.published=true; S.plan=data.plan;
   if(!(data.data||{}).wishlist) S.wishlist={on:false, items:[]};
+  if(!(data.data||{}).story) S.story={on:false, items:[]};
   try{ await extraGuestLoad(); }catch(e){}
   W = (data.wishes||[]).map(x=>({n:x.name, m:x.message, t:relTime(x.created_at), att:x.attending, show:true}));
   CLOUD.guest = data.guest ? fromRow({...data.guest}) : null;
@@ -3719,7 +3795,7 @@ if(!S.wishlist) S.wishlist = {on:false, items:[]};
 if(!S.wlInit){ S.wlInit=true; S.wishlist={on:true, demo:true, items:[{id:'k1',name:'Kulkas dua pintu',price:6000000,note:'Untuk dapur rumah baru kami'},{id:'k2',name:'Mesin cuci',price:4500000,note:''},{id:'k3',name:'Set alat masak',price:1500000,note:'Panci, wajan, dan pisau'}]}; }
 if(S.albumOn===undefined) S.albumOn=true;
 if(!S.thanked) S.thanked=[];
-function secOrder(){ const o=S.order||(S.order=DEFAULT.order.slice()); if(!o.includes('kado')){ const i=o.indexOf('hadiah'); o.splice(i<0?o.length:i+1,0,'kado'); } return o; }
+function secOrder(){ const o=S.order||(S.order=DEFAULT.order.slice()); if(!o.includes('kado')){ const i=o.indexOf('hadiah'); o.splice(i<0?o.length:i+1,0,'kado'); } if(!o.includes('cerita')){ const i=o.indexOf('acara'); o.splice(i<0?1:i+1,0,'cerita'); } return o; }
 const PL_DEMO = [{id:'p1',item:'k1',name:'Om Darmawan',amount:1000000,msg:'Semoga awet seperti kulkasnya',t:new Date(Date.now()-864e5).toISOString()},{id:'p2',item:'k1',name:'Teman kantor Rizky',amount:1500000,msg:'Patungan anak-anak divisi',t:new Date(Date.now()-36e5*5).toISOString()},{id:'p3',item:'k3',name:'Hana Halim',amount:500000,msg:'',t:new Date(Date.now()-36e5*2).toISOString()},{id:'p4',item:'k3',name:'Fitri Rahayu',amount:1000000,msg:'Selamat ya!',t:new Date(Date.now()-36e5).toISOString()}];
 let PL = store.get('sp-pledges') || PL_DEMO;
 let WLP = null;
@@ -4083,6 +4159,97 @@ async function extraGuestLoad(){
   const { data } = await CLOUD.sb.rpc('wishlist_progress',{p_slug:CLOUD.slug}); WLP = data || {};
 }
 
+/* ================= Isi undangan premium (tema layout) + Kisah cinta ================= */
+if(!S.story) S.story={on:false, items:[]};
+if(!S.storyInit){ S.storyInit=true; S.story={on:true, demo:true, items:[
+  {id:'c1', date:'Maret 2022', title:'Pertama bertemu', text:'Kami berkenalan di acara kantor teman. Obrolan singkat soal kopi ternyata berlanjut sampai larut malam.'},
+  {id:'c2', date:'Agustus 2024', title:'Melangkah lebih serius', text:'Setelah dua tahun saling mengenal, kami memberanikan diri bertemu keluarga satu sama lain.'},
+  {id:'c3', date:'Oktober 2026', title:'Lamaran', text:'Dengan restu kedua keluarga, kami sepakat untuk melangkah ke jenjang pernikahan.'}]}; }
+const P_KICK = {salam:'Bismillah', acara:'Simpan tanggalnya', cerita:'Perjalanan kami', galeri:'Momen kami', rsvp:'Kehadiran', hadiah:'Tanda kasih', kado:'Untuk rumah baru', ucapan:'Doa terbaik'};
+function countHTML4(d){
+  const diff = Math.max(0, new Date(d+'T08:00:00') - new Date());
+  const D=Math.floor(diff/864e5), H=Math.floor(diff/36e5)%24, M=Math.floor(diff/6e4)%60, Sx=Math.floor(diff/1e3)%60;
+  const u=(v,l)=>`<div><b class="num">${String(v).padStart(2,'0')}</b><small>${l}</small></div>`;
+  return u(D,'Hari')+'<i>:</i>'+u(H,'Jam')+'<i>:</i>'+u(M,'Menit')+'<i>:</i>'+u(Sx,'Detik');
+}
+setInterval(()=>{ $$('[data-count4]').forEach(el=>{ const bs=$$('b.num', el); const nv=countHTML4(el.dataset.count4).match(/<b class="num">(\d+)<\/b>/g).map(x=>x.replace(/\D/g,'')); bs.forEach((b,i)=>{ if(b.textContent!==nv[i]) b.textContent=nv[i]; }); }); }, 1000);
+function pPhoto(person, cls){
+  const ini = esc((person.nick||person.name||'?').trim().charAt(0).toUpperCase());
+  return person.photo ? `<div class="${cls}" data-par style="background-image:url(${esc(person.photo)})"></div>` : `<div class="${cls} ph-empty" aria-hidden="true"><span>${ini}</span></div>`;
+}
+function premSalam(id, op){
+  const p = (who, role) => { const x=S[who]; return `<article class="p-card">${pPhoto(x,'p-ph')}<div class="p-body"><span class="kick">${role}</span><h4>${esc(x.name||(who==='bride'?'Nama mempelai wanita':'Nama mempelai pria'))}</h4><p>${esc(x.parents||'')}</p>${x.ig?`<a class="p-ig" href="https://instagram.com/${esc(String(x.ig).replace(/^@/,''))}" target="_blank" rel="noopener">@${esc(String(x.ig).replace(/^@/,''))}</a>`:''}</div></article>`; };
+  return `<section id="${id}-salam" class="p-salam">
+    <span class="kick">${esc(P_KICK.salam)}</span>
+    <h3>${esc(op.salam)}</h3>
+    <p class="lead">${esc(op.text)}</p>
+    <div class="p-couple">${p('bride','Mempelai wanita')}<div class="p-amp" aria-hidden="true">&amp;</div>${p('groom','Mempelai pria')}</div>
+    ${op.quote?`<figure class="qband"><svg class="orn" width="120" height="20" aria-hidden="true"><use href="#i-orn"/></svg><blockquote>${esc(op.quote.replace(/\s*—\s*[^—]+$/,''))}</blockquote>${/—/.test(op.quote)?`<figcaption>${esc(op.quote.split('—').pop().trim())}</figcaption>`:''}</figure>`:''}
+  </section>`;
+}
+function premAcara(id, ev, first, gobj, mapUrl, calUrl){
+  const day = d => { try{ const x=new Date(d+'T00:00:00'); return {dd:x.getDate(), mon:new Intl.DateTimeFormat('id-ID',{month:'short'}).format(x), wd:new Intl.DateTimeFormat('id-ID',{weekday:'long'}).format(x), yy:x.getFullYear()}; }catch(e){ return null; } };
+  return `<section id="${id}-acara" class="p-acara">
+    <span class="kick">${esc(P_KICK.acara)}</span>
+    <h3>Waktu &amp; tempat</h3>
+    ${gobj && ev.length < S.events.filter(e=>e.type||e.date||e.venue).length ? `<p class="lead">Kami mengundang ${esc(gobj.name)} ke acara berikut.</p>`:''}
+    ${first ? `<div class="cd4" data-count4="${esc(first.date)}" role="timer" aria-label="Hitung mundur menuju hari bahagia">${countHTML4(first.date)}</div>`:''}
+    ${ev.map(e=>{ const d=e.date?day(e.date):null; return `<article class="ev2">
+      ${d?`<div class="ev2-d" aria-hidden="true"><b>${d.dd}</b><span>${esc(d.mon)} ${d.yy}</span></div>`:''}
+      <div class="ev2-b"><span class="kick">${esc(e.type||'Acara')}</span>
+        ${d?`<div class="ev2-w">${esc(d.wd)}, ${esc(fmtShort(e.date))}</div>`:''}
+        ${e.start?`<div class="ev2-t">${esc(e.start)}${e.end?` – ${esc(e.end)}`:' – selesai'} WIB</div>`:''}
+        ${e.venue?`<div class="ev2-v">${esc(e.venue)}</div>`:''}
+        ${e.address?`<div class="ev2-a">${esc(e.address)}</div>`:''}
+        <div class="acts">${e.venue?`<a class="ibtn solid" href="${mapUrl(e)}" target="_blank" rel="noopener">${ico('pin')}Petunjuk arah</a>`:''}${e.date?`<a class="ibtn" href="${calUrl(e)}" target="_blank" rel="noopener">${ico('cal')}Simpan tanggal</a>`:''}</div></div></article>`; }).join('')}
+    ${(()=>{ const me=mainEvent(gobj); return me ? `<div class="crowd" data-crowd data-ev="${me.i}" hidden></div>` : ''; })()}
+  </section>`;
+}
+function storySecHTML(id){
+  const s=S.story; if(!s || !s.on || !(s.items||[]).length) return '';
+  return `<section id="${id}-cerita" class="p-cerita">
+    <span class="kick">${esc(P_KICK.cerita)}</span>
+    <h3>Kisah cinta</h3>
+    <ol class="tl">${s.items.map(it=>`<li>${it.img?`<div class="tl-ph" data-par style="background-image:url(${esc(it.img)})"></div>`:''}<span class="tl-d">${esc(it.date||'')}</span><b>${esc(it.title||'')}</b>${it.text?`<p>${esc(it.text)}</p>`:''}</li>`).join('')}</ol>
+  </section>`;
+}
+function premGaleri(id){
+  if(!(S.galleryOn && S.gallery.length)) return '';
+  const g=S.gallery;
+  return `<section id="${id}-galeri" class="p-galeri"><span class="kick">${esc(P_KICK.galeri)}</span><h3>Galeri</h3>
+    <div class="gal pg">${g.map((src,k)=>`<button type="button" data-act="zoom" data-k="${k}" class="${k===0?'feat':''}" style="background-image:url(${src})" aria-label="Perbesar foto ${k+1}"></button>`).join('')}</div></section>`;
+}
+function premDecorate(secs){
+  ['rsvp','hadiah','kado','ucapan'].forEach(k=>{ if(secs[k] && !/class="kick"/.test(secs[k].slice(0,200))) secs[k]=secs[k].replace(/(<section[^>]*>)\s*/, `$1<span class="kick">${esc(P_KICK[k])}</span>`); });
+}
+/* Parallax ringan untuk foto */
+let parRaf=0;
+function parTick(){ parRaf=0; if(REDUCED()) return; $$('.inv.prem [data-par]').forEach(el=>{ const r=el.getBoundingClientRect(); const vh=innerHeight; if(r.bottom<0||r.top>vh) return; const p=((r.top+r.height/2)-vh/2)/vh; el.style.backgroundPosition=`center ${50+p*14}%`; }); }
+document.addEventListener('scroll', ()=>{ if(!parRaf) parRaf=requestAnimationFrame(parTick); }, {capture:true, passive:true});
+
+/* Editor: Kisah cinta */
+function storyPanelHTML(){
+  const s=S.story;
+  return `<div class="toggle-row"><div><b>Tampilkan kisah cinta</b><div class="muted" style="font-size:14px">Cerita singkat perjalanan kalian, ditampilkan sebagai garis waktu.</div></div><label class="switch"><input type="checkbox" data-bind="story.on" ${s.on?'checked':''}><span></span></label></div>
+  <div class="wl-ed">${(s.items||[]).map((it,i)=>`<div class="wl-it st-it">
+    <label class="wl-img" title="Foto (opsional)" style="${it.img?`background-image:url(${esc(it.img)})`:''}">${it.img?'':ico('camera')}<input type="file" accept="image/*" data-stimg="${i}" hidden><span class="sr">Foto momen ${i+1}</span></label>
+    <div class="wl-f"><input class="input" data-st="date" data-i="${i}" value="${esc(it.date||'')}" placeholder="Waktu, mis. Maret 2022" aria-label="Waktu">
+      <input class="input" data-st="title" data-i="${i}" value="${esc(it.title||'')}" placeholder="Judul momen" aria-label="Judul">
+      <textarea class="input" data-st="text" data-i="${i}" rows="3" placeholder="Ceritakan singkat" aria-label="Cerita">${esc(it.text||'')}</textarea></div>
+    <div class="st-mv"><button type="button" class="wl-del" data-act="st-up" data-i="${i}" aria-label="Naikkan" ${i===0?'disabled':''}>↑</button><button type="button" class="wl-del" data-act="st-del" data-i="${i}" aria-label="Hapus momen ${i+1}">${ico('x')}</button></div></div>`).join('')}
+    <button type="button" class="btn btn-ghost btn-block" data-act="st-add">${ico('plus')}Tambah momen</button></div>`;
+}
+let stT;
+document.addEventListener('input', e=>{ const t=e.target; if(!t.dataset || t.dataset.st===undefined) return; const it=S.story.items[+t.dataset.i]; if(!it) return; it[t.dataset.st]=t.value; delete S.story.demo; save(); clearTimeout(stT); stT=setTimeout(()=>{ refreshPreview(); }, 250); });
+document.addEventListener('change', async e=>{ const t=e.target;
+  if(t.dataset && t.dataset.bind==='story.on') setTimeout(()=>{ renderStep(); edRail(); },0);
+  if(t.dataset && t.dataset.stimg!==undefined && t.files && t.files[0]){ const it=S.story.items[+t.dataset.stimg]; const d=await shrink(t.files[0], 900); const url=await storePhoto(d); if(url){ it.img=url; delete S.story.demo; save(); renderStep(); refreshPreview(); } } });
+document.addEventListener('click', e=>{ const el=e.target.closest('[data-act]'); if(!el) return; const a=el.dataset.act;
+  if(a==='st-add'){ delete S.story.demo; S.story.items.push({id:'c'+Date.now().toString(36), date:'', title:'', text:''}); S.story.on=true; save(); renderStep(); refreshPreview(); edRail(); const ins=$$('[data-st=date]'); ins[ins.length-1]?.focus(); }
+  if(a==='st-del'){ delete S.story.demo; S.story.items.splice(+el.dataset.i,1); save(); renderStep(); refreshPreview(); edRail(); }
+  if(a==='st-up'){ const i=+el.dataset.i; if(i>0){ const x=S.story.items; [x[i-1],x[i]]=[x[i],x[i-1]]; delete S.story.demo; save(); renderStep(); refreshPreview(); } }
+});
+
 /* ---------- Router ---------- */
 const VIEWS = ['beranda','tema','buat','undangan','dashboard','checkout','tagihan','checkin','keluarga','katering','edit','album'];
 let bootDoneCalled=false;
@@ -4117,7 +4284,7 @@ function route(){
   const full = h==='undangan' || h==='checkin' || h==='keluarga' || h==='katering' || h==='edit' || h==='album';
   $('#siteHeader').hidden = full; $('#footerWrap').hidden = full || ['dashboard','buat','checkout'].includes(h);
   document.body.style.overflow='';
-  $$('.nav a').forEach(a=>{ if(a.dataset.nav!==(scrollTo?'harga':h)) a.removeAttribute('aria-current'); else a.setAttribute('aria-current','page'); });
+  $$('.nav a').forEach(a=>{ if(a.dataset.nav!==(scrollTo?'harga':(h==='edit'?'buat':h))) a.removeAttribute('aria-current'); else a.setAttribute('aria-current','page'); });
   closeModal(); renderAuthSlot();
   if(h==='beranda'){ renderHero(); renderStrip(); renderPlans(); }
   if(h==='tema') renderCatalog();
