@@ -3534,7 +3534,7 @@ function otpStep(email){
 }
 function afterLogin(isNew){
   if(isNew) return nameStep();
-  closeModal(); renderAuthSlot(); toast('Halo lagi, '+S.user.name.split(' ')[0]+'!'); const n=authNext; authNext=null; if(n) n(); else route();
+  closeModal(); renderAuthSlot(); toast('Halo lagi, '+S.user.name.split(' ')[0]+'!'); const n=authNext; authNext=null; if(n) n(); else { if(!location.hash || location.hash==='#' || location.hash==='#beranda') location.hash='#dashboard'; route(); }
 }
 function nameStep(){
   const guess = S.bride.name && S.bride.name!=='Nadia Larasati' ? S.bride.name : '';
@@ -3547,9 +3547,9 @@ function nameStep(){
     const b=$('#nameForm button'); b.disabled=true; b.textContent='Menyimpan…';
     if(CLOUD.on){ const { error } = await CLOUD.sb.auth.updateUser({data:{name:nm}}); if(error){ b.disabled=false; b.textContent='Mulai'; er.textContent='Gagal menyimpan. Coba lagi.'; er.hidden=false; return; } }
     else { const k=knownNames(); k[S.user.email]=nm; lsSet('sp-names', JSON.stringify(k)); }
-    S.user.name=nm; save(); closeModal(); renderAuthSlot(); toast('Selamat datang, '+nm.split(' ')[0]+'!'); const n=authNext; authNext=null; if(n) n(); else route(); });
+    S.user.name=nm; save(); closeModal(); renderAuthSlot(); toast('Selamat datang, '+nm.split(' ')[0]+'!'); const n=authNext; authNext=null; if(n) n(); else { if(!location.hash || location.hash==='#' || location.hash==='#beranda') location.hash='#dashboard'; route(); } });
 }
-function finishLogin(name,email){ S.user={name,email}; save(); closeModal(); renderAuthSlot(); toast('Halo, '+name.split(' ')[0]+'!'); const n=authNext; authNext=null; if(n) n(); else route(); }
+function finishLogin(name,email){ S.user={name,email}; save(); closeModal(); renderAuthSlot(); toast('Halo, '+name.split(' ')[0]+'!'); const n=authNext; authNext=null; if(n) n(); else { if(!location.hash || location.hash==='#' || location.hash==='#beranda') location.hash='#dashboard'; route(); } }
 
 /* ---------- Checkout ---------- */
 let CO = {method:'qris', bank:'BCA', wallet:'GoPay', voucher:'', applied:null, stage:'form', plan:null, timer:null, end:0};
@@ -3908,6 +3908,7 @@ async function cloudInit(){
   }
   const { data:{ session } } = await CLOUD.sb.auth.getSession();
   if(session) await ownerLoad(session.user);
+  if(session && (!location.hash || location.hash==='#' || location.hash==='#beranda') && !lsGet('sp-after-login')) history.replaceState(null,'',location.pathname+location.search+'#dashboard');
   const after = lsGet('sp-after-login'); if(after){ try{ localStorage.removeItem('sp-after-login'); }catch(e){} if(session){ history.replaceState(null,'',location.pathname+'#'+after); } }
   const oauthErr = new URLSearchParams(location.hash.slice(1)||location.search).get('error_description'); if(oauthErr){ history.replaceState(null,'',location.pathname+'#beranda'); setTimeout(()=>toast('Login dibatalkan atau gagal. Coba lagi, ya.'),400); }
   CLOUD.sb.auth.onAuthStateChange((ev, s)=>{ if(ev==='SIGNED_IN' && s && CLOUD.uid!==s.user.id){ demoAfterLogin(s.user.id); ownerLoad(s.user).then(()=>{ if(!location.hash || location.hash==='#') location.hash='#dashboard'; route(); if(!(s.user.user_metadata&&s.user.user_metadata.name)) nameStep(); else { closeModal(); renderAuthSlot(); } }); } });
