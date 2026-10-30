@@ -1350,6 +1350,11 @@ html.boot-app #bootSkel .bs-app{display:flex}
   .pc-sheet .pc-card{outline:.2mm dashed #bbb;outline-offset:-.1mm}
 }
 
+.inv .gift-note{font-size:13px;opacity:.78;max-width:32ch;margin:12px auto 0;line-height:1.5}
+.inv .gift-opt{background:none;border:0;color:var(--t-fg);font:inherit;font-size:13.5px;font-weight:700;text-decoration:underline;text-underline-offset:3px;text-decoration-color:color-mix(in srgb,var(--t-fg) 35%,transparent);cursor:pointer;margin-top:10px;padding:8px}
+.inv .gift-opt span{font-weight:500;opacity:.7;text-decoration:none}
+.inv .gift-form{max-width:320px;margin:12px auto 0;text-align:left}
+.inv .gift-fh{font-size:13px;opacity:.8;margin-bottom:2px}
 </style>
 </head>
 <body>
@@ -1421,7 +1426,7 @@ html.boot-app #bootSkel .bs-app{display:flex}
     </nav>
     <div class="header-cta">
       <span id="authSlot"></span>
-      <a class="btn btn-primary btn-sm" href="#buat">Mulai gratis</a>
+      <a class="btn btn-primary btn-sm" href="#buat" id="ctaTop">Mulai gratis</a>
     </div>
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Buka menu"><svg class="icon"><use href="#i-menu"/></svg></button>
   </div>
@@ -1433,7 +1438,7 @@ html.boot-app #bootSkel .bs-app{display:flex}
   <a href="#dashboard">Dashboard</a>
   <a href="#undangan">Lihat contoh undangan</a>
   <div id="authSlotM" style="display:grid;gap:6px"></div>
-  <a class="btn btn-primary" href="#buat" style="margin-top:8px">Mulai gratis</a>
+  <a class="btn btn-primary" href="#buat" style="margin-top:8px" id="ctaTopM">Mulai gratis</a>
 </div>
 
 <main id="app">
@@ -1924,13 +1929,14 @@ function invHTML(opts={}){
     </section>`;
   if(S.gift.on) sec.hadiah = `<section id="${id}-hadiah">
       <h3>Tanda kasih</h3>
-      <p class="lead">Doa restu kalian sudah lebih dari cukup. Bila ingin memberi tanda kasih, bisa melalui rekening berikut.</p>
+      <p class="lead">Doa restu Anda adalah hadiah terindah bagi kami. Bila ingin memberi tanda kasih, bisa melalui rekening berikut.</p>
       <div class="bank">
         <div class="bn">${esc(S.gift.bank)}</div>
         <div class="row"><div class="ac">${esc(S.gift.acct.replace(/(\d{4})(?=\d)/g,'$1 '))}</div><button class="ibtn" data-act="copy" data-v="${esc(S.gift.acct)}" aria-label="Salin nomor rekening">${ico('copy')}Salin</button></div>
         <div style="font-size:13px;opacity:.8">a.n. ${esc(S.gift.holder)}</div>
       </div>
-      <div data-giftconfirm><button class="ibtn" style="margin-top:14px" data-act="gift-confirm" data-name="${esc(guest==='Bapak/Ibu/Saudara/i'?'':guest)}">Sudah transfer? Kabari kami</button></div>
+      <p class="gift-note">Tidak perlu konfirmasi. Cukup tulis nama Anda di berita transfer supaya kami bisa mengenali dan berterima kasih.</p>
+      <div data-giftconfirm><button class="gift-opt" data-act="gift-confirm" data-name="${esc(guest==='Bapak/Ibu/Saudara/i'?'':guest)}">Ingin menitipkan nama dan doa? <span>(opsional)</span></button></div>
     </section>`;
   { const k=kadoSecHTML(id); if(k) sec.kado=k; }
   if(S.wishesOn) sec.ucapan = `<section id="${id}-ucapan">
@@ -2908,8 +2914,8 @@ function renderDashCore(){
   }
   if(dTab==='hadiah'){
     const sum = GIFTS.reduce((a,g)=>a+g.amt,0);
-    body = `<div class="tiles" style="grid-template-columns:repeat(2,1fr);max-width:620px"><div class="tile"><div class="l">Konfirmasi diterima</div><div class="v">${GIFTS.length}</div></div><div class="tile" style="--c:var(--gold)"><div class="l">Total dilaporkan tamu</div><div class="v" style="font-size:32px">${rupiah(sum)}</div></div></div>
-    <p class="muted" style="margin:16px 0">Uang langsung masuk ke rekening ${esc(S.gift.bank)} ${esc(S.gift.holder)}. Daftar ini berasal dari konfirmasi tamu, cocokkan dengan mutasi rekeningmu.</p>
+    body = `<div class="tiles" style="grid-template-columns:repeat(2,1fr);max-width:620px"><div class="tile"><div class="l">Tamu menitipkan nama</div><div class="v">${GIFTS.length}</div></div><div class="tile" style="--c:var(--gold)"><div class="l">Total dilaporkan tamu</div><div class="v" style="font-size:32px">${rupiah(sum)}</div></div></div>
+    <p class="muted" style="margin:16px 0">Uang langsung masuk ke rekening ${esc(S.gift.bank)} ${esc(S.gift.holder)}. Tamu tidak diminta konfirmasi. Daftar ini hanya berisi tamu yang menitipkan nama secara sukarela, jadi tetap cek mutasi rekeningmu.</p>
     <div class="tbl-wrap" style="display:block"><table><thead><tr><th>Dari</th><th>Ke</th><th class="num">Jumlah</th><th>Waktu</th></tr></thead><tbody>${GIFTS.map(g=>`<tr><td class="nm">${esc(g.n)}</td><td>${esc(g.bank)}</td><td class="num">${g.amt?rupiah(g.amt):'—'}</td><td class="muted">${esc(g.t)}</td></tr>`).join('')}</tbody></table></div>` + kadoAdminHTML();
   }
   $('#dash').innerHTML = head + body;
@@ -3062,9 +3068,15 @@ document.addEventListener('click', e=>{
   if(a==='g-music'){ guestMusic=!guestMusic; if(guestMusic){ if(!$('#guestCol')?.classList.contains('locked')) startBgm(); } else stopBgm(); el.innerHTML=ico(guestMusic&&S.music?'music':'mute'); el.setAttribute('aria-pressed',guestMusic); toast(guestMusic?'Musik dinyalakan':'Musik dimatikan'); }
   if(a==='rsvp-again'){ const box=el.closest('[data-rsvp]'); const g=G.find(x=>x.id===(el.dataset.gid||box.dataset.gid)); box.innerHTML = rsvpForm(g?g.name:guestLabel(), g); bindInv(box); }
   if(a==='gift-confirm'){
-    el.parentElement.innerHTML = `<form class="form" data-giftform><label for="gfn">Nama pengirim</label><input class="in" id="gfn" value="${esc(el.dataset.name||'')}" required><label for="gfa">Jumlah (opsional)</label><input class="in" id="gfa" inputmode="numeric" placeholder="Contoh: 250000"><label for="gff">Bukti transfer (opsional)</label><input class="in" id="gff" type="file" accept="image/*"><button class="ibtn solid" style="justify-content:center">Kirim konfirmasi</button></form>`;
-    const f=$('[data-giftform]'); f.addEventListener('submit',ev=>{ ev.preventDefault(); const n=f.querySelector('#gfn').value.trim(); if(!n) return; const amt=parseInt(f.querySelector('#gfa').value.replace(/\D/g,''))||0; if(CLOUD.guestMode){ CLOUD.sb.rpc('add_gift',{p_slug:CLOUD.slug, p_name:n, p_amount:amt}).then(({error})=>{ if(error) toast('Konfirmasi gagal: '+error.message); }); } else GIFTS.unshift({n,bank:S.gift.bank,amt,t:'Baru saja'}); f.outerHTML=`<div class="ok-box"><b>Terima kasih, ${esc(n)}.</b><p style="font-size:14px;margin-top:4px">Konfirmasimu sudah kami terima.</p></div>`; });
+    el.parentElement.innerHTML = `<form class="form gift-form" data-giftform><p class="gift-fh">Pesan Anda akan sampai ke pengantin bersama tanda kasih Anda.</p><label for="gfn">Nama</label><input class="in" id="gfn" value="${esc(el.dataset.name||'')}" required placeholder="Nama Anda"><label for="gfm">Doa atau ucapan (opsional)</label><textarea class="in" id="gfm" rows="2" maxlength="300" placeholder="Selamat menempuh hidup baru"></textarea><div class="kd-acts"><button type="button" class="ibtn" data-act="gift-cancel">Batal</button><button class="ibtn solid">Titipkan</button></div></form>`;
+    const f=$('[data-giftform]'); f.querySelector('#gfn').focus({preventScroll:true});
+    f.addEventListener('submit',ev=>{ ev.preventDefault(); const n=f.querySelector('#gfn').value.trim(); if(!n){ f.querySelector('#gfn').focus(); return; } const m=f.querySelector('#gfm').value.trim();
+      if(CLOUD.guestMode){ CLOUD.sb.rpc('add_gift',{p_slug:CLOUD.slug, p_name:n, p_amount:0}).then(({error})=>{ if(error) toast('Gagal mengirim: '+error.message); }); if(m) CLOUD.sb.rpc('add_wish',{p_slug:CLOUD.slug, p_name:n, p_message:m, p_code:CLOUD.code||null}).then(()=>{}); }
+      else { GIFTS.unshift({n,bank:S.gift.bank,amt:0,t:'Baru saja'}); if(m){ W.unshift({n, m, t:'baru saja', att:false, show:true}); saveW(); } }
+      f.outerHTML=`<div class="ok-box"><b style="font-family:var(--t-font);font-size:22px">Terima kasih, ${esc(n)}</b><p style="margin-top:6px;font-size:14px">Nama${m?' dan doa':''} Anda sudah kami sampaikan ke pengantin.</p></div>`; });
   }
+  if(a==='gift-cancel'){ const box=el.closest('[data-giftconfirm]'); const nm=box.querySelector('#gfn')?.value||''; box.innerHTML=`<button class="gift-opt" data-act="gift-confirm" data-name="${esc(nm)}">Ingin menitipkan nama dan doa? <span>(opsional)</span></button>`; }
+
   if(a==='add-guest'){
     const groups=[...new Set([...(S.groups||[]),...G.map(g=>g.group)])];
     openModal(`<h2 class="display" style="font-size:30px">Tambah tamu</h2><p class="muted" style="margin:6px 0 18px">Nama ini akan tampil di sampul undangan tamu.</p>
@@ -3107,6 +3119,7 @@ function renderAuthSlot(){
   const html = u ? `<div class="acct"><button class="av-btn" data-act="acct-menu" aria-expanded="false" aria-label="Akun ${esc(u.name)}">${esc(initials(u.name)||'U')}</button><div class="acct-menu" id="acctMenu" hidden><div class="acct-id"><b>${esc(u.name)}</b><small class="muted">${esc(u.email)}</small></div><a href="#dashboard">${ico('home')}Undangan saya</a><a href="#tagihan">${ico('receipt')}Tagihan</a><button data-act="logout">${ico('logout')}Keluar</button></div></div>`
     : `<button class="btn btn-ghost btn-sm" data-act="login">Masuk</button>`;
   const a=$('#authSlot'); if(a) a.innerHTML=html;
+  [['#ctaTop'],['#ctaTopM']].forEach(([id])=>{ const c=$(id); if(!c) return; const has=u && (CLOUD.inv || S.published); c.textContent = u ? (has?'Buka dashboard':'Lanjutkan undangan') : 'Mulai gratis'; c.setAttribute('href', u ? (has?'#dashboard':'#buat') : '#buat'); });
   const m=$('#authSlotM'); if(m) m.innerHTML = u ? `<a href="#tagihan">${ico('receipt')} Tagihan · ${esc(u.name)}</a><a href="#beranda" data-act="logout">Keluar</a>` : `<a href="#beranda" data-act="login">Masuk atau daftar</a>`;
 }
 let authNext=null;
@@ -3761,17 +3774,17 @@ function kdStep(card, it, step){
   }
   if(step===2){
     const g=S.gift||{};
-    box.innerHTML = `<div class="kd-pay"><span class="kd-lbl">Transfer ${esc(rupiah(KD.amt))} ke</span>
+    box.innerHTML = `<div class="kd-pay"><span class="kd-lbl">Silakan transfer ${esc(rupiah(KD.amt))} ke</span>
       <div class="bank"><div class="bn">${esc(g.bank||'Rekening')}</div><div class="row"><div class="ac">${esc((g.acct||'—').replace(/(\d{4})(?=\d)/g,'$1 '))}</div>${g.acct?`<button type="button" class="ibtn" data-act="copy" data-v="${esc(g.acct)}" aria-label="Salin nomor rekening">${ico('copy')}Salin</button>`:''}</div><div style="font-size:13px;opacity:.8">a.n. ${esc(g.holder||'')}</div></div>
-      <p class="kd-hint">Tulis <b>Kado ${esc(it.name)}</b> di berita transfer supaya mudah dicocokkan.</p>
-      <div class="kd-acts"><button type="button" class="ibtn" data-act="kd-back">Ubah</button><button type="button" class="ibtn solid" data-act="kd-confirm">Saya sudah transfer</button></div></div>`;
+      <p class="kd-hint">Setelah transfer, ketuk tombol di bawah supaya progres bertambah dan tamu lain tidak membeli barang yang sama.</p>
+      <div class="kd-acts"><button type="button" class="ibtn" data-act="kd-back">Ubah</button><button type="button" class="ibtn solid" data-act="kd-confirm">Catat patungan saya</button></div></div>`;
   }
 }
 async function kdConfirm(card, it){
   const btn=card.querySelector('[data-act=kd-confirm]'); if(btn){ btn.disabled=true; btn.textContent='Menyimpan…'; }
   if(CLOUD.on && CLOUD.guestMode){
     const { data, error } = await CLOUD.sb.rpc('pledge',{p_slug:CLOUD.slug, p_item:it.id, p_name:KD.name, p_amount:KD.amt, p_message:KD.msg||''});
-    if(error){ if(btn){ btn.disabled=false; btn.textContent='Saya sudah transfer'; } toast('Gagal mencatat: '+error.message); return; }
+    if(error){ if(btn){ btn.disabled=false; btn.textContent='Catat patungan saya'; } toast('Gagal mencatat: '+error.message); return; }
     WLP=data||{};
   } else { PL.unshift({id:'p'+Date.now(), item:it.id, name:KD.name, amount:KD.amt, msg:KD.msg||'', t:new Date().toISOString()}); savePL(); }
   const done={...KD}; KD={};
