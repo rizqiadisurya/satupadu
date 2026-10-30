@@ -1917,7 +1917,7 @@ html.intro .hero h1,html.intro .hero .lede,html.intro .hero .try,html.intro .her
 .co-upsell{display:flex;gap:12px;align-items:flex-start;margin:14px 0 4px;padding:14px 16px;border-radius:14px;background:#FFF8EC;border:1px solid #EBD3A6;font-size:14.5px;line-height:1.55}
 .co-upsell .icon{flex:none;color:var(--beet);margin-top:2px}
 .co-upsell .linkbtn{font-weight:700}
-.plan-more{align-self:flex-start;font-size:14.5px;font-weight:700;color:var(--beet);text-decoration:none;margin-top:-4px}
+.plan-more{align-self:center;font-size:14.5px;font-weight:700;color:var(--beet);text-decoration:none;margin-top:12px;padding:4px 8px}
 .plan-more:hover{text-decoration:underline}
 .plan.feature .plan-more{color:#fff}
 .cmp-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:20px;background:var(--card,#fff)}
@@ -2875,8 +2875,8 @@ function renderPlans(){
       <div class="price num">${p.price?rupiah(p.price):'Rp0'} <small>${p.note}</small></div>
       ${p.fit?`<p class="plan-fit">${p.fit}</p>`:''}
       <ul>${FEATS.flatMap(g=>g[1]).filter(r=>r[4]).map(r=>{ const on=r[PLAN_COL[p.id]]; return `<li class="${on?'':'off'}">${ico(on?'check':'x')}${r[0]}</li>`; }).join('')}</ul>
-      <a class="plan-more" href="#bandingkan">Lihat detail paket →</a>
       ${planCta(p)}
+      <a class="plan-more" href="#bandingkan">Lihat detail paket →</a>
     </div>`).join('');
 }
 document.addEventListener('click',e=>{ const a=e.target.closest('[data-plan]'); if(a && a.dataset.plan!=='coba' && !S.published && !DEMO.on){ S.plan=a.dataset.plan; save(); } });
