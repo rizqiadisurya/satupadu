@@ -9,7 +9,7 @@ create table if not exists public.invitations (
   owner uuid not null default auth.uid() references auth.users(id) on delete cascade,
   slug text not null unique check (slug ~ '^[a-z0-9][a-z0-9-]{2,39}$'),
   data jsonb not null default '{}'::jsonb,
-  plan text not null default 'coba' check (plan in ('coba','undangan','tamu')),
+  plan text not null default 'coba' check (plan ~ '^[a-z0-9][a-z0-9-]{1,29}$'),
   published boolean not null default false,
   checkin_pin text not null default lpad((floor(random()*1000000))::int::text, 6, '0'),
   gift_no int not null default 0,

@@ -27,28 +27,37 @@ async function userFromReq(req) {
   if (!token) return null;
   try { return await sb('/auth/v1/user', { key: ANON() || SERVICE(), token }); } catch (e) { return null; }
 }
-// Harga dari panel admin (app_config.prices) bila ada; jatuh ke nilai bawaan.
-async function loadPrices() {
-  try {
-    const rows = await sb('/rest/v1/app_config?key=eq.prices&select=value');
-    const v = rows && rows[0] && rows[0].value || {};
-    const ok = n => Number.isInteger(n) && n >= 1000 && n <= 50000000;
-    return { undangan: ok(v.undangan) ? v.undangan : PLANS.undangan.price, tamu: ok(v.tamu) ? v.tamu : PLANS.tamu.price, upgrade: ok(v.upgrade) ? v.upgrade : UPGRADE_PRICE };
-  } catch (e) { return { undangan: PLANS.undangan.price, tamu: PLANS.tamu.price, upgrade: UPGRADE_PRICE }; }
+// Daftar paket dari panel admin (app_config.prices.packages). Jatuh ke paket bawaan bila belum diatur.
+async function loadPackages() {
+  const ok = n => Number.isInteger(n) && n >= 1000 && n <= 50000000;
+  let v = {};
+  try { const rows = await sb('/rest/v1/app_config?key=eq.prices&select=value'); v = (rows && rows[0] && rows[0].value) || {}; } catch (e) {}
+  const out = {};
+  if (Array.isArray(v.packages) && v.packages.length) {
+    v.packages.forEach(p => { if (p && /^[a-z0-9][a-z0-9-]{1,29}$/.test(p.id) && p.id !== 'coba' && ok(Math.round(+p.price))) out[p.id] = { name: String(p.name || p.id).slice(0, 60), price: Math.round(+p.price), hidden: !!p.hidden }; });
+  } else {
+    out.undangan = { name: PLANS.undangan.name.replace(/^Paket /, ''), price: ok(v.undangan) ? v.undangan : PLANS.undangan.price };
+    out.tamu = { name: PLANS.tamu.name.replace(/^Paket /, ''), price: ok(v.tamu) ? v.tamu : PLANS.tamu.price };
+  }
+  return out;
 }
-function priceFor(inv, plan, voucher, prices) {
-  prices = prices || { undangan: PLANS.undangan.price, tamu: PLANS.tamu.price, upgrade: UPGRADE_PRICE };
-  const upgrade = inv.published && inv.plan === 'undangan' && plan === 'tamu';
-  if (!upgrade && inv.published && inv.plan === 'tamu') throw Object.assign(new Error('Paket sudah paling lengkap'), { status: 400 });
-  if (!upgrade && inv.published && inv.plan === 'undangan' && plan === 'undangan') throw Object.assign(new Error('Paket Undangan sudah aktif. Pilih Undangan + Tamu untuk upgrade.'), { status: 400 });
-  const item = upgrade ? 'Upgrade ke Undangan + Tamu' : PLANS[plan]?.name;
-  const price = upgrade ? prices.upgrade : prices[plan];
-  if (!price) throw Object.assign(new Error('Paket tidak dikenal'), { status: 400 });
+// Hitung harga. Sudah tayang = upgrade: bayar selisih ke paket yang lebih mahal.
+function priceFor(inv, plan, voucher, pk) {
+  pk = pk || { undangan: { name: 'Undangan', price: PLANS.undangan.price }, tamu: { name: 'Undangan + Tamu', price: PLANS.tamu.price } };
+  const target = pk[plan];
+  if (!target) throw Object.assign(new Error('Paket tidak dikenal'), { status: 400 });
+  let price = target.price, item = 'Paket ' + target.name, upgrade = false;
+  if (inv.published) {
+    const cur = pk[inv.plan]; const cp = cur ? cur.price : (inv.plan === 'coba' ? 0 : null);
+    if (cp === null) throw Object.assign(new Error('Paketmu saat ini tidak bisa di-upgrade otomatis. Hubungi kami.'), { status: 400 });
+    if (target.price <= cp) throw Object.assign(new Error('Pilih paket yang lebih lengkap dari paketmu sekarang'), { status: 400 });
+    price = target.price - cp; item = 'Upgrade ke ' + target.name; upgrade = true;
+  } else if (target.hidden) throw Object.assign(new Error('Paket ini sedang tidak tersedia'), { status: 400 });
   const v = VOUCHERS[String(voucher || '').toUpperCase()];
   let discount = 0;
   if (v) discount = v.type === 'pct' ? Math.round(price * v.v / 100) : v.v;
   discount = Math.min(discount, price - 1000);
-  return { item, price, discount, voucher: v ? String(voucher).toUpperCase() : '', total: price - discount, upgrade };
+  return { item, price, discount, voucher: v ? String(voucher).toUpperCase() : '', total: price - discount, upgrade, plan };
 }
 const sha512 = s => crypto.createHash('sha512').update(s).digest('hex');
 const send = (res, status, obj) => { res.statusCode = status; res.setHeader('Content-Type', 'application/json'); res.setHeader('Cache-Control', 'no-store'); res.end(JSON.stringify(obj)); };
@@ -57,4 +66,4 @@ async function readBody(req) {
   if (typeof req.body === 'string') { try { return JSON.parse(req.body); } catch (e) { return {}; } }
   return await new Promise(resolve => { let d = ''; req.on('data', c => d += c); req.on('end', () => { try { resolve(JSON.parse(d || '{}')); } catch (e) { resolve({}); } }); });
 }
-module.exports = { env, SB_URL, SERVICE, ANON, IS_PROD, sb, userFromReq, priceFor, loadPrices, sha512, send, readBody, PLANS, UPGRADE_PRICE };
+module.exports = { env, SB_URL, SERVICE, ANON, IS_PROD, sb, userFromReq, priceFor, loadPackages, sha512, send, readBody, PLANS, UPGRADE_PRICE };

@@ -144,13 +144,16 @@ img{max-width:100%}
 .theme-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 
 /* Pricing */
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.plans{display:grid;grid-template-columns:repeat(var(--plan-n,3),minmax(0,1fr));gap:20px;align-items:stretch}
+@media (max-width:1100px) and (min-width:861px){.plans{grid-template-columns:repeat(min(var(--plan-n,3),2),minmax(0,1fr))}}
 .plan{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;display:flex;flex-direction:column;gap:18px}
 .plan.feature{background:var(--beet);color:#fff;border-color:var(--beet);box-shadow:0 30px 60px -24px rgba(125,29,63,.6)}
 .plan.feature .muted,.plan.feature li{color:#F3D9E1}
 .plan .tag{align-self:flex-start;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:var(--blush);color:var(--beet)}
 .plan.feature .tag{background:#fff}
 .plan h3{font-size:20px;font-weight:800}
+.plan{container-type:inline-size;min-width:0}
+.plan .price{font-size:min(46px,15.5cqi)}
 .price{font-family:var(--display);font-size:46px;font-weight:500;letter-spacing:-.02em;line-height:1}
 .price small{font-family:var(--body);font-size:14px;font-weight:600;letter-spacing:0;opacity:.75;white-space:nowrap;display:inline-block}
 .plan ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:15px}
@@ -691,7 +694,7 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
   .float-chip.a{left:0;top:40px}
   .float-chip.b{right:0}
   .steps{grid-template-columns:1fr;gap:34px}
-  .plans{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr !important}
   .theme-strip{grid-template-columns:repeat(2,1fr)}
   .section{padding:64px 0}
   .builder{grid-template-columns:1fr;padding-top:16px}
@@ -974,6 +977,57 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
   .adm-bars{gap:3px}
   .adm-acts{width:100%}.adm-acts .btn{flex:1}
 }
+
+/* Admin: paket */
+.adm-hint{display:block;font-size:12.5px;color:var(--muted);margin-top:6px}
+.adm-note{background:#FAF6F4;border:1px dashed var(--line);border-radius:12px;padding:12px 14px;font-size:14px;color:var(--muted)}
+.adm-row small{display:block;font-size:12.5px;color:var(--muted);font-weight:400;margin-top:2px}
+.adm-row>span:first-child{min-width:0}
+.adm-dirty{font-size:13px;font-weight:700;color:#8A5A00;background:#FFF3DA;padding:6px 12px;border-radius:99px;align-self:center}
+.adm-info{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-left:4px solid var(--beet);border-radius:14px;padding:14px 16px;margin-bottom:18px;font-size:14.5px;max-width:760px}
+.adm-info .icon{width:20px;height:20px;color:var(--beet);flex:none;margin-top:1px}
+.pk-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.pk-chips button{display:grid;text-align:left;gap:2px;border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px 16px;font:inherit;cursor:pointer;min-width:150px}
+.pk-chips button b{font-size:15px}.pk-chips button small{font-size:12.5px;color:var(--muted)}
+.pk-chips button[aria-selected=true]{border-color:var(--beet);box-shadow:0 0 0 3px rgba(125,29,63,.14);background:#FFF9FA}
+.pk-chips button.off{opacity:.6}
+.pk-chips .pk-add{display:flex;align-items:center;gap:8px;border-style:dashed;color:var(--beet);font-weight:700;min-width:0}
+.pk-chips .pk-add .icon{width:16px;height:16px}
+.pk-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px;align-items:start;margin-bottom:18px}
+.pk-grid>.adm-card{margin:0}
+.pk-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pk-del{margin-top:16px;color:#9A2A36}
+.pk-prev{position:sticky;top:20px;background:#F6F1EE}
+.pk-prev-in{pointer-events:none}
+.pk-prev-in .plan{margin:0;box-shadow:0 12px 30px rgba(40,10,20,.08)}
+.pk-fhead{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.pk-fhead>div{flex:1 1 320px;min-width:0}
+.pk-feats{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:8px}
+.pk-f{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
+.pk-f.on{border-color:#D9B9C4;background:#FFF9FA}
+.pk-chk{display:flex;gap:10px;align-items:flex-start;flex:1;min-width:0;cursor:pointer;font-size:14.5px}
+.pk-chk input{width:18px;height:18px;margin-top:2px;flex:none;accent-color:var(--beet)}
+.pk-lock{display:inline-flex;align-items:center;gap:4px;margin-left:6px;font-size:11px;font-weight:800;color:#8A5A00;background:#FFF3DA;padding:2px 8px;border-radius:99px;vertical-align:middle;white-space:nowrap}
+.pk-lock .icon{width:11px;height:11px}
+.pk-star{border:0;background:transparent;cursor:pointer;color:#C9B5BC;font-size:17px;display:flex;align-items:center;gap:4px;padding:4px 6px;border-radius:8px;flex:none}
+.pk-star span{font-size:11.5px;font-weight:700}
+.pk-star.on{color:#C08A12}
+.pk-mx-wrap{overflow-x:auto;padding:0 0 6px}
+.pk-mx{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+.pk-mx th,.pk-mx td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:center}
+.pk-mx th:first-child,.pk-mx td:first-child{text-align:left;position:sticky;left:0;background:#fff;z-index:1;min-width:200px}
+.pk-mx thead th{font-size:13px;vertical-align:bottom}
+.pk-mx thead th button{border:0;background:transparent;font:inherit;font-weight:800;cursor:pointer;color:var(--ink)}
+.pk-mx thead th small{display:block;color:var(--muted);font-weight:400}
+.pk-mx th.sel,.pk-mx td.sel{background:#FFF6F8}
+.pk-mx tr.g td{background:#FAF6F4;font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.pk-cell{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#fff;display:inline-grid;place-items:center;cursor:pointer;color:#C9BCB8}
+.pk-cell .icon{width:14px;height:14px}
+.pk-cell.on{background:var(--beet);border-color:var(--beet);color:#fff}
+[data-adm=pksave]:not([disabled]){position:fixed;right:32px;bottom:24px;z-index:30;box-shadow:0 14px 30px rgba(125,29,63,.35)}
+@media (max-width:820px){ [data-adm=pksave]:not([disabled]){left:14px;right:14px;bottom:14px} }
+@media (max-width:1000px){ .pk-grid{grid-template-columns:1fr} .pk-prev{position:static} }
+@media (max-width:560px){ .pk-chips{display:grid;grid-template-columns:1fr 1fr} .pk-chips button{min-width:0} .pk-2{grid-template-columns:1fr;gap:0} .pk-f{flex-wrap:wrap} .pk-star{margin-left:28px} }
 /* Konfigurasi admin */
 html.ff-off-demo [data-nav=demo],html.ff-off-demo [data-mnav=demo]{display:none !important}
 html.ff-off-musik [data-act=g-music]{display:none !important}
@@ -2281,7 +2335,7 @@ html.intro .hero h1,html.intro .hero .lede,html.intro .hero .try,html.intro .her
 @media (max-width:640px){
   .cmp{min-width:0;display:block}
   .cmp thead,.cmp tbody{display:block}
-  .cmp tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cmp tr{display:grid;grid-template-columns:repeat(var(--plan-n,3),minmax(0,1fr))}
   .cmp-head th:first-child{display:none}
   .cmp-head th{padding:14px 6px 12px;position:static;border-bottom:1px solid var(--line)}
   .cmp-head th b{font-size:14px;margin-top:6px}
@@ -3210,36 +3264,56 @@ const FEATS = [
   ]]
 ];
 const PLAN_COL = {coba:1, undangan:2, tamu:3};
+/* Mesin paket: tiap paket punya daftar fitur sendiri (bisa diatur dari panel admin) */
+const FEAT_LOCK_KEY = {'Import tamu dari Excel/CSV':'import','Grup tamu (keluarga, kantor, dst.)':'groups','Kirim WhatsApp ke semua tamu sekaligus':'bulk','Pengingat H-3 untuk yang belum jawab':'remind','QR check-in & buku tamu digital':'qr'};
+const FEAT_LOCKS = {import:'Import tamu dari Excel/CSV', groups:'Kelola grup tamu', bulk:'Kirim WhatsApp sekaligus & kartu cetak', remind:'Pengingat H-3', qr:'Halaman penerima tamu & QR check-in'};
+const fslug = t => t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40);
+FEATS.forEach(g=>g[1].forEach(r=>{ r.key = FEAT_LOCK_KEY[r[0]] || fslug(r[0]); }));
+const FEAT_ROWS = () => FEATS.flatMap(g=>g[1]);
+const CARD_DEFAULT = FEAT_ROWS().filter(r=>r[4]).map(r=>r.key);
+let CARD_KEYS = CARD_DEFAULT.slice();
+const PKG_DEFAULT = PLANS.map(p=>({...p, feats:Object.fromEntries(FEAT_ROWS().map(r=>[r.key, r[PLAN_COL[p.id]]]))}));
+const planOf = id => PLANS.find(p=>p.id===id) || null;
+const planFeat = (p, k) => { if(!p) return 1; const v = p.feats ? p.feats[k] : undefined; return v===undefined ? 0 : v; };
+const planRank = id => { const p=planOf(id); return p ? (p.id==='coba' ? -1 : p.price) : 1e12; };
+const planSum = p => FEAT_ROWS().filter(r=>(CARD_KEYS.includes(r.key)||FEAT_LOCKS[r.key]) && planFeat(p,r.key)).slice(-3).map(r=>r[0]).join(' · ');
+const shownPlans = () => PLANS.filter(p=>!p.hidden);
+const upgradeTargets = () => { const cur=planOf(S.plan); const cp = cur ? cur.price : Infinity; return shownPlans().filter(p=>p.price>cp && p.id!=='coba'); };
+const canUpgrade = () => S.published && upgradeTargets().length>0;
+const cheapestWith = k => shownPlans().filter(p=>p.id!=='coba' && planFeat(p,k)).sort((a,b)=>a.price-b.price)[0] || null;
 const featCell = (v, dark) => v===1 ? `<span class="fc yes" aria-label="Ada">${ico('check')}</span>` : v===0 ? `<span class="fc no" aria-label="Tidak ada">${ico('x')}</span>` : `<span class="fc txt">${esc(v)}</span>`;
 function myPlan(){ const r=(DEMO.on&&DEMO.saved)?DEMO.saved.S:S; if(!r.user) return null; return r.published ? (r.plan||'tamu') : 'coba'; }
 function planCta(p){
   const cur=myPlan(), cls=`btn ${p.feature?'btn-primary':'btn-ghost'} btn-block`;
   if(!cur) return `<a class="${cls}" href="#buat" data-plan="${p.id}">${p.cta}</a>`;
   if(p.id===cur) return `<span class="btn btn-block plan-state is-cur" role="note">${ico('check')}Paket kamu sekarang</span>`;
-  if(PLAN_RANK[p.id]<PLAN_RANK[cur]) return `<span class="btn btn-block plan-state" role="note">Sudah termasuk di paketmu</span>`;
+  if(planRank(p.id)<planRank(cur)) return `<span class="btn btn-block plan-state" role="note">Sudah termasuk di paketmu</span>`;
   if(cur==='coba') return `<a class="${cls}" href="#buat" data-plan="${p.id}">${p.cta}</a>`;
   return `<button type="button" class="${cls}" data-act="upgrade">${ico('up')}Upgrade ke ${esc(p.name)}</button>`;
 }
 function renderCompare(){
-  const ps=PLANS, cur=myPlan();
+  const ps=shownPlans(), cur=myPlan();
   const head = `<tr class="cmp-head"><th scope="col"><span class="sr">Fitur</span></th>${ps.map(p=>`<th scope="col" class="${p.feature?'feat':''}${p.id===cur?' mine':''}"><span class="cmp-tag">${p.id===cur?'Paketmu':p.tag}</span><b>${p.name}</b><span class="cmp-price num">${p.price?rupiah(p.price):'Gratis'}</span><span class="cmp-note">${p.price?'sekali bayar':'tanpa daftar'}</span><div class="cmp-cta">${planCta(p)}</div></th>`).join('')}</tr>`;
-  const body = FEATS.map(([g,rows])=>`<tr class="cmp-group"><th scope="rowgroup" colspan="${ps.length+1}">${g}</th></tr>`+rows.map(r=>`<tr><th scope="row">${r[0]}</th>${ps.map(p=>`<td class="${p.feature?'feat':''}">${featCell(r[PLAN_COL[p.id]])}</td>`).join('')}</tr>`).join('')).join('');
+  const body = FEATS.map(([g,rows])=>`<tr class="cmp-group"><th scope="rowgroup" colspan="${ps.length+1}">${g}</th></tr>`+rows.map(r=>`<tr><th scope="row">${r[0]}</th>${ps.map(p=>`<td class="${p.feature?'feat':''}">${featCell(planFeat(p,r.key))}</td>`).join('')}</tr>`).join('')).join('');
   $('#bandingkan').innerHTML = `<div class="page-head"><a class="linkbtn" href="#harga">← Kembali ke harga</a><h1>Bandingkan semua paket</h1><p>Semua paket dibayar sekali, tanpa biaya per tamu. Mulai dari Coba dulu, lalu naik paket kapan aja tanpa ngulang dari awal.</p></div>
-    <div class="cmp-wrap"><table class="cmp"><thead>${head}</thead><tbody>${body}</tbody></table></div>
-    <p class="muted" style="margin-top:18px;font-size:14px">Sudah pakai paket Undangan dan butuh fitur lengkap? Upgrade cukup bayar selisihnya, ${rupiah(UPGRADE_PRICE)}. <a href="/syarat">Garansi uang kembali 7 hari</a> berlaku untuk semua paket berbayar.</p>`;
+    <div class="cmp-wrap"><table class="cmp" style="--plan-n:${ps.length}"><thead>${head}</thead><tbody>${body}</tbody></table></div>
+    <p class="muted" style="margin-top:18px;font-size:14px">Mau naik paket nanti? Cukup bayar selisih harganya, tanpa mengulang dari awal. <a href="/syarat">Garansi uang kembali 7 hari</a> berlaku untuk semua paket berbayar.</p>`;
+}
+function planCardHTML(p, cur, preview){
+  return `<div class="plan${p.feature?' feature':''}${p.id===cur?' mine':''}">
+      ${(p.id===cur||p.tag)?`<span class="tag">${p.id===cur?'Paketmu':esc(p.tag)}</span>`:''}
+      <h3>${esc(p.name)}</h3>
+      <div class="price num">${p.price?rupiah(p.price):'Rp0'} <small>${esc(p.note||'')}</small></div>
+      ${p.fit?`<p class="plan-fit">${esc(p.fit)}</p>`:''}
+      <ul>${FEAT_ROWS().filter(r=>CARD_KEYS.includes(r.key)).map(r=>{ const on=planFeat(p,r.key); return `<li class="${on?'':'off'}">${ico(on?'check':'x')}${esc(r[0])}</li>`; }).join('')}</ul>
+      ${preview?`<span class="btn ${p.feature?'btn-primary':'btn-ghost'} btn-block">${esc(p.cta||'Pilih paket')}</span>`:planCta(p)}
+      <a class="plan-more" href="#bandingkan"${preview?' tabindex="-1"':''}>Lihat detail paket →</a>
+    </div>`;
 }
 function renderPlans(){
   const cur=myPlan();
-  $('#plans').innerHTML = PLANS.map(p=>`
-    <div class="plan${p.feature?' feature':''}${p.id===cur?' mine':''}">
-      <span class="tag">${p.id===cur?'Paketmu':p.tag}</span>
-      <h3>${p.name}</h3>
-      <div class="price num">${p.price?rupiah(p.price):'Rp0'} <small>${p.note}</small></div>
-      ${p.fit?`<p class="plan-fit">${p.fit}</p>`:''}
-      <ul>${FEATS.flatMap(g=>g[1]).filter(r=>r[4]).map(r=>{ const on=r[PLAN_COL[p.id]]; return `<li class="${on?'':'off'}">${ico(on?'check':'x')}${r[0]}</li>`; }).join('')}</ul>
-      ${planCta(p)}
-      <a class="plan-more" href="#bandingkan">Lihat detail paket →</a>
-    </div>`).join('');
+  $('#plans').style.setProperty('--plan-n', shownPlans().length);
+  $('#plans').innerHTML = shownPlans().map(p=>planCardHTML(p, cur)).join('');
 }
 document.addEventListener('click',e=>{ const a=e.target.closest('[data-plan]'); if(a && a.dataset.plan!=='coba' && !S.published && !DEMO.on){ S.plan=a.dataset.plan; save(); } });
 
@@ -3777,8 +3851,10 @@ const dtList = () => isPrep() ? DT.filter(([k])=>['tamu','keluarga'].includes(k)
 const DT = [['ringkasan','Ringkasan','home'],['tamu','Tamu','users'],['keluarga','Keluarga','family'],['katering','Katering','food'],['harih','Hari H','qr'],['ucapan','Ucapan','chat'],['kenangan','Kenangan','heart'],['hadiah','Hadiah','gift']];
 const stLabel = {hadir:['Hadir','s-ok'],tidak:['Tidak hadir','s-no'],belum:['Belum menjawab','s-wait']};
 const PRO = ['import','bulk','groups','harih','remind'];
-const isLocked = f => S.published && S.plan==='undangan' && PRO.includes(f);
-const lockNote = (what) => `<div class="lock-card">${ico('lock')}<div><b>${what} ada di paket Undangan + Tamu</b><p class="muted">Cukup tambah ${rupiah(UPGRADE_PRICE)} aja. Tamu dan isi undanganmu tetap aman, nggak perlu mulai dari awal.</p></div><button class="btn btn-primary btn-sm" data-act="upgrade">Upgrade sekarang</button></div>`;
+const LOCK_OF = {import:'import', bulk:'bulk', groups:'groups', harih:'qr', remind:'remind'};
+const isLocked = f => S.published && PRO.includes(f) && !planFeat(planOf(S.plan), LOCK_OF[f]||f);
+const lockNote = (what, f='harih') => { const t=cheapestWith(LOCK_OF[f]||f), cur=planOf(S.plan); const diff = t&&cur ? t.price-cur.price : 0;
+  return `<div class="lock-card">${ico('lock')}<div><b>${what} ada di paket ${esc(t?t.name:'yang lebih lengkap')}</b><p class="muted">${diff>0?`Cukup tambah ${rupiah(diff)} aja. `:''}Tamu dan isi undanganmu tetap aman, nggak perlu mulai dari awal.</p></div><button class="btn btn-primary btn-sm" data-act="upgrade">Upgrade sekarang</button></div>`; };
 function pubHost(){ return CLOUD.on ? location.host+'/u/' : 'undangansakara.vercel.app/u/'; }
 function pubURL(){ return 'https://'+pubHost()+((CLOUD.inv&&CLOUD.inv.slug)||S.slug); }
 function link(g){ return CLOUD.on ? `${location.origin}/u/${(CLOUD.inv&&CLOUD.inv.slug)||S.slug}?to=${g.code}` : `https://undangansakara.vercel.app/u/${S.slug}?to=${encodeURIComponent(g.code||g.name)}`; }
@@ -4026,8 +4102,8 @@ function renderDashCore(){
   const arrived = G.filter(g=>g.checkin);
   if(isPrep() && !dtList().some(([k])=>k===dTab)) dTab='tamu';
   const head = (DEMO.on ? demoBanner() : isPrep() ? prepBanner() : '') + `<div class="dash-head"><div><span class="eyebrow">${DEMO.on?'Demo · dashboard contoh':isPrep()?'Daftar tamu':'Dashboard pasangan'}</span><h1>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</h1>
-    <div class="meta"><span class="status ${DEMO.on?'s-wait':S.published?'s-ok':'s-wait'}">${DEMO.on?'Data contoh':S.published?`Aktif selamanya · ${esc((PLANS.find(p=>p.id===S.plan)||PLANS[2]).name)}`:'Belum dipublikasikan'}</span><span class="num">${esc(fmtDate(S.events[0].date))}</span>${DEMO.on?'':`<span>${S.published&&CLOUD.on?`<a href="${esc(pubURL())}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">${esc(pubHost()+S.slug)}</a>`:esc(pubHost()+S.slug)}</span>`}</div></div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">${isPrep()?`<a class="btn btn-ghost btn-sm" href="#buat">${ico('edit')}Lanjutkan undangan</a>`:`${S.published&&S.plan==='undangan'&&!DEMO.on?`<button class="btn btn-soft btn-sm" data-act="upgrade">${ico('up')}Upgrade paket</button>`:''}<button class="btn btn-ghost btn-sm" data-act="view-as" data-id="">${ico('eye')}Lihat sebagai tamu</button><a class="btn btn-ghost btn-sm" href="#edit">${ico('edit')}Edit undangan</a>`}</div></div>
+    <div class="meta"><span class="status ${DEMO.on?'s-wait':S.published?'s-ok':'s-wait'}">${DEMO.on?'Data contoh':S.published?`Aktif selamanya · ${esc((planOf(S.plan)||{name:S.plan||'Paket'}).name)}`:'Belum dipublikasikan'}</span><span class="num">${esc(fmtDate(S.events[0].date))}</span>${DEMO.on?'':`<span>${S.published&&CLOUD.on?`<a href="${esc(pubURL())}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">${esc(pubHost()+S.slug)}</a>`:esc(pubHost()+S.slug)}</span>`}</div></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">${isPrep()?`<a class="btn btn-ghost btn-sm" href="#buat">${ico('edit')}Lanjutkan undangan</a>`:`${canUpgrade()&&!DEMO.on?`<button class="btn btn-soft btn-sm" data-act="upgrade">${ico('up')}Upgrade paket</button>`:''}<button class="btn btn-ghost btn-sm" data-act="view-as" data-id="">${ico('eye')}Lihat sebagai tamu</button><a class="btn btn-ghost btn-sm" href="#edit">${ico('edit')}Edit undangan</a>`}</div></div>
     <div class="dtabs" role="tablist">${dtList().map(([k,l])=>`<button role="tab" data-dtab="${k}" aria-selected="${dTab===k}">${l}${k==='tamu'?`<span class="cnt num">${total}</span>`:k==='ucapan'?`<span class="cnt num">${W.length}</span>`:k==='harih'&&arrived.length?`<span class="cnt num">${arrived.length}</span>`:k==='keluarga'&&(G_ALL||G).some(isPending)?`<span class="cnt num" style="background:var(--warn);color:#fff">${(G_ALL||G).filter(isPending).length}</span>`:''}</button>`).join('')}</div>`;
   let body='';
   if(dTab==='ringkasan'){
@@ -4391,16 +4467,17 @@ function finishLogin(name,email){ S.user={name,email}; save(); closeModal(); ren
 
 /* ---------- Checkout ---------- */
 let CO = {method:'qris', bank:'BCA', wallet:'GoPay', voucher:'', applied:null, stage:'form', plan:null, timer:null, end:0};
-const coMode = () => (S.published && S.plan==='undangan') ? 'upgrade' : (S.published ? 'done-already' : 'new');
+const coMode = () => S.published ? (canUpgrade() ? 'upgrade' : 'done-already') : 'new';
 function coItems(){
-  if(coMode()==='upgrade') return {name:'Upgrade ke Undangan + Tamu', price:UPGRADE_PRICE, plan:'tamu'};
-  const p = PLANS.find(x=>x.id===(CO.plan||S.plan)) || PLANS[2]; return {name:'Paket '+p.name, price:p.price, plan:p.id};
+  const paid = shownPlans().filter(p=>p.price>0);
+  if(coMode()==='upgrade'){ const ts=upgradeTargets(); const t=ts.find(p=>p.id===CO.plan) || ts.find(p=>p.feature) || ts[0]; const cur=planOf(S.plan); return {name:'Upgrade ke '+t.name, price:t.price-(cur?cur.price:0), plan:t.id}; }
+  const p = paid.find(x=>x.id===(CO.plan||S.plan)) || paid.find(x=>x.feature) || paid[paid.length-1]; return {name:'Paket '+p.name, price:p.price, plan:p.id};
 }
 function coTotals(){ const it=coItems(); let disc=0; const v=CO.applied&&VOUCHERS[CO.applied]; if(v) disc = v.type==='pct'? Math.round(it.price*v.v/100) : v.v; disc=Math.min(disc,it.price); return {...it, disc, total:it.price-disc}; }
 function renderCheckout(){
   const root=$('#checkout'); clearInterval(CO.timer);
   if(!S.user){ root.innerHTML = `<div class="co-empty"><span class="eyebrow">Satu langkah lagi</span><h1 class="display">Simpan dulu undanganmu ke akun</h1><p class="muted">Semua yang udah kamu isi ikut tersimpan, nggak perlu ngulang. Habis itu langsung lanjut ke pembayaran.</p><button class="btn btn-primary" data-act="login-co">Masuk dan lanjutkan</button></div>`; return; }
-  if(coMode()==='done-already' && CO.stage!=='done'){ root.innerHTML = `<div class="co-empty"><span class="status s-ok">Aktif selamanya</span><h1 class="display">Paketmu udah yang paling lengkap!</h1><p class="muted">Undangan + Tamu sudah aktif untuk ${esc(pubHost())}${esc(S.slug)}.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn btn-primary" href="#dashboard">Buka dashboard</a><a class="btn btn-ghost" href="#tagihan">Lihat tagihan</a></div></div>`; return; }
+  if(coMode()==='done-already' && CO.stage!=='done'){ root.innerHTML = `<div class="co-empty"><span class="status s-ok">Aktif selamanya</span><h1 class="display">Paketmu udah yang paling lengkap!</h1><p class="muted">${esc((planOf(S.plan)||{name:'Paketmu'}).name)} sudah aktif untuk ${esc(pubHost())}${esc(S.slug)}.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn btn-primary" href="#dashboard">Buka dashboard</a><a class="btn btn-ghost" href="#tagihan">Lihat tagihan</a></div></div>`; return; }
   const T=coTotals();
   const steps = `<ol class="co-steps">${['Paket','Pembayaran','Selesai'].map((s,i)=>`<li class="${(CO.stage==='form'&&i===0)||(CO.stage==='pending'&&i===1)||(CO.stage==='done'&&i===2)?'on':''} ${(CO.stage==='pending'&&i<1)||(CO.stage==='done'&&i<2)?'ok':''}"><span>${i+1}</span>${s}</li>`).join('')}</ol>`;
   const summary = `<aside class="co-sum"><div class="co-inv" style="${themeStyle(themeById(S.theme),S.accent,fontOf())}"><div class="pat2"></div><small>The wedding of</small><b>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</b><small>${esc(fmtShort(S.events[0].date))}</small></div>
@@ -4411,9 +4488,10 @@ function renderCheckout(){
   if(CO.stage==='form'){
     root.innerHTML = `<div class="co-head"><a class="linkbtn" href="#${S.published?'edit':'buat'}">← Kembali ke editor</a><h1 class="display">${coMode()==='upgrade'?'Upgrade paket':'Publikasikan undangan'}</h1></div>${steps}
     <div class="co-grid"><form class="form-card co-form" id="coForm" novalidate>
-      ${coMode()==='upgrade' ? `<h2 class="co-h">Upgrade</h2><div class="plan-pick"><label><input type="radio" checked disabled><span><b>Undangan + Tamu</b><small>Import Excel, grup & sesi, kirim WhatsApp sekaligus, QR check-in hari H</small></span><b class="num">+${rupiah(UPGRADE_PRICE)}</b></label></div>`
-      : `<h2 class="co-h">Paket</h2><div class="plan-pick">${PLANS.filter(p=>p.price).map(p=>`<label><input type="radio" name="coPlan" value="${p.id}" ${(CO.plan||S.plan)===p.id?'checked':''}><span><b>${p.name}</b><small>${esc(p.sum)}</small></span><b class="num">${rupiah(p.price)}</b></label>`).join('')}</div>`}
-      ${coMode()==='new' && (CO.plan||S.plan)==='undangan' ? `<div class="co-upsell">${ico('up')}<span>Tambah ${rupiah(PLANS[2].price-PLANS[1].price)} aja, kamu bisa kirim WhatsApp ke semua tamu sekaligus, kirim pengingat H-3, dan pakai QR check-in di hari H. <button type="button" class="linkbtn" data-act="co-pick-tamu">Pilih Undangan + Tamu</button></span></div>` : ''}
+      ${coMode()==='upgrade' ? `<h2 class="co-h">Upgrade ke</h2><div class="plan-pick">${upgradeTargets().map(p=>`<label><input type="radio" name="coPlan" value="${p.id}" ${T.plan===p.id?'checked':''}><span><b>${esc(p.name)}</b><small>${esc(planSum(p))}</small></span><b class="num">+${rupiah(p.price-((planOf(S.plan)||{}).price||0))}</b></label>`).join('')}</div>`
+      : `<h2 class="co-h">Paket</h2><div class="plan-pick">${shownPlans().filter(p=>p.price).map(p=>`<label><input type="radio" name="coPlan" value="${p.id}" ${T.plan===p.id?'checked':''}><span><b>${esc(p.name)}</b><small>${esc(planSum(p))}</small></span><b class="num">${rupiah(p.price)}</b></label>`).join('')}</div>`}
+      ${(()=>{ if(coMode()!=='new') return ''; const cur=planOf(T.plan), up=shownPlans().filter(p=>p.price>(cur?cur.price:0)).sort((a,b)=>b.price-a.price)[0]; if(!cur||!up) return ''; const extra=FEAT_ROWS().filter(r=>planFeat(up,r.key)&&!planFeat(cur,r.key)).slice(0,3).map(r=>r[0].toLowerCase()); if(!extra.length) return '';
+        return `<div class="co-upsell">${ico('up')}<span>Tambah ${rupiah(up.price-cur.price)} aja, kamu dapat ${esc(extra.join(', '))}. <button type="button" class="linkbtn" data-act="co-pick-plan" data-p="${esc(up.id)}">Pilih ${esc(up.name)}</button></span></div>`; })()}
       <h2 class="co-h">Kode voucher</h2>
       <div class="vrow"><input class="input" id="coV" placeholder="Masukkan kode" value="${esc(CO.voucher)}" aria-label="Kode voucher" autocomplete="off"><button type="button" class="btn btn-ghost" data-act="apply-voucher">Pakai</button></div>
       <p class="hint" id="coVmsg" style="margin-top:6px;font-size:13px;${CO.applied?'color:var(--ok);font-weight:700':'color:var(--muted)'}">${CO.applied?`${esc(VOUCHERS[CO.applied].label)} dipakai.`:(CLOUD.on?'Nggak punya kode? Lewati aja.':'Coba SAKARA10 di prototype ini.')}</p>
@@ -4451,7 +4529,7 @@ function renderCheckout(){
   if(CO.stage==='done'){
     const inv=(S.invoices||[])[0];
     root.innerHTML = `<div class="co-head"><h1 class="display">Pembayaran berhasil</h1></div>${steps}
-    <div class="co-done form-card"><div class="okc">${ico('check')}</div><h2 class="display" style="font-size:34px">${inv&&inv.upgrade?'Paket Undangan + Tamu aktif':'Undanganmu sudah tayang'}</h2>
+    <div class="co-done form-card"><div class="okc">${ico('check')}</div><h2 class="display" style="font-size:34px">${inv&&inv.upgrade?`Paket ${esc((planOf(S.plan)||{name:'barumu'}).name)} aktif`:'Undanganmu sudah tayang'}</h2>
       <p class="muted" style="max-width:46ch;margin:10px auto 0">${esc(pubHost())}${esc(S.slug)} aktif selamanya. Bukti bayar ${esc(inv?.no||'')} sudah dikirim ke ${esc(S.user.email)}.</p>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px"><button class="btn btn-ghost" data-act="copy" data-v="${esc(pubURL())}">${ico('copy')}Salin link</button><a class="btn btn-ghost" href="#tagihan">${ico('receipt')}Lihat tagihan</a><a class="btn btn-primary" href="#dashboard" data-act="co-reset">Mulai kirim ke tamu</a></div></div>`;
   }
@@ -4474,7 +4552,7 @@ function renderTagihan(){
   root.innerHTML = `<div class="page-head" style="padding-bottom:20px"><span class="eyebrow">Akun</span><h1>Akun &amp; tagihan</h1></div>
   <div class="acct-grid"><div class="panel-c acct-card"><span class="av-btn big">${esc(initials(S.user.name))}</span><div><b style="font-size:18px">${esc(S.user.name)}</b><div class="muted">${esc(S.user.email)}</div></div>
     <div class="acct-stat"><span class="muted">Undangan</span>${S.published&&CLOUD.on?`<div class="acct-row"><a class="acct-link" href="${esc(pubURL())}" target="_blank" rel="noopener">${esc(pubHost())}<wbr>${esc(S.slug)}</a><button class="btn btn-ghost btn-sm" data-act="copy" data-v="${esc(pubURL())}" aria-label="Salin link undangan">${ico('copy')}</button></div>`:`<b>${esc(pubHost())}<wbr>${esc(S.slug)}</b>`}<span class="status ${S.published?'s-ok':'s-wait'}">${S.published?'Aktif selamanya · '+esc((PLANS.find(p=>p.id===S.plan)||{}).name||''):'Belum dipublikasikan'}</span></div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">${S.published&&S.plan==='undangan'?`<button class="btn btn-soft btn-sm" data-act="upgrade">Upgrade paket</button>`:''}${S.published?'':`<a class="btn btn-primary btn-sm" href="#buat">Lanjut ke editor</a>`}<button class="btn btn-ghost btn-sm" data-act="logout">${ico('logout')}Keluar</button></div></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">${canUpgrade()?`<button class="btn btn-soft btn-sm" data-act="upgrade">Upgrade paket</button>`:''}${S.published?'':`<a class="btn btn-primary btn-sm" href="#buat">Lanjut ke editor</a>`}<button class="btn btn-ghost btn-sm" data-act="logout">${ico('logout')}Keluar</button></div></div>
   <div><h2 class="co-h" style="margin-top:0">Riwayat tagihan</h2>
   ${inv.length?`<div class="tbl-wrap" style="display:block"><table><thead><tr><th>Nomor</th><th>Tanggal</th><th>Item</th><th class="num">Total</th><th>Status</th></tr></thead><tbody>${inv.map((x,k)=>`<tr><td class="nm num"><button type="button" class="inv-no" data-act="inv" data-k="${k}" title="Lihat bukti pembayaran">${esc(x.no)}</button></td><td class="muted td-date">${(()=>{ const [d,t]=fmtDT(x.date).split(' pukul '); return `${esc(d)}${t?`<small>pukul ${esc(t)}</small>`:''}`; })()}</td><td class="td-item">${esc(x.item)}</td><td class="num td-total">${rupiah(x.total)}<small>${esc(methodName(x.method))}</small></td><td><span class="status s-ok">${esc(x.status)}</span></td></tr>`).join('')}</tbody></table></div>`
   :`<div class="empty">Belum ada tagihan, nih. Bukti bayar bakal muncul di sini begitu undanganmu dipublikasikan.<br><a class="btn btn-primary btn-sm" href="#buat" style="margin-top:14px">Lanjutkan undangan</a></div>`}</div></div>`;
@@ -4705,7 +4783,7 @@ document.addEventListener('click', e=>{
   if(a==='co-paid') completePayment();
   if(a==='co-check' && CLOUD.pendingOrder){ clearTimeout(CO.waitT); CO.stage='waiting'; renderCheckout(); waitPaid(CLOUD.pendingOrder); }
   if(a==='co-reset'){ CO.stage='form'; }
-  if(a==='co-pick-tamu'){ CO.plan='tamu'; renderCheckout(); }
+  if(a==='co-pick-tamu' || a==='co-pick-plan'){ CO.plan=el.dataset.p||'tamu'; renderCheckout(); }
   if(a==='upgrade'){ closeModal(); CO.stage='form'; if(!S.user) openAuth(()=>{ location.hash='checkout'; },'publish'); else { location.hash='checkout'; if(location.hash==='#checkout') renderCheckout(); } }
   if(a==='inv') invoiceModal(+el.dataset.k);
   if(a==='ci-open') ciOpen(el.dataset.id);
@@ -5576,7 +5654,7 @@ document.addEventListener('click', e=>{
 /* ---------- Router ---------- */
 /* ---------- Panel admin (/admin) ---------- */
 const ADM = { tok: (()=>{ try{ return sessionStorage.getItem('sp-adm')||''; }catch(e){ return ''; } })(), me:null, tab:'ringkasan', stats:null, users:null, q:'', cfg:null, edit:null, draft:null, busy:false, err:'' };
-const ADM_TABS = [['ringkasan','Ringkasan','home'],['keuangan','Keuangan','wallet'],['pengguna','Pengguna & undangan','users'],['tema','Tema','eye'],['fitur','Fitur & harga','gift'],['akun','Akun admin','lock']];
+const ADM_TABS = [['ringkasan','Ringkasan','home'],['keuangan','Keuangan','wallet'],['pengguna','Pengguna & undangan','users'],['tema','Tema','eye'],['paket','Paket','receipt'],['fitur','Fitur aktif','eye'],['akun','Akun admin','lock']];
 const ADM_FONTS = [["","Bawaan tema"],["'Cormorant Garamond', Georgia, serif","Cormorant Garamond"],["'Bodoni Moda', Georgia, serif","Bodoni Moda"],["'Lora', Georgia, serif","Lora"],["'Marcellus', Georgia, serif","Marcellus"],["'Oswald', 'Plus Jakarta Sans', sans-serif","Oswald"],["'Great Vibes', cursive","Great Vibes (sambung)"],["'Itim', 'Mali', cursive","Itim (ceria)"],["'Patrick Hand', cursive","Patrick Hand (tulisan tangan)"],["'Permanent Marker', cursive","Permanent Marker (spidol)"],["'Plus Jakarta Sans', sans-serif","Plus Jakarta Sans"]];
 const ADM_SECS = [['salam','Salam & mempelai'],['acara','Waktu & tempat'],['cerita','Kisah cinta'],['galeri','Galeri foto'],['rsvp','Konfirmasi kehadiran'],['hadiah','Tanda kasih'],['kado','Kado patungan'],['ucapan','Ucapan & doa']];
 async function admApi(action, body={}){
@@ -5622,6 +5700,7 @@ async function admRenderTab(){
     if(ADM.tab==='pengguna'){ if(!ADM.users) ADM.users = (await admApi('users',{q:ADM.q})).users; m.innerHTML = admUsersHTML(); }
     if(ADM.tab==='tema'){ if(!ADM.cfg) await admLoadCfg(); m.innerHTML = ADM.edit ? admThemeEditHTML() : admThemesHTML(); if(ADM.edit) admPreview(); }
     if(ADM.tab==='fitur'){ if(!ADM.cfg) await admLoadCfg(); m.innerHTML = admFeatHTML(); }
+    if(ADM.tab==='paket'){ if(!ADM.cfg) await admLoadCfg(); if(!ADM.stats){ try{ ADM.stats = await admApi('stats'); }catch(e){} } m.innerHTML = admPkgHTML(); }
     if(ADM.tab==='akun'){ const r = await admApi('admins_list'); m.innerHTML = admAkunHTML(r.admins); }
   }catch(e){ m.innerHTML = `<div class="adm-err"><b>Belum bisa memuat data.</b><p>${esc(e.message)}</p><button class="btn btn-ghost btn-sm" data-adm="reload">Coba lagi</button></div>`; }
 }
@@ -5650,7 +5729,7 @@ function admStatsHTML(s){
   const mx = Math.max(1,...days.map(d=>d[1]));
   const themes = Object.entries(s.themes||{}).sort((a,b)=>b[1]-a[1]).slice(0,8);
   return `<header class="adm-head"><div><span class="eyebrow">Ringkasan</span><h1 class="display">Apa kabar Sakara hari ini</h1></div><button class="btn btn-ghost btn-sm" data-adm="refresh">${ico('undo')}Muat ulang</button></header>
-  <div class="adm-tiles">${tile('Pengguna',s.users,`+${s.new7} minggu ini · +${s.new30} 30 hari`)}${tile('Undangan tayang',s.published,`Coba ${s.byPlan.coba} · Undangan ${s.byPlan.undangan} · Lengkap ${s.byPlan.tamu}`)}${tile('Pendapatan',rupiah(s.revenue),`${s.paidCount} transaksi lunas`)}${tile('Total tamu',s.guests.toLocaleString('id-ID'),'di semua undangan')}</div>
+  <div class="adm-tiles">${tile('Pengguna',s.users,`+${s.new7} minggu ini · +${s.new30} 30 hari`)}${tile('Undangan tayang',s.published,Object.entries(s.byPlan||{}).map(([k,n])=>`${esc((planOf(k)||{name:k}).name)} ${n}`).join(' · '))}${tile('Pendapatan',rupiah(s.revenue),`${s.paidCount} transaksi lunas`)}${tile('Total tamu',s.guests.toLocaleString('id-ID'),'di semua undangan')}</div>
   <div class="adm-grid2">
     <section class="adm-card"><h2>Pendaftar 14 hari terakhir</h2><div class="adm-bars">${days.map(([d,n])=>`<div title="${d}: ${n}"><i style="height:${Math.round(n/mx*100)}%"></i><b>${n||''}</b><small>${+d.slice(8)}</small></div>`).join('')}</div></section>
     <section class="adm-card"><h2>Tema paling dipakai</h2>${themes.length?`<ol class="adm-rank">${themes.map(([id,n])=>`<li><span>${esc(themeById(id).name)}</span><b class="num">${n}</b></li>`).join('')}</ol>`:'<p class="muted">Belum ada data.</p>'}</section>
@@ -5671,7 +5750,7 @@ function admUsersHTML(){
   ${u.map(x=>{ const banned = x.banned_until && new Date(x.banned_until)>new Date(); return `<tr${banned?' class="ban"':''}>
     <td><b>${esc(x.name||x.email.split('@')[0])}</b><small>${esc(x.email)}</small><small>Daftar ${admDate(x.created_at)} · aktif ${admDate(x.last_sign_in_at)}</small></td>
     <td>${x.invitation_id?`<b>${esc((x.bride||'?')+' & '+(x.groom||'?'))}</b><small>${x.slug?`<a href="/u/${esc(x.slug)}" target="_blank" rel="noopener">/u/${esc(x.slug)}</a>`:'—'} · ${esc(themeById(x.theme).name)}</small>`:'<span class="muted">Belum membuat</span>'}</td>
-    <td data-l="Paket">${x.invitation_id?`<select class="input adm-sel" data-adm-plan="${x.invitation_id}">${['coba','undangan','tamu'].map(p=>`<option value="${p}"${x.plan===p?' selected':''}>${({coba:'Coba',undangan:'Undangan',tamu:'Undangan + Tamu'})[p]}</option>`).join('')}</select>`:'—'}</td>
+    <td data-l="Paket">${x.invitation_id?`<select class="input adm-sel" data-adm-plan="${x.invitation_id}">${PLANS.concat(planOf(x.plan)||!x.plan?[]:[{id:x.plan,name:x.plan}]).map(p=>`<option value="${p.id}"${x.plan===p.id?' selected':''}>${esc(p.name)}</option>`).join('')}</select>`:'—'}</td>
     <td data-l="Tayang">${x.invitation_id?`<label class="switch"><input type="checkbox" data-adm-pub="${x.invitation_id}" ${x.published?'checked':''} aria-label="Tayangkan undangan"><span></span></label>`:'—'}</td>
     <td class="num" data-l="Tamu">${x.guests||0}<small>${x.hadir||0} hadir</small></td>
     <td class="num" data-l="Dibayar">${x.paid_total?rupiah(x.paid_total):'—'}</td>
@@ -5722,14 +5801,11 @@ function admPreview(){
 }
 async function admSaveThemes(msg){ await admApi('config_set',{key:'themes', value:ADM.cfg.themes}); applyConfig(ADM.cfg); try{ localStorage.setItem('sp-appcfg', JSON.stringify(ADM.cfg)); }catch(e){} toast(msg||'Tersimpan. Langsung berlaku di situs.'); }
 function admFeatHTML(){
-  const groups = [...new Set(FEATURE_LIST.map(f=>f[2]))]; const p = ADM.cfg.prices||{};
-  const pr = (k,l,base) => `<label class="adm-price"><span>${l}</span><div class="adm-rp"><i>Rp</i><input class="input num" inputmode="numeric" data-adm-price="${k}" value="${(p[k]||base).toLocaleString('id-ID')}"></div><small class="muted">Bawaan ${rupiah(base)}</small></label>`;
-  return `<header class="adm-head"><div><span class="eyebrow">Fitur & harga</span><h1 class="display">Atur yang tersedia untuk pasangan</h1></div></header>
-  <div class="adm-grid2"><section class="adm-card"><h2>Fitur</h2><p class="muted" style="margin:-4px 0 6px;font-size:14px">Fitur yang dimatikan hilang dari editor, dashboard, dan undangan. Data yang sudah ada tidak terhapus, jadi bisa dinyalakan lagi kapan saja.</p>
-    ${groups.map(g=>`<h3 class="adm-sub">${g}</h3>${FEATURE_LIST.filter(f=>f[2]===g).map(([k,l])=>`<label class="adm-row"><span>${l}</span><span class="switch"><input type="checkbox" data-adm-ff="${k}" ${ADM.cfg.features[k]===false?'':'checked'}><span></span></span></label>`).join('')}`).join('')}</section>
-  <section class="adm-card"><h2>Harga paket</h2><p class="muted" style="margin:-4px 0 12px;font-size:14px">Berlaku untuk halaman harga dan tagihan di server. Teks promosi yang menyebut harga (misalnya di beranda) perlu disesuaikan terpisah.</p>
-    ${pr('undangan','Paket Undangan',PRICE_BASE.undangan||129000)}${pr('tamu','Paket Undangan + Tamu',PRICE_BASE.tamu||349000)}${pr('upgrade','Upgrade Undangan → Undangan + Tamu',UPGRADE_BASE)}
-    <button type="button" class="btn btn-primary" data-adm="psave" style="margin-top:14px">Simpan harga</button></section></div>`;
+  const groups = [...new Set(FEATURE_LIST.map(f=>f[2]))];
+  return `<header class="adm-head"><div><span class="eyebrow">Fitur aktif</span><h1 class="display">Saklar fitur untuk semua pengguna</h1>
+    <p class="muted" style="margin:6px 0 0">Saklar di sini berlaku untuk <b>semua paket sekaligus</b>, misalnya untuk mematikan sementara fitur yang sedang diperbaiki. Data yang sudah ada tidak terhapus.</p></div></header>
+  <div class="adm-info">${ico('receipt')}<span>Mau mengatur fitur apa saja yang didapat tiap paket (misalnya Undangan vs Undangan + Tamu)? Atur di menu <button type="button" class="linkbtn" data-adm-tab="paket">Paket</button>.</span></div>
+  <section class="adm-card" style="max-width:760px">${groups.map(g=>`<h3 class="adm-sub">${g}</h3>${FEATURE_LIST.filter(f=>f[2]===g).map(([k,l])=>`<label class="adm-row"><span>${l}<small>${ADM.cfg.features[k]===false?'Mati untuk semua pengguna':'Menyala, mengikuti isi paket'}</small></span><span class="switch"><input type="checkbox" data-adm-ff="${k}" ${ADM.cfg.features[k]===false?'':'checked'}><span></span></span></label>`).join('')}`).join('')}</section>`;
 }
 function admAkunHTML(list){
   return `<header class="adm-head"><div><span class="eyebrow">Akun admin</span><h1 class="display">Siapa saja yang bisa masuk</h1></div></header>
@@ -5761,7 +5837,9 @@ document.addEventListener('submit', async e=>{
 });
 document.addEventListener('click', async e=>{
   const t = e.target; if(!t.closest || !t.closest('#admin')) return;
-  const tab = t.closest('[data-adm-tab]'); if(tab){ ADM.tab=tab.dataset.admTab; ADM.edit=null; $$('[data-adm-tab]').forEach(b=>b.setAttribute('aria-current', b===tab)); admRenderTab(); return; }
+  const tab = t.closest('[data-adm-tab]'); if(tab && ADM.tab==='paket' && ADM.pkDirty && tab.dataset.admTab!=='paket' && !confirm('Perubahan paket belum disimpan. Tetap pindah halaman?')) return;
+  if(tab && ADM.tab==='paket' && tab.dataset.admTab!=='paket'){ ADM.pk=null; ADM.pkDirty=false; }
+  if(tab){ ADM.tab=tab.dataset.admTab; ADM.edit=null; $$('[data-adm-tab]').forEach(b=>b.setAttribute('aria-current', b===tab)); admRenderTab(); return; }
   const a = t.closest('[data-adm]')?.dataset.adm;
   try{
     if(a==='logout'){ admLogout(); return; }
@@ -5769,6 +5847,10 @@ document.addEventListener('click', async e=>{
     if(a==='tback'){ ADM.edit=null; admRenderTab(); return; }
     if(a==='treset'){ if(!confirm('Kembalikan tema ini ke pengaturan bawaan?')) return; const keep=(ADM.cfg.themes[ADM.edit]||{}); ADM.cfg.themes[ADM.edit] = {}; if(keep.order!=null) ADM.cfg.themes[ADM.edit].order=keep.order; if(keep.hidden) ADM.cfg.themes[ADM.edit].hidden=true; ADM.draft=JSON.parse(JSON.stringify(ADM.cfg.themes[ADM.edit])); await admSaveThemes('Tema dikembalikan ke bawaan'); admRenderTab(); return; }
     if(a==='tsave'){ ADM.cfg.themes[ADM.edit] = admDraftClean(ADM.draft); await admSaveThemes(); return; }
+    if(a==='pksave'){ await admPkgSave(); $('#admMain').innerHTML=admPkgHTML(); return; }
+    if(a==='pkadd'){ admPkgInit(); const top=ADM.pk.slice().sort((x,y)=>y.price-x.price)[0]; const id='p-'+Date.now().toString(36).slice(-6); ADM.pk.push({id, name:'Paket baru', price:(top?top.price:0)+100000, note:'sekali bayar', tag:'', fit:'', cta:'Pilih paket ini', feats:{...(top?top.feats:{})}}); ADM.pkSel=id; admPkgChanged(); setTimeout(()=>{ const n=$('[data-pk=name]'); n&&(n.focus(),n.select()); },50); return; }
+    if(a==='pkdel'){ const p=admPkg(); const n=((ADM.stats&&ADM.stats.byPlan)||{})[p.id]||0; if(n){ toast(`${n} pengguna memakai paket ini. Sembunyikan saja supaya tidak bisa dibeli lagi.`); return; } if(!confirm(`Hapus paket "${p.name}"?`)) return; ADM.pk=ADM.pk.filter(x=>x.id!==p.id); ADM.pkSel=(ADM.pk.find(x=>x.id==='tamu')||ADM.pk[0]).id; admPkgChanged(); return; }
+    if(a==='pkall'){ const p=admPkg(); const all=FEAT_ROWS().every(r=>planFeat(p,r.key)); p.feats=Object.fromEntries(FEAT_ROWS().map(r=>[r.key, all?0:1])); admPkgChanged(); return; }
     if(a==='finsave'){ const c=finReadForm(); finSetCfg(c); await admApi('config_set',{key:'prices', value:ADM.cfg.prices}); toast('Pengaturan keuangan tersimpan'); admRenderTab(); return; }
     if(a==='fincost'){ const c=finReadForm(); c.costs.push({name:'',amount:0}); finSetCfg(c); admRenderTab(); setTimeout(()=>{ const x=$$('[data-fin-cost][data-f=name]').pop(); x&&x.focus(); },60); return; }
     if(a==='fincsv'){ const [fa,fb]=finRange(); const rows=finCalc((FIN.rows||[]).filter(r=>{ const t=new Date(r.paid_at||r.created_at); return (!fa||t>=fa)&&t<=fb; })); const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
@@ -5776,6 +5858,9 @@ document.addEventListener('click', async e=>{
       const blob=new Blob(['\ufeff'+csv],{type:'text/csv'}); const u=URL.createObjectURL(blob); const l=document.createElement('a'); l.href=u; l.download=`keuangan-sakara-${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(l); l.click(); l.remove(); setTimeout(()=>URL.revokeObjectURL(u),2000); return; }
     if(a==='psave'){ const v={}; $$('[data-adm-price]').forEach(i=>{ const n=parseInt(i.value.replace(/\D/g,''),10); if(n>=1000) v[i.dataset.admPrice]=n; }); ADM.cfg.prices=v; await admApi('config_set',{key:'prices', value:v}); applyConfig(ADM.cfg); try{ localStorage.setItem('sp-appcfg', JSON.stringify(ADM.cfg)); }catch(err){} toast('Harga tersimpan'); return; }
   }catch(err){ toast(err.message); return; }
+  const ps = t.closest('[data-pk-sel]'); if(ps){ ADM.pkSel=ps.dataset.pkSel; $('#admMain').innerHTML=admPkgHTML(); return; }
+  const pm = t.closest('[data-pk-mx]'); if(pm){ const x=ADM.pk.find(q=>q.id===pm.dataset.pkMx); x.feats={...x.feats, [pm.dataset.k]: planFeat(x,pm.dataset.k)?0:1}; admPkgChanged(); return; }
+  const pc = t.closest('[data-pk-card]'); if(pc){ const k=pc.dataset.pkCard; ADM.cards = ADM.cards.includes(k) ? ADM.cards.filter(x=>x!==k) : FEAT_ROWS().map(r=>r.key).filter(x=>x===k||ADM.cards.includes(x)); admPkgChanged(); return; }
   const fr = t.closest('[data-fin-range]'); if(fr){ FIN.range=fr.dataset.finRange; if(FIN.range==='custom' && !FIN.from){ const d=new Date(); FIN.to=d.toISOString().slice(0,10); FIN.from=new Date(d.getFullYear(),d.getMonth(),1).toISOString().slice(0,10); } $('#admMain').innerHTML=admFinHTML(); return; }
   const cd = t.closest('[data-fin-costdel]'); if(cd){ const c=finReadForm(); c.costs.splice(+cd.dataset.finCostdel,1); finSetCfg(c); $('#admMain').innerHTML=admFinHTML(); return; }
   const ed = t.closest('[data-adm-tedit]'); if(ed){ ADM.edit=ed.dataset.admTedit; ADM.draft=JSON.parse(JSON.stringify(ADM.cfg.themes[ADM.edit]||{})); admRenderTab(); $('#admMain')?.scrollTo?.(0,0); window.scrollTo(0,0); return; }
@@ -5806,9 +5891,66 @@ function admDraftInput(t){
   if(t.dataset.tdKick){ d.kick=d.kick||{}; d.kick[t.dataset.tdKick]=t.value; }
   clearTimeout(admPrevT); admPrevT=setTimeout(admPreview, 160);
 }
+document.addEventListener('input', e=>{ const t=e.target; if(!t.dataset || !t.closest || !t.closest('#admin')) return;
+  if(t.dataset.pk && t.type!=='checkbox'){ const p=admPkg(); if(t.dataset.pk==='price'){ const n=t.value.replace(/\D/g,''); t.value = n?(+n).toLocaleString('id-ID'):''; p.price=+n||0; } else p[t.dataset.pk]=t.value; admPkgChanged(false); }
+});
+document.addEventListener('change', e=>{ const t=e.target; if(!t.dataset || !t.closest || !t.closest('#admin')) return;
+  if(t.dataset.pk==='feature'){ ADM.pk.forEach(x=>x.feature = t.checked ? x.id===ADM.pkSel : (x.id===ADM.pkSel?false:x.feature)); admPkgChanged(); }
+  if(t.dataset.pk==='shown'){ const p=admPkg(); if(t.checked) delete p.hidden; else p.hidden=true; admPkgChanged(); }
+  if(t.dataset.pkF){ const p=admPkg(); p.feats={...p.feats, [t.dataset.pkF]: t.checked?1:0}; admPkgChanged(); }
+});
 document.addEventListener('input', e=>{ const t=e.target; if(t.closest && t.closest('#admin .adm-tform') && (t.dataset.td||t.dataset.tdTitle||t.dataset.tdKick)) admDraftInput(t);
   if(t.dataset && t.dataset.admPrice!==undefined){ const n=t.value.replace(/\D/g,''); t.value = n ? (+n).toLocaleString('id-ID') : ''; } });
 document.addEventListener('click', e=>{ const r=e.target.closest && e.target.closest('[data-td-reset]'); if(!r||!ADM.draft) return; delete ADM.draft[r.dataset.tdReset]; const b=THEME_BASE.get(ADM.edit)||{}; const inp=r.parentElement.querySelector('input[type=color]'); if(inp) inp.value=b[r.dataset.tdReset]||'#000000'; admPreview(); });
+
+/* ---------- Admin: Paket ---------- */
+const BUILTIN_PKG = ['coba','undangan','tamu'];
+function admPkgInit(){ if(ADM.pk) return; ADM.pk = JSON.parse(JSON.stringify(PLANS)); ADM.cards = CARD_KEYS.slice(); ADM.pkSel = ADM.pkSel || (ADM.pk.find(p=>p.id==='tamu')||ADM.pk[0]).id; ADM.pkDirty=false; }
+const admPkg = () => ADM.pk.find(p=>p.id===ADM.pkSel) || ADM.pk[0];
+function admPkgHTML(){
+  admPkgInit(); const p = admPkg(); const isFree = p.id==='coba'; const counts = (ADM.stats&&ADM.stats.byPlan)||{};
+  const sorted = ADM.pk.slice().sort((a,b)=>(a.id==='coba'?-1:a.price)-(b.id==='coba'?-1:b.price));
+  const fld = (k,l,ph,hint) => `<label class="lbl">${l}</label><input class="input" data-pk="${k}" value="${esc(p[k]||'')}" placeholder="${esc(ph||'')}">${hint?`<small class="adm-hint">${hint}</small>`:''}`;
+  const savedCard = (()=>{ const keep=CARD_KEYS; CARD_KEYS=ADM.cards; try{ return planCardHTML(p, null, true); } finally { CARD_KEYS=keep; } })();
+  const nCard = ADM.cards.length;
+  return `<header class="adm-head"><div><span class="eyebrow">Paket</span><h1 class="display">Paket & isinya</h1>
+      <p class="muted" style="margin:6px 0 0">Tiap paket punya harga dan daftar fitur sendiri. Perubahan berlaku di halaman harga, halaman bandingkan, checkout, dan fitur yang terkunci di dashboard pasangan.</p></div>
+    <div class="adm-acts">${ADM.pkDirty?'<span class="adm-dirty">Belum disimpan</span>':''}<button type="button" class="btn btn-primary" data-adm="pksave" ${ADM.pkDirty?'':'disabled'}>Simpan perubahan</button></div></header>
+  <div class="pk-chips" role="tablist" aria-label="Pilih paket">${sorted.map(x=>`<button type="button" role="tab" data-pk-sel="${x.id}" aria-selected="${x.id===p.id}" class="${x.hidden?'off':''}"><b>${esc(x.name||'Tanpa nama')}</b><small>${x.id==='coba'?'Gratis':rupiah(+x.price||0)}${x.hidden?' · disembunyikan':''}${counts[x.id]?` · ${counts[x.id]} pengguna`:''}</small></button>`).join('')}
+    <button type="button" class="pk-add" data-adm="pkadd">${ico('plus')}Tambah paket</button></div>
+  <div class="pk-grid">
+    <section class="adm-card"><h2>Info paket</h2>
+      ${fld('name','Nama paket','mis. Undangan + Tamu')}
+      <label class="lbl">Harga</label>${isFree?`<div class="adm-note">Paket percobaan, selalu gratis. Pasangan bisa mencoba semua tema sebelum membayar.</div>`:`<div class="adm-rp"><i>Rp</i><input class="input num" inputmode="numeric" data-pk="price" value="${(+p.price||0).toLocaleString('id-ID')}"></div><small class="adm-hint">Pasangan yang naik paket cukup bayar selisih harga dari paket lamanya.</small>`}
+      ${fld('tag','Label di atas kartu','mis. Paling lengkap')}
+      ${fld('fit','Cocok untuk siapa','mis. Buat acara besar, dari kirim undangan sampai meja penerima tamu.')}
+      <div class="pk-2">${'<div>'+fld('cta','Teks tombol','Pilih paket ini')+'</div><div>'+fld('note','Keterangan harga', isFree?'gratis':'sekali bayar')+'</div>'}</div>
+      <label class="adm-row"><span>Sorot sebagai rekomendasi<small>Kartu berwarna gelap dan dipilih otomatis saat checkout</small></span><span class="switch"><input type="checkbox" data-pk="feature" ${p.feature?'checked':''}><span></span></span></label>
+      <label class="adm-row"><span>Tampilkan di halaman harga<small>Disembunyikan = tidak bisa dibeli lagi. Pengguna yang sudah memakainya tetap dapat fiturnya.</small></span><span class="switch"><input type="checkbox" data-pk="shown" ${p.hidden?'':'checked'}><span></span></span></label>
+      ${BUILTIN_PKG.includes(p.id)?'':`<button type="button" class="btn btn-ghost btn-sm pk-del" data-adm="pkdel">${ico('x')}Hapus paket ini</button>`}
+    </section>
+    <section class="adm-card pk-prev"><h2>Pratinjau kartu di halaman harga</h2><div class="pk-prev-in">${savedCard}</div></section>
+  </div>
+  <section class="adm-card"><div class="pk-fhead"><div><h2>Fitur di paket ${esc(p.name||'ini')}</h2><p class="muted" style="margin:-6px 0 0;font-size:14px">Centang fitur yang didapat paket ini. Fitur bertanda <span class="pk-lock">${ico('lock')}Dikunci</span> benar-benar terkunci di dashboard pasangan kalau tidak dicentang. Fitur lain tampil sebagai informasi di halaman harga.</p></div>
+    <button type="button" class="btn btn-ghost btn-sm" data-adm="pkall">${FEAT_ROWS().every(r=>planFeat(p,r.key))?'Kosongkan semua':'Centang semua'}</button></div>
+    ${FEATS.map(([g,rows])=>`<h3 class="adm-sub">${esc(g)}</h3><div class="pk-feats">${rows.map(r=>{ const on=!!planFeat(p,r.key), card=ADM.cards.includes(r.key); return `<div class="pk-f${on?' on':''}"><label class="pk-chk"><input type="checkbox" data-pk-f="${r.key}" ${on?'checked':''}><span>${esc(r[0])}${FEAT_LOCKS[r.key]?`<span class="pk-lock" title="Membuka: ${esc(FEAT_LOCKS[r.key])}">${ico('lock')}Dikunci</span>`:''}</span></label>
+      <button type="button" class="pk-star${card?' on':''}" data-pk-card="${r.key}" aria-pressed="${card}" title="${card?'Tampil di kartu harga':'Tampilkan di kartu harga'}">${card?'★':'☆'}<span>Di kartu</span></button></div>`; }).join('')}</div>`).join('')}
+    <p class="adm-hint" style="margin-top:12px">★ Di kartu: fitur yang tampil di kartu harga beranda (berlaku untuk semua paket supaya kartunya mudah dibandingkan). Sekarang ${nCard} fitur, idealnya 4–6. Daftar lengkap tetap ada di halaman bandingkan.</p>
+  </section>
+  <section class="adm-card" style="padding:0"><h2 style="padding:20px 22px 0">Ringkasan semua paket</h2><p class="muted" style="padding:0 22px;font-size:14px;margin:-6px 0 8px">Klik tanda centang untuk mengubah langsung.</p>
+    <div class="pk-mx-wrap"><table class="pk-mx"><thead><tr><th>Fitur</th>${sorted.map(x=>`<th class="${x.id===p.id?'sel':''}"><button type="button" data-pk-sel="${x.id}">${esc(x.name)}</button><small>${x.id==='coba'?'Gratis':rupiah(+x.price||0)}</small></th>`).join('')}</tr></thead>
+    <tbody>${FEATS.map(([g,rows])=>`<tr class="g"><td colspan="${sorted.length+1}">${esc(g)}</td></tr>`+rows.map(r=>`<tr><td>${esc(r[0])}${FEAT_LOCKS[r.key]?` <span class="pk-lock">${ico('lock')}</span>`:''}</td>${sorted.map(x=>`<td class="${x.id===p.id?'sel':''}"><button type="button" class="pk-cell${planFeat(x,r.key)?' on':''}" data-pk-mx="${x.id}" data-k="${r.key}" aria-label="${esc(r[0])} di ${esc(x.name)}: ${planFeat(x,r.key)?'ada':'tidak ada'}">${ico(planFeat(x,r.key)?'check':'x')}</button></td>`).join('')}</tr>`).join('')).join('')}</tbody></table></div></section>`;
+}
+function admPkgChanged(rerender=true){ ADM.pkDirty=true; if(rerender){ const y=window.scrollY, m=$('#admMain'), my=m?m.scrollTop:0; m.innerHTML=admPkgHTML(); window.scrollTo(0,y); } else { const b=$('[data-adm=pksave]'); if(b){ b.disabled=false; if(!$('.adm-dirty')) b.insertAdjacentHTML('beforebegin','<span class="adm-dirty">Belum disimpan</span>'); } const pv=$('.pk-prev-in'); if(pv){ const keep=CARD_KEYS; CARD_KEYS=ADM.cards; try{ pv.innerHTML=planCardHTML(admPkg(), null, true); } finally{ CARD_KEYS=keep; } } $$('.pk-chips [aria-selected=true] b').forEach(b=>b.textContent=admPkg().name||'Tanpa nama'); } }
+async function admPkgSave(){
+  const list = ADM.pk.map(p=>{ const o={id:p.id, name:String(p.name||'').trim()||p.id, price:p.id==='coba'?0:Math.round(+p.price||0), note:p.note||'', tag:p.tag||'', fit:p.fit||'', cta:p.cta||('Pilih '+(p.name||'')), feature:!!p.feature, feats:{}}; if(p.hidden) o.hidden=true; if(p.sum) o.sum=p.sum; FEAT_ROWS().forEach(r=>{ o.feats[r.key]= planFeat(p,r.key) ? 1 : 0; }); return o; });
+  const bad = list.find(p=>p.id!=='coba' && p.price<1000); if(bad) throw new Error(`Harga paket "${bad.name}" minimal Rp1.000`);
+  const dup = list.filter(p=>p.id!=='coba').map(p=>p.price); if(new Set(dup).size!==dup.length) throw new Error('Dua paket tidak boleh punya harga yang sama, supaya urutan naik paket jelas');
+  if(list.filter(p=>p.feature).length>1) list.forEach((p,i)=>{ if(p.feature && p.id!==ADM.pkSel && list.filter(q=>q.feature).length>1) p.feature=false; });
+  const value = {...(ADM.cfg.prices||{}), packages:list, cards:ADM.cards.slice()}; delete value.undangan; delete value.tamu; delete value.upgrade;
+  await admApi('config_set',{key:'prices', value}); ADM.cfg.prices=value; applyConfig(ADM.cfg); try{ localStorage.setItem('sp-appcfg', JSON.stringify(ADM.cfg)); }catch(e){}
+  ADM.pk=null; admPkgInit(); toast('Paket tersimpan. Langsung berlaku di situs.');
+}
 
 /* ---------- Admin: Keuangan ---------- */
 const FIN_METHODS = [['qris','QRIS'],['gopay','GoPay'],['shopeepay','ShopeePay'],['bank_transfer','Virtual Account'],['echannel','Mandiri Bill'],['permata','Permata VA'],['credit_card','Kartu kredit'],['lainnya','Lainnya']];
@@ -5901,6 +6043,19 @@ const themeOv = id => APPCFG.themes[id] || {};
 const themeHidden = id => !!themeOv(id).hidden;
 const THEME_BASE = new Map(), PRICE_BASE = {}, ED_ALL = ED_PANELS.slice(), DT_ALL = DT.slice();
 let UPGRADE_BASE = UPGRADE_PRICE;
+// Daftar paket dari konfigurasi admin. Format lama (harga undangan/tamu saja) tetap didukung.
+function pkgList(pr){
+  pr = pr || {};
+  let list;
+  if(Array.isArray(pr.packages) && pr.packages.length){
+    list = pr.packages.filter(p=>p && /^[a-z0-9][a-z0-9-]{1,29}$/.test(p.id)).map(p=>{ const base = PKG_DEFAULT.find(b=>b.id===p.id);
+      return {note:'sekali bayar', tag:'', fit:'', cta:'Pilih '+(p.name||p.id), ...(base||{}), ...p, price: p.id==='coba' ? 0 : Math.max(0, Math.round(+p.price||0)), feats:{...(base?base.feats:{}), ...(p.feats||{})}}; });
+    if(!list.some(p=>p.id==='coba')) list.unshift(JSON.parse(JSON.stringify(PKG_DEFAULT[0])));
+  } else {
+    list = PKG_DEFAULT.map(b=>{ const p=JSON.parse(JSON.stringify(b)); const v=pr[p.id]; if(p.price && Number.isInteger(v) && v>=1000) p.price=v; return p; });
+  }
+  return list.sort((a,b)=>(a.id==='coba'?-1:a.price)-(b.id==='coba'?-1:b.price));
+}
 function applyConfig(cfg){
   cfg = cfg || {}; APPCFG.themes = cfg.themes || {}; APPCFG.features = cfg.features || {}; APPCFG.prices = cfg.prices || {};
   THEMES.forEach(t=>{ if(!THEME_BASE.has(t.id)) THEME_BASE.set(t.id, {name:t.name, tags:t.tags.slice(), bg:t.bg, fg:t.fg, accent:t.accent, soft:t.soft, font:t.font});
@@ -5908,8 +6063,9 @@ function applyConfig(cfg){
     ['name','bg','fg','accent','soft','font'].forEach(k=>{ if(typeof o[k]==='string' && o[k].trim()) t[k]=o[k].trim(); });
     if(Array.isArray(o.tags) && o.tags.length) t.tags = o.tags.slice(); });
   THEMES.forEach(t=>t.tags.forEach(x=>{ if(!TAGS.includes(x)) TAGS.push(x); }));
-  PLANS.forEach(p=>{ if(!(p.id in PRICE_BASE)) PRICE_BASE[p.id]=p.price; const v=APPCFG.prices[p.id]; p.price = (p.price && Number.isInteger(v) && v>=1000) ? v : PRICE_BASE[p.id]; });
-  UPGRADE_PRICE = Number.isInteger(APPCFG.prices.upgrade) && APPCFG.prices.upgrade>=1000 ? APPCFG.prices.upgrade : UPGRADE_BASE;
+  PLANS.splice(0, PLANS.length, ...pkgList(APPCFG.prices));
+  CARD_KEYS = Array.isArray(APPCFG.prices.cards) && APPCFG.prices.cards.length ? APPCFG.prices.cards.slice() : CARD_DEFAULT.slice();
+  { const u=planOf('undangan'), t=planOf('tamu'); UPGRADE_PRICE = u&&t ? t.price-u.price : UPGRADE_BASE; }
   ED_PANELS.splice(0, ED_PANELS.length, ...ED_ALL.filter(p=>ff(p[0])));
   DT.splice(0, DT.length, ...DT_ALL.filter(d=>ff('d_'+d[0])));
   if(!DT.some(d=>d[0]===dTab)) dTab = DT[0] ? DT[0][0] : 'ringkasan';

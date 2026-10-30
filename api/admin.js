@@ -104,7 +104,7 @@ const actions = {
   async inv_update(b) {
     const upd = {};
     if (typeof b.published === 'boolean') upd.published = b.published;
-    if (['coba', 'undangan', 'tamu'].includes(b.plan)) upd.plan = b.plan;
+    if (/^[a-z0-9][a-z0-9-]{1,29}$/.test(b.plan || '')) upd.plan = b.plan;
     if (!Object.keys(upd).length || !/^[0-9a-f-]{36}$/.test(b.invitation_id || '')) throw ERR(400, 'Perubahan tidak valid');
     const rows = await sb(`/rest/v1/invitations?id=eq.${b.invitation_id}`, { method: 'PATCH', body: upd });
     return { invitation: rows && rows[0] && { id: rows[0].id, plan: rows[0].plan, published: rows[0].published } };
@@ -133,7 +133,7 @@ const actions = {
     const emails = {}; (await sb('/rest/v1/admin_users?select=id,email')).forEach(u => emails[u.id] = u.email);
     return {
       users: users.length, new7: since(7), new30: since(30),
-      published: users.filter(u => u.published).length, byPlan: { coba: users.filter(u => u.plan === 'coba' || !u.plan).length, undangan: users.filter(u => u.plan === 'undangan').length, tamu: users.filter(u => u.plan === 'tamu').length },
+      published: users.filter(u => u.published).length, byPlan: users.reduce((o, u) => { const k = u.plan || 'coba'; o[k] = (o[k] || 0) + 1; return o; }, {}),
       revenue: paid.reduce((s, i) => s + i.total, 0), paidCount: paid.length, guests: users.reduce((s, u) => s + (u.guests || 0), 0),
       themes, signups, invoices: inv.map(i => ({ ...i, email: emails[i.owner] || '' })), demo, demoFeatures: feats,
     };
