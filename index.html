@@ -223,6 +223,8 @@ img{max-width:100%}
 .field .hint{font-size:12.5px;color:var(--muted)}
 .field .err{font-size:12.5px;color:var(--no);font-weight:600}
 .input,select.input,textarea.input{border:1px solid #DCCBD1;background:#fff;border-radius:12px;padding:11px 14px;min-height:46px;width:100%;transition:border-color .15s,box-shadow .15s}
+select.input,select.in{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%235B4A50' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:12px 8px;padding-right:40px !important;text-overflow:ellipsis;cursor:pointer}
+select.input::-ms-expand{display:none}
 .input:focus{outline:none;border-color:var(--beet);box-shadow:0 0 0 4px rgba(125,29,63,.12)}
 .input[aria-invalid="true"]{border-color:var(--no)}
 textarea.input{min-height:96px;resize:vertical}
@@ -826,7 +828,7 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .adm-tbl td small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
 .adm-tbl .num{text-align:right}
 .adm-users tr.ban td{background:#FBEDEE}
-.adm-sel{min-height:38px;padding:6px 10px;width:auto;font-size:14px}
+.adm-sel{min-height:38px;padding:6px 10px;width:100%;min-width:150px;font-size:14px;background-position:right 12px center}
 .adm-st{font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;background:#eee;white-space:nowrap}
 .adm-st.st-paid{background:#E3F2E8;color:#1E6B3A}.adm-st.st-pending{background:#FFF3DA;color:#8A5A00}.adm-st.st-failed,.adm-st.st-expired{background:#F6E1E3;color:#8E1F2B}
 .adm-search{display:flex;gap:8px;min-width:min(420px,100%)}
@@ -904,7 +906,9 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .fin-range{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:-6px 0 18px}
 .fin-range button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;font:inherit;font-size:14px;cursor:pointer}
 .fin-range button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
-.fin-range .input{width:auto;min-height:38px;padding:6px 10px}
+.fin-dates{display:flex;flex-wrap:wrap;gap:10px;margin:-8px 0 18px}
+.fin-dates label{display:grid;gap:4px;font-size:12px;font-weight:700;color:var(--muted);flex:1 1 150px;max-width:220px}
+.fin-dates .input{min-height:40px;padding:6px 12px;min-width:0}
 .fin-l{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:15px}
 .fin-l small{display:block;font-size:12px;color:var(--muted)}
 .fin-l.minus b{color:#9A2A36}
@@ -964,8 +968,8 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
   .fin-costs>div{grid-template-columns:minmax(0,1fr) auto}
   .fin-costs>div>label{grid-column:1/2}
   .fin-costs>div>button{grid-row:1/3;grid-column:2;align-self:center}
-  .fin-range{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-right:-14px;padding-right:14px}
-  .fin-range button{white-space:nowrap}
+  .fin-range{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+  .fin-range button{white-space:nowrap;padding:8px 6px;font-size:13px}
   .adm-search{min-width:0;width:100%}
   .adm-bars{gap:3px}
   .adm-acts{width:100%}.adm-acts .btn{flex:1}
@@ -5837,8 +5841,8 @@ function admFinHTML(){
   const rangeBtn = (k,l) => `<button type="button" data-fin-range="${k}" aria-pressed="${FIN.range===k}">${l}</button>`;
   return `<header class="adm-head"><div><span class="eyebrow">Keuangan</span><h1 class="display">Dari kotor sampai bersih</h1><p class="muted" style="margin:6px 0 0">Dihitung dari transaksi yang sudah lunas. Biaya payment gateway, pajak, dan biaya operasional bisa kamu atur di bawah.</p></div>
     <button type="button" class="btn btn-ghost btn-sm" data-adm="fincsv">${ico('copy')}Unduh CSV</button></header>
-  <div class="fin-range">${rangeBtn('bulan','Bulan ini')}${rangeBtn('30','30 hari')}${rangeBtn('90','3 bulan')}${rangeBtn('tahun','Tahun ini')}${rangeBtn('semua','Semua')}${rangeBtn('custom','Pilih tanggal')}
-    ${FIN.range==='custom'?`<input type="date" class="input" data-fin-from value="${FIN.from}"><span>s/d</span><input type="date" class="input" data-fin-to value="${FIN.to}">`:''}</div>
+  <div class="fin-range">${rangeBtn('bulan','Bulan ini')}${rangeBtn('30','30 hari')}${rangeBtn('90','3 bulan')}${rangeBtn('tahun','Tahun ini')}${rangeBtn('semua','Semua')}${rangeBtn('custom','Pilih tanggal')}</div>
+    ${FIN.range==='custom'?`<div class="fin-dates"><label><span>Dari</span><input type="date" class="input" data-fin-from value="${FIN.from}"></label><label><span>Sampai</span><input type="date" class="input" data-fin-to value="${FIN.to}"></label></div>`:''}
   <div class="adm-tiles">
     <div class="adm-tile"><span>Pendapatan kotor</span><b class="num">${rupiah(G)}</b><small>${rows.length} transaksi lunas</small></div>
     <div class="adm-tile"><span>Potongan & pajak</span><b class="num">${rupiah(F+T)}</b><small>Payment gateway ${rupiah(F)} · pajak ${rupiah(T)}</small></div>
