@@ -786,13 +786,13 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .tc-live .inv.lay-draperi .dp-paper{padding-top:70px}
 .tc-live .inv.lay-draperi .dp-seal{top:20px}
 /* ===== Dongeng Pink (ilustrasi) ===== */
-.inv.prem.lay-dongeng{--t-sub:'Mali',cursive;--t-body:'Mali',cursive;font-family:'Mali',cursive;background:#F7F2EA;overflow-x:clip;color:#5B2142}
+.inv.prem.lay-dongeng{container-type:inline-size;--t-sub:'Mali',cursive;--t-body:'Mali',cursive;font-family:'Mali',cursive;background:#F7F2EA;overflow-x:clip;color:#5B2142}
 .inv.prem.lay-dongeng>.pat{display:none}
 .lay-dongeng .dg-st{position:absolute;display:block;pointer-events:none;animation-delay:var(--dl,0s)}
 .lay-dongeng .dg-st svg{display:block;width:100%;height:auto}
-.lay-dongeng .dg-st.tw{animation:dgTw 2.8s ease-in-out infinite}
-.lay-dongeng .dg-st.spin{animation:dgSpin 9s linear infinite}
-.lay-dongeng .dg-st.bob{animation:dgBob 3.4s ease-in-out infinite alternate}
+.lay-dongeng .dg-st.k-tw{animation:dgTw 2.8s ease-in-out infinite}
+.lay-dongeng .dg-st.k-spin{animation:dgSpin 9s linear infinite}
+.lay-dongeng .dg-st.k-bob{animation:dgBob 3.4s ease-in-out infinite alternate}
 @keyframes dgTw{0%,100%{scale:.7;rotate:0deg;opacity:.65}50%{scale:1.12;rotate:18deg;opacity:1}}
 @keyframes dgSpin{to{rotate:360deg}}
 @keyframes dgBob{from{translate:0 -6px;rotate:-10deg}to{translate:0 8px;rotate:12deg}}
@@ -873,6 +873,22 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .inv.prem.lay-dongeng .dg-win .ph{position:absolute;left:28%;right:22.5%;top:11%;bottom:17%;background:center/cover no-repeat;border-radius:40% 40% 0 0/22% 22% 0 0}
 .inv.prem.lay-dongeng .dg-win::after{content:"";position:absolute;inset:0;background:url(/assets/ceria/jendela.webp) center/100% 100% no-repeat}
 .inv.prem.lay-dongeng .foot{color:#A3336A;text-align:center;font-family:'Mali',cursive;padding-top:12px}
+/* Dongeng: rapikan di layar sempit */
+.dg-stk{z-index:0}
+.inv.prem.lay-dongeng{font-size:15px}
+.inv.prem.lay-dongeng .cd4{max-width:100%;padding:14px 2px !important;gap:2px;flex-wrap:nowrap}
+.inv.prem.lay-dongeng .cd4>div{min-width:0;flex:1 1 0}
+.inv.prem.lay-dongeng .cd4 b{font-size:clamp(22px,8cqw,34px)}
+.inv.prem.lay-dongeng .cd4 small{font-size:9.5px;letter-spacing:.04em}
+.inv.prem.lay-dongeng .cd4 i{font-size:20px}
+.inv.prem.lay-dongeng .opt button{font-family:'Mali',cursive;font-size:15px;padding:10px 6px;white-space:nowrap;letter-spacing:-.01em}
+.inv.prem.lay-dongeng .kd-meta{font-size:12.5px;gap:8px}
+.inv.prem.lay-dongeng .kd-meta span{white-space:nowrap}
+.inv.prem.lay-dongeng .kd-meta span:first-child{white-space:normal}
+.inv.prem.lay-dongeng .kd-t b{font-size:15px}
+.inv.prem.lay-dongeng .ibtn,.inv.prem.lay-dongeng .kd-go{font-size:14px;white-space:nowrap}
+.inv.prem.lay-dongeng .ev2-w{font-size:20px}
+.inv.prem.lay-dongeng .in,.inv.prem.lay-dongeng input,.inv.prem.lay-dongeng textarea{font-family:'Mali',cursive}
 @media (prefers-reduced-motion:reduce){.lay-dongeng .dg-st,.cv-dongeng .dg-tirai,.inv.prem.lay-dongeng section::before,.inv.prem.lay-dongeng .qband::before{animation:none !important}}
 /* Draperi foto — seluruh halaman */
 .inv.lay-draperi:has(.dp-photo){overflow-x:clip;container-type:inline-size;--dp-ext:130px;background:var(--fab) var(--dp-v) center top/100% auto repeat-y}
@@ -2334,7 +2350,7 @@ const DG_STK = {
   twin:`<svg viewBox="0 0 24 24" fill="none" stroke="#A3336A" stroke-width="1.6" stroke-linejoin="round"><path d="M8 2c.6 4.5 2 6 6 7-4 1-5.4 2.5-6 7-.6-4.5-2-6-6-7 4-1 5.4-2.5 6-7Z"/><path d="M18 13c.4 2.6 1.2 3.4 3.6 4-2.4.6-3.2 1.4-3.6 4-.4-2.6-1.2-3.4-3.6-4 2.4-.6 3.2-1.4 3.6-4Z"/></svg>`,
   heart:`<svg viewBox="0 0 24 24"><path d="M12 21C5 15.5 2 12 2 8.2 2 5.3 4.3 3 7.1 3c2 0 3.6 1.1 4.9 3 1.3-1.9 2.9-3 4.9-3C19.7 3 22 5.3 22 8.2c0 3.8-3 7.3-10 12.8Z" fill="#E98DAF"/></svg>`
 };
-const dgStk = (k,x,y,sz,an,dl) => `<i class="dg-st ${an}" style="left:${x}%;top:${y}%;width:${sz}px;--dl:${dl}s">${DG_STK[k]}</i>`;
+const dgStk = (k,x,y,sz,an,dl) => `<i class="dg-st k-${an}" style="left:${x}%;top:${y}%;width:${sz}px;--dl:${dl}s">${DG_STK[k]}</i>`;
 const DG_BODY = [['spark',86,4,26,'tw',0],['flower',6,9,22,'spin',-2],['swirl',88,15,24,'bob',-1],['twin',8,21,26,'tw',-1.5],['sun',84,28,28,'spin',-3],['spark',5,34,22,'tw',-.6],['flower',90,41,20,'spin',-4],['heart',7,47,18,'bob',-2],['swirl',86,54,22,'bob',-3],['spark',10,60,24,'tw',-2.4],['twin',88,66,24,'tw',-.3],['flower',6,72,22,'spin',-1],['sun',86,79,26,'spin',-2],['spark',8,86,22,'tw',-1.2],['heart',88,92,18,'bob',-.8]].map(a=>dgStk(...a)).join('');
 const dpVars = t => { const d=t.dp, A='/assets/draperi/'; return `--fab:${t.fabric};--dp-v:url(${A}velvet-${d.k}.webp);--dp-f:url(${A}bunga-${d.k}.webp);--dp-stage:url(${t.stage});--dp-seal:${d.seal}%;--dp-cy:${d.cy}%;--dp-ch:${d.ch}%;--dp-ink:${d.ink};--dp-name:${d.name};--dp-tul:${d.tul};`; };
 function themeStyle(t, accent, font){
