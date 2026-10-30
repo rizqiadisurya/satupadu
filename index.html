@@ -785,6 +785,21 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .tc-live .inv.lay-draperi .cover .date{margin-bottom:14px}
 .tc-live .inv.lay-draperi .dp-paper{padding-top:70px}
 .tc-live .inv.lay-draperi .dp-seal{top:20px}
+/* Draperi foto */
+.inv.lay-draperi .cover.dp-photo{padding:0;min-height:100svh;background:var(--fab)}
+.tc-live .inv.lay-draperi .cover.dp-photo,#edScreen .inv.lay-draperi .cover.dp-photo{min-height:0}
+#edScreen .inv.lay-draperi .cover.dp-photo{min-height:640px}
+.dp-photo .dp-box{position:absolute;inset:0;container-type:size;overflow:hidden}
+.dp-photo .dp-stage{position:absolute;left:50%;top:50%;width:max(100cqw,calc(100cqh * 2 / 3));aspect-ratio:2/3;transform:translate(-50%,-50%);background:center/cover no-repeat;container-type:inline-size}
+.dp-photo .dp-txt{position:absolute;left:18%;right:18%;top:17%;display:flex;flex-direction:column;align-items:center;text-align:center;color:#FBF7F0;text-shadow:0 1px 12px rgba(20,32,52,.45)}
+.inv.lay-draperi .dp-photo .k-label{font-size:2.1cqi;letter-spacing:.42em}
+.inv.lay-draperi .dp-photo .names{font-size:11cqi;margin:2.2cqi 0 1cqi;text-shadow:0 2px 16px rgba(20,32,52,.5)}
+.inv.lay-draperi .dp-photo .date{font-size:2.2cqi;margin:0}
+.inv.lay-draperi .dp-photo .dp-open .open{margin-top:5cqi;font-size:2cqi;padding:2.2cqi 4.4cqi;background:rgba(251,247,240,.14);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);text-shadow:none}
+.dp-photo .dp-card{position:absolute;left:31.5%;width:37%;top:84.6%;height:4.9%;display:grid;place-items:center;text-align:center}
+.dp-photo .dp-ini{position:absolute;left:50%;top:82.75%;transform:translate(-50%,-50%);font:italic 600 2.3cqi/1 'Cormorant Garamond',serif;color:#C9D3E4;letter-spacing:.04em;opacity:.9;text-shadow:0 -1px 0 rgba(0,0,0,.35)}
+.inv.lay-draperi .dp-photo .dp-card .to{margin:0;color:#7A6B5B;font-size:1.35cqi;letter-spacing:.2em;text-transform:uppercase;text-shadow:none}
+.inv.lay-draperi .dp-photo .dp-card .to b{display:block;color:#2E4466;font-family:var(--t-font);font-style:italic;font-size:2.9cqi;letter-spacing:0;text-transform:none;margin-top:.3cqi;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:34cqi}
 
 /* Sekar Ayu */
 .inv.lay-sekar .cover{justify-content:flex-start;padding:64px 22px 48px;gap:0}
@@ -2205,7 +2220,7 @@ const LAYOUT_THEMES = [
     pat:(t)=>`radial-gradient(circle, ${t.fg}0d 0 .7px, transparent 1px)`, size:'9px 9px', photo:true, script:true, thumb:()=>`linear-gradient(180deg,#8F8670,#3A3427)`,
     scene:{sky1:'#B9B19C',sky2:'#D9C7A4',sky3:'#C2A97F',sun:'#FFF1D2',h1:'#8D8166',h2:'#6E6450',h3:'#4E473A',fig:'#26221B',grass:'#3E392D'}},
   {id:'draperi-biru', layout:'draperi', name:'Draperi Biru Kabut', region:'Nasional', tags:['Draperi','Floral','Modern'], bg:'#EEF1F5', fg:'#1D2A40', accent:'#4D6893', soft:'#DDE4EE', font:"'Cormorant Garamond', Georgia, serif",
-    fabric:'#2E4466', fl:['#9DB3D6','#C9D6EA'], pat:(t)=>`radial-gradient(circle, ${t.accent}12 0 .8px, transparent 1.2px)`, size:'14px 14px', thumb:()=>`repeating-linear-gradient(90deg,#24385A 0 9px,#3A557E 14px,#24385A 22px)`},
+    fabric:'#2E4466', fl:['#9DB3D6','#C9D6EA'], stage:'/assets/draperi/biru.webp', pat:(t)=>`radial-gradient(circle, ${t.accent}12 0 .8px, transparent 1.2px)`, size:'14px 14px', thumb:()=>`repeating-linear-gradient(90deg,#24385A 0 9px,#3A557E 14px,#24385A 22px)`},
   {id:'draperi-zamrud', layout:'draperi', name:'Draperi Zamrud', region:'Nasional', tags:['Draperi','Floral','Adat'], bg:'#F1F0E8', fg:'#1B2B22', accent:'#7B2D33', soft:'#E2E5D6', font:"'Cormorant Garamond', Georgia, serif",
     fabric:'#1E3B2E', fl:['#D98C6E','#E8B9A4'], pat:(t)=>`radial-gradient(circle, ${t.accent}12 0 .8px, transparent 1.2px)`, size:'14px 14px', thumb:()=>`repeating-linear-gradient(90deg,#16301F 0 9px,#2C5340 14px,#16301F 22px)`},
   {id:'draperi-mawar', layout:'draperi', name:'Draperi Mawar', region:'Nasional', tags:['Draperi','Floral','Minimalis'], bg:'#FAF2F2', fg:'#3E2229', accent:'#9C4D61', soft:'#F2DFE3', font:"'Cormorant Garamond', Georgia, serif",
@@ -2242,6 +2257,18 @@ function coverHTML(t, d){
       <div class="date cv-in" style="--i:2">${esc(d.dateLong)}</div>
       <div class="cv-card cv-in" style="--i:3"><div class="cv-photo" style="background-image:url('${d.photo}')"></div>${ART.sprig(a)}
         <div class="cv-guest"><div class="cv-slot">${to.replace('cv-in','')}${open.replace('cv-in','')}</div></div></div>
+    </section>`;
+  if(L==='draperi' && t.stage) return `<section class="cover cv-draperi dp-photo" id="${d.id}-cover" style="--fab:${t.fabric}">
+      <div class="dp-box"><div class="dp-stage" style="background-image:url('${t.stage}')">
+        <div class="dp-txt">
+          <div class="k-label cv-in" style="--i:0" data-scramble="${esc(d.dateLong)}">The wedding of</div>
+          <div class="names cv-in" style="--i:1">${esc(d.n1)}<span class="amp">&amp;</span>${esc(d.n2)}</div>
+          <div class="date cv-in" style="--i:2">${esc(d.dateLong)}</div>
+          <div class="cv-slot dp-open">${open}</div>
+        </div>
+        <span class="dp-ini" aria-hidden="true">${esc((d.n1||'?')[0])}${esc((d.n2||'?')[0])}</span>
+        <div class="dp-card cv-slot">${to}</div>
+      </div></div>
     </section>`;
   if(L==='draperi') return `<section class="cover cv-draperi" id="${d.id}-cover" style="--fab:${t.fabric}">
       <div class="dp-velvet" aria-hidden="true"></div>${ART.swag(t.fabric)}
