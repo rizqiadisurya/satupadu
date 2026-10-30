@@ -4261,7 +4261,7 @@ function renderAuthSlot(){
   if($('#plans') && $('#plans').children.length) renderPlans();
   const real = (DEMO.on && DEMO.saved) ? DEMO.saved.S : S;
   const u=real.user;
-  const html = u ? `<div class="acct"><button class="av-btn" data-act="acct-menu" aria-expanded="false" aria-label="Akun ${esc(u.name)}">${esc(initials(u.name)||'U')}</button><div class="acct-menu" id="acctMenu" hidden><div class="acct-id"><b>${esc(u.name)}</b><small class="muted">${esc(u.email)}</small></div><a href="#dashboard">${ico('home')}Undangan saya</a><a href="#tagihan">${ico('receipt')}Tagihan</a><button data-act="logout">${ico('logout')}Keluar</button></div></div>`
+  const html = u ? `<div class="acct"><button class="av-btn" data-act="acct-menu" aria-expanded="false" aria-label="Akun ${esc(u.name)}">${esc(initials(u.name)||'U')}</button><div class="acct-menu" id="acctMenu" hidden><div class="acct-id"><b>${esc(u.name)}</b><small class="muted">${esc(u.email)}</small></div><a href="#dashboard">${ico('home')}Undangan saya</a><a href="#tagihan">${ico('receipt')}Tagihan</a>${ADM.sso?`<a href="/admin">${ico('lock')}Panel admin</a>`:''}<button data-act="logout">${ico('logout')}Keluar</button></div></div>`
     : `<button class="btn btn-ghost btn-sm" data-act="login">Masuk</button>`;
   const a=$('#authSlot'); if(a) a.innerHTML=html;
   { const stage = !u ? 'visitor' : (real.published ? 'paid' : 'draft');
@@ -4271,7 +4271,7 @@ function renderAuthSlot(){
     set('buat', stage!=='visitor', stage==='paid'?'Edit undangan':'Undangan saya', stage==='paid'?'#edit':'#buat');
     set('dashboard', stage!=='visitor', stage==='paid'?'Dashboard':'Daftar tamu', '#dashboard');
   }
-  const m=$('#authSlotM'); if(m) m.innerHTML = u ? `<a href="#tagihan">${ico('receipt')} Tagihan · ${esc(u.name)}</a><a href="#beranda" data-act="logout">Keluar</a>` : `<a href="#beranda" data-act="login">Masuk atau daftar</a>`;
+  const m=$('#authSlotM'); if(m) m.innerHTML = u ? `<a href="#tagihan">${ico('receipt')} Tagihan · ${esc(u.name)}</a>${ADM.sso?`<a href="/admin">${ico('lock')} Panel admin</a>`:''}<a href="#beranda" data-act="logout">Keluar</a>` : `<a href="#beranda" data-act="login">Masuk atau daftar</a>`;
 }
 let authNext=null;
 const lsGet=k=>{ try{ return localStorage.getItem(k)||''; }catch(e){ return ''; } };
@@ -4650,7 +4650,7 @@ document.addEventListener('click', e=>{
   if(a==='google-login' && CLOUD.on){ const hv=location.hash.slice(1); const dest = authMode==='publish' ? 'checkout' : (!hv||['beranda','harga'].includes(hv) ? 'dashboard' : hv); lsSet('sp-after-login', dest); el.disabled=true; el.lastChild.textContent='Menghubungkan ke Google…';
     CLOUD.sb.auth.signInWithOAuth({provider:'google', options:{redirectTo: location.origin+'/', queryParams:{prompt:'select_account'}}}).then(({error})=>{ if(error){ el.disabled=false; el.lastChild.textContent='Lanjut dengan Google'; toast('Login Google belum bisa: '+error.message); } }); return; }
   if(a==='google-login'){ finishLogin(S.bride.name||'Pengguna Google', (S.bride.nick||'pengguna').toLowerCase()+'@gmail.com'); }
-  if(a==='logout' && CLOUD.uid){ CLOUD.sb.auth.signOut().finally(()=>{ try{ ['sp-state','sp-guests','sp-wishes'].forEach(k=>localStorage.removeItem(k)); }catch(err){} location.href='/'; }); return; }
+  if(a==='logout' && CLOUD.uid){ if(ADM.sso) admSetTok(''); CLOUD.sb.auth.signOut().finally(()=>{ try{ ['sp-state','sp-guests','sp-wishes'].forEach(k=>localStorage.removeItem(k)); }catch(err){} location.href='/'; }); return; }
   if(a==='logout'){ S.user=null; save(); renderAuthSlot(); toast('Kamu udah keluar. Sampai jumpa lagi! 👋'); if(['tagihan','checkout'].includes(location.hash.slice(1))) location.hash='beranda'; }
   if(a==='acct-menu'){ const m=$('#acctMenu'); m.hidden=!m.hidden; el.setAttribute('aria-expanded',!m.hidden); return; }
   if(a==='apply-voucher') applyVoucher();
@@ -4701,10 +4701,10 @@ async function cloudInit(){
     return;
   }
   const { data:{ session } } = await CLOUD.sb.auth.getSession();
-  if(session) await ownerLoad(session.user);
+  if(session){ await ownerLoad(session.user); await admSso(); }
   const after = lsGet('sp-after-login'); if(after){ try{ localStorage.removeItem('sp-after-login'); }catch(e){} if(session){ history.replaceState(null,'',location.pathname+'#'+after); } }
   const oauthErr = new URLSearchParams(location.hash.slice(1)||location.search).get('error_description'); if(oauthErr){ history.replaceState(null,'',location.pathname+'#beranda'); setTimeout(()=>toast('Login belum berhasil. Coba sekali lagi, ya.'),400); }
-  CLOUD.sb.auth.onAuthStateChange((ev, s)=>{ if(ev==='SIGNED_IN' && s && CLOUD.uid!==s.user.id){ demoAfterLogin(s.user.id); ownerLoad(s.user).then(()=>{ if(!location.hash || location.hash==='#') location.hash='#dashboard'; route(); if(!(s.user.user_metadata&&s.user.user_metadata.name)) nameStep(); else { closeModal(); renderAuthSlot(); } }); } });
+  CLOUD.sb.auth.onAuthStateChange((ev, s)=>{ if(ev==='SIGNED_IN' && s && CLOUD.uid!==s.user.id){ demoAfterLogin(s.user.id); ownerLoad(s.user).then(()=>{ admSso(); if(!location.hash || location.hash==='#') location.hash='#dashboard'; route(); if(!(s.user.user_metadata&&s.user.user_metadata.name)) nameStep(); else { closeModal(); renderAuthSlot(); } }); } });
 }
 async function storePhoto(dataUrl){
   if(!(CLOUD.on && CLOUD.uid) || !String(dataUrl).startsWith('data:')) return dataUrl;
@@ -5539,13 +5539,21 @@ async function admApi(action, body={}){
   if(!r.ok) throw new Error(j.error || ('Gagal ('+r.status+')'));
   return j;
 }
+async function admSso(){
+  if(!CLOUD.sb) return false;
+  try{ const { data:{ session } } = await CLOUD.sb.auth.getSession(); if(!session) return false;
+    const r = await fetch('/api/admin', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({action:'sso', sb_token:session.access_token})});
+    if(!r.ok) return false; const j = await r.json(); admSetTok(j.token); ADM.me = j.admin; ADM.sso = true; renderAuthSlot(); return true;
+  }catch(e){ return false; }
+}
 function admSetTok(t){ ADM.tok=t||''; try{ t?sessionStorage.setItem('sp-adm',t):sessionStorage.removeItem('sp-adm'); }catch(e){} }
-function admLogout(){ admSetTok(''); ADM.me=null; ADM.stats=null; ADM.users=null; ADM.cfg=null; renderAdmin(); }
+function admLogout(){ admSetTok(''); ADM.me=null; ADM.sso=false; ADM.ssoTried=true; ADM.stats=null; ADM.users=null; ADM.cfg=null; renderAdmin(); }
 const admDate = iso => iso ? new Intl.DateTimeFormat('id-ID',{day:'numeric',month:'short',year:'numeric'}).format(new Date(iso)) : '—';
 const admTime = iso => iso ? new Intl.DateTimeFormat('id-ID',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(iso)) : '—';
 async function renderAdmin(){
   const el = $('#admin'); if(!el) return;
   document.title = 'Admin · Sakara';
+  if(!ADM.tok && !ADM.ssoTried){ ADM.ssoTried = true; el.innerHTML = `<div class="adm-center"><div class="spin"></div></div>`; if(await admSso()) return renderAdmin(); }
   if(!ADM.tok){ el.innerHTML = admLoginHTML(); return; }
   if(!ADM.me){ el.innerHTML = `<div class="adm-center"><div class="spin"></div></div>`; try{ ADM.me=(await admApi('me')).admin; }catch(e){ admLogout(); return; } }
   if(ADM.me.must_change){ el.innerHTML = admMustHTML(); return; }

@@ -2,7 +2,7 @@
 // Login: username + sandi (hash scrypt di tabel admins). Token ditandatangani HMAC, berlaku 12 jam.
 // Bootstrap: selama tabel admins masih kosong, admin/admin diterima SEKALI lalu wajib ganti sandi.
 const crypto = require('crypto');
-const { sb, send, readBody, SERVICE } = require('./_lib');
+const { sb, send, readBody, SERVICE, ANON } = require('./_lib');
 
 const b64u = b => Buffer.from(b).toString('base64').replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
 const secret = () => crypto.createHash('sha256').update('sakara-admin:' + SERVICE()).digest();
@@ -50,6 +50,18 @@ const actions = {
       }
     } else if (!checkPass(password, a.pass_hash)) a = null;
     if (!a) { await new Promise(r => setTimeout(r, 600)); throw ERR(401, 'Username atau sandi salah'); }
+    await sb(`/rest/v1/admins?id=eq.${a.id}`, { method: 'PATCH', body: { last_login: new Date().toISOString() } });
+    return { token: tokenFor(a), admin: pub(a) };
+  },
+  // Masuk otomatis: pengguna yang login Google dengan email yang sama seperti salah satu admin.
+  async sso(b) {
+    const tok = String(b.sb_token || ''); if (!tok) throw ERR(401, 'Belum login');
+    let user = null; try { user = await sb('/auth/v1/user', { key: ANON() || SERVICE(), token: tok }); } catch (e) {}
+    const email = String(user && user.email || '').trim().toLowerCase();
+    if (!email || !(user.email_confirmed_at || user.confirmed_at)) throw ERR(403, 'Bukan admin');
+    const rows = await sb(`/rest/v1/admins?email=ilike.${enc(email.replace(/[%_*]/g, ''))}&select=*`);
+    const a = (rows || []).find(r => String(r.email).trim().toLowerCase() === email);
+    if (!a) throw ERR(403, 'Bukan admin');
     await sb(`/rest/v1/admins?id=eq.${a.id}`, { method: 'PATCH', body: { last_login: new Date().toISOString() } });
     return { token: tokenFor(a), admin: pub(a) };
   },
@@ -127,7 +139,7 @@ const actions = {
     };
   },
 };
-const OPEN = ['login'];
+const OPEN = ['login', 'sso'];
 const ALLOW_WHEN_MUST_CHANGE = ['me', 'change_password'];
 
 module.exports = async (req, res) => {
