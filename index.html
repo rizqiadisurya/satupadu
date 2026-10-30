@@ -3127,7 +3127,8 @@ document.addEventListener('click', e=>{
   if(a==='zoom'){ const src=S.gallery[+el.dataset.k]; const lb=document.createElement('div'); lb.className='lightbox'; lb.setAttribute('role','dialog'); lb.setAttribute('aria-label','Foto galeri'); lb.innerHTML=`<button class="close" aria-label="Tutup">${ico('x')}</button><img src="${src}" alt="Foto galeri ${+el.dataset.k+1}">`; lb.addEventListener('click',()=>lb.remove()); document.body.appendChild(lb); lb.querySelector('.close').focus(); }
   if(a==='copy') copyText(el.dataset.v);
   if(a==='demo') demoModal(el.dataset.t);
-  if(a==='use-theme'){ S.theme=el.dataset.t; S.accent=null; S.step=2; save(); closeModal(); location.hash='buat'; toast('Tema '+themeById(S.theme).name+' dipakai'); }
+  if(a==='use-theme' && S.published && !el.dataset.sure && el.dataset.t!==S.theme){ const nt=themeById(el.dataset.t); openModal(`<h2 class="display" style="font-size:28px">Ganti ke tema ${esc(nt.name)}?</h2><p class="muted" style="margin:8px 0 20px">Undanganmu sudah tayang, jadi tamu akan langsung melihat tema baru. Isi undangan, tamu, dan ucapan tidak berubah. Kamu bisa kembali ke tema lama kapan saja dari editor.</p><div class="form-foot"><button class="btn btn-ghost" data-act="close">Batal</button><button class="btn btn-primary" data-act="use-theme" data-t="${esc(nt.id)}" data-sure="1">Ganti tema</button></div>`); return; }
+  if(a==='use-theme'){ S.theme=el.dataset.t; S.accent=null; S.step=2; save(); closeModal(); if(S.published){ EDIT.panel='tema'; } location.hash = S.published ? 'edit' : 'buat'; toast('Tema '+themeById(S.theme).name+' dipakai'); }
   if(a==='clear-filter'){ catTag='Semua'; catQ=''; $('#themeSearch').value=''; renderCatalog(); }
   if(a==='prev') goStep(S.step-1);
   if(a==='add-event'){ S.events.push({type:'Ngunduh Mantu',date:'',start:'',end:'',venue:'',address:''}); save(); renderStep(); refreshPreview(); }
@@ -4278,8 +4279,8 @@ function route(){
   if(!VIEWS.includes(h)) h='beranda';
   if(h!=='checkout') clearInterval(CO.timer);
   if(h!=='undangan') stopBgm(); if(h!=='buat') stopPrev();
+  if(h==='buat' && S.published){ h='edit'; history.replaceState(null,'',location.pathname+location.search+'#edit'); }
   $$('[data-view]').forEach(v=> v.hidden = v.dataset.view!==h);
-  if(h==='buat' && S.published) h='edit';
   if(h!=='edit') edLeave();
   const full = h==='undangan' || h==='checkin' || h==='keluarga' || h==='katering' || h==='edit' || h==='album';
   $('#siteHeader').hidden = full; $('#footerWrap').hidden = full || ['dashboard','buat','checkout'].includes(h);
