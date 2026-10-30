@@ -785,7 +785,25 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .tc-live .inv.lay-draperi .cover .date{margin-bottom:14px}
 .tc-live .inv.lay-draperi .dp-paper{padding-top:70px}
 .tc-live .inv.lay-draperi .dp-seal{top:20px}
-/* Draperi foto */
+/* Draperi foto — seluruh halaman */
+.inv.lay-draperi:has(.dp-photo){background:var(--fab) var(--dp-v) center top/100% auto repeat-y}
+.inv.lay-draperi:has(.dp-photo)>.pat{display:none}
+.inv.lay-draperi:has(.dp-photo)>section:not(.cover):not(.p-end){position:relative;margin:34px 14px;padding:56px 20px 40px;background:linear-gradient(170deg,#FFFCF6,#F4ECDD);border-radius:14px;box-shadow:inset 0 0 0 7px #FFFCF6,inset 0 0 0 8px rgba(176,140,78,.55),0 22px 44px rgba(0,0,0,.32);overflow:visible;isolation:isolate}
+.inv.lay-draperi:has(.dp-photo)>section:not(.cover):not(.p-end):nth-of-type(n){background:linear-gradient(170deg,#FFFCF6,#F4ECDD)}
+.inv.lay-draperi:has(.dp-photo)>section:not(.cover):not(.p-end)::before,
+.inv.lay-draperi:has(.dp-photo)>section:not(.cover):not(.p-end)::after{content:"";position:absolute;width:150px;aspect-ratio:1;background:var(--dp-f) 0 0/contain no-repeat;pointer-events:none;z-index:2;filter:drop-shadow(0 6px 8px rgba(0,0,0,.18))}
+.inv.lay-draperi:has(.dp-photo)>section:not(.cover):not(.p-end)::before{top:-34px;left:-22px}
+.inv.lay-draperi:has(.dp-photo)>section:not(.cover):not(.p-end)::after{bottom:-34px;right:-22px;transform:rotate(180deg)}
+.inv.lay-draperi:has(.dp-photo)>section:not(.cover):not(.p-end):nth-of-type(even)::before{left:auto;right:-22px;transform:scaleX(-1)}
+.inv.lay-draperi:has(.dp-photo)>section:not(.cover):not(.p-end):nth-of-type(even)::after{right:auto;left:-22px;transform:rotate(180deg) scaleX(-1)}
+.inv.lay-draperi:has(.dp-photo)>section:not(.cover):not(.p-end)>*{position:relative;z-index:1}
+.inv.lay-draperi:has(.dp-photo)>section:not(.cover):not(.p-end) h3{color:var(--dp-name)}
+.inv.lay-draperi:has(.dp-photo)>section.p-end{position:relative;min-height:640px;margin-top:34px;padding:120px 26px 300px;background:var(--fab) var(--dp-stage) center top/cover no-repeat;color:#FBF7F0;text-shadow:0 1px 12px rgba(0,0,0,.45);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center}
+.inv.lay-draperi:has(.dp-photo)>section.p-end h3,.inv.lay-draperi:has(.dp-photo)>section.p-end .lead{color:#FBF7F0;max-width:30ch;margin-inline:auto}
+.inv.lay-draperi:has(.dp-photo)>section.p-end .names{font-family:'Great Vibes',cursive;color:#FFFBF4;font-size:48px !important}
+.inv.lay-draperi:has(.dp-photo)>section.p-end .names span{color:#E9D9B4 !important}
+.inv.lay-draperi:has(.dp-photo) .foot{color:#FBF7F0;background:var(--fab);margin:0}
+#gate.drape.dpv .gd{background-image:linear-gradient(90deg,rgba(0,0,0,.25),transparent 30%,transparent 70%,rgba(0,0,0,.25)),var(--dp-v);background-size:100% 100%,auto 100%;background-position:center}
 .inv.lay-draperi .cover.dp-photo{padding:0;min-height:100svh;background:var(--fab)}
 .tc-live .inv.lay-draperi .cover.dp-photo,#edScreen .inv.lay-draperi .cover.dp-photo{min-height:0}
 #edScreen .inv.lay-draperi .cover.dp-photo{min-height:640px}
@@ -796,10 +814,10 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .inv.lay-draperi .dp-photo .names{font-size:11cqi;margin:2.2cqi 0 1cqi;text-shadow:0 2px 16px rgba(20,32,52,.5)}
 .inv.lay-draperi .dp-photo .date{font-size:2.2cqi;margin:0}
 .inv.lay-draperi .dp-photo .dp-open .open{margin-top:5cqi;font-size:2cqi;padding:2.2cqi 4.4cqi;background:rgba(251,247,240,.14);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);text-shadow:none}
-.dp-photo .dp-card{position:absolute;left:31.5%;width:37%;top:84.6%;height:4.9%;display:grid;place-items:center;text-align:center}
-.dp-photo .dp-ini{position:absolute;left:50%;top:82.75%;transform:translate(-50%,-50%);font:italic 600 2.3cqi/1 'Cormorant Garamond',serif;color:#C9D3E4;letter-spacing:.04em;opacity:.9;text-shadow:0 -1px 0 rgba(0,0,0,.35)}
+.dp-photo .dp-card{position:absolute;left:31.5%;width:37%;top:var(--dp-cy);height:var(--dp-ch);display:grid;place-items:center;text-align:center}
+.dp-photo .dp-ini{position:absolute;left:50%;top:var(--dp-seal);transform:translate(-50%,-50%);font:italic 600 2.3cqi/1 'Cormorant Garamond',serif;color:var(--dp-ink);letter-spacing:.04em;opacity:.9;text-shadow:0 -1px 0 rgba(0,0,0,.35)}
 .inv.lay-draperi .dp-photo .dp-card .to{margin:0;color:#7A6B5B;font-size:1.35cqi;letter-spacing:.2em;text-transform:uppercase;text-shadow:none}
-.inv.lay-draperi .dp-photo .dp-card .to b{display:block;color:#2E4466;font-family:var(--t-font);font-style:italic;font-size:2.9cqi;letter-spacing:0;text-transform:none;margin-top:.3cqi;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:34cqi}
+.inv.lay-draperi .dp-photo .dp-card .to b{display:block;color:var(--dp-name);font-family:var(--t-font);font-style:italic;font-size:2.9cqi;letter-spacing:0;text-transform:none;margin-top:.3cqi;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:34cqi}
 
 /* Sekar Ayu */
 .inv.lay-sekar .cover{justify-content:flex-start;padding:64px 22px 48px;gap:0}
@@ -2164,9 +2182,10 @@ const THEMES = [
 const TAGS = ['Semua','Draperi','Adat','Minimalis','Floral','Modern','Religi'];
 const ACCENTS = ['#7D1D3F','#8A5A2B','#D4A64A','#B4566E','#2F6F6B','#3D6B4F','#1F3A5F'];
 const themeById = id => THEMES.find(t=>t.id===id) || THEMES[0];
+const dpVars = t => { const d=t.dp, A='/assets/draperi/'; return `--fab:${t.fabric};--dp-v:url(${A}velvet-${d.k}.webp);--dp-f:url(${A}bunga-${d.k}.webp);--dp-stage:url(${t.stage});--dp-seal:${d.seal}%;--dp-cy:${d.cy}%;--dp-ch:${d.ch}%;--dp-ink:${d.ink};--dp-name:${d.name};`; };
 function themeStyle(t, accent, font){
   const a = accent || t.accent; const tt = {...t, accent:a};
-  return `--t-bg:${t.bg};--t-fg:${t.fg};--t-accent:${a};--t-soft:${t.soft};--t-font:${font||t.font};--t-pattern:${t.pat(tt)};--t-size:${t.size};${fontPairVars()}`;
+  return `--t-bg:${t.bg};--t-fg:${t.fg};--t-accent:${a};--t-soft:${t.soft};--t-font:${font||t.font};--t-pattern:${t.pat(tt)};--t-size:${t.size};${fontPairVars()}${t.dp?dpVars(t):''}`;
 }
 /* ---------- Tema berlayout khusus (sampul unik + ilustrasi SVG orisinal) ---------- */
 const svgData = s => 'data:image/svg+xml,'+encodeURIComponent(s);
@@ -2220,11 +2239,11 @@ const LAYOUT_THEMES = [
     pat:(t)=>`radial-gradient(circle, ${t.fg}0d 0 .7px, transparent 1px)`, size:'9px 9px', photo:true, script:true, thumb:()=>`linear-gradient(180deg,#8F8670,#3A3427)`,
     scene:{sky1:'#B9B19C',sky2:'#D9C7A4',sky3:'#C2A97F',sun:'#FFF1D2',h1:'#8D8166',h2:'#6E6450',h3:'#4E473A',fig:'#26221B',grass:'#3E392D'}},
   {id:'draperi-biru', layout:'draperi', name:'Draperi Biru Kabut', region:'Nasional', tags:['Draperi','Floral','Modern'], bg:'#EEF1F5', fg:'#1D2A40', accent:'#4D6893', soft:'#DDE4EE', font:"'Cormorant Garamond', Georgia, serif",
-    fabric:'#2E4466', fl:['#9DB3D6','#C9D6EA'], stage:'/assets/draperi/biru.webp', pat:(t)=>`radial-gradient(circle, ${t.accent}12 0 .8px, transparent 1.2px)`, size:'14px 14px', thumb:()=>`repeating-linear-gradient(90deg,#24385A 0 9px,#3A557E 14px,#24385A 22px)`},
+    fabric:'#2E4466', fl:['#9DB3D6','#C9D6EA'], stage:'/assets/draperi/biru.webp', dp:{k:'biru', seal:82.75, cy:84.6, ch:4.9, ink:'#C9D3E4', name:'#2E4466'}, pat:(t)=>`radial-gradient(circle, ${t.accent}12 0 .8px, transparent 1.2px)`, size:'14px 14px', thumb:()=>`repeating-linear-gradient(90deg,#24385A 0 9px,#3A557E 14px,#24385A 22px)`},
   {id:'draperi-zamrud', layout:'draperi', name:'Draperi Zamrud', region:'Nasional', tags:['Draperi','Floral','Adat'], bg:'#F1F0E8', fg:'#1B2B22', accent:'#7B2D33', soft:'#E2E5D6', font:"'Cormorant Garamond', Georgia, serif",
-    fabric:'#1E3B2E', fl:['#D98C6E','#E8B9A4'], pat:(t)=>`radial-gradient(circle, ${t.accent}12 0 .8px, transparent 1.2px)`, size:'14px 14px', thumb:()=>`repeating-linear-gradient(90deg,#16301F 0 9px,#2C5340 14px,#16301F 22px)`},
+    fabric:'#1E3B2E', fl:['#D98C6E','#E8B9A4'], stage:'/assets/draperi/zamrud.webp', dp:{k:'zamrud', seal:79, cy:81.2, ch:5.4, ink:'#F0C9B8', name:'#1E3B2E'}, pat:(t)=>`radial-gradient(circle, ${t.accent}12 0 .8px, transparent 1.2px)`, size:'14px 14px', thumb:()=>`repeating-linear-gradient(90deg,#16301F 0 9px,#2C5340 14px,#16301F 22px)`},
   {id:'draperi-mawar', layout:'draperi', name:'Draperi Mawar', region:'Nasional', tags:['Draperi','Floral','Minimalis'], bg:'#FAF2F2', fg:'#3E2229', accent:'#9C4D61', soft:'#F2DFE3', font:"'Cormorant Garamond', Georgia, serif",
-    fabric:'#9A5468', fl:['#F2C7D0','#FFFFFF'], pat:(t)=>`radial-gradient(circle, ${t.accent}10 0 .8px, transparent 1.2px)`, size:'14px 14px', thumb:()=>`repeating-linear-gradient(90deg,#84465A 0 9px,#B26C80 14px,#84465A 22px)`}
+    fabric:'#9A5468', fl:['#F2C7D0','#FFFFFF'], stage:'/assets/draperi/mawar.webp', dp:{k:'mawar', seal:79, cy:81.2, ch:5.4, ink:'#F6D3DC', name:'#7A3A4E'}, pat:(t)=>`radial-gradient(circle, ${t.accent}10 0 .8px, transparent 1.2px)`, size:'14px 14px', thumb:()=>`repeating-linear-gradient(90deg,#84465A 0 9px,#B26C80 14px,#84465A 22px)`}
 ];
 THEMES.unshift(...LAYOUT_THEMES);
 TAGS.includes('Foto') || TAGS.push('Foto');
@@ -4803,6 +4822,7 @@ function gateTheme(){
   const dark = lum(t.fg) < lum(t.bg) ? t.fg : t.bg, light = dark===t.fg ? t.bg : t.fg;
   g.style.setProperty('--gd', lum(dark)<.12 ? dark : '#2B1A21'); g.style.setProperty('--gm', light);
   g.classList.toggle('drape', t.layout==='draperi'); if(t.fabric) g.style.setProperty('--fab', t.fabric);
+  g.classList.toggle('dpv', !!t.dp); if(t.dp) g.style.setProperty('--dp-v', `url(/assets/draperi/velvet-${t.dp.k}.webp)`);
   const n=$('#gateNames'); const n1=S.bride.nick||'', n2=S.groom.nick||''; if(n && n1 && n2){ n.innerHTML=`<small>The wedding of</small>${esc(n1)} &amp; ${esc(n2)}`; n.classList.add('on'); }
 }
 function gateOpen(){
