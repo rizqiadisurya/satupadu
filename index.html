@@ -161,6 +161,12 @@ img{max-width:100%}
 .plan li.off svg{color:var(--muted)}
 .plan .btn{margin-top:auto}
 .plan.feature .btn-primary{background:#fff;color:var(--beet)}
+.plan .plan-state{cursor:default;background:transparent;border:1px dashed var(--line);color:var(--muted);box-shadow:none;pointer-events:none}
+.plan .plan-state.is-cur{border-style:solid;border-color:transparent;background:var(--blush);color:var(--beet);font-weight:700}
+.plan.feature .plan-state{border-color:rgba(255,255,255,.35);color:#F3D9E1}
+.plan.feature .plan-state.is-cur{background:rgba(255,255,255,.16);color:#fff}
+.plan .plan-state .icon{width:18px;height:18px}
+.plan.mine:not(.feature){border-color:var(--beet);box-shadow:0 0 0 1px var(--beet)}
 .price-note{margin-top:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:#FFF8EC;border:1px solid #EBD3A6;border-radius:20px;overflow:hidden}
 .price-note .pn{display:flex;gap:14px;align-items:flex-start;padding:22px 24px}
 .price-note .pn + .pn{border-left:1px solid #EBD3A6}
@@ -2419,17 +2425,28 @@ const PLANS = [
   {id:'undangan', name:'Undangan', price:179000, note:'sekali bayar', tag:'Kirim sendiri', items:[['Semua tema dan warna',1],['Link personal per tamu',1],['RSVP, ucapan, amplop digital',1],['Kirim manual lewat WhatsApp',1],['Daftar tamu & grup',0]], cta:'Pilih Undangan'},
   {id:'tamu', name:'Undangan + Tamu', price:399000, note:'sekali bayar', tag:'Ada daftar tamu & hari H', feature:1, items:[['Semua di paket Undangan',1],['Import tamu dari Excel/CSV',1],['Grup, sesi acara, rekap RSVP per nama',1],['Kirim WhatsApp sekaligus + pengingat H-3',1],['QR check-in di hari H',1]], cta:'Pilih Undangan + Tamu'}
 ];
+const PLAN_RANK = {coba:0, undangan:1, tamu:2};
+function myPlan(){ const r=(DEMO.on&&DEMO.saved)?DEMO.saved.S:S; if(!r.user) return null; return r.published ? (r.plan||'tamu') : 'coba'; }
+function planCta(p){
+  const cur=myPlan(), cls=`btn ${p.feature?'btn-primary':'btn-ghost'} btn-block`;
+  if(!cur) return `<a class="${cls}" href="#buat" data-plan="${p.id}">${p.cta}</a>`;
+  if(p.id===cur) return `<span class="btn btn-block plan-state is-cur" role="note">${ico('check')}Paket kamu sekarang</span>`;
+  if(PLAN_RANK[p.id]<PLAN_RANK[cur]) return `<span class="btn btn-block plan-state" role="note">Sudah termasuk di paketmu</span>`;
+  if(cur==='coba') return `<a class="${cls}" href="#buat" data-plan="${p.id}">${p.cta}</a>`;
+  return `<button type="button" class="${cls}" data-act="upgrade">${ico('up')}Upgrade ke ${esc(p.name)}</button>`;
+}
 function renderPlans(){
+  const cur=myPlan();
   $('#plans').innerHTML = PLANS.map(p=>`
-    <div class="plan${p.feature?' feature':''}">
-      <span class="tag">${p.tag}</span>
+    <div class="plan${p.feature?' feature':''}${p.id===cur?' mine':''}">
+      <span class="tag">${p.id===cur?'Paketmu':p.tag}</span>
       <h3>${p.name}</h3>
       <div class="price num">${p.price?rupiah(p.price):'Rp0'} <small>${p.note}</small></div>
       <ul>${p.items.map(([x,on])=>`<li class="${on?'':'off'}">${ico(on?'check':'x')}${x}</li>`).join('')}</ul>
-      <a class="btn ${p.feature?'btn-primary':'btn-ghost'} btn-block" href="#buat" data-plan="${p.id}">${p.cta}</a>
+      ${planCta(p)}
     </div>`).join('');
 }
-document.addEventListener('click',e=>{ const a=e.target.closest('[data-plan]'); if(a && a.dataset.plan!=='coba'){ S.plan=a.dataset.plan; save(); } });
+document.addEventListener('click',e=>{ const a=e.target.closest('[data-plan]'); if(a && a.dataset.plan!=='coba' && !S.published && !DEMO.on){ S.plan=a.dataset.plan; save(); } });
 
 /* ---------- Builder ---------- */
 const STEPS = [
@@ -3468,6 +3485,7 @@ $('#mobileMenu').addEventListener('click',e=>{ if(e.target.closest('a')){ $('#mo
 const UPGRADE_PRICE = 220000;
 const VOUCHERS = {SAKARA10:{type:'pct',v:10,label:'Diskon 10%'}, NIKAHHEMAT:{type:'amt',v:25000,label:'Potongan Rp25.000'}};
 function renderAuthSlot(){
+  if($('#plans') && $('#plans').children.length) renderPlans();
   const real = (DEMO.on && DEMO.saved) ? DEMO.saved.S : S;
   const u=real.user;
   const html = u ? `<div class="acct"><button class="av-btn" data-act="acct-menu" aria-expanded="false" aria-label="Akun ${esc(u.name)}">${esc(initials(u.name)||'U')}</button><div class="acct-menu" id="acctMenu" hidden><div class="acct-id"><b>${esc(u.name)}</b><small class="muted">${esc(u.email)}</small></div><a href="#dashboard">${ico('home')}Undangan saya</a><a href="#tagihan">${ico('receipt')}Tagihan</a><button data-act="logout">${ico('logout')}Keluar</button></div></div>`
