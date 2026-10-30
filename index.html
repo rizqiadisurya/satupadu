@@ -1653,6 +1653,23 @@ html.intro .hero h1,html.intro .hero .lede,html.intro .hero .try,html.intro .her
 @media (max-width:560px){ #demoNudge{left:16px;right:16px;width:auto;bottom:calc(84px + env(safe-area-inset-bottom))} }
 @media (prefers-reduced-motion:reduce){ #demoNudge{transition:none} }
 .foot-links{display:flex;gap:18px;flex-wrap:wrap;align-items:center}.foot-links a{color:inherit}.foot-links a:hover{color:var(--beet)}
+.hero-assure{display:flex;flex-wrap:wrap;gap:6px 18px;margin:16px 0 0;font-size:14px;color:var(--muted)}
+.hero-assure span{display:inline-flex;align-items:center;gap:7px}
+.hero-assure span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold,#B08A4E)}
+.feat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.fcard{background:var(--card,#fff);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.fcard .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--blush);color:var(--beet)}
+.fcard h3{margin:6px 0 0;font-size:18.5px;line-height:1.3}
+.fcard p{margin:0;color:var(--muted);font-size:15px;line-height:1.6}
+.feat-tag{margin-top:auto;align-self:flex-start;font-size:12px;font-weight:700;color:var(--beet);background:var(--blush);border-radius:99px;padding:4px 10px}
+.plan-fit{margin:-6px 0 0;font-size:14.5px;line-height:1.5;color:var(--muted)}
+.plan.feature .plan-fit{color:#F3D9E1}
+.cta-final .cta-sub{margin:10px 0 0;max-width:46ch;color:var(--muted);font-size:16px;line-height:1.6}
+@media (max-width:1000px){ .feat-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:560px){ .feat-grid{grid-template-columns:1fr} .fcard{padding:20px} .hero-assure{font-size:13px} }
+.co-upsell{display:flex;gap:12px;align-items:flex-start;margin:14px 0 4px;padding:14px 16px;border-radius:14px;background:#FFF8EC;border:1px solid #EBD3A6;font-size:14.5px;line-height:1.55}
+.co-upsell .icon{flex:none;color:var(--beet);margin-top:2px}
+.co-upsell .linkbtn{font-weight:700}
 /* ===== Mode demo & persiapan ===== */
 .demo-ban{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;background:#FFF6E6;border:1px solid #F1D9A8;border-radius:18px;padding:16px 18px;margin-bottom:22px}
 .demo-ban.prep{background:var(--blush,#F6E9EC);border-color:#E9CDD5}
@@ -1768,14 +1785,15 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
     <div class="wrap hero-grid">
       <div>
         <h1>Undangan nikah yang menyapa tamu <em>pakai namanya</em>.</h1>
-        <p class="lede">Isi data acara, pilih tema, lalu kirim lewat WhatsApp. Tiap tamu dapat link sendiri, dan kamu bisa lihat siapa saja yang sudah jawab. Coba sampai jadi dulu, bayarnya nanti kalau sudah cocok.</p>
+        <p class="lede">Isi data acara, pilih tema, lalu kirim lewat WhatsApp. Setiap tamu menerima link dengan namanya sendiri, dan kamu langsung tahu siapa yang akan datang. Buat sampai jadi dulu, bayar nanti kalau sudah cocok.</p>
         <div class="try">
           <label for="tryGuest">Ketik nama siapa saja, sampul undangannya ikut berubah</label>
           <div class="try-row">
             <input class="input" id="tryGuest" value="Bapak Budi &amp; Keluarga" autocomplete="off">
-            <a class="btn btn-primary" href="#buat">Buat punyamu</a>
+            <a class="btn btn-primary" href="#buat">Buat undangan gratis</a>
           </div>
         </div>
+        <p class="hero-assure"><span>Gratis sampai undanganmu jadi</span><span>Mulai Rp179.000, sekali bayar</span><span>Garansi uang kembali 7 hari</span></p>
       </div>
       <div class="hero-stage">
         <div class="phone"><div class="screen" id="heroScreen"></div></div>
@@ -1844,6 +1862,21 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
   <section class="section" style="padding-top:20px">
     <div class="wrap">
       <div class="section-head">
+        <div><h2>Urusan yang biasanya bikin pusing, sudah ada jalannya.</h2></div>
+        <p>Satu link yang sama dipakai dari tamu menerima undangan sampai foto terakhir di hari H. Tidak perlu aplikasi tambahan, tidak perlu grup WhatsApp baru.</p>
+      </div>
+      <div class="feat-grid">
+        <div class="fcard"><span class="ic" aria-hidden="true"><svg class="icon"><use href="#i-gift"/></svg></span><h3>Amplop digital dan kado patungan</h3><p>Tamu transfer langsung ke rekening kalian, tanpa potongan. Mau kado barang? Tamu bisa patungan untuk kulkas atau mesin cuci yang kalian butuhkan.</p></div>
+        <div class="fcard"><span class="ic" aria-hidden="true"><svg class="icon"><use href="#i-qr"/></svg></span><h3>Penerima tamu tanpa buku tamu</h3><p>Tamu menunjukkan QR dari undangannya, penerima tamu memindai dari HP. Kehadiran tercatat dan nomor kado terisi sendiri.</p><span class="feat-tag">Paket Undangan + Tamu</span></div>
+        <div class="fcard"><span class="ic" aria-hidden="true"><svg class="icon"><use href="#i-wa"/></svg></span><h3>Kirim dan ingatkan tanpa capek</h3><p>Kirim ke semua tamu sekaligus, lalu ingatkan yang belum menjawab tiga hari sebelum acara. Pesannya bisa kamu tulis sendiri.</p><span class="feat-tag">Paket Undangan + Tamu</span></div>
+        <div class="fcard"><span class="ic" aria-hidden="true"><svg class="icon"><use href="#i-camera"/></svg></span><h3>Album foto dari tamu</h3><p>Tamu mengunggah foto lewat QR di lokasi acara. Semuanya terkumpul di satu album, bersama ucapan yang bisa kalian simpan sebagai buku kenangan.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:20px">
+    <div class="wrap">
+      <div class="section-head">
         <div><h2>Dari Kawung Sogan sampai yang polos-polos saja.</h2></div>
         <p>Semua tema bisa dipakai di semua paket, tidak ada yang dikunci. Warna dan hurufnya juga bisa kamu ganti sendiri.</p>
       </div>
@@ -1856,7 +1889,7 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
     <div class="wrap">
       <div class="section-head">
         <div><h2>Bayar sekali per pernikahan. Sudah.</h2></div>
-        <p>Tidak ada biaya per tamu, tidak ada add-on yang muncul belakangan, dan linknya tidak kedaluwarsa.</p>
+        <p>Tidak ada biaya per tamu, tidak ada biaya tambahan yang muncul belakangan, dan linknya tidak kedaluwarsa. Mulai gratis, bayar hanya saat undangan siap dikirim.</p>
       </div>
       <div class="plans" id="plans"></div>
       <div class="price-note" role="list" aria-label="Berlaku untuk semua paket">
@@ -1875,6 +1908,9 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
         <details><summary>Berapa lama undangan aktif?</summary><p>Selamanya, di semua paket. Link yang sudah kamu kirim ke tamu tidak akan mati setelah acara, jadi ucapan dan foto tetap bisa dibuka sebagai kenang-kenangan.</p></details>
         <details><summary>Boleh ganti tema setelah bayar?</summary><p>Boleh, berkali-kali. Semua isi undangan tetap tersimpan, hanya tampilannya yang berubah.</p></details>
         <details><summary>Bagaimana cara mengirim ke tamu?</summary><p>Setiap tamu punya link dengan namanya sendiri. Kirim satu per satu dari WhatsApp pribadimu dengan satu ketukan, atau kirim sekaligus di paket Undangan + Tamu.</p></details>
+        <details><summary>Ada biaya lain selain harga paket?</summary><p>Tidak ada. Harga paket sudah termasuk semua tema, berapa pun jumlah tamumu, dan link yang aktif selamanya. Kalau nanti butuh fitur daftar tamu, kamu cukup membayar selisihnya untuk upgrade.</p></details>
+        <details><summary>Kalau ada salah ketik setelah undangan dikirim?</summary><p>Ubah saja dari editor. Tamu langsung melihat versi terbaru lewat link yang sama, jadi tidak perlu mengirim ulang. Isi undangan bisa diubah sampai 30 hari setelah acara.</p></details>
+        <details><summary>Bagaimana kalau ternyata tidak cocok setelah bayar?</summary><p>Kirim email kepada kami dalam 7 hari setelah pembayaran, dan uangmu kembali penuh lewat metode pembayaran semula. <a href="/syarat">Baca ketentuannya</a>.</p></details>
         <details><summary>Amplop digital aman?</summary><p>Uang tidak lewat Sakara sama sekali. Tamu transfer langsung ke rekening kalian, dan tidak diminta konfirmasi apa pun. Cukup tulis nama di berita transfer.</p></details>
       </div>
     </div>
@@ -1882,7 +1918,8 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
 
   <section class="wrap">
     <div class="cta-final">
-      <h2>Coba bikin dulu. Bayarnya nanti, kalau sudah suka.</h2>
+      <div><h2>Coba bikin dulu. Bayarnya nanti, kalau sudah suka.</h2>
+      <p class="cta-sub">Tidak perlu daftar untuk mencoba. Undanganmu tersimpan dan bisa dilanjutkan kapan saja.</p></div>
       <a class="btn btn-primary" href="#buat">Buat undangan gratis</a>
     </div>
   </section>
@@ -1894,7 +1931,7 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
     <div class="page-head">
       <span class="eyebrow">Katalog tema</span>
       <h1>Tema untuk setiap adat dan selera</h1>
-      <p>Buka demo untuk melihat undangan dengan nama kalian. Semua tema termasuk di semua paket, dan warnanya bisa disesuaikan.</p>
+      <p>Buka demo untuk melihat setiap tema dengan nama kalian. Semua tema termasuk di semua paket, warna dan hurufnya bisa kamu ganti, dan semuanya bisa dicoba gratis.</p>
     </div>
     <div class="toolbar">
       <div class="seg" id="tagFilter" role="group" aria-label="Filter gaya"></div>
@@ -2421,9 +2458,9 @@ $('#themeSearch').addEventListener('input',e=>{ catQ=e.target.value; renderCatal
 
 /* ---------- Pricing ---------- */
 const PLANS = [
-  {id:'coba', name:'Coba', price:0, note:'selamanya gratis', tag:'Gratis dicoba', items:[['Semua tema dan warna',1],['Isi semua data + pratinjau penuh',1],['Bagikan ke tamu',0],['Daftar tamu & RSVP per nama',0]], cta:'Mulai mencoba'},
-  {id:'undangan', name:'Undangan', price:179000, note:'sekali bayar', tag:'Kirim sendiri', items:[['Semua tema dan warna',1],['Link personal per tamu',1],['RSVP, ucapan, amplop digital',1],['Kirim manual lewat WhatsApp',1],['Daftar tamu & grup',0]], cta:'Pilih Undangan'},
-  {id:'tamu', name:'Undangan + Tamu', price:399000, note:'sekali bayar', tag:'Ada daftar tamu & hari H', feature:1, items:[['Semua di paket Undangan',1],['Import tamu dari Excel/CSV',1],['Grup, sesi acara, rekap RSVP per nama',1],['Kirim WhatsApp sekaligus + pengingat H-3',1],['QR check-in di hari H',1]], cta:'Pilih Undangan + Tamu'}
+  {id:'coba', name:'Coba', price:0, note:'gratis', tag:'Gratis dicoba', fit:'Untuk melihat hasil jadinya sebelum memutuskan.', items:[['Semua tema dan warna',1],['Isi semua data + pratinjau penuh',1],['Bagikan ke tamu',0],['Daftar tamu & RSVP per nama',0]], cta:'Mulai gratis'},
+  {id:'undangan', name:'Undangan', price:179000, note:'sekali bayar', tag:'Kirim sendiri', fit:'Untuk acara yang tamunya kamu kirimi sendiri satu per satu.', items:[['Semua tema dan warna',1],['Link personal per tamu',1],['RSVP, ucapan, amplop digital',1],['Kirim manual lewat WhatsApp',1],['Daftar tamu & grup',0]], cta:'Pilih Undangan'},
+  {id:'tamu', name:'Undangan + Tamu', price:399000, note:'sekali bayar', tag:'Paling lengkap', fit:'Untuk acara dengan banyak tamu, dari undangan sampai meja penerima tamu.', feature:1, items:[['Semua di paket Undangan',1],['Import tamu dari Excel/CSV',1],['Grup, sesi acara, rekap RSVP per nama',1],['Kirim WhatsApp sekaligus + pengingat H-3',1],['QR check-in di hari H',1]], cta:'Pilih Undangan + Tamu'}
 ];
 const PLAN_RANK = {coba:0, undangan:1, tamu:2};
 function myPlan(){ const r=(DEMO.on&&DEMO.saved)?DEMO.saved.S:S; if(!r.user) return null; return r.published ? (r.plan||'tamu') : 'coba'; }
@@ -2442,6 +2479,7 @@ function renderPlans(){
       <span class="tag">${p.id===cur?'Paketmu':p.tag}</span>
       <h3>${p.name}</h3>
       <div class="price num">${p.price?rupiah(p.price):'Rp0'} <small>${p.note}</small></div>
+      ${p.fit?`<p class="plan-fit">${p.fit}</p>`:''}
       <ul>${p.items.map(([x,on])=>`<li class="${on?'':'off'}">${ico(on?'check':'x')}${x}</li>`).join('')}</ul>
       ${planCta(p)}
     </div>`).join('');
@@ -2539,13 +2577,13 @@ function renderStepCore(onlyHTML, iOverride){
   if(i===4){
     const checks = [['Nama kedua mempelai', !!(S.bride.name&&S.groom.name), 0],['Minimal satu acara dengan tanggal & tempat', S.events.some(e=>e.date&&e.venue), 1],['Tema dipilih', !!S.theme, 2],['Rekening amplop digital', !S.gift.on || !!S.gift.acct, 3]];
     const ready = checks.every(c=>c[1]);
-    h = `<span class="eyebrow">Langkah 5 dari 5</span><h2>${S.published?'Undanganmu sudah tayang':'Siap dibagikan?'}</h2><p class="sub">${S.published?'Kirim link ke tamu dari dashboard. Kamu masih bisa mengubah isinya kapan saja.':'Periksa sekali lagi, pilih alamat link, lalu bayar sekali untuk mulai membagikan.'}</p>
+    h = `<span class="eyebrow">Langkah 5 dari 5</span><h2>${S.published?'Undanganmu sudah tayang':'Siap dibagikan?'}</h2><p class="sub">${S.published?'Kirim link ke tamu dari dashboard. Kamu masih bisa mengubah isinya kapan saja.':'Periksa sekali lagi dan pilih alamat link. Setelah bayar, undanganmu langsung bisa dikirim ke tamu. Ada garansi uang kembali 7 hari.'}</p>
     <ul class="check-list">${checks.map(([l,ok,k])=>`<li>${ok?`<span class="status s-ok" style="padding:4px">${ico('check')}</span>`:`<span class="status s-wait" style="padding:4px">!</span>`}${l}<span class="st">${ok?'<span class="muted">Lengkap</span>':`<button type="button" class="btn btn-soft btn-sm" data-step="${k}">Lengkapi</button>`}</span></li>`).join('')}</ul>
     <div class="field"><label for="slug">Alamat undangan</label><div class="slug"><span>${pubHost()}</span><input id="slug" data-bind="slug" value="${esc(S.slug)}" autocomplete="off" aria-describedby="slugHint"></div><span class="hint" id="slugHint">Huruf kecil, angka, dan tanda strip. Tamu akan melihat link ini.</span><span class="err" hidden></span></div>
     ${S.published?'':`<div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Paket</span><div class="plan-pick">
       ${PLANS.filter(p=>p.price).map(p=>`<label><input type="radio" name="plan" value="${p.id}" ${S.plan===p.id?'checked':''}><span><b>${p.name}</b><small>${p.items.filter(x=>x[1]).slice(0,3).map(x=>x[0]).join(' · ')}</small></span><b class="num">${rupiah(p.price)}</b></label>`).join('')}
     </div></div>`}
-    ${ready?'':'<p class="err" style="margin-top:14px;color:var(--warn);font-weight:600">Lengkapi item bertanda ! dulu supaya undangan tidak menampilkan data kosong ke tamu.</p>'}`;
+    ${ready?'':'<p class="err" style="margin-top:14px;color:var(--warn);font-weight:600">Lengkapi yang bertanda ! dulu, supaya tamu tidak melihat bagian yang masih kosong.</p>'}`;
   }
   if(onlyHTML) return h;
   const last = i===4;
@@ -2961,7 +2999,7 @@ const DT = [['ringkasan','Ringkasan','home'],['tamu','Tamu','users'],['keluarga'
 const stLabel = {hadir:['Hadir','s-ok'],tidak:['Tidak hadir','s-no'],belum:['Belum menjawab','s-wait']};
 const PRO = ['import','bulk','groups','harih','remind'];
 const isLocked = f => S.published && S.plan==='undangan' && PRO.includes(f);
-const lockNote = (what) => `<div class="lock-card">${ico('lock')}<div><b>${what} ada di paket Undangan + Tamu</b><p class="muted">Upgrade cukup bayar selisihnya, ${rupiah(UPGRADE_PRICE)}. Data tamu dan undanganmu tetap.</p></div><button class="btn btn-primary btn-sm" data-act="upgrade">Upgrade</button></div>`;
+const lockNote = (what) => `<div class="lock-card">${ico('lock')}<div><b>${what} ada di paket Undangan + Tamu</b><p class="muted">Cukup tambah ${rupiah(UPGRADE_PRICE)}. Tamu dan isi undanganmu tetap, tidak perlu mengulang dari awal.</p></div><button class="btn btn-primary btn-sm" data-act="upgrade">Upgrade sekarang</button></div>`;
 function pubHost(){ return CLOUD.on ? location.host+'/u/' : 'undangansakara.vercel.app/u/'; }
 function pubURL(){ return 'https://'+pubHost()+((CLOUD.inv&&CLOUD.inv.slug)||S.slug); }
 function link(g){ return CLOUD.on ? `${location.origin}/u/${(CLOUD.inv&&CLOUD.inv.slug)||S.slug}?to=${g.code}` : `https://undangansakara.vercel.app/u/${S.slug}?to=${encodeURIComponent(g.code||g.name)}`; }
@@ -3250,7 +3288,7 @@ function renderDashCore(){
       <button class="btn btn-sm" style="background:#fff;color:var(--ink);margin-left:auto" data-act="${isLocked('bulk')?'upgrade':'bulk-send'}">${ico(isLocked('bulk')?'lock':'wa')}Kirim ke ${sel.size} tamu</button><button class="btn btn-sm" style="color:#fff;border-color:#ffffff55" data-act="cards-print">${ico('qr')}Kartu cetak</button><button class="btn btn-sm" style="color:#fff;border-color:#ffffff55" data-act="bulk-clear">Batal</button></div>`:''}
     <div class="tbl-wrap"><table><thead><tr><th style="width:40px"><input type="checkbox" data-act="sel-all" aria-label="Pilih semua" ${list.length&&list.every(g=>sel.has(g.id))?'checked':''}></th><th>Nama</th><th>Grup</th><th>Sesi</th><th>Status</th><th class="num">Orang</th><th>Dikirim</th><th style="text-align:right">Aksi</th></tr></thead><tbody>
       ${list.map(g=>`<tr><td><input type="checkbox" data-sel="${g.id}" ${sel.has(g.id)?'checked':''} aria-label="Pilih ${esc(g.name)}"></td><td><div class="nm">${esc(g.name)}</div><div class="sub num">${esc(g.phone||'—')} · ${esc(g.code)}</div></td><td>${esc(g.group)}</td><td>${sesChips(g)}</td><td><span class="status ${stLabel[g.status][1]}">${stLabel[g.status][0]}</span>${g.checkin?' <span class="status s-mute">Sudah datang</span>':''}</td><td class="num">${g.pax||'—'}</td><td>${g.sent?'<span class="status s-mute">Terkirim</span>':'<span class="muted" style="font-size:13px">Belum</span>'}</td>
-      <td class="acts"><a class="btn btn-soft btn-sm" href="${waUrl(g)}" target="_blank" rel="noopener" data-sent="${g.id}">${ico('wa')}${g.sent?'Kirim ulang':'Kirim WA'}</a> <button class="btn btn-ghost btn-sm" data-act="guest-menu" data-id="${g.id}" aria-label="Opsi ${esc(g.name)}">Opsi</button></td></tr>`).join('') || `<tr><td colspan="8"><div class="empty" style="border:0">Tidak ada tamu yang cocok dengan filter ini.</div></td></tr>`}
+      <td class="acts"><a class="btn btn-soft btn-sm" href="${waUrl(g)}" target="_blank" rel="noopener" data-sent="${g.id}">${ico('wa')}${g.sent?'Kirim ulang':'Kirim WA'}</a> <button class="btn btn-ghost btn-sm" data-act="guest-menu" data-id="${g.id}" aria-label="Opsi ${esc(g.name)}">Opsi</button></td></tr>`).join('') || `<tr><td colspan="8"><div class="empty" style="border:0">Tidak ada tamu yang cocok. Coba ubah kata pencarian atau filternya.</div></td></tr>`}
     </tbody></table></div>
     <div class="gcards">${list.map(g=>`<div class="gcard"><input type="checkbox" data-sel="${g.id}" ${sel.has(g.id)?'checked':''} aria-label="Pilih ${esc(g.name)}"><div><div style="font-weight:700">${esc(g.name)}</div><div class="muted" style="font-size:13px">${esc(g.group)} · ${esc(sessionNames(g))}${g.pax?` · ${g.pax} orang`:''}</div></div><span class="status ${stLabel[g.status][1]}">${stLabel[g.status][0].replace(' menjawab','')}</span>
       <div class="acts"><a class="btn btn-soft btn-sm" href="${waUrl(g)}" target="_blank" rel="noopener" data-sent="${g.id}">${ico('wa')}${g.sent?'Kirim ulang':'Kirim WA'}</a><button class="btn btn-ghost btn-sm" data-act="guest-menu" data-id="${g.id}">Opsi</button></div></div>`).join('') || '<div class="empty">Tidak ada tamu yang cocok.</div>'}</div>
@@ -3579,7 +3617,7 @@ function coItems(){
 function coTotals(){ const it=coItems(); let disc=0; const v=CO.applied&&VOUCHERS[CO.applied]; if(v) disc = v.type==='pct'? Math.round(it.price*v.v/100) : v.v; disc=Math.min(disc,it.price); return {...it, disc, total:it.price-disc}; }
 function renderCheckout(){
   const root=$('#checkout'); clearInterval(CO.timer);
-  if(!S.user){ root.innerHTML = `<div class="co-empty"><span class="eyebrow">Checkout</span><h1 class="display">Masuk dulu untuk membayar</h1><p class="muted">Undanganmu sudah tersimpan di perangkat ini dan akan ikut masuk ke akun.</p><button class="btn btn-primary" data-act="login-co">Masuk atau daftar</button></div>`; return; }
+  if(!S.user){ root.innerHTML = `<div class="co-empty"><span class="eyebrow">Satu langkah lagi</span><h1 class="display">Simpan undanganmu ke akun</h1><p class="muted">Semua yang sudah kamu isi ikut tersimpan, tidak perlu mengulang. Setelah itu kamu langsung ke pembayaran.</p><button class="btn btn-primary" data-act="login-co">Masuk dan lanjutkan</button></div>`; return; }
   if(coMode()==='done-already' && CO.stage!=='done'){ root.innerHTML = `<div class="co-empty"><span class="status s-ok">Aktif selamanya</span><h1 class="display">Paketmu sudah paling lengkap</h1><p class="muted">Undangan + Tamu sudah aktif untuk ${esc(pubHost())}${esc(S.slug)}.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn btn-primary" href="#dashboard">Buka dashboard</a><a class="btn btn-ghost" href="#tagihan">Lihat tagihan</a></div></div>`; return; }
   const T=coTotals();
   const steps = `<ol class="co-steps">${['Paket','Pembayaran','Selesai'].map((s,i)=>`<li class="${(CO.stage==='form'&&i===0)||(CO.stage==='pending'&&i===1)||(CO.stage==='done'&&i===2)?'on':''} ${(CO.stage==='pending'&&i<1)||(CO.stage==='done'&&i<2)?'ok':''}"><span>${i+1}</span>${s}</li>`).join('')}</ol>`;
@@ -3593,16 +3631,17 @@ function renderCheckout(){
     <div class="co-grid"><form class="form-card co-form" id="coForm" novalidate>
       ${coMode()==='upgrade' ? `<h2 class="co-h">Upgrade</h2><div class="plan-pick"><label><input type="radio" checked disabled><span><b>Undangan + Tamu</b><small>Import Excel, grup & sesi, kirim WhatsApp sekaligus, QR check-in hari H</small></span><b class="num">+${rupiah(UPGRADE_PRICE)}</b></label></div>`
       : `<h2 class="co-h">Paket</h2><div class="plan-pick">${PLANS.filter(p=>p.price).map(p=>`<label><input type="radio" name="coPlan" value="${p.id}" ${(CO.plan||S.plan)===p.id?'checked':''}><span><b>${p.name}</b><small>${p.items.filter(x=>x[1]).slice(0,3).map(x=>x[0]).join(' · ')}</small></span><b class="num">${rupiah(p.price)}</b></label>`).join('')}</div>`}
+      ${coMode()==='new' && (CO.plan||S.plan)==='undangan' ? `<div class="co-upsell">${ico('up')}<span>Tambah ${rupiah(PLANS[2].price-PLANS[1].price)} untuk kirim WhatsApp ke semua tamu sekaligus, pengingat H-3, dan QR check-in di hari H. <button type="button" class="linkbtn" data-act="co-pick-tamu">Pilih Undangan + Tamu</button></span></div>` : ''}
       <h2 class="co-h">Kode voucher</h2>
       <div class="vrow"><input class="input" id="coV" placeholder="Masukkan kode" value="${esc(CO.voucher)}" aria-label="Kode voucher" autocomplete="off"><button type="button" class="btn btn-ghost" data-act="apply-voucher">Pakai</button></div>
-      <p class="hint" id="coVmsg" style="margin-top:6px;font-size:13px;${CO.applied?'color:var(--ok);font-weight:700':'color:var(--muted)'}">${CO.applied?`${esc(VOUCHERS[CO.applied].label)} dipakai.`:(CLOUD.on?'Punya kode voucher? Masukkan di sini.':'Coba SAKARA10 di prototype ini.')}</p>
+      <p class="hint" id="coVmsg" style="margin-top:6px;font-size:13px;${CO.applied?'color:var(--ok);font-weight:700':'color:var(--muted)'}">${CO.applied?`${esc(VOUCHERS[CO.applied].label)} dipakai.`:(CLOUD.on?'Tidak punya kode? Lewati saja.':'Coba SAKARA10 di prototype ini.')}</p>
       <h2 class="co-h">Metode pembayaran</h2>
       <div class="pay-opts" role="radiogroup" aria-label="Metode pembayaran">
         ${[['qris','QRIS','Scan dari m-banking atau e-wallet apa pun','qr'],['va','Virtual Account','BCA, Mandiri, BNI, BRI','receipt'],['ewallet','E-wallet','GoPay, OVO, DANA, ShopeePay','wa']].map(([k,l,d,i])=>`<label class="pay-opt"><input type="radio" name="coM" value="${k}" ${CO.method===k?'checked':''}><span class="pi">${ico(i)}</span><span><b>${l}</b><small>${d}</small></span></label>`).join('')}
       </div>
       ${CO.method==='va'?`<div class="seg" style="margin-top:12px" role="group" aria-label="Bank">${['BCA','Mandiri','BNI','BRI'].map(b=>`<button type="button" data-bank="${b}" aria-pressed="${CO.bank===b}">${b}</button>`).join('')}</div>`:''}
       ${CO.method==='ewallet'?`<div class="seg" style="margin-top:12px" role="group" aria-label="E-wallet">${['GoPay','OVO','DANA','ShopeePay'].map(b=>`<button type="button" data-wallet="${b}" aria-pressed="${CO.wallet===b}">${b}</button>`).join('')}</div>`:''}
-      <div class="form-foot"><span class="muted" style="font-size:13px">Tagihan dikirim ke ${esc(S.user.email)}</span><button class="btn btn-primary">Bayar ${rupiah(T.total)}</button></div>
+      <div class="form-foot"><span class="muted" style="font-size:13px">Bukti bayar dikirim ke ${esc(S.user.email)}</span><button class="btn btn-primary">Bayar ${rupiah(T.total)}</button></div>
       ${CLOUD.on?`<p class="muted" style="font-size:12.5px">Pembayaran diproses aman oleh Midtrans${CLOUD.cfg.midtransProduction?'':' (mode uji coba / sandbox)'}.</p>`:'<p class="muted" style="font-size:12.5px">Prototype: tidak ada pembayaran sungguhan yang diproses.</p>'}
       ${CLOUD.pendingOrder?`<div class="warn-box" style="margin-top:12px">${ico('receipt')}<span>Ada pembayaran yang belum selesai (${esc(CLOUD.pendingOrder)}). <button type="button" class="linkbtn" data-act="co-check">Cek status</button></span></div>`:''}
     </form>${summary}</div>`;
@@ -3632,7 +3671,7 @@ function renderCheckout(){
     root.innerHTML = `<div class="co-head"><h1 class="display">Pembayaran berhasil</h1></div>${steps}
     <div class="co-done form-card"><div class="okc">${ico('check')}</div><h2 class="display" style="font-size:34px">${inv&&inv.upgrade?'Paket Undangan + Tamu aktif':'Undanganmu sudah tayang'}</h2>
       <p class="muted" style="max-width:46ch;margin:10px auto 0">${esc(pubHost())}${esc(S.slug)} aktif selamanya. Bukti bayar ${esc(inv?.no||'')} sudah dikirim ke ${esc(S.user.email)}.</p>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px"><button class="btn btn-ghost" data-act="copy" data-v="${esc(pubURL())}">${ico('copy')}Salin link</button><a class="btn btn-ghost" href="#tagihan">${ico('receipt')}Lihat tagihan</a><a class="btn btn-primary" href="#dashboard" data-act="co-reset">Kirim ke tamu</a></div></div>`;
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px"><button class="btn btn-ghost" data-act="copy" data-v="${esc(pubURL())}">${ico('copy')}Salin link</button><a class="btn btn-ghost" href="#tagihan">${ico('receipt')}Lihat tagihan</a><a class="btn btn-primary" href="#dashboard" data-act="co-reset">Mulai kirim ke tamu</a></div></div>`;
   }
 }
 function applyVoucher(){ const c=($('#coV').value||'').trim().toUpperCase(); CO.voucher=c; if(VOUCHERS[c]){ CO.applied=c; renderCheckout(); toast(VOUCHERS[c].label+' dipakai'); } else { CO.applied=null; const m=$('#coVmsg'); m.textContent= c?`Kode "${c}" tidak berlaku. Periksa ejaannya.`:'Masukkan kode voucher dulu.'; m.style.color='var(--no)'; m.style.fontWeight='700'; } }
@@ -3656,7 +3695,7 @@ function renderTagihan(){
     <div style="display:flex;gap:8px;flex-wrap:wrap">${S.published&&S.plan==='undangan'?`<button class="btn btn-soft btn-sm" data-act="upgrade">Upgrade paket</button>`:''}${S.published?'':`<a class="btn btn-primary btn-sm" href="#buat">Lanjut ke editor</a>`}<button class="btn btn-ghost btn-sm" data-act="logout">${ico('logout')}Keluar</button></div></div>
   <div><h2 class="co-h" style="margin-top:0">Riwayat tagihan</h2>
   ${inv.length?`<div class="tbl-wrap" style="display:block"><table><thead><tr><th>Nomor</th><th>Tanggal</th><th>Item</th><th class="num">Total</th><th>Status</th></tr></thead><tbody>${inv.map((x,k)=>`<tr><td class="nm num"><button type="button" class="inv-no" data-act="inv" data-k="${k}" title="Lihat bukti pembayaran">${esc(x.no)}</button></td><td class="muted td-date">${(()=>{ const [d,t]=fmtDT(x.date).split(' pukul '); return `${esc(d)}${t?`<small>pukul ${esc(t)}</small>`:''}`; })()}</td><td class="td-item">${esc(x.item)}</td><td class="num td-total">${rupiah(x.total)}<small>${esc(methodName(x.method))}</small></td><td><span class="status s-ok">${esc(x.status)}</span></td></tr>`).join('')}</tbody></table></div>`
-  :`<div class="empty">Belum ada tagihan. Tagihan muncul di sini setelah kamu mempublikasikan undangan.<br><a class="btn btn-primary btn-sm" href="#buat" style="margin-top:14px">Buka editor</a></div>`}</div></div>`;
+  :`<div class="empty">Belum ada tagihan. Bukti bayar akan muncul di sini setelah undanganmu dipublikasikan.<br><a class="btn btn-primary btn-sm" href="#buat" style="margin-top:14px">Lanjutkan undangan</a></div>`}</div></div>`;
 }
 function invoiceModal(k){
   const x=(S.invoices||[])[k]; if(!x) return;
@@ -3884,6 +3923,7 @@ document.addEventListener('click', e=>{
   if(a==='co-paid') completePayment();
   if(a==='co-check' && CLOUD.pendingOrder){ clearTimeout(CO.waitT); CO.stage='waiting'; renderCheckout(); waitPaid(CLOUD.pendingOrder); }
   if(a==='co-reset'){ CO.stage='form'; }
+  if(a==='co-pick-tamu'){ CO.plan='tamu'; renderCheckout(); }
   if(a==='upgrade'){ closeModal(); CO.stage='form'; if(!S.user) openAuth(()=>{ location.hash='checkout'; },'publish'); else { location.hash='checkout'; if(location.hash==='#checkout') renderCheckout(); } }
   if(a==='inv') invoiceModal(+el.dataset.k);
   if(a==='ci-open') ciOpen(el.dataset.id);
@@ -4610,7 +4650,7 @@ let aniIO=null;
 function aniScan(root){
   if(REDUCED() || !('IntersectionObserver' in window) || !root) return;
   if(!aniIO) aniIO = new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); aniIO.unobserve(en.target); } }), {rootMargin:'0px 0px -6% 0px', threshold:.08});
-  const groups = [['.section-head > *',0],['.steps .step',1],['.split > *',1],['.ticks li',1],['.theme-strip > *',1],['.plans > *',1],['.price-note',0],['.faq details',1],['.cta-final',0],['#themeGrid > *',1],['.page-head > *',1],['.acct-grid > *',1],['.mini-dash .row',1]];
+  const groups = [['.section-head > *',0],['.steps .step',1],['.split > *',1],['.ticks li',1],['.theme-strip > *',1],['.plans > *',1],['.feat-grid > *',1],['.price-note',0],['.faq details',1],['.cta-final',0],['#themeGrid > *',1],['.page-head > *',1],['.acct-grid > *',1],['.mini-dash .row',1]];
   groups.forEach(([sel,stag])=>{ $$(sel, root).forEach((el,i)=>{ if(el.dataset.ani) return; el.dataset.ani='1'; el.classList.add('ani'); el.style.setProperty('--ad', (stag?Math.min(i,6)*70:0)+'ms'); aniIO.observe(el); }); });
 }
 
