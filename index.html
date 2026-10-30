@@ -787,6 +787,7 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .tc-live .inv.lay-draperi .cover .date{margin-bottom:14px}
 .tc-live .inv.lay-draperi .dp-paper{padding-top:70px}
 .tc-live .inv.lay-draperi .dp-seal{top:20px}
+.inv .cover[style*="--fit"]>*:not([class*="tirai"]):not(.go-cvst):not(.dg-cvstk):not(.dp-box):not(.petals):not(.cv-photo):not(.shade):not(.dp-velvet):not(.dp-side):not(.dp-tulle){zoom:var(--fit)}
 /* ===== Gerak saat digulir: semua tema ===== */
 .inv.anim [data-rv=left]:not(.in){opacity:0;transform:translateX(-34px) rotate(-1.5deg)}
 .inv.anim [data-rv=right]:not(.in){opacity:0;transform:translateX(34px) rotate(1.5deg)}
@@ -810,23 +811,23 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .go-sp svg{display:block;width:100%;height:auto}
 @keyframes goTw{0%,100%{scale:.6;opacity:.5;rotate:0deg}50%{scale:1.1;opacity:1;rotate:25deg}}
 .go-stk{position:absolute;inset:0;pointer-events:none;z-index:0}
-.inv .cover.cv-goresan{position:relative;overflow:hidden;background:#F3EFEA;min-height:100svh;padding:90px 22px 110px;justify-content:center;gap:0;color:#A3261E}
+.inv .cover.cv-goresan{position:relative;overflow:hidden;background:#F3EFEA;min-height:100svh;padding:64px 22px 36px;justify-content:center;gap:0;color:#A3261E}
 .cv-goresan .go-cvst{position:absolute;inset:0;pointer-events:none}
 .cv-goresan>*:not(.go-cvst){position:relative}
-.cv-goresan .go-std{font-family:'Permanent Marker',cursive;text-transform:uppercase;font-size:clamp(54px,19cqw,84px);line-height:.98;letter-spacing:.06em;color:#A3261E;text-align:center;rotate:-2deg}
+.cv-goresan .go-std{font-family:'Permanent Marker',cursive;text-transform:uppercase;font-size:clamp(44px,min(15cqw,9svh),72px);line-height:.98;letter-spacing:.06em;color:#A3261E;text-align:center;rotate:-2deg}
 .tc-live .inv .cover.cv-goresan{justify-content:flex-start;padding:26px 14px 20px}
 .tc-live .cv-goresan .go-std{font-size:32px}
 .tc-live .cv-goresan .go-hands{margin:8px -9% 2px}
 .tc-live .inv .cover.cv-goresan .date{margin-bottom:8px}
-.cv-goresan .go-hands{width:118%;margin:18px -9% 6px;aspect-ratio:1000/299;background:url(/assets/goresan/tangan.webp) center/contain no-repeat;animation:goFloat 4s ease-in-out infinite alternate}
+.cv-goresan .go-hands{width:112%;max-width:none;margin:10px -6% 2px;max-height:24svh;aspect-ratio:1000/299;background:url(/assets/goresan/tangan.webp) center/contain no-repeat;animation:goFloat 4s ease-in-out infinite alternate}
 .cv-goresan .go-heart{position:absolute;left:50%;top:64%;width:6.5%;translate:-50% -50%;animation:goBeat 1.3s ease-in-out infinite}
 .cv-goresan .go-heart svg{display:block;width:100%}
 @keyframes goFloat{from{translate:0 0}to{translate:0 -6px}}
 @keyframes goBeat{0%,100%{scale:1}15%{scale:1.35}30%{scale:1}45%{scale:1.2}}
-.inv .cover.cv-goresan .names{font-family:'Patrick Hand',cursive;font-size:clamp(28px,9cqw,40px);letter-spacing:.14em;color:#A3261E;margin:8px 0 4px;font-weight:400;text-align:center;line-height:1.2}
+.inv .cover.cv-goresan .names{display:block;font-family:'Patrick Hand',cursive;font-size:clamp(26px,8cqw,36px);letter-spacing:.1em;color:#A3261E;margin:8px 0 4px;font-weight:400;text-align:center;line-height:1.2}
 .tc-live .inv .cover.cv-goresan .names{font-size:20px}
 .inv .cover.cv-goresan .names .amp{font-size:1em;color:#A3261E;margin:0 .1em}
-.inv .cover.cv-goresan .date{font-size:19px;letter-spacing:.06em;color:#2B1B17;margin-bottom:16px}
+.inv .cover.cv-goresan .date{font-size:18px;letter-spacing:.06em;color:#2B1B17;margin-bottom:10px}
 .inv .cover.cv-goresan .to{color:#5a4a44}
 .inv .cover.cv-goresan .to b{font-family:'Patrick Hand',cursive;color:#A3261E;font-size:24px;font-weight:400}
 .inv .cover.cv-goresan .open{background:#A3261E;color:#fff;border:0;border-radius:6px;font-family:'Patrick Hand',cursive;font-size:18px;letter-spacing:.05em}
@@ -3340,8 +3341,22 @@ function splitWords(h){
   walk(h); $$('.w > span', h).forEach((s,i)=>s.style.setProperty('--wi', i));
 }
 let invIO = null;
+function fitCover(inv){
+  const cv = inv && inv.querySelector(':scope > .cover'); if(!cv) return;
+  const btn = cv.querySelector('[data-act=open-inv]'); if(!btn || !btn.offsetParent) return;
+  const kids = [...cv.children].filter(k=>{ const p=getComputedStyle(k).position; return p!=='absolute' && p!=='fixed'; });
+  if(!kids.length) return;
+  cv.style.removeProperty('--fit');
+  const vh = innerHeight, top = kids[0].getBoundingClientRect().top, cr = cv.getBoundingClientRect();
+  if(cr.top < -2 || cr.height < vh*0.6) return; // hanya saat sampul memenuhi layar
+  const bottom = btn.getBoundingClientRect().bottom, room = vh - 22 - Math.max(top, cr.top+12);
+  const need = bottom - Math.max(top, cr.top+12);
+  if(bottom > vh - 22 && need > 0){ const f = Math.max(.62, room/need); cv.style.setProperty('--fit', f.toFixed(3)); }
+}
 function enhanceInv(root){
   const inv = root.querySelector('[data-inv]'); if(!inv) return;
+  requestAnimationFrame(()=>fitCover(inv)); (document.fonts && document.fonts.ready || Promise.resolve()).then(()=>fitCover(inv));
+  if(!window._fitRs){ window._fitRs=1; addEventListener('resize', ()=>$$('[data-inv]').forEach(fitCover)); }
   shimmerImages(inv);
   if(REDUCED() || !('IntersectionObserver' in window)) return;
   inv.classList.add('anim');
