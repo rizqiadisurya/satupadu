@@ -1457,6 +1457,28 @@ html.boot-app #bootSkel .bs-app{display:flex}
 .st-mv{display:grid;gap:6px}
 .st-it textarea.input{min-height:72px;resize:vertical}
 
+
+/* ===== Paduan huruf ===== */
+.fpair{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.fpair button{border:2px solid var(--line);border-radius:14px;background:#fff;padding:14px 14px 12px;cursor:pointer;display:grid;gap:6px;text-align:left;color:var(--ink)}
+.fpair button[aria-pressed="true"]{border-color:var(--beet);box-shadow:0 0 0 3px rgba(125,29,63,.15)}
+.fpair .fp-h{font-size:26px;line-height:1.1}
+.fpair .fp-s{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.fpair .fp-b{font-size:13.5px;line-height:1.45;color:#5b4a50}
+.fpair small{font-size:12px;color:var(--muted);margin-top:2px}
+.fpair small b{color:var(--ink)}
+.inv[data-fp]:not([data-fp="tema"]){font-family:var(--t-body)}
+.inv[data-fp]:not([data-fp="tema"]) :is(input,textarea,button,.ibtn){font-family:inherit}
+.inv[data-fp]:not([data-fp="tema"]) :is(.k-label,.pill,.cover .date,.kick,.count small,.cd4 small,.ev .dd,.ev .tt,.ev2-d span,.ev2-t,.tl-d,.qband figcaption,.cover .to,.top .k-label){font-family:var(--t-sub)}
+.inv[data-fp="klasik"] :is(.k-label,.pill,.cover .date,.kick,.ev2-t,.tl-d){letter-spacing:.2em;text-transform:uppercase}
+.inv[data-fp="klasik"] .cover .date{font-size:11.5px;font-weight:600}
+.inv[data-fp="modern"] :is(.kick,.k-label,.pill){font-weight:800}
+.inv:is([data-fp="modern"],[data-fp="romantis"]) :is(.names,h3,h4,.ty,.tl b,.p-amp,.bank .ac){text-transform:none !important;letter-spacing:0 !important;font-weight:400 !important;font-style:normal !important}
+.inv:is([data-fp="modern"],[data-fp="romantis"]) :is(.names,section:not(.cover)>h3,.p-body h4,.tl b,.ev .ty){font-size-adjust:.42}
+.inv:is([data-fp="modern"],[data-fp="romantis"]) .bank .ac{font-family:var(--t-body);font-size-adjust:none}
+.inv[data-fp]:not([data-fp="tema"]) :is(.cd4 b,.count b,.ev2-d b,.cd4 i){font-family:var(--t-sub);font-weight:600}
+.inv[data-fp]:not([data-fp="tema"]) .ev2-w{font-family:var(--t-sub) !important;font-size:15.5px !important;font-weight:600 !important;line-height:1.35;margin:2px 0}
+.inv[data-fp="klasik"] .ev2-w{letter-spacing:.06em !important}
 </style>
 </head>
 <body>
@@ -1799,7 +1821,7 @@ const ACCENTS = ['#7D1D3F','#8A5A2B','#D4A64A','#B4566E','#2F6F6B','#3D6B4F','#1
 const themeById = id => THEMES.find(t=>t.id===id) || THEMES[0];
 function themeStyle(t, accent, font){
   const a = accent || t.accent; const tt = {...t, accent:a};
-  return `--t-bg:${t.bg};--t-fg:${t.fg};--t-accent:${a};--t-soft:${t.soft};--t-font:${font||t.font};--t-pattern:${t.pat(tt)};--t-size:${t.size};`;
+  return `--t-bg:${t.bg};--t-fg:${t.fg};--t-accent:${a};--t-soft:${t.soft};--t-font:${font||t.font};--t-pattern:${t.pat(tt)};--t-size:${t.size};${fontPairVars()}`;
 }
 /* ---------- Tema berlayout khusus (sampul unik + ilustrasi SVG orisinal) ---------- */
 const svgData = s => 'data:image/svg+xml,'+encodeURIComponent(s);
@@ -1956,7 +1978,16 @@ let GIFTS = [
 /* ---------- Invitation renderer ---------- */
 const SECTION_LABELS = {salam:'Salam & mempelai', acara:'Waktu & tempat', galeri:'Galeri foto', rsvp:'Konfirmasi kehadiran', hadiah:'Tanda kasih', kado:'Kado patungan', cerita:'Kisah cinta', ucapan:'Ucapan & doa'};
 const FONTS = {tema:['Bawaan tema',null], bodoni:['Bodoni Moda',"'Bodoni Moda', Georgia, serif"], cormorant:['Cormorant Garamond',"'Cormorant Garamond', Georgia, serif"], marcellus:['Marcellus',"'Marcellus', Georgia, serif"], script:['Great Vibes',"'Great Vibes', 'Cormorant Garamond', cursive"]};
-const fontOf = () => (FONTS[S.font]||FONTS.tema)[1];
+const FONT_PAIRS = {
+  klasik:{name:'Klasik & Mewah', note:'Timeless', h:"'Playfair Display', Georgia, serif", sub:"'Montserrat', 'Plus Jakarta Sans', sans-serif", body:"'Lora', Georgia, serif", gf:'family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@500;600&family=Lora:ital,wght@0,400;0,500;1,400'},
+  modern:{name:'Modern & Minimalis', note:'Contemporary', h:"'Great Vibes', cursive", sub:"'Plus Jakarta Sans', system-ui, sans-serif", body:"'Inter', system-ui, sans-serif", script:true, gf:'family=Great+Vibes&family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600'},
+  romantis:{name:'Romantis & Manis', note:'Romantic', h:"'Parisienne', cursive", sub:"'Lato', system-ui, sans-serif", body:"'Open Sans', system-ui, sans-serif", script:true, gf:'family=Parisienne&family=Lato:wght@400;700&family=Open+Sans:wght@400;500;600'}
+};
+const fontPair = () => FONT_PAIRS[S.fontPair] || null;
+const fpLoaded = new Set();
+function loadFontPair(k){ const fp=FONT_PAIRS[k]; if(!fp || fpLoaded.has(k)) return; fpLoaded.add(k); const l=document.createElement('link'); l.rel='stylesheet'; l.href='https://fonts.googleapis.com/css2?'+fp.gf+'&display=swap'; document.head.appendChild(l); }
+const fontOf = () => { const fp=fontPair(); if(fp){ loadFontPair(S.fontPair); return fp.h; } return (FONTS[S.font]||FONTS.tema)[1]; };
+const fontPairVars = () => { const fp=fontPair(); return fp ? `--t-body:${fp.body};--t-sub:${fp.sub};` : ''; };
 function qrSVG(text, px=168){
   try{ if(typeof qrcode==='function'){ const q=qrcode(0,'M'); q.addData(String(text)); q.make(); const n=q.getModuleCount(); const cs=Math.max(2,Math.floor(px/(n+4))); return q.createSvgTag({cellSize:cs, margin:cs*2, scalable:true}); } }catch(e){}
   return `<div class="qr-fallback" role="img" aria-label="Kode ${esc(text)}">${esc(text)}</div>`;
@@ -2052,7 +2083,7 @@ function invHTML(opts={}){
   if(prem){ sec.salam=premSalam(id, op); sec.acara=premAcara(id, ev, first, gobj, mapUrl, calUrl); if(sec.galeri) sec.galeri=premGaleri(id); premDecorate(sec); }
   const order = secOrder().filter(k=>sec[k]);
   return `
-  <div class="inv${big}${t.layout?' lay-'+t.layout+' prem':''}" style="${themeStyle(t, S.accent, fontOf())};--t-op:${op2}" data-inv>
+  <div class="inv${big}${t.layout?' lay-'+t.layout+' prem':''}" style="${themeStyle(t, S.accent, fontOf())};--t-op:${op2}" data-fp="${fontPair()?S.fontPair:'tema'}" data-inv>
     <div class="pat"></div>
     ${opts.watermark ? `<span class="wm">Pratinjau · belum dipublikasikan</span>`:''}
     ${t.layout ? coverHTML(t, {id, guest, n1:nick1, n2:nick2, dateLong:first?fmtShort(first.date):'', dateDots:first?dateDots(first.date):'', accent:S.accent||t.accent, gate:opts.gate, photo:t.photo?coverPhoto(t):''}) : `
@@ -2266,7 +2297,7 @@ function renderStepCore(onlyHTML, iOverride){
       <button type="button" class="sw" style="background:${t.accent}" data-acc="" aria-pressed="${!S.accent}" aria-label="Warna bawaan tema"></button>
       ${ACCENTS.filter(a=>a!==t.accent).map(a=>`<button type="button" class="sw" style="background:${a}" data-acc="${a}" aria-pressed="${S.accent===a}" aria-label="Aksen ${a}"></button>`).join('')}
     </div><span class="hint">Lingkaran pertama adalah warna asli tema ${esc(t.name)}.</span></div>
-    <div class="field" style="margin-top:22px"><label>Huruf judul</label><div class="font-pick" role="group" aria-label="Huruf judul">${Object.entries(FONTS).map(([k,[n,f]])=>`<button type="button" data-font="${k}" aria-pressed="${(S.font||'tema')===k}"><span style="font-family:${f||t.font}">${esc(S.bride.nick||'Nadia')} &amp; ${esc(S.groom.nick||'Rizky')}</span><small>${n}</small></button>`).join('')}</div><span class="hint">Dipakai untuk nama, judul bagian, dan sampul. Teks isi tetap mudah dibaca.</span></div>`;
+    <div class="field" style="margin-top:22px"><label id="fpLbl">Paduan huruf</label>${(Object.keys(FONT_PAIRS).forEach(loadFontPair),"")}<div class="fpair" role="group" aria-labelledby="fpLbl">${[['tema',null]].concat(Object.entries(FONT_PAIRS)).map(([k,fp])=>{ const on=(S.fontPair||'tema')===k; const h=fp?fp.h:t.font, sb=fp?fp.sub:'inherit', bd=fp?fp.body:'inherit'; return `<button type="button" data-fpair="${k}" aria-pressed="${on}"><span class="fp-h" style="font-family:${h}">${esc(S.bride.nick||'Nadia')} &amp; ${esc(S.groom.nick||'Rizky')}</span><span class="fp-s" style="font-family:${sb}">${esc(S.events[0]&&S.events[0].date?fmtShort(S.events[0].date):'14 Februari 2027')}</span><span class="fp-b" style="font-family:${bd}">Kami mengundang Anda untuk hadir dan memberi doa restu.</span><small><b>${fp?esc(fp.name):'Bawaan tema'}</b>${fp?` · ${esc(fp.note)}`:''}</small></button>`; }).join('')}</div><span class="hint">Mengatur tiga lapis huruf sekaligus: nama &amp; judul, tanggal &amp; label kecil, serta teks isi.</span></div>`;
   }
   if(i===3){
     h = `<span class="eyebrow">Langkah 4 dari 5</span><h2>Isi tambahan</h2><p class="sub">Matikan bagian yang tidak kamu perlukan. Bagian yang mati tidak tampil sama sekali di undangan.</p>
@@ -2353,6 +2384,7 @@ $('#stepForm').addEventListener('click', e=>{
   const p=e.target.closest('[data-pick]'); if(p){ S.theme=p.dataset.pick; S.accent=null; save(); renderStep(); refreshPreview(); }
   const a=e.target.closest('[data-acc]'); if(a){ S.accent=a.dataset.acc||null; save(); renderStep(); refreshPreview(); }
   const fo=e.target.closest('[data-font]'); if(fo){ S.font=fo.dataset.font; save(); renderStep(); refreshPreview(); }
+  const fpb=e.target.closest('[data-fpair]'); if(fpb){ const k=fpb.dataset.fpair; S.fontPair = k==='tema'?null:k; S.font='tema'; save(); renderStep(); refreshPreview(); }
 });
 $('#stepper').addEventListener('click', e=>{ const b=e.target.closest('[data-step]'); if(b) goStep(+b.dataset.step); });
 
@@ -3631,7 +3663,7 @@ document.addEventListener('click', e=>{
 document.addEventListener('click', e=>{ const m=$('#acctMenu'); if(m && !m.hidden && !e.target.closest('.acct')) m.hidden=true; });
 
 /* ---------- Cloud: Supabase + Midtrans ---------- */
-const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','catering','arriveOn','wishlist','story','albumOn','thanksMsg','thanksMsg2','thanked','gallery','galleryOn','groups','slug'];
+const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','catering','arriveOn','wishlist','story','fontPair','albumOn','thanksMsg','thanksMsg2','thanked','gallery','galleryOn','groups','slug'];
 const pickData = () => { const d={}; DATA_KEYS.forEach(k=>{ if(S[k]!==undefined) d[k]=S[k]; }); return d; };
 const toRow = g => ({invitation_id:CLOUD.inv.id, id:g.id, name:g.name, phone:g.phone||'', grp:g.group||'Tanpa grup', sessions:g.sessions||[], code:g.code, status:g.status, pax:g.pax||0, sent:!!g.sent, walkin:!!g.walkin, checkin:g.checkin||null, fam:g.fam||null, approved:g.approved!==false, arrive:g.arrive||''});
 const fromRow = r => { const g={id:r.id, name:r.name, phone:r.phone||'', group:r.grp||'Tanpa grup', sessions:r.sessions||[], code:r.code, status:r.status||'belum', pax:r.pax||0, sent:!!r.sent, walkin:!!r.walkin, fam:r.fam||null, arrive:r.arrive||''}; if(r.approved===false) g.approved=false; if(r.checkin) g.checkin=r.checkin; return g; };
