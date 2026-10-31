@@ -294,7 +294,7 @@ textarea.input{min-height:96px;resize:vertical}
 .theme-pick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .theme-pick button{border:2px solid var(--line);border-radius:14px;padding:0;overflow:hidden;cursor:pointer;background:#fff;text-align:left}
 .theme-pick button[aria-pressed="true"]{border-color:var(--beet);box-shadow:0 0 0 3px rgba(164,83,94,.15)}
-.theme-pick .tp{height:86px;background-color:var(--t-bg);background-image:var(--t-pattern);background-size:var(--t-size,auto);display:grid;place-items:center;font-family:var(--t-font);color:var(--t-fg);font-size:20px}
+.theme-pick .tp{height:auto;aspect-ratio:3/2;background-color:var(--t-bg);background-image:var(--t-pattern);background-size:var(--t-size,auto);display:grid;place-items:center;font-family:var(--t-font);color:var(--t-fg);font-size:20px}
 .theme-pick span{display:block;padding:8px 10px;font-weight:700;font-size:13px}
 .toggle-row{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
 .toggle-row:last-child{border:0}
@@ -3083,18 +3083,18 @@ const LAYOUT_THEMES = [
     pat:(t)=>`radial-gradient(circle, ${t.fg}0d 0 .7px, transparent 1px)`, size:'9px 9px', photo:true, script:true, thumb:()=>`linear-gradient(180deg,#8F8670,#3A3427)`,
     scene:{sky1:'#B9B19C',sky2:'#D9C7A4',sky3:'#C2A97F',sun:'#FFF1D2',h1:'#8D8166',h2:'#6E6450',h3:'#4E473A',fig:'#26221B',grass:'#3E392D'}},
   {id:'atelier', layout:'atelier', name:'Atelier Zaitun', region:'Nasional', tags:['Modern','Minimalis'], bg:'#F2EEE6', fg:'#1F2A22', accent:'#4A5E48', soft:'#E3E2D5', font:"'Bodoni Moda', Georgia, serif",
-    pat:(t)=>`linear-gradient(0deg, ${t.fg}06 1px, transparent 1px)`, size:'100% 34px', photo:true, thumb:()=>`linear-gradient(180deg,#1F2A22 0 62%,#F2EEE6 62% 64%,#1F2A22 64%)`,
+    pat:(t)=>`linear-gradient(0deg, ${t.fg}06 1px, transparent 1px)`, size:'100% 34px', photo:true, thumbFg:'#F3EEE4', thumb:(t)=>`linear-gradient(180deg,rgba(31,42,34,.35),rgba(31,42,34,.82)), url('${svgData(sceneSVG(t.scene))}') center 70%/cover`,
     scene:{sky1:'#C9CBB4',sky2:'#A9B095',sky3:'#7E8A6C',sun:'#F3EEDD',h1:'#5E6D50',h2:'#46553D',h3:'#2F3B2B',fig:'#1A2219',grass:'#2A3426'}},
   {id:'kebun-lila', layout:'kebun', kbSet:'/assets/kebun/lila/', name:'Kebun Lila', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#F7EFE0', fg:'#4A2C40', accent:'#A8325E', soft:'#EFE3F2', font:"'Cormorant Garamond', Georgia, serif",
-    pat:(t)=>`radial-gradient(circle, #9C86CF22 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`radial-gradient(60% 40% at 50% 46%, #B7A5DD 0 98%, transparent 100%), linear-gradient(180deg,#F7EFE0 0 70%,#A8325E 70% 76%,#9AA048 76%)`},
+    pat:(t)=>`radial-gradient(circle, #9C86CF22 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`url(/assets/thumbs/kebun-lila.webp) center/cover`},
   {id:'kebun-sage', layout:'kebun', kb:'sage', kbSet:'/assets/kebun/sage/', kbSh:'#6F8A64', kbAmp:'#F2D68A', kbPet:['#F2B8A0','#E9C46A','#FFFDF8','#C9706B','#B3C29A'], name:'Kebun Sage', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#F6F1E6', fg:'#3E4A38', accent:'#6F8A64', soft:'#E6EDDF', font:"'Cormorant Garamond', Georgia, serif",
-    pat:(t)=>`radial-gradient(circle, #8FA88622 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`radial-gradient(60% 40% at 50% 46%, #A9BFA0 0 98%, transparent 100%), linear-gradient(180deg,#F6F1E6 0 70%,#C9706B 70% 76%,#8FA37A 76%)`},
+    pat:(t)=>`radial-gradient(circle, #8FA88622 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`url(/assets/thumbs/kebun-sage.webp) center/cover`},
   {id:'kebun-biru', layout:'kebun', kb:'biru', kbSet:'/assets/kebun/biru/', kbSh:'#5D78A8', kbAmp:'#F3C969', kbPet:['#A9BEE0','#F3C969','#FFFFFF','#F2B3BF','#6F8CC2'], name:'Kebun Biru', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#F4F1EA', fg:'#24324F', accent:'#3F5E96', soft:'#E3EAF4', font:"'Cormorant Garamond', Georgia, serif",
-    pat:(t)=>`radial-gradient(circle, #6F8CC222 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`radial-gradient(60% 40% at 50% 46%, #9DB4D3 0 98%, transparent 100%), linear-gradient(180deg,#F4F1EA 0 70%,#E58FA0 70% 76%,#8AA06B 76%)`},
+    pat:(t)=>`radial-gradient(circle, #6F8CC222 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`url(/assets/thumbs/kebun-biru.webp) center/cover`},
   {id:'kebun-senja', layout:'kebun', kb:'senja', kbSet:'/assets/kebun/senja/', kbSh:'#B85E45', kbAmp:'#FFF1D6', kbPet:['#F08A4B','#F2CF63','#FFFDF8','#C7A6DA','#D06470'], name:'Kebun Senja', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#FBF0E4', fg:'#4A2620', accent:'#B23A48', soft:'#F8E1D3', font:"'Cormorant Garamond', Georgia, serif",
-    pat:(t)=>`radial-gradient(circle, #D9795F22 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`radial-gradient(60% 40% at 50% 46%, #F2B49A 0 98%, transparent 100%), linear-gradient(180deg,#FBF0E4 0 70%,#B23A48 70% 76%,#93993F 76%)`},
+    pat:(t)=>`radial-gradient(circle, #D9795F22 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`url(/assets/thumbs/kebun-senja.webp) center/cover`},
   {id:'kebun-mawar', layout:'kebun', kbSet:'/assets/kebun/mawar/', kbSh:'#B5656F', kbAmp:'#F3D18A', kbPet:['#E8B4B8','#F3D18A','#FFFDF8','#C98A93','#D9A441'], name:'Kebun Mawar', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#FBF3EF', fg:'#4A2A33', accent:'#A4535E', soft:'#F5E3E3', font:"'Cormorant Garamond', Georgia, serif",
-    pat:(t)=>`radial-gradient(circle, #B5656F22 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`radial-gradient(60% 40% at 50% 46%, #E3B3B3 0 98%, transparent 100%), linear-gradient(180deg,#FBF3EF 0 70%,#B5656F 70% 76%,#D9A441 76%)`},
+    pat:(t)=>`radial-gradient(circle, #B5656F22 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`url(/assets/thumbs/kebun-mawar.webp) center/cover`},
   {id:'draperi-biru', layout:'draperi', name:'Draperi Biru Kabut', region:'Nasional', tags:['Draperi','Floral','Modern'], bg:'#EEF1F5', fg:'#1D2A40', accent:'#4D6893', soft:'#DDE4EE', font:"'Cormorant Garamond', Georgia, serif",
     fabric:'#2E4466', fl:['#9DB3D6','#C9D6EA'], stage:'/assets/draperi/biru.webp', dp:{k:'biru', seal:82.75, cy:84.6, ch:4.9, ink:'#C9D3E4', name:'#2E4466', tul:'#BEBCBF'}, pat:(t)=>`radial-gradient(circle, ${t.accent}12 0 .8px, transparent 1.2px)`, size:'14px 14px', thumb:()=>`repeating-linear-gradient(90deg,#24385A 0 9px,#3A557E 14px,#24385A 22px)`},
   {id:'draperi-zamrud', layout:'draperi', name:'Draperi Zamrud', region:'Nasional', tags:['Draperi','Floral','Adat'], bg:'#F1F0E8', fg:'#1B2B22', accent:'#7B2D33', soft:'#E2E5D6', font:"'Cormorant Garamond', Georgia, serif",
@@ -3107,6 +3107,9 @@ const LAYOUT_THEMES = [
     pat:(t)=>`radial-gradient(circle, ${t.accent}0c 0 .8px, transparent 1.2px)`, size:'16px 16px', thumb:()=>`linear-gradient(180deg,#F3EFEA 0 60%,#A3261E 60% 62%,#F3EFEA 62%)`}
 ];
 THEMES.unshift(...LAYOUT_THEMES);
+/* thumbnail = cuplikan sampul asli */
+const THUMB_IMG=new Set(["kawung", "songket", "melati", "taman", "lontar", "ulos", "senja", "peranakan", "sakinah", "endek", "megamendung", "gigibalang", "sekar", "kamboja", "lentera", "arunika", "atelier", "kebun-lila", "kebun-sage", "kebun-biru", "kebun-senja", "kebun-mawar", "draperi-biru", "draperi-zamrud", "draperi-mawar", "dongeng-pink", "goresan-merah"]);
+THEMES.forEach(t=>{ if(THUMB_IMG.has(t.id)){ t.thumbNoTxt=true; t.thumbImg=`/assets/thumbs/${t.id}.webp`; } });
 TAGS.includes('Foto') || TAGS.push('Foto');
 LAYOUT_THEMES.filter(t=>t.photo).forEach(t=>t.tags.push('Foto'));
 function coverPhoto(t){ return S.coverPhoto || (S.gallery&&S.gallery[0]) || S.bride.photo || svgData(sceneSVG(t.scene||LAYOUT_THEMES[2].scene)); }
@@ -3727,7 +3730,7 @@ function renderStepCore(onlyHTML, iOverride){
   if(i===2){
     const t = themeById(S.theme);
     h = `<span class="eyebrow">Langkah 3 dari 5</span><h2>Pilih tampilan yang kalian banget</h2><p class="sub">Semua tema bisa dipakai di paket apa pun. Ganti sesukamu, isi undangannya tetap aman.</p>${t.photo?`<p class="hint" style="margin:-6px 0 14px">${ico('camera')} Tema ${esc(t.name)} memakai foto pertama di galeri sebagai sampul. Belum ada foto? Kami tampilkan ilustrasi dulu.</p>`:''}
-    <div class="theme-pick" role="group" aria-label="Tema">${themeOrder(THEMES).concat(THEMES.filter(x=>themeHidden(x.id)&&x.id===S.theme)).map(x=>`<button type="button" data-pick="${x.id}" aria-pressed="${x.id===S.theme}"><div class="tp" style="${themeStyle(x)}${x.thumb?`background:${x.thumb(x)};`:''}">${esc((S.bride.nick||'N')[0])}&amp;${esc((S.groom.nick||'R')[0])}</div><span>${esc(x.name)}</span></button>`).join('')}</div>
+    <div class="theme-pick" role="group" aria-label="Tema">${themeOrder(THEMES).concat(THEMES.filter(x=>themeHidden(x.id)&&x.id===S.theme)).map(x=>`<button type="button" data-pick="${x.id}" aria-pressed="${x.id===S.theme}"><div class="tp" style="${themeStyle(x)}${x.thumbImg?`background:url(${x.thumbImg}) center/cover;`:x.thumb?`background:${x.thumb(x)};`:''}${x.thumbFg?`color:${x.thumbFg};`:''}">${x.thumbNoTxt?'':`${esc((S.bride.nick||'N')[0])}&amp;${esc((S.groom.nick||'R')[0])}`}</div><span>${esc(x.name)}</span></button>`).join('')}</div>
     <div class="field" style="margin-top:26px"><label>Warna aksen</label><div class="swatches" role="group" aria-label="Warna aksen">
       <button type="button" class="sw" style="background:${t.accent}" data-acc="" aria-pressed="${!S.accent}" aria-label="Warna bawaan tema"></button>
       ${ACCENTS.filter(a=>a!==t.accent).map(a=>`<button type="button" class="sw" style="background:${a}" data-acc="${a}" aria-pressed="${S.accent===a}" aria-label="Aksen ${a}"></button>`).join('')}
