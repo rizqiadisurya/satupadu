@@ -815,10 +815,46 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .adm-grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;align-items:start}
 .adm-grid2>.adm-card{margin-bottom:0}.adm-grid2{margin-bottom:18px}
 .adm-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:18px}
-.adm-tile{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px;display:grid;gap:4px}
+.adm-tile{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 22px;display:grid;gap:4px;align-content:start;position:relative;overflow:hidden}
 .adm-tile span{font-size:13px;font-weight:700;color:var(--muted)}
 .adm-tile b{font-size:30px;line-height:1.1;font-family:var(--display)}
 .adm-tile small{font-size:12.5px;color:var(--muted)}
+/* Kartu statistik bergaya ikon — ikon di atas, angka besar, label di bawah */
+.adm-tile.ic{gap:0;container-type:inline-size}
+.adm-grid2:has(>.pn){align-items:stretch}
+.adm-tile.ic .adm-ic{margin-bottom:16px}
+.adm-tile.ic b{font-size:min(34px,15.5cqi);letter-spacing:-.01em;white-space:nowrap;overflow-wrap:normal}
+.adm-tile.ic span{font-size:15px;font-weight:600;color:var(--ink);opacity:.72;margin-top:8px}
+.adm-tile.ic small{margin-top:4px}
+.adm-tile.hl{border-color:color-mix(in srgb,var(--beet) 32%,#fff);background:linear-gradient(180deg,color-mix(in srgb,var(--beet) 6%,#fff),#fff 62%)}
+.adm-ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:#F3EFEE;color:var(--muted)}
+.adm-ic .icon{width:20px;height:20px}
+.adm-ic.lg{width:72px;height:72px;border-radius:22px}.adm-ic.lg .icon{width:30px;height:30px}
+.tn-beet{background:color-mix(in srgb,var(--beet) 11%,#fff);color:var(--beet)}
+.tn-amber{background:#FDF1E3;color:#B5651D}
+.tn-green{background:#EAF3E6;color:#2F6B2A}
+.tn-blue{background:#E8F0FB;color:#3A6FB8}
+.tn-plum{background:#F1EAF6;color:#7A4C93}
+.tn-gray{background:#F1F0EE;color:#6B6460}
+/* Panel dengan header (judul + keterangan + tautan) */
+.adm-card.pn{padding:0;overflow:hidden}
+.adm-ph{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:22px 24px 18px;border-bottom:1px solid var(--line)}
+.adm-ph h2{margin:0 0 4px}
+.adm-ph p{margin:0;font-size:14px;color:var(--muted);line-height:1.5}
+.adm-ph .linkbtn{flex:none;text-decoration:none;font-weight:700;color:var(--beet);font-size:14.5px;padding:2px 0;white-space:nowrap}
+.adm-pb{padding:20px 24px 24px}
+.adm-pb.flush{padding:0}
+.adm-pb.flush .adm-tbl tr:last-child td{border-bottom:0}
+.adm-empty{display:grid;justify-items:center;text-align:center;gap:6px;padding:44px 20px 52px}
+.adm-empty .adm-ic{margin-bottom:14px}
+.adm-empty b{font-size:17px;font-family:var(--body);font-weight:800}
+.adm-empty p{margin:0;color:var(--muted);font-size:14.5px;max-width:36ch}
+@media (max-width:640px){
+  .adm-ph{padding:18px 16px 14px;flex-wrap:wrap}.adm-pb{padding:16px}
+  .adm-empty{padding:32px 12px 38px}.adm-ic.lg{width:60px;height:60px;border-radius:18px}
+  .adm-tile.ic .adm-ic{width:40px;height:40px;border-radius:12px;margin-bottom:12px}
+  .adm-tile.ic span{font-size:13.5px}
+}
 .adm-bars{display:grid;grid-template-columns:repeat(14,1fr);gap:6px;height:170px;align-items:end}
 .adm-bars>div{display:grid;grid-template-rows:1fr auto auto;height:100%;text-align:center;align-items:end}
 .adm-bars i{display:block;background:var(--beet);border-radius:6px 6px 2px 2px;min-height:3px;opacity:.85}
@@ -2501,6 +2537,9 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
     <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.9"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.9"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M14 14h2.5v2.5H14zM18 18h2.5v2.5H18zM18 14h2.5M14 18v2.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" fill="none" stroke="currentColor" stroke-width="1.9"/></symbol>
     <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2.5h7L17 8h3v11H4z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.5" fill="none" stroke="currentColor" stroke-width="1.9"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M4 13l2.2-7.2A1.5 1.5 0 0 1 7.6 4.8h8.8a1.5 1.5 0 0 1 1.4 1L20 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M4 13h4.5l1.2 2.2h4.6l1.2-2.2H20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M5 20V11M10 20V5M15 20v-6M20 20V8" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.9"/><rect x="13" y="4" width="7" height="4.5" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.9"/><rect x="4" y="13" width="7" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.9"/><rect x="13" y="10.5" width="7" height="9.5" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.9"/></symbol>
     <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M9 8h6M9 12h6M9 16h3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
     <symbol id="i-logout" viewBox="0 0 24 24"><path d="M14 4H6v16h8M10 12h10M17 8l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </defs>
@@ -5817,22 +5856,43 @@ function admMustHTML(){ return `<div class="adm-center"><form class="adm-card ad
   <button class="btn btn-primary btn-block" style="margin-top:18px">Simpan & lanjut</button>
   <button type="button" class="adm-back" data-adm="logout">Keluar</button></form></div>`; }
 function admStatsHTML(s){
-  const tile = (l,v,sub) => `<div class="adm-tile"><span>${l}</span><b class="num">${v}</b>${sub?`<small>${sub}</small>`:''}</div>`;
+  const tile = (l,v,sub,ic,tn,hl) => `<div class="adm-tile ic${hl?' hl':''}"><i class="adm-ic tn-${tn}">${ico(ic)}</i><b class="num">${v}</b><span>${l}</span>${sub?`<small>${sub}</small>`:''}</div>`;
+  const panel = (t,d,body,link,flush) => `<section class="adm-card pn"><header class="adm-ph"><div><h2>${t}</h2><p>${d}</p></div>${link||''}</header><div class="adm-pb${flush?' flush':''}">${body}</div></section>`;
+  const empty = (ic,t,d,tn='green') => `<div class="adm-empty"><i class="adm-ic lg tn-${tn}">${ico(ic)}</i><b>${t}</b>${d?`<p>${d}</p>`:''}</div>`;
   const days = Array.from({length:14},(_,i)=>{ const d=new Date(Date.now()+7*3600e3-(13-i)*864e5).toISOString().slice(0,10); return [d, s.signups[d]||0]; });
-  const mx = Math.max(1,...days.map(d=>d[1]));
+  const mx = Math.max(1,...days.map(d=>d[1])), totalDays = days.reduce((a,d)=>a+d[1],0);
   const themes = Object.entries(s.themes||{}).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const inv = (s.invoices||[]).slice(0,6);
+  const ST = {paid:'Lunas',pending:'Menunggu',expired:'Kedaluwarsa',failed:'Gagal'};
+  const plans = Object.entries(s.byPlan||{}).map(([k,n])=>`${esc((planOf(k)||{name:k}).name)} ${n}`).join(' · ');
   return `<header class="adm-head"><div><span class="eyebrow">Ringkasan</span><h1 class="display">Apa kabar Sakara hari ini</h1></div><button class="btn btn-ghost btn-sm" data-adm="refresh">${ico('undo')}Muat ulang</button></header>
-  <div class="adm-tiles">${tile('Pengguna',s.users,`+${s.new7} minggu ini · +${s.new30} 30 hari`)}${tile('Undangan tayang',s.published,Object.entries(s.byPlan||{}).map(([k,n])=>`${esc((planOf(k)||{name:k}).name)} ${n}`).join(' · '))}${tile('Pendapatan',rupiah(s.revenue),`${s.paidCount} transaksi lunas`)}${tile('Total tamu',s.guests.toLocaleString('id-ID'),'di semua undangan')}</div>
-  <div class="adm-grid2">
-    <section class="adm-card"><h2>Pendaftar 14 hari terakhir</h2><div class="adm-bars">${days.map(([d,n])=>`<div title="${d}: ${n}"><i style="height:${Math.round(n/mx*100)}%"></i><b>${n||''}</b><small>${+d.slice(8)}</small></div>`).join('')}</div></section>
-    <section class="adm-card"><h2>Tema paling dipakai</h2>${themes.length?`<ol class="adm-rank">${themes.map(([id,n])=>`<li><span>${esc(themeById(id).name)}</span><b class="num">${n}</b></li>`).join('')}</ol>`:'<p class="muted">Belum ada data.</p>'}</section>
+  <div class="adm-tiles">
+    ${tile('Pengguna terdaftar',s.users.toLocaleString('id-ID'),`+${s.new7} minggu ini · +${s.new30} dalam 30 hari`,'users','amber',1)}
+    ${tile('Undangan tayang',s.published.toLocaleString('id-ID'),plans,'check','green')}
+    ${tile('Total tamu',s.guests.toLocaleString('id-ID'),'di semua undangan','family','gray')}
+    ${tile('Total pendapatan',rupiah(s.revenue),`${s.paidCount} transaksi lunas`,'grid','blue')}
   </div>
-  <section class="adm-card"><h2>Transaksi terbaru</h2><div class="tbl-wrap" style="display:block"><table class="adm-tbl"><thead><tr><th>Waktu</th><th>Pengguna</th><th>Item</th><th>Metode</th><th class="num">Total</th><th>Status</th></tr></thead><tbody>
-    ${(s.invoices||[]).map(i=>`<tr><td>${admTime(i.created_at)}</td><td>${esc(i.email||'—')}</td><td>${esc(i.item)}${i.voucher?` <span class="chip">${esc(i.voucher)}</span>`:''}</td><td>${esc(i.method||'—')}</td><td class="num">${rupiah(i.total)}</td><td><span class="adm-st st-${i.status}">${({paid:'Lunas',pending:'Menunggu',expired:'Kedaluwarsa',failed:'Gagal'})[i.status]||i.status}</span></td></tr>`).join('') || '<tr><td colspan="6" class="muted">Belum ada transaksi.</td></tr>'}
-  </tbody></table></div></section>
   <div class="adm-grid2">
-    <section class="adm-card"><h2>Mode demo (14 hari)</h2>${(s.demo||[]).length?`<div class="tbl-wrap" style="display:block"><table class="adm-tbl"><thead><tr><th>Hari</th><th class="num">Pengunjung</th><th class="num">Coba fitur</th><th class="num">Klik mulai</th><th class="num">Login</th></tr></thead><tbody>${s.demo.map(d=>`<tr><td>${admDate(d.hari)}</td><td class="num">${d.pengunjung_demo}</td><td class="num">${d.mencoba_fitur}</td><td class="num">${d.klik_mulai}</td><td class="num">${d.jadi_login}</td></tr>`).join('')}</tbody></table></div>`:'<p class="muted">Belum ada kunjungan demo.</p>'}</section>
-    <section class="adm-card"><h2>Fitur demo terpopuler</h2>${(s.demoFeatures||[]).length?`<ol class="adm-rank">${s.demoFeatures.map(f=>`<li><span>${esc(f.event)} · ${esc(f.detail||'—')}</span><b class="num">${f.orang} org</b></li>`).join('')}</ol>`:'<p class="muted">Belum ada data.</p>'}</section>
+    ${panel('Pendaftar 14 hari terakhir', totalDays?`${totalDays} orang baru mendaftar dalam dua minggu ini.`:'Jumlah akun baru per hari.',
+      totalDays?`<div class="adm-bars">${days.map(([d,n])=>`<div title="${d}: ${n}"><i style="height:${Math.round(n/mx*100)}%"></i><b>${n||''}</b><small>${+d.slice(8)}</small></div>`).join('')}</div>`
+        : empty('chart','Belum ada pendaftar baru.','Grafik muncul begitu ada yang mendaftar.'))}
+    ${panel('Tema paling dipakai','Tema pilihan pasangan di semua undangan.',
+      themes.length?`<ol class="adm-rank">${themes.map(([id,n])=>`<li><span>${esc(themeById(id).name)}</span><b class="num">${n}</b></li>`).join('')}</ol>`
+        : empty('heart','Belum ada tema terpakai.','Urutan tema muncul setelah pasangan membuat undangan.'),
+      `<button type="button" class="linkbtn" data-adm-tab="tema">Atur tema</button>`)}
+  </div>
+  ${panel('Transaksi terbaru','Enam pembayaran terakhir dari semua pengguna.',
+    inv.length?`<div class="tbl-wrap" style="display:block"><table class="adm-tbl"><thead><tr><th>Waktu</th><th>Pengguna</th><th>Item</th><th>Metode</th><th class="num">Total</th><th>Status</th></tr></thead><tbody>
+      ${inv.map(i=>`<tr><td>${admTime(i.created_at)}</td><td>${esc(i.email||'—')}</td><td>${esc(i.item)}${i.voucher?` <span class="chip">${esc(i.voucher)}</span>`:''}</td><td>${esc(i.method||'—')}</td><td class="num">${rupiah(i.total)}</td><td><span class="adm-st st-${i.status}">${ST[i.status]||i.status}</span></td></tr>`).join('')}
+    </tbody></table></div>` : empty('inbox','Belum ada transaksi.','Pembayaran pertama akan langsung muncul di sini.'),
+    `<button type="button" class="linkbtn" data-adm-tab="keuangan">Lihat semua</button>`, inv.length)}
+  <div class="adm-grid2">
+    ${panel('Mode demo','Pengunjung yang mencoba demo dalam 14 hari terakhir.',
+      (s.demo||[]).length?`<div class="tbl-wrap" style="display:block"><table class="adm-tbl"><thead><tr><th>Hari</th><th class="num">Pengunjung</th><th class="num">Coba fitur</th><th class="num">Klik mulai</th><th class="num">Login</th></tr></thead><tbody>${s.demo.map(d=>`<tr><td>${admDate(d.hari)}</td><td class="num">${d.pengunjung_demo}</td><td class="num">${d.mencoba_fitur}</td><td class="num">${d.klik_mulai}</td><td class="num">${d.jadi_login}</td></tr>`).join('')}</tbody></table></div>`
+        : empty('eye','Belum ada kunjungan demo.','Data muncul saat ada yang membuka mode demo.'), '', (s.demo||[]).length)}
+    ${panel('Fitur demo terpopuler','Fitur yang paling sering dicoba di mode demo.',
+      (s.demoFeatures||[]).length?`<ol class="adm-rank">${s.demoFeatures.map(f=>`<li><span>${esc(f.event)} · ${esc(f.detail||'—')}</span><b class="num">${f.orang} org</b></li>`).join('')}</ol>`
+        : empty('play','Belum ada fitur yang dicoba.',''))}
   </div>`;
 }
 function admUsersHTML(){
@@ -5939,7 +5999,7 @@ document.addEventListener('click', async e=>{
   const t = e.target; if(!t.closest || !t.closest('#admin')) return;
   const tab = t.closest('[data-adm-tab]'); if(tab && ADM.tab==='paket' && ADM.pkDirty && tab.dataset.admTab!=='paket' && !confirm('Perubahan paket belum disimpan. Tetap pindah halaman?')) return;
   if(tab && ADM.tab==='paket' && tab.dataset.admTab!=='paket'){ ADM.pk=null; ADM.pkDirty=false; }
-  if(tab){ ADM.tab=tab.dataset.admTab; ADM.edit=null; $$('[data-adm-tab]').forEach(b=>b.setAttribute('aria-current', b===tab)); admRenderTab(); return; }
+  if(tab){ ADM.tab=tab.dataset.admTab; ADM.edit=null; $$('.adm-side [data-adm-tab]').forEach(b=>b.setAttribute('aria-current', b.dataset.admTab===ADM.tab)); window.scrollTo(0,0); admRenderTab(); return; }
   const a = t.closest('[data-adm]')?.dataset.adm;
   try{
     if(a==='logout'){ admLogout(); return; }
@@ -6099,10 +6159,10 @@ function admFinHTML(){
   <div class="fin-range">${rangeBtn('bulan','Bulan ini')}${rangeBtn('30','30 hari')}${rangeBtn('90','3 bulan')}${rangeBtn('tahun','Tahun ini')}${rangeBtn('semua','Semua')}${rangeBtn('custom','Pilih tanggal')}</div>
     ${FIN.range==='custom'?`<div class="fin-dates"><label><span>Dari</span><input type="date" class="input" data-fin-from value="${FIN.from}"></label><label><span>Sampai</span><input type="date" class="input" data-fin-to value="${FIN.to}"></label></div>`:''}
   <div class="adm-tiles">
-    <div class="adm-tile"><span>Pendapatan kotor</span><b class="num">${rupiah(G)}</b><small>${rows.length} transaksi lunas</small></div>
-    <div class="adm-tile"><span>Potongan & pajak</span><b class="num">${rupiah(F+T)}</b><small>Payment gateway ${rupiah(F)} · pajak ${rupiah(T)}</small></div>
-    <div class="adm-tile"><span>Bersih dari transaksi</span><b class="num">${rupiah(N)}</b><small>rata-rata ${rupiah(rows.length?Math.round(N/rows.length):0)} per pengguna</small></div>
-    <div class="adm-tile fin-profit ${P<0?'neg':''}"><span>Laba bersih</span><b class="num">${P<0?'−':''}${rupiah(Math.abs(P))}</b><small>setelah biaya operasional ${rupiah(ops)}${G?` · margin ${(P/G*100).toLocaleString('id-ID',{maximumFractionDigits:1})}%`:''}</small></div>
+    <div class="adm-tile ic hl"><i class="adm-ic tn-amber">${ico('wallet')}</i><b class="num">${rupiah(G)}</b><span>Pendapatan kotor</span><small>${rows.length} transaksi lunas</small></div>
+    <div class="adm-tile ic"><i class="adm-ic tn-gray">${ico('receipt')}</i><b class="num">${rupiah(F+T)}</b><span>Potongan & pajak</span><small>Payment gateway ${rupiah(F)} · pajak ${rupiah(T)}</small></div>
+    <div class="adm-tile ic"><i class="adm-ic tn-green">${ico('check')}</i><b class="num">${rupiah(N)}</b><span>Bersih dari transaksi</span><small>rata-rata ${rupiah(rows.length?Math.round(N/rows.length):0)} per pengguna</small></div>
+    <div class="adm-tile ic fin-profit ${P<0?'neg':''}"><i class="adm-ic tn-blue">${ico('chart')}</i><b class="num">${P<0?'−':''}${rupiah(Math.abs(P))}</b><span>Laba bersih</span><small>setelah biaya operasional ${rupiah(ops)}${G?` · margin ${(P/G*100).toLocaleString('id-ID',{maximumFractionDigits:1})}%`:''}</small></div>
   </div>
   <div class="adm-grid2">
     <section class="adm-card"><h2>Rincian perhitungan</h2>
