@@ -83,7 +83,11 @@ module.exports = async (req, res) => {
   }
 
   let html;
-  try { html = page(); } catch (e) { res.statusCode = 500; res.end('Halaman tidak tersedia'); return; }
+  try { html = page(); } catch (e) {
+    // Cadangan bila index.html tidak ikut terbawa ke fungsi: ambil versi statisnya dari situs sendiri.
+    try { const r = await fetch(`${site}/index.html`); if (!r.ok) throw new Error(String(r.status)); html = HTML = await r.text(); }
+    catch (e2) { res.statusCode = 503; res.setHeader('Content-Type', 'text/html; charset=utf-8'); res.setHeader('Cache-Control', 'no-store'); res.end('<!doctype html><meta charset="utf-8"><p>Undangan sedang dimuat. Coba muat ulang halaman ini sebentar lagi.</p>'); return; }
+  }
   const a = html.indexOf('<!--og:start-->'), b = html.indexOf('<!--og:end-->');
   const out = a >= 0 && b > a ? html.slice(0, a) + '<!--og:start-->\n' + metaBlock(meta) + '\n' + html.slice(b) : html;
 
