@@ -1643,6 +1643,19 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 .inv.lay-kebun .kb-img .kb-txt{top:15%}
 .inv.lay-kebun .kb-img .kb-lap{object-fit:cover;object-position:50% 0}
 .inv.lay-kebun .kb-set .kb-txt{top:19%}
+.inv.lay-kebun .kb-flies{position:absolute;inset:0;pointer-events:none;z-index:3;overflow:hidden}
+.inv.lay-kebun .kb-fly{position:absolute;left:var(--x);top:var(--y);width:clamp(22px,7.5cqi,34px)}
+.inv.lay-kebun .kb-fly img{display:block;width:100%;height:auto}
+.inv.anim.lay-kebun .kb-fly{animation:kbFly var(--t) ease-in-out var(--d) infinite}
+.inv.anim.lay-kebun .kb-fly.r{animation-name:kbFly2}
+.inv.anim.lay-kebun .kb-fly img{animation:kbFlap .32s ease-in-out infinite alternate}
+@keyframes kbFlap{from{transform:scaleX(1)}to{transform:scaleX(.35)}}
+@keyframes kbFly{0%{translate:0 0;rotate:-8deg}25%{translate:18cqi -10cqi;rotate:12deg}50%{translate:6cqi -24cqi;rotate:-4deg}75%{translate:-14cqi -12cqi;rotate:-14deg}100%{translate:0 0;rotate:-8deg}}
+@keyframes kbFly2{0%{translate:0 0;rotate:8deg}25%{translate:-16cqi -14cqi;rotate:-10deg}50%{translate:-4cqi -26cqi;rotate:6deg}75%{translate:14cqi -8cqi;rotate:14deg}100%{translate:0 0;rotate:8deg}}
+.inv.anim.lay-kebun .kb-set .kb-bedb{transform:translateY(calc(var(--p) * 4%))}
+.inv.anim.lay-kebun .kb-set .kb-bedd{transform-origin:50% 100%;transform:translateY(calc(var(--p) * -5%)) scale(calc(1 + var(--p) * .08))}
+.inv.anim.lay-kebun .kb-flies{transform:translateY(calc(var(--p) * -18%))}
+@media (prefers-reduced-motion: reduce){.inv.anim.lay-kebun .kb-fly,.inv.anim.lay-kebun .kb-fly img{animation:none}}
 .inv.anim.lay-kebun .kb-set .kb-atas{transform-origin:50% 0;animation:kbSway 7s ease-in-out infinite alternate;transform:translateY(calc(var(--p) * -22%))}
 .inv.anim.lay-kebun .kb-set .kb-pria{transform-origin:40% 85%;animation:kbBob 3.8s ease-in-out infinite;transform:translateX(calc(var(--p) * -10%)) scale(calc(1 + var(--p) * .08))}
 .inv.anim.lay-kebun .kb-set .kb-wanita{transform-origin:60% 85%;animation:kbBob 3.8s ease-in-out -1.9s infinite;transform:translateX(calc(var(--p) * 10%)) scale(calc(1 + var(--p) * .08))}
@@ -3072,14 +3085,16 @@ const LAYOUT_THEMES = [
   {id:'atelier', layout:'atelier', name:'Atelier Zaitun', region:'Nasional', tags:['Modern','Minimalis'], bg:'#F2EEE6', fg:'#1F2A22', accent:'#4A5E48', soft:'#E3E2D5', font:"'Bodoni Moda', Georgia, serif",
     pat:(t)=>`linear-gradient(0deg, ${t.fg}06 1px, transparent 1px)`, size:'100% 34px', photo:true, thumb:()=>`linear-gradient(180deg,#1F2A22 0 62%,#F2EEE6 62% 64%,#1F2A22 64%)`,
     scene:{sky1:'#C9CBB4',sky2:'#A9B095',sky3:'#7E8A6C',sun:'#F3EEDD',h1:'#5E6D50',h2:'#46553D',h3:'#2F3B2B',fig:'#1A2219',grass:'#2A3426'}},
-  {id:'kebun-lila', layout:'kebun', kbSet:'/assets/kebun/lila2/', name:'Kebun Lila', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#F7EFE0', fg:'#4A2C40', accent:'#A8325E', soft:'#EFE3F2', font:"'Cormorant Garamond', Georgia, serif",
+  {id:'kebun-lila', layout:'kebun', kbSet:'/assets/kebun/lila/', name:'Kebun Lila', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#F7EFE0', fg:'#4A2C40', accent:'#A8325E', soft:'#EFE3F2', font:"'Cormorant Garamond', Georgia, serif",
     pat:(t)=>`radial-gradient(circle, #9C86CF22 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`radial-gradient(60% 40% at 50% 46%, #B7A5DD 0 98%, transparent 100%), linear-gradient(180deg,#F7EFE0 0 70%,#A8325E 70% 76%,#9AA048 76%)`},
-  {id:'kebun-sage', layout:'kebun', kb:'sage', kbSh:'#6F8A64', kbAmp:'#F2D68A', kbPet:['#F2B8A0','#E9C46A','#FFFDF8','#C9706B','#B3C29A'], name:'Kebun Sage', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#F6F1E6', fg:'#3E4A38', accent:'#6F8A64', soft:'#E6EDDF', font:"'Cormorant Garamond', Georgia, serif",
+  {id:'kebun-sage', layout:'kebun', kb:'sage', kbSet:'/assets/kebun/sage/', kbSh:'#6F8A64', kbAmp:'#F2D68A', kbPet:['#F2B8A0','#E9C46A','#FFFDF8','#C9706B','#B3C29A'], name:'Kebun Sage', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#F6F1E6', fg:'#3E4A38', accent:'#6F8A64', soft:'#E6EDDF', font:"'Cormorant Garamond', Georgia, serif",
     pat:(t)=>`radial-gradient(circle, #8FA88622 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`radial-gradient(60% 40% at 50% 46%, #A9BFA0 0 98%, transparent 100%), linear-gradient(180deg,#F6F1E6 0 70%,#C9706B 70% 76%,#8FA37A 76%)`},
-  {id:'kebun-biru', layout:'kebun', kb:'biru', kbSh:'#5D78A8', kbAmp:'#F3C969', kbPet:['#A9BEE0','#F3C969','#FFFFFF','#F2B3BF','#6F8CC2'], name:'Kebun Biru', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#F4F1EA', fg:'#24324F', accent:'#3F5E96', soft:'#E3EAF4', font:"'Cormorant Garamond', Georgia, serif",
+  {id:'kebun-biru', layout:'kebun', kb:'biru', kbSet:'/assets/kebun/biru/', kbSh:'#5D78A8', kbAmp:'#F3C969', kbPet:['#A9BEE0','#F3C969','#FFFFFF','#F2B3BF','#6F8CC2'], name:'Kebun Biru', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#F4F1EA', fg:'#24324F', accent:'#3F5E96', soft:'#E3EAF4', font:"'Cormorant Garamond', Georgia, serif",
     pat:(t)=>`radial-gradient(circle, #6F8CC222 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`radial-gradient(60% 40% at 50% 46%, #9DB4D3 0 98%, transparent 100%), linear-gradient(180deg,#F4F1EA 0 70%,#E58FA0 70% 76%,#8AA06B 76%)`},
-  {id:'kebun-senja', layout:'kebun', kb:'senja', kbSh:'#B85E45', kbAmp:'#FFF1D6', kbPet:['#F08A4B','#F2CF63','#FFFDF8','#C7A6DA','#D06470'], name:'Kebun Senja', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#FBF0E4', fg:'#4A2620', accent:'#B23A48', soft:'#F8E1D3', font:"'Cormorant Garamond', Georgia, serif",
+  {id:'kebun-senja', layout:'kebun', kb:'senja', kbSet:'/assets/kebun/senja/', kbSh:'#B85E45', kbAmp:'#FFF1D6', kbPet:['#F08A4B','#F2CF63','#FFFDF8','#C7A6DA','#D06470'], name:'Kebun Senja', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#FBF0E4', fg:'#4A2620', accent:'#B23A48', soft:'#F8E1D3', font:"'Cormorant Garamond', Georgia, serif",
     pat:(t)=>`radial-gradient(circle, #D9795F22 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`radial-gradient(60% 40% at 50% 46%, #F2B49A 0 98%, transparent 100%), linear-gradient(180deg,#FBF0E4 0 70%,#B23A48 70% 76%,#93993F 76%)`},
+  {id:'kebun-mawar', layout:'kebun', kbSet:'/assets/kebun/mawar/', kbSh:'#B5656F', kbAmp:'#F3D18A', kbPet:['#E8B4B8','#F3D18A','#FFFDF8','#C98A93','#D9A441'], name:'Kebun Mawar', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#FBF3EF', fg:'#4A2A33', accent:'#A4535E', soft:'#F5E3E3', font:"'Cormorant Garamond', Georgia, serif",
+    pat:(t)=>`radial-gradient(circle, #B5656F22 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`radial-gradient(60% 40% at 50% 46%, #E3B3B3 0 98%, transparent 100%), linear-gradient(180deg,#FBF3EF 0 70%,#B5656F 70% 76%,#D9A441 76%)`},
   {id:'draperi-biru', layout:'draperi', name:'Draperi Biru Kabut', region:'Nasional', tags:['Draperi','Floral','Modern'], bg:'#EEF1F5', fg:'#1D2A40', accent:'#4D6893', soft:'#DDE4EE', font:"'Cormorant Garamond', Georgia, serif",
     fabric:'#2E4466', fl:['#9DB3D6','#C9D6EA'], stage:'/assets/draperi/biru.webp', dp:{k:'biru', seal:82.75, cy:84.6, ch:4.9, ink:'#C9D3E4', name:'#2E4466', tul:'#BEBCBF'}, pat:(t)=>`radial-gradient(circle, ${t.accent}12 0 .8px, transparent 1.2px)`, size:'14px 14px', thumb:()=>`repeating-linear-gradient(90deg,#24385A 0 9px,#3A557E 14px,#24385A 22px)`},
   {id:'draperi-zamrud', layout:'draperi', name:'Draperi Zamrud', region:'Nasional', tags:['Draperi','Floral','Adat'], bg:'#F1F0E8', fg:'#1B2B22', accent:'#7B2D33', soft:'#E2E5D6', font:"'Cormorant Garamond', Georgia, serif",
@@ -3169,12 +3184,13 @@ function coverHTML(t, d){
     const cols=t.kbPet||['#EBA0BA','#F2CF63','#FFFDF8','#B7A5DD','#F6C9D6'];
     const pet=Array.from({length:12},(_,i)=>`<i style="--x:${(i*37+7)%96}%;--d:${(i*0.9)%9}s;--t:${8+(i%5)*1.5}s;--s:${.6+(i%3)*.25};--c:${cols[i%5]}"></i>`).join('');
     return `<section class="cover cv-kebun${t.kbImg||t.kbSet?' kb-img':''}${t.kbSet?' kb-set':''}" id="${d.id}-cover" style="--kb-sh:${t.kbSh||'#8E6FC0'};--kb-amp:${t.kbAmp||'#F2CF63'}">
-      <div class="kb-frame" aria-hidden="true">${t.kbSet?['latar:kb-latar','pria:kb-pria','wanita:kb-wanita','kiri:kb-bk','kanan:kb-bn','atas:kb-atas'].map(x=>{const [f,c]=x.split(':'); return `<img class="kb-l kb-lap ${c}" src="${t.kbSet}${f}.webp" alt="" decoding="async">`;}).join(''):t.kbImg?`<img class="kb-l kb-lukis" src="${t.kbImg}" alt="" decoding="async">`:im('latar','kb-latar')+im('pasangan','kb-psg')+im('sudut-kiri','kb-sk')+im('sudut-kanan','kb-sn')}
+      <div class="kb-frame" aria-hidden="true">${t.kbSet?['latar:kb-latar','bed-b:kb-bedb','pria:kb-pria','wanita:kb-wanita','kiri:kb-bk','kanan:kb-bn','bed-d:kb-bedd','atas:kb-atas'].map(x=>{const [f,c]=x.split(':'); return `<img class="kb-l kb-lap ${c}" src="${t.kbSet}${f}.webp" alt="" decoding="async">`;}).join(''):t.kbImg?`<img class="kb-l kb-lukis" src="${t.kbImg}" alt="" decoding="async">`:im('latar','kb-latar')+im('pasangan','kb-psg')+im('sudut-kiri','kb-sk')+im('sudut-kanan','kb-sn')}
         <div class="kb-txt"><div class="k-label cv-in" style="--i:0">The wedding of</div>
         <div class="names cv-in" style="--i:1">${esc(d.n1)}<span class="amp">&amp;</span>${esc(d.n2)}</div>
         <div class="date cv-in" style="--i:2">${esc(d.dateDots)}</div></div></div>
       ${t.kbImg||t.kbSet?'':`<div class="kb-bush" aria-hidden="true">${im('semak-kiri','kb-bk')}${im('semak-kanan','kb-bn')}</div>`}
       <div class="kb-pet" aria-hidden="true">${pet}</div>
+      ${t.kbSet?`<div class="kb-flies" aria-hidden="true">${[[12,44,0,1],[78,40,-3,4],[30,58,-6,7],[66,62,-2,2],[18,30,-8,9],[84,56,-5,5]].map(([x,y,d,n],i)=>`<i class="kb-fly${i%2?' r':''}" style="--x:${x}%;--y:${y}%;--d:${d}s;--t:${11+i*1.7}s"><img src="${t.kbSet}kupu/${((n+(d.n1||'').length)%10)+1}.webp" alt=""></i>`).join('')}</div>`:''}
       <span class="sr">Undangan pernikahan ${esc(d.n1)} dan ${esc(d.n2)}, ${esc(d.dateLong)}</span>
       <div class="cv-slot kb-card">${to}${open}</div>
     </section>`;
