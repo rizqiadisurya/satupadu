@@ -1584,6 +1584,40 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 .inv.lay-arunika .cover .open{background:transparent;border:1px solid rgba(255,248,234,.8);color:#FFF8EA;backdrop-filter:blur(6px)}
 .inv.lay-arunika .cover .count div{background:rgba(255,248,234,.12);border-color:rgba(255,248,234,.35);color:#fff}
 .inv.lay-arunika .cover .cv-cue{color:#FBF6EC}
+.inv.lay-atelier .cover{position:relative;overflow:hidden;color:#F3EEE4;background:#1F2A22;justify-content:space-between;padding:66px 22px 48px}
+.inv.lay-atelier .cover .at-ph{position:absolute;inset:0;overflow:hidden}
+.inv.lay-atelier .cover .cv-photo{position:absolute;inset:0;background:#46553D center/cover no-repeat}
+.inv.lay-atelier .cover .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,23,18,.62) 0%,rgba(17,23,18,.12) 32%,rgba(17,23,18,.3) 58%,rgba(17,23,18,.9) 100%)}
+.inv.lay-atelier .cover > *:not(.at-ph):not(.shade):not(.at-load){position:relative;z-index:2}
+.inv.lay-atelier .cover .at-top{display:flex;justify-content:space-between;gap:12px;width:100%;max-width:420px;font-family:var(--inv-body);font-size:10.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid rgba(243,238,228,.4)}
+.inv.lay-atelier .cover .at-mid{margin-top:auto;display:flex;flex-direction:column;align-items:center}
+.inv.lay-atelier .cover .names{font-family:'Bodoni Moda',Georgia,serif;font-weight:400;font-size:clamp(40px,15cqi,62px);line-height:.98;letter-spacing:-.015em;margin:0 0 14px;display:flex;flex-direction:column;align-items:center;color:#F7F2E8}
+.inv.lay-atelier .cover .names .at-w{display:block;overflow:hidden;padding:.04em .06em .08em}
+.inv.lay-atelier .cover .names .amp{font-style:italic;font-size:.5em;color:#D9CDAE;margin:2px 0}
+.inv.lay-atelier .cover .at-l{display:inline-block}
+.inv.lay-atelier .cover .at-date{font-family:var(--inv-body);font-size:12px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#E6DCC3;margin-bottom:22px}
+.inv.lay-atelier .cover .to{color:#F3EEE4}
+.inv.lay-atelier .cover .to b{color:#fff;font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:400}
+.inv.lay-atelier .cover .open{background:#F3EEE4;color:#1F2A22;border-radius:0;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
+.inv.lay-atelier .cover .count div{background:rgba(243,238,228,.1);border-color:rgba(243,238,228,.32);color:#fff}
+.inv.lay-atelier .cover .cv-cue{color:#F3EEE4}
+.inv.lay-atelier h3{font-weight:400;letter-spacing:-.01em}
+.inv.lay-atelier .at-load{display:none}
+.inv.anim.lay-atelier .at-load{display:flex;position:absolute;inset:0;z-index:6;background:#1F2A22;color:#F3EEE4;flex-direction:column;justify-content:flex-end;align-items:flex-start;padding:0 24px 44px;font-family:'Bodoni Moda',Georgia,serif;animation:atOut 1s cubic-bezier(.77,0,.18,1) 1.55s both}
+.inv.anim.lay-atelier .at-load .at-lk{position:absolute;top:66px;left:24px;font-family:'Marcellus',Georgia,serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.6}
+.inv.anim.lay-atelier .at-load b{font-size:84px;font-weight:400;line-height:.9;font-variant-numeric:tabular-nums}
+.inv.anim.lay-atelier .at-load i{position:absolute;left:auto;right:24px;bottom:50px;font-style:normal;font-size:20px;opacity:.6}
+.inv.anim.lay-atelier .at-ph{animation:atClip 1.4s cubic-bezier(.77,0,.18,1) 1.75s both}
+.inv.anim.lay-atelier .cover .cv-photo{animation:atZoom 3.4s cubic-bezier(.2,.7,.2,1) 1.75s both}
+.inv.anim.lay-atelier .cover .cv-in{animation-delay:calc(var(--i,0) * 110ms + 2350ms)}
+.inv.anim.lay-atelier .cover .at-l{animation:atLet 1s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--l) * 45ms + 2150ms)}
+@keyframes atOut{from{clip-path:inset(0 0 0 0)}to{clip-path:inset(0 0 100% 0)}}
+@keyframes atClip{from{clip-path:inset(22% 16% 22% 16%)}to{clip-path:inset(0 0 0 0)}}
+@keyframes atZoom{from{transform:scale(1.2)}to{transform:scale(1)}}
+@keyframes atLet{from{transform:translateY(115%)}to{transform:none}}
+.tc-live .inv.lay-atelier .cover{padding-top:40px;padding-bottom:32px}
+.inv.anim.lay-atelier .cv-atelier.at-wait,.inv.anim.lay-atelier .cv-atelier.at-wait *{animation-play-state:paused !important}
+@media (prefers-reduced-motion: reduce){.inv.anim.lay-atelier .at-load{display:none}.inv.anim.lay-atelier .at-ph,.inv.anim.lay-atelier .cover .cv-photo,.inv.anim.lay-atelier .cover .at-l{animation:none}}
 
 /* ===== Kartu katalog: sampul hidup ===== */
 .tcard .cover.tc-wrap{padding:0;display:block;overflow:hidden;background:var(--t-bg)}
@@ -2985,6 +3019,9 @@ const LAYOUT_THEMES = [
   {id:'arunika', layout:'arunika', name:'Arunika', region:'Nasional', tags:['Modern','Minimalis'], bg:'#E3DCCB', fg:'#2A251C', accent:'#7A6545', soft:'#D3CAB5', font:"'Cormorant Garamond', Georgia, serif",
     pat:(t)=>`radial-gradient(circle, ${t.fg}0d 0 .7px, transparent 1px)`, size:'9px 9px', photo:true, script:true, thumb:()=>`linear-gradient(180deg,#8F8670,#3A3427)`,
     scene:{sky1:'#B9B19C',sky2:'#D9C7A4',sky3:'#C2A97F',sun:'#FFF1D2',h1:'#8D8166',h2:'#6E6450',h3:'#4E473A',fig:'#26221B',grass:'#3E392D'}},
+  {id:'atelier', layout:'atelier', name:'Atelier Zaitun', region:'Nasional', tags:['Modern','Minimalis'], bg:'#F2EEE6', fg:'#1F2A22', accent:'#4A5E48', soft:'#E3E2D5', font:"'Bodoni Moda', Georgia, serif",
+    pat:(t)=>`linear-gradient(0deg, ${t.fg}06 1px, transparent 1px)`, size:'100% 34px', photo:true, thumb:()=>`linear-gradient(180deg,#1F2A22 0 62%,#F2EEE6 62% 64%,#1F2A22 64%)`,
+    scene:{sky1:'#C9CBB4',sky2:'#A9B095',sky3:'#7E8A6C',sun:'#F3EEDD',h1:'#5E6D50',h2:'#46553D',h3:'#2F3B2B',fig:'#1A2219',grass:'#2A3426'}},
   {id:'draperi-biru', layout:'draperi', name:'Draperi Biru Kabut', region:'Nasional', tags:['Draperi','Floral','Modern'], bg:'#EEF1F5', fg:'#1D2A40', accent:'#4D6893', soft:'#DDE4EE', font:"'Cormorant Garamond', Georgia, serif",
     fabric:'#2E4466', fl:['#9DB3D6','#C9D6EA'], stage:'/assets/draperi/biru.webp', dp:{k:'biru', seal:82.75, cy:84.6, ch:4.9, ink:'#C9D3E4', name:'#2E4466', tul:'#BEBCBF'}, pat:(t)=>`radial-gradient(circle, ${t.accent}12 0 .8px, transparent 1.2px)`, size:'14px 14px', thumb:()=>`repeating-linear-gradient(90deg,#24385A 0 9px,#3A557E 14px,#24385A 22px)`},
   {id:'draperi-zamrud', layout:'draperi', name:'Draperi Zamrud', region:'Nasional', tags:['Draperi','Floral','Adat'], bg:'#F1F0E8', fg:'#1B2B22', accent:'#7B2D33', soft:'#E2E5D6', font:"'Cormorant Garamond', Georgia, serif",
@@ -3069,6 +3106,20 @@ function coverHTML(t, d){
       <div class="cv-slot dp-open">${open}</div>
       <div class="dp-tulle" aria-hidden="true"></div>
     </section>`;
+  if(L==='atelier'){
+    const spl=(w,o)=>[...(w||'')].map((c,i)=>`<span class="at-l" style="--l:${o+i}">${c===' '?'&nbsp;':esc(c)}</span>`).join('');
+    const n1=d.n1||'', n2=d.n2||'';
+    return `<section class="cover cv-atelier" id="${d.id}-cover">
+      <div class="at-ph"><div class="cv-photo" style="background-image:url('${d.photo}')"></div></div><div class="shade"></div>
+      <div class="at-load" aria-hidden="true"><span class="at-lk">Sakara</span><b data-atpct>100</b><i>%</i></div>
+      <div class="at-top cv-in" style="--i:0"><span>The wedding of</span><span>${esc(d.dateDots)}</span></div>
+      <div class="at-mid">
+        <div class="names" aria-label="${esc(n1)} dan ${esc(n2)}"><span class="at-w" aria-hidden="true">${spl(n1,0)}</span><span class="at-w amp" aria-hidden="true"><span class="at-l" style="--l:${[...n1].length}">&amp;</span></span><span class="at-w" aria-hidden="true">${spl(n2,[...n1].length+1)}</span></div>
+        <div class="at-date cv-in" style="--i:3">${esc(d.dateLong)}</div>
+      </div>
+      <div class="cv-slot">${to}${open}</div>
+    </section>`;
+  }
   if(L==='arunika') return `<section class="cover cv-arunika" id="${d.id}-cover">
       <div class="cv-photo" style="background-image:url('${d.photo}')"></div><div class="shade"></div>
       <div class="top cv-in" style="--i:0"><span class="k-label">Wedding day</span><b class="num" data-scramble="${esc(d.dateLong)}">${esc(d.dateDots)}</b></div>
@@ -3858,6 +3909,9 @@ function enhanceInv(root){
   shimmerImages(inv);
   if(REDUCED() || !('IntersectionObserver' in window)) return;
   inv.classList.add('anim');
+  $$('.cv-atelier', inv).forEach(cv=>{ const run=()=>{ cv.classList.remove('at-wait'); $$('[data-atpct]', cv).forEach(el=>{ const t0=performance.now(); const f=n=>{ const p=Math.min(1,(n-t0)/1450); el.textContent=Math.round(100*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(f); }; el.textContent='0'; requestAnimationFrame(f); }); };
+    const g=$('#gate'), up=()=>g && g.classList.contains('show') && !g.classList.contains('open') && g.style.display!=='none';
+    cv.classList.add('at-wait'); if(up()){ const iv=setInterval(()=>{ if(!up()){ clearInterval(iv); run(); } },80); } else setTimeout(run, cv.closest('.modal, #modalRoot') ? 700 : 0); });
   $$('section:not(.cover)', inv).forEach(sec=>{
     let k=0;
     $$(':scope > h3', sec).forEach(h=>{ h.dataset.rv='up'; });
