@@ -1627,6 +1627,12 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 .inv.anim.lay-kebun .kb-psg{transform-origin:50% 72%;animation:kbBob 3.6s ease-in-out infinite}
 .inv.anim.lay-kebun .kb-frame{animation:kbIn 1.2s cubic-bezier(.2,.7,.2,1) both}
 .inv.anim.lay-kebun .kb-pet i{animation:kbFall var(--t) linear var(--d) infinite}
+.inv.lay-kebun .kb-img{min-height:178cqi}
+.inv.lay-kebun .kb-img .kb-frame{aspect-ratio:auto;height:100%;overflow:hidden}
+.inv.lay-kebun .kb-img .kb-lukis{object-fit:cover;object-position:50% 0}
+.inv.lay-kebun .kb-img .kb-txt{top:15%}
+.inv.anim.lay-kebun .kb-img .kb-lukis{transform-origin:50% 60%;animation:kbZoom 18s ease-in-out infinite alternate}
+@keyframes kbZoom{from{scale:1}to{scale:1.06}}
 @keyframes kbSway{from{rotate:-1.6deg}to{rotate:1.6deg}}
 @keyframes kbBob{0%,100%{translate:0 0}50%{translate:0 -1.2%}}
 @keyframes kbIn{from{opacity:0;scale:1.06}to{opacity:1;scale:1}}
@@ -3051,7 +3057,7 @@ const LAYOUT_THEMES = [
   {id:'atelier', layout:'atelier', name:'Atelier Zaitun', region:'Nasional', tags:['Modern','Minimalis'], bg:'#F2EEE6', fg:'#1F2A22', accent:'#4A5E48', soft:'#E3E2D5', font:"'Bodoni Moda', Georgia, serif",
     pat:(t)=>`linear-gradient(0deg, ${t.fg}06 1px, transparent 1px)`, size:'100% 34px', photo:true, thumb:()=>`linear-gradient(180deg,#1F2A22 0 62%,#F2EEE6 62% 64%,#1F2A22 64%)`,
     scene:{sky1:'#C9CBB4',sky2:'#A9B095',sky3:'#7E8A6C',sun:'#F3EEDD',h1:'#5E6D50',h2:'#46553D',h3:'#2F3B2B',fig:'#1A2219',grass:'#2A3426'}},
-  {id:'kebun-lila', layout:'kebun', name:'Kebun Lila', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#F7EFE0', fg:'#4A2C40', accent:'#A8325E', soft:'#EFE3F2', font:"'Cormorant Garamond', Georgia, serif",
+  {id:'kebun-lila', layout:'kebun', kbImg:'/assets/kebun/lukis/lila.webp', name:'Kebun Lila', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#F7EFE0', fg:'#4A2C40', accent:'#A8325E', soft:'#EFE3F2', font:"'Cormorant Garamond', Georgia, serif",
     pat:(t)=>`radial-gradient(circle, #9C86CF22 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`radial-gradient(60% 40% at 50% 46%, #B7A5DD 0 98%, transparent 100%), linear-gradient(180deg,#F7EFE0 0 70%,#A8325E 70% 76%,#9AA048 76%)`},
   {id:'kebun-sage', layout:'kebun', kb:'sage', kbSh:'#6F8A64', kbAmp:'#F2D68A', kbPet:['#F2B8A0','#E9C46A','#FFFDF8','#C9706B','#B3C29A'], name:'Kebun Sage', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#F6F1E6', fg:'#3E4A38', accent:'#6F8A64', soft:'#E6EDDF', font:"'Cormorant Garamond', Georgia, serif",
     pat:(t)=>`radial-gradient(circle, #8FA88622 0 1.2px, transparent 1.6px)`, size:'18px 18px', thumb:()=>`radial-gradient(60% 40% at 50% 46%, #A9BFA0 0 98%, transparent 100%), linear-gradient(180deg,#F6F1E6 0 70%,#C9706B 70% 76%,#8FA37A 76%)`},
@@ -3147,12 +3153,12 @@ function coverHTML(t, d){
     const A='/assets/kebun/'+(t.kb?t.kb+'/':''), im=(f,c)=>`<img class="kb-l ${c}" src="${A}${f}.webp" alt="" decoding="async">`;
     const cols=t.kbPet||['#EBA0BA','#F2CF63','#FFFDF8','#B7A5DD','#F6C9D6'];
     const pet=Array.from({length:12},(_,i)=>`<i style="--x:${(i*37+7)%96}%;--d:${(i*0.9)%9}s;--t:${8+(i%5)*1.5}s;--s:${.6+(i%3)*.25};--c:${cols[i%5]}"></i>`).join('');
-    return `<section class="cover cv-kebun" id="${d.id}-cover" style="--kb-sh:${t.kbSh||'#8E6FC0'};--kb-amp:${t.kbAmp||'#F2CF63'}">
-      <div class="kb-frame" aria-hidden="true">${im('latar','kb-latar')}${im('pasangan','kb-psg')}${im('sudut-kiri','kb-sk')}${im('sudut-kanan','kb-sn')}
+    return `<section class="cover cv-kebun${t.kbImg?' kb-img':''}" id="${d.id}-cover" style="--kb-sh:${t.kbSh||'#8E6FC0'};--kb-amp:${t.kbAmp||'#F2CF63'}">
+      <div class="kb-frame" aria-hidden="true">${t.kbImg?`<img class="kb-l kb-lukis" src="${t.kbImg}" alt="" decoding="async">`:im('latar','kb-latar')+im('pasangan','kb-psg')+im('sudut-kiri','kb-sk')+im('sudut-kanan','kb-sn')}
         <div class="kb-txt"><div class="k-label cv-in" style="--i:0">The wedding of</div>
         <div class="names cv-in" style="--i:1">${esc(d.n1)}<span class="amp">&amp;</span>${esc(d.n2)}</div>
         <div class="date cv-in" style="--i:2">${esc(d.dateDots)}</div></div></div>
-      <div class="kb-bush" aria-hidden="true">${im('semak-kiri','kb-bk')}${im('semak-kanan','kb-bn')}</div>
+      ${t.kbImg?'':`<div class="kb-bush" aria-hidden="true">${im('semak-kiri','kb-bk')}${im('semak-kanan','kb-bn')}</div>`}
       <div class="kb-pet" aria-hidden="true">${pet}</div>
       <span class="sr">Undangan pernikahan ${esc(d.n1)} dan ${esc(d.n2)}, ${esc(d.dateLong)}</span>
       <div class="cv-slot kb-card">${to}${open}</div>
