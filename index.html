@@ -436,6 +436,33 @@ textarea.input{min-height:96px;resize:vertical}
 .tile .v{font-family:var(--display);font-size:42px;line-height:1.1;margin-top:6px;font-variant-numeric:tabular-nums}
 .tile .s{font-size:13px;color:var(--muted)}
 .dgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;margin-top:20px}
+/* Kartu statistik dashboard bergaya ikon */
+.tile.ic{padding:20px 22px;container-type:inline-size;display:grid;align-content:start}
+.tile.ic::before{display:none}
+.tile.ic .adm-ic{margin-bottom:16px}
+.tile.ic .v{font-size:min(40px,17cqi);margin:0;white-space:nowrap;letter-spacing:-.01em}
+.tile.ic .v .of{font-size:.5em;color:var(--muted);margin-left:2px}
+.tile.ic .l{font-size:15px;font-weight:600;color:var(--ink);opacity:.72;margin-top:8px}
+.tile.ic .s{margin-top:4px}
+.tile.ic .s .btn{margin-top:8px}
+.tile.hl{border-color:color-mix(in srgb,var(--beet) 30%,#fff);background:linear-gradient(180deg,color-mix(in srgb,var(--beet) 6%,var(--card)),var(--card) 62%)}
+.tiles.t2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:640px}
+/* Panel dengan header */
+.panel-c.pn{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.pn-h{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:20px 22px 16px;border-bottom:1px solid var(--line)}
+.pn-h h3{margin:0 0 4px;font-size:16.5px;font-weight:800}
+.pn-h p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.5}
+.pn-h .linkbtn{flex:none;text-decoration:none;font-size:14px;white-space:nowrap;padding-top:2px}
+.pn-b{padding:18px 22px 22px;flex:1}
+.panel-c.arr-panel,.panel-c.arr-list{margin-top:20px}
+.dash .adm-empty{padding:34px 16px 40px}
+@media (max-width:640px){
+  .tile.ic{padding:16px}
+  .tile.ic .adm-ic{width:40px;height:40px;border-radius:12px;margin-bottom:12px}
+  .tile.ic .l{font-size:13.5px;margin-top:6px}
+  .pn-h{padding:16px 16px 14px;flex-wrap:wrap}.pn-b{padding:16px}
+  .tiles.t2{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 .panel-c{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:22px}
 .panel-c h3{font-size:16.5px;font-weight:800;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
 .stack{display:flex;height:16px;border-radius:99px;overflow:hidden;background:#F0ECEE}
@@ -4223,6 +4250,9 @@ function renderCatPage(){
   [['Pak Haji Darmawan','081234567890','f1'],['Bu Siti Aminah','','f1'],['Om Bambang Sutejo','081311112222','f1'],['Tante Rina Kusuma','','f2']].forEach(([n,ph,f],k)=>{ const g={id:'fs'+k, name:n, phone:ph, group:famById(f).name, status:'belum', pax:0, sent:false, sessions:S.events.map((e,i)=>i), fam:f, approved:false}; g.code=makeCode(g); G.push(g); });
   G.slice(0,40).forEach((g,k)=>{ if(!g.fam && !isPending(g) && k%3===0) g.fam = k%2?'f2':'f1'; });
   seedArrivals(); saveG(); save(); })();
+const dTile = (l,v,sub,ic,tn,hl) => `<div class="tile ic${hl?' hl':''}"><i class="adm-ic tn-${tn}">${ico(ic)}</i><div class="v">${v}</div><div class="l">${l}</div>${sub?`<div class="s">${sub}</div>`:''}</div>`;
+const dPanel = (t,d,body,extra='',cls='') => `<section class="panel-c pn ${cls}"><header class="pn-h"><div><h3>${t}</h3>${d?`<p>${d}</p>`:''}</div>${extra}</header><div class="pn-b">${body}</div></section>`;
+const dEmpty = (ic,t,d,tn='beet') => `<div class="adm-empty"><i class="adm-ic lg tn-${tn}">${ico(ic)}</i><b>${t}</b>${d?`<p>${d}</p>`:''}</div>`;
 function renderDash(){ const all=G; G_ALL=all; G=all.filter(g=>!isPending(g)); try{ renderDashCore(); } finally { G=all; } }
 function renderDashCore(){
   const total=G.length, hadir=G.filter(g=>g.status==='hadir'), tidak=G.filter(g=>g.status==='tidak').length, belum=G.filter(g=>g.status==='belum').length, sent=G.filter(g=>g.sent).length;
@@ -4238,21 +4268,21 @@ function renderDashCore(){
     const pct = n => (total? n/total*100 : 0).toFixed(1)+'%';
     const groups=[...new Set(G.map(g=>g.group))];
     body = `<div class="tiles">
-      <div class="tile" style="--c:var(--beet)"><div class="l">Undangan terkirim</div><div class="v">${sent}<span style="font-size:22px;color:var(--muted)">/${total}</span></div><div class="s">${total-sent} tamu belum dikirimi</div></div>
-      <div class="tile" style="--c:var(--ok)"><div class="l">Akan hadir</div><div class="v">${pax}</div><div class="s">orang, dari ${hadir.length} undangan</div></div>
-      <div class="tile" style="--c:var(--no)"><div class="l">Tidak hadir</div><div class="v">${tidak}</div><div class="s">sudah mengabari</div></div>
-      <div class="tile" style="--c:var(--warn)"><div class="l">Belum menjawab</div><div class="v">${belum}</div><div class="s">${isLocked('remind')?`<button class="btn btn-ghost btn-sm" data-act="upgrade" style="margin-top:6px">${ico('lock')}Pengingat otomatis</button>`:`<button class="btn btn-soft btn-sm" data-act="remind" style="margin-top:6px">Kirim pengingat</button>`}</div></div>
+      ${dTile('Undangan terkirim',`${sent}<span class="of">/${total}</span>`,`${total-sent} tamu belum dikirimi`,'mail','amber',1)}
+      ${dTile('Akan hadir',pax,`orang, dari ${hadir.length} undangan`,'check','green')}
+      ${dTile('Tidak hadir',tidak,'sudah mengabari','x','gray')}
+      ${dTile('Belum menjawab',belum,isLocked('remind')?`<button class="btn btn-ghost btn-sm" data-act="upgrade">${ico('lock')}Pengingat otomatis</button>`:`<button class="btn btn-soft btn-sm" data-act="remind">Kirim pengingat</button>`,'chat','blue')}
     </div>
     <div class="dgrid">
-      <div class="panel-c"><h3>Jawaban per grup <span class="legend" style="margin:0"><span><i style="background:var(--ok)"></i>Hadir</span><span><i style="background:var(--no)"></i>Tidak</span><span><i style="background:#E9D4A9"></i>Belum</span></span></h3>
+      ${dPanel('Jawaban per grup', total?`${hadir.length+tidak} dari ${total} undangan sudah menjawab.`:'Lihat siapa saja yang sudah membalas undangan.',
+        total?`<div class="legend" style="margin:0 0 12px"><span><i style="background:var(--ok)"></i>Hadir</span><span><i style="background:var(--no)"></i>Tidak</span><span><i style="background:#E9D4A9"></i>Belum</span></div>
         <div class="stack" style="margin-bottom:18px"><span style="width:${pct(hadir.length)};background:var(--ok)"></span><span style="width:${pct(tidak)};background:var(--no)"></span><span style="width:${pct(belum)};background:#E9D4A9"></span></div>
         ${groups.map(gr=>{ const a=G.filter(g=>g.group===gr), n=a.length, h=a.filter(g=>g.status==='hadir').length, t=a.filter(g=>g.status==='tidak').length;
-          return `<div class="grp-row"><span style="font-weight:600">${esc(gr)}</span><span class="track"><span style="width:${h/n*100}%;background:var(--ok)"></span><span style="width:${t/n*100}%;background:var(--no)"></span><span style="width:${(n-h-t)/n*100}%;background:#E9D4A9"></span></span><span class="num muted" style="text-align:right">${h}/${n}</span></div>`;}).join('')}
-      </div>
-      <div class="panel-c"><h3>Per sesi acara</h3>
-        ${S.events.map((e,i)=>{ const inv=G.filter(g=>guestEvents(g).some(x=>x.i===i)); const hp=inv.filter(g=>g.status==='hadir').reduce((a,g)=>a+g.pax,0); return `<div class="ses-row"><div><b>${esc(e.type||'Acara '+(i+1))}</b><small class="muted">${esc(e.venue||'')}${e.start?` · ${esc(e.start)}`:''}</small></div><div class="num"><b>${inv.length}</b><small class="muted">diundang</small></div><div class="num"><b>${hp}</b><small class="muted">orang hadir</small></div></div>`; }).join('')}
-        <p class="muted" style="font-size:13px;margin-top:12px">Tiap tamu cuma lihat acara yang memang buat dia. Atur sesinya di tab Tamu.</p>
-      </div>
+          return `<div class="grp-row"><span style="font-weight:600">${esc(gr)}</span><span class="track"><span style="width:${h/n*100}%;background:var(--ok)"></span><span style="width:${t/n*100}%;background:var(--no)"></span><span style="width:${(n-h-t)/n*100}%;background:#E9D4A9"></span></span><span class="num muted" style="text-align:right">${h}/${n}</span></div>`;}).join('')}`
+        : dEmpty('users','Belum ada tamu.','Tambahkan tamu dulu, nanti jawabannya terkumpul di sini.'),
+        `<button type="button" class="linkbtn" data-dtab="tamu">Lihat tamu</button>`)}
+      ${dPanel('Per sesi acara','Tiap tamu cuma lihat acara yang memang buat dia.',
+        S.events.map((e,i)=>{ const inv=G.filter(g=>guestEvents(g).some(x=>x.i===i)); const hp=inv.filter(g=>g.status==='hadir').reduce((a,g)=>a+g.pax,0); return `<div class="ses-row"><div><b>${esc(e.type||'Acara '+(i+1))}</b><small class="muted">${esc(e.venue||'')}${e.start?` · ${esc(e.start)}`:''}</small></div><div class="num"><b>${inv.length}</b><small class="muted">diundang</small></div><div class="num"><b>${hp}</b><small class="muted">orang hadir</small></div></div>`; }).join(''))}
     </div>`;
   }
   if(dTab==='tamu'){
@@ -4289,27 +4319,28 @@ function renderDashCore(){
       body = `<div class="harih-hero"><div><span class="eyebrow">Hari H</span><h2 class="display" style="font-size:34px;margin-top:8px">Buku tamu digital dengan QR</h2><p class="muted" style="max-width:56ch;margin-top:8px">Tiap tamu yang bakal hadir dapat kartu masuk QR di undangannya. Pas hari H, penerima tamu tinggal buka mode ini di HP atau tablet, lalu scan QR atau cari nama. Antre nulis buku tamu? Udah bukan zamannya.</p></div><a class="btn btn-primary" href="#checkin">${ico('qr')}Buka mode penerima tamu</a></div>
       ${CLOUD.inv?`<div class="panel-c pin-card"><div><b>Link untuk penerima tamu</b><p class="muted" style="font-size:14px;margin-top:4px">Kirim ke petugas penerima tamu. Mereka tidak perlu akun, cukup link dan PIN ini. Bisa dibuka di beberapa HP sekaligus.</p></div><div class="pin-row"><span class="pin num">${esc(CLOUD.inv.checkin_pin)}</span><button class="btn btn-soft btn-sm" data-act="copy" data-v="${esc(`${location.origin}/u/${CLOUD.inv.slug}/checkin?pin=${CLOUD.inv.checkin_pin}`)}">${ico('copy')}Salin link</button></div></div>`:''}
       <div class="tiles" style="margin-top:20px">
-        <div class="tile" style="--c:var(--ok)"><div class="l">Sudah datang</div><div class="v">${arrived.length}</div><div class="s">undangan · ${ppl} orang</div></div>
-        <div class="tile" style="--c:var(--warn)"><div class="l">Konfirmasi hadir, belum datang</div><div class="v">${expect.length}</div><div class="s">${expect.reduce((a,g)=>a+g.pax,0)} orang diharapkan</div></div>
-        <div class="tile" style="--c:var(--gold)"><div class="l">Kado & amplop tercatat</div><div class="v">${gifts}</div><div class="s">nomor terakhir #${String(S.giftNo||0).padStart(3,'0')}</div></div>
-        <div class="tile"><div class="l">Tamu tambahan</div><div class="v">${G.filter(g=>g.walkin).length}</div><div class="s">tidak ada di daftar</div></div>
+        ${dTile('Sudah datang',arrived.length,`undangan · ${ppl} orang`,'check','green',1)}
+        ${dTile('Konfirmasi hadir, belum datang',expect.length,`${expect.reduce((a,g)=>a+g.pax,0)} orang diharapkan`,'cal','amber')}
+        ${dTile('Kado & amplop tercatat',gifts,`nomor terakhir #${String(S.giftNo||0).padStart(3,'0')}`,'gift','plum')}
+        ${dTile('Tamu tambahan',G.filter(g=>g.walkin).length,'tidak ada di daftar','plus','gray')}
       </div>
       ${(()=>{ const ev=S.events.filter(e=>e.start); const me=ev[ev.length-1]; const {slots,c}=arrivalCounts(G,me||{}); if(!slots.length) return ''; const act=Object.fromEntries(slots.map(x=>[x,0])); G.forEach(g=>{ if(g.checkin&&g.checkin.time){ const m=toMin(g.checkin.time); const k=fromMin(Math.floor(m/30)*30); if(act[k]!==undefined) act[k]+=g.checkin.pax||1; } });
-        return `<div class="panel-c arr-panel"><h3>Perkiraan kedatangan · ${esc(me.type||'Acara')} <span class="legend" style="margin:0"><span><i style="background:var(--beet)"></i>Rencana datang</span><span><i style="background:var(--ok)"></i>Sudah tiba</span></span></h3>${crowdBars(slots,c,{actual:act})}<p class="muted" style="font-size:13px;margin-top:10px">${crowdAdvice(slots,c)||'Belum banyak tamu yang memilih jam datang.'} Tamu bisa melihat status ramai atau lengang di undangannya saat hari H.</p></div>`; })()}
-      <div class="panel-c" style="margin-top:20px"><h3>Daftar kedatangan</h3>${arrived.length?`<ul class="feed">${arrived.sort((a,b)=>b.checkin.ts-a.checkin.ts).map(g=>`<li><span class="av">${esc(initials(g.name))}</span><div><b>${esc(g.name)}</b> · ${g.checkin.pax} orang${g.checkin.gift?` · Kado #${String(g.checkin.gift).padStart(3,'0')}`:''}<small>${esc(g.checkin.time)} · ${esc(S.events[g.checkin.session]?.type||'')}${g.walkin?' · tamu tambahan':''}</small></div></li>`).join('')}</ul>`:`<div class="empty">Belum ada tamu yang datang. Begitu penerima tamu mulai check-in, nama-namanya bakal muncul di sini satu per satu.</div>`}</div>`;
+        return dPanel(`Perkiraan kedatangan · ${esc(me.type||'Acara')}`, `${crowdAdvice(slots,c)||'Belum banyak tamu yang memilih jam datang.'} Tamu bisa melihat status ramai atau lengang di undangannya saat hari H.`, `<div class="legend" style="margin:0 0 12px"><span><i style="background:var(--beet)"></i>Rencana datang</span><span><i style="background:var(--ok)"></i>Sudah tiba</span></div>${crowdBars(slots,c,{actual:act})}`,'','arr-panel'); })()}
+      ${dPanel('Daftar kedatangan','Tamu yang sudah check-in, paling baru di atas.', arrived.length?`<ul class="feed">${arrived.sort((a,b)=>b.checkin.ts-a.checkin.ts).map(g=>`<li><span class="av">${esc(initials(g.name))}</span><div><b>${esc(g.name)}</b> · ${g.checkin.pax} orang${g.checkin.gift?` · Kado #${String(g.checkin.gift).padStart(3,'0')}`:''}<small>${esc(g.checkin.time)} · ${esc(S.events[g.checkin.session]?.type||'')}${g.walkin?' · tamu tambahan':''}</small></div></li>`).join('')}</ul>`
+        : dEmpty('inbox','Belum ada tamu yang datang.','Begitu penerima tamu mulai check-in, nama-namanya muncul di sini satu per satu.'),'','arr-list')}`;
     }
   }
   if(dTab==='keluarga') body = famTabHTML();
   if(dTab==='kenangan') body = knTabHTML();
   if(dTab==='katering') body = catTabHTML();
   if(dTab==='ucapan'){
-    body = `<p class="muted" style="margin-bottom:16px">Ucapan yang kalian sembunyikan nggak tampil di undangan, tapi tetap tersimpan aman di sini.</p><div class="wish-admin">${W.map((w,k)=>`<div class="w ${w.show?'':'hid'}"><div><b>${esc(w.n)}</b> ${w.att?'<span class="status s-ok">Hadir</span>':''} <span class="muted" style="font-size:13px">${esc(w.t)}</span><p style="margin-top:6px">${esc(w.m)}</p></div><button class="btn btn-ghost btn-sm" data-act="toggle-wish" data-k="${k}">${w.show?'Sembunyikan':'Tampilkan'}</button></div>`).join('')}</div>`;
+    body = `<p class="muted" style="margin-bottom:16px">Ucapan yang kalian sembunyikan nggak tampil di undangan, tapi tetap tersimpan aman di sini.</p>${W.length?'':dEmpty('chat','Belum ada ucapan.','Ucapan dari tamu langsung masuk ke sini begitu mereka mengirimnya.')}<div class="wish-admin">${W.map((w,k)=>`<div class="w ${w.show?'':'hid'}"><div><b>${esc(w.n)}</b> ${w.att?'<span class="status s-ok">Hadir</span>':''} <span class="muted" style="font-size:13px">${esc(w.t)}</span><p style="margin-top:6px">${esc(w.m)}</p></div><button class="btn btn-ghost btn-sm" data-act="toggle-wish" data-k="${k}">${w.show?'Sembunyikan':'Tampilkan'}</button></div>`).join('')}</div>`;
   }
   if(dTab==='hadiah'){
     const sum = GIFTS.reduce((a,g)=>a+g.amt,0);
-    body = `<div class="tiles" style="grid-template-columns:repeat(2,1fr);max-width:620px"><div class="tile"><div class="l">Tamu menitipkan nama</div><div class="v">${GIFTS.length}</div></div><div class="tile" style="--c:var(--gold)"><div class="l">Total dilaporkan tamu</div><div class="v" style="font-size:32px">${rupiah(sum)}</div></div></div>
+    body = `<div class="tiles t2">${dTile('Tamu menitipkan nama',GIFTS.length,'kirim hadiah lewat undangan','users','amber',1)}${dTile('Total dilaporkan tamu',rupiah(sum),'cek lagi di mutasi rekening','wallet','green')}</div>
     <p class="muted" style="margin:16px 0">Uang langsung masuk ke rekening ${esc(S.gift.bank)} ${esc(S.gift.holder)}. Tamu tidak diminta konfirmasi. Daftar ini hanya berisi tamu yang menitipkan nama secara sukarela, jadi tetap cek mutasi rekeningmu.</p>
-    <div class="tbl-wrap" style="display:block"><table><thead><tr><th>Dari</th><th>Ke</th><th class="num">Jumlah</th><th>Waktu</th></tr></thead><tbody>${GIFTS.map(g=>`<tr><td class="nm">${esc(g.n)}</td><td>${esc(g.bank)}</td><td class="num">${g.amt?rupiah(g.amt):'—'}</td><td class="muted">${esc(g.t)}</td></tr>`).join('')}</tbody></table></div>` + kadoAdminHTML();
+    ${GIFTS.length?'':`<section class="panel-c">${dEmpty('gift','Belum ada titipan nama.','Saat tamu mengirim hadiah dan menitipkan namanya, catatannya muncul di sini.')}</section>`}<div class="tbl-wrap" style="display:block${GIFTS.length?'':';display:none'}"><table><thead><tr><th>Dari</th><th>Ke</th><th class="num">Jumlah</th><th>Waktu</th></tr></thead><tbody>${GIFTS.map(g=>`<tr><td class="nm">${esc(g.n)}</td><td>${esc(g.bank)}</td><td class="num">${g.amt?rupiah(g.amt):'—'}</td><td class="muted">${esc(g.t)}</td></tr>`).join('')}</tbody></table></div>` + kadoAdminHTML();
   }
   $('#dash').innerHTML = head + body;
   const dn=$('#dashNav'), dsl=dn.scrollLeft; dn.innerHTML = dtList().map(([k,l,i])=>`<button role="tab" data-dtab="${k}" aria-selected="${dTab===k}">${ico(i)}${l}</button>`).join(''); dn.scrollLeft=dsl;
