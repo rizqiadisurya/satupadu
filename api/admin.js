@@ -2,7 +2,7 @@
 // Login: username + sandi (hash scrypt di tabel admins). Token ditandatangani HMAC, berlaku 12 jam.
 // Bootstrap: selama tabel admins masih kosong, admin/admin diterima SEKALI lalu wajib ganti sandi.
 const crypto = require('crypto');
-const { sb, send, readBody, SERVICE, ANON } = require('./_lib');
+const { sb, send, readBody, SERVICE, ANON, SB_URL } = require('./_lib');
 
 const b64u = b => Buffer.from(b).toString('base64').replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
 const secret = () => crypto.createHash('sha256').update('sakara-admin:' + SERVICE()).digest();
@@ -80,6 +80,7 @@ const actions = {
     const u = String(b.username || '').trim().toLowerCase();
     if (!okUser(u)) throw ERR(400, 'Username 3–40 karakter: huruf kecil, angka, titik, strip');
     if (!okPass(b.password)) throw ERR(400, 'Sandi minimal 8 karakter dan tidak boleh "admin"');
+    const ex = await sb(`/rest/v1/admins?username=eq.${enc(u)}&select=id`); if (ex && ex.length) throw ERR(400, `Username "${u}" sudah dipakai`);
     const rows = await sb('/rest/v1/admins', { method: 'POST', body: { username: u, email: String(b.email || '').trim().slice(0, 120), pass_hash: hashPass(b.password), must_change: !!b.must_change } });
     return { admin: pub(rows[0]) };
   },
@@ -87,6 +88,17 @@ const actions = {
     if (+b.id === a.id) throw ERR(400, 'Tidak bisa menghapus akunmu sendiri');
     const all = await sb('/rest/v1/admins?select=id'); if (all.length <= 1) throw ERR(400, 'Minimal harus ada satu admin');
     await sb(`/rest/v1/admins?id=eq.${+b.id}`, { method: 'DELETE' }); return { ok: true };
+  },
+  async upload(b) {
+    const m = String(b.data || '').match(/^data:image\/(webp|jpeg|png);base64,([A-Za-z0-9+/=]+)$/);
+    if (!m) throw ERR(400, 'Format gambar tidak didukung');
+    const buf = Buffer.from(m[2], 'base64'); if (buf.length > 3 * 1024 * 1024) throw ERR(400, 'Gambar terlalu besar (maks. 3 MB)');
+    const ext = m[1] === 'jpeg' ? 'jpg' : m[1];
+    const path = `admin/tema-${Date.now().toString(36)}-${crypto.randomBytes(4).toString('hex')}.${ext}`;
+    const key = SERVICE();
+    const r = await fetch(`${SB_URL()}/storage/v1/object/photos/${path}`, { method: 'POST', headers: { apikey: key, ...(key.startsWith('sb_') ? {} : { Authorization: `Bearer ${key}` }), 'Content-Type': `image/${m[1]}`, 'Cache-Control': 'public, max-age=31536000', 'x-upsert': 'false' }, body: buf });
+    if (!r.ok) { const t = await r.text(); throw ERR(502, 'Gagal menyimpan gambar: ' + t.slice(0, 120)); }
+    return { url: `${SB_URL()}/storage/v1/object/public/photos/${path}` };
   },
   async config_get() { const rows = await sb('/rest/v1/app_config?select=*'); const o = {}; rows.forEach(r => o[r.key] = r.value); return { config: o }; },
   async config_set(b, a) {
