@@ -1627,6 +1627,16 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 .inv.anim.lay-kebun .kb-psg{transform-origin:50% 72%;animation:kbBob 3.6s ease-in-out infinite}
 .inv.anim.lay-kebun .kb-frame{animation:kbIn 1.2s cubic-bezier(.2,.7,.2,1) both}
 .inv.anim.lay-kebun .kb-pet i{animation:kbFall var(--t) linear var(--d) infinite}
+.inv.anim.lay-kebun .cover{--p:0}
+.inv.anim.lay-kebun .kb-latar,.inv.anim.lay-kebun .kb-lukis{transform:translateY(calc(var(--p) * 10%)) scale(calc(1 + var(--p) * .06))}
+.inv.anim.lay-kebun .kb-psg{transform:translateY(calc(var(--p) * -3%)) scale(calc(1 + var(--p) * .12))}
+.inv.anim.lay-kebun .kb-sk{transform:translate(calc(var(--p) * -32%),calc(var(--p) * -14%))}
+.inv.anim.lay-kebun .kb-sn{transform:translate(calc(var(--p) * 32%),calc(var(--p) * -14%))}
+.inv.anim.lay-kebun .kb-bk{transform:translate(calc(var(--p) * -38%),calc(var(--p) * 6%))}
+.inv.anim.lay-kebun .kb-bn{transform:translate(calc(var(--p) * 38%),calc(var(--p) * 6%))}
+.inv.anim.lay-kebun .kb-pria{transform:translateX(calc(var(--p) * -14%))}
+.inv.anim.lay-kebun .kb-wanita{transform:translateX(calc(var(--p) * 14%))}
+.inv.anim.lay-kebun .kb-txt{transform:translateY(calc(var(--p) * -60%));opacity:calc(1 - var(--p) * 1.6)}
 .inv.lay-kebun .kb-img{min-height:178cqi}
 .inv.lay-kebun .kb-img .kb-frame{aspect-ratio:auto;height:100%;overflow:hidden}
 .inv.lay-kebun .kb-img .kb-lukis{object-fit:cover;object-position:50% 0}
@@ -3967,6 +3977,12 @@ function enhanceInv(root){
   shimmerImages(inv);
   if(REDUCED() || !('IntersectionObserver' in window)) return;
   inv.classList.add('anim');
+  $$('.cv-kebun', inv).forEach(cv=>{
+    let sc=cv.parentElement; while(sc && sc!==document.body){ const o=getComputedStyle(sc).overflowY; if((o==='auto'||o==='scroll') && sc.scrollHeight>sc.clientHeight+4) break; sc=sc.parentElement; }
+    const tgt=(!sc||sc===document.body)?window:sc; let q=0;
+    const upd=()=>{ q=0; if(!cv.isConnected){ tgt.removeEventListener('scroll',on); return; } const r=cv.getBoundingClientRect(), top=tgt===window?0:sc.getBoundingClientRect().top; const p=Math.min(1,Math.max(0,(top-r.top)/Math.max(1,r.height*.8))); cv.style.setProperty('--p',p.toFixed(3)); };
+    const on=()=>{ if(!q) q=requestAnimationFrame(upd); };
+    tgt.addEventListener('scroll',on,{passive:true}); upd(); });
   $$('.cv-atelier', inv).forEach(cv=>{ const run=()=>{ cv.classList.remove('at-wait'); $$('[data-atpct]', cv).forEach(el=>{ const t0=performance.now(); const f=n=>{ const p=Math.min(1,(n-t0)/1450); el.textContent=Math.round(100*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(f); }; el.textContent='0'; requestAnimationFrame(f); }); };
     const g=$('#gate'), up=()=>g && g.classList.contains('show') && !g.classList.contains('open') && g.style.display!=='none';
     cv.classList.add('at-wait'); if(up()){ const iv=setInterval(()=>{ if(!up()){ clearInterval(iv); run(); } },80); } else setTimeout(run, cv.closest('.modal, #modalRoot') ? 700 : 0); });
