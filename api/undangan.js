@@ -48,7 +48,7 @@ module.exports = async (req, res) => {
   const q = new URL(req.url, site).searchParams;
   const slug = String(q.get('slug') || '').toLowerCase();
   const code = String(q.get('to') || '').slice(0, 40);
-  const fallbackImg = `${site}/assets/og/undangan-og.jpg`;
+  const fallbackImg = `${site}/assets/og/undangan-og.jpg?v=2`;
 
   let meta = {
     title: 'Undangan Pernikahan',
