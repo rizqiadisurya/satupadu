@@ -3144,7 +3144,7 @@ function coverHTML(t, d){
       <div class="dp-tulle" aria-hidden="true"></div>
     </section>`;
   if(L==='kebun'){
-    const A='/assets/kebun/'+(t.kb?t.kb+'/':''), im=(f,c)=>`<img class="kb-l ${c}" src="${A}${f}.svg" alt="" decoding="async">`;
+    const A='/assets/kebun/'+(t.kb?t.kb+'/':''), im=(f,c)=>`<img class="kb-l ${c}" src="${A}${f}.webp" alt="" decoding="async">`;
     const cols=t.kbPet||['#EBA0BA','#F2CF63','#FFFDF8','#B7A5DD','#F6C9D6'];
     const pet=Array.from({length:12},(_,i)=>`<i style="--x:${(i*37+7)%96}%;--d:${(i*0.9)%9}s;--t:${8+(i%5)*1.5}s;--s:${.6+(i%3)*.25};--c:${cols[i%5]}"></i>`).join('');
     return `<section class="cover cv-kebun" id="${d.id}-cover" style="--kb-sh:${t.kbSh||'#8E6FC0'};--kb-amp:${t.kbAmp||'#F2CF63'}">
