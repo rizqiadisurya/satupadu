@@ -86,8 +86,12 @@ img{max-width:100%}
 .hero .lede{font-size:18.5px;color:var(--muted);max-width:52ch}
 .try{margin:28px 0 0;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:16px;max-width:520px;box-shadow:var(--shadow)}
 .try label{display:block;font-weight:700;font-size:13.5px;margin-bottom:8px}
-.try-row{display:flex;gap:10px}
+.try-row{display:flex;gap:14px;align-items:center;margin-top:12px}
 .try-row input{flex:1;min-width:0}
+.try-names{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:center}
+.try-amp{font:italic 500 24px/1 var(--display);color:var(--beet)}
+.try-note{flex:1;font-size:12.5px;color:var(--muted);line-height:1.45}
+.try-row .btn{flex:none}
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
 .proof{display:flex;gap:18px 26px;flex-wrap:wrap;margin-top:28px;font-size:14px;font-weight:600;color:var(--muted)}
 .proof span{display:inline-flex;gap:8px;align-items:center}
@@ -752,7 +756,9 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
   .tcard .cover .nm{font-size:22px}
   .phone{scale:.9;transform-origin:top center;margin-bottom:-58px}
   .float-chip{display:none}
-  .try-row{flex-direction:column}
+  .try-row{flex-direction:column-reverse;align-items:stretch}
+  .try-note{text-align:center}
+  .try-names{gap:8px}
   .search{max-width:none;min-width:100%}
   .toolbar{top:68px}
   .modal{padding:0;align-items:end}
@@ -2619,10 +2625,15 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
         <h1>Nama tamu disebut, <em>senyumnya ikut</em>.</h1>
         <p class="lede">Undangan nikah digital yang nyapa tiap tamu pakai namanya sendiri. Isi data, pilih tema, kirim lewat WhatsApp. Beres! Kamu juga bisa pantau siapa aja yang bakal datang. Bikin sampai jadi dulu, bayarnya nanti kalau udah sreg.</p>
         <div class="try">
-          <label for="tryGuest">Coba ketik nama siapa aja, sampulnya langsung nyapa dia 👋</label>
+          <label for="tryN1">Tulis nama kalian, sampulnya langsung jadi milik kalian 💍</label>
+          <div class="try-names">
+            <input class="input" id="tryN1" placeholder="Nama mempelai wanita" aria-label="Nama panggilan mempelai wanita" autocomplete="off" maxlength="24">
+            <span class="try-amp" aria-hidden="true">&amp;</span>
+            <input class="input" id="tryN2" placeholder="Nama mempelai pria" aria-label="Nama panggilan mempelai pria" autocomplete="off" maxlength="24">
+          </div>
           <div class="try-row">
-            <input class="input" id="tryGuest" value="Bapak Budi &amp; Keluarga" autocomplete="off">
-            <a class="btn btn-primary" href="#buat">Buat undangan gratis</a>
+            <small class="try-note" id="tryNote">Nama ini langsung terisi di undanganmu. Bisa diubah kapan saja.</small>
+            <a class="btn btn-primary" id="tryGo" href="#buat">Buat undangan gratis</a>
           </div>
         </div>
         <p class="hero-assure"><span>Gratis sampai undanganmu jadi</span><span>Mulai Rp129.000, sekali bayar</span><span>Nggak cocok? Uang kembali 7 hari</span></p>
@@ -3339,10 +3350,21 @@ function bindInv(root){
 /* ---------- Hero ---------- */
 const heroThemes = () => [...new Set([S.theme,'kawung','lentera','kamboja','songket','sekar','arunika'])].filter(id=>THEMES.some(t=>t.id===id)).slice(0,6);
 let heroIdx=0, heroT=null;
+// Nama pasangan di hero: yang diketik pengunjung, kalau kosong pakai nama di undangannya (atau contoh)
+const DEF_NICK = () => [DEFAULT.bride.nick, DEFAULT.groom.nick];
+const heroNames = () => { const a=$('#tryN1'), b=$('#tryN2'); return [(a&&a.value.trim())||S.bride.nick||DEF_NICK()[0], (b&&b.value.trim())||S.groom.nick||DEF_NICK()[1]]; };
+let heroHold=0;
+function heroPrefill(){ const a=$('#tryN1'), b=$('#tryN2'); if(!a||!b||a.value||b.value||document.activeElement===a||document.activeElement===b) return;
+  if(S.bride.nick && S.bride.nick!==DEFAULT.bride.nick) a.value=S.bride.nick; if(S.groom.nick && S.groom.nick!==DEFAULT.groom.nick) b.value=S.groom.nick; }
 function renderHero(){
   const s = $('#heroScreen'); const ids = heroThemes(); if(heroIdx>=ids.length) heroIdx=0;
-  const g = $('#tryGuest').value || 'Tamu undangan';
-  s.innerHTML = ids.map((id,i)=>`<div class="hs${i===heroIdx?' on':''}" data-hs="${i}" aria-hidden="${i!==heroIdx}">${invHTML({theme:id, idp:'h'+i, guest:g})}</div>`).join('') + `<button type="button" class="hs-hit" data-act="demo" data-t="${ids[heroIdx]}" aria-label="Lihat demo tema ${esc(themeById(ids[heroIdx]).name)}"></button>`;
+  heroPrefill();
+  const [n1,n2] = heroNames(), S0 = S;
+  let html;
+  try{ S = {...S0, bride:{...S0.bride, nick:n1}, groom:{...S0.groom, nick:n2}};
+    html = ids.map((id,i)=>`<div class="hs${i===heroIdx?' on':''}" data-hs="${i}" aria-hidden="${i!==heroIdx}">${invHTML({theme:id, idp:'h'+i, guest:'Bapak Budi & Keluarga'})}</div>`).join(''); }
+  finally{ S = S0; }
+  s.innerHTML = html + `<button type="button" class="hs-hit" data-act="demo" data-t="${ids[heroIdx]}" aria-label="Lihat demo tema ${esc(themeById(ids[heroIdx]).name)}"></button>`;
   heroCap(ids);
   clearInterval(heroT); if(!REDUCED()) heroT = setInterval(heroNext, 3800);
 }
@@ -3353,10 +3375,19 @@ function heroGo(i){
   const hit=$('.hs-hit', s); if(hit){ hit.dataset.t=ids[heroIdx]; hit.setAttribute('aria-label','Lihat demo tema '+themeById(ids[heroIdx]).name); }
   heroCap(ids);
 }
-function heroNext(){ const s=$('#heroScreen'); if(!s || s.closest('[hidden]') || document.hidden || s.parentElement.matches(':hover')) return; heroGo(heroIdx+1); }
+function heroNext(){ const s=$('#heroScreen'); if(!s || s.closest('[hidden]') || document.hidden || s.parentElement.matches(':hover')) return;
+  const f=document.activeElement; if(f && (f.id==='tryN1'||f.id==='tryN2')) return; if(Date.now()-heroHold<9000) return; heroGo(heroIdx+1); }
 document.addEventListener('click', e=>{ const b=e.target.closest('[data-hero]'); if(!b) return; heroGo(+b.dataset.hero); clearInterval(heroT); if(!REDUCED()) heroT=setInterval(heroNext, 3800); });
-$('#tryGuest').addEventListener('input', e=>{
-  $$('#heroScreen [data-guestname]').forEach(el=> el.textContent = e.target.value || 'Tamu undangan');
+// Ketik nama: sampul ikut berubah, putaran tema berhenti dulu supaya perubahannya kelihatan
+let heroTyping=null;
+['tryN1','tryN2'].forEach(id=>$('#'+id).addEventListener('input', ()=>{ heroHold=Date.now(); clearTimeout(heroTyping); heroTyping=setTimeout(renderHero, 220); }));
+// Bawa nama ke editor saat klik "Buat undangan gratis"
+$('#tryGo').addEventListener('click', ()=>{
+  const n1=$('#tryN1').value.trim(), n2=$('#tryN2').value.trim(); if(!n1 && !n2) return;
+  const set=(p,n,D)=>{ if(!n) return; p.nick=n; if(!p.name || p.name===D.name) p.name=n; };
+  set(S.bride,n1,DEFAULT.bride); set(S.groom,n2,DEFAULT.groom); save();
+  const ed=$('#editor'); if(ed) delete ed.dataset.built;
+  sessionStorage.setItem('sp-hero-names','1');
 });
 
 /* ---------- Theme cards ---------- */
@@ -6353,7 +6384,7 @@ function route(){
   if(h==='beranda'){ renderHero(); renderStrip(); renderPlans(); }
   if(h==='tema') renderCatalog();
   if(h==='admin') renderAdmin();
-  if(h==='buat'){ renderStep(); refreshPreview(); }
+  if(h==='buat'){ renderStep(); refreshPreview(); try{ if(sessionStorage.getItem('sp-hero-names')){ sessionStorage.removeItem('sp-hero-names'); setTimeout(()=>toast(`Nama ${S.bride.nick} & ${S.groom.nick} sudah terisi. Tinggal lengkapi sisanya, ya!`),350); } }catch(e){} }
   if(h==='edit'){ document.body.style.overflow='hidden'; renderEditor(); }
   const prevView=route.prev; route.prev=h;
   if(h!=='undangan' && !CLOUD.guestMode){ const gt=$('#gate'); if(gt && gt.classList.contains('show')){ gt.classList.remove('show','open'); gt.style.display='none'; GATE.busy=false; } }
