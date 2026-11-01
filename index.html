@@ -2433,6 +2433,26 @@ html.boot-app #bootSkel .bs-app{display:flex}
 .inv.prem .p-body p{font-size:13.5px;opacity:.78;line-height:1.5;margin:0}
 .inv.prem .p-ig{justify-self:start;margin-top:8px;font-size:13px;font-weight:700;color:var(--t-accent);text-decoration:none;border:1px solid color-mix(in srgb,var(--t-accent) 35%,transparent);border-radius:99px;padding:6px 12px}
 .inv.prem .p-amp{font-family:var(--t-font);font-style:italic;font-size:54px;line-height:.6;color:var(--t-accent);text-align:center;margin:4px 0}
+/* Pasangan berdampingan: mempelai wanita di kiri, pria di kanan (semua tema) */
+.inv.prem .p-couple{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);column-gap:clamp(4px,2cqi,14px);row-gap:0;max-width:620px;align-items:stretch}
+.inv.prem .p-couple .p-amp{align-self:start;margin:0;padding-top:calc((min(100cqi,620px) - 60px) / 2 * 1.25 / 2 - 14px);font-size:clamp(26px,8cqi,44px)}
+.inv.prem .p-couple .p-card{text-align:center;border-radius:18px;min-width:0}
+.inv.prem .p-couple .p-body{padding:14px 10px 16px;justify-items:center;gap:3px}
+.inv.prem .p-couple .p-body .kick{font-size:clamp(8.5px,2.4cqi,10.5px);letter-spacing:.14em}
+.inv.prem .p-couple .p-body h4{font-size:clamp(18px,5.6cqi,28px);overflow-wrap:anywhere;text-wrap:balance}
+.inv.prem .p-couple .p-body p{font-size:clamp(11px,3.1cqi,13.5px);text-wrap:balance}
+.inv.prem .p-couple .p-ig{justify-self:center;font-size:clamp(10.5px,2.9cqi,13px);padding:5px 10px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.inv.prem .p-couple .p-ph.ph-empty span{font-size:clamp(54px,17cqi,110px)}
+.inv.prem.lay-goresan .p-couple .p-ph,.inv.prem.lay-dongeng .p-couple .p-ph{width:70%}
+.inv.prem.lay-goresan .p-couple .p-body{padding-top:22px}
+.inv.prem.lay-dongeng .p-couple .p-body{padding-top:clamp(30px,10cqi,58px)}
+.inv.prem.lay-goresan .p-couple .p-body h4{letter-spacing:.04em}
+.inv .couple2{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);column-gap:clamp(6px,2.4cqi,16px);align-items:start;max-width:560px;margin:22px auto 0}
+.inv .couple2 .person{margin:0;max-width:none;min-width:0}
+.inv .couple2 .person .ph{width:min(120px,100%)}
+.inv .couple2 .person h4{font-size:clamp(17px,5.4cqi,26px);overflow-wrap:anywhere;text-wrap:balance}
+.inv .couple2 .person p{font-size:clamp(11px,3.1cqi,13.5px);text-wrap:balance}
+.inv .couple2 .and{align-self:start;margin-top:56px}
 .inv.prem .qband{margin:46px -20px -64px;padding:56px 28px 60px;background:var(--t-accent);color:var(--t-bg);text-align:center;position:relative}
 .inv.prem .qband .orn{color:var(--t-bg);opacity:.7;margin-bottom:14px}
 .inv.prem .qband blockquote{margin:0 auto;max-width:30ch;font-family:var(--t-font);font-size:21px;line-height:1.45;font-style:italic}
@@ -3557,9 +3577,9 @@ function invHTML0(opts={}){
       <svg class="orn" width="120" height="20" aria-hidden="true"><use href="#i-orn"/></svg>
       <h3>${esc(op.salam)}</h3>
       <p class="lead">${esc(op.text)}</p>
-      <div class="person"><div class="ph" ${S.bride.photo?`style="background:url(${S.bride.photo}) center/cover"`:''}>${S.bride.photo?'':esc(initials(S.bride.name)||'?')}</div><h4>${esc(S.bride.name||'Nama mempelai wanita')}</h4><p>${esc(S.bride.parents)}</p></div>
+      <div class="couple2"><div class="person"><div class="ph" ${S.bride.photo?`style="background:url(${S.bride.photo}) center/cover"`:''}>${S.bride.photo?'':esc(initials(S.bride.name)||'?')}</div><h4>${esc(S.bride.name||'Nama mempelai wanita')}</h4><p>${esc(S.bride.parents)}</p></div>
       <div class="and">&amp;</div>
-      <div class="person"><div class="ph" ${S.groom.photo?`style="background:url(${S.groom.photo}) center/cover"`:''}>${S.groom.photo?'':esc(initials(S.groom.name)||'?')}</div><h4>${esc(S.groom.name||'Nama mempelai pria')}</h4><p>${esc(S.groom.parents)}</p></div>
+      <div class="person"><div class="ph" ${S.groom.photo?`style="background:url(${S.groom.photo}) center/cover"`:''}>${S.groom.photo?'':esc(initials(S.groom.name)||'?')}</div><h4>${esc(S.groom.name||'Nama mempelai pria')}</h4><p>${esc(S.groom.parents)}</p></div></div>
       <p class="lead" style="margin-top:28px;font-style:italic">${esc(op.quote)}</p>
     </section>`;
   sec.acara = `<section id="${id}-acara">
