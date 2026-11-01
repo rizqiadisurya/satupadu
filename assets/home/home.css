@@ -456,3 +456,8 @@ html.edh-first body{overflow:hidden}
 .edh .e-card.e-all:hover .e-all-go,.edh .e-card.e-all:focus-visible .e-all-go{background:var(--cream);color:var(--wine)}
 .edh .e-all-n::after{content:" tema lainnya"}
 @media (max-width:760px){.edh .e-all-txt{padding:0 18px 20px}.edh .e-all-txt b{font-size:24px}.edh .e-all-go{width:44px;height:44px;right:16px;bottom:20px}}
+/* Paket Custom: harga berupa teks, tombol ke WhatsApp */
+.edh .e-row-custom .e-price b{font-size:clamp(26px,2.4vw,34px);line-height:1.1}
+.edh .e-btn.e-wa{display:inline-flex;align-items:center;gap:8px;background:#1F8F55;border-color:#1F8F55;color:#fff}
+.edh .e-btn.e-wa::before{background:#16663F}
+@media (max-width:960px){.edh .e-row-custom .e-price b{font-size:20px;max-width:9em}.edh .e-btn.e-wa{justify-content:center}}

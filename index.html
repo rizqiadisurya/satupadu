@@ -3227,8 +3227,9 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
       <article class="e-row" data-peek="0"><div class="e-n">1</div><div><h3>Coba</h3><span class="e-tag">Gratis</span></div><div><p class="e-fit">Untuk kalian yang ingin melihat hasilnya lebih dulu sebelum memutuskan.</p><ul><li>Semua tema bisa dicoba</li><li>Pratinjau lengkap di HP</li></ul></div><div class="e-price"><b>Gratis</b><small>Tanpa kartu kredit</small><br><a class="e-btn e-ghost" href="#buat" data-plan="coba">Mulai gratis</a></div></article>
       <article class="e-row" data-peek="1"><div class="e-n">2</div><div><h3>Undangan</h3><span class="e-tag">Untuk acara intim</span></div><div><p class="e-fit">Cocok untuk acara intim, saat kalian ingin mengirim undangan sendiri ke setiap tamu.</p><ul><li>Link pribadi untuk setiap tamu</li><li>Konfirmasi kehadiran dan amplop digital</li><li>Daftar tamu yang rapi</li></ul></div><div class="e-price"><b>Rp129.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#buat" data-plan="undangan">Pilih Undangan</a></div></article>
       <article class="e-row" data-peek="2"><div class="e-n">3</div><div><h3>Undangan <br>dan Tamu</h3><span class="e-tag">Paling lengkap</span></div><div><p class="e-fit">Untuk acara besar. Kami bantu dari mengirim undangan sampai menyambut tamu di meja penerima.</p><ul><li>Semua yang ada di paket Undangan</li><li>Masukkan daftar tamu dari Excel</li><li>Kirim lewat WhatsApp sekaligus</li><li>Kode QR untuk tamu di hari acara</li></ul></div><div class="e-price"><b>Rp349.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#buat" data-plan="tamu">Pilih paket ini</a></div></article>
+      <article class="e-row e-row-custom" data-peek="3"><div class="e-n">4</div><div><h3>Custom</h3><span class="e-tag">Desain sendiri</span></div><div><p class="e-fit">Punya konsep sendiri? Kami bikinin undangan yang desainnya beneran beda, khusus buat kalian.</p><ul><li>Desain dibuat dari nol sesuai konsep kalian</li><li>Ilustrasi, warna, dan huruf bebas request</li><li>Semua fitur paket Undangan dan Tamu</li><li>Diskusi langsung lewat WhatsApp</li></ul></div><div class="e-price"><b>Sesuai kebutuhan</b><small>Harga dibahas di chat</small><br><a class="e-btn e-wa" href="https://wa.me/" data-wa-custom target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.5-.3Z"/></svg>Chat di WhatsApp</a></div></article>
     </div>
-    <div class="e-peek" id="e-peek" aria-hidden="true"><img loading="lazy" decoding="async" src="/assets/home/kebun-sage.webp" alt=""><img loading="lazy" decoding="async" src="/assets/home/songket.webp" alt=""><img loading="lazy" decoding="async" src="/assets/home/kebun-lila.webp" alt=""></div>
+    <div class="e-peek" id="e-peek" aria-hidden="true"><img loading="lazy" decoding="async" src="/assets/home/kebun-sage.webp" alt=""><img loading="lazy" decoding="async" src="/assets/home/songket.webp" alt=""><img loading="lazy" decoding="async" src="/assets/home/kebun-lila.webp" alt=""><img loading="lazy" decoding="async" src="/assets/home/draperi-mawar.webp" alt=""></div>
   </section>
 
   <section class="e-detail" data-tone="dk" id="e-detail" aria-labelledby="e-dh">
@@ -4055,6 +4056,10 @@ const PLANS = [
   {id:'tamu', name:'Undangan + Tamu', price:349000, note:'sekali bayar', tag:'Paling lengkap', fit:'Buat acara besar. Dari kirim undangan sampai meja penerima tamu, semua beres.', feature:1, sum:'Semua di Undangan · Import Excel · Kirim WA sekaligus · QR check-in', cta:'Pilih Undangan + Tamu'}
 ];
 const PLAN_RANK = {coba:0, undangan:1, tamu:2};
+/* Paket Custom: tidak dibeli lewat checkout, cuma diarahkan chat WhatsApp. GANTI nomor di bawah dengan nomor WA Sakara (format 62…, tanpa + dan spasi). */
+const SAKARA_WA = '6281234567890';
+const customWaUrl = () => `https://wa.me/${SAKARA_WA}?text=${encodeURIComponent('Halo Sakara! Aku tertarik dengan paket Custom, mau bikin undangan dengan desain sendiri. Boleh ngobrol soal konsep dan harganya?')}`;
+document.querySelectorAll('[data-wa-custom]').forEach(a=>a.href=customWaUrl());
 /* [label, coba, undangan, tamu, tampil di kartu?]  nilai: 1 ada, 0 tidak, atau teks */
 const FEATS = [
   ['Tampilan undangan', [
@@ -4120,7 +4125,8 @@ function renderCompare(){
   const body = FEATS.map(([g,rows])=>`<tr class="cmp-group"><th scope="rowgroup" colspan="${ps.length+1}">${g}</th></tr>`+rows.map(r=>`<tr><th scope="row">${r[0]}</th>${ps.map(p=>`<td class="${p.feature?'feat':''}">${featCell(planFeat(p,r.key))}</td>`).join('')}</tr>`).join('')).join('');
   $('#bandingkan').innerHTML = `<div class="page-head"><a class="linkbtn" href="#harga">← Kembali ke harga</a><h1>Bandingkan semua paket</h1><p>Semua paket dibayar sekali, tanpa biaya per tamu. Mulai dari Coba dulu, lalu naik paket kapan aja tanpa ngulang dari awal.</p></div>
     <div class="cmp-wrap"><table class="cmp" style="--plan-n:${ps.length}"><thead>${head}</thead><tbody>${body}</tbody></table></div>
-    <p class="muted" style="margin-top:18px;font-size:14px">Mau naik paket nanti? Cukup bayar selisih harganya, tanpa mengulang dari awal. <a href="/syarat">Garansi uang kembali 7 hari</a> berlaku untuk semua paket berbayar.</p>`;
+    <p class="muted" style="margin-top:18px;font-size:14px">Mau naik paket nanti? Cukup bayar selisih harganya, tanpa mengulang dari awal. <a href="/syarat">Garansi uang kembali 7 hari</a> berlaku untuk semua paket berbayar.</p>
+    <div class="panel-c" style="margin-top:24px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap"><div><b>Mau desain sendiri?</b><div class="muted" style="font-size:14px">Paket Custom: undangan dengan desain khusus sesuai konsep kalian. Harganya dibahas langsung lewat chat.</div></div><a class="btn btn-primary btn-sm" href="${customWaUrl()}" data-wa-custom target="_blank" rel="noopener">Chat di WhatsApp</a></div>`;
 }
 function planCardHTML(p, cur, preview){
   return `<div class="plan${p.feature?' feature':''}${p.id===cur?' mine':''}">
@@ -6549,7 +6555,7 @@ document.addEventListener('click', e=>{
   if(pl){ e.preventDefault(); e.stopImmediatePropagation(); demoLog('act','buka-link'); location.hash='#undangan'; toast('Ini undangan contoh, jadi belum punya link beneran'); return; }
   const cp = DEMO.on && e.target.closest('[data-act=copy][data-v*="/u/"]');
   if(cp){ e.preventDefault(); e.stopImmediatePropagation(); toast('Ini cuma demo. Link asli muncul begitu undanganmu dipublikasikan'); return; }
-  const wa = e.target.closest('a[href*="wa.me"]');
+  const wa = e.target.closest('a[href*="wa.me"]:not([data-wa-custom])');
   if(wa && DEMO.on){ e.preventDefault(); e.stopImmediatePropagation(); toast('Ini cuma demo, jadi pesannya nggak dikirim beneran 😉'); demoLog('act','kirim-wa'); demoNudge('wa'); return; }
   if(isPrep() && (wa || e.target.closest('[data-act=bulk-send],[data-act=remind]'))){ e.preventDefault(); e.stopImmediatePropagation(); prepLock(); return; }
   const el=e.target.closest('[data-act]'); if(!el) return; const a=el.dataset.act;
