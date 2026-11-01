@@ -73,17 +73,16 @@ function init(){
   // pembuka: hanya saat pertama kali membuka situs di beranda
   const H=document.documentElement, loader=$('.e-loader'), first=H.classList.contains('edh-first') && loader;
   const intro=gsap.timeline({defaults:{ease:'expo.out'},paused:true});
+  let shift=0;
   if(first){
     lenis.stop();
-    const pct=$('#e-pct'), cnt={v:0};
-    intro.to('.e-loader .e-brand span',{y:0,duration:1.1,stagger:.07})
-      .to('.e-loader .e-mark',{opacity:1,rotate:90,duration:1.6},0.1)
-      .to(cnt,{v:100,duration:1.6,ease:'power2.inOut',onUpdate:()=>pct.textContent=Math.round(cnt.v)},0)
-      .to('.e-loader .e-brand span',{y:'-110%',duration:.8,stagger:.04,ease:'expo.in'},1.7)
-      .to('.e-loader',{yPercent:-100,duration:1.2,ease:'expo.inOut'},2.15)
-      .add(()=>{ H.classList.remove('edh-first'); loader.remove(); if(lenis) lenis.start(); if(pending){ const p=pending; pending=null; setTimeout(()=>go(p),300); } },3.2);
+    const el=(performance.now()-(window.__edhT0||performance.now()))/1000; shift=Math.max(0,1.7-el)-1.7;
+    intro.add(()=>{ $$('.e-loader .e-brand span, .e-loader .e-mark').forEach(x=>x.style.animation='none'); gsap.set('.e-loader .e-brand span',{y:0}); gsap.set('.e-loader .e-mark',{opacity:1,rotate:90}); $('#e-pct').textContent='100'; },1.69+shift)
+      .to('.e-loader .e-brand span',{y:'-110%',duration:.8,stagger:.04,ease:'expo.in'},1.7+shift)
+      .to('.e-loader',{yPercent:-100,duration:1.2,ease:'expo.inOut'},2.15+shift)
+      .add(()=>{ H.classList.remove('edh-first'); loader.remove(); if(lenis) lenis.start(); if(pending){ const p=pending; pending=null; setTimeout(()=>go(p),300); } },3.2+shift);
   } else { loader&&loader.remove(); H.classList.remove('edh-first'); }
-  const o=first?0:-2.7;
+  const o=first?shift:-2.7;
   intro.from('.e-hl-bawah img',{yPercent:40,duration:2.2,ease:'power3.out',force3D:true},2.95+o)
     .from('.e-hl-kiri img',{xPercent:-55,duration:2.2,ease:'power3.out',force3D:true},3.1+o)
     .from('.e-hl-kanan img',{xPercent:55,duration:2.2,ease:'power3.out',force3D:true},3.1+o)
