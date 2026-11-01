@@ -8,7 +8,7 @@
 .edh *{box-sizing:border-box;margin:0;padding:0}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
-.edh{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;overflow-x:hidden}
+.edh{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;overflow-x:clip}
 body.edh-loading{overflow:hidden}
 .edh img{display:block;max-width:100%}
 .edh .e-mosaic img[data-par]{scale:1.3}
@@ -143,7 +143,7 @@ body.edh-loading{overflow:hidden}
 .edh .e-step h3{font-family:var(--serif);font-weight:500;font-size:clamp(26px,2.4vw,34px);color:var(--ink);line-height:1.1}
 .edh .e-step p{color:var(--muted);max-width:44ch}
 .edh .e-step .e-t{margin-top:8px;font-size:13px;font-weight:700;color:var(--wine)}
-@media (max-width:860px){.edh .e-cara-grid{grid-template-columns:1fr}.edh .e-cara-sticky{position:relative;top:0;width:220px}.edh .e-step{opacity:1}}
+@media (max-width:860px){.edh .e-cara-grid{grid-template-columns:1fr}.edh .e-cara-sticky{position:sticky;top:84px;z-index:5;align-self:start;width:220px;will-change:transform}.edh .e-step{opacity:1;padding-right:min(120px,26vw)}.edh .e-step:not(.e-on){opacity:.5}}
 
 .edh .e-paket{padding:clamp(100px,12vw,180px) 0;background:var(--paper)}
 .edh .e-paket-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:60px;flex-wrap:wrap}
@@ -335,6 +335,7 @@ body{font-size:15px;line-height:1.55}
 .cara{padding:56px 0}
 .cara-grid{gap:28px}
 .cara-sticky{width:190px;border-radius:32px;padding:8px;rotate:0deg}
+.cara-grid>div:last-child{position:relative;z-index:1}
 .cara-sticky .scr{border-radius:25px}
 .cara-sticky img{top:24px;height:calc(100% - 24px)}
 .cara h2{font-size:32px;margin-bottom:16px}

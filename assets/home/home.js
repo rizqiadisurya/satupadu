@@ -116,7 +116,17 @@ function init(){
 
   steps.forEach((st,i)=>ScrollTrigger.create({trigger:st,start:'top 62%',end:'bottom 62%',onToggle:s=>{ if(s.isActive) act(i); }}));
   steps.forEach(st=>gsap.from(st.children,{y:30,opacity:0,duration:1,stagger:.06,ease:'expo.out',scrollTrigger:{trigger:st,start:'top 85%'}}));
-  gsap.from('.e-cara-sticky',{y:80,rotate:6,opacity:0,duration:1.4,ease:'expo.out',scrollTrigger:{trigger:'.e-cara',start:'top 70%'}});
+  // ponsel: di layar besar ikut sticky di samping; di layar kecil mengecil lalu pindah ke pojok kanan bawah
+  // dan tetap terlihat selagi langkah-langkahnya dibaca, layarnya berganti mengikuti langkah yang aktif
+  const ph=$('.e-cara-sticky'), mm=gsap.matchMedia();
+  mm.add('(min-width:861px)',()=>{ gsap.from(ph,{y:80,rotate:6,opacity:0,duration:1.4,ease:'expo.out',scrollTrigger:{trigger:'.e-cara',start:'top 70%'}}); });
+  mm.add('(max-width:860px)',()=>{
+    const absL=el=>{ let x=0; while(el){ x+=el.offsetLeft; el=el.offsetParent; } return x; };
+    const top=()=>parseFloat(getComputedStyle(ph).top)||84, S=.4, M=14, B=()=>innerWidth<600?92:24; // B: ruang untuk bilah browser yang melayang di bawah
+    gsap.fromTo(ph,{x:0,y:0,scale:1},{x:()=>innerWidth-M-(absL(ph)+ph.offsetWidth),y:()=>innerHeight-B()-(top()+ph.offsetHeight),scale:S,transformOrigin:'100% 100%',ease:'power1.inOut',immediateRender:false,
+      scrollTrigger:{trigger:ph,start:()=>'top '+top()+'px',end:()=>'+='+Math.round(ph.offsetHeight*.55),scrub:.6,invalidateOnRefresh:true}});
+    gsap.to(ph,{autoAlpha:0,ease:'none',scrollTrigger:{trigger:'.e-cara-grid',start:'bottom 82%',end:'bottom 70%',scrub:true}});
+  });
 
   $$('.e-row').forEach(r=>gsap.from(r,{opacity:0,y:50,duration:1.1,ease:'expo.out',scrollTrigger:{trigger:r,start:'top 88%'}}));
   const peek=$('#e-peek'), pimgs=$$('img',peek);
