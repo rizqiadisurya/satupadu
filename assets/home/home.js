@@ -132,7 +132,19 @@ function init(){
   const peek=$('#e-peek'), pimgs=$$('img',peek);
   if(FINE){
     const px=gsap.quickTo(peek,'x',{duration:.6,ease:'power3'}), py=gsap.quickTo(peek,'y',{duration:.6,ease:'power3'});
-    $$('.e-row').forEach(r=>{ r.addEventListener('mouseenter',()=>{ peek.classList.add('e-on'); pimgs.forEach((im,i)=>im.classList.toggle('e-on',i==r.dataset.peek)); });
+    gsap.set(peek,{scale:1}); // GSAP sempat membaca scale awal (.6) dari CSS ke dalam transform, membuat pratinjau selalu kecil
+    // judul hero: hover memunculkan HP berisi contoh undangan yang berganti-ganti tema
+    const hImgs=['draperi-zamrud','dongeng-pink','kebun-mawar','goresan-merah','kebun-sage'].map(k=>{ const im=document.createElement('img'); im.src='/assets/home/'+k+'.webp'; im.alt=''; im.decoding='async'; peek.appendChild(im); return im; });
+    let hT=null, hI=0, hOut=null;
+    const hShow=()=>hImgs.forEach((im,k)=>im.classList.toggle('e-on',k===hI));
+    const hStop=()=>{ clearInterval(hT); hT=null; };
+    // judul hero tidak menerima pointer (tertutup lapisan bunga), jadi posisi kursor dicek terhadap kotak tiap baris judul
+    const hSpans=$$('#e-h1 .e-line > span'); let hOn=false;
+    const hEnter=()=>{ hOn=true; clearTimeout(hOut); pimgs.forEach(im=>im.classList.remove('e-on')); peek.classList.add('e-phone','e-on'); hShow(); if(!hT) hT=setInterval(()=>{ hI=(hI+1)%hImgs.length; hShow(); },1500); };
+    const hLeave=()=>{ hOn=false; peek.classList.remove('e-on'); hStop(); hOut=setTimeout(()=>{ if(!peek.classList.contains('e-on')){ peek.classList.remove('e-phone'); hImgs.forEach(im=>im.classList.remove('e-on')); } },400); };
+    addEventListener('mousemove',e=>{ if(!active) return; const inside=hSpans.some(sp=>{ const r=sp.getBoundingClientRect(); return r.width && e.clientX>=r.left && e.clientX<=r.right && e.clientY>=r.top && e.clientY<=r.bottom; }); if(inside && !hOn) hEnter(); else if(!inside && hOn) hLeave(); },{passive:true});
+    addEventListener('scroll',()=>{ if(hOn) hLeave(); },{passive:true});
+    $$('.e-row').forEach(r=>{ r.addEventListener('mouseenter',()=>{ hStop(); clearTimeout(hOut); peek.classList.remove('e-phone'); hImgs.forEach(im=>im.classList.remove('e-on')); peek.classList.add('e-on'); pimgs.forEach((im,i)=>im.classList.toggle('e-on',i==r.dataset.peek)); });
       r.addEventListener('mouseleave',()=>peek.classList.remove('e-on')); });
     addEventListener('mousemove',e=>{ if(active){ px(e.clientX+30); py(e.clientY-160); } });
   }
