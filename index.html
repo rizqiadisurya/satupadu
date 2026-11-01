@@ -2655,6 +2655,95 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
 .demo-intro .di-list{list-style:none;margin:16px 0 4px;padding:0;display:grid;gap:8px}
 .demo-intro .di-list li{display:flex;gap:10px;align-items:center;font-size:15px}
 .demo-intro .di-list .icon{color:var(--ok);width:18px;height:18px}
+
+/* ===== Admin: label huruf biasa & tampilan HP yang ringkas ===== */
+.adm .eyebrow,.adm-tbl th,.adm-sub,.adm-badge{text-transform:none;letter-spacing:.01em}
+.adm-tbl th{font-size:12.5px;font-weight:700}
+.adm-sub{font-size:13px;font-weight:700}
+@media (max-width:1180px){
+  .adm-tbl td[data-l]::before{text-transform:none;letter-spacing:0;font-size:12px;font-weight:600;margin-bottom:2px}
+  .adm-users td[data-l]::before,.adm-fin td[data-l]::before{text-transform:none;letter-spacing:0;font-size:12px;font-weight:600}
+}
+@media (max-width:760px){
+  .adm-main{padding:18px 16px 72px;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:14.5px;line-height:1.5;letter-spacing:0}
+  .adm-main h1,.adm-main h2,.adm-main .display,.adm-tile b{font-family:var(--display)}
+  /* bilah atas */
+  .adm-side{padding:10px 16px 0;gap:0;row-gap:8px;background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+  .adm-home{padding:6px 0;font-size:14px;gap:8px}
+  .adm-home .icon{width:17px;height:17px}
+  .adm-me .btn{min-height:36px;padding:0 16px;font-size:13.5px}
+  .adm-side nav{margin:0 -16px;padding:0 16px 10px;gap:6px;scroll-padding:0 16px;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
+  .adm-side nav button{padding:8px 14px;font-size:14px;gap:8px;border-radius:99px;font-family:'Plus Jakarta Sans',system-ui,sans-serif;flex:none}
+  .adm-side nav button .icon{width:16px;height:16px}
+  .adm-side nav button[aria-current=true]{font-weight:700}
+  /* kepala halaman */
+  .adm-head{gap:12px;margin-bottom:16px;align-items:flex-start}
+  .adm-head>div{flex-basis:100%}
+  .adm-head h1{font-size:26px;line-height:1.15}
+  .adm-head .eyebrow{font-size:13px}
+  .adm-head .muted{font-size:13.5px}
+  /* kartu angka */
+  .adm-tiles{gap:10px;margin-bottom:14px}
+  .adm-tile,.adm-tile.ic{padding:14px;border-radius:16px}
+  .adm-tile.ic .adm-ic{width:34px;height:34px;border-radius:10px;margin-bottom:10px}
+  .adm-tile.ic .adm-ic .icon{width:17px;height:17px}
+  .adm-tile.ic b{font-size:min(24px,14cqi)}
+  .adm-tile.ic span{font-size:13px;margin-top:4px}
+  .adm-tile small{font-size:12px;line-height:1.4}
+  /* panel */
+  .adm-card{border-radius:16px;margin-bottom:14px}
+  .adm-grid2{gap:14px;margin-bottom:14px}
+  .adm-ph{padding:16px 16px 14px;gap:4px 12px}
+  .adm-ph h2,.adm-card h2{font-size:17px}
+  .adm-ph p{font-size:13px}
+  .adm-ph .linkbtn{font-size:13.5px}
+  .adm-pb{padding:14px 16px 16px}
+  .adm-rank{gap:0}
+  .adm-rank li{padding:10px 0;font-size:14px}
+  .adm-rank li:last-child{border-bottom:0}
+  .adm-bars{height:130px;gap:4px}
+  /* tabel jadi daftar */
+  .adm-tbl{font-size:14px}
+  .adm-tbl tr,.adm-card[style*="padding:0"] .adm-tbl tr{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;padding:14px 16px}
+  .adm-card:not(.pn):not([style*="padding:0"]) .adm-tbl tr{padding-left:0;padding-right:0}
+  .adm-tbl td:first-child{font-weight:600}
+  .adm-tbl td:first-child small{font-weight:400}
+  .adm-card[style*="padding:0"]>h2{padding:16px 16px 0!important;margin-bottom:4px}
+  .adm-tbl td small{font-size:12px}
+  /* transaksi: item & total di atas, email & status di tengah, waktu & metode di bawah */
+  .adm-inv tr{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"item item tot" "usr usr st" "tm mt mt";gap:3px 12px;align-items:center}
+  .adm-inv td::before{display:none!important}
+  .adm-inv td:nth-child(1){grid-area:tm;font-weight:400;font-size:12px;color:var(--muted)}
+  .adm-inv td:nth-child(2){grid-area:usr;font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;overflow-wrap:normal}
+  .adm-inv td:nth-child(3){grid-area:item;font-weight:700;font-size:14.5px;line-height:1.35}
+  .adm-inv td:nth-child(4){grid-area:mt;font-size:12px;color:var(--muted);text-transform:uppercase;margin-left:-8px}
+  .adm-inv td:nth-child(4)::after{content:none}
+  .adm-inv td:nth-child(4)::before{content:"· "!important;display:inline!important;text-transform:none}
+  .adm-inv td:nth-child(5){grid-area:tot;font-weight:700;font-size:15px;text-align:right;white-space:nowrap}
+  .adm-inv td:nth-child(6){grid-area:st;text-align:right}
+  .adm-inv .chip{font-size:11px;padding:2px 8px;margin-left:4px;vertical-align:1px}
+  /* angka ringkas dalam satu baris */
+  .adm-nums tr{grid-template-columns:repeat(var(--n,3),minmax(0,1fr));gap:6px 10px}
+  .adm-nums td.num{font-size:17px;font-weight:700;font-family:var(--display);line-height:1.2}
+  .adm-nums td[data-l]::before{font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+  /* pengguna */
+  .adm-users tr{gap:12px 16px}
+  .adm-users td b{font-size:15px}
+  .adm-users td small{font-size:12.5px;line-height:1.45}
+  .adm-users td:nth-child(2){padding-top:10px;border-top:1px dashed var(--line)}
+  .adm-users .adm-sel{min-width:0;min-height:40px}
+  .adm-users td[data-l="Akses"] .btn{min-height:36px;padding:0 16px;font-size:13.5px}
+  .adm-search .input{min-height:44px;font-size:14.5px}
+  /* keuangan */
+  .fin-l{font-size:14px;padding:10px 0}
+  .fin-l.total{font-size:17px}
+  .adm-fin tr{gap:10px 16px}
+  /* tema */
+  .adm-themes li{padding:12px 16px;gap:10px 12px}
+  .adm-themes .nm b{font-size:15px}
+  .adm-themes .nm small{font-size:12.5px;line-height:1.4}
+  .adm-themes .mv .btn,.adm-themes li>.btn{min-height:36px;font-size:13.5px}
+}
 </style>
 </head>
 <body>
@@ -6117,6 +6206,7 @@ async function renderAdmin(){
       <div class="adm-me"><b>${esc(ADM.me.username)}</b><button type="button" class="btn btn-ghost btn-sm" data-adm="logout">Keluar</button></div></aside>
     <main class="adm-main" id="admMain">${ADM_SK_MAIN}</main></div>`;
   admRenderTab();
+  requestAnimationFrame(()=>{ const b=$('.adm-side nav [aria-current=true]'); if(b && b.scrollIntoView) b.scrollIntoView({block:'nearest',inline:'nearest'}); });
 }
 function admLabelTables(root){ $$('.adm-tbl', root||document).forEach(t=>{ const hs=$$('thead th', t).map(h=>h.textContent.trim()); $$('tbody tr', t).forEach(tr=>{ let i=0; [...tr.children].forEach(td=>{ if(!td.hasAttribute('data-l') && hs[i] && i>0) td.setAttribute('data-l', hs[i]); i += +(td.getAttribute('colspan')||1); }); }); }); }
 if(!window._admMO){ window._admMO = new MutationObserver(()=>{ const m=$('#admMain'); if(m) admLabelTables(m); }); addEventListener('DOMContentLoaded',()=>{}); setTimeout(()=>{ const a=$('#admin'); if(a) window._admMO.observe(a,{childList:true,subtree:true}); },0); }
@@ -6180,13 +6270,13 @@ function admStatsHTML(s){
       `<button type="button" class="linkbtn" data-adm-tab="tema">Atur tema</button>`)}
   </div>
   ${panel('Transaksi terbaru','Enam pembayaran terakhir dari semua pengguna.',
-    inv.length?`<div class="tbl-wrap" style="display:block"><table class="adm-tbl"><thead><tr><th>Waktu</th><th>Pengguna</th><th>Item</th><th>Metode</th><th class="num">Total</th><th>Status</th></tr></thead><tbody>
+    inv.length?`<div class="tbl-wrap" style="display:block"><table class="adm-tbl adm-inv"><thead><tr><th>Waktu</th><th>Pengguna</th><th>Item</th><th>Metode</th><th class="num">Total</th><th>Status</th></tr></thead><tbody>
       ${inv.map(i=>`<tr><td>${admTime(i.created_at)}</td><td>${esc(i.email||'—')}</td><td>${esc(i.item)}${i.voucher?` <span class="chip">${esc(i.voucher)}</span>`:''}</td><td>${esc(i.method||'—')}</td><td class="num">${rupiah(i.total)}</td><td><span class="adm-st st-${i.status}">${ST[i.status]||i.status}</span></td></tr>`).join('')}
     </tbody></table></div>` : empty('inbox','Belum ada transaksi.','Pembayaran pertama akan langsung muncul di sini.'),
     `<button type="button" class="linkbtn" data-adm-tab="keuangan">Lihat semua</button>`, inv.length)}
   <div class="adm-grid2">
     ${panel('Mode demo','Pengunjung yang mencoba demo dalam 14 hari terakhir.',
-      (s.demo||[]).length?`<div class="tbl-wrap" style="display:block"><table class="adm-tbl"><thead><tr><th>Hari</th><th class="num">Pengunjung</th><th class="num">Coba fitur</th><th class="num">Klik mulai</th><th class="num">Login</th></tr></thead><tbody>${s.demo.map(d=>`<tr><td>${admDate(d.hari)}</td><td class="num">${d.pengunjung_demo}</td><td class="num">${d.mencoba_fitur}</td><td class="num">${d.klik_mulai}</td><td class="num">${d.jadi_login}</td></tr>`).join('')}</tbody></table></div>`
+      (s.demo||[]).length?`<div class="tbl-wrap" style="display:block"><table class="adm-tbl adm-nums" style="--n:4"><thead><tr><th>Hari</th><th class="num">Pengunjung</th><th class="num">Coba fitur</th><th class="num">Klik mulai</th><th class="num">Login</th></tr></thead><tbody>${s.demo.map(d=>`<tr><td>${admDate(d.hari)}</td><td class="num">${d.pengunjung_demo}</td><td class="num">${d.mencoba_fitur}</td><td class="num">${d.klik_mulai}</td><td class="num">${d.jadi_login}</td></tr>`).join('')}</tbody></table></div>`
         : empty('eye','Belum ada kunjungan demo.','Data muncul saat ada yang membuka mode demo.'), '', (s.demo||[]).length)}
     ${panel('Fitur demo terpopuler','Fitur yang paling sering dicoba di mode demo.',
       (s.demoFeatures||[]).length?`<ol class="adm-rank">${s.demoFeatures.map(f=>`<li><span>${esc(f.event)} · ${esc(f.detail||'—')}</span><b class="num">${f.orang} org</b></li>`).join('')}</ol>`
@@ -6297,7 +6387,7 @@ document.addEventListener('click', async e=>{
   const t = e.target; if(!t.closest || !t.closest('#admin')) return;
   const tab = t.closest('[data-adm-tab]'); if(tab && ADM.tab==='paket' && ADM.pkDirty && tab.dataset.admTab!=='paket' && !confirm('Perubahan paket belum disimpan. Tetap pindah halaman?')) return;
   if(tab && ADM.tab==='paket' && tab.dataset.admTab!=='paket'){ ADM.pk=null; ADM.pkDirty=false; }
-  if(tab){ ADM.tab=tab.dataset.admTab; ADM.edit=null; $$('.adm-side [data-adm-tab]').forEach(b=>b.setAttribute('aria-current', b.dataset.admTab===ADM.tab)); window.scrollTo(0,0); admRenderTab(); return; }
+  if(tab){ ADM.tab=tab.dataset.admTab; ADM.edit=null; $$('.adm-side [data-adm-tab]').forEach(b=>b.setAttribute('aria-current', b.dataset.admTab===ADM.tab)); window.scrollTo(0,0); { const cur=$('.adm-side nav [aria-current=true]'); const nv=cur&&cur.parentElement; if(nv && nv.scrollWidth>nv.clientWidth) nv.scrollTo({left:Math.max(0,cur.offsetLeft-nv.clientWidth/2+cur.offsetWidth/2),behavior:'smooth'}); } admRenderTab(); return; }
   const a = t.closest('[data-adm]')?.dataset.adm;
   try{
     if(a==='logout'){ admLogout(); return; }
@@ -6473,7 +6563,7 @@ function admFinHTML(){
       ${line('Biaya operasional (hosting, domain, dll.)', -ops, 'minus', opsMonthly?`setara ${rupiah(opsMonthly)}/bulan × ${months.toLocaleString('id-ID',{maximumFractionDigits:1})} bulan`:'belum diisi, tambahkan di bagian bawah halaman ini')}
       ${line('Laba bersih', P, 'total')}
     </section>
-    <section class="adm-card"><h2>Per metode pembayaran</h2>${Object.keys(byM).length?`<table class="adm-tbl"><thead><tr><th>Metode</th><th class="num">Transaksi</th><th class="num">Kotor</th><th class="num">Biaya</th></tr></thead><tbody>${Object.entries(byM).map(([k,v])=>`<tr><td>${esc((FIN_METHODS.find(m=>m[0]===k)||[k,k])[1])}</td><td class="num">${v.n}</td><td class="num">${rupiah(v.g)}</td><td class="num">${rupiah(v.f)}</td></tr>`).join('')}</tbody></table>`:'<p class="muted">Belum ada transaksi di periode ini.</p>'}</section>
+    <section class="adm-card"><h2>Per metode pembayaran</h2>${Object.keys(byM).length?`<table class="adm-tbl adm-nums" style="--n:3"><thead><tr><th>Metode</th><th class="num">Transaksi</th><th class="num">Kotor</th><th class="num">Biaya</th></tr></thead><tbody>${Object.entries(byM).map(([k,v])=>`<tr><td>${esc((FIN_METHODS.find(m=>m[0]===k)||[k,k])[1])}</td><td class="num">${v.n}</td><td class="num">${rupiah(v.g)}</td><td class="num">${rupiah(v.f)}</td></tr>`).join('')}</tbody></table>`:'<p class="muted">Belum ada transaksi di periode ini.</p>'}</section>
   </div>
   <section class="adm-card" style="padding:0"><h2 style="padding:20px 22px 0">Per pengguna yang sudah bayar</h2><div class="tbl-wrap" style="display:block"><table class="adm-tbl adm-fin"><thead><tr><th>Pengguna</th><th>Tanggal</th><th>Item</th><th>Metode</th><th class="num">Harga</th><th class="num">Diskon</th><th class="num">Kotor</th><th class="num">Biaya PG</th><th class="num">Pajak</th><th class="num">Bersih</th></tr></thead><tbody>
     ${rows.map(r=>`<tr><td><b>${esc(r.couple||r.name||r.email.split('@')[0]||'—')}</b><small>${esc(r.email)}</small></td><td data-l="Tanggal">${admDate(r.paid_at||r.created_at)}</td><td data-l="Item">${esc(r.item)}${r.voucher?`<small>${esc(r.voucher)}</small>`:''}</td><td data-l="Metode">${esc((FIN_METHODS.find(m=>m[0]===r.mkey)||['',r.method||'—'])[1])}</td><td class="num" data-l="Harga">${rupiah(r.list)}</td><td class="num" data-l="Diskon">${r.disc?'−'+rupiah(r.disc):'—'}</td><td class="num" data-l="Kotor">${rupiah(r.gross)}</td><td class="num" data-l="Biaya PG">−${rupiah(r.fee)}</td><td class="num" data-l="Pajak">−${rupiah(r.tax)}</td><td class="num" data-l="Bersih"><b>${rupiah(r.net)}</b></td></tr>`).join('') || '<tr><td colspan="10" class="muted" style="padding:22px">Belum ada transaksi lunas di periode ini.</td></tr>'}
