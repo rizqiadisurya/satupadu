@@ -134,9 +134,13 @@ function init(){
     const px=gsap.quickTo(peek,'x',{duration:.6,ease:'power3'}), py=gsap.quickTo(peek,'y',{duration:.6,ease:'power3'});
     gsap.set(peek,{scale:1}); // GSAP sempat membaca scale awal (.6) dari CSS ke dalam transform, membuat pratinjau selalu kecil
     // judul hero: hover memunculkan HP berisi contoh undangan yang berganti-ganti tema
-    const hImgs=['draperi-zamrud','dongeng-pink','kebun-mawar','goresan-merah','kawung','draperi-mawar','kebun-sage','kamboja','songket','kebun-lila','atelier','kebun-biru','kebun-senja'].map(k=>{ const im=document.createElement('img'); im.src='/assets/home/'+k+'.webp'; im.alt=''; im.decoding='async'; peek.appendChild(im); return im; });
+    // HP di judul hero memakai tema yang sedang tampil di katalog (yang disembunyikan admin tidak ikut)
+    let hImgs=[], hSig='';
+    const hBuild=()=>{ const srcs=[...new Set($$('#e-track .e-card .e-ph img').map(im=>im.getAttribute('src')).filter(Boolean))]; const sig=srcs.join('|'); if(!srcs.length || sig===hSig) return; hSig=sig;
+      hImgs.forEach(im=>im.remove()); hImgs=srcs.map(src=>{ const im=document.createElement('img'); im.src=src; im.alt=''; im.decoding='async'; peek.appendChild(im); return im; }); };
     let hT=null, hI=0, hOut=null;
-    const hShow=()=>hImgs.forEach((im,k)=>im.classList.toggle('e-on',k===hI));
+    addEventListener('load',()=>setTimeout(hBuild,600));
+    const hShow=()=>{ hI=hImgs.length?hI%hImgs.length:0; hImgs.forEach((im,k)=>im.classList.toggle('e-on',k===hI)); };
     const hStop=()=>{ clearInterval(hT); hT=null; };
     // judul hero tidak menerima pointer (tertutup lapisan bunga), jadi posisi kursor dicek terhadap kotak tiap baris judul
     const hSpans=$$('#e-h1 .e-line > span'); let hOn=false;
@@ -144,14 +148,14 @@ function init(){
     hSpans.forEach(sp=>{ const w=document.createTreeWalker(sp,NodeFilter.SHOW_TEXT); const ts=[]; while(w.nextNode()) ts.push(w.currentNode);
       ts.forEach(t=>{ const f=document.createDocumentFragment(); [...t.textContent].forEach(c=>{ if(/\s/.test(c)) f.appendChild(document.createTextNode(c)); else { const x=document.createElement('span'); x.className='e-ch'; x.textContent=c; f.appendChild(x); } }); t.replaceWith(f); }); });
     const hChars=$$('#e-h1 .e-ch'); let hLast=-1;
-    const hEnter=()=>{ hOn=true; clearTimeout(hOut); pimgs.forEach(im=>im.classList.remove('e-on')); peek.classList.add('e-phone','e-on'); hShow(); };
+    const hEnter=()=>{ hBuild(); hOn=true; clearTimeout(hOut); pimgs.forEach(im=>im.classList.remove('e-on')); peek.classList.add('e-phone','e-on'); hShow(); };
     const hLeave=()=>{ hOn=false; hLast=-1; peek.classList.remove('e-on'); hOut=setTimeout(()=>{ if(!peek.classList.contains('e-on')){ peek.classList.remove('e-phone'); hImgs.forEach(im=>im.classList.remove('e-on')); } },400); };
     addEventListener('mousemove',e=>{ if(!active) return; const x=e.clientX, y=e.clientY;
       const inside=hSpans.some(sp=>{ const r=sp.getBoundingClientRect(); return r.width && x>=r.left && x<=r.right && y>=r.top && y<=r.bottom; });
       if(!inside){ if(hOn) hLeave(); return; }
       // huruf di bawah kursor: yang sebaris dan paling dekat secara horizontal
       let best=-1, bd=1e9; hChars.forEach((c,i)=>{ const r=c.getBoundingClientRect(); if(y<r.top||y>r.bottom) return; const d=x<r.left?r.left-x:x>r.right?x-r.right:0; if(d<bd){ bd=d; best=i; } });
-      if(best>=0 && best!==hLast){ hLast=best; hI=best%hImgs.length; if(hOn) hShow(); }
+      if(best>=0 && best!==hLast){ hLast=best; hI=best%Math.max(1,hImgs.length); if(hOn) hShow(); }
       if(!hOn) hEnter(); },{passive:true});
     addEventListener('scroll',()=>{ if(hOn) hLeave(); },{passive:true});
     $$('.e-row').forEach(r=>{ r.addEventListener('mouseenter',()=>{ hStop(); clearTimeout(hOut); peek.classList.remove('e-phone'); hImgs.forEach(im=>im.classList.remove('e-on')); peek.classList.add('e-on'); pimgs.forEach((im,i)=>im.classList.toggle('e-on',i==r.dataset.peek)); });
