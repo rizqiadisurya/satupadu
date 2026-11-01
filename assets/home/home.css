@@ -390,6 +390,7 @@ footer{padding:72px 0 24px}
 @keyframes edhMark{from{opacity:0;transform:rotate(0)}to{opacity:1;transform:rotate(90deg)}}
 html.edh-first,html.edh-first body{background:#A4535E}
 
+.edh .e-hl picture{display:block}
 .edh .e-loader{display:none}
 html.edh-first .edh .e-loader{display:grid}
 html.edh-first body{overflow:hidden}
