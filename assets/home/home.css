@@ -315,7 +315,7 @@ body.edh-loading{overflow:hidden}
 .edh .e-totop:hover svg{transform:translateY(-3px)}
 .edh .e-totop:active{transform:scale(.95)}
 .edh .e-totop:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-@media (max-width:760px){.edh .e-totop{right:16px;bottom:calc(96px + env(safe-area-inset-bottom));height:48px;padding:0 18px 0 15px;font-size:13.5px}}
+@media (max-width:760px){.edh .e-totop{right:16px;bottom:calc(14px + env(safe-area-inset-bottom));height:48px;padding:0 18px 0 15px;font-size:13.5px}}
 @media (prefers-reduced-motion:reduce){.edh .e-totop,.edh .e-totop.e-on{transition:opacity .2s,visibility 0s}}
 
 @media (max-width:760px){
