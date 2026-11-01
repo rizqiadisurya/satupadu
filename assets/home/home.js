@@ -48,7 +48,7 @@ function tone(){ if(!active) return; tItems.forEach(el=>{ const r=el.getBounding
   const t=hit&&hit.closest('[data-tone]'); el.classList.toggle('e-dk',!!t&&t.dataset.tone==='dk'); }); }
 addEventListener('scroll',tone,{passive:true}); addEventListener('resize',tone);
 
-function staticMode(){ $('.e-loader')&&$('.e-loader').remove(); document.body.classList.remove('edh-loading'); $$('.e-statement .e-w').forEach(w=>w.classList.add('e-on')); }
+function staticMode(){ document.documentElement.classList.remove('edh-first'); $('.e-loader')&&$('.e-loader').remove(); document.body.classList.remove('edh-loading'); $$('.e-statement .e-w').forEach(w=>w.classList.add('e-on')); }
 
 function makeLenis(){
   lenis=new Lenis({lerp:.085,smoothWheel:true,prevent:n=>!!(n.closest&&n.closest('#modalRoot,.e-acct-menu,.e-drawer'))});
@@ -63,10 +63,20 @@ function init(){
   gsap.ticker.add(tick); gsap.ticker.lagSmoothing(0);
   makeLenis();
 
-  // animasi masuk hero: tunggu layar pembuka situs (#intro) selesai
-  const loader=$('.e-loader'); loader&&loader.remove();
+  // pembuka: hanya saat pertama kali membuka situs di beranda
+  const H=document.documentElement, loader=$('.e-loader'), first=H.classList.contains('edh-first') && loader;
   const intro=gsap.timeline({defaults:{ease:'expo.out'},paused:true});
-  const o=-2.7;
+  if(first){
+    lenis.stop();
+    const pct=$('#e-pct'), cnt={v:0};
+    intro.to('.e-loader .e-brand span',{y:0,duration:1.1,stagger:.07})
+      .to('.e-loader .e-mark',{opacity:1,rotate:90,duration:1.6},0.1)
+      .to(cnt,{v:100,duration:1.6,ease:'power2.inOut',onUpdate:()=>pct.textContent=Math.round(cnt.v)},0)
+      .to('.e-loader .e-brand span',{y:'-110%',duration:.8,stagger:.04,ease:'expo.in'},1.7)
+      .to('.e-loader',{yPercent:-100,duration:1.2,ease:'expo.inOut'},2.15)
+      .add(()=>{ H.classList.remove('edh-first'); loader.remove(); if(lenis) lenis.start(); },3.2);
+  } else { loader&&loader.remove(); H.classList.remove('edh-first'); }
+  const o=first?0:-2.7;
   intro.from('.e-hl-bawah img',{yPercent:40,duration:2.2,ease:'power3.out',force3D:true},2.95+o)
     .from('.e-hl-kiri img',{xPercent:-55,duration:2.2,ease:'power3.out',force3D:true},3.1+o)
     .from('.e-hl-kanan img',{xPercent:55,duration:2.2,ease:'power3.out',force3D:true},3.1+o)
@@ -76,7 +86,7 @@ function init(){
     .from('.e-hero-copy .e-split-fade',{opacity:0,y:20,duration:1.1,stagger:.25},3.5+o)
     .fromTo('.e-nav',{opacity:0},{opacity:1,duration:1},3.6+o)
     .from('.e-hero-foot',{opacity:0,duration:1},4.0+o);
-  const H=document.documentElement, t0=Date.now();
+  const t0=Date.now();
   (function wait(){ if(H.classList.contains('e-intro') && Date.now()-t0<4500) return setTimeout(wait,60); intro.play(); })();
 
   const hs={trigger:'.e-hero',start:'top top',end:'bottom top',scrub:.6};
@@ -138,7 +148,7 @@ function enter(){
   firstEnter=false; clearInterval(toneT); toneT=setInterval(tone,400); requestAnimationFrame(tone); showPromo();
 }
 function leave(){
-  if(!active) return; active=false; root.classList.remove('e-is-on'); clearInterval(toneT); closeMenu(); closeAcct(); promo.classList.remove('e-on');
+  if(!active) return; active=false; root.classList.remove('e-is-on'); document.documentElement.classList.remove('edh-first'); const ld=$('.e-loader'); ld&&ld.remove(); clearInterval(toneT); closeMenu(); closeAcct(); promo.classList.remove('e-on');
   document.body.classList.remove('edh-loading');
   if(lenis){ lenis.destroy(); lenis=null; }
   if(HAS&&inited) ScrollTrigger.getAll().forEach(t=>t.disable(true));

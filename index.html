@@ -1727,21 +1727,12 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 .sk-img{position:relative;overflow:hidden}
 .sk-img:not(.sk-done){background-image:none !important;background-color:color-mix(in srgb,var(--t-fg,#222) 9%,var(--t-bg,#fff)) !important}
 /* ===== Intro saat masuk website ===== */
-#intro{display:none;position:fixed;inset:0;z-index:10001;background:#FBF7F2;align-items:center;justify-content:center;animation:introOut .55s ease-in 3.05s forwards}
-html.intro #intro{display:flex}
-#intro .in-wrap{display:grid;justify-items:center;gap:18px;perspective:700px}
-#intro .in-mark{width:104px;height:104px;overflow:visible;animation:introFlip 1.5s cubic-bezier(.65,0,.35,1) 1.35s both;transform-style:preserve-3d}
-#intro .ip{animation:introJoin 1.25s cubic-bezier(.22,.9,.25,1) var(--d) both}
-#intro .is{opacity:0;animation:introFade .45s ease 1.15s forwards}
-#intro .in-word{font:400 15px/1 'Marcellus',Georgia,serif;letter-spacing:.5em;margin-right:-.5em;text-transform:uppercase;color:#24161B;opacity:0;animation:introUp .7s cubic-bezier(.2,.8,.2,1) 1.5s forwards}
-#intro .in-sub{font:400 11px/1 'Lora',Georgia,serif;letter-spacing:.22em;margin-right:-.22em;text-transform:uppercase;color:#8A7579;opacity:0;animation:introFade .5s ease .4s forwards, introFadeOut .4s ease 1.4s forwards}
 @keyframes introJoin{0%{transform:translateY(-34px);opacity:0}35%{opacity:1}100%{transform:translateY(0);opacity:1}}
 @keyframes introFlip{0%{transform:rotateY(0)}100%{transform:rotateY(180deg)}}
 @keyframes introFade{to{opacity:1}}
 @keyframes introFadeOut{to{opacity:0}}
 @keyframes introUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes introOut{to{opacity:0;visibility:hidden}}
-@media (prefers-reduced-motion: reduce){ #intro{animation-delay:1.1s} #intro .ip,#intro .in-mark{animation:none} #intro .is,#intro .in-word{animation-delay:.1s} }
 /* ===== Gerbang pembuka undangan ===== */
 #gate{display:none;position:fixed;inset:0;z-index:10000;perspective:1800px;overflow:hidden;--gd:#2B1A21;--gm:#FBF6F0;--gl:#D8B878;background:radial-gradient(60% 50% at 50% 50%, #FFF8EC 0%, var(--gm) 60%);transition:opacity .45s ease 1.25s}
 html.boot-guest #gate,#gate.show{display:block}
@@ -1788,6 +1779,22 @@ html.boot-done #gate:not(.show):not(.open){opacity:0;pointer-events:none}
 #gate.drape.open .gd.r{transform:translateX(58%) scaleX(.42);filter:brightness(.8)}
 #gate.drape .gmed{box-shadow:0 0 0 7px rgba(255,255,255,.12),0 0 0 8px rgba(217,195,143,.6),0 24px 60px rgba(0,0,0,.45)}
 @media (prefers-reduced-motion: reduce){ #gate .gd{transition:opacity .5s ease} #gate.open .gd.l,#gate.open .gd.r{transform:none;opacity:0} #gate .gmed .pt{animation-duration:.01s} }
+@property --in-n{syntax:'<integer>';inherits:false;initial-value:0}
+#intro{display:none;position:fixed;inset:0;z-index:10001;background:#A4535E;color:#FBF7F2;place-items:center;animation:inOut 1.05s cubic-bezier(.77,0,.18,1) 2.3s forwards}
+html.intro #intro{display:grid}
+#intro .in-mark{position:absolute;top:calc(50% - clamp(110px,14vw,170px));width:clamp(44px,6vw,64px);height:auto;opacity:0;animation:inMark 1.6s cubic-bezier(.2,.8,.2,1) .1s forwards}
+#intro .in-word{display:flex;overflow:hidden;font:400 clamp(34px,7vw,84px)/1.1 'Marcellus',Georgia,serif;letter-spacing:.32em;padding-left:.32em}
+#intro .in-word span{display:inline-block;transform:translateY(110%);animation:inUp 1.1s cubic-bezier(.2,.8,.2,1) calc(var(--i)*70ms) forwards,inUpOut .8s cubic-bezier(.7,0,.84,0) calc(1.7s + var(--i)*40ms) forwards}
+#intro .in-cap{position:absolute;bottom:40px;left:32px;font:500 13px/1 'Manrope',system-ui,sans-serif;letter-spacing:.04em;opacity:.75}
+#intro .in-pct{position:absolute;bottom:28px;right:32px;font:300 clamp(48px,8vw,96px)/1 'Cormorant Garamond',Georgia,serif;opacity:.85;font-variant-numeric:tabular-nums}
+#intro .in-n::after{content:counter(n);counter-reset:n var(--in-n);animation:inCount 1.6s cubic-bezier(.65,0,.35,1) forwards}
+@supports not (syntax:'<integer>'){#intro .in-n::after{content:'100'}}
+@keyframes inCount{to{--in-n:100}}
+@keyframes inMark{to{opacity:1;transform:rotate(90deg)}}
+@keyframes inUp{to{transform:none}}
+@keyframes inUpOut{from{transform:none}to{transform:translateY(-110%)}}
+@keyframes inOut{to{transform:translateY(-100%)}}
+@media (prefers-reduced-motion: reduce){#intro{animation:inOut .01s 1.2s forwards}#intro *{animation-duration:.01s!important;animation-delay:0s!important}}
 #bootSkel{display:none;position:fixed;inset:0;z-index:9999;background:#FBF7F5;justify-content:center;transition:opacity .45s ease}
 html.boot-app #bootSkel{display:flex}
 #admBoot{display:none}
@@ -2641,8 +2648,8 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
 </style>
 </head>
 <body>
-<script>(function(){try{var h=document.documentElement,p=location.pathname;if(/^\/u\/[a-z0-9-]+/.test(p)){h.classList.add('boot-guest');}else if(/^\/admin\/?$/.test(p)){h.classList.add('boot-admin');}else if(/^#(dashboard|tagihan|checkout)/.test(location.hash)&&Object.keys(localStorage).some(function(k){return /^sb-.*-auth-token$/.test(k)})){h.classList.add('boot-app');}setTimeout(function(){h.classList.add('boot-done')},9000);if(!/^\/(u\/[a-z0-9-]+|admin)/.test(p)){try{if(!sessionStorage.getItem('sp-intro')){sessionStorage.setItem('sp-intro','1');h.classList.add('intro');setTimeout(function(){h.classList.remove('intro');var x=document.getElementById('intro');if(x)x.remove();},3700);}}catch(e){}}}catch(e){}})();</script>
-<div id="intro" aria-hidden="true"><div class="in-wrap"><svg class="in-mark" viewBox="0 0 100 100"><g transform="rotate(0 50 50)"><g class="ip" style="--d:0.00s"><path d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#B5656F" stroke-width="3" stroke-linejoin="round"/></g></g><g transform="rotate(45 50 50)"><g class="ip" style="--d:0.06s"><path d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#B5656F" stroke-width="3" stroke-linejoin="round"/></g></g><g transform="rotate(90 50 50)"><g class="ip" style="--d:0.12s"><path d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#B5656F" stroke-width="3" stroke-linejoin="round"/></g></g><g transform="rotate(135 50 50)"><g class="ip" style="--d:0.18s"><path d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#B5656F" stroke-width="3" stroke-linejoin="round"/></g></g><g transform="rotate(180 50 50)"><g class="ip" style="--d:0.24s"><path d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#B5656F" stroke-width="3" stroke-linejoin="round"/></g></g><g transform="rotate(225 50 50)"><g class="ip" style="--d:0.30s"><path d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#B5656F" stroke-width="3" stroke-linejoin="round"/></g></g><g transform="rotate(270 50 50)"><g class="ip" style="--d:0.36s"><path d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#B5656F" stroke-width="3" stroke-linejoin="round"/></g></g><g transform="rotate(315 50 50)"><g class="ip" style="--d:0.42s"><path d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#B5656F" stroke-width="3" stroke-linejoin="round"/></g></g><g transform="rotate(22.5 50 50)"><circle class="is" cx="50" cy="20" r="2.4" fill="#D9A441"/></g><g transform="rotate(67.5 50 50)"><circle class="is" cx="50" cy="20" r="2.4" fill="#D9A441"/></g><g transform="rotate(112.5 50 50)"><circle class="is" cx="50" cy="20" r="2.4" fill="#D9A441"/></g><g transform="rotate(157.5 50 50)"><circle class="is" cx="50" cy="20" r="2.4" fill="#D9A441"/></g><g transform="rotate(202.5 50 50)"><circle class="is" cx="50" cy="20" r="2.4" fill="#D9A441"/></g><g transform="rotate(247.5 50 50)"><circle class="is" cx="50" cy="20" r="2.4" fill="#D9A441"/></g><g transform="rotate(292.5 50 50)"><circle class="is" cx="50" cy="20" r="2.4" fill="#D9A441"/></g><g transform="rotate(337.5 50 50)"><circle class="is" cx="50" cy="20" r="2.4" fill="#D9A441"/></g><circle class="is c" cx="50" cy="50" r="5.5" fill="none" stroke="#B5656F" stroke-width="3"/><circle class="is c" cx="50" cy="50" r="2.4" fill="#D9A441"/></svg><b class="in-word">Sakara</b><span class="in-sub">Menyiapkan</span></div></div>
+<script>(function(){try{var h=document.documentElement,p=location.pathname;if(/^\/u\/[a-z0-9-]+/.test(p)){h.classList.add('boot-guest');}else if(/^\/admin\/?$/.test(p)){h.classList.add('boot-admin');}else if(/^#(dashboard|tagihan|checkout)/.test(location.hash)&&Object.keys(localStorage).some(function(k){return /^sb-.*-auth-token$/.test(k)})){h.classList.add('boot-app');}setTimeout(function(){h.classList.add('boot-done')},9000);if(!/^\/(u\/[a-z0-9-]+|admin)/.test(p)){try{if(!sessionStorage.getItem('sp-intro')){sessionStorage.setItem('sp-intro','1');if(/^\/?$/.test(p)&&/^(#|#beranda|#harga)?$/.test(location.hash)){h.classList.add('edh-first');var x0=document.getElementById('intro');if(x0)x0.remove();setTimeout(function(){h.classList.remove('edh-first')},9000);}else{h.classList.add('intro');setTimeout(function(){h.classList.remove('intro');var x=document.getElementById('intro');if(x)x.remove();},3400);}}}catch(e){}}}catch(e){}})();</script>
+<div id="intro" aria-hidden="true"><svg class="in-mark" viewBox="0 0 100 100"><path transform="rotate(0 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#F3D18A" stroke-width="2.4" stroke-linejoin="round"/><path transform="rotate(45 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#F3D18A" stroke-width="2.4" stroke-linejoin="round"/><path transform="rotate(90 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#F3D18A" stroke-width="2.4" stroke-linejoin="round"/><path transform="rotate(135 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#F3D18A" stroke-width="2.4" stroke-linejoin="round"/><path transform="rotate(180 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#F3D18A" stroke-width="2.4" stroke-linejoin="round"/><path transform="rotate(225 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#F3D18A" stroke-width="2.4" stroke-linejoin="round"/><path transform="rotate(270 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#F3D18A" stroke-width="2.4" stroke-linejoin="round"/><path transform="rotate(315 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z" fill="none" stroke="#F3D18A" stroke-width="2.4" stroke-linejoin="round"/><circle transform="rotate(22.5 50 50)" cx="50" cy="19" r="2.2" fill="#F3D18A"/><circle transform="rotate(67.5 50 50)" cx="50" cy="19" r="2.2" fill="#F3D18A"/><circle transform="rotate(112.5 50 50)" cx="50" cy="19" r="2.2" fill="#F3D18A"/><circle transform="rotate(157.5 50 50)" cx="50" cy="19" r="2.2" fill="#F3D18A"/><circle transform="rotate(202.5 50 50)" cx="50" cy="19" r="2.2" fill="#F3D18A"/><circle transform="rotate(247.5 50 50)" cx="50" cy="19" r="2.2" fill="#F3D18A"/><circle transform="rotate(292.5 50 50)" cx="50" cy="19" r="2.2" fill="#F3D18A"/><circle transform="rotate(337.5 50 50)" cx="50" cy="19" r="2.2" fill="#F3D18A"/><circle cx="50" cy="50" r="5.5" fill="none" stroke="#F3D18A" stroke-width="2.4"/><circle cx="50" cy="50" r="2.2" fill="#F3D18A"/></svg><div class="in-word"><span style="--i:0">S</span><span style="--i:1">A</span><span style="--i:2">K</span><span style="--i:3">A</span><span style="--i:4">R</span><span style="--i:5">A</span></div><div class="in-cap">Undangan pernikahan digital</div><div class="in-pct"><span class="in-n"></span></div></div>
 <div id="gate" aria-hidden="true"><div class="gd l"></div><div class="gd r"></div><div class="gbar"></div><div class="gmed"><svg viewBox="0 0 100 100" aria-hidden="true"><path class="pt" pathLength="100" transform="rotate(0 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z"/><path class="pt" pathLength="100" transform="rotate(45 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z"/><path class="pt" pathLength="100" transform="rotate(90 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z"/><path class="pt" pathLength="100" transform="rotate(135 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z"/><path class="pt" pathLength="100" transform="rotate(180 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z"/><path class="pt" pathLength="100" transform="rotate(225 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z"/><path class="pt" pathLength="100" transform="rotate(270 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z"/><path class="pt" pathLength="100" transform="rotate(315 50 50)" d="M50 41 C46.5 35 46.5 27 50 21 C53.5 27 53.5 35 50 41 Z"/><circle class="sd" transform="rotate(22.5 50 50)" cx="50" cy="20" r="2.4"/><circle class="sd" transform="rotate(67.5 50 50)" cx="50" cy="20" r="2.4"/><circle class="sd" transform="rotate(112.5 50 50)" cx="50" cy="20" r="2.4"/><circle class="sd" transform="rotate(157.5 50 50)" cx="50" cy="20" r="2.4"/><circle class="sd" transform="rotate(202.5 50 50)" cx="50" cy="20" r="2.4"/><circle class="sd" transform="rotate(247.5 50 50)" cx="50" cy="20" r="2.4"/><circle class="sd" transform="rotate(292.5 50 50)" cx="50" cy="20" r="2.4"/><circle class="sd" transform="rotate(337.5 50 50)" cx="50" cy="20" r="2.4"/><circle class="pt" pathLength="100" cx="50" cy="50" r="5.5"/><circle class="sd" cx="50" cy="50" r="2.4"/></svg><b>Sakara</b></div><div class="gn" id="gateNames"></div></div>
 <script>(function(){try{var m=location.pathname.match(/^\/u\/([a-z0-9-]+)/);if(!m)return;var c=JSON.parse(localStorage.getItem('sp-gate:'+m[1])||'null');if(!c)return;var g=document.getElementById('gate');if(!g)return;
 if(c.gd)g.style.setProperty('--gd',c.gd);if(c.gm)g.style.setProperty('--gm',c.gm);if(c.fab)g.style.setProperty('--fab',c.fab);if(c.drape)g.classList.add('drape');if(c.dp&&/^[a-z0-9-]+$/.test(c.dp)){g.classList.add('dpv');g.style.setProperty('--dp-v','url(/assets/draperi/velvet-'+c.dp+'.webp)');}
@@ -4819,7 +4826,8 @@ function guestModal(id){
 
 /* ---------- Modals ---------- */
 function openModal(html, wide){
-  $('#modalRoot').innerHTML = `<div class="modal" role="dialog" aria-modal="true"><div class="panel" style="${wide?'':'max-width:560px'}"><button class="close" data-act="close" aria-label="Tutup">${ico('x')}</button>${html}</div></div>`;
+  const isAuth = html.startsWith('<div class="auth">');
+  $('#modalRoot').innerHTML = `<div class="modal${isAuth?' modal-auth':''}" role="dialog" aria-modal="true"><div class="panel${isAuth?' auth-panel':''}" style="${wide||isAuth?'':'max-width:560px'}"><button class="close" data-act="close" aria-label="Tutup">${ico('x')}</button>${isAuth?'<div class="auth-art" aria-hidden="true"><img src="/assets/home/kebun-mawar.webp" alt=""></div>':''}${html}</div></div>`;
   setTimeout(()=> $('#modalRoot .close')?.focus({preventScroll:true}), 30);
 }
 function closeModal(){ $('#modalRoot').innerHTML=''; }
@@ -4933,12 +4941,12 @@ let authMode=null;
 function openAuth(next, mode){
   if(next!==undefined) authNext = next || null; authMode = mode || null;
   const last=lsGet('sp-last-email');
-  openModal(`<div class="auth"><span class="eyebrow">${mode==='publish'?'Satu langkah lagi':mode==='demo'?'Mulai undanganmu':'Akun Sakara'}</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">${mode==='publish'?'Simpan undanganmu ke akun':mode==='demo'?'Masuk, gratis':'Masuk atau daftar'}</h2>
-    <p class="muted">${mode==='publish'?'Undangan yang sudah kamu buat ikut tersimpan. Tidak perlu isi ulang.':mode==='demo'?'Siapin undangan dan daftar tamu dari sekarang. Bayarnya nanti aja, pas undangan siap dikirim.':'Tanpa kata sandi. Belum punya akun? Langsung kami buatin.'}</p>
+  openModal(`<div class="auth"><span class="eyebrow">${mode==='publish'?'Satu langkah lagi':mode==='demo'?'Mulai undanganmu':'Akun Sakara'}</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">${mode==='publish'?'Simpan undangan <em>ke akun</em>':mode==='demo'?'Masuk, <em>gratis</em>':'Selamat datang <em>kembali</em>'}</h2>
+    <p class="muted">${mode==='publish'?'Undangan yang sudah kamu buat ikut tersimpan. Tidak perlu isi ulang.':mode==='demo'?'Siapin undangan dan daftar tamu dari sekarang. Bayarnya nanti aja, pas undangan siap dikirim.':'Masuk atau daftar dengan email. Tanpa kata sandi, dan akun baru langsung kami buatkan.'}</p>
     ${CLOUD.on && !CLOUD.cfg.googleLogin ? '' : `<div style="margin-top:20px"><button class="btn btn-google btn-block" data-act="google-login"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.6h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.2z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1a10 10 0 0 0 0 9.2z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.8-2.8A10 10 0 0 0 3.1 7.4L6.4 10C7.2 7.7 9.4 5.9 12 5.9z"/></svg>Lanjut dengan Google</button></div><div class="or"><span>atau pakai email</span></div>`}
     <form id="authForm" style="margin-top:${CLOUD.on && !CLOUD.cfg.googleLogin ? 20 : 0}px;display:grid;gap:14px" novalidate>
       <div class="field"><label for="au-mail">Email</label><input class="input" id="au-mail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="nama@email.com" value="${esc(last)}" required><span class="err" hidden></span></div>
-      <button class="btn btn-primary btn-block">Lanjut</button>
+      <button class="btn btn-primary btn-block">Kirim kode masuk</button>
     </form>
 
     <p class="muted" style="font-size:12.5px;margin-top:14px">Kalau lewat email, kami kirim kode 6 angka. Dengan melanjutkan, kamu setuju dengan <a href="/syarat" target="_blank" rel="noopener">Syarat</a> &amp; <a href="/privasi" target="_blank" rel="noopener">Kebijakan Privasi</a> Sakara.</p></div>`);
@@ -4947,7 +4955,7 @@ function openAuth(next, mode){
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ m.setAttribute('aria-invalid','true'); er.textContent='Masukkan email yang valid, misal nadia@gmail.com'; er.hidden=false; m.focus(); return; }
     const b=$('#authForm button'); b.disabled=true; b.textContent='Mengirim kode…';
     const err=await sendCode(v);
-    if(err){ b.disabled=false; b.textContent='Lanjut'; er.textContent=err; er.hidden=false; return; }
+    if(err){ b.disabled=false; b.textContent='Kirim kode masuk'; er.textContent=err; er.hidden=false; return; }
     lsSet('sp-last-email', v); otpStep(v); });
 }
 async function sendCode(email){
@@ -4957,7 +4965,7 @@ async function sendCode(email){
   return /rate|limit|seconds/i.test(error.message) ? 'Terlalu sering meminta kode. Tunggu sebentar lalu coba lagi.' : error.message;
 }
 function otpStep(email){
-  openModal(`<div class="auth"><span class="eyebrow">Verifikasi email</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">Masukkan kode</h2><p class="muted">Kode 6 angka sudah dikirim ke <b style="color:var(--ink)">${esc(email)}</b>. <button class="linkbtn" data-act="login">Ganti</button></p>
+  openModal(`<div class="auth"><span class="eyebrow">Verifikasi email</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">Masukkan <em>kode</em></h2><p class="muted">Kode 6 angka sudah dikirim ke <b style="color:var(--ink)">${esc(email)}</b>. <button class="linkbtn" data-act="login">Ganti</button></p>
     <form id="otpForm" style="margin-top:20px;display:grid;gap:14px" novalidate><label for="otp" class="sr-only">Kode verifikasi</label><input class="input otp" id="otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="••••••"><span class="err" hidden></span>
     <button class="btn btn-primary btn-block">Masuk</button></form>
     <p class="muted" style="font-size:13px;margin-top:14px">${CLOUD.on?'Kodenya belum nongol? Coba cek folder Spam atau Promosi.':'Prototype: ketik 6 angka apa saja.'} <button class="linkbtn" id="otpResend" disabled>Kirim ulang (60)</button></p></div>`);
@@ -4981,7 +4989,7 @@ function afterLogin(isNew){
 }
 function nameStep(){
   const guess = S.bride.name && S.bride.name!=='Nadia Larasati' ? S.bride.name : '';
-  openModal(`<div class="auth"><span class="eyebrow">Akun baru</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">Enaknya dipanggil siapa?</h2><p class="muted">Biar kami bisa nyapa kamu dengan benar. Bisa diganti kapan aja.</p>
+  openModal(`<div class="auth"><span class="eyebrow">Akun baru</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">Enaknya dipanggil <em>siapa?</em></h2><p class="muted">Biar kami bisa nyapa kamu dengan benar. Bisa diganti kapan aja.</p>
     <form id="nameForm" style="margin-top:20px;display:grid;gap:14px" novalidate><div class="field"><label for="au-name">Nama kamu</label><input class="input" id="au-name" autocomplete="name" autocapitalize="words" placeholder="Nadia Larasati" value="${esc(guess)}"><span class="err" hidden></span></div>
     <button class="btn btn-primary btn-block">Mulai</button></form></div>`);
   setTimeout(()=>$('#au-name')?.focus(),60);
