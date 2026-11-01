@@ -483,6 +483,9 @@ textarea.input{min-height:96px;resize:vertical}
 .g-nav button.active{color:var(--beet);background:var(--blush)}
 .g-nav svg{width:22px;height:22px}
 .locked .g-nav{display:none}
+/* Sebelum dibuka, hanya sampul yang tampil: sampul setinggi layar penuh dan isi di bawahnya disembunyikan */
+.guest-col #g-cover{min-height:100vh;min-height:100lvh}
+.guest-col.locked .inv>:not(.cover):not(.pat){visibility:hidden}
 
 /* Dashboard */
 .dash{padding:28px 0 90px}
@@ -4648,7 +4651,7 @@ function renderGuest(){
     </div>`;
   bindInv(sh); enhanceInv(sh); sideRes(sh);
   document.body.style.overflow='hidden';
-  $('#g-cover').style.minHeight='100vh';
+  const gc=$('#g-cover'); gc.style.minHeight='100vh'; gc.style.minHeight='100lvh';
 }
 function guestSide(t){
   const real = S.coverPhoto || (S.gallery||[]).filter(Boolean)[0] || '';
