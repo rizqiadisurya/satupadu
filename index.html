@@ -25,7 +25,8 @@
 <!--og:end-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Itim&family=Permanent+Marker&family=Patrick+Hand&family=Mali:wght@400;500;600&family=Marcellus&family=Oswald:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Great+Vibes&family=Itim&family=Permanent+Marker&family=Patrick+Hand&family=Mali:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Marcellus&family=Oswald:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/home/home.css">
 <style>
 /* Layout idea: a beet-red editorial frame around one living invitation — the same invitation renders in the hero, catalog, builder, guest view and dashboard. */
 :root{
@@ -2733,7 +2734,163 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
 <main id="app">
 
 <!-- ============ BERANDA ============ -->
-<div data-view="beranda">
+<div data-view="beranda" class="edh">
+
+<div class="e-loader" aria-hidden="true">
+  <svg class="e-mark" viewBox="0 0 100 100" data-mark="#E7C3C8"></svg>
+  <div class="e-brand"><span>S</span><span>A</span><span>K</span><span>A</span><span>R</span><span>A</span></div>
+  <div class="e-cap">Undangan pernikahan digital</div>
+  <div class="e-pct"><span id="e-pct">0</span></div>
+</div>
+<div class="e-cursor" aria-hidden="true"><span id="e-curTxt">Lihat</span></div>
+
+<header class="e-nav" id="e-nav" data-role="tamu">
+  <div class="e-wrap">
+    <a href="#" data-go="e-top" class="e-logo" data-t aria-label="Sakara, ke atas"><svg viewBox="0 0 100 100" data-mark="#B5656F" aria-hidden="true"></svg><b>SAKARA</b></a>
+    <nav class="e-links" aria-label="Utama">
+      <a data-t href="#" data-go="e-tema">Tema</a><a data-t href="#" data-go="e-cara">Cara kerja</a><a data-t href="#" data-go="e-paket">Harga</a>
+      <a data-t href="#buat" class="e-only-in">Undangan saya</a><a data-t href="#dashboard" class="e-only-in">Dashboard</a>
+    </nav>
+    <div class="e-nav-r">
+      <button class="e-nav-login e-only-out" data-t data-act="login">Masuk</button>
+      <a class="e-btn e-magnet e-only-out" data-t href="#buat">Mulai gratis</a>
+      <div class="e-acct e-only-in">
+        <button class="e-av" data-t id="e-avBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="e-acctMenu"><span id="e-avIni">NR</span><svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        <div class="e-acct-menu" id="e-acctMenu" role="menu" hidden>
+          <div class="e-acct-id"><b id="e-acName">Nadia Larasati</b><small id="e-acMail">nadia@email.com</small><span class="e-role-tag e-only-admin">Admin</span></div>
+          <a role="menuitem" data-l="buat" href="#buat"><i>✎</i><span data-lt>Undangan saya</span></a>
+          <a role="menuitem" href="#dashboard"><i>☰</i>Dashboard tamu</a>
+          <a role="menuitem" href="#tagihan"><i>▤</i>Tagihan</a>
+          <a role="menuitem" class="e-only-admin e-adm" href="/admin"><i>◆</i>Panel admin</a>
+          <button role="menuitem" data-act="logout"><i>↩</i>Keluar</button>
+        </div>
+      </div>
+    </div>
+    <button class="e-menu-btn" data-t id="e-menuBtn" aria-label="Buka menu" aria-expanded="false"><i></i></button>
+  </div>
+</header>
+<div class="e-drawer" id="e-drawer" data-role="tamu" aria-hidden="true">
+  <button class="e-x" id="e-menuX">Tutup ✕</button>
+  <div class="e-d-acct e-only-in"><span class="e-av e-big" id="e-avIni2">NR</span><div><b id="e-acName2">Nadia Larasati</b><small>Sudah masuk</small></div></div>
+  <a href="#" data-go="e-tema">Tema</a><a href="#" data-go="e-cara">Cara <em>kerja</em></a><a href="#" data-go="e-paket">Harga</a>
+  <a class="e-only-in" data-l="buat" href="#buat">Undangan <em>saya</em></a><a class="e-only-in" href="#dashboard">Dashboard</a>
+  <a class="e-only-admin" href="/admin">Panel <em>admin</em></a>
+  <div class="e-d-acts">
+    <button class="e-btn e-ghost e-only-out" data-act="login">Masuk</button><a class="e-btn e-only-out" href="#buat">Mulai gratis</a>
+    <button class="e-btn e-ghost e-only-in" data-act="logout">Keluar</button>
+  </div>
+</div>
+
+
+
+
+<main id="e-top">
+  <section class="e-hero" aria-labelledby="e-h1">
+    <div class="e-hero-bg" aria-hidden="true"><div class="e-stage"><div class="e-hl e-hl-atas" style="left:0.000%;top:0.000%;width:100.000%"><img src="/assets/home/h-atas.webp" alt=""></div><div class="e-hl e-hl-kiri" style="left:0.000%;top:13.467%;width:17.375%"><img src="/assets/home/h-kiri.webp" alt=""></div><div class="e-hl e-hl-kanan" style="left:81.833%;top:0.000%;width:18.167%"><img src="/assets/home/h-kanan.webp" alt=""></div><div class="e-hl e-hl-bawah" style="left:0.000%;top:62.067%;width:100.000%"><img src="/assets/home/h-bawah.webp" alt=""></div><img class="e-kp e-kp1" src="/assets/home/kupu2.webp" alt=""><img class="e-kp e-kp2" src="/assets/home/kupu5.webp" alt=""><img class="e-kp e-kp3" src="/assets/home/kupu7.webp" alt=""></div></div>
+    <div class="e-hero-shade"></div>
+    <div class="e-hero-copy">
+      <p class="e-eyebrow e-split-fade">Undangan pernikahan digital</p>
+      <h1 class="e-display" id="e-h1"><span class="e-line"><span>Undangan yang <em>terasa</em></span></span><span class="e-line"><span>seperti kertas</span></span></h1>
+      <p class="e-sub e-split-fade">Cukup satu link untuk semua tamu kalian.</p>
+    </div>
+    <div class="e-hero-foot"><span>Mulai Rp129.000, sekali bayar</span><span class="e-scroll-cue">Gulir pelan <i></i></span><span>Bisa dicoba gratis</span></div>
+  </section>
+
+  <section class="e-intro e-wrap" data-tone="dk" aria-labelledby="e-st">
+    <p class="e-eyebrow">Untuk hari yang ingin selalu dikenang</p>
+    <h2 class="e-statement" id="e-st" data-words>Cantik saat dibuka, <em>mudah saat diisi,</em> dan terasa hangat saat sampai ke setiap tamu.</h2>
+    <div class="e-intro-row">
+      <p>Pilih tema yang kalian suka, isi cerita kalian, lalu bagikan. Nama setiap tamu tertulis di undangannya masing-masing, konfirmasi kehadiran dan ucapan terkumpul rapi, dan tema bisa diganti kapan saja tanpa kehilangan isi.</p>
+      <figure class="e-intro-pic e-reveal" data-tone="lt"><img data-par="8" src="/assets/home/d-pasangan.webp" alt="Ilustrasi pasangan pengantin di tema Kebun Mawar"></figure>
+    </div>
+  </section>
+
+  <section class="e-tema" id="e-tema" aria-labelledby="e-th">
+    <div class="e-tema-pin">
+      <div class="e-wrap e-tema-head">
+        <h2 class="e-display" id="e-th"><span class="e-line"><span>Temukan <em>tema</em> kalian</span></span></h2>
+        <div class="e-count"><span id="e-tc">01</span> / <span id="e-tt">12</span></div>
+      </div>
+      <div class="e-track" id="e-track">
+        <article class="e-card" role="button" tabindex="0" data-act="demo" data-t="kebun-lila" aria-label="Lihat demo tema Kebun Lila"><div class="e-ph"><img loading="lazy" src="/assets/home/kebun-lila.webp" alt="Sampul tema Kebun Lila"></div><div class="e-meta"><b>Kebun Lila</b><small>Ilustrasi</small></div></article><article class="e-card" role="button" tabindex="0" data-act="demo" data-t="kebun-senja" aria-label="Lihat demo tema Kebun Senja"><div class="e-ph"><img loading="lazy" src="/assets/home/kebun-senja.webp" alt="Sampul tema Kebun Senja"></div><div class="e-meta"><b>Kebun Senja</b><small>Ilustrasi</small></div></article><article class="e-card" role="button" tabindex="0" data-act="demo" data-t="draperi-mawar" aria-label="Lihat demo tema Draperi Mawar"><div class="e-ph"><img loading="lazy" src="/assets/home/draperi-mawar.webp" alt="Sampul tema Draperi Mawar"></div><div class="e-meta"><b>Draperi Mawar</b><small>Draperi</small></div></article><article class="e-card" role="button" tabindex="0" data-act="demo" data-t="kawung" aria-label="Lihat demo tema Kawung Sogan"><div class="e-ph"><img loading="lazy" src="/assets/home/kawung.webp" alt="Sampul tema Kawung Sogan"></div><div class="e-meta"><b>Kawung Sogan</b><small>Adat · Jawa</small></div></article><article class="e-card" role="button" tabindex="0" data-act="demo" data-t="kebun-mawar" aria-label="Lihat demo tema Kebun Mawar"><div class="e-ph"><img loading="lazy" src="/assets/home/kebun-mawar.webp" alt="Sampul tema Kebun Mawar"></div><div class="e-meta"><b>Kebun Mawar</b><small>Ilustrasi</small></div></article><article class="e-card" role="button" tabindex="0" data-act="demo" data-t="songket" aria-label="Lihat demo tema Songket Minang"><div class="e-ph"><img loading="lazy" src="/assets/home/songket.webp" alt="Sampul tema Songket Minang"></div><div class="e-meta"><b>Songket Minang</b><small>Adat · Sumbar</small></div></article><article class="e-card" role="button" tabindex="0" data-act="demo" data-t="atelier" aria-label="Lihat demo tema Atelier Zaitun"><div class="e-ph"><img loading="lazy" src="/assets/home/atelier.webp" alt="Sampul tema Atelier Zaitun"></div><div class="e-meta"><b>Atelier Zaitun</b><small>Editorial</small></div></article><article class="e-card" role="button" tabindex="0" data-act="demo" data-t="draperi-zamrud" aria-label="Lihat demo tema Draperi Zamrud"><div class="e-ph"><img loading="lazy" src="/assets/home/draperi-zamrud.webp" alt="Sampul tema Draperi Zamrud"></div><div class="e-meta"><b>Draperi Zamrud</b><small>Draperi</small></div></article><article class="e-card" role="button" tabindex="0" data-act="demo" data-t="dongeng-pink" aria-label="Lihat demo tema Dongeng Pink"><div class="e-ph"><img loading="lazy" src="/assets/home/dongeng-pink.webp" alt="Sampul tema Dongeng Pink"></div><div class="e-meta"><b>Dongeng Pink</b><small>Ilustrasi</small></div></article><article class="e-card" role="button" tabindex="0" data-act="demo" data-t="kebun-biru" aria-label="Lihat demo tema Kebun Biru"><div class="e-ph"><img loading="lazy" src="/assets/home/kebun-biru.webp" alt="Sampul tema Kebun Biru"></div><div class="e-meta"><b>Kebun Biru</b><small>Ilustrasi</small></div></article><article class="e-card" role="button" tabindex="0" data-act="demo" data-t="kamboja" aria-label="Lihat demo tema Kamboja Senja"><div class="e-ph"><img loading="lazy" src="/assets/home/kamboja.webp" alt="Sampul tema Kamboja Senja"></div><div class="e-meta"><b>Kamboja Senja</b><small>Bali</small></div></article><article class="e-card" role="button" tabindex="0" data-act="demo" data-t="goresan-merah" aria-label="Lihat demo tema Goresan Merah"><div class="e-ph"><img loading="lazy" src="/assets/home/goresan-merah.webp" alt="Sampul tema Goresan Merah"></div><div class="e-meta"><b>Goresan Merah</b><small>Minimalis</small></div></article>
+      </div>
+      <div class="e-wrap"><div class="e-progress"><i id="e-prog"></i></div></div>
+    </div>
+  </section>
+
+  <section class="e-cara" data-tone="dk" id="e-cara" aria-labelledby="e-ch">
+    <div class="e-wrap e-cara-grid">
+      <div class="e-cara-sticky" aria-hidden="true">
+        <div class="e-scr"><img class="e-on" src="/assets/home/st1.webp" alt="Layar memilih tema di Sakara"><img src="/assets/home/st2.webp" alt="Layar mengisi data mempelai"><img src="/assets/home/st3.webp" alt="Undangan terkirim lewat WhatsApp"></div>
+      </div>
+      <div>
+        <p class="e-eyebrow" style="margin-bottom:14px">Cara kerja</p>
+        <h2 class="e-display" id="e-ch"><span class="e-line"><span>Siap dalam <em>tiga langkah</em></span></span></h2>
+        <article class="e-step e-on" tabindex="0"><div class="e-num">1</div><h3>Pilih tema</h3><p>Dari motif batik klasik sampai ilustrasi lukisan tangan. Kalau berubah pikiran, tema bisa diganti kapan saja dan isinya tetap aman.</p><div class="e-t">Sekitar 2 menit</div></article>
+        <article class="e-step" tabindex="0"><div class="e-num">2</div><h3>Isi cerita kalian</h3><p>Nama, waktu acara, lokasi, galeri foto, dan amplop digital. Tampilannya langsung berubah selagi kalian mengetik.</p><div class="e-t">Sekitar 10 menit</div></article>
+        <article class="e-step" tabindex="0"><div class="e-num">3</div><h3>Bagikan ke tamu</h3><p>Setiap tamu menerima link dengan namanya sendiri. Kirim lewat WhatsApp, lalu lihat siapa saja yang akan hadir dari satu halaman.</p><div class="e-t">Cukup sekali klik</div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="e-paket" data-tone="dk" id="e-paket" aria-labelledby="e-ph">
+    <div class="e-wrap">
+      <div class="e-paket-head">
+        <h2 class="e-display" id="e-ph"><span class="e-line"><span>Koleksi <em>paket</em></span></span></h2>
+        <p>Cukup sekali bayar, tanpa biaya bulanan. Kalian bisa mencoba gratis sampai undangan selesai, lalu memilih paket saat sudah yakin.</p>
+      </div>
+      <article class="e-row" data-peek="0"><div class="e-n">1</div><div><h3>Coba</h3><span class="e-tag">Gratis</span></div><div><p class="e-fit">Untuk kalian yang ingin melihat hasilnya lebih dulu sebelum memutuskan.</p><ul><li>Semua tema bisa dicoba</li><li>Pratinjau lengkap di HP</li></ul></div><div class="e-price"><b>Gratis</b><small>Tanpa kartu kredit</small><br><a class="e-btn e-ghost" href="#buat" data-plan="coba">Mulai gratis</a></div></article>
+      <article class="e-row" data-peek="1"><div class="e-n">2</div><div><h3>Undangan</h3><span class="e-tag">Untuk acara intim</span></div><div><p class="e-fit">Cocok untuk acara intim, saat kalian ingin mengirim undangan sendiri ke setiap tamu.</p><ul><li>Link pribadi untuk setiap tamu</li><li>Konfirmasi kehadiran dan amplop digital</li><li>Daftar tamu yang rapi</li></ul></div><div class="e-price"><b>Rp129.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#buat" data-plan="undangan">Pilih Undangan</a></div></article>
+      <article class="e-row" data-peek="2"><div class="e-n">3</div><div><h3>Undangan <br>dan Tamu</h3><span class="e-tag">Paling lengkap</span></div><div><p class="e-fit">Untuk acara besar. Kami bantu dari mengirim undangan sampai menyambut tamu di meja penerima.</p><ul><li>Semua yang ada di paket Undangan</li><li>Masukkan daftar tamu dari Excel</li><li>Kirim lewat WhatsApp sekaligus</li><li>Kode QR untuk tamu di hari acara</li></ul></div><div class="e-price"><b>Rp349.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#buat" data-plan="tamu">Pilih paket ini</a></div></article>
+    </div>
+    <div class="e-peek" id="e-peek" aria-hidden="true"><img src="/assets/home/kebun-sage.webp" alt=""><img src="/assets/home/songket.webp" alt=""><img src="/assets/home/kebun-lila.webp" alt=""></div>
+  </section>
+
+  <section class="e-detail" data-tone="dk" id="e-detail" aria-labelledby="e-dh">
+    <div class="e-wrap">
+      <h2 class="e-sr" id="e-dh">Detail yang dibuat dengan teliti</h2>
+      <div class="e-mosaic">
+        <figure class="e-m1 e-reveal" data-tone="lt"><img data-par="10" src="/assets/home/d-senja.webp" alt="Detail bunga tema Kebun Senja"><figcaption>Kebun Senja</figcaption></figure>
+        <figure class="e-m2 e-reveal" data-tone="lt"><img data-par="-8" src="/assets/home/draperi-mawar.webp" alt="Sampul tema Draperi Mawar"><figcaption>Draperi Mawar</figcaption></figure>
+        <figure class="e-m3 e-reveal" data-tone="lt"><img data-par="12" src="/assets/home/d-amplop.webp" alt="Amplop bersegel di tema Draperi"><figcaption>Amplop bersegel</figcaption></figure>
+        <figure class="e-m4 e-reveal" data-tone="lt"><img data-par="-10" src="/assets/home/d-untaian.webp" alt="Untaian bunga tema Kebun Biru"><figcaption>Kebun Biru</figcaption></figure>
+        <figure class="e-m5 e-reveal" data-tone="lt"><img data-par="8" src="/assets/home/d-bunga.webp" alt="Hamparan bunga tema Kebun Lila"><figcaption>Kebun Lila</figcaption></figure>
+      </div>
+    </div>
+    <div class="e-marquee" aria-hidden="true"><div class="e-mq" id="e-mq"><span>Rayakan cinta</span><svg viewBox="0 0 100 100" data-mark="#B5656F" aria-hidden="true"></svg><span><em>bagikan bahagia</em></span><svg viewBox="0 0 100 100" data-mark="#B5656F" aria-hidden="true"></svg><span>Rayakan cinta</span><svg viewBox="0 0 100 100" data-mark="#B5656F" aria-hidden="true"></svg><span><em>bagikan bahagia</em></span><svg viewBox="0 0 100 100" data-mark="#B5656F" aria-hidden="true"></svg><span>Rayakan cinta</span><svg viewBox="0 0 100 100" data-mark="#B5656F" aria-hidden="true"></svg><span><em>bagikan bahagia</em></span><svg viewBox="0 0 100 100" data-mark="#B5656F" aria-hidden="true"></svg><span>Rayakan cinta</span><svg viewBox="0 0 100 100" data-mark="#B5656F" aria-hidden="true"></svg><span><em>bagikan bahagia</em></span><svg viewBox="0 0 100 100" data-mark="#B5656F" aria-hidden="true"></svg></div></div>
+  </section>
+
+  <section class="e-cta e-wrap" data-tone="dk" aria-labelledby="e-ct">
+    <p class="e-eyebrow">Hari bahagia kalian sudah dekat</p>
+    <h2 class="e-display" id="e-ct" style="margin-top:18px"><span class="e-line"><span>Mari mulai <em>cerita kalian</em></span></span></h2>
+    <p class="e-lead">Kami siapkan undangannya, kalian cukup berbagi kabar bahagia dengan orang-orang tersayang.</p>
+    <div class="e-acts"><span class="e-magnet"><a class="e-btn" href="#buat">Coba buat gratis</a></span><span class="e-magnet"><a class="e-btn e-ghost" href="#tema">Lihat koleksi tema</a></span></div>
+  </section>
+</main>
+
+<footer>
+  <div class="e-wrap">
+    <div class="e-foot-hero"><h2>Rayakan cinta,<br><em>bagikan kabar bahagia.</em></h2><a class="e-mail" href="https://www.instagram.com/withsakara/">@withsakara</a></div>
+    <div class="e-foot">
+      <div><a href="#" data-go="e-top" class="e-logo"><svg viewBox="0 0 100 100" data-mark="#E7C3C8" aria-hidden="true"></svg><b>SAKARA</b></a><p>Undangan pernikahan digital yang cantik, tinggal sebar.</p></div>
+      <div><h4>Jelajahi</h4><a href="#" data-go="e-tema">Tema</a><a href="#" data-go="e-cara">Cara kerja</a><a href="#" data-go="e-paket">Harga</a></div>
+      <div><h4>Ikuti</h4><a href="https://www.instagram.com/withsakara/">Instagram</a><a href="#tema">Semua tema</a></div>
+      <div><h4>Bantuan</h4><a href="/syarat">Syarat layanan</a><a href="/privasi">Kebijakan privasi</a></div>
+    </div>
+    <div class="e-foot-big" aria-hidden="true">SAKARA</div>
+    <div class="e-foot-bot"><span>© 2026 Sakara</span><a href="#" data-go="e-top">Kembali ke atas ↑</a></div>
+  </div>
+</footer>
+
+<aside class="e-promo" id="e-promo" aria-label="Promo">
+  <button class="e-x" id="e-promoX" aria-label="Tutup promo">×</button>
+  <h5>Promo pembuka</h5>
+  <p>Coba gratis sampai undangan kalian selesai, bayar saat sudah yakin.</p>
+  <a class="e-btn" href="#buat">Coba sekarang</a>
+</aside>
+
+
+<div class="old-home" hidden>
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
@@ -2882,6 +3039,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
     </div>
   </section>
 </div>
+</div>
 
 <!-- ============ TEMA ============ -->
 <div data-view="tema" hidden>
@@ -2950,6 +3108,10 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script src="/assets/vendor/gsap.min.js"></script>
+<script src="/assets/vendor/ScrollTrigger.min.js"></script>
+<script src="/assets/vendor/lenis.min.js"></script>
+<script src="/assets/home/home.js"></script>
 <script>
 (function(){
 'use strict';
@@ -4760,6 +4922,7 @@ function renderAuthSlot(){
     set('buat', stage!=='visitor', stage==='paid'?'Edit undangan':'Undangan saya', stage==='paid'?'#edit':'#buat');
     set('dashboard', stage!=='visitor', stage==='paid'?'Dashboard':'Daftar tamu', '#dashboard');
   }
+  if(window.EDH) EDH.sync({user:u, stage:!u?'visitor':(real.published?'paid':'draft'), admin:!!(u&&ADM.sso)});
   const m=$('#authSlotM'); if(m) m.innerHTML = u ? `<a href="#tagihan">${ico('receipt')} Tagihan · ${esc(u.name)}</a>${ADM.sso?`<a href="/admin">${ico('lock')} Panel admin</a>`:''}<a href="#beranda" data-act="logout">Keluar</a>` : `<a href="#beranda" data-act="login">Masuk atau daftar</a>`;
 }
 let authNext=null;
@@ -6547,7 +6710,8 @@ function route(){
   $$('[data-view]').forEach(v=> v.hidden = v.dataset.view!==h);
   if(h!=='edit') edLeave();
   const full = h==='admin' || h==='undangan' || h==='checkin' || h==='keluarga' || h==='katering' || h==='edit' || h==='album';
-  $('#siteHeader').hidden = full; $('#footerWrap').hidden = full || ['dashboard','buat','checkout'].includes(h);
+  $('#siteHeader').hidden = full || h==='beranda'; $('#footerWrap').hidden = full || ['dashboard','buat','checkout','beranda'].includes(h);
+  if(window.EDH){ if(h==='beranda') EDH.enter(); else EDH.leave(); }
   document.body.style.overflow='';
   $$('.nav a').forEach(a=>{ if(a.dataset.nav!==(scrollTo?'harga':(DEMO.on?'demo':(h==='edit'?'buat':h==='bandingkan'?'harga':h)))) a.removeAttribute('aria-current'); else a.setAttribute('aria-current','page'); });
   closeModal(); renderAuthSlot();
@@ -6565,7 +6729,7 @@ function route(){
   if(h==='bandingkan') renderCompare();
   if(h==='checkin') renderCheckin();
   if(h==='album'){ albumLoad().then(renderAlbum); }
-  if(scrollTo) setTimeout(()=> $('#'+scrollTo).scrollIntoView({behavior:'smooth'}), 40); else window.scrollTo(0,0);
+  if(scrollTo==='harga-sec' && window.EDH){ window.scrollTo(0,0); EDH.scrollTo('e-paket'); } else if(scrollTo) setTimeout(()=> $('#'+scrollTo).scrollIntoView({behavior:'smooth'}), 40); else window.scrollTo(0,0);
   setTimeout(()=>aniScan($(`[data-view="${h}"]`)), 30);
 }
 window.addEventListener('hashchange', route);
