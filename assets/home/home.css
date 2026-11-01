@@ -227,6 +227,8 @@ body.edh-loading{overflow:hidden}
 .edh .e-foot p{opacity:.7;max-width:30ch;margin-top:18px;font-size:14px}
 .edh .e-foot-big{font-family:var(--brand);font-size:clamp(70px,17vw,280px);letter-spacing:.2em;line-height:1;margin-top:70px;opacity:.16;white-space:nowrap;overflow:hidden;color:var(--gold-l)}
 .edh .e-foot-bot{display:flex;justify-content:space-between;gap:20px;margin-top:24px;font-size:13px;opacity:.7;flex-wrap:wrap}
+.edh .e-foot-bot .e-craft a{display:inline;font:inherit;line-height:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.edh .e-foot-bot .e-craft a:hover{color:var(--gold-l,#E8C27A)}
 @media (max-width:800px){.edh .e-foot{grid-template-columns:1fr 1fr}}
 
 .edh .e-promo{position:fixed;right:24px;bottom:24px;z-index:45;width:min(340px,calc(100vw - 32px));background:var(--paper);border:1px solid var(--line);padding:26px 24px 22px;text-align:center;box-shadow:0 30px 60px -30px rgba(40,10,16,.35);transform:translateY(130%);transition:transform .9s var(--ease)}
@@ -305,80 +307,71 @@ body.edh-loading{overflow:hidden}
 @media (max-width:600px){.edh .e-proto{bottom:auto;top:84px;left:8px;font-size:11px}.edh .e-proto span{display:none}}
 
 
-.edh @media (max-width:760px){
-body{font-size:15px;line-height:1.55}
-.wrap{width:calc(100% - 40px)}
-.eyebrow{font-size:12px}
-/* hero */
-.hero h1{font-size:clamp(32px,9vw,44px)}
-.hero .sub{font-size:17px;margin-top:16px}
-.hero-copy .eyebrow{margin-bottom:14px}
-.hero-foot{bottom:16px;padding:0 20px}
-/* label hero */
-.hero-foot .scroll-cue{display:none!important}.hero-foot>span{font-size:11.5px;padding:6px 11px}
-/* pernyataan */
-.intro{padding:64px 0 56px}
-.intro .eyebrow{margin-bottom:18px}
-.statement{font-size:30px;line-height:1.15}
-.intro-row{margin-top:28px;gap:24px}
-.intro-pic{max-width:none;aspect-ratio:547/700}
-/* tema: geser manual, tanpa pin */
-.tema-pin{height:100svh;padding:72px 0 28px;gap:18px;justify-content:center}
-.tema-head{align-items:center}
-.tema-head .display{font-size:clamp(26px,7.6vw,32px);white-space:nowrap}
-.tema-head .count{font-size:22px}
-.track{padding-left:20px;gap:12px}
-.card{width:min(72vw,calc((100svh - 300px) * .59))}
-.card .ph{border-radius:16px}
-.card .meta{margin-top:10px;flex-direction:column;gap:0}.card .meta b{font-size:18px;line-height:1.2}.card .meta small{font-size:11.5px}
-/* cara kerja */
-.cara{padding:56px 0}
-.cara-grid{gap:28px}
-.cara-sticky{width:190px;border-radius:32px;padding:8px;rotate:0deg}
-.cara-grid>div:last-child{position:relative;z-index:1}
-.cara-sticky .scr{border-radius:25px}
-.cara-sticky img{top:24px;height:calc(100% - 24px)}
-.cara h2{font-size:32px;margin-bottom:16px}
-.step{padding:18px 0;gap:2px 12px}
-.step .num{font-size:34px}
-.step h3{font-size:23px}
-.step p{font-size:14.5px}
-.step .t{font-size:12.5px;margin-top:6px}
-/* paket */
-.paket-head h2{font-size:34px}
-.paket-head p{font-size:14.5px}
-/* mosaik: dua kolom ringkas */
-.detail{padding:56px 0 0}
-.mosaic{gap:10px}
-.mosaic>*{margin-top:0!important}
-.m1,.m2{grid-column:span 6!important;aspect-ratio:3/4!important}
-.m3,.m4{grid-column:span 6!important;aspect-ratio:1/1!important}
-.m5{grid-column:span 12!important;aspect-ratio:16/9!important}
-.mosaic figcaption{font-size:11.5px;left:8px;bottom:8px;padding:4px 10px}
-.marquee{margin-top:48px;padding:14px 0}
-.marquee .mq{font-size:36px;gap:28px}
-/* penutup */
-.cta{padding:72px 0}
-.cta .display{font-size:36px}
-.cta .lead{font-size:19px;margin:16px auto 26px}
-.cta .acts{flex-direction:column;align-items:stretch;gap:10px}
-.cta .acts .magnet,.cta .acts .btn{width:100%}
-/* kaki */
-footer{padding:72px 0 24px}
-.foot-hero{margin-bottom:40px;gap:18px}
-.foot-hero h2{font-size:32px}
-.foot-hero .mail{font-size:20px}
-.foot{gap:28px 20px}
-.foot a{font-size:19px;padding:3px 0}
-.foot p{font-size:13.5px}
-.foot-big{margin-top:36px;font-size:19vw;letter-spacing:.14em}
-.foot-bot{font-size:12px}
-/* modal masuk */
-.auth{padding:12px;align-items:end}
-.auth-card{border-radius:24px}
-.auth-art{min-height:120px}
-.auth h2{font-size:30px}
-.otp{gap:6px}.otp input{height:50px}
+@media (max-width:760px){
+.edh{font-size:15px;line-height:1.55}
+.edh .e-wrap{width:calc(100% - 40px)}
+.edh .e-eyebrow{font-size:12px}
+.edh .e-hero h1{font-size:clamp(32px,9vw,44px)}
+.edh .e-hero .e-sub{font-size:17px;margin-top:16px}
+.edh .e-hero-copy .e-eyebrow{margin-bottom:14px}
+.edh .e-hero-foot{bottom:16px;padding:0 20px}
+.edh .e-hero-foot .e-scroll-cue{display:none!important}.edh .e-hero-foot>span{font-size:11.5px;padding:6px 11px}
+.edh .e-intro{padding:64px 0 56px}
+.edh .e-intro .e-eyebrow{margin-bottom:18px}
+.edh .e-statement{font-size:30px;line-height:1.15}
+.edh .e-intro-row{margin-top:28px;gap:24px}
+.edh .e-intro-pic{max-width:none;aspect-ratio:547/700}
+.edh .e-tema-pin{height:100svh;padding:72px 0 28px;gap:18px;justify-content:center}
+.edh .e-tema-head{align-items:center}
+.edh .e-tema-head .e-display{font-size:clamp(26px,7.6vw,32px);white-space:nowrap}
+.edh .e-tema-head .e-count{font-size:22px}
+.edh .e-track{padding-left:20px;gap:12px}
+.edh .e-card{width:min(72vw,calc((100svh - 300px) * .59))}
+.edh .e-card .e-ph{border-radius:16px}
+.edh .e-card .e-meta{margin-top:10px;flex-direction:column;gap:0}.edh .e-card .e-meta b{font-size:18px;line-height:1.2}.edh .e-card .e-meta small{font-size:11.5px}
+.edh .e-cara{padding:56px 0}
+.edh .e-cara-grid{gap:28px}
+.edh .e-cara-sticky{width:190px;border-radius:32px;padding:8px;rotate:0deg}
+.edh .e-cara-grid>div:last-child{position:relative;z-index:1}
+.edh .e-cara-sticky .e-scr{border-radius:25px}
+.edh .e-cara-sticky img{top:24px;height:calc(100% - 24px)}
+.edh .e-cara h2{font-size:32px;margin-bottom:16px}
+.edh .e-step{padding:18px min(110px,27vw) 18px 0;gap:2px 12px}
+.edh .e-step .e-num{font-size:34px}
+.edh .e-step h3{font-size:23px}
+.edh .e-step p{font-size:14.5px}
+.edh .e-step .e-t{font-size:12.5px;margin-top:6px}
+.edh .e-paket-head h2{font-size:34px}
+.edh .e-paket-head p{font-size:14.5px}
+.edh .e-detail{padding:56px 0 0}
+.edh .e-mosaic{gap:10px}
+.edh .e-mosaic>*{margin-top:0!important}
+.edh .e-m1,.edh .e-m2{grid-column:span 6!important;aspect-ratio:3/4!important}
+.edh .e-m3,.edh .e-m4{grid-column:span 6!important;aspect-ratio:1/1!important}
+.edh .e-m5{grid-column:span 12!important;aspect-ratio:16/9!important}
+.edh .e-mosaic figcaption{font-size:11.5px;left:8px;bottom:8px;padding:4px 10px}
+.edh .e-marquee{margin-top:48px;padding:14px 0}
+.edh .e-marquee .e-mq{font-size:36px;gap:28px}
+.edh .e-cta{padding:72px 0}
+.edh .e-cta .e-display{font-size:36px}
+.edh .e-cta .e-lead{font-size:19px;margin:16px auto 26px}
+.edh .e-cta .e-acts{flex-direction:column;align-items:stretch;gap:10px}
+.edh .e-cta .e-acts .e-magnet,.edh .e-cta .e-acts .e-btn{width:100%}
+.edh footer{padding:72px 0 24px}
+.edh .e-foot-hero{margin-bottom:40px;gap:18px}
+.edh .e-foot-hero h2{font-size:32px}
+.edh .e-foot-hero .e-mail{font-size:20px}
+.edh .e-foot{gap:28px 20px}
+.edh .e-foot a{font-size:19px;padding:3px 0}
+.edh .e-foot p{font-size:13.5px}
+.edh .e-foot-big{margin-top:36px;font-size:19vw;letter-spacing:.14em}
+.edh .e-foot-bot{font-size:12px}
+.edh .e-foot-bot{flex-direction:column;align-items:flex-start;gap:8px}
+.edh .e-auth{padding:12px;align-items:end}
+.edh .e-auth-card{border-radius:24px}
+.edh .e-auth-art{min-height:120px}
+.edh .e-auth h2{font-size:30px}
+.edh .e-otp{gap:6px}.edh .e-otp input{height:50px}
 }
 
 @media (prefers-reduced-motion:reduce){.edh *{animation:none!important;transition:none!important}.edh .e-loader{display:none}.edh .e-tema-pin{height:auto;padding:80px 0 56px}.edh .e-track{overflow-x:auto;scroll-snap-type:x mandatory;padding-right:24px;padding-bottom:12px}.edh .e-card{scroll-snap-align:start}.edh .e-tema-head .e-count,.edh .e-tema .e-progress{display:none}.edh .e-step{opacity:1}}

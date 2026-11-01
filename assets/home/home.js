@@ -125,7 +125,7 @@ function init(){
     const top=()=>parseFloat(getComputedStyle(ph).top)||84, S=.4, M=14, B=()=>innerWidth<600?92:24; // B: ruang untuk bilah browser yang melayang di bawah
     gsap.fromTo(ph,{x:0,y:0,scale:1},{x:()=>innerWidth-M-(absL(ph)+ph.offsetWidth),y:()=>innerHeight-B()-(top()+ph.offsetHeight),scale:S,transformOrigin:'100% 100%',ease:'power1.inOut',immediateRender:false,
       scrollTrigger:{trigger:ph,start:()=>'top '+top()+'px',end:()=>'+='+Math.round(ph.offsetHeight*.55),scrub:.6,invalidateOnRefresh:true}});
-    gsap.to(ph,{autoAlpha:0,ease:'none',scrollTrigger:{trigger:'.e-cara-grid',start:'bottom 82%',end:'bottom 70%',scrub:true}});
+    gsap.to(ph,{autoAlpha:0,ease:'none',scrollTrigger:{trigger:'.e-cara-grid',start:'bottom 62%',end:'bottom 50%',scrub:true}});
   });
 
   $$('.e-row').forEach(r=>gsap.from(r,{opacity:0,y:50,duration:1.1,ease:'expo.out',scrollTrigger:{trigger:r,start:'top 88%'}}));
