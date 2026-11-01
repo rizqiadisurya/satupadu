@@ -2433,26 +2433,34 @@ html.boot-app #bootSkel .bs-app{display:flex}
 .inv.prem .p-body p{font-size:13.5px;opacity:.78;line-height:1.5;margin:0}
 .inv.prem .p-ig{justify-self:start;margin-top:8px;font-size:13px;font-weight:700;color:var(--t-accent);text-decoration:none;border:1px solid color-mix(in srgb,var(--t-accent) 35%,transparent);border-radius:99px;padding:6px 12px}
 .inv.prem .p-amp{font-family:var(--t-font);font-style:italic;font-size:54px;line-height:.6;color:var(--t-accent);text-align:center;margin:4px 0}
-/* Pasangan berdampingan: mempelai wanita di kiri, pria di kanan (semua tema) */
-.inv.prem .p-couple{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);column-gap:clamp(4px,2cqi,14px);row-gap:0;max-width:620px;align-items:stretch}
-.inv.prem .p-couple .p-amp{align-self:start;margin:0;padding-top:calc((min(100cqi,620px) - 60px) / 2 * 1.25 / 2 - 14px);font-size:clamp(26px,8cqi,44px)}
-.inv.prem .p-couple .p-card{text-align:center;border-radius:18px;min-width:0}
-.inv.prem .p-couple .p-body{padding:14px 10px 16px;justify-items:center;gap:3px}
-.inv.prem .p-couple .p-body .kick{font-size:clamp(8.5px,2.4cqi,10.5px);letter-spacing:.14em}
-.inv.prem .p-couple .p-body h4{font-size:clamp(18px,5.6cqi,28px);overflow-wrap:anywhere;text-wrap:balance}
-.inv.prem .p-couple .p-body p{font-size:clamp(11px,3.1cqi,13.5px);text-wrap:balance}
-.inv.prem .p-couple .p-ig{justify-self:center;font-size:clamp(10.5px,2.9cqi,13px);padding:5px 10px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.inv.prem .p-couple .p-ph.ph-empty span{font-size:clamp(54px,17cqi,110px)}
-.inv.prem.lay-goresan .p-couple .p-ph,.inv.prem.lay-dongeng .p-couple .p-ph{width:70%}
-.inv.prem.lay-goresan .p-couple .p-body{padding-top:22px}
-.inv.prem.lay-dongeng .p-couple .p-body{padding-top:clamp(30px,10cqi,58px)}
-.inv.prem.lay-goresan .p-couple .p-body h4{letter-spacing:.04em}
-.inv .couple2{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);column-gap:clamp(6px,2.4cqi,16px);align-items:start;max-width:560px;margin:22px auto 0}
-.inv .couple2 .person{margin:0;max-width:none;min-width:0}
-.inv .couple2 .person .ph{width:min(120px,100%)}
-.inv .couple2 .person h4{font-size:clamp(17px,5.4cqi,26px);overflow-wrap:anywhere;text-wrap:balance}
-.inv .couple2 .person p{font-size:clamp(11px,3.1cqi,13.5px);text-wrap:balance}
-.inv .couple2 .and{align-self:start;margin-top:56px}
+/* Pasangan: foto berdampingan kiri-kanan, nama & keterangan di bawah (semua tema) */
+.inv.prem .p-couple{display:block;max-width:560px}
+.inv.prem .p-pics{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,5cqi,30px);align-items:start;margin-bottom:clamp(26px,8cqi,44px)}
+.inv.prem .p-pic{position:relative;margin:0;min-width:0;background:transparent;border:0;box-shadow:none;overflow:visible;border-radius:0}
+.inv.prem .p-pic .p-ph{aspect-ratio:7/10;border-radius:50%;box-shadow:0 0 0 3px var(--t-bg),0 0 0 5px color-mix(in srgb,var(--t-accent) 70%,transparent),0 18px 34px -20px color-mix(in srgb,var(--t-fg) 60%,transparent)}
+.inv.prem .p-pic .p-ph.ph-empty span{font-size:clamp(46px,14cqi,90px)}
+.inv.prem .p-tag{position:absolute;left:0;right:0;bottom:-.42em;text-align:center;font:400 clamp(26px,8.6cqi,44px)/1 'Great Vibes',cursive;color:var(--t-accent);transform:rotate(-6deg);text-shadow:0 0 6px var(--t-bg),0 0 14px var(--t-bg);pointer-events:none;z-index:2;white-space:nowrap}
+.inv.prem .p-info{display:grid;justify-items:center;text-align:center;gap:clamp(10px,3cqi,18px)}
+.inv.prem .p-info .p-body{padding:0;justify-items:center;gap:6px;max-width:34ch}
+.inv.prem .p-info .p-body h4{font-size:clamp(26px,8.4cqi,38px);text-wrap:balance}
+.inv.prem .p-info .p-body p{font-size:clamp(13px,3.8cqi,15.5px);text-wrap:balance}
+.inv.prem .p-info .p-ig{justify-self:center}
+.inv.prem .p-info .p-amp{margin:0;font-size:clamp(40px,12cqi,60px)}
+/* Bingkai khas tema tetap dipakai */
+.inv.prem.lay-goresan .p-pic .p-ph,.inv.prem.lay-dongeng .p-pic .p-ph{width:74%;margin:24px auto 0;box-shadow:none}
+.inv.prem.lay-goresan .p-pic .p-ph{border-radius:18px}
+.inv.prem.lay-goresan .p-tag{font-family:'Patrick Hand',cursive;font-size:clamp(20px,6cqi,30px);transform:rotate(-3deg);bottom:-1em}
+.inv.prem.lay-dongeng .p-tag{font-family:'Itim',cursive;font-size:clamp(18px,5.6cqi,28px);transform:none;bottom:-1.3em}
+.inv.prem.lay-goresan .p-info .p-body,.inv.prem.lay-dongeng .p-info .p-body{padding-top:0}
+/* Tema klasik */
+.inv .couple2{display:block;max-width:520px;margin:24px auto 0}
+.inv .couple2 .pics{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,5cqi,28px);margin-bottom:clamp(26px,8cqi,40px)}
+.inv .couple2 .pic{position:relative;margin:0;min-width:0}
+.inv .couple2 .pic .ph{width:100%;height:auto;aspect-ratio:7/10;margin:0;border-radius:50%;font-size:clamp(34px,10cqi,56px);box-shadow:0 0 0 3px var(--t-bg),0 0 0 5px color-mix(in srgb,var(--t-accent) 70%,transparent)}
+.inv .couple2 .p-tag{position:absolute;left:0;right:0;bottom:-.42em;text-align:center;font:400 clamp(24px,8cqi,40px)/1 'Great Vibes',cursive;color:var(--t-accent);transform:rotate(-6deg);text-shadow:0 0 6px var(--t-bg),0 0 14px var(--t-bg);white-space:nowrap}
+.inv .couple2 .person{margin:0 auto;max-width:34ch}
+.inv .couple2 .person h4{text-wrap:balance}
+.inv .couple2 .person p{text-wrap:balance}
 .inv.prem .qband{margin:46px -20px -64px;padding:56px 28px 60px;background:var(--t-accent);color:var(--t-bg);text-align:center;position:relative}
 .inv.prem .qband .orn{color:var(--t-bg);opacity:.7;margin-bottom:14px}
 .inv.prem .qband blockquote{margin:0 auto;max-width:30ch;font-family:var(--t-font);font-size:21px;line-height:1.45;font-style:italic}
@@ -3577,9 +3585,12 @@ function invHTML0(opts={}){
       <svg class="orn" width="120" height="20" aria-hidden="true"><use href="#i-orn"/></svg>
       <h3>${esc(op.salam)}</h3>
       <p class="lead">${esc(op.text)}</p>
-      <div class="couple2"><div class="person"><div class="ph" ${S.bride.photo?`style="background:url(${S.bride.photo}) center/cover"`:''}>${S.bride.photo?'':esc(initials(S.bride.name)||'?')}</div><h4>${esc(S.bride.name||'Nama mempelai wanita')}</h4><p>${esc(S.bride.parents)}</p></div>
-      <div class="and">&amp;</div>
-      <div class="person"><div class="ph" ${S.groom.photo?`style="background:url(${S.groom.photo}) center/cover"`:''}>${S.groom.photo?'':esc(initials(S.groom.name)||'?')}</div><h4>${esc(S.groom.name||'Nama mempelai pria')}</h4><p>${esc(S.groom.parents)}</p></div></div>
+      <div class="couple2"><div class="pics">
+        <figure class="pic"><div class="ph" ${S.bride.photo?`style="background:url(${S.bride.photo}) center/cover"`:''}>${S.bride.photo?'':esc(initials(S.bride.name)||'?')}</div><figcaption class="p-tag" aria-hidden="true">the bride</figcaption></figure>
+        <figure class="pic"><div class="ph" ${S.groom.photo?`style="background:url(${S.groom.photo}) center/cover"`:''}>${S.groom.photo?'':esc(initials(S.groom.name)||'?')}</div><figcaption class="p-tag" aria-hidden="true">the groom</figcaption></figure></div>
+        <div class="person"><h4>${esc(S.bride.name||'Nama mempelai wanita')}</h4><p>${esc(S.bride.parents)}</p></div>
+        <div class="and">&amp;</div>
+        <div class="person"><h4>${esc(S.groom.name||'Nama mempelai pria')}</h4><p>${esc(S.groom.parents)}</p></div></div>
       <p class="lead" style="margin-top:28px;font-style:italic">${esc(op.quote)}</p>
     </section>`;
   sec.acara = `<section id="${id}-acara">
@@ -4256,7 +4267,7 @@ function enhanceInv(root){
     $$(':scope > h3', sec).forEach(h=>{ h.dataset.rv='up'; });
     $$(':scope > .orn', sec).forEach(o=>o.dataset.rv='draw');
     $$(':scope > .kick, .p-card, .qband, :scope > .cd4, .ev2, .tl li, :scope > .lead, :scope > .names, :scope > .and, :scope > .count, :scope > .ev, :scope > .bank, :scope > [data-rsvp], :scope > .form, :scope > [data-wishlist], :scope > [data-giftconfirm], .person h4, .person p', sec).forEach(e=>{ if(!e.dataset.rv){ e.dataset.rv='up'; e.style.setProperty('--rk', Math.min(k++,6)); } });
-    $$('.person .ph, .gal button', sec).forEach((e,i)=>{ e.dataset.rv='clip'; e.style.setProperty('--rk', Math.min(i,5)); });
+    $$('.person .ph, .pic .ph, .gal button', sec).forEach((e,i)=>{ e.dataset.rv='clip'; e.style.setProperty('--rk', Math.min(i,5)); });
     // variasi gerak saat digulir (semua tema)
     $$('.p-card, .ev2, .tl li', sec).forEach((e,i)=>{ e.dataset.rv = i%2 ? 'right' : 'left'; });
     $$('.kd-list > *, [data-wishlist] > *, .opt, .acts', sec).forEach((e,i)=>{ if(!e.dataset.rv){ e.dataset.rv='up'; e.style.setProperty('--rk', Math.min(i,6)); } });
@@ -4275,7 +4286,7 @@ function enhanceInv(root){
   $$('[data-rv]', inv).forEach(e=>{ if(e.dataset.rv==='clip' || e.dataset.rv==='draw'){ const par=e.parentElement; if(!proxy.has(par)) proxy.set(par, []); proxy.get(par).push(e); invIO.observe(par); } else invIO.observe(e); });
 }
 function shimmerImages(inv){
-  $$('.person .ph, .gal button, .cv-photo', inv).forEach(el=>{
+  $$('.person .ph, .pic .ph, .gal button, .cv-photo', inv).forEach(el=>{
     const m = (el.getAttribute('style')||'').match(/url\((['"]?)(.*?)\1\)/); if(!m || el.dataset.sk) return;
     const src = m[2]; if(src.startsWith('data:image/svg')) return;
     el.dataset.sk='1'; el.classList.add('sk-img');
@@ -5998,12 +6009,14 @@ function pPhoto(person, cls){
   return person.photo ? `<div class="${cls}" data-par style="background-image:url(${esc(person.photo)})"></div>` : `<div class="${cls} ph-empty" aria-hidden="true"><span>${ini}</span></div>`;
 }
 function premSalam(id, op){
-  const p = (who, role) => { const x=S[who]; return `<article class="p-card">${pPhoto(x,'p-ph')}<div class="p-body"><span class="kick">${role}</span><h4>${esc(x.name||(who==='bride'?'Nama mempelai wanita':'Nama mempelai pria'))}</h4><p>${esc(x.parents||'')}</p>${x.ig?`<a class="p-ig" href="https://instagram.com/${esc(String(x.ig).replace(/^@/,''))}" target="_blank" rel="noopener">@${esc(String(x.ig).replace(/^@/,''))}</a>`:''}</div></article>`; };
+  const info = (who, role) => { const x=S[who]; return `<div class="p-body"><span class="kick">${role}</span><h4>${esc(x.name||(who==='bride'?'Nama mempelai wanita':'Nama mempelai pria'))}</h4><p>${esc(x.parents||'')}</p>${x.ig?`<a class="p-ig" href="https://instagram.com/${esc(String(x.ig).replace(/^@/,''))}" target="_blank" rel="noopener">@${esc(String(x.ig).replace(/^@/,''))}</a>`:''}</div>`; };
+  const pic = (who, tag) => `<figure class="p-card p-pic">${pPhoto(S[who],'p-ph')}<figcaption class="p-tag" aria-hidden="true">${tag}</figcaption></figure>`;
   return `<section id="${id}-salam" class="p-salam">
     ${P_KICK.salam?`<span class="kick">${esc(P_KICK.salam)}</span>`:''}
     <h3>${esc(op.salam)}</h3>
     <p class="lead">${esc(op.text)}</p>
-    <div class="p-couple">${p('bride','Mempelai wanita')}<div class="p-amp" aria-hidden="true">&amp;</div>${p('groom','Mempelai pria')}</div>
+    <div class="p-couple"><div class="p-pics">${pic('bride','the bride')}${pic('groom','the groom')}</div>
+      <div class="p-info">${info('bride','Mempelai wanita')}<div class="p-amp" aria-hidden="true">&amp;</div>${info('groom','Mempelai pria')}</div></div>
     ${op.quote?`<figure class="qband"><svg class="orn" width="120" height="20" aria-hidden="true"><use href="#i-orn"/></svg><blockquote>${esc(op.quote.replace(/\s*—\s*[^—]+$/,''))}</blockquote>${/—/.test(op.quote)?`<figcaption>${esc(op.quote.split('—').pop().trim())}</figcaption>`:''}</figure>`:''}
   </section>`;
 }
