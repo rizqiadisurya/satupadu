@@ -431,3 +431,7 @@ html.edh-first body{overflow:hidden}
 .auth-panel .auth{padding:26px 22px 28px}
 .auth-panel h2.display{font-size:30px!important}
 }
+/* Tombol "Kembali ke atas" tidak menutupi baris kredit di kaki halaman */
+.edh .e-totop{white-space:nowrap}
+.edh .e-foot-bot{padding-bottom:88px}
+@media (max-width:760px){.edh .e-foot-bot{padding-bottom:74px}}
