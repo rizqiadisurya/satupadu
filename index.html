@@ -5188,7 +5188,7 @@ document.addEventListener('click', e=>{
   if(a==='google-login' && CLOUD.on){ const hv=location.hash.slice(1); const dest = authMode==='publish' ? 'checkout' : (!hv||['beranda','harga'].includes(hv) ? 'dashboard' : hv); lsSet('sp-after-login', dest); el.disabled=true; el.lastChild.textContent='Menghubungkan ke Google…';
     CLOUD.sb.auth.signInWithOAuth({provider:'google', options:{redirectTo: location.origin+'/', queryParams:{prompt:'select_account'}}}).then(({error})=>{ if(error){ el.disabled=false; el.lastChild.textContent='Lanjut dengan Google'; toast('Login Google belum bisa: '+error.message); } }); return; }
   if(a==='google-login'){ finishLogin(S.bride.name||'Pengguna Google', (S.bride.nick||'pengguna').toLowerCase()+'@gmail.com'); }
-  if(a==='logout' && CLOUD.uid){ if(ADM.sso) admSetTok(''); CLOUD.sb.auth.signOut().finally(()=>{ try{ ['sp-state','sp-guests','sp-wishes'].forEach(k=>localStorage.removeItem(k)); }catch(err){} location.href='/'; }); return; }
+  if(a==='logout' && CLOUD.uid){ e.preventDefault(); if(ADM.sso) admSetTok(''); signOutAll(); return; }
   if(a==='logout'){ S.user=null; save(); renderAuthSlot(); toast('Kamu udah keluar. Sampai jumpa lagi! 👋'); if(['tagihan','checkout'].includes(location.hash.slice(1))) location.hash='beranda'; }
   if(a==='acct-menu'){ const m=$('#acctMenu'); m.hidden=!m.hidden; el.setAttribute('aria-expanded',!m.hidden); return; }
   if(a==='apply-voucher') applyVoucher();
@@ -6553,6 +6553,21 @@ const themeOrder = list => list.filter(t=>!themeHidden(t.id)).map((t,i)=>[t,i]).
 try{ applyConfig(JSON.parse(localStorage.getItem('sp-appcfg')||'null')); }catch(e){}
 async function loadAppConfig(){
   if(!CLOUD.sb) return; try{ const { data, error } = await CLOUD.sb.from('app_config').select('key,value'); if(error || !data) return; const o={}; data.forEach(r=>o[r.key]=r.value); applyConfig(o); try{ localStorage.setItem('sp-appcfg', JSON.stringify(o)); }catch(e){} }catch(e){}
+}
+
+/* Keluar akun. signOut() bawaan Supabase membiarkan sesi tetap tersimpan kalau panggilan ke server gagal
+   (jaringan lambat, token kedaluwarsa), sehingga setelah halaman dimuat ulang akun masuk lagi.
+   Jadi: coba cabut sesi di server sebentar, lalu selalu hapus sesi di perangkat ini. */
+let signingOut=false;
+async function signOutAll(){
+  if(signingOut) return; signingOut=true;
+  const sb=CLOUD.sb;
+  try{ await Promise.race([sb.auth.signOut({scope:'global'}), new Promise(r=>setTimeout(r,2500))]); }catch(err){}
+  try{ await sb.auth.signOut({scope:'local'}); }catch(err){}
+  try{ Object.keys(localStorage).filter(k=>/^sb-.*-auth-token/.test(k)||['sp-state','sp-guests','sp-wishes'].includes(k)).forEach(k=>localStorage.removeItem(k)); }catch(err){}
+  try{ Object.keys(sessionStorage).filter(k=>/^sb-/.test(k)).forEach(k=>sessionStorage.removeItem(k)); }catch(err){}
+  CLOUD.uid=null; S.user=null;
+  location.replace('/');
 }
 const VIEWS = ['admin','bandingkan','beranda','tema','buat','undangan','dashboard','checkout','tagihan','checkin','keluarga','katering','edit','album'];
 let bootDoneCalled=false;
