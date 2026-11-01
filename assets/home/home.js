@@ -111,7 +111,7 @@ function init(){
   const track=$('#e-track'); gCount();
   const dist=()=>track.scrollWidth-innerWidth+Math.max(24,(innerWidth-1320)/2);
   gsap.to(track,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:'.e-tema',start:'top top',end:()=>'+='+dist(),pin:'.e-tema-pin',scrub:1,invalidateOnRefresh:true,
-    onUpdate:s=>{ const n=$$('.e-card',track).length; $('#e-prog').style.transform=`scaleX(${s.progress})`; $('#e-tc').textContent=String(Math.min(n,1+Math.floor(s.progress*n))).padStart(2,'0'); }}});
+    onUpdate:s=>{ const n=$$('.e-card:not(.e-all)',track).length; $('#e-prog').style.transform=`scaleX(${s.progress})`; $('#e-tc').textContent=String(Math.min(n,1+Math.floor(s.progress*n))).padStart(2,'0'); }}});
   $$('.e-card',track).slice(0,6).forEach((c,i)=>gsap.from(c,{y:60+i%3*30,opacity:0,duration:1.2,ease:'expo.out',scrollTrigger:{trigger:'.e-tema',start:'top 60%'},delay:i*.05}));
 
   steps.forEach((st,i)=>ScrollTrigger.create({trigger:st,start:'top 62%',end:'bottom 62%',onToggle:s=>{ if(s.isActive) act(i); }}));
@@ -169,7 +169,7 @@ function init(){
     const cur=$('.e-cursor'), cx=gsap.quickTo(cur,'x',{duration:.35,ease:'power3'}), cy=gsap.quickTo(cur,'y',{duration:.35,ease:'power3'});
     addEventListener('mousemove',e=>{ if(active){ cx(e.clientX); cy(e.clientY); } });
     const big=t=>{ $('#e-curTxt').textContent=t; cur.classList.add('e-big'); }, small=()=>cur.classList.remove('e-big');
-    $$('.e-card').forEach(c=>{ c.addEventListener('mouseenter',()=>big('Lihat')); c.addEventListener('mouseleave',small); });
+    $$('.e-card').forEach(c=>{ c.addEventListener('mouseenter',()=>big(c.classList.contains('e-all')?'Semua':'Lihat')); c.addEventListener('mouseleave',small); });
     $$('.e-row').forEach(c=>{ c.addEventListener('mouseenter',()=>big('Pilih')); c.addEventListener('mouseleave',small); });
     $$('a,button').forEach(a=>{ if(a.closest('.e-card,.e-row,.e-acct-menu,.e-drawer')) return; a.addEventListener('mouseenter',()=>gsap.to(cur,{scale:2.2,opacity:.25,duration:.3})); a.addEventListener('mouseleave',()=>gsap.to(cur,{scale:1,opacity:1,duration:.3})); });
     $$('.e-magnet').forEach(m=>{ const qx=gsap.quickTo(m,'x',{duration:.6,ease:'elastic.out(1,.4)'}), qy=gsap.quickTo(m,'y',{duration:.6,ease:'elastic.out(1,.4)'});
@@ -181,7 +181,7 @@ function init(){
 }
 
 // jumlah kartu tema mengikuti katalog; dipanggil ulang saat daftar tema berubah
-function gCount(){ const t=$('#e-tt'); if(t) t.textContent=String($$('#e-track .e-card').length).padStart(2,'0'); }
+function gCount(){ const t=$('#e-tt'); if(t) t.textContent=String($$('#e-track .e-card:not(.e-all)').length).padStart(2,'0'); }
 function gallery(){ gCount(); if(active&&HAS&&inited) requestAnimationFrame(()=>ScrollTrigger.refresh()); }
 // tombol "Ke atas": muncul saat sudah mentok di bawah, hilang begitu digulir ke atas
 const totop=$('#e-totop'); let ttY=scrollY, ttOn=false;

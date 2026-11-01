@@ -4028,7 +4028,16 @@ function homeCard(t){
     : `<div class="tcard e-live"><div class="cover" style="${themeStyle(t)}"><div class="frame"></div><div class="inner"><small>The Wedding of</small><div class="nm">${n1}<i>&amp;</i>${n2}</div><small>${esc(fmtShort(S.events[0].date||'2027-02-14'))}</small></div></div></div>`;
   return `<article class="e-card" role="button" tabindex="0" data-act="demo" data-t="${t.id}" aria-label="Lihat demo tema ${esc(t.name)}"><div class="e-ph">${ph}</div><div class="e-meta"><b>${esc(t.name)}</b><small>${esc(lbl)}</small></div></article>`;
 }
-function renderHomeThemes(){ const tr=$('#e-track'); if(!tr) return; tr.innerHTML=themeOrder(THEMES).map(homeCard).join(''); fitLive(tr); window.EDH&&EDH.gallery&&EDH.gallery(); }
+/* Slider beranda cuma menampilkan HOME_MAX tema pertama; sisanya lewat kartu penutup "Lihat semua tema" ke halaman #tema */
+const HOME_MAX=10;
+function homeAllCard(all, shown){
+  const rest=all.length-shown.length;
+  const pics=all.slice(shown.length).concat(shown).filter(t=>HOME_COVER.has(t.id)).slice(0,3);
+  const fan=pics.map((t,i)=>`<img loading="lazy" src="/assets/home/${t.id}.webp" alt="" style="--i:${i}">`).join('');
+  const arrow='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  return `<a class="e-card e-all" href="#tema" aria-label="Lihat semua ${all.length} tema"><div class="e-ph"><div class="e-all-fan" aria-hidden="true">${fan}</div><div class="e-all-txt"><span class="e-all-n">+${rest}</span><b>Lihat semua<br><i>tema</i></b><span class="e-all-go" aria-hidden="true">${arrow}</span></div></div><div class="e-meta"><b>Semua tema</b><small>${all.length} tema</small></div></a>`;
+}
+function renderHomeThemes(){ const tr=$('#e-track'); if(!tr) return; const all=themeOrder(THEMES), shown=all.slice(0,HOME_MAX); tr.innerHTML=shown.map(homeCard).join('')+(all.length>shown.length?homeAllCard(all,shown):''); fitLive(tr); window.EDH&&EDH.gallery&&EDH.gallery(); }
 let catTag='Semua', catQ='';
 function renderCatalog(){
   $('#tagFilter').innerHTML = TAGS.map(t=>`<button type="button" data-tag="${t}" aria-pressed="${t===catTag}">${t}</button>`).join('');
