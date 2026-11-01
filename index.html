@@ -1160,6 +1160,11 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 .inv:not(#z) h3,.inv:not(#z) h4,.inv:not(#z) .names{overflow-wrap:anywhere}
 .inv:not(#z).prem .ev2,.inv:not(#z).prem .ev2-b,.inv:not(#z).prem .ev2-b>*{min-width:0}
 .inv:not(#z).prem .ev2-b .acts{flex-wrap:wrap}
+/* Kartu acara: tanggal jadi pita di atas kartu (bukan kolom di kiri), di semua lebar layar */
+.inv:not(#z).prem .ev2{grid-template-columns:1fr}
+.inv:not(#z).prem .ev2-d{display:flex;flex-direction:row;align-items:baseline;justify-content:center;gap:10px;padding:14px 12px}
+.inv:not(#z).prem .ev2-d b{font-size:34px}
+.inv:not(#z).prem .ev2-d span{margin-top:0;font-size:12px}
 @container (max-width:330px){
   .inv:not(#z).prem .ev2{grid-template-columns:1fr}
   .inv:not(#z).prem .ev2-d{display:flex;flex-direction:row;align-items:baseline;justify-content:center;gap:8px;padding:12px 10px}
