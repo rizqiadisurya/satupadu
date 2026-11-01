@@ -2753,6 +2753,32 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
   .adm-themes .nm small{font-size:12.5px;line-height:1.4}
   .adm-themes .mv .btn,.adm-themes li>.btn{min-height:36px;font-size:13.5px}
 }
+
+/* ===== Tema Kebun: aset lukisan di semua bagian ===== */
+.inv.lay-kebun section:not(.cover){position:relative;overflow:hidden}
+.inv.lay-kebun section:not(.cover)>*:not(.kb-deco){position:relative;z-index:1}
+.inv.lay-kebun .kb-deco{position:absolute;inset:0;pointer-events:none;z-index:0}
+.inv.lay-kebun .kb-deco img{position:absolute;display:block;height:auto;max-width:none}
+.inv.lay-kebun section.kb-sa:not(.cover){padding-top:calc(30cqi + 26px)}
+.inv.lay-kebun .kb-gar{left:50%;top:0;width:min(80cqi,440px);transform:translate(-50%,-8%);filter:drop-shadow(0 8px 12px rgba(60,30,20,.10))}
+.inv.lay-kebun section.kb-sb:not(.cover){padding-bottom:calc(36cqi + 24px)}
+.inv.lay-kebun .kb-ck{bottom:-2px;width:min(25cqi,150px)}
+.inv.lay-kebun .kb-ck-l{left:0}.inv.lay-kebun .kb-ck-r{right:0}
+.inv.lay-kebun .kb-bf{left:var(--x);top:var(--y);width:clamp(18px,6.5cqi,30px)}
+.inv.anim.lay-kebun .kb-bf{animation:kbFlutter 7s ease-in-out var(--d) infinite}
+@keyframes kbFlutter{0%,100%{transform:translate(0,0) rotate(-6deg)}25%{transform:translate(6px,-10px) rotate(4deg) scaleX(.86)}50%{transform:translate(-4px,-16px) rotate(-2deg)}75%{transform:translate(4px,-6px) rotate(6deg) scaleX(.9)}}
+.inv.lay-kebun.prem .qband{background:linear-gradient(180deg,color-mix(in srgb,var(--kb-sh2) 30%,transparent),color-mix(in srgb,var(--kb-sh2) 62%,transparent)),var(--kb-langit) center 70%/cover;color:#FFFDF8}
+.inv.lay-kebun.prem .qband blockquote{text-shadow:0 1px 10px color-mix(in srgb,var(--kb-sh2) 70%,transparent)}
+.inv.lay-kebun.prem .qband figcaption{background:rgba(255,253,248,.92);color:var(--kb-sh2)}
+.inv.lay-kebun.prem section.p-end{padding:0 0 44px;overflow:hidden}
+.inv.lay-kebun .p-end>h3{display:none}
+.inv.lay-kebun .kb-akhir{position:relative;margin:0 0 26px}
+.inv.lay-kebun .kb-akhir img{display:block;width:100%;height:auto}
+.inv.lay-kebun .kb-akhir-t{position:absolute;left:0;right:0;top:25%;text-align:center;font-family:'Great Vibes',cursive;font-size:clamp(34px,13cqi,62px);line-height:1;color:#FFFDF8;text-shadow:0 2px 0 var(--kb-sh2),0 0 18px color-mix(in srgb,var(--kb-sh2) 55%,transparent)}
+.inv.lay-kebun .p-end>.lead,.inv.lay-kebun .p-end>.names{margin-left:24px;margin-right:24px}
+/* pasangan dan latar sampul diam, hanya bunga dan kupu-kupu yang bergerak */
+.inv.anim.lay-kebun .kb-pria,.inv.anim.lay-kebun .kb-wanita,.inv.anim.lay-kebun .kb-psg,.inv.anim.lay-kebun .kb-latar,.inv.anim.lay-kebun .kb-lukis,.inv.anim.lay-kebun .kb-set .kb-bedb,.inv.anim.lay-kebun .kb-set .kb-bedd,.inv.anim.lay-kebun.kb-x .kb-set .kb-pria,.inv.anim.lay-kebun .kb-set .kb-pria,.inv.anim.lay-kebun .kb-set .kb-wanita,.inv.anim.lay-kebun .kb-img .kb-lukis{animation:none !important;transform:none !important}
+@media (prefers-reduced-motion:reduce){.inv.anim.lay-kebun .kb-bf{animation:none}}
 </style>
 </head>
 <body>
@@ -3544,8 +3570,16 @@ function invHTML0(opts={}){
   { const c=storySecHTML(id); if(c) sec.cerita=c; }
   if(prem){ sec.salam=premSalam(id, op); sec.acara=premAcara(id, ev, first, gobj, mapUrl, calUrl); if(sec.galeri) sec.galeri=premGaleri(id); premDecorate(sec); }
   const order = secOrder().filter(k=>sec[k]);
+  // Tema Kebun: aset lukisan ikut menghiasi setiap bagian (untaian bunga, rumpun di sudut, kupu-kupu)
+  if(t.layout==='kebun' && t.kbSet){ const A=t.kbSet, im=(c,f,st)=>`<img class="${c}" src="${A}${f}" alt=""${st?` style="${st}"`:''} loading="lazy" decoding="async">`;
+    const BX=[6,86,10,84,5,88,12,82], BY=[16,28,22,12,34,20,30,14];
+    order.forEach((k,i)=>{ const top=i%2===0;
+      const deco=`<div class="kb-deco" aria-hidden="true">${top?im('kb-gar','s-atas.webp'):im('kb-ck kb-ck-l','s-kiri.webp')+im('kb-ck kb-ck-r','s-kanan.webp')}${im('kb-bf','kupu/'+((i*3)%10+1)+'.webp',`--x:${BX[i%8]}%;--y:${BY[i%8]}%;--d:${(-i*1.3).toFixed(1)}s`)}</div>`;
+      sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>{ const c='kb-s'+(top?'a':'b'); return a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="'+c+' '):b+' class="'+c+'"')+'>'+deco; });
+    });
+  }
   return `
-  <div class="inv${big}${t.layout?' lay-'+t.layout+' prem':''}" style="${themeStyle(t, S.accent, fontOf())};--t-op:${op2}" data-fp="${fontPair()?S.fontPair:'tema'}" data-inv>
+  <div class="inv${big}${t.layout?' lay-'+t.layout+' prem':''}" style="${themeStyle(t, S.accent, fontOf())};--t-op:${op2}${t.layout==='kebun'&&t.kbSet?`;--kb-langit:url('${t.kbSet}s-langit.webp');--kb-sh2:${t.kbSh||'#8E6FC0'}`:''}" data-fp="${fontPair()?S.fontPair:'tema'}" data-inv>
     <div class="pat"></div>${t.layout==='dongeng'?`<div class="dg-stk" aria-hidden="true">${DG_BODY}</div>`:''}${t.layout==='goresan'?`<div class="go-stk" aria-hidden="true">${[[6,6,20,0],[90,12,16,-1],[5,24,14,-2],[92,33,20,-.5],[7,45,18,-1.4],[90,55,14,-2.2],[6,68,20,-.8],[91,78,16,-1.8],[8,90,14,-.3]].map(a=>goSt(...a)).join('')}</div>`:''}${t.dp?`<div class="dp-fly dp-body" aria-hidden="true"><span class="dp-bf" style="top:22%;--d:26s;--dl:-6s"><i>${DP_BF}</i></span><span class="dp-bf rev" style="top:48%;--d:30s;--dl:-18s;width:26px"><i>${DP_BF}</i></span><span class="dp-bf" style="top:74%;--d:28s;--dl:-11s"><i>${DP_BF}</i></span><span class="dp-bf rev" style="top:93%;--d:22s;--dl:-2s;width:26px"><i>${DP_BF}</i></span></div>`:''}
     ${opts.watermark ? `<span class="wm">Pratinjau · belum dipublikasikan</span>`:''}
     ${t.layout ? coverHTML(t, {id, guest, n1:nick1, n2:nick2, dateLong:first?fmtShort(first.date):'', dateDots:first?dateDots(first.date):'', accent:S.accent||t.accent, gate:opts.gate, photo:t.photo?coverPhoto(t):''}) : `
@@ -3560,6 +3594,7 @@ function invHTML0(opts={}){
     </section>`}
     ${order.map(k=>sec[k]).join('')}
     <section class="p-end">
+      ${t.layout==='kebun'&&t.kbSet?`<div class="kb-akhir"><img src="${t.kbSet}s-akhir.webp" alt="" loading="lazy" decoding="async"><span class="kb-akhir-t">Terima kasih</span></div>`:''}
       ${t.layout==='goresan'?`<div class="go-see">Sampai jumpa${first?`<br>di ${esc(dateDots(first.date))}`:''}</div>${goStrip(t)}`:''}
       ${t.layout==='dongeng'?`<div class="dg-win" aria-hidden="true"><div class="ph" style="background-image:url('${coverPhoto(t)}')"></div></div>`:''}
       <h3>Terima kasih</h3>
