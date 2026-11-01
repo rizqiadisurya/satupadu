@@ -453,6 +453,7 @@ textarea.input{min-height:96px;resize:vertical}
   .g-side blockquote{margin:22px 0 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.35);font-family:var(--t-sub,Georgia,serif);font-style:italic;font-size:15px;line-height:1.65;opacity:.92;max-width:52ch}
   .g-side.scene .ph{background-position:78% 100%}
   .g-side.gs-teras.scene .ph{background-position:50% 45%}
+  .g-side.gs-teras.scene .ph{background-position:50% 55%}
   .g-side.gs-teras h1{font-family:'Yellowtail','Great Vibes',cursive;font-size:clamp(54px,6vw,96px)}
   .g-side.mono-on{justify-content:center;align-items:center;text-align:center}
   .g-side.art .ph{inset:-80px;filter:blur(26px) saturate(1.15);transform:scale(1.15);animation:none;opacity:.95}
@@ -1737,18 +1738,19 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 @keyframes kbIn{from{opacity:0;scale:1.06}to{opacity:1;scale:1}}
 @keyframes kbFall{0%{opacity:0;transform:translate(0,0) rotate(0)}10%{opacity:.9}90%{opacity:.9}100%{opacity:0;transform:translate(40px,calc(100vh + 60px)) rotate(540deg)}}
 /* Teras Kamboja: ilustrasi gouache bertekstur, rumah tropis modernis, bingkai ubin tegel, pita taman hijau, kartu terakota bergelombang */
-.inv.lay-teras{--tr-ink:#8E3A28;--tr-tg:clamp(34px,11.5cqi,58px);--tr-k:url(/assets/teras/kartu.webp) 123 136 185 126 fill / 25px 27px 37px 25px round}
+.inv.lay-teras{--il-tegel:url(/assets/teras/tegel.webp);--il-bingkai:url(/assets/teras/bingkai.webp);--il-jalan:url(/assets/teras/jalan.webp);--tr-ink:#8E3A28;--tr-tg:clamp(34px,11.5cqi,58px);--tr-k:url(/assets/teras/kartu.webp) 123 136 185 126 fill / 25px 27px 37px 25px round}
 .inv.lay-teras .cover{min-height:178cqi;position:relative;overflow:hidden;justify-content:space-between;padding:0;gap:0;background:#BFD6E6}
 .inv.lay-teras .tr-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 100%;display:block}
 .inv.lay-teras .tr-cpl{position:absolute;left:50%;bottom:20%;height:21%;width:auto;transform:translateX(-50%);z-index:1;filter:drop-shadow(0 6px 6px rgba(40,50,20,.18))}
 .inv.lay-teras .tr-dahan{position:absolute;right:-12%;top:26%;width:64%;z-index:3;pointer-events:none;scale:-1 1;transform-origin:50% 0}
+.inv.lay-teras .tr-top::before{content:"";position:absolute;left:-10%;right:-10%;top:-30%;bottom:-25%;z-index:-1;background:var(--il-topbg,none);pointer-events:none}
 .inv.lay-teras .tr-top{position:relative;z-index:4;display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(20px,7cqi,40px) 18px 0}
-.inv.lay-teras .tr-badge{position:relative;width:clamp(80px,23cqi,118px);aspect-ratio:420/406;display:grid;place-items:center;filter:drop-shadow(0 6px 10px rgba(120,60,40,.2))}
+.inv.lay-teras .tr-badge{position:relative;width:var(--il-bw,clamp(80px,23cqi,118px));aspect-ratio:var(--il-bar,420/406);display:grid;place-items:center;filter:drop-shadow(0 6px 10px rgba(120,60,40,.2))}
 .inv.lay-teras .tr-badge img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
-.inv.lay-teras .tr-badge span{position:relative;font-family:'Great Vibes',cursive;font-size:clamp(30px,9cqi,46px);line-height:1;color:#FFF8F0;letter-spacing:-.04em;text-shadow:0 1px 2px rgba(140,50,30,.35);transform:translateY(4%)}
+.inv.lay-teras .tr-badge span{position:relative;font-family:'Great Vibes',cursive;font-size:clamp(30px,9cqi,46px);line-height:1;color:var(--il-ini,#FFF8F0);letter-spacing:-.04em;text-shadow:0 1px 2px rgba(0,0,0,.3);transform:translateY(var(--il-iy,4%))}
 .inv.lay-teras .cover .k-label{margin-top:clamp(8px,3cqi,16px);font-family:var(--inv-body);font-size:clamp(9px,2.6cqi,12px);letter-spacing:.3em;text-transform:uppercase;color:var(--tr-ink)}
-.inv.lay-teras .cover .names{display:block;font-family:'Yellowtail','Great Vibes',cursive;font-weight:400;font-size:clamp(36px,12cqi,58px);line-height:1.08;margin:2px 0 2px;color:#C2573F;text-shadow:0 0 16px rgba(255,255,255,.85),0 1px 0 rgba(255,255,255,.7)}
-.inv.lay-teras .cover .names .amp{display:inline;font-style:normal;font-size:.8em;margin:0 .14em;color:#6E8B5A}
+.inv.lay-teras .cover .names{display:block;font-family:'Yellowtail','Great Vibes',cursive;font-weight:400;font-size:clamp(36px,12cqi,58px);line-height:1.08;margin:2px 0 2px;color:var(--il-nm,#C2573F);text-shadow:0 0 16px rgba(255,255,255,.85),0 1px 0 rgba(255,255,255,.7)}
+.inv.lay-teras .cover .names .amp{display:inline;font-style:normal;font-size:.8em;margin:0 .14em;color:var(--il-amp,#6E8B5A)}
 .inv.lay-teras .cover .date{font-family:var(--inv-body);font-weight:700;font-size:clamp(10px,3cqi,13px);letter-spacing:.32em;color:var(--tr-ink);text-shadow:0 0 10px rgba(255,255,255,.9)}
 .inv.lay-teras .tr-card{position:relative;z-index:4;margin:0 auto clamp(14px,4.5cqi,24px);width:calc(100% - 52px);max-width:320px;padding:10px 14px 14px;border-radius:20px;background:rgba(255,250,243,.88);backdrop-filter:blur(6px);box-shadow:0 10px 26px rgba(40,50,20,.2);text-align:center}
 .inv.lay-teras .cover .to{color:var(--t-fg);margin-top:0;font-size:12px}
@@ -1768,18 +1770,18 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 @keyframes trSway{from{rotate:0deg}to{rotate:2.5deg}}
 @media (prefers-reduced-motion:reduce){.inv.anim.lay-teras .tr-pet img,.inv.anim.lay-teras .tr-dahan{animation:none}}
 /* isi: bingkai ubin tegel di kiri-kanan, pita taman di antara bagian */
-.inv.lay-teras>section:not(.cover){position:relative;overflow:hidden;background:url(/assets/teras/tegel.webp) left top/var(--tr-tg) repeat-y,url(/assets/teras/tegel.webp) right top/var(--tr-tg) repeat-y,#FBF3E4 !important;padding-left:calc(var(--tr-tg) + 16px) !important;padding-right:calc(var(--tr-tg) + 16px) !important}
+.inv.lay-teras>section:not(.cover){position:relative;overflow:hidden;background:var(--il-tegel) left top/var(--tr-tg) repeat-y,var(--il-tegel) right top/var(--tr-tg) repeat-y,var(--il-bg,#FBF3E4) !important;padding-left:calc(var(--tr-tg) + 16px) !important;padding-right:calc(var(--tr-tg) + 16px) !important}
 .inv.lay-teras>section:not(.cover)>*{position:relative;z-index:1}
 .inv.lay-teras>section.tr-pb{padding-bottom:calc(15cqi + 56px) !important}
 .inv.lay-teras .tr-pita{position:absolute !important;left:0;right:0;bottom:-1px;width:100%;height:auto;display:block;z-index:2 !important;pointer-events:none}
 .inv.lay-teras h3{font-family:'Yellowtail','Great Vibes',cursive !important;font-style:normal !important;font-weight:400 !important;color:var(--t-accent);font-size:clamp(30px,10cqi,42px) !important;letter-spacing:0}
-.inv.lay-teras .kick{color:#6E8B5A}
+.inv.lay-teras .kick{color:var(--il-amp,#6E8B5A)}
 /* foto mempelai di bingkai sulur */
-.inv.prem.lay-teras .p-pic{aspect-ratio:488/720;padding:0}
-.inv.prem.lay-teras .p-pic::after{content:"";position:absolute;inset:0;background:url(/assets/teras/bingkai.webp) center/100% 100% no-repeat;pointer-events:none;z-index:2}
-.inv.prem.lay-teras .p-pic .p-ph{position:absolute;left:10%;top:6%;width:76.5%;height:83%;aspect-ratio:auto;margin:0;border-radius:50%;box-shadow:none}
+.inv.prem.lay-teras .p-pic{aspect-ratio:var(--il-far,488/720);padding:0}
+.inv.prem.lay-teras .p-pic::after{content:"";position:absolute;inset:0;background:var(--il-bingkai) center/100% 100% no-repeat;pointer-events:none;z-index:2}
+.inv.prem.lay-teras .p-pic .p-ph{position:absolute;left:var(--il-fl,10%);top:var(--il-ft,6%);width:var(--il-fw,76.5%);height:var(--il-fh,83%);aspect-ratio:auto;margin:0;border-radius:50%;box-shadow:none}
 .inv.prem.lay-teras .p-body h4{font-family:'Yellowtail','Great Vibes',cursive;font-weight:400;color:var(--t-accent);font-size:clamp(28px,9cqi,38px)}
-.inv.prem.lay-teras .p-amp{font-family:'Yellowtail',cursive;color:#6E8B5A}
+.inv.prem.lay-teras .p-amp{font-family:'Yellowtail',cursive;color:var(--il-amp,#6E8B5A)}
 /* kutipan & kartu acara: kertas terakota bertepi gelombang */
 .inv.lay-teras.prem .qband{margin:40px 0 0;background:none;border-image:var(--tr-k);border-style:solid;color:#FFF3E6;padding:30px 22px 36px}
 .inv.lay-teras.prem .qband blockquote{color:#FFF3E6;font-size:clamp(15px,4.4cqi,19px)}
@@ -1800,7 +1802,7 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 .inv.lay-teras.prem .ev2 .ibtn{background:transparent;color:#FFF8F0;border-color:rgba(255,248,240,.7)}
 .inv.lay-teras.prem .ev2 .ibtn.solid{background:#FFF3E6;color:var(--t-accent);border-color:#FFF3E6}
 /* hitung mundur di atas lukisan halaman taman */
-.inv.lay-teras.prem .cd4{max-width:none;margin:10px calc(-1 * (var(--tr-tg) + 16px)) 30px;width:auto;border-radius:0;aspect-ratio:720/900;background:url(/assets/teras/jalan.webp) center 30%/cover;align-items:center;padding:0 calc(var(--tr-tg) + 12px);gap:8px;position:relative}
+.inv.lay-teras.prem .cd4{max-width:none;margin:10px calc(-1 * (var(--tr-tg) + 16px)) 30px;width:auto;border-radius:0;aspect-ratio:720/900;background:var(--il-jalan) center 30%/cover;align-items:center;padding:0 calc(var(--tr-tg) + 12px);gap:8px;position:relative}
 .inv.lay-teras.prem .cd4>div{background:rgba(255,248,238,.9);border-radius:16px;padding:10px 4px;box-shadow:0 8px 20px rgba(60,40,20,.18);color:var(--t-accent)}
 .inv.lay-teras.prem .cd4 b{font-family:'Yellowtail',cursive;font-weight:400}
 .inv.lay-teras.prem .cd4 i{display:none}
@@ -1809,7 +1811,7 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 .inv.lay-teras .tr-akhir{position:relative;margin:0 calc(-1 * (var(--tr-tg) + 16px)) 26px;aspect-ratio:864/1060;overflow:hidden}
 .inv.lay-teras .tr-akhir>img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 100%}
 .inv.lay-teras .tr-akhir>img.cp{position:absolute;left:50%;bottom:12%;height:32%;transform:translateX(-50%);filter:drop-shadow(0 6px 6px rgba(40,50,20,.18))}
-.inv.lay-teras .tr-akhir .tr-badge{position:absolute;left:50%;top:7%;transform:translateX(-50%);width:clamp(96px,28cqi,140px)}
+.inv.lay-teras .tr-akhir .tr-badge{position:absolute;left:50%;top:7%;transform:translateX(-50%);width:calc(var(--il-bw,clamp(80px,23cqi,118px)) * 1.2)}
 .inv.lay-teras .tr-akhir .tr-badge span{font-size:clamp(36px,11cqi,54px)}
 .inv.lay-teras .p-end .names{font-family:'Yellowtail',cursive !important;color:var(--t-accent)}
 @media (prefers-reduced-motion: reduce){.inv.anim.lay-kebun .kb-l,.inv.anim.lay-kebun .kb-frame,.inv.anim.lay-kebun .kb-pet i{animation:none}}
@@ -1957,16 +1959,16 @@ html.boot-done #gate:not(.show):not(.open){opacity:0;pointer-events:none}
 #gate.g-goresan .gmed{box-shadow:0 18px 40px rgba(43,27,23,.12);outline:2px dashed color-mix(in srgb,var(--ga) 70%,transparent);outline-offset:7px}
 #gate.g-goresan .gn{font-style:normal;font-weight:400;font-size:28px}
 /* Teras: pintu berlapis ubin tegel, medali = lencana bergelombang dengan inisial */
-#gate.g-teras{background:radial-gradient(70% 55% at 50% 50%,#FFFDF8 0%,#FBF3E4 75%)}
-#gate.g-teras .gd{background:url(/assets/teras/tegel.webp) 0 0/92px 92px repeat,#FBF3E4}
-#gate.g-teras .gd.l{box-shadow:inset -10px 0 0 #FBF3E4,inset -11px 0 0 rgba(194,87,63,.5)}
-#gate.g-teras .gd.r{box-shadow:inset 10px 0 0 #FBF3E4,inset 11px 0 0 rgba(194,87,63,.5)}
+#gate.g-teras{background:radial-gradient(70% 55% at 50% 50%,#FFFDF8 0%,var(--il-bg,#FBF3E4) 75%)}
+#gate.g-teras .gd{background:var(--il-tegel,url(/assets/teras/tegel.webp)) 0 0/92px 92px repeat,var(--il-bg,#FBF3E4)}
+#gate.g-teras .gd.l{box-shadow:inset -10px 0 0 var(--il-bg,#FBF3E4),inset -11px 0 0 rgba(194,87,63,.5)}
+#gate.g-teras .gd.r{box-shadow:inset 10px 0 0 var(--il-bg,#FBF3E4),inset 11px 0 0 rgba(194,87,63,.5)}
 #gate.g-teras .gd::before,#gate.g-teras .gd::after{display:none}
-#gate.g-teras .gmed{background:url(/assets/teras/lencana.webp) center/contain no-repeat;box-shadow:none;border-radius:0;filter:drop-shadow(0 14px 22px rgba(140,60,40,.3));width:176px;height:170px;margin:-85px 0 0 -88px;display:grid;place-items:center}
+#gate.g-teras .gmed{background:var(--il-lencana,url(/assets/teras/lencana.webp)) center/contain no-repeat;box-shadow:none;border-radius:0;filter:drop-shadow(0 14px 22px rgba(140,60,40,.3));width:var(--il-gw,176px);height:var(--il-gh,170px);margin:calc(var(--il-gh,170px) / -2) 0 0 calc(var(--il-gw,176px) / -2);display:grid;place-items:center}
 #gate.g-teras .gmed svg,#gate.g-teras .gmed b{display:none}
-#gate.g-teras .gmed::after{content:var(--gini,'');font:400 58px/1 'Great Vibes',cursive;color:#FFF8F0;letter-spacing:-.04em;text-shadow:0 1px 2px rgba(140,50,30,.35);opacity:0;animation:gateFade .7s ease .3s forwards}
-#gate.g-teras .gn{left:50%;right:auto;transform:translateX(-50%);width:max-content;max-width:90vw;padding:12px 22px 14px;border-radius:18px;background:rgba(251,243,228,.94);box-shadow:0 10px 26px rgba(80,50,30,.15);color:#C2573F;font-family:'Yellowtail','Great Vibes',cursive;font-style:normal;font-size:34px}
-#gate.g-teras .gn small{color:#6E8B5A}
+#gate.g-teras .gmed::after{content:var(--gini,'');font:400 58px/1 'Great Vibes',cursive;color:var(--il-ini,#FFF8F0);letter-spacing:-.04em;text-shadow:0 1px 2px rgba(140,50,30,.35);opacity:0;animation:gateFade .7s ease .3s forwards}
+#gate.g-teras .gn{left:50%;right:auto;transform:translateX(-50%);width:max-content;max-width:90vw;padding:12px 22px 14px;border-radius:18px;background:rgba(251,243,228,.94);box-shadow:0 10px 26px rgba(80,50,30,.15);color:var(--il-nm,#C2573F);font-family:'Yellowtail','Great Vibes',cursive;font-style:normal;font-size:34px}
+#gate.g-teras .gn small{color:var(--il-amp,#6E8B5A)}
 #gate.g-teras .gbar{background:rgba(194,87,63,.25)}
 /* Kebun: pintu warna lembut tema dengan untaian & rumpun bunga lukisan */
 #gate.g-kebun .gd{background-image:var(--gfl),linear-gradient(180deg,rgba(255,255,255,.35),transparent 50%);background-size:auto 46%,auto;background-repeat:no-repeat}
@@ -3503,12 +3505,16 @@ const LAYOUT_THEMES = [
     pat:(t)=>`radial-gradient(circle, ${t.accent}10 0 .8px, transparent 1.2px)`, size:'16px 16px', thumb:()=>`linear-gradient(90deg,#E99AB5 0 22%,#F7F2EA 22% 78%,#E99AB5 78%)`},
   {id:'teras', layout:'teras', name:'Teras Kamboja', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#FBF5EC', fg:'#4A2A20', accent:'#C2573F', soft:'#F6E4D8', font:"'Cormorant Garamond', Georgia, serif", side:'/assets/teras/sampul2.webp',
     pat:(t)=>`radial-gradient(circle, #C2573F12 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/teras.webp) center/cover`},
+  {id:'joglo', layout:'teras', ilDir:'/assets/joglo/', name:'Joglo Sogan', region:'Jawa', tags:['Ilustrasi','Adat'], bg:'#FBF3E2', fg:'#3E2A1C', accent:'#7A4A2A', soft:'#F1E3C8', font:"'Cormorant Garamond', Georgia, serif", side:'/assets/joglo/sampul2.webp',
+    pat:(t)=>`radial-gradient(circle, #7A4A2A12 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/joglo.webp) center/cover`,
+    ilVars:"--il-tegel:url(/assets/joglo/tegel.webp);--il-bingkai:url(/assets/joglo/bingkai.webp);--il-jalan:url(/assets/joglo/jalan.webp);--tr-k:url(/assets/joglo/kartu.webp) 127 146 187 138 fill / 25px 29px 37px 27px round;--tr-ink:#5A3A22;--il-nm:#7A4A2A;--il-amp:#2F5D3A;--il-bg:#FBF3E2;--il-bar:244/420;--il-bw:clamp(54px,15cqi,78px);--il-ini:#F3D9A0;--il-iy:8%;--il-topbg:radial-gradient(48% 46% at 50% 56%,rgba(251,243,226,.92),rgba(251,243,226,.7) 55%,rgba(251,243,226,0) 100%);--il-far:474/720;--il-fl:19%;--il-ft:5.5%;--il-fw:66%;--il-fh:83%",
+    ilGate:{'--il-tegel':'url(/assets/joglo/tegel.webp)','--il-lencana':'url(/assets/joglo/lencana.webp)','--il-bg':'#FBF3E2','--il-amp':'#2F5D3A','--il-nm':'#7A4A2A','--il-ini':'#F3D9A0','--il-gw':'124px','--il-gh':'214px'}},
   {id:'goresan-merah', layout:'goresan', name:'Goresan Merah', region:'Nasional', tags:['Ilustrasi','Minimalis'], bg:'#F3EFEA', fg:'#2B1B17', accent:'#A3261E', soft:'#F1E1DC', font:"'Patrick Hand', cursive",
     pat:(t)=>`radial-gradient(circle, ${t.accent}0c 0 .8px, transparent 1.2px)`, size:'16px 16px', thumb:()=>`linear-gradient(180deg,#F3EFEA 0 60%,#A3261E 60% 62%,#F3EFEA 62%)`}
 ];
 THEMES.unshift(...LAYOUT_THEMES);
 /* thumbnail = cuplikan sampul asli */
-const THUMB_IMG=new Set(["kawung", "songket", "melati", "taman", "lontar", "ulos", "senja", "peranakan", "sakinah", "endek", "megamendung", "gigibalang", "sekar", "kamboja", "lentera", "arunika", "atelier", "kebun-lila", "kebun-sage", "kebun-biru", "kebun-senja", "kebun-mawar", "draperi-biru", "draperi-zamrud", "draperi-mawar", "dongeng-pink", "goresan-merah", "teras"]);
+const THUMB_IMG=new Set(["kawung", "songket", "melati", "taman", "lontar", "ulos", "senja", "peranakan", "sakinah", "endek", "megamendung", "gigibalang", "sekar", "kamboja", "lentera", "arunika", "atelier", "kebun-lila", "kebun-sage", "kebun-biru", "kebun-senja", "kebun-mawar", "draperi-biru", "draperi-zamrud", "draperi-mawar", "dongeng-pink", "goresan-merah", "teras", "joglo"]);
 THEMES.forEach(t=>{ if(THUMB_IMG.has(t.id)){ t.thumbNoTxt=true; t.thumbImg=`/assets/thumbs/${t.id}.webp`; } });
 TAGS.includes('Foto') || TAGS.push('Foto');
 LAYOUT_THEMES.filter(t=>t.photo).forEach(t=>t.tags.push('Foto'));
@@ -3583,7 +3589,7 @@ function coverHTML(t, d){
       <div class="dp-tulle" aria-hidden="true"></div>
     </section>`;
   if(L==='teras'){
-    const A='/assets/teras/', ini=esc((d.n1||'?')[0])+esc((d.n2||'?')[0]);
+    const A=t.ilDir||'/assets/teras/', ini=esc((d.n1||'?')[0])+esc((d.n2||'?')[0]);
     const pet=[[12,6,20,0],[70,8,14,-4],[38,7,18,-8],[86,6,22,-11],[24,8,16,-14],[58,7,20,-2]].map(([x,f,w,dl],i)=>`<img src="${A}bunga${f}.webp" alt="" style="--x:${x}%;--w:${w}px;--d:${dl}s;--t:${13+i*1.6}s" decoding="async">`).join('');
     return `<section class="cover cv-teras" id="${d.id}-cover">
       <img class="tr-bg" src="${A}sampul2.webp" alt="" decoding="async" aria-hidden="true">
@@ -3848,10 +3854,10 @@ function invHTML0(opts={}){
   }
   // Tema Teras: pita taman hijau bergelombang di bawah bagian berselang-seling
   if(t.layout==='teras'){
-    order.forEach((k,i)=>{ if(i%2) return; sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="tr-pb '):b+' class="tr-pb"')+'>').replace(/<\/section>\s*$/, `<img class="tr-pita" src="/assets/teras/pita.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></section>`); });
+    order.forEach((k,i)=>{ if(i%2) return; sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="tr-pb '):b+' class="tr-pb"')+'>').replace(/<\/section>\s*$/, `<img class="tr-pita" src="${t.ilDir||'/assets/teras/'}pita.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></section>`); });
   }
   return `
-  <div class="inv${big}${t.layout?' lay-'+t.layout+' prem':''}" style="${themeStyle(t, S.accent, fontOf())};--t-op:${op2}${t.layout==='kebun'&&t.kbSet?`;--kb-langit:url('${t.kbSet}s-langit.webp');--kb-sh2:${t.kbSh||'#8E6FC0'}`:''}" data-fp="${fontPair()?S.fontPair:'tema'}" data-inv>
+  <div class="inv${big}${t.layout?' lay-'+t.layout+' prem':''}" style="${themeStyle(t, S.accent, fontOf())};--t-op:${op2}${t.layout==='teras'&&t.ilVars?';'+t.ilVars:''}${t.layout==='kebun'&&t.kbSet?`;--kb-langit:url('${t.kbSet}s-langit.webp');--kb-sh2:${t.kbSh||'#8E6FC0'}`:''}" data-fp="${fontPair()?S.fontPair:'tema'}" data-inv>
     <div class="pat"></div>${t.layout==='dongeng'?`<div class="dg-stk" aria-hidden="true">${DG_BODY}</div>`:''}${t.layout==='goresan'?`<div class="go-stk" aria-hidden="true">${[[6,6,20,0],[90,12,16,-1],[5,24,14,-2],[92,33,20,-.5],[7,45,18,-1.4],[90,55,14,-2.2],[6,68,20,-.8],[91,78,16,-1.8],[8,90,14,-.3]].map(a=>goSt(...a)).join('')}</div>`:''}${t.dp?`<div class="dp-fly dp-body" aria-hidden="true"><span class="dp-bf" style="top:22%;--d:26s;--dl:-6s"><i>${DP_BF}</i></span><span class="dp-bf rev" style="top:48%;--d:30s;--dl:-18s;width:26px"><i>${DP_BF}</i></span><span class="dp-bf" style="top:74%;--d:28s;--dl:-11s"><i>${DP_BF}</i></span><span class="dp-bf rev" style="top:93%;--d:22s;--dl:-2s;width:26px"><i>${DP_BF}</i></span></div>`:''}
     ${opts.watermark ? `<span class="wm">Pratinjau · belum dipublikasikan</span>`:''}
     ${t.layout ? coverHTML(t, {id, guest, n1:nick1, n2:nick2, dateLong:first?fmtShort(first.date):'', dateDots:first?dateDots(first.date):'', accent:S.accent||t.accent, gate:opts.gate, photo:t.photo?coverPhoto(t):''}) : `
@@ -3866,7 +3872,7 @@ function invHTML0(opts={}){
     </section>`}
     ${order.map(k=>sec[k]).join('')}
     <section class="p-end">
-      ${t.layout==='teras'?`<div class="tr-akhir" aria-hidden="true"><img class="bg" src="/assets/teras/sampul2.webp" alt="" loading="lazy" decoding="async"><img class="cp" src="/assets/teras/pasangan.webp" alt="" loading="lazy" decoding="async"><div class="tr-badge"><img src="/assets/teras/lencana.webp" alt=""><span>${esc((nick1||'?')[0])}${esc((nick2||'?')[0])}</span></div></div>`:''}
+      ${t.layout==='teras'?`<div class="tr-akhir" aria-hidden="true"><img class="bg" src="${t.ilDir||'/assets/teras/'}sampul2.webp" alt="" loading="lazy" decoding="async"><img class="cp" src="${t.ilDir||'/assets/teras/'}pasangan.webp" alt="" loading="lazy" decoding="async"><div class="tr-badge"><img src="${t.ilDir||'/assets/teras/'}lencana.webp" alt=""><span>${esc((nick1||'?')[0])}${esc((nick2||'?')[0])}</span></div></div>`:''}
       ${t.layout==='kebun'&&t.kbSet?`<div class="kb-akhir"><img src="${t.kbSet}s-akhir.webp" alt="" loading="lazy" decoding="async"><span class="kb-akhir-t">Terima kasih</span></div>`:''}
       ${t.layout==='goresan'?`<div class="go-see">Sampai jumpa${first?`<br>di ${esc(dateDots(first.date))}`:''}</div>${goStrip(t)}`:''}
       ${t.layout==='dongeng'?`<div class="dg-win" aria-hidden="true"><div class="ph" style="background-image:url('${coverPhoto(t)}')"></div></div>`:''}
@@ -4009,7 +4015,7 @@ addEventListener('resize', ()=>fitLive());
 function renderStrip(){ $('#themeStrip').innerHTML = themeOrder(['sekar','kamboja','lentera','arunika'].map(themeById)).concat(themeOrder(THEMES)).filter((t,i,a)=>a.indexOf(t)===i).slice(0,4).map(tcard).join(''); fitLive($('#themeStrip')); }
 /* Galeri tema di beranda: isinya sama dengan halaman Tema (urutan & sembunyi dari admin ikut).
    Tema yang punya sampul potret di /assets/home/<id>.webp memakai gambar itu, sisanya memakai sampul langsung. */
-const HOME_COVER=new Set(['teras','kebun-lila','kebun-senja','draperi-mawar','kawung','kebun-mawar','songket','atelier','draperi-zamrud','dongeng-pink','kebun-biru','kamboja','goresan-merah','kebun-sage']);
+const HOME_COVER=new Set(['teras','joglo','kebun-lila','kebun-senja','draperi-mawar','kawung','kebun-mawar','songket','atelier','draperi-zamrud','dongeng-pink','kebun-biru','kamboja','goresan-merah','kebun-sage']);
 function homeCard(t){
   const rg=(t.region||'').split(',')[0].trim(), lbl=[t.tags[0], rg&&rg!=='Nasional'&&rg.length<=12?rg:''].filter(Boolean).join(' · ');
   const n1=esc(S.bride.nick||'Sarah'), n2=esc(S.groom.nick||'Raka');
@@ -6339,7 +6345,7 @@ function gateLook(t){
   cls.push('th'); v['--gfont']=t.font; v['--gink']=t.fg;
   if(L==='dongeng'){ cls.push('g-dongeng'); Object.assign(v,{'--gbg':t.bg,'--gd':'#F2B3C6','--ga':t.accent,'--gm':'#FFF9FB','--gink':t.accent,'--gl':t.accent,'--gtop':'url(/assets/ceria/swag.webp)','--gtop-h':'26vh','--gtop-s':'min(100%,620px) auto'}); }
   else if(L==='goresan'){ cls.push('g-goresan'); Object.assign(v,{'--gbg':t.bg,'--gd':t.bg,'--ga':t.accent,'--gm':t.bg,'--gink':t.accent,'--gl':t.accent,'--gsh':'rgba(43,27,23,.1)','--gtop':'url(/assets/goresan/tangan.webp)','--gtop-h':'calc(50% - 120px)','--gtop-y':'62%','--gtop-s':'min(84%,440px) auto'}); }
-  else if(L==='teras'){ cls.push('g-teras'); Object.assign(v,{'--gbg':t.bg,'--gd':t.bg,'--ga':t.accent,'--gm':'#FFFDF8','--gl':'#B4472F','--gini':JSON.stringify(((S.bride.nick||'')[0]||'')+((S.groom.nick||'')[0]||''))}); }
+  else if(L==='teras'){ cls.push('g-teras'); Object.assign(v,{'--gbg':t.bg,'--gd':t.bg,'--ga':t.accent,'--gm':'#FFFDF8','--gl':'#B4472F','--gini':JSON.stringify(((S.bride.nick||'')[0]||'')+((S.groom.nick||'')[0]||''))}); if(t.ilGate) Object.assign(v,t.ilGate); }
   else if(L==='kebun'){ const k=t.kbSet; cls.push('g-kebun'); Object.assign(v,{'--gbg':t.bg,'--gd':t.soft,'--ga':t.kbSh||t.accent,'--gm':'#FFFDF8','--gl':t.accent,'--gtop':`url(${k}s-atas.webp)`,'--gtop-h':'24vh','--gtop-s':'min(112%,640px) auto','--gfl':`url(${k}s-kiri.webp)`,'--gfr':`url(${k}s-kanan.webp)`}); }
   else if(['kamboja','arunika','atelier'].includes(L)){ const a = lum(t.accent)>.2 ? t.accent : t.soft; cls.push('g-dark'); Object.assign(v,{'--gbg':t.fg,'--gd':t.fg,'--ga':a,'--gm':t.bg,'--gl':a,'--gpat':gPat(a),'--gsh':'rgba(0,0,0,.35)','--gts':'0 2px 12px rgba(0,0,0,.35)'}); }
   else { cls.push('g-light'); Object.assign(v,{'--gbg':t.bg,'--gd':t.soft||t.bg,'--ga':t.accent,'--gm':'#FFFDF8','--gl':t.accent,'--gpat':gPat(t.accent)}); }
