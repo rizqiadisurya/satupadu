@@ -68,7 +68,7 @@ body.edh-loading{overflow:hidden}
 .edh .e-drawer a em{font-style:italic}
 .edh .e-drawer .e-x{position:absolute;top:18px;right:20px;font-size:15px}
 
-.edh .e-hero{position:relative;min-height:100svh;padding-top:76px;display:grid;overflow:hidden}
+.edh .e-hero{position:relative;min-height:100svh;min-height:100lvh;padding-top:76px;display:grid;overflow:hidden}
 .edh .e-hero-grid{position:absolute;inset:76px 0 0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:6px;padding:0 6px 6px}
 .edh .e-tile{position:relative;overflow:hidden;background:#e9e0d8}
 .edh .e-tile img{position:absolute;inset:-8% 0;width:100%;height:116%;object-fit:cover;will-change:transform}
@@ -316,7 +316,7 @@ body.edh-loading{overflow:hidden}
 .edh .e-hero-copy .e-eyebrow{margin-bottom:14px}
 .edh .e-hero-foot{bottom:16px;padding:0 20px}
 .edh .e-hero-foot .e-scroll-cue{display:none!important}.edh .e-hero-foot>span{font-size:11.5px;padding:6px 11px}
-.edh .e-intro{padding:64px 0 56px}
+.edh .e-intro{padding:96px 0 56px}
 .edh .e-intro .e-eyebrow{margin-bottom:18px}
 .edh .e-statement{font-size:30px;line-height:1.15}
 .edh .e-intro-row{margin-top:28px;gap:24px}
