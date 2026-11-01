@@ -108,11 +108,11 @@ function init(){
   ScrollTrigger.create({trigger:'.e-statement',start:'top 80%',end:'bottom 40%',scrub:true,onUpdate:s=>{ const n=Math.round(s.progress*ws.length); ws.forEach((w,i)=>w.classList.toggle('e-on',i<n)); }});
 
   // galeri tema horizontal
-  const track=$('#e-track'), cards=$$('.e-card',track); $('#e-tt').textContent=String(cards.length).padStart(2,'0');
+  const track=$('#e-track'); gCount();
   const dist=()=>track.scrollWidth-innerWidth+Math.max(24,(innerWidth-1320)/2);
   gsap.to(track,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:'.e-tema',start:'top top',end:()=>'+='+dist(),pin:'.e-tema-pin',scrub:1,invalidateOnRefresh:true,
-    onUpdate:s=>{ $('#e-prog').style.transform=`scaleX(${s.progress})`; $('#e-tc').textContent=String(Math.min(cards.length,1+Math.floor(s.progress*cards.length))).padStart(2,'0'); }}});
-  cards.forEach((c,i)=>gsap.from(c,{y:60+i%3*30,opacity:0,duration:1.2,ease:'expo.out',scrollTrigger:{trigger:'.e-tema',start:'top 60%'},delay:i*.05}));
+    onUpdate:s=>{ const n=$$('.e-card',track).length; $('#e-prog').style.transform=`scaleX(${s.progress})`; $('#e-tc').textContent=String(Math.min(n,1+Math.floor(s.progress*n))).padStart(2,'0'); }}});
+  $$('.e-card',track).slice(0,6).forEach((c,i)=>gsap.from(c,{y:60+i%3*30,opacity:0,duration:1.2,ease:'expo.out',scrollTrigger:{trigger:'.e-tema',start:'top 60%'},delay:i*.05}));
 
   steps.forEach((st,i)=>ScrollTrigger.create({trigger:st,start:'top 62%',end:'bottom 62%',onToggle:s=>{ if(s.isActive) act(i); }}));
   steps.forEach(st=>gsap.from(st.children,{y:30,opacity:0,duration:1,stagger:.06,ease:'expo.out',scrollTrigger:{trigger:st,start:'top 85%'}}));
@@ -144,6 +144,9 @@ function init(){
   if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{ if(active) ScrollTrigger.refresh(); });
 }
 
+// jumlah kartu tema mengikuti katalog; dipanggil ulang saat daftar tema berubah
+function gCount(){ const t=$('#e-tt'); if(t) t.textContent=String($$('#e-track .e-card').length).padStart(2,'0'); }
+function gallery(){ gCount(); if(active&&HAS&&inited) requestAnimationFrame(()=>ScrollTrigger.refresh()); }
 function enter(){
   if(active) return; active=true; root.classList.add('e-is-on');
   if(RM||!HAS){ staticMode(); tone(); showPromo(); firstEnter=false; return; }
@@ -167,5 +170,5 @@ function sync(o){
     if(t) t.textContent=paid?'Edit undangan':'Undangan saya'; else if(a.closest('.e-drawer')) a.innerHTML=paid?'Edit <em>undangan</em>':'Undangan <em>saya</em>'; else a.textContent=paid?'Edit undangan':'Undangan saya'; });
 }
 function scrollToId(id){ if(!active) return; if(document.documentElement.classList.contains('edh-first')){ pending=id; return; } setTimeout(()=>{ if(HAS&&inited) ScrollTrigger.refresh(); go(id); },120); }
-return {enter,leave,sync,scrollTo:scrollToId};
+return {enter,leave,sync,scrollTo:scrollToId,gallery};
 })();
