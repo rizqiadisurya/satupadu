@@ -436,6 +436,38 @@ textarea.input{min-height:96px;resize:vertical}
 .guest-shell .side{display:none;flex:1;background-color:var(--t-bg);background-image:var(--t-pattern);background-size:var(--t-size,auto);opacity:.95;display:flex;align-items:flex-end;padding:40px;color:var(--t-fg)}
 .guest-shell .side .ttl{font-family:var(--t-font);font-size:40px;line-height:1.05;max-width:12ch;background:var(--t-bg);padding:16px 20px;border-radius:18px}
 .guest-col{width:min(460px,100%);position:relative;box-shadow:0 0 60px rgba(0,0,0,.4);background:#fff}
+/* Desktop: foto pasangan diam di kiri, undangan versi HP di kanan */
+.g-side{display:none}
+@media (min-width:1024px){
+  .guest-shell{--gcw:clamp(420px,36vw,520px);justify-content:flex-end}
+  .guest-shell::before{display:none}
+  .guest-col{width:var(--gcw);box-shadow:-24px 0 60px rgba(0,0,0,.28)}
+  .g-side{display:flex;position:fixed;top:0;bottom:0;left:0;right:var(--gcw);z-index:1;flex-direction:column;justify-content:flex-end;padding:clamp(40px,5vw,72px);overflow:hidden;color:#fff;background-color:var(--t-bg);background-image:var(--t-pattern);background-size:var(--t-size,auto)}
+  .g-side .ph{position:absolute;inset:0;background-size:cover;background-position:center 30%;transform:scale(1.04);animation:gsideIn 1.6s cubic-bezier(.2,.8,.2,1) both}
+  .g-side::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 38%,rgba(0,0,0,.18) 58%,rgba(0,0,0,.66) 100%),linear-gradient(90deg,rgba(0,0,0,.28),rgba(0,0,0,0) 60%)}
+  .g-side .tx{position:relative;z-index:2;max-width:560px}
+  .g-side small{display:block;font-size:12px;letter-spacing:.24em;text-transform:uppercase;opacity:.9}
+  .g-side h1{font-family:var(--t-font);font-weight:400;font-size:clamp(46px,5.2vw,84px);line-height:1.02;margin:14px 0 10px;text-shadow:0 2px 20px rgba(0,0,0,.25)}
+  .g-side h1 i{font-style:normal;opacity:.85;margin:0 .14em}
+  .g-side .dt{font-size:14px;letter-spacing:.12em;text-transform:uppercase;opacity:.92}
+  .g-side blockquote{margin:22px 0 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.35);font-family:var(--t-sub,Georgia,serif);font-style:italic;font-size:15px;line-height:1.65;opacity:.92;max-width:52ch}
+  .g-side.scene .ph{background-position:78% 100%}
+  .g-side.mono-on{justify-content:center;align-items:center;text-align:center}
+  .g-side.art .ph{inset:-80px;filter:blur(26px) saturate(1.15);transform:scale(1.15);animation:none;opacity:.95}
+  .g-side.art::after{background:radial-gradient(70% 60% at 50% 55%,rgba(0,0,0,.42),rgba(0,0,0,.2) 70%),linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.35))}
+  .g-side.mono-on .tx{display:flex;flex-direction:column;align-items:center}
+  .g-side.mono-on blockquote{text-align:center}
+  .g-side .mono{position:relative;z-index:2;width:118px;height:118px;border-radius:50%;border:1px solid rgba(255,255,255,.55);display:grid;place-items:center;font-family:var(--t-font);font-size:42px;margin-bottom:26px;box-shadow:0 0 0 8px rgba(255,255,255,.08)}
+  .g-side.nophoto{color:var(--t-fg)}
+  .g-side.nophoto::after{background:radial-gradient(46% 52% at 50% 50%,var(--t-bg) 30%,color-mix(in srgb,var(--t-bg) 70%,transparent) 70%,transparent),radial-gradient(90% 90% at 50% 50%,transparent 55%,color-mix(in srgb,var(--t-accent) 14%,transparent))}
+  .g-side.nophoto .mono{border-color:color-mix(in srgb,var(--t-accent) 55%,transparent);color:var(--t-accent);box-shadow:0 0 0 8px color-mix(in srgb,var(--t-accent) 8%,transparent)}
+  .g-side.nophoto small,.g-side.nophoto .dt{color:var(--t-accent)}
+  .g-side.nophoto h1{text-shadow:none}
+  .g-side.nophoto blockquote{border-top-color:color-mix(in srgb,var(--t-fg) 25%,transparent)}
+  .guest-col{z-index:2}
+}
+@keyframes gsideIn{from{opacity:0;transform:scale(1.1)}to{opacity:1;transform:scale(1.04)}}
+@media (prefers-reduced-motion:reduce){.g-side .ph{animation:none}}
 .guest-col .inv{min-height:100vh}
 .g-top{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:10px 12px;pointer-events:none}
 .g-top > *{pointer-events:auto}
@@ -4485,7 +4517,7 @@ function renderGuest(){
   const sh = $('#guestShell');
   sh.setAttribute('style', themeStyle(t,S.accent,fontOf()));
   const g = guestObj();
-  sh.innerHTML = `
+  sh.innerHTML = `${guestSide(t)}
     <div class="guest-col locked" id="guestCol">
       <div class="g-top">${CLOUD.guestMode?'<span></span>':`<a class="pill-btn" href="#${g?'dashboard':'beranda'}" aria-label="Kembali">← ${g?'Dashboard':'Sakara'}</a>`}
         <span style="display:flex;gap:8px"><button class="pill-btn" data-act="g-big" aria-pressed="${guestBig}" aria-label="Perbesar teks" style="${guestBig?'background:var(--beet);color:#fff':''}">Aa</button><button class="pill-btn" data-act="g-music" aria-pressed="${guestMusic}" aria-label="${guestMusic?'Matikan musik':'Nyalakan musik'}">${ico(guestMusic&&S.music?'music':'mute')}</button></span></div>
@@ -4501,6 +4533,16 @@ function renderGuest(){
   bindInv(sh); enhanceInv(sh);
   document.body.style.overflow='hidden';
   $('#g-cover').style.minHeight='100vh';
+}
+function guestSide(t){
+  const real = S.coverPhoto || (S.gallery||[]).filter(Boolean)[0] || '';
+  const art = !real && HOME_COVER.has(t.id);
+  const ph = real || (art ? `/assets/home/${t.id}.webp` : t.scene ? svgData(sceneSVG(t.scene)) : '');
+  const mono = !ph || art;
+  const d = (S.events.find(e=>e.date)||{}).date;
+  const q = (OPENINGS[S.opening]||OPENINGS.umum).quote;
+  return `<aside class="g-side${ph?'':' nophoto'}${art?' art':''}${mono?' mono-on':''}${!real&&!art&&ph?' scene':''}" aria-hidden="true">${ph?`<div class="ph" style="background-image:url('${esc(ph)}')"></div>`:''}
+    <div class="tx">${mono?`<div class="mono">${esc((S.bride.nick||'')[0]||'')}${esc((S.groom.nick||'')[0]||'')}</div>`:''}<small>The Wedding of</small><h1>${esc(S.bride.nick)}<i>&amp;</i>${esc(S.groom.nick)}</h1>${d?`<div class="dt">${esc(fmtDate(d))}</div>`:''}${q?`<blockquote>${esc(q)}</blockquote>`:''}</div></aside>`;
 }
 function openGuest(){
   startBgm();
