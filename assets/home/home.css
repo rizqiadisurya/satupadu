@@ -406,7 +406,7 @@ html.edh-first body{overflow:hidden}
 .panel.auth-panel{max-width:880px!important;width:min(880px,100%);padding:0!important;display:grid;grid-template-columns:.85fr 1fr;overflow:hidden;border-radius:28px;background:#FFFCF8;box-shadow:0 60px 120px -40px rgba(30,15,20,.6);animation:authRise .7s cubic-bezier(.2,.8,.2,1)}
 @keyframes authRise{from{opacity:0;transform:translateY(40px) scale(.97)}}
 .auth-panel .auth-art{position:relative;min-height:540px;background:#F7ECEC}
-.auth-panel .auth-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.auth-panel .auth-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block}
 .auth-panel .auth{padding:52px 44px;align-self:center;font-family:'Manrope',system-ui,sans-serif;color:#3A2A2E}
 .auth-panel .close{position:absolute;top:14px;right:16px;z-index:3;background:rgba(255,252,248,.9);border-radius:50%}
 .auth-panel{position:relative}
@@ -427,7 +427,7 @@ html.edh-first body{overflow:hidden}
 .modal-auth{align-items:flex-end!important;padding:10px!important}
 .panel.auth-panel{grid-template-columns:1fr;border-radius:24px;max-height:calc(100svh - 20px);overflow:auto}
 .auth-panel .auth-art{min-height:130px;height:130px}
-.auth-panel .auth-art img{object-position:50% 14%}
+.auth-panel .auth-art img{object-position:50% 52%}
 .auth-panel .auth{padding:26px 22px 28px}
 .auth-panel h2.display{font-size:30px!important}
 }

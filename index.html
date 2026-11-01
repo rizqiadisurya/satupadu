@@ -4842,7 +4842,7 @@ function guestModal(id){
 /* ---------- Modals ---------- */
 function openModal(html, wide){
   const isAuth = html.startsWith('<div class="auth">');
-  $('#modalRoot').innerHTML = `<div class="modal${isAuth?' modal-auth':''}" role="dialog" aria-modal="true"><div class="panel${isAuth?' auth-panel':''}" style="${wide||isAuth?'':'max-width:560px'}"><button class="close" data-act="close" aria-label="Tutup">${ico('x')}</button>${isAuth?'<div class="auth-art" aria-hidden="true"><img src="/assets/home/kebun-mawar.webp" alt=""></div>':''}${html}</div></div>`;
+  $('#modalRoot').innerHTML = `<div class="modal${isAuth?' modal-auth':''}" role="dialog" aria-modal="true"><div class="panel${isAuth?' auth-panel':''}" style="${wide||isAuth?'':'max-width:560px'}"><button class="close" data-act="close" aria-label="Tutup">${ico('x')}</button>${isAuth?'<div class="auth-art" aria-hidden="true"><img src="/assets/home/auth-amplop.webp" srcset="/assets/home/auth-amplop-s.webp 480w, /assets/home/auth-amplop.webp 960w" sizes="(max-width:760px) 100vw, 400px" alt=""></div>':''}${html}</div></div>`;
   setTimeout(()=> $('#modalRoot .close')?.focus({preventScroll:true}), 30);
 }
 function closeModal(){ $('#modalRoot').innerHTML=''; }
