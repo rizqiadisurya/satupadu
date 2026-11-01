@@ -46,7 +46,7 @@ body.edh-loading{overflow:hidden}
 .edh .e-nav .e-logo svg path,.edh .e-nav .e-logo svg circle[fill=none]{stroke:currentColor;transition:stroke .45s}.edh .e-nav .e-logo svg circle:not([fill=none]){fill:var(--gold)}
 .edh .e-nav .e-menu-btn i{background:currentColor;box-shadow:0 7px 0 currentColor}
 .edh .e-nav .e-wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
-.edh .e-logo{display:flex;align-items:center;gap:12px}
+.edh .e-logo{display:flex;align-items:center;gap:14px;line-height:1}
 .edh .e-logo svg{width:30px;height:30px}
 .edh .e-logo b{font-family:var(--brand);font-weight:400;font-size:20px;letter-spacing:.3em;color:var(--deep)}
 .edh .e-links{display:flex;gap:34px;font-size:14.5px;font-weight:600}
@@ -220,7 +220,9 @@ body.edh-loading{overflow:hidden}
 .edh .e-foot-hero .e-mail{font-family:var(--serif);font-size:clamp(22px,2.4vw,36px);justify-self:end;border-bottom:1px solid rgba(251,243,239,.4);padding-bottom:4px}
 @media (max-width:800px){.edh .e-foot-hero{grid-template-columns:1fr}.edh .e-foot-hero .e-mail{justify-self:start}}
 .edh .e-foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
-.edh .e-foot .e-logo b{color:var(--cream)}
+.edh .e-foot .e-logo{display:inline-flex!important;align-items:center;gap:14px;line-height:1}
+.edh .e-foot .e-logo svg{width:32px;height:32px;flex:none}
+.edh .e-foot .e-logo b{color:var(--cream);line-height:1}
 .edh .e-foot h4{font-size:13px;opacity:.65;margin-bottom:14px;font-weight:700}
 .edh .e-foot a{display:block;font-family:var(--serif);font-size:22px;line-height:1.5}
 .edh .e-foot p{opacity:.7;max-width:30ch;margin-top:18px;font-size:14px}
