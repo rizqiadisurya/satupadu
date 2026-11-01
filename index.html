@@ -2636,6 +2636,7 @@ html.intro .hero h1,html.intro .hero .lede,html.intro .hero .try,html.intro .her
 #demoPill{position:fixed;z-index:85;left:50%;transform:translateX(-50%);top:12px;display:none;align-items:center;gap:10px;background:rgba(36,22,27,.92);color:#fff;border-radius:99px;padding:6px 6px 6px 14px;font-size:13px;box-shadow:0 10px 30px -10px rgba(0,0,0,.45);backdrop-filter:blur(8px);white-space:nowrap}
 html.demo:not([data-dv="dashboard"]) #demoPill{display:flex}
 html.demo[data-dv="edit"] #demoPill{top:auto;bottom:16px}
+@media (max-width:899px){ html.demo[data-dv="edit"] #demoPill{bottom:calc(80px + env(safe-area-inset-bottom))} }
 html.demo[data-dv="checkin"] #demoPill{top:auto;bottom:16px}
 #demoPill .dp-dot{width:8px;height:8px;border-radius:50%;background:#F2B544;box-shadow:0 0 0 4px rgba(242,181,68,.25)}
 #demoPill .dp-btn{border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:99px;padding:6px 12px;font:inherit;font-size:12.5px;cursor:pointer;text-decoration:none}
@@ -2753,10 +2754,10 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
 
 <header class="e-nav" id="e-nav" data-role="tamu">
   <div class="e-wrap">
-    <a href="#" data-go="e-top" class="e-logo" data-t aria-label="Sakara, ke atas"><svg viewBox="0 0 100 100" data-mark="#B5656F" aria-hidden="true"></svg><b>SAKARA</b></a>
+    <a href="#" data-sec="e-top" class="e-logo" data-t aria-label="Sakara, ke atas"><svg viewBox="0 0 100 100" data-mark="#B5656F" aria-hidden="true"></svg><b>SAKARA</b></a>
     <nav class="e-links" aria-label="Utama">
-      <a data-t href="#" data-go="e-tema">Tema</a><a data-t href="#" data-go="e-cara">Cara kerja</a><a data-t href="#" data-go="e-paket">Harga</a>
-      <a data-t href="#buat" class="e-only-in">Undangan saya</a><a data-t href="#dashboard" class="e-only-in">Dashboard</a>
+      <a data-t href="#" data-sec="e-tema">Tema</a><a data-t href="#" data-sec="e-cara">Cara kerja</a><a data-t href="#" data-sec="e-paket">Harga</a>
+      <a data-t href="#buat" data-l="buat" class="e-only-in">Undangan saya</a><a data-t href="#dashboard" class="e-only-in">Dashboard</a>
     </nav>
     <div class="e-nav-r">
       <button class="e-nav-login e-only-out" data-t data-act="login">Masuk</button>
@@ -2779,7 +2780,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
 <div class="e-drawer" id="e-drawer" data-role="tamu" aria-hidden="true">
   <button class="e-x" id="e-menuX">Tutup ✕</button>
   <div class="e-d-acct e-only-in"><span class="e-av e-big" id="e-avIni2">NR</span><div><b id="e-acName2">Nadia Larasati</b><small>Sudah masuk</small></div></div>
-  <a href="#" data-go="e-tema">Tema</a><a href="#" data-go="e-cara">Cara <em>kerja</em></a><a href="#" data-go="e-paket">Harga</a>
+  <a href="#" data-sec="e-tema">Tema</a><a href="#" data-sec="e-cara">Cara <em>kerja</em></a><a href="#" data-sec="e-paket">Harga</a>
   <a class="e-only-in" data-l="buat" href="#buat">Undangan <em>saya</em></a><a class="e-only-in" href="#dashboard">Dashboard</a>
   <a class="e-only-admin" href="/admin">Panel <em>admin</em></a>
   <div class="e-d-acts">
@@ -2879,13 +2880,13 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
   <div class="e-wrap">
     <div class="e-foot-hero"><h2>Rayakan cinta,<br><em>bagikan kabar bahagia.</em></h2><a class="e-mail" href="https://www.instagram.com/withsakara/">@withsakara</a></div>
     <div class="e-foot">
-      <div><a href="#" data-go="e-top" class="e-logo"><svg viewBox="0 0 100 100" data-mark="#E7C3C8" aria-hidden="true"></svg><b>SAKARA</b></a><p>Undangan pernikahan digital yang cantik, tinggal sebar.</p></div>
-      <div><h4>Jelajahi</h4><a href="#" data-go="e-tema">Tema</a><a href="#" data-go="e-cara">Cara kerja</a><a href="#" data-go="e-paket">Harga</a></div>
+      <div><a href="#" data-sec="e-top" class="e-logo"><svg viewBox="0 0 100 100" data-mark="#E7C3C8" aria-hidden="true"></svg><b>SAKARA</b></a><p>Undangan pernikahan digital yang cantik, tinggal sebar.</p></div>
+      <div><h4>Jelajahi</h4><a href="#" data-sec="e-tema">Tema</a><a href="#" data-sec="e-cara">Cara kerja</a><a href="#" data-sec="e-paket">Harga</a></div>
       <div><h4>Ikuti</h4><a href="https://www.instagram.com/withsakara/">Instagram</a><a href="#tema">Semua tema</a></div>
       <div><h4>Bantuan</h4><a href="/syarat">Syarat layanan</a><a href="/privasi">Kebijakan privasi</a></div>
     </div>
     <div class="e-foot-big" aria-hidden="true">SAKARA</div>
-    <div class="e-foot-bot"><span>© 2026 Sakara</span><a href="#" data-go="e-top">Kembali ke atas ↑</a></div>
+    <div class="e-foot-bot"><span>© 2026 Sakara</span><a href="#" data-sec="e-top">Kembali ke atas ↑</a></div>
   </div>
 </footer>
 

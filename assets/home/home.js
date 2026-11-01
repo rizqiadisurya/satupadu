@@ -29,14 +29,17 @@ addEventListener('resize',()=>{ if(!menuEl.hidden) placeMenu(); });
 avBtn.addEventListener('click',e=>{ e.stopPropagation(); const o=menuEl.hidden; if(o) placeMenu(); menuEl.hidden=!o; avBtn.setAttribute('aria-expanded',o); if(o) menuEl.querySelector('a').focus(); });
 document.addEventListener('click',e=>{ if(!e.target.closest('.e-acct,#e-acctMenu')) closeAcct(); });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeAcct(); closeMenu(); } });
-root.addEventListener('click',e=>{ if(e.target.closest('[data-act],a[href^="#"]:not([data-go]),a[href^="/"]')){ closeMenu(); closeAcct(); } });
+root.addEventListener('click',e=>{ if(e.target.closest('[data-act],a[href^="#"]:not([data-sec]),a[href^="/"]')){ closeMenu(); closeAcct(); } });
 // tautan dalam halaman (tanpa mengubah alamat)
-root.addEventListener('click',e=>{ const a=e.target.closest('a[data-go]'); if(!a) return; e.preventDefault(); closeMenu(); closeAcct(); go(a.dataset.go); });
+root.addEventListener('click',e=>{ const a=e.target.closest('a[data-sec]'); if(!a) return; e.preventDefault(); e.stopPropagation(); closeMenu(); closeAcct(); go(a.dataset.sec); });
 function go(id){ const t=id==='e-top'?0:$('#'+id); if(t===null) return; if(lenis) lenis.scrollTo(t,{offset:id==='e-top'?0:-20,duration:1.6}); else if(t===0) scrollTo({top:0,behavior:'smooth'}); else t.scrollIntoView({behavior:'smooth'}); }
 // promo
 const promo=$('#e-promo'); let promoShown=false;
 $('#e-promoX').addEventListener('click',()=>{ promo.classList.remove('e-on'); try{ sessionStorage.setItem('edh-promo','x'); }catch(e){} });
-function showPromo(){ if(promoShown) return; promoShown=true; try{ if(sessionStorage.getItem('edh-promo')) return; }catch(e){} setTimeout(()=>{ if(active) promo.classList.add('e-on'); },6500); }
+let promoOk=false;
+function showPromo(){ if(promoShown) return; promoShown=true; try{ if(sessionStorage.getItem('edh-promo')) return; }catch(e){} setTimeout(()=>{ promoOk=true; promoCheck(); },6500); }
+function promoCheck(){ let ok=promoOk&&active&&scrollY<innerHeight*1.4; try{ if(sessionStorage.getItem('edh-promo')) ok=false; }catch(e){} promo.classList.toggle('e-on',ok); }
+addEventListener('scroll',()=>{ if(promoOk) promoCheck(); },{passive:true});
 // langkah
 const cimgs=$$('.e-cara-sticky img'), steps=$$('.e-step');
 const act=i=>{ steps.forEach((x,j)=>x.classList.toggle('e-on',j===i)); cimgs.forEach((x,j)=>x.classList.toggle('e-on',j===i)); };
@@ -48,6 +51,10 @@ function tone(){ if(!active) return; tItems.forEach(el=>{ const r=el.getBounding
   const t=hit&&hit.closest('[data-tone]'); el.classList.toggle('e-dk',!!t&&t.dataset.tone==='dk'); }); }
 addEventListener('scroll',tone,{passive:true}); addEventListener('resize',tone);
 
+// kunci gulir halaman saat jendela (modal) situs terbuka
+const mroot=document.getElementById('modalRoot');
+if(mroot) new MutationObserver(()=>{ if(!active) return; const open=mroot.childElementCount>0; if(lenis){ open?lenis.stop():lenis.start(); } document.documentElement.style.overflow=open?'hidden':''; }).observe(mroot,{childList:true});
+let pending=null;
 function staticMode(){ document.documentElement.classList.remove('edh-first'); $('.e-loader')&&$('.e-loader').remove(); document.body.classList.remove('edh-loading'); $$('.e-statement .e-w').forEach(w=>w.classList.add('e-on')); }
 
 function makeLenis(){
@@ -74,7 +81,7 @@ function init(){
       .to(cnt,{v:100,duration:1.6,ease:'power2.inOut',onUpdate:()=>pct.textContent=Math.round(cnt.v)},0)
       .to('.e-loader .e-brand span',{y:'-110%',duration:.8,stagger:.04,ease:'expo.in'},1.7)
       .to('.e-loader',{yPercent:-100,duration:1.2,ease:'expo.inOut'},2.15)
-      .add(()=>{ H.classList.remove('edh-first'); loader.remove(); if(lenis) lenis.start(); },3.2);
+      .add(()=>{ H.classList.remove('edh-first'); loader.remove(); if(lenis) lenis.start(); if(pending){ const p=pending; pending=null; setTimeout(()=>go(p),300); } },3.2);
   } else { loader&&loader.remove(); H.classList.remove('edh-first'); }
   const o=first?0:-2.7;
   intro.from('.e-hl-bawah img',{yPercent:40,duration:2.2,ease:'power3.out',force3D:true},2.95+o)
@@ -148,7 +155,7 @@ function enter(){
   firstEnter=false; clearInterval(toneT); toneT=setInterval(tone,400); requestAnimationFrame(tone); showPromo();
 }
 function leave(){
-  if(!active) return; active=false; root.classList.remove('e-is-on'); document.documentElement.classList.remove('edh-first'); const ld=$('.e-loader'); ld&&ld.remove(); clearInterval(toneT); closeMenu(); closeAcct(); promo.classList.remove('e-on');
+  if(!active) return; active=false; document.documentElement.style.overflow=''; root.classList.remove('e-is-on'); document.documentElement.classList.remove('edh-first'); const ld=$('.e-loader'); ld&&ld.remove(); clearInterval(toneT); closeMenu(); closeAcct(); promo.classList.remove('e-on');
   document.body.classList.remove('edh-loading');
   if(lenis){ lenis.destroy(); lenis=null; }
   if(HAS&&inited) ScrollTrigger.getAll().forEach(t=>t.disable(true));
@@ -162,6 +169,6 @@ function sync(o){
   $$('[data-l="buat"]').forEach(a=>{ a.setAttribute('href',paid?'#edit':'#buat'); const t=a.querySelector('[data-lt]');
     if(t) t.textContent=paid?'Edit undangan':'Undangan saya'; else if(a.closest('.e-drawer')) a.innerHTML=paid?'Edit <em>undangan</em>':'Undangan <em>saya</em>'; else a.textContent=paid?'Edit undangan':'Undangan saya'; });
 }
-function scrollToId(id){ if(active) setTimeout(()=>go(id),60); }
+function scrollToId(id){ if(!active) return; if(document.documentElement.classList.contains('edh-first')){ pending=id; return; } setTimeout(()=>{ if(HAS&&inited) ScrollTrigger.refresh(); go(id); },120); }
 return {enter,leave,sync,scrollTo:scrollToId};
 })();
