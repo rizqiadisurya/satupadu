@@ -3963,12 +3963,14 @@ function renderStepCore(onlyHTML, iOverride){
       ${fld('bn','Nama lengkap',S.bride.name,{bind:'bride.name',req:1,ph:'Nadia Larasati'})}
       ${fld('bk','Nama panggilan',S.bride.nick,{bind:'bride.nick',ph:'Nadia'})}
       ${fld('bp','Keterangan orang tua',S.bride.parents,{bind:'bride.parents',full:1,ph:'Putri pertama Bapak … & Ibu …'})}
+      ${fld('bi','Instagram <span class="muted" style="font-weight:500">(opsional)</span>',S.bride.ig||'',{bind:'bride.ig',full:1,ph:'@nadialaras',hint:'Kosongkan kalau tidak ingin ditampilkan di undangan.'})}
       ${photoFld('bride','Foto mempelai wanita')}
     </div></fieldset>
     <fieldset class="fieldset"><legend>Mempelai pria</legend><div class="fgrid">
       ${fld('gn','Nama lengkap',S.groom.name,{bind:'groom.name',req:1,ph:'Rizky Pratama'})}
       ${fld('gk','Nama panggilan',S.groom.nick,{bind:'groom.nick',ph:'Rizky'})}
       ${fld('gp','Keterangan orang tua',S.groom.parents,{bind:'groom.parents',full:1,ph:'Putra kedua Bapak … & Ibu …'})}
+      ${fld('gi','Instagram <span class="muted" style="font-weight:500">(opsional)</span>',S.groom.ig||'',{bind:'groom.ig',full:1,ph:'@rizkypratama',hint:'Kosongkan kalau tidak ingin ditampilkan di undangan.'})}
       ${photoFld('groom','Foto mempelai pria')}
     </div></fieldset>`;
   }
