@@ -2770,12 +2770,18 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
 .inv.lay-kebun.prem .qband{background:linear-gradient(180deg,color-mix(in srgb,var(--kb-sh2) 30%,transparent),color-mix(in srgb,var(--kb-sh2) 62%,transparent)),var(--kb-langit) center 70%/cover;color:#FFFDF8}
 .inv.lay-kebun.prem .qband blockquote{text-shadow:0 1px 10px color-mix(in srgb,var(--kb-sh2) 70%,transparent)}
 .inv.lay-kebun.prem .qband figcaption{background:rgba(255,253,248,.92);color:var(--kb-sh2)}
-.inv.lay-kebun.prem section.p-end{padding:0 0 44px;overflow:hidden}
+.inv.lay-kebun.prem section.p-end{padding:0 0 36px;overflow:hidden}
 .inv.lay-kebun .p-end>h3{display:none}
 .inv.lay-kebun .kb-akhir{position:relative;margin:0 0 26px}
 .inv.lay-kebun .kb-akhir img{display:block;width:100%;height:auto}
 .inv.lay-kebun .kb-akhir-t{position:absolute;left:0;right:0;top:25%;text-align:center;font-family:'Great Vibes',cursive;font-size:clamp(34px,13cqi,62px);line-height:1;color:#FFFDF8;text-shadow:0 2px 0 var(--kb-sh2),0 0 18px color-mix(in srgb,var(--kb-sh2) 55%,transparent)}
-.inv.lay-kebun .p-end>.lead,.inv.lay-kebun .p-end>.names{margin-left:24px;margin-right:24px}
+.inv.lay-kebun .p-end>.lead{max-width:30ch;margin:0 auto 22px;padding:0 24px;text-align:center}
+.inv.lay-kebun .p-end>.names{margin:0 auto;padding:0 20px;text-align:center}
+.inv.lay-kebun.prem section.p-end{background:var(--t-bg) !important}
+.inv.lay-kebun .kb-akhir::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:16%;background:linear-gradient(to bottom,transparent,var(--t-bg));pointer-events:none}
+.inv.lay-kebun .foot{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;background:var(--t-bg);margin:0;padding:8px 20px 120px;opacity:1;color:color-mix(in srgb,var(--t-fg) 60%,transparent);letter-spacing:.04em}
+.inv.lay-kebun .foot::before{content:"";width:56px;height:1px;background:color-mix(in srgb,var(--t-accent) 45%,transparent)}
+.phone .screen .inv:not(#z).lay-kebun .foot,.ed-device .screen .inv:not(#z).lay-kebun .foot{padding-bottom:34px}
 /* pasangan dan latar sampul diam, hanya bunga dan kupu-kupu yang bergerak */
 .inv.anim.lay-kebun .kb-pria,.inv.anim.lay-kebun .kb-wanita,.inv.anim.lay-kebun .kb-psg,.inv.anim.lay-kebun .kb-latar,.inv.anim.lay-kebun .kb-lukis,.inv.anim.lay-kebun .kb-set .kb-bedb,.inv.anim.lay-kebun .kb-set .kb-bedd,.inv.anim.lay-kebun.kb-x .kb-set .kb-pria,.inv.anim.lay-kebun .kb-set .kb-pria,.inv.anim.lay-kebun .kb-set .kb-wanita,.inv.anim.lay-kebun .kb-img .kb-lukis{animation:none !important;transform:none !important}
 @media (prefers-reduced-motion:reduce){.inv.anim.lay-kebun .kb-bf{animation:none}}
