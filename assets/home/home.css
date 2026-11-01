@@ -11,7 +11,7 @@ html.lenis,html.lenis body{height:auto}
 .edh{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;overflow-x:hidden}
 body.edh-loading{overflow:hidden}
 .edh img{display:block;max-width:100%}
-.edh .e-mosaic img[data-par],.edh .e-intro-pic img[data-par]{scale:1.3}
+.edh .e-mosaic img[data-par]{scale:1.3}
 .edh a{color:inherit;text-decoration:none}
 .edh button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .edh ::selection{background:var(--rose);color:#fff}
@@ -106,7 +106,7 @@ body.edh-loading{overflow:hidden}
 .edh .e-statement em .e-w.e-on{color:var(--wine)}
 .edh .e-intro-row{display:grid;grid-template-columns:1.4fr 1fr;gap:60px;align-items:end;margin-top:70px}
 .edh .e-intro-row p{max-width:44ch;color:var(--muted)}
-.edh .e-intro-pic{aspect-ratio:4/5;overflow:hidden;border-radius:2px;max-width:420px;justify-self:end;width:100%}
+.edh .e-intro-pic{aspect-ratio:547/700;overflow:hidden;border-radius:2px;max-width:420px;justify-self:end;width:100%}
 .edh .e-intro-pic img{width:100%;height:100%;object-fit:cover}
 @media (max-width:800px){.edh .e-intro-row{grid-template-columns:1fr}.edh .e-intro-pic{justify-self:start}}
 
@@ -321,7 +321,7 @@ body{font-size:15px;line-height:1.55}
 .intro .eyebrow{margin-bottom:18px}
 .statement{font-size:30px;line-height:1.15}
 .intro-row{margin-top:28px;gap:24px}
-.intro-pic{max-width:none;aspect-ratio:4/3}
+.intro-pic{max-width:none;aspect-ratio:547/700}
 /* tema: geser manual, tanpa pin */
 .tema-pin{height:100svh;padding:72px 0 28px;gap:18px;justify-content:center}
 .tema-head{align-items:center}
