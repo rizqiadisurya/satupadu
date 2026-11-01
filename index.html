@@ -3009,9 +3009,9 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
       <button class="e-nav-login e-only-out" data-t data-act="login">Masuk</button>
       <a class="e-btn e-magnet e-only-out" data-t href="#buat">Mulai gratis</a>
       <div class="e-acct e-only-in">
-        <button class="e-av" data-t id="e-avBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="e-acctMenu"><span id="e-avIni">NR</span><svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        <button class="e-av" data-t id="e-avBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="e-acctMenu"><span id="e-avIni">SR</span><svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
         <div class="e-acct-menu" id="e-acctMenu" role="menu" hidden>
-          <div class="e-acct-id"><b id="e-acName">Nadia Larasati</b><small id="e-acMail">nadia@email.com</small><span class="e-role-tag e-only-admin">Admin</span></div>
+          <div class="e-acct-id"><b id="e-acName">Sarah Amalia</b><small id="e-acMail">sarah@email.com</small><span class="e-role-tag e-only-admin">Admin</span></div>
           <a role="menuitem" href="#dashboard"><i>☰</i>Dashboard</a>
           <a role="menuitem" data-l="buat" href="#buat"><i>✎</i><span data-lt>Undangan saya</span></a>
           <a role="menuitem" href="#tagihan"><i>▤</i>Tagihan</a>
@@ -3025,7 +3025,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
 </header>
 <div class="e-drawer" id="e-drawer" data-role="tamu" aria-hidden="true">
   <button class="e-x" id="e-menuX">Tutup ✕</button>
-  <div class="e-d-acct e-only-in"><span class="e-av e-big" id="e-avIni2">NR</span><div><b id="e-acName2">Nadia Larasati</b><small>Sudah masuk</small></div></div>
+  <div class="e-d-acct e-only-in"><span class="e-av e-big" id="e-avIni2">SR</span><div><b id="e-acName2">Sarah Amalia</b><small>Sudah masuk</small></div></div>
   <a href="#" data-sec="e-tema">Tema</a><a href="#" data-sec="e-cara">Cara <em>kerja</em></a><a href="#" data-sec="e-paket">Harga</a>
   <a class="e-only-in" data-l="buat" href="#buat">Undangan <em>saya</em></a><a class="e-only-in" href="#dashboard">Dashboard</a>
   <a class="e-only-admin" href="/admin">Panel <em>admin</em></a>
@@ -3495,21 +3495,28 @@ const dateDots = d => { if(!d) return ''; const [y,m,dd]=d.split('-'); return `$
 /* ---------- State ---------- */
 const DEFAULT = {
   v:3,
-  groom:{name:'Rizky Pratama', nick:'Rizky', parents:'Putra kedua Bapak Hendra Wijaya & Ibu Sari Utami', ig:'rizkypratama'},
-  bride:{name:'Nadia Larasati', nick:'Nadia', parents:'Putri pertama Bapak Agus Santoso & Ibu Ratna Dewi', ig:'nadialaras'},
+  groom:{name:'Raka Pratama', nick:'Raka', parents:'Putra kedua Bapak Hendra Wijaya & Ibu Sari Utami', ig:'rakapratama'},
+  bride:{name:'Sarah Amalia', nick:'Sarah', parents:'Putri pertama Bapak Agus Santoso & Ibu Ratna Dewi', ig:'sarahamalia'},
   events:[
     {type:'Akad Nikah', date:'2027-02-14', start:'08.00', end:'10.00', venue:'Masjid Agung Al-Azhar', address:'Jl. Sisingamangaraja, Kebayoran Baru, Jakarta Selatan'},
     {type:'Resepsi', date:'2027-02-14', start:'11.00', end:'14.00', venue:'Graha Sawala', address:'Jl. Medan Merdeka Barat No. 7, Jakarta Pusat'}
   ],
   opening:'islam',
   theme:'kawung', accent:null,
-  gift:{on:true, bank:'BCA', acct:'8720112345', holder:'Nadia Larasati'},
+  gift:{on:true, bank:'BCA', acct:'8720112345', holder:'Sarah Amalia'},
   wishesOn:true, music:true, musicSrc:{type:'lib', id:'piano-senja'}, musicStart:0, gallery:[], galleryOn:true,
-  slug:'rizky-nadia', plan:'tamu', published:false,
+  slug:'raka-sarah', plan:'tamu', published:false,
   order:['salam','acara','galeri','rsvp','hadiah','kado','ucapan'], font:'tema', groups:null, user:null, invoices:[], giftNo:0,
   step:0
 };
 let S = Object.assign(structuredClone(DEFAULT), store.get('sp-state') || {});
+// Data contoh lama (Nadia & Rizky) yang belum pernah diubah pengguna ikut berganti ke contoh baru (Sarah & Raka)
+if(!S.published){ const D=DEFAULT;
+  if(S.bride && S.bride.name==='Nadia Larasati' && S.bride.nick==='Nadia') S.bride={...S.bride, name:D.bride.name, nick:D.bride.nick, ig:S.bride.ig==='nadialaras'?D.bride.ig:S.bride.ig};
+  if(S.groom && S.groom.name==='Rizky Pratama' && S.groom.nick==='Rizky') S.groom={...S.groom, name:D.groom.name, nick:D.groom.nick, ig:S.groom.ig==='rizkypratama'?D.groom.ig:S.groom.ig};
+  if(S.gift && S.gift.holder==='Nadia Larasati') S.gift={...S.gift, holder:D.gift.holder};
+  if(S.slug==='rizky-nadia') S.slug=D.slug;
+  if(Array.isArray(S.groups)) S.groups=S.groups.map(g=>({'Keluarga Nadia':'Keluarga Sarah','Keluarga Rizky':'Keluarga Raka','Kantor Rizky':'Kantor Raka'})[g]||g); }
 if(S.v !== DEFAULT.v) S = structuredClone(DEFAULT);
 const DEMO = {on:false, saved:null, sid:null, t0:0, src:'', nudged:{}, lastNudge:0};
 const save = () => { try{ edTrack(); }catch(e){} if(DEMO.on) return; if(CLOUD.guestMode||CLOUD.pinMode||CLOUD.famMode||CLOUD.catMode) return; cloudSave(); if(!store.set('sp-state', S) && !save.warned){ save.warned=1; toast('Memori browser penuh: foto tetap tampil, tapi hilang saat halaman ditutup'); } const el = $('#saveState'); if(el) el.textContent = 'Tersimpan otomatis'; };
@@ -3523,7 +3530,7 @@ const OPENINGS = {
 /* sample data */
 const FIRST = ['Ani','Budi','Citra','Dimas','Eka','Fajar','Gita','Hendra','Indah','Joko','Kartika','Lukman','Maya','Nanda','Oki','Putri','Rahmat','Sinta','Taufik','Utami','Vina','Wahyu','Yudi','Zahra','Arif','Bella','Doni','Fitri','Galih','Hana','Irfan','Laras','Mira','Rudi','Sari','Tono','Wulan','Yoga','Dewi','Bagas'];
 const LAST = ['Wulandari','Santoso','Lestari','Saputra','Pratiwi','Nugroho','Hidayat','Siregar','Rahayu','Kusuma','Harahap','Wibowo','Permata','Setiawan','Gunawan','Simanjuntak','Anggraini','Putra','Halim','Darmawan'];
-const GROUPS = ['Keluarga Nadia','Keluarga Rizky','Kantor Rizky','Teman kampus','Tetangga'];
+const GROUPS = ['Keluarga Sarah','Keluarga Raka','Kantor Raka','Teman kampus','Tetangga'];
 function seedGuests(){
   let x = 7; const rnd = () => (x = (x*9301+49297)%233280)/233280;
   const g = [];
@@ -3544,11 +3551,11 @@ let G_ALL = null;
 const saveG = () => { if(DEMO.on||CLOUD.guestMode||CLOUD.pinMode||CLOUD.famMode||CLOUD.catMode) return; if(!CLOUD.uid) store.set('sp-guests', G); cloudSyncGuests(); };
 saveG();
 let W = store.get('sp-wishes') || [
-  {n:'Ani Wulandari', t:'2 jam lalu', m:'Selamat Nadia & Rizky! Semoga jadi keluarga yang sakinah, mawaddah, warahmah. Sampai ketemu di Graha Sawala ya.', att:true, show:true},
+  {n:'Ani Wulandari', t:'2 jam lalu', m:'Selamat Sarah & Raka! Semoga jadi keluarga yang sakinah, mawaddah, warahmah. Sampai ketemu di Graha Sawala ya.', att:true, show:true},
   {n:'Om Darmawan', t:'5 jam lalu', m:'Barakallah, semoga lancar sampai hari H. Salam untuk Bapak dan Ibu.', att:true, show:true},
-  {n:'Teman kantor Rizky', t:'kemarin', m:'Congrats bro! Akhirnya. Kami datang rombongan setelah Jumatan, aman.', att:true, show:true},
+  {n:'Teman kantor Raka', t:'kemarin', m:'Congrats bro! Akhirnya. Kami datang rombongan setelah Jumatan, aman.', att:true, show:true},
   {n:'Bella Permata', t:'kemarin', m:'Maaf belum bisa hadir karena di luar kota, doa terbaik untuk kalian berdua.', att:false, show:true},
-  {n:'Hana Halim', t:'2 hari lalu', m:'Happy wedding Nadia sayang, cantik banget undangannya!', att:true, show:true}
+  {n:'Hana Halim', t:'2 hari lalu', m:'Happy wedding Sarah sayang, cantik banget undangannya!', att:true, show:true}
 ];
 const saveW = () => { if(DEMO.on||CLOUD.guestMode||CLOUD.pinMode||CLOUD.famMode||CLOUD.catMode||CLOUD.uid) return; store.set('sp-wishes', W); };
 let GIFTS = [
@@ -3836,7 +3843,7 @@ $('#tryGo')?.addEventListener('click', ()=>{
 function tcard(t){
   return `<article class="tcard">
     ${t.layout ? `<div class="cover tc-wrap" style="${themeStyle(t)}"><div class="tc-live" data-tclive>${tcLive(t)}</div></div>` : `<div class="cover" style="${themeStyle(t)}"><div class="frame"></div>
-      <div class="inner"><small>The Wedding of</small><div class="nm">${esc(S.bride.nick||'Nadia')}<i>&amp;</i>${esc(S.groom.nick||'Rizky')}</div><small>${esc(fmtShort(S.events[0].date||'2027-02-14'))}</small></div>
+      <div class="inner"><small>The Wedding of</small><div class="nm">${esc(S.bride.nick||'Sarah')}<i>&amp;</i>${esc(S.groom.nick||'Raka')}</div><small>${esc(fmtShort(S.events[0].date||'2027-02-14'))}</small></div>
     </div>`}
     <div class="meta">
       <div class="top"><h3>${esc(t.name)}</h3><span class="reg">${esc(t.region)}</span></div>
@@ -3845,7 +3852,7 @@ function tcard(t){
     </div>
   </article>`;
 }
-function tcLive(t){ const d0=S.events.find(e=>e.date)?.date||'2027-02-14'; return `<div class="inv lay-${t.layout}" style="${themeStyle(t)}"><div class="pat"></div>${coverHTML(t,{id:'tc'+t.id, guest:'Tamu undangan', n1:S.bride.nick||'Nadia', n2:S.groom.nick||'Rizky', dateLong:fmtShort(d0), dateDots:dateDots(d0), accent:t.accent, gate:true, photo:t.photo?coverPhoto(t):''}).replace(/data-act="open-inv"/g,'tabindex="-1" aria-hidden="true"').replace(/ id="tc[a-z]+-cover"/,'')}</div>`; }
+function tcLive(t){ const d0=S.events.find(e=>e.date)?.date||'2027-02-14'; return `<div class="inv lay-${t.layout}" style="${themeStyle(t)}"><div class="pat"></div>${coverHTML(t,{id:'tc'+t.id, guest:'Tamu undangan', n1:S.bride.nick||'Sarah', n2:S.groom.nick||'Raka', dateLong:fmtShort(d0), dateDots:dateDots(d0), accent:t.accent, gate:true, photo:t.photo?coverPhoto(t):''}).replace(/data-act="open-inv"/g,'tabindex="-1" aria-hidden="true"').replace(/ id="tc[a-z]+-cover"/,'')}</div>`; }
 function fitLive(root){ $$('[data-tclive]', root||document).forEach(el=>{ const w=el.parentElement.clientWidth, h=el.parentElement.clientHeight; if(w) el.style.setProperty('--tcs', Math.max(w/360, h/450)); }); }
 addEventListener('resize', ()=>fitLive());
 function renderStrip(){ $('#themeStrip').innerHTML = themeOrder(['sekar','kamboja','lentera','arunika'].map(themeById)).concat(themeOrder(THEMES)).filter((t,i,a)=>a.indexOf(t)===i).slice(0,4).map(tcard).join(''); fitLive($('#themeStrip')); }
@@ -3854,7 +3861,7 @@ function renderStrip(){ $('#themeStrip').innerHTML = themeOrder(['sekar','kamboj
 const HOME_COVER=new Set(['kebun-lila','kebun-senja','draperi-mawar','kawung','kebun-mawar','songket','atelier','draperi-zamrud','dongeng-pink','kebun-biru','kamboja','goresan-merah','kebun-sage']);
 function homeCard(t){
   const rg=(t.region||'').split(',')[0].trim(), lbl=[t.tags[0], rg&&rg!=='Nasional'&&rg.length<=12?rg:''].filter(Boolean).join(' · ');
-  const n1=esc(S.bride.nick||'Nadia'), n2=esc(S.groom.nick||'Rizky');
+  const n1=esc(S.bride.nick||'Sarah'), n2=esc(S.groom.nick||'Raka');
   const ph = HOME_COVER.has(t.id) ? `<img loading="lazy" src="/assets/home/${t.id}.webp" alt="Sampul tema ${esc(t.name)}">`
     : t.layout ? `<div class="e-live" style="${themeStyle(t)}"><div class="tc-live" data-tclive>${tcLive(t)}</div></div>`
     : `<div class="tcard e-live"><div class="cover" style="${themeStyle(t)}"><div class="frame"></div><div class="inner"><small>The Wedding of</small><div class="nm">${n1}<i>&amp;</i>${n2}</div><small>${esc(fmtShort(S.events[0].date||'2027-02-14'))}</small></div></div></div>`;
@@ -3996,17 +4003,17 @@ function renderStepCore(onlyHTML, iOverride){
   if(i===0){
     h = `<span class="eyebrow">Langkah 1 dari 5</span><h2>Siapa nih yang mau nikah? 💍</h2><p class="sub">Nama panggilan bakal nyapa tamu di sampul dan pesan WhatsApp. Santai, semuanya bisa diubah nanti kok.</p>
     <fieldset class="fieldset"><legend>Mempelai wanita</legend><div class="fgrid">
-      ${fld('bn','Nama lengkap',S.bride.name,{bind:'bride.name',req:1,ph:'Nadia Larasati'})}
-      ${fld('bk','Nama panggilan',S.bride.nick,{bind:'bride.nick',ph:'Nadia'})}
+      ${fld('bn','Nama lengkap',S.bride.name,{bind:'bride.name',req:1,ph:'Sarah Amalia'})}
+      ${fld('bk','Nama panggilan',S.bride.nick,{bind:'bride.nick',ph:'Sarah'})}
       ${fld('bp','Keterangan orang tua',S.bride.parents,{bind:'bride.parents',full:1,ph:'Putri pertama Bapak … & Ibu …'})}
-      ${fld('bi','Instagram <span class="muted" style="font-weight:500">(opsional)</span>',S.bride.ig||'',{bind:'bride.ig',full:1,ph:'@nadialaras',hint:'Kosongkan kalau tidak ingin ditampilkan di undangan.'})}
+      ${fld('bi','Instagram <span class="muted" style="font-weight:500">(opsional)</span>',S.bride.ig||'',{bind:'bride.ig',full:1,ph:'@sarahamalia',hint:'Kosongkan kalau tidak ingin ditampilkan di undangan.'})}
       ${photoFld('bride','Foto mempelai wanita')}
     </div></fieldset>
     <fieldset class="fieldset"><legend>Mempelai pria</legend><div class="fgrid">
-      ${fld('gn','Nama lengkap',S.groom.name,{bind:'groom.name',req:1,ph:'Rizky Pratama'})}
-      ${fld('gk','Nama panggilan',S.groom.nick,{bind:'groom.nick',ph:'Rizky'})}
+      ${fld('gn','Nama lengkap',S.groom.name,{bind:'groom.name',req:1,ph:'Raka Pratama'})}
+      ${fld('gk','Nama panggilan',S.groom.nick,{bind:'groom.nick',ph:'Raka'})}
       ${fld('gp','Keterangan orang tua',S.groom.parents,{bind:'groom.parents',full:1,ph:'Putra kedua Bapak … & Ibu …'})}
-      ${fld('gi','Instagram <span class="muted" style="font-weight:500">(opsional)</span>',S.groom.ig||'',{bind:'groom.ig',full:1,ph:'@rizkypratama',hint:'Kosongkan kalau tidak ingin ditampilkan di undangan.'})}
+      ${fld('gi','Instagram <span class="muted" style="font-weight:500">(opsional)</span>',S.groom.ig||'',{bind:'groom.ig',full:1,ph:'@rakapratama',hint:'Kosongkan kalau tidak ingin ditampilkan di undangan.'})}
       ${photoFld('groom','Foto mempelai pria')}
     </div></fieldset>`;
   }
@@ -4030,7 +4037,7 @@ function renderStepCore(onlyHTML, iOverride){
       <button type="button" class="sw" style="background:${t.accent}" data-acc="" aria-pressed="${!S.accent}" aria-label="Warna bawaan tema"></button>
       ${ACCENTS.filter(a=>a!==t.accent).map(a=>`<button type="button" class="sw" style="background:${a}" data-acc="${a}" aria-pressed="${S.accent===a}" aria-label="Aksen ${a}"></button>`).join('')}
     </div><span class="hint">Lingkaran pertama adalah warna asli tema ${esc(t.name)}.</span></div>
-    <div class="field" style="margin-top:22px"><label id="fpLbl">Paduan huruf</label>${(Object.keys(FONT_PAIRS).forEach(loadFontPair),"")}<div class="fpair" role="group" aria-labelledby="fpLbl">${[['tema',null]].concat(Object.entries(FONT_PAIRS)).map(([k,fp])=>{ const on=(S.fontPair||'tema')===k; const h=fp?fp.h:t.font, sb=fp?fp.sub:'inherit', bd=fp?fp.body:'inherit'; return `<button type="button" data-fpair="${k}" aria-pressed="${on}"><span class="fp-h" style="font-family:${h}">${esc(S.bride.nick||'Nadia')} &amp; ${esc(S.groom.nick||'Rizky')}</span><span class="fp-s" style="font-family:${sb}">${esc(S.events[0]&&S.events[0].date?fmtShort(S.events[0].date):'14 Februari 2027')}</span><span class="fp-b" style="font-family:${bd}">Kami mengundang Anda untuk hadir dan memberi doa restu.</span><small><b>${fp?esc(fp.name):'Bawaan tema'}</b>${fp?` · ${esc(fp.note)}`:''}</small></button>`; }).join('')}</div><span class="hint">Mengatur tiga lapis huruf sekaligus: nama &amp; judul, tanggal &amp; label kecil, serta teks isi.</span></div>`;
+    <div class="field" style="margin-top:22px"><label id="fpLbl">Paduan huruf</label>${(Object.keys(FONT_PAIRS).forEach(loadFontPair),"")}<div class="fpair" role="group" aria-labelledby="fpLbl">${[['tema',null]].concat(Object.entries(FONT_PAIRS)).map(([k,fp])=>{ const on=(S.fontPair||'tema')===k; const h=fp?fp.h:t.font, sb=fp?fp.sub:'inherit', bd=fp?fp.body:'inherit'; return `<button type="button" data-fpair="${k}" aria-pressed="${on}"><span class="fp-h" style="font-family:${h}">${esc(S.bride.nick||'Sarah')} &amp; ${esc(S.groom.nick||'Raka')}</span><span class="fp-s" style="font-family:${sb}">${esc(S.events[0]&&S.events[0].date?fmtShort(S.events[0].date):'14 Februari 2027')}</span><span class="fp-b" style="font-family:${bd}">Kami mengundang Anda untuk hadir dan memberi doa restu.</span><small><b>${fp?esc(fp.name):'Bawaan tema'}</b>${fp?` · ${esc(fp.note)}`:''}</small></button>`; }).join('')}</div><span class="hint">Mengatur tiga lapis huruf sekaligus: nama &amp; judul, tanggal &amp; label kecil, serta teks isi.</span></div>`;
   }
   if(i===3){
     h = `<span class="eyebrow">Langkah 4 dari 5</span><h2>Sentuhan akhir biar makin lengkap</h2><p class="sub">Nyalakan yang kamu butuh aja. Bagian yang dimatikan nggak bakal tampil di undangan.</p>
@@ -4926,7 +4933,7 @@ function renderImportReview(skipped, fname){
     <div class="form-foot"><button class="btn btn-ghost" data-act="close">Batal</button><button class="btn btn-primary" data-act="do-import" id="impGo">Tambahkan ${on} tamu</button></div>`, true);
 }
 document.addEventListener('change', e=>{ if(e.target.dataset.imp!=null){ IMP[+e.target.dataset.imp].on=e.target.checked; const b=$('#impGo'); if(b) b.textContent=`Tambahkan ${IMP.filter(x=>x.on).length} tamu`; } });
-const TEMPLATE_CSV = 'Nama,Nomor HP,Grup,Sesi\nBapak Hendra & Keluarga,081234567890,Keluarga Rizky,Semua\nSinta Rahayu,085711223344,Teman kampus,Resepsi\nPak RT Sukirman,081377788899,Tetangga,Akad Nikah';
+const TEMPLATE_CSV = 'Nama,Nomor HP,Grup,Sesi\nBapak Hendra & Keluarga,081234567890,Keluarga Raka,Semua\nSinta Rahayu,085711223344,Teman kampus,Resepsi\nPak RT Sukirman,081377788899,Tetangga,Akad Nikah';
 function importHelp(){
   openModal(`<h2 class="display" style="font-size:30px">Format file tamu</h2><p class="muted" style="margin:8px 0 16px">Excel (.xlsx) atau CSV. Baris pertama berisi judul kolom. Hanya kolom Nama yang wajib, urutan kolom bebas.</p>
     <div class="tbl-wrap" style="display:block"><table><thead><tr><th>Nama</th><th>Nomor HP</th><th>Grup</th><th>Sesi</th></tr></thead><tbody>${TEMPLATE_CSV.split('\n').slice(1).map(r=>`<tr>${r.split(',').map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
@@ -5086,7 +5093,7 @@ function openAuth(next, mode){
     <p class="muted" style="font-size:12.5px;margin-top:14px">Kalau lewat email, kami kirim kode 6 angka. Dengan melanjutkan, kamu setuju dengan <a href="/syarat" target="_blank" rel="noopener">Syarat</a> &amp; <a href="/privasi" target="_blank" rel="noopener">Kebijakan Privasi</a> Sakara.</p></div>`);
   setTimeout(()=>{ const m=$('#au-mail'); if(m && !(CLOUD.on && CLOUD.cfg.googleLogin) && matchMedia('(hover:hover)').matches){ m.focus(); m.select(); } },60);
   $('#authForm').addEventListener('submit',async ev=>{ ev.preventDefault(); const m=$('#au-mail'); const v=m.value.trim().toLowerCase(); const er=m.parentElement.querySelector('.err');
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ m.setAttribute('aria-invalid','true'); er.textContent='Masukkan email yang valid, misal nadia@gmail.com'; er.hidden=false; m.focus(); return; }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ m.setAttribute('aria-invalid','true'); er.textContent='Masukkan email yang valid, misal sarah@gmail.com'; er.hidden=false; m.focus(); return; }
     const b=$('#authForm button'); b.disabled=true; b.textContent='Mengirim kode…';
     const err=await sendCode(v);
     if(err){ b.disabled=false; b.textContent='Kirim kode masuk'; er.textContent=err; er.hidden=false; return; }
@@ -5125,9 +5132,9 @@ function afterLogin(isNew){
   closeModal(); renderAuthSlot(); toast('Halo lagi, '+S.user.name.split(' ')[0]+'!'); const n=authNext; authNext=null; if(n) n(); else { if(!location.hash || location.hash==='#' || location.hash==='#beranda') location.hash='#dashboard'; route(); }
 }
 function nameStep(){
-  const guess = S.bride.name && S.bride.name!=='Nadia Larasati' ? S.bride.name : '';
+  const guess = S.bride.name && !['Sarah Amalia','Nadia Larasati'].includes(S.bride.name) ? S.bride.name : '';
   openModal(`<div class="auth"><span class="eyebrow">Akun baru</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">Enaknya dipanggil <em>siapa?</em></h2><p class="muted">Biar kami bisa nyapa kamu dengan benar. Bisa diganti kapan aja.</p>
-    <form id="nameForm" style="margin-top:20px;display:grid;gap:14px" novalidate><div class="field"><label for="au-name">Nama kamu</label><input class="input" id="au-name" autocomplete="name" autocapitalize="words" placeholder="Nadia Larasati" value="${esc(guess)}"><span class="err" hidden></span></div>
+    <form id="nameForm" style="margin-top:20px;display:grid;gap:14px" novalidate><div class="field"><label for="au-name">Nama kamu</label><input class="input" id="au-name" autocomplete="name" autocapitalize="words" placeholder="Sarah Amalia" value="${esc(guess)}"><span class="err" hidden></span></div>
     <button class="btn btn-primary btn-block">Mulai</button></form></div>`);
   setTimeout(()=>$('#au-name')?.focus(),60);
   $('#nameForm').addEventListener('submit',async ev=>{ ev.preventDefault(); const i=$('#au-name'); const nm=i.value.trim().replace(/\s+/g,' ').slice(0,60); const er=$('#nameForm .err');
@@ -5681,7 +5688,7 @@ if(!S.wlInit){ S.wlInit=true; S.wishlist={on:true, demo:true, items:[{id:'k1',na
 if(S.albumOn===undefined) S.albumOn=true;
 if(!S.thanked) S.thanked=[];
 function secOrder(){ const o=S.order||(S.order=DEFAULT.order.slice()); if(!o.includes('kado')){ const i=o.indexOf('hadiah'); o.splice(i<0?o.length:i+1,0,'kado'); } if(!o.includes('cerita')){ const i=o.indexOf('acara'); o.splice(i<0?1:i+1,0,'cerita'); } return o; }
-const PL_DEMO = [{id:'p1',item:'k1',name:'Om Darmawan',amount:1000000,msg:'Semoga awet seperti kulkasnya',t:new Date(Date.now()-864e5).toISOString()},{id:'p2',item:'k1',name:'Teman kantor Rizky',amount:1500000,msg:'Patungan anak-anak divisi',t:new Date(Date.now()-36e5*5).toISOString()},{id:'p3',item:'k3',name:'Hana Halim',amount:500000,msg:'',t:new Date(Date.now()-36e5*2).toISOString()},{id:'p4',item:'k3',name:'Fitri Rahayu',amount:1000000,msg:'Selamat ya!',t:new Date(Date.now()-36e5).toISOString()}];
+const PL_DEMO = [{id:'p1',item:'k1',name:'Om Darmawan',amount:1000000,msg:'Semoga awet seperti kulkasnya',t:new Date(Date.now()-864e5).toISOString()},{id:'p2',item:'k1',name:'Teman kantor Raka',amount:1500000,msg:'Patungan anak-anak divisi',t:new Date(Date.now()-36e5*5).toISOString()},{id:'p3',item:'k3',name:'Hana Halim',amount:500000,msg:'',t:new Date(Date.now()-36e5*2).toISOString()},{id:'p4',item:'k3',name:'Fitri Rahayu',amount:1000000,msg:'Selamat ya!',t:new Date(Date.now()-36e5).toISOString()}];
 let PL = store.get('sp-pledges') || PL_DEMO;
 let WLP = null;
 let ALB = store.get('sp-album') || [];
@@ -6283,14 +6290,14 @@ document.addEventListener('input', e=>{ if(DEMO.on && e.target.closest('#editor'
 /* ---------- Mode demo ---------- */
 function demoData(){
   const s = structuredClone(DEFAULT);
-  Object.assign(s, {published:true, plan:'tamu', slug:'nadia-rizky', giftNo:9, user:null, invoices:[], famInit:true, wlInit:true, storyInit:true, step:0,
+  Object.assign(s, {published:true, plan:'tamu', slug:'sarah-raka', giftNo:9, user:null, invoices:[], famInit:true, wlInit:true, storyInit:true, step:0,
     wishlist:{on:true, items:[{id:'k1',name:'Kulkas dua pintu',price:6000000,note:'Untuk dapur rumah baru kami'},{id:'k2',name:'Mesin cuci',price:4500000,note:''},{id:'k3',name:'Set alat masak',price:1500000,note:'Panci, wajan, dan pisau'}]},
     story:{on:true, items:[{id:'c1',date:'Maret 2022',title:'Pertama bertemu',text:'Kami berkenalan di acara kantor teman. Obrolan singkat soal kopi ternyata berlanjut sampai larut malam.'},{id:'c2',date:'Agustus 2024',title:'Melangkah lebih serius',text:'Setelah dua tahun saling mengenal, kami memberanikan diri bertemu keluarga satu sama lain.'},{id:'c3',date:'Oktober 2026',title:'Lamaran',text:'Dengan restu kedua keluarga, kami sepakat melangkah ke jenjang pernikahan.'}]},
-    groups:[...GROUPS], cateringToken:'demo00catering00', families:[{id:'f1',name:'Keluarga Nadia',quota:150,token:'demo00keluarga01'},{id:'f2',name:'Keluarga Rizky',quota:120,token:'demo00keluarga02'}]});
+    groups:[...GROUPS], cateringToken:'demo00catering00', families:[{id:'f1',name:'Keluarga Sarah',quota:150,token:'demo00keluarga01'},{id:'f2',name:'Keluarga Raka',quota:120,token:'demo00keluarga02'}]});
   const g = seedGuests(); const last=s.events.length-1;
   g.forEach(x=>{ x.sessions = (s.events.length>1 && /Kantor|Tetangga/.test(x.group)) ? [last] : s.events.map((e,i)=>i); x.code=makeCode(x); });
   g.slice(0,40).forEach((x,k)=>{ if(k%3===0) x.fam = k%2?'f2':'f1'; });
-  [['Pak Haji Darmawan','081234567890','f1'],['Bu Siti Aminah','','f1'],['Tante Rina Kusuma','','f2']].forEach(([n,ph,f],k)=>{ const x={id:'fs'+k,name:n,phone:ph,group:'Keluarga '+(f==='f1'?'Nadia':'Rizky'),status:'belum',pax:0,sent:false,sessions:s.events.map((e,i)=>i),fam:f,approved:false}; x.code=makeCode(x); g.push(x); });
+  [['Pak Haji Darmawan','081234567890','f1'],['Bu Siti Aminah','','f1'],['Tante Rina Kusuma','','f2']].forEach(([n,ph,f],k)=>{ const x={id:'fs'+k,name:n,phone:ph,group:'Keluarga '+(f==='f1'?'Sarah':'Raka'),status:'belum',pax:0,sent:false,sessions:s.events.map((e,i)=>i),fam:f,approved:false}; x.code=makeCode(x); g.push(x); });
   const now=Date.now(); let gift=0;
   // Rencana jam datang tamu (demo): sebaran wajar, paling ramai di tengah acara
   const evM=s.events.filter(e=>e.start), mainE=evM[evM.length-1], sl=slotsFor(mainE);
@@ -6302,7 +6309,7 @@ function demoData(){
   const ci=hd.slice(0,16).map((x,k)=>[x,(toMin(x.arrive)??toMin(mainE&&mainE.start)??660)+((k*11)%26)]).sort((a,b)=>a[1]-b[1]);
   const mEnd=ci.length?ci[ci.length-1][1]:0;
   ci.forEach(([x,m],k)=>{ x.checkin={ts:now-(mEnd-m+3)*60000, time:fromMin(m), pax:x.pax||1, gift:k%2===0?++gift:0, session:last}; });
-  const W0=[{n:'Ani Wulandari',t:'2 jam lalu',m:'Selamat Nadia & Rizky! Semoga jadi keluarga yang sakinah, mawaddah, warahmah. Sampai ketemu di Graha Sawala ya.',att:true,show:true},{n:'Om Darmawan',t:'5 jam lalu',m:'Barakallah, semoga lancar sampai hari H. Salam untuk Bapak dan Ibu.',att:true,show:true},{n:'Teman kantor Rizky',t:'kemarin',m:'Congrats bro! Akhirnya. Kami datang rombongan setelah Jumatan, aman.',att:true,show:true},{n:'Bella Permata',t:'kemarin',m:'Maaf belum bisa hadir karena di luar kota, doa terbaik untuk kalian berdua.',att:false,show:true},{n:'Hana Halim',t:'2 hari lalu',m:'Happy wedding Nadia sayang, cantik banget undangannya!',att:true,show:true}];
+  const W0=[{n:'Ani Wulandari',t:'2 jam lalu',m:'Selamat Sarah & Raka! Semoga jadi keluarga yang sakinah, mawaddah, warahmah. Sampai ketemu di Graha Sawala ya.',att:true,show:true},{n:'Om Darmawan',t:'5 jam lalu',m:'Barakallah, semoga lancar sampai hari H. Salam untuk Bapak dan Ibu.',att:true,show:true},{n:'Teman kantor Raka',t:'kemarin',m:'Congrats bro! Akhirnya. Kami datang rombongan setelah Jumatan, aman.',att:true,show:true},{n:'Bella Permata',t:'kemarin',m:'Maaf belum bisa hadir karena di luar kota, doa terbaik untuk kalian berdua.',att:false,show:true},{n:'Hana Halim',t:'2 hari lalu',m:'Happy wedding Sarah sayang, cantik banget undangannya!',att:true,show:true}];
   const GF=[{n:'Om Darmawan',bank:'BCA',amt:0,t:'Hari ini, 09.12'},{n:'Fitri Rahayu',bank:'BCA',amt:0,t:'Kemarin, 20.41'},{n:'Keluarga Halim',bank:'BCA',amt:0,t:'Kemarin, 18.05'}];
   return {S:s, G:g, W:W0, GIFTS:GF, PL:structuredClone(PL_DEMO), ALB:[]};
 }
@@ -6329,7 +6336,7 @@ function demoPill(){
   p.innerHTML=`<span class="dp-dot" aria-hidden="true"></span><span><b>Mode demo</b><span class="dp-x"> · data contoh, tidak disimpan</span></span><a href="#dashboard" class="dp-btn dp-back">Dashboard</a><button type="button" class="dp-btn" data-act="demo-exit">Keluar</button>`;
 }
 function demoBanner(){
-  return `<div class="demo-ban" role="note"><div class="db-ic" aria-hidden="true">${ico('eye')}</div><div class="db-t"><b>Kamu lagi lihat demo, nih</b><span>Ini dashboard contoh punya Nadia &amp; Rizky. Klik apa aja, bebas! Nggak ada yang tersimpan dan nggak ada pesan yang beneran terkirim.</span></div><div class="db-a"><button type="button" class="btn btn-primary btn-sm" data-act="demo-start">Buat undanganku</button><button type="button" class="btn btn-ghost btn-sm" data-act="demo-exit">Keluar dari demo</button></div></div>`;
+  return `<div class="demo-ban" role="note"><div class="db-ic" aria-hidden="true">${ico('eye')}</div><div class="db-t"><b>Kamu lagi lihat demo, nih</b><span>Ini dashboard contoh punya Sarah &amp; Raka. Klik apa aja, bebas! Nggak ada yang tersimpan dan nggak ada pesan yang beneran terkirim.</span></div><div class="db-a"><button type="button" class="btn btn-primary btn-sm" data-act="demo-start">Buat undanganku</button><button type="button" class="btn btn-ghost btn-sm" data-act="demo-exit">Keluar dari demo</button></div></div>`;
 }
 function prepBanner(){
   const n=G.length;
@@ -6338,7 +6345,7 @@ function prepBanner(){
 function demoIntro(){
   try{ if(sessionStorage.getItem('sp-demo-intro')) return; sessionStorage.setItem('sp-demo-intro','1'); }catch(e){}
   openModal(`<div class="demo-intro"><span class="eyebrow">Mode demo</span><h2 class="display" style="font-size:32px;margin:8px 0 10px">Selamat datang di demo! 👋</h2>
-    <p class="muted">Kamu akan melihat undangan dan dashboard milik pasangan contoh, Nadia &amp; Rizky, lengkap dengan ${G.filter(g=>g.approved!==false).length} tamu. Klik apa aja sesukamu: lihat siapa yang udah jawab, buka mode penerima tamu, atau utak-atik undangannya di editor.</p>
+    <p class="muted">Kamu akan melihat undangan dan dashboard milik pasangan contoh, Sarah &amp; Raka, lengkap dengan ${G.filter(g=>g.approved!==false).length} tamu. Klik apa aja sesukamu: lihat siapa yang udah jawab, buka mode penerima tamu, atau utak-atik undangannya di editor.</p>
     <ul class="di-list"><li>${ico('check')}Nggak ada yang tersimpan</li><li>${ico('check')}Nggak ada pesan WhatsApp yang terkirim</li><li>${ico('check')}Undanganmu sendiri aman, nggak kesentuh</li></ul>
     <div class="form-foot"><button class="btn btn-ghost" data-act="demo-start">Buat undangan sendiri</button><button class="btn btn-primary" data-act="close">Mulai lihat demo</button></div></div>`);
 }
