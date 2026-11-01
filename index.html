@@ -5096,7 +5096,10 @@ async function sendCode(email){
   if(!CLOUD.on) return null;
   const { error } = await CLOUD.sb.auth.signInWithOtp({email, options:{shouldCreateUser:true, emailRedirectTo: location.origin+'/#'+(location.hash.slice(1)||'dashboard')}});
   if(!error) return null;
-  return /rate|limit|seconds/i.test(error.message) ? 'Terlalu sering meminta kode. Tunggu sebentar lalu coba lagi.' : error.message;
+  const m = error.message||'';
+  if(/rate|limit|seconds/i.test(m)) return 'Terlalu sering meminta kode. Tunggu sebentar lalu coba lagi.';
+  if(/sending|smtp|not authorized|email address/i.test(m)) return 'Kode belum bisa dikirim ke email ini sekarang. Coba masuk dengan Google dulu, ya.';
+  return m;
 }
 function otpStep(email){
   openModal(`<div class="auth"><span class="eyebrow">Verifikasi email</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">Masukkan <em>kode</em></h2><p class="muted">Kode 6 angka sudah dikirim ke <b style="color:var(--ink)">${esc(email)}</b>. <button class="linkbtn" data-act="login">Ganti</button></p>
