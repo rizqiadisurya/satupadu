@@ -488,6 +488,21 @@ textarea.input{min-height:96px;resize:vertical}
 .pn-b{padding:18px 22px 22px;flex:1}
 .panel-c.arr-panel,.panel-c.arr-list{margin-top:20px}
 .dash .adm-empty{padding:34px 16px 40px}
+/* Dashboard pasangan bergaya panel admin */
+.dash{padding:0}
+.dsh .dsh-main{max-width:1240px}
+.dsh-side nav button{position:relative}
+.dsh-side nav .cnt{margin-left:auto;min-width:22px;height:22px;padding:0 7px;border-radius:99px;background:#F1E6E8;color:var(--beet);font-size:12px;font-weight:800;display:inline-grid;place-items:center}
+.dsh-side nav .cnt.warn{background:var(--warn);color:#fff}
+.dsh-side nav button[aria-current=true] .cnt{background:#fff}
+.dsh-side .adm-me b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dsh .dash-head{margin-bottom:24px}
+.dsh .dash-head h1{font-size:clamp(28px,3vw,38px)}
+#dashNav{display:none !important}
+.dsh-side .adm-brand{gap:12px;padding:4px 8px 0;font-family:'Marcellus',Georgia,serif;font-size:17px;letter-spacing:.3em;text-transform:uppercase;color:#3A2A2E}
+.dsh-side .adm-brand svg{width:26px;height:26px;flex:none}
+@media (max-width:820px){.dsh-side nav .cnt{margin-left:4px;height:20px;min-width:20px;font-size:11px}}
+
 @media (max-width:640px){
   .tile.ic{padding:16px}
   .tile.ic .adm-ic{width:40px;height:40px;border-radius:12px;margin-bottom:12px}
@@ -2951,7 +2966,6 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
       <a href="#demo" data-nav="demo">Lihat demo</a>
       <a href="#harga" data-nav="harga">Harga</a>
       <a href="#buat" data-nav="buat">Buat undangan</a>
-      <a href="#dashboard" data-nav="dashboard">Dashboard</a>
     </nav>
     <div class="header-cta">
       <span id="authSlot"></span>
@@ -2989,7 +3003,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
     <a href="#" data-sec="e-top" class="e-logo" data-t aria-label="Sakara, ke atas"><svg viewBox="0 0 100 100" data-mark="#B5656F" aria-hidden="true"></svg><b>SAKARA</b></a>
     <nav class="e-links" aria-label="Utama">
       <a data-t href="#" data-sec="e-tema">Tema</a><a data-t href="#" data-sec="e-cara">Cara kerja</a><a data-t href="#" data-sec="e-paket">Harga</a>
-      <a data-t href="#buat" data-l="buat" class="e-only-in">Undangan saya</a><a data-t href="#dashboard" class="e-only-in">Dashboard</a>
+      <a data-t href="#buat" data-l="buat" class="e-only-in">Undangan saya</a>
     </nav>
     <div class="e-nav-r">
       <button class="e-nav-login e-only-out" data-t data-act="login">Masuk</button>
@@ -2998,8 +3012,8 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
         <button class="e-av" data-t id="e-avBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="e-acctMenu"><span id="e-avIni">NR</span><svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
         <div class="e-acct-menu" id="e-acctMenu" role="menu" hidden>
           <div class="e-acct-id"><b id="e-acName">Nadia Larasati</b><small id="e-acMail">nadia@email.com</small><span class="e-role-tag e-only-admin">Admin</span></div>
+          <a role="menuitem" href="#dashboard"><i>☰</i>Dashboard</a>
           <a role="menuitem" data-l="buat" href="#buat"><i>✎</i><span data-lt>Undangan saya</span></a>
-          <a role="menuitem" href="#dashboard"><i>☰</i>Dashboard tamu</a>
           <a role="menuitem" href="#tagihan"><i>▤</i>Tagihan</a>
           <a role="menuitem" class="e-only-admin e-adm" href="/admin"><i>◆</i>Panel admin</a>
           <button role="menuitem" data-act="logout"><i>↩</i>Keluar</button>
@@ -3173,7 +3187,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
 
 <!-- ============ DASHBOARD ============ -->
 <div data-view="dashboard" hidden>
-  <div class="wrap dash" id="dash"></div>
+  <div class="dash" id="dash"></div>
   <nav class="dash-nav" id="dashNav" role="tablist" aria-label="Menu dashboard"></nav>
 </div>
 
@@ -4830,7 +4844,15 @@ function renderDashCore(){
     <p class="muted" style="margin:16px 0">Uang langsung masuk ke rekening ${esc(S.gift.bank)} ${esc(S.gift.holder)}. Tamu tidak diminta konfirmasi. Daftar ini hanya berisi tamu yang menitipkan nama secara sukarela, jadi tetap cek mutasi rekeningmu.</p>
     ${GIFTS.length?'':`<section class="panel-c">${dEmpty('gift','Belum ada titipan nama.','Saat tamu mengirim hadiah dan menitipkan namanya, catatannya muncul di sini.')}</section>`}<div class="tbl-wrap" style="display:block${GIFTS.length?'':';display:none'}"><table><thead><tr><th>Dari</th><th>Ke</th><th class="num">Jumlah</th><th>Waktu</th></tr></thead><tbody>${GIFTS.map(g=>`<tr><td class="nm">${esc(g.n)}</td><td>${esc(g.bank)}</td><td class="num">${g.amt?rupiah(g.amt):'—'}</td><td class="muted">${esc(g.t)}</td></tr>`).join('')}</tbody></table></div>` + kadoAdminHTML();
   }
-  $('#dash').innerHTML = head + body;
+  // Tata letak seperti panel admin: menu samping + isi
+  const cnt = k => k==='tamu'?`<span class="cnt num">${total}</span>`:k==='ucapan'?`<span class="cnt num">${W.length}</span>`:k==='harih'&&arrived.length?`<span class="cnt num">${arrived.length}</span>`:k==='keluarga'&&(G_ALL||G).some(isPending)?`<span class="cnt num warn">${(G_ALL||G).filter(isPending).length}</span>`:'';
+  const real = (DEMO.on && DEMO.saved) ? DEMO.saved.S : S, u = real.user;
+  const side = `<aside class="adm-side dsh-side"><a class="adm-brand" href="#beranda" aria-label="Sakara beranda">${$('#siteHeader .logo')?.innerHTML||'Sakara'}</a><span class="adm-badge">${DEMO.on?'Demo':'Pasangan'}</span>
+      <nav aria-label="Menu dashboard">${dtList().map(([k,l,i])=>`<button type="button" data-dtab="${k}" aria-current="${dTab===k}">${ico(i)}<span>${l}</span>${cnt(k)}</button>`).join('')}</nav>
+      <a class="adm-home" href="#beranda">${ico('home')}<span>Ke beranda Sakara</span></a>
+      <div class="adm-me">${DEMO.on?`<b>Mode demo</b><button type="button" class="btn btn-ghost btn-sm" data-act="demo-exit">Keluar demo</button>`:u?`<b title="${esc(u.email||'')}">${esc((u.name||'').split(' ')[0]||'Akun')}</b><button type="button" class="btn btn-ghost btn-sm" data-act="logout">Keluar</button>`:''}</div></aside>`;
+  $('#dash').innerHTML = `<div class="adm dsh">${side}<main class="adm-main dsh-main">${head.replace(/<div class="dtabs"[\s\S]*$/,'')}${body}</main></div>`;
+  requestAnimationFrame(()=>{ const b=$('.dsh-side nav [aria-current=true]'); if(b && b.scrollIntoView && innerWidth<=820) b.scrollIntoView({block:'nearest',inline:'nearest'}); });
   const dn=$('#dashNav'), dsl=dn.scrollLeft; dn.innerHTML = dtList().map(([k,l,i])=>`<button role="tab" data-dtab="${k}" aria-selected="${dTab===k}">${ico(i)}${l}</button>`).join(''); dn.scrollLeft=dsl;
   if(!dn._sc){ dn._sc=1; dn.addEventListener('scroll',()=>dn.classList.toggle('end', dn.scrollLeft+dn.clientWidth>=dn.scrollWidth-4),{passive:true}); }
   const dsel=dn.querySelector('[aria-selected=true]'); if(dsel && dn.scrollWidth>dn.clientWidth){ const r=dsel.offsetLeft, w=dsel.offsetWidth; if(r<dn.scrollLeft || r+w>dn.scrollLeft+dn.clientWidth) dn.scrollLeft=r-dn.clientWidth/2+w/2; }
@@ -5032,7 +5054,7 @@ function renderAuthSlot(){
   if($('#plans') && $('#plans').children.length) renderPlans();
   const real = (DEMO.on && DEMO.saved) ? DEMO.saved.S : S;
   const u=real.user;
-  const html = u ? `<div class="acct"><button class="av-btn" data-act="acct-menu" aria-expanded="false" aria-label="Akun ${esc(u.name)}">${esc(initials(u.name)||'U')}</button><div class="acct-menu" id="acctMenu" hidden><div class="acct-id"><b>${esc(u.name)}</b><small class="muted">${esc(u.email)}</small></div><a href="#dashboard">${ico('home')}Undangan saya</a><a href="#tagihan">${ico('receipt')}Tagihan</a>${ADM.sso?`<a href="/admin">${ico('lock')}Panel admin</a>`:''}<button data-act="logout">${ico('logout')}Keluar</button></div></div>`
+  const html = u ? `<div class="acct"><button class="av-btn" data-act="acct-menu" aria-expanded="false" aria-label="Akun ${esc(u.name)}">${esc(initials(u.name)||'U')}</button><div class="acct-menu" id="acctMenu" hidden><div class="acct-id"><b>${esc(u.name)}</b><small class="muted">${esc(u.email)}</small></div><a href="#dashboard">${ico('home')}Dashboard</a><a href="${real.published?'#edit':'#buat'}">${ico('edit')}${real.published?'Edit undangan':'Undangan saya'}</a><a href="#tagihan">${ico('receipt')}Tagihan</a>${ADM.sso?`<a href="/admin">${ico('lock')}Panel admin</a>`:''}<button data-act="logout">${ico('logout')}Keluar</button></div></div>`
     : `<button class="btn btn-ghost btn-sm" data-act="login">Masuk</button>`;
   const a=$('#authSlot'); if(a) a.innerHTML=html;
   { const stage = !u ? 'visitor' : (real.published ? 'paid' : 'draft');
@@ -6868,7 +6890,7 @@ function route(){
   if(h==='buat' && S.published){ h='edit'; history.replaceState(null,'',location.pathname+location.search+'#edit'); }
   $$('[data-view]').forEach(v=> v.hidden = v.dataset.view!==h);
   if(h!=='edit') edLeave();
-  const full = h==='admin' || h==='undangan' || h==='checkin' || h==='keluarga' || h==='katering' || h==='edit' || h==='album';
+  const full = h==='admin' || h==='dashboard' || h==='undangan' || h==='checkin' || h==='keluarga' || h==='katering' || h==='edit' || h==='album';
   $('#siteHeader').hidden = full || h==='beranda'; $('#footerWrap').hidden = full || ['dashboard','buat','checkout','beranda'].includes(h);
   document.documentElement.classList.toggle('on-home', h==='beranda');
   if(window.EDH){ if(h==='beranda') EDH.enter(); else EDH.leave(); }
