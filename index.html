@@ -431,7 +431,7 @@ textarea.input{min-height:96px;resize:vertical}
 .inv .wm{position:absolute;top:12px;left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:700;background:rgba(0,0,0,.55);color:#fff;padding:4px 10px;border-radius:99px;z-index:4;white-space:nowrap}
 
 /* Guest page shell */
-.guest-shell{min-height:100vh;background-color:var(--t-bg);background-image:var(--t-pattern);background-size:var(--t-size,auto);display:flex;justify-content:center;position:relative}
+.guest-shell{overflow-x:clip;min-height:100vh;background-color:var(--t-bg);background-image:var(--t-pattern);background-size:var(--t-size,auto);display:flex;justify-content:center;position:relative}
 .guest-shell::before{content:"";position:fixed;inset:0;background:rgba(20,10,14,.32);pointer-events:none}
 .guest-shell .side{display:none;flex:1;background-color:var(--t-bg);background-image:var(--t-pattern);background-size:var(--t-size,auto);opacity:.95;display:flex;align-items:flex-end;padding:40px;color:var(--t-fg)}
 .guest-shell .side .ttl{font-family:var(--t-font);font-size:40px;line-height:1.05;max-width:12ch;background:var(--t-bg);padding:16px 20px;border-radius:18px}
@@ -2435,7 +2435,7 @@ html.boot-app #bootSkel .bs-app{display:flex}
 .inv.prem .p-amp{font-family:var(--t-font);font-style:italic;font-size:54px;line-height:.6;color:var(--t-accent);text-align:center;margin:4px 0}
 /* Pasangan: foto berdampingan kiri-kanan, nama & keterangan di bawah (semua tema) */
 .inv.prem .p-couple{display:block;max-width:560px}
-.inv.prem .p-pics{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,5cqi,30px);align-items:start;margin-bottom:clamp(26px,8cqi,44px)}
+.inv.prem .p-pics{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,5cqi,30px);align-items:start;padding:6px clamp(8px,4cqi,22px) 0;margin-bottom:clamp(26px,8cqi,44px)}
 .inv.prem .p-pic{position:relative;margin:0;min-width:0;background:transparent;border:0;box-shadow:none;overflow:visible;border-radius:0}
 .inv.prem .p-pic .p-ph{aspect-ratio:7/10;border-radius:50%;box-shadow:0 0 0 3px var(--t-bg),0 0 0 5px color-mix(in srgb,var(--t-accent) 70%,transparent),0 18px 34px -20px color-mix(in srgb,var(--t-fg) 60%,transparent)}
 .inv.prem .p-pic .p-ph.ph-empty span{font-size:clamp(46px,14cqi,90px)}
@@ -3586,8 +3586,8 @@ function invHTML0(opts={}){
       <h3>${esc(op.salam)}</h3>
       <p class="lead">${esc(op.text)}</p>
       <div class="couple2"><div class="pics">
-        <figure class="pic"><div class="ph" ${S.bride.photo?`style="background:url(${S.bride.photo}) center/cover"`:''}>${S.bride.photo?'':esc(initials(S.bride.name)||'?')}</div><figcaption class="p-tag" aria-hidden="true">the bride</figcaption></figure>
-        <figure class="pic"><div class="ph" ${S.groom.photo?`style="background:url(${S.groom.photo}) center/cover"`:''}>${S.groom.photo?'':esc(initials(S.groom.name)||'?')}</div><figcaption class="p-tag" aria-hidden="true">the groom</figcaption></figure></div>
+        <figure class="pic"><div class="ph" ${S.bride.photo?`style="background:url(${S.bride.photo}) center/cover"`:''}>${S.bride.photo?'':esc(initials(S.bride.name)||'?')}</div></figure>
+        <figure class="pic"><div class="ph" ${S.groom.photo?`style="background:url(${S.groom.photo}) center/cover"`:''}>${S.groom.photo?'':esc(initials(S.groom.name)||'?')}</div></figure></div>
         <div class="person"><h4>${esc(S.bride.name||'Nama mempelai wanita')}</h4><p>${esc(S.bride.parents)}</p></div>
         <div class="and">&amp;</div>
         <div class="person"><h4>${esc(S.groom.name||'Nama mempelai pria')}</h4><p>${esc(S.groom.parents)}</p></div></div>
@@ -6010,12 +6010,12 @@ function pPhoto(person, cls){
 }
 function premSalam(id, op){
   const info = (who, role) => { const x=S[who]; return `<div class="p-body"><span class="kick">${role}</span><h4>${esc(x.name||(who==='bride'?'Nama mempelai wanita':'Nama mempelai pria'))}</h4><p>${esc(x.parents||'')}</p>${x.ig?`<a class="p-ig" href="https://instagram.com/${esc(String(x.ig).replace(/^@/,''))}" target="_blank" rel="noopener">@${esc(String(x.ig).replace(/^@/,''))}</a>`:''}</div>`; };
-  const pic = (who, tag) => `<figure class="p-card p-pic">${pPhoto(S[who],'p-ph')}<figcaption class="p-tag" aria-hidden="true">${tag}</figcaption></figure>`;
+  const pic = who => `<figure class="p-card p-pic">${pPhoto(S[who],'p-ph')}</figure>`;
   return `<section id="${id}-salam" class="p-salam">
     ${P_KICK.salam?`<span class="kick">${esc(P_KICK.salam)}</span>`:''}
     <h3>${esc(op.salam)}</h3>
     <p class="lead">${esc(op.text)}</p>
-    <div class="p-couple"><div class="p-pics">${pic('bride','the bride')}${pic('groom','the groom')}</div>
+    <div class="p-couple"><div class="p-pics">${pic('bride')}${pic('groom')}</div>
       <div class="p-info">${info('bride','Mempelai wanita')}<div class="p-amp" aria-hidden="true">&amp;</div>${info('groom','Mempelai pria')}</div></div>
     ${op.quote?`<figure class="qband"><svg class="orn" width="120" height="20" aria-hidden="true"><use href="#i-orn"/></svg><blockquote>${esc(op.quote.replace(/\s*—\s*[^—]+$/,''))}</blockquote>${/—/.test(op.quote)?`<figcaption>${esc(op.quote.split('—').pop().trim())}</figcaption>`:''}</figure>`:''}
   </section>`;
