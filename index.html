@@ -2672,7 +2672,7 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
   .adm-home{padding:6px 0;font-size:14px;gap:8px}
   .adm-home .icon{width:17px;height:17px}
   .adm-me .btn{min-height:36px;padding:0 16px;font-size:13.5px}
-  .adm-side nav{margin:0 -16px;padding:0 16px 10px;gap:6px;scroll-padding:0 16px;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
+  .adm-side nav{margin:0;padding:0 28px 10px 0;gap:6px;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
   .adm-side nav button{padding:8px 14px;font-size:14px;gap:8px;border-radius:99px;font-family:'Plus Jakarta Sans',system-ui,sans-serif;flex:none}
   .adm-side nav button .icon{width:16px;height:16px}
   .adm-side nav button[aria-current=true]{font-weight:700}
@@ -2740,7 +2740,7 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
   .adm-fin tr{gap:10px 16px}
 
   /* keuangan: pilihan periode jadi slider, tanggal tidak melebar */
-  .fin-range{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;margin:0 -16px 16px;padding:2px 16px;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
+  .fin-range{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;margin:0 0 16px;padding:2px 28px 2px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
   .fin-range::-webkit-scrollbar{display:none}
   .fin-range button{flex:none;white-space:nowrap;padding:9px 16px;font-size:14px;scroll-snap-align:start;font-family:inherit}
   .fin-dates{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:-4px 0 16px}
@@ -6419,7 +6419,7 @@ document.addEventListener('click', async e=>{
   const ps = t.closest('[data-pk-sel]'); if(ps){ ADM.pkSel=ps.dataset.pkSel; $('#admMain').innerHTML=admPkgHTML(); return; }
   const pm = t.closest('[data-pk-mx]'); if(pm){ const x=ADM.pk.find(q=>q.id===pm.dataset.pkMx); x.feats={...x.feats, [pm.dataset.k]: planFeat(x,pm.dataset.k)?0:1}; admPkgChanged(); return; }
   const pc = t.closest('[data-pk-card]'); if(pc){ const k=pc.dataset.pkCard; ADM.cards = ADM.cards.includes(k) ? ADM.cards.filter(x=>x!==k) : FEAT_ROWS().map(r=>r.key).filter(x=>x===k||ADM.cards.includes(x)); admPkgChanged(); return; }
-  const fr = t.closest('[data-fin-range]'); if(fr){ FIN.range=fr.dataset.finRange; if(FIN.range==='custom' && !FIN.from){ const d=new Date(); FIN.to=d.toISOString().slice(0,10); FIN.from=new Date(d.getFullYear(),d.getMonth(),1).toISOString().slice(0,10); } { const sl=$('.fin-range')?.scrollLeft||0; $('#admMain').innerHTML=admFinHTML(); const r=$('.fin-range'); if(r){ r.scrollLeft=sl; const b=$('[aria-pressed=true]',r); if(b){ const L=b.offsetLeft-r.offsetLeft, R=L+b.offsetWidth; if(L<r.scrollLeft+16||R>r.scrollLeft+r.clientWidth-16) r.scrollTo({left:L-16,behavior:'smooth'}); } } } return; }
+  const fr = t.closest('[data-fin-range]'); if(fr){ FIN.range=fr.dataset.finRange; if(FIN.range==='custom' && !FIN.from){ const d=new Date(); FIN.to=d.toISOString().slice(0,10); FIN.from=new Date(d.getFullYear(),d.getMonth(),1).toISOString().slice(0,10); } { const sl=$('.fin-range')?.scrollLeft||0; $('#admMain').innerHTML=admFinHTML(); const r=$('.fin-range'); if(r){ r.scrollLeft=sl; const b=$('[aria-pressed=true]',r); if(b){ const L=b.offsetLeft-r.offsetLeft, R=L+b.offsetWidth; if(L<r.scrollLeft||R>r.scrollLeft+r.clientWidth-28) r.scrollTo({left:Math.max(0,R-r.clientWidth+30),behavior:'smooth'}); } } } return; }
   const cd = t.closest('[data-fin-costdel]'); if(cd){ const c=finReadForm(); c.costs.splice(+cd.dataset.finCostdel,1); finSetCfg(c); $('#admMain').innerHTML=admFinHTML(); return; }
   const ed = t.closest('[data-adm-tedit]'); if(ed){ ADM.edit=ed.dataset.admTedit; ADM.draft=JSON.parse(JSON.stringify(ADM.cfg.themes[ADM.edit]||{})); admRenderTab(); $('#admMain')?.scrollTo?.(0,0); window.scrollTo(0,0); return; }
   const mv = t.closest('[data-adm-mv]'); if(mv){ const ov=ADM.cfg.themes; const order = THEMES.map((x,i)=>[x,i]).sort((p,q)=>{ const oa=(ov[p[0].id]||{}).order, ob=(ov[q[0].id]||{}).order; return (Number.isFinite(oa)?oa:1e4+p[1])-(Number.isFinite(ob)?ob:1e4+q[1]); }).map(x=>x[0].id);
