@@ -157,6 +157,13 @@ function init(){
 // jumlah kartu tema mengikuti katalog; dipanggil ulang saat daftar tema berubah
 function gCount(){ const t=$('#e-tt'); if(t) t.textContent=String($$('#e-track .e-card').length).padStart(2,'0'); }
 function gallery(){ gCount(); if(active&&HAS&&inited) requestAnimationFrame(()=>ScrollTrigger.refresh()); }
+// tombol "Ke atas": muncul saat sudah mentok di bawah, hilang begitu digulir ke atas
+const totop=$('#e-totop'); let ttY=scrollY, ttOn=false;
+function ttSet(v){ if(v===ttOn) return; ttOn=v; totop.classList.toggle('e-on',v); totop.tabIndex=v?0:-1; }
+function ttCheck(){ if(!active){ ttSet(false); return; } const y=scrollY, left=document.documentElement.scrollHeight-(y+innerHeight);
+  if(y<ttY-2) ttSet(false); else if(left<48) ttSet(true); ttY=y; }
+addEventListener('scroll',ttCheck,{passive:true});
+totop.addEventListener('click',()=>{ ttSet(false); totop.blur(); go(totop.dataset.sec); });
 function enter(){
   if(active) return; active=true; root.classList.add('e-is-on');
   if(RM||!HAS){ staticMode(); tone(); showPromo(); firstEnter=false; return; }
@@ -165,7 +172,7 @@ function enter(){
   firstEnter=false; clearInterval(toneT); toneT=setInterval(tone,400); requestAnimationFrame(tone); showPromo();
 }
 function leave(){
-  if(!active) return; active=false; document.documentElement.style.overflow=''; root.classList.remove('e-is-on'); document.documentElement.classList.remove('edh-first'); const ld=$('.e-loader'); ld&&ld.remove(); clearInterval(toneT); closeMenu(); closeAcct(); promo.classList.remove('e-on');
+  if(!active) return; active=false; ttSet(false); document.documentElement.style.overflow=''; root.classList.remove('e-is-on'); document.documentElement.classList.remove('edh-first'); const ld=$('.e-loader'); ld&&ld.remove(); clearInterval(toneT); closeMenu(); closeAcct(); promo.classList.remove('e-on');
   document.body.classList.remove('edh-loading');
   if(lenis){ lenis.destroy(); lenis=null; }
   if(HAS&&inited) ScrollTrigger.getAll().forEach(t=>t.disable(true));
