@@ -4056,8 +4056,8 @@ const PLANS = [
   {id:'tamu', name:'Undangan + Tamu', price:349000, note:'sekali bayar', tag:'Paling lengkap', fit:'Buat acara besar. Dari kirim undangan sampai meja penerima tamu, semua beres.', feature:1, sum:'Semua di Undangan · Import Excel · Kirim WA sekaligus · QR check-in', cta:'Pilih Undangan + Tamu'}
 ];
 const PLAN_RANK = {coba:0, undangan:1, tamu:2};
-/* Paket Custom: tidak dibeli lewat checkout, cuma diarahkan chat WhatsApp. GANTI nomor di bawah dengan nomor WA Sakara (format 62…, tanpa + dan spasi). */
-const SAKARA_WA = '6281234567890';
+/* Paket Custom: tidak dibeli lewat checkout, cuma diarahkan chat WhatsApp. Nomor WA Sakara (format 62…, tanpa + dan spasi). */
+const SAKARA_WA = '6281995050125';
 const customWaUrl = () => `https://wa.me/${SAKARA_WA}?text=${encodeURIComponent('Halo Sakara! Aku tertarik dengan paket Custom, mau bikin undangan dengan desain sendiri. Boleh ngobrol soal konsep dan harganya?')}`;
 document.querySelectorAll('[data-wa-custom]').forEach(a=>a.href=customWaUrl());
 /* [label, coba, undangan, tamu, tampil di kartu?]  nilai: 1 ada, 0 tidak, atau teks */
