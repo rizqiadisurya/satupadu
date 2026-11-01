@@ -86,7 +86,6 @@ function init(){
   intro.from('.e-hl-bawah img',{yPercent:40,duration:2.2,ease:'power3.out',force3D:true},2.95+o)
     .from('.e-hl-kiri img',{xPercent:-55,duration:2.2,ease:'power3.out',force3D:true},3.1+o)
     .from('.e-hl-kanan img',{xPercent:55,duration:2.2,ease:'power3.out',force3D:true},3.1+o)
-    .from('.e-hl-atas img',{yPercent:-65,duration:2.2,ease:'power3.out',force3D:true},3.2+o)
     .from('.e-kp',{opacity:0,scale:.4,duration:1.2,stagger:.18,ease:'back.out(2)'},4.0+o)
     .from('#e-h1 .e-line>span',{yPercent:110,duration:1.4,stagger:.14},3.35+o)
     .from('.e-hero-copy .e-split-fade',{opacity:0,y:20,duration:1.1,stagger:.25},3.5+o)
@@ -96,7 +95,6 @@ function init(){
   (function wait(){ if(H.classList.contains('e-intro') && Date.now()-t0<4500) return setTimeout(wait,60); intro.play(); })();
 
   const hs={trigger:'.e-hero',start:'top top',end:'bottom top',scrub:.6};
-  gsap.to('.e-hl-atas',{yPercent:-55,ease:'none',force3D:true,scrollTrigger:hs});
   gsap.to('.e-hl-kiri',{xPercent:-35,yPercent:-6,ease:'none',force3D:true,scrollTrigger:hs});
   gsap.to('.e-hl-kanan',{xPercent:35,yPercent:-6,ease:'none',force3D:true,scrollTrigger:hs});
   gsap.to('.e-hl-bawah',{yPercent:22,ease:'none',force3D:true,scrollTrigger:hs});
