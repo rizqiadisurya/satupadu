@@ -436,9 +436,6 @@ html.edh-first body{overflow:hidden}
 .edh .e-foot-bot{padding-bottom:88px}
 @media (max-width:760px){.edh .e-foot-bot{padding-bottom:74px}}
 /* HP pratinjau saat judul hero di-hover */
-.edh .e-peek.e-phone{width:210px;border-radius:34px;border:7px solid #241A1D;background:#241A1D;box-shadow:0 0 0 1px rgba(255,255,255,.18),0 40px 80px -24px rgba(30,8,14,.6)}
-.edh .e-peek.e-phone img{border-radius:27px}
-.edh .e-peek.e-phone::after{content:"";position:absolute;top:7px;left:50%;width:58px;height:16px;margin-left:-29px;border-radius:10px;background:#241A1D;z-index:2}
 /* Kartu penutup slider tema: "Lihat semua tema" ke halaman #tema */
 .edh a.e-card{color:inherit;text-decoration:none;display:block}
 .edh .e-all .e-ph{background:var(--deep);display:flex;flex-direction:column;justify-content:flex-end}
