@@ -2144,6 +2144,16 @@ html.boot-done #gate:not(.show):not(.open){opacity:0;pointer-events:none}
 .inv.tm-keraton .tr-akhir .tr-badge{top:26%;width:clamp(80px,24cqi,120px);aspect-ratio:243/420}
 .inv.tm-keraton .tr-badge span{color:#FFF6E0 !important;text-shadow:0 1px 6px rgba(70,30,10,.85) !important;transform:translateY(-12%)}
 .inv.tm-keraton .tr-akhir .tr-badge span{font-size:clamp(28px,8cqi,40px)}
+/* pemandangan berpijak: semua benda berdiri di belakang satu hamparan bunga yang sama, tepi lukisan lonjong dipudarkan */
+.inv.il-taman .tm-scene.has-gr .tm-gr{position:absolute;left:-4%;right:-4%;bottom:0;height:30cqi;z-index:9;-webkit-mask:linear-gradient(180deg,transparent 0,#000 34%);mask:linear-gradient(180deg,transparent 0,#000 34%)}
+.inv.il-taman .tm-gr .tm-dp{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 78%}
+.inv.il-taman .tm-scene.has-gr .tm-it{z-index:2 !important}
+.inv.il-taman .tm-scene.has-gr .tm-it.tr{z-index:1 !important}
+.inv.il-taman .tm-it.v{-webkit-mask:radial-gradient(ellipse 50% 50% at 50% 50%,#000 58%,transparent 98%);mask:radial-gradient(ellipse 50% 50% at 50% 50%,#000 58%,transparent 98%)}
+.inv.il-taman>section.tm-h-none{padding-top:calc(16cqi + 24px) !important}
+.inv.il-taman.tm-keraton .tm-c{width:34% !important}
+.inv.il-taman.tm-keraton>section.tm-h-c{padding-top:calc(40cqi + 10px) !important}
+.inv.il-taman.tm-keraton .tm-wis{top:4px}
 #gate.g-teras.g-taman{background:radial-gradient(70% 55% at 50% 50%,#FFFFFF 0%,var(--il-bg,#EEF5F8) 75%)}
 #gate.g-teras.g-taman .gd{background:var(--tm-g1,url(/assets/tamanbunga/sudut.webp)) left -6px top -10px/62% auto no-repeat,var(--tm-g2,url(/assets/tamanbunga/depan.webp)) left bottom/200% auto no-repeat,var(--il-bg,#EEF5F8)}
 #gate.g-teras.g-taman .gd.r{background:var(--tm-g1r,url(/assets/tamanbunga/sudut-r.webp)) right -6px top -10px/62% auto no-repeat,var(--tm-g2,url(/assets/tamanbunga/depan.webp)) right bottom/200% auto no-repeat,var(--il-bg,#EEF5F8)}
@@ -3704,13 +3714,13 @@ const LAYOUT_THEMES = [
     ilGate:{'--il-lencana':'url(/assets/tamanbunga/lencana.webp)','--il-bg':'#EEF5F8','--il-amp':'#3F5560','--il-nm':'#B5566C','--il-ini':'#B5566C','--il-gw':'190px','--il-gh':'191px'}},
   {id:'taman-keraton', layout:'teras', ilMode:'taman', ilDir:'/assets/keraton/', name:'Taman Keraton', region:'Jawa', tags:['Adat','Floral'], bg:'#F4EEDF', fg:'#5B2A2E', accent:'#7A2E35', soft:'#EDE3CC', font:"'Cormorant Garamond', Georgia, serif", side:'/assets/keraton/foto.webp',
     pat:(t)=>`radial-gradient(circle, #7A2E3510 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/taman-keraton.webp) center/cover`,
-    tm:{cls:'tm-keraton', cover:'gate', bf:['p6'], pet:['p3','p1','p2','p5'], tops:['c','kal','wis','sak','kal','c'], files:{wis:'melati',sak:'kamboja',kal:'kalung',bangku:'bangku',arch:'gerbang',lencana:'gunungan'},
+    tm:{cls:'tm-keraton', cover:'gate', ground:'depan', bf:['p6'], pet:['p3','p1','p2','p5'], tops:['c','none','wis','none','wis','none'], files:{wis:'melati',sak:'kamboja',kal:'kalung',bangku:'bangku',arch:'gerbang',lencana:'gunungan'},
       scenes:[
-        [['rumpun',-6,30,0,'w tall'],['mawar',20,46,0,'w'],['lentera',56,50,0,'']],
-        [['palem',-16,44,0,'tr'],['teratai',24,58,0,''],['pilar',76,28,0,'']],
-        [['pohon',-14,48,0,'tr'],['kuntul',30,46,0,''],['rumpun-r',74,30,0,'w tall']],
-        [['janur',-2,20,0,'tr'],['sesaji',18,54,0,''],['mawar',62,44,0,'w']],
-        [['pilar',-6,28,0,''],['depan',-6,112,0,'w'],['palem-r',70,44,0,'tr']],
+        [['rumpun',-2,26,14,'w tall'],['lentera',30,46,16,'v'],['samping-r',78,24,14,'w']],
+        [['palem',-10,40,12,'tr'],['teratai',30,50,16,'v'],['pilar',78,22,12,'']],
+        [['pohon',-12,46,12,'tr'],['kuntul',34,40,16,'v'],['rumpun-r',76,26,14,'w tall']],
+        [['janur',4,18,12,'tr'],['sesaji',28,46,18,''],['pilar',80,22,12,'']],
+        [['palem-r',68,40,12,'tr'],['mawar',4,46,14,'w'],['pilar',50,20,12,'']],
       ]},
     ilVars:"--il-bingkai:url(/assets/keraton/bingkai.webp);--tm-cd:url(/assets/keraton/sesaji.webp);--tr-ink:#5B2A2E;--il-nm:#7A2E35;--il-amp:#9C7A3C;--il-bg:#F4EEDF;--il-bar:243/420;--il-ini:#FFF6E0;--il-iy:-12%;--il-far:664/1000;--il-fl:17%;--il-ft:25%;--il-fw:64%;--il-fh:55%",
     ilGate:{'--il-lencana':'url(/assets/keraton/gunungan.webp)','--tm-g1':'url(/assets/keraton/sudut.webp)','--tm-g1r':'url(/assets/keraton/sudut-r.webp)','--tm-g2':'url(/assets/keraton/depan.webp)','--il-bg':'#F4EEDF','--il-amp':'#9C7A3C','--il-nm':'#7A2E35','--il-ini':'#FFF6E0','--il-gw':'124px','--il-gh':'214px','--gini-sh':'0 1px 6px rgba(70,30,10,.85)','--gini-fs':'44px','--gini-y':'-14px'}},
@@ -4118,8 +4128,9 @@ function invHTML0(opts={}){
     order.forEach((k,i)=>{ const top=TOPS[i%TOPS.length], hasBed=k!=='acara';
       const bf=[0,1].map(q=>{ const BX=[[8,22],[80,40],[14,58],[76,18],[6,44],[84,62],[20,30],[70,52]]; const [x,y]=BX[(i*2+q)%8]; return `<i class="tm-bf" style="--x:${x}%;--y:${y}%;--d:${-(i*1.7+q*3).toFixed(1)}s;--t:${10+q*3+i%3}s"><img src="${A}${BF[(i+q)%BF.length]}.webp" alt="" loading="lazy"></i>`; }).join('');
       const pet=[0,1,2].map(q=>`<img class="tm-pt2" src="${A}${PT[(i+q)%PT.length]}.webp" alt="" loading="lazy" style="--x:${(i*29+q*31+11)%86+4}%;--d:${-(i*2.3+q*4.1).toFixed(1)}s;--t:${14+q*3}s">`).join('');
-      const head = top==='wis' ? `<img class="tm-wis" src="${A}${F.wis}.webp" alt="" loading="lazy" decoding="async">` : top==='sak' ? `<img class="tm-sak" src="${A}${F.sak}.webp" alt="" loading="lazy" decoding="async">` : top==='kal' ? `<img class="tm-kal" src="${A}${F.kal}.webp" alt="" loading="lazy" decoding="async">` : `<img class="tm-c l" src="${A}sudut.webp" alt="" loading="lazy" decoding="async"><img class="tm-c r" src="${A}sudut-r.webp" alt="" loading="lazy" decoding="async">`;
-      const scene = hasBed ? `<div class="tm-scene" aria-hidden="true">${SC[i%SC.length].map(([f,l,w,bt,c],q)=>`<img class="tm-it ${c}" src="${A}${f}.webp" alt="" loading="lazy" decoding="async" style="left:${l}%;width:${w}%;bottom:${bt}%;--d:${-(q*1.3+i).toFixed(1)}s;z-index:${c.includes('tr')?1:2+q}">`).join('')}</div>` : '';
+      const head = top==='none' ? '' : top==='wis' ? `<img class="tm-wis" src="${A}${F.wis}.webp" alt="" loading="lazy" decoding="async">` : top==='sak' ? `<img class="tm-sak" src="${A}${F.sak}.webp" alt="" loading="lazy" decoding="async">` : top==='kal' ? `<img class="tm-kal" src="${A}${F.kal}.webp" alt="" loading="lazy" decoding="async">` : `<img class="tm-c l" src="${A}sudut.webp" alt="" loading="lazy" decoding="async"><img class="tm-c r" src="${A}sudut-r.webp" alt="" loading="lazy" decoding="async">`;
+      const gr = tk.ground ? `<div class="tm-gr">${['l','m','r'].map(q=>`<img class="tm-dp ${q}" src="${A}${tk.ground}.webp" alt="" loading="lazy" decoding="async">`).join('')}</div>` : '';
+      const scene = hasBed ? `<div class="tm-scene${tk.ground?' has-gr':''}" aria-hidden="true">${gr}${SC[i%SC.length].map(([f,l,w,bt,c],q)=>`<img class="tm-it ${c}" src="${A}${f}.webp" alt="" loading="lazy" decoding="async" style="left:${l}%;width:${w}%;bottom:${bt}%;--d:${-(q*1.3+i).toFixed(1)}s;z-index:${c.includes('tr')?1:2+q}">`).join('')}</div>` : '';
       sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>{ const c='tm-s tm-h-'+top+(hasBed?' tm-hb':''); return a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="'+c+' '):b+' class="'+c+'"')+'>'+`<div class="tm-deco" aria-hidden="true">${head}${bf}${pet}</div>`; });
       if(hasBed) sec[k]=sec[k].replace(/<\/section>\s*$/, scene+'</section>');
     });
