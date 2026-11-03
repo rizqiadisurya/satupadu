@@ -1926,7 +1926,7 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 .inv.il-taman.prem .ev2-b .kick{color:var(--il-nm) !important}
 .inv.il-taman.prem .ev2 .ibtn,.inv.il-taman.prem .bank .bank-copy{background:transparent;color:var(--tm-sl);border-color:var(--tm-sl)}
 .inv.il-taman.prem .ev2 .ibtn.solid{background:var(--tm-sl);color:#fff;border-color:var(--tm-sl)}
-.inv.il-taman.prem .cd4{margin:16px 4px 34px;aspect-ratio:auto;background:var(--tm-cr) url(/assets/tamanbunga/pot.webp) 50% 100%/104% auto no-repeat;border:1.5px solid var(--tm-sl);border-radius:26px;box-shadow:9px 9px 0 var(--tm-sh);padding:26px 14px calc(44cqi + 8px);flex-wrap:wrap;gap:6px 0}
+.inv.il-taman.prem .cd4{margin:16px 4px 34px;aspect-ratio:auto;background:var(--tm-cr) var(--tm-cd,url(/assets/tamanbunga/pot.webp)) 50% 100%/104% auto no-repeat;border:1.5px solid var(--tm-sl);border-radius:26px;box-shadow:9px 9px 0 var(--tm-sh);padding:26px 14px calc(44cqi + 8px);flex-wrap:wrap;gap:6px 0}
 .inv.il-taman.prem .cd4>div{flex:1 1 50% !important;background:none;box-shadow:none;color:var(--tm-sl)}
 .inv.il-taman.prem .cd4 b{font-family:var(--tm-sc) !important;color:var(--il-nm);font-size:clamp(40px,13cqi,56px) !important}
 .inv.il-taman .tm-bangku{display:block;width:calc(100% + 48px);max-width:none;margin:10px -24px -40px;position:relative;z-index:1}
@@ -2121,14 +2121,37 @@ html.boot-done #gate:not(.show):not(.open){opacity:0;pointer-events:none}
 .inv.il-taman .tr-akhir .tm-arch2{position:absolute;left:50%;top:6%;width:66%;transform:translateX(-50%);z-index:1}
 .inv.il-taman .tr-akhir .tr-badge{z-index:2}
 @media (prefers-reduced-motion:reduce){.inv.anim.il-taman .tm-it,.inv.anim.il-taman .tm-pt2,.inv.anim.il-taman .tm-sak{animation:none}}
-#gate.g-teras.g-taman{background:radial-gradient(70% 55% at 50% 50%,#FFFFFF 0%,#EEF5F8 75%)}
-#gate.g-teras.g-taman .gd{background:url(/assets/tamanbunga/sudut.webp) left -6px top -10px/62% auto no-repeat,url(/assets/tamanbunga/depan.webp) left bottom/200% auto no-repeat,#EEF5F8}
-#gate.g-teras.g-taman .gd.r{background:url(/assets/tamanbunga/sudut-r.webp) right -6px top -10px/62% auto no-repeat,url(/assets/tamanbunga/depan.webp) right bottom/200% auto no-repeat,#EEF5F8}
+/* Taman Keraton: lukisan botani antik, gerbang batu berukir, kertas krem, aksen merah marun dan emas */
+.inv.tm-keraton{--tm-sl:#5B2A2E;--tm-cr:#FBF6EA;--tm-sh:#E6D5AE;--tm-sc:'Great Vibes',cursive}
+.inv.tm-keraton>section:not(.cover){background:url(/assets/keraton/kertas.webp) 0 0/400px 400px,var(--il-bg) !important}
+.inv.tm-keraton .tm-it,.inv.tm-keraton .tm-c,.inv.tm-keraton .tm-wis,.inv.tm-keraton .tm-sak,.inv.tm-keraton .tm-kal,.inv.tm-keraton .tm-bangku,.inv.tm-keraton .tr-akhir img{mix-blend-mode:multiply}
+.inv.tm-keraton .cover.tm-cg{background:#E9E6D4}
+.inv.tm-keraton .tm-cg .tr-bg{object-position:50% 40%}
+.inv.tm-keraton .tm-gate{position:absolute;left:-3%;width:106%;top:0;height:86%;z-index:2;pointer-events:none;object-fit:fill;mix-blend-mode:multiply}
+.inv.tm-keraton .tm-sd.g{top:auto;bottom:18%;width:30%;z-index:2}
+.inv.tm-keraton .tm-sd.g.l{left:-6%}.inv.tm-keraton .tm-sd.g.r{right:-6%}
+.inv.tm-keraton .tm-cg .tr-top{padding-top:clamp(120px,40cqi,210px)}
+.inv.tm-keraton .tm-cg .tr-top::after{content:"";position:absolute;inset:-10% 10% -14%;z-index:-1;background:radial-gradient(closest-side,rgba(246,241,226,.85),rgba(246,241,226,0))}
+.inv.tm-keraton .cover .names{text-shadow:0 0 14px rgba(255,250,236,.95)}
+.inv.tm-keraton .tm-sak{width:74%;left:13%;top:-1%}
+.inv.il-taman.tm-keraton>section.tm-h-sak{padding-top:calc(40cqi + 16px) !important}
+.inv.il-taman.tm-keraton.prem .cd4{background-size:84% auto;background-position:50% calc(100% - 6px);padding-bottom:calc(50cqi + 8px)}
+.inv.tm-keraton .tm-kal{position:absolute;left:-2%;width:104%;top:-1%}
+.inv.anim.il-taman .tm-kal{transform-origin:50% 0;animation:trSway 8s ease-in-out infinite alternate}
+.inv.il-taman>section.tm-h-kal{padding-top:calc(48cqi + 10px) !important}
+.inv.tm-keraton .tr-akhir>img.bg{object-position:50% 40%}
+.inv.tm-keraton .tr-akhir .tm-arch2{top:2%;width:80%}
+.inv.tm-keraton .tr-akhir .tr-badge{top:26%;width:clamp(80px,24cqi,120px);aspect-ratio:243/420}
+.inv.tm-keraton .tr-badge span{color:#FFF6E0 !important;text-shadow:0 1px 6px rgba(70,30,10,.85) !important;transform:translateY(-12%)}
+.inv.tm-keraton .tr-akhir .tr-badge span{font-size:clamp(28px,8cqi,40px)}
+#gate.g-teras.g-taman{background:radial-gradient(70% 55% at 50% 50%,#FFFFFF 0%,var(--il-bg,#EEF5F8) 75%)}
+#gate.g-teras.g-taman .gd{background:var(--tm-g1,url(/assets/tamanbunga/sudut.webp)) left -6px top -10px/62% auto no-repeat,var(--tm-g2,url(/assets/tamanbunga/depan.webp)) left bottom/200% auto no-repeat,var(--il-bg,#EEF5F8)}
+#gate.g-teras.g-taman .gd.r{background:var(--tm-g1r,url(/assets/tamanbunga/sudut-r.webp)) right -6px top -10px/62% auto no-repeat,var(--tm-g2,url(/assets/tamanbunga/depan.webp)) right bottom/200% auto no-repeat,var(--il-bg,#EEF5F8)}
 #gate.g-teras.g-taman .gd.l{box-shadow:inset -1px 0 0 rgba(63,85,96,.3)}#gate.g-teras.g-taman .gd.r{box-shadow:inset 1px 0 0 rgba(63,85,96,.3)}
 #gate.g-teras.g-taman .gmed{filter:none}
 #gate.g-teras.g-taman .gd{animation:gtWind 5s ease-in-out infinite alternate}
 @keyframes gtWind{from{background-position-x:-4px,-6px,0}to{background-position-x:4px,6px,0}}
-#gate.g-teras.g-taman .gmed::after{text-shadow:none;font-size:62px}
+#gate.g-teras.g-taman .gmed::after{text-shadow:var(--gini-sh,none);font-size:var(--gini-fs,62px);transform:translateY(var(--gini-y,0))}
 #gate.g-teras.g-taman .gn{font-family:'Great Vibes',cursive;border:1.5px solid #3F5560;box-shadow:7px 7px 0 #F6EBCB;background:#FFFBEF}
 #gate.g-teras.g-taman .gn small{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.2em}
 /* Kebun: pintu warna lembut tema dengan untaian & rumpun bunga lukisan */
@@ -3679,12 +3702,24 @@ const LAYOUT_THEMES = [
     pat:(t)=>`radial-gradient(circle, #3F556010 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/taman-wisteria.webp) center/cover`,
     ilVars:"--il-bingkai:url(/assets/tamanbunga/bingkai.webp);--tr-ink:#3F5560;--il-nm:#B5566C;--il-amp:#7C8FA0;--il-bg:#EEF5F8;--il-bar:477/480;--il-ini:#B5566C;--il-iy:2%;--il-far:680/1000;--il-fl:19%;--il-ft:20%;--il-fw:62%;--il-fh:59%",
     ilGate:{'--il-lencana':'url(/assets/tamanbunga/lencana.webp)','--il-bg':'#EEF5F8','--il-amp':'#3F5560','--il-nm':'#B5566C','--il-ini':'#B5566C','--il-gw':'190px','--il-gh':'191px'}},
+  {id:'taman-keraton', layout:'teras', ilMode:'taman', ilDir:'/assets/keraton/', name:'Taman Keraton', region:'Jawa', tags:['Adat','Floral'], bg:'#F4EEDF', fg:'#5B2A2E', accent:'#7A2E35', soft:'#EDE3CC', font:"'Cormorant Garamond', Georgia, serif", side:'/assets/keraton/foto.webp',
+    pat:(t)=>`radial-gradient(circle, #7A2E3510 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/taman-keraton.webp) center/cover`,
+    tm:{cls:'tm-keraton', cover:'gate', bf:['p6'], pet:['p3','p1','p2','p5'], tops:['c','kal','wis','sak','kal','c'], files:{wis:'melati',sak:'kamboja',kal:'kalung',bangku:'bangku',arch:'gerbang',lencana:'gunungan'},
+      scenes:[
+        [['rumpun',-6,30,0,'w tall'],['mawar',20,46,0,'w'],['lentera',56,50,0,'']],
+        [['palem',-16,44,0,'tr'],['teratai',24,58,0,''],['pilar',76,28,0,'']],
+        [['pohon',-14,48,0,'tr'],['kuntul',30,46,0,''],['rumpun-r',74,30,0,'w tall']],
+        [['janur',-2,20,0,'tr'],['sesaji',18,54,0,''],['mawar',62,44,0,'w']],
+        [['pilar',-6,28,0,''],['depan',-6,112,0,'w'],['palem-r',70,44,0,'tr']],
+      ]},
+    ilVars:"--il-bingkai:url(/assets/keraton/bingkai.webp);--tm-cd:url(/assets/keraton/sesaji.webp);--tr-ink:#5B2A2E;--il-nm:#7A2E35;--il-amp:#9C7A3C;--il-bg:#F4EEDF;--il-bar:243/420;--il-ini:#FFF6E0;--il-iy:-12%;--il-far:664/1000;--il-fl:17%;--il-ft:25%;--il-fw:64%;--il-fh:55%",
+    ilGate:{'--il-lencana':'url(/assets/keraton/gunungan.webp)','--tm-g1':'url(/assets/keraton/sudut.webp)','--tm-g1r':'url(/assets/keraton/sudut-r.webp)','--tm-g2':'url(/assets/keraton/depan.webp)','--il-bg':'#F4EEDF','--il-amp':'#9C7A3C','--il-nm':'#7A2E35','--il-ini':'#FFF6E0','--il-gw':'124px','--il-gh':'214px','--gini-sh':'0 1px 6px rgba(70,30,10,.85)','--gini-fs':'44px','--gini-y':'-14px'}},
   {id:'goresan-merah', layout:'goresan', name:'Goresan Merah', region:'Nasional', tags:['Ilustrasi','Minimalis'], bg:'#F3EFEA', fg:'#2B1B17', accent:'#A3261E', soft:'#F1E1DC', font:"'Patrick Hand', cursive",
     pat:(t)=>`radial-gradient(circle, ${t.accent}0c 0 .8px, transparent 1.2px)`, size:'16px 16px', thumb:()=>`linear-gradient(180deg,#F3EFEA 0 60%,#A3261E 60% 62%,#F3EFEA 62%)`}
 ];
 THEMES.unshift(...LAYOUT_THEMES);
 /* thumbnail = cuplikan sampul asli */
-const THUMB_IMG=new Set(["kawung", "songket", "melati", "taman", "lontar", "ulos", "senja", "peranakan", "sakinah", "endek", "megamendung", "gigibalang", "sekar", "kamboja", "lentera", "arunika", "atelier", "kebun-lila", "kebun-sage", "kebun-biru", "kebun-senja", "kebun-mawar", "draperi-biru", "draperi-zamrud", "draperi-mawar", "dongeng-pink", "goresan-merah", "teras", "joglo", "kebun-teh", "taman-wisteria"]);
+const THUMB_IMG=new Set(["kawung", "songket", "melati", "taman", "lontar", "ulos", "senja", "peranakan", "sakinah", "endek", "megamendung", "gigibalang", "sekar", "kamboja", "lentera", "arunika", "atelier", "kebun-lila", "kebun-sage", "kebun-biru", "kebun-senja", "kebun-mawar", "draperi-biru", "draperi-zamrud", "draperi-mawar", "dongeng-pink", "goresan-merah", "teras", "joglo", "kebun-teh", "taman-wisteria", "taman-keraton"]);
 THEMES.forEach(t=>{ if(THUMB_IMG.has(t.id)){ t.thumbNoTxt=true; t.thumbImg=`/assets/thumbs/${t.id}.webp`; } });
 TAGS.includes('Foto') || TAGS.push('Foto');
 LAYOUT_THEMES.filter(t=>t.photo).forEach(t=>t.tags.push('Foto'));
@@ -3761,14 +3796,15 @@ function coverHTML(t, d){
   if(L==='teras'){
     const A=t.ilDir||'/assets/teras/', ini=esc((d.n1||'?')[0])+esc((d.n2||'?')[0]);
     const pet=[[12,6,20,0],[70,8,14,-4],[38,7,18,-8],[86,6,22,-11],[24,8,16,-14],[58,7,20,-2]].map(([x,f,w,dl],i)=>`<img src="${A}bunga${f}.webp" alt="" style="--x:${x}%;--w:${w}px;--d:${dl}s;--t:${13+i*1.6}s" decoding="async">`).join('');
-    if(t.ilMode==='taman'){ const ph=S.coverPhoto || (S.gallery||[]).filter(Boolean)[0] || A+'foto.webp';
-      const bf=[[14,30,1,0],[78,22,3,-3],[66,58,1,-6]].map(([x,y,f,dl],i)=>`<i class="tm-bf" style="--x:${x}%;--y:${y}%;--d:${dl}s;--t:${9+i*2}s"><img src="${A}b${f}.webp" alt=""></i>`).join('');
-      return `<section class="cover cv-teras cv-taman" id="${d.id}-cover">
+    if(t.ilMode==='taman'){ const ph=S.coverPhoto || (S.gallery||[]).filter(Boolean)[0] || A+'foto.webp'; const tk=t.tm||{}, BF=tk.bf||['b1','b3'];
+      const bf=[[14,30,0,0],[78,22,1,-3],[66,58,0,-6]].map(([x,y,f,dl],i)=>`<i class="tm-bf" style="--x:${x}%;--y:${y}%;--d:${dl}s;--t:${9+i*2}s"><img src="${A}${BF[f%BF.length]}.webp" alt=""></i>`).join('');
+      const pet2=(tk.pet||[]).length?[[12,0,20,0],[70,1,14,-4],[38,2,18,-8],[86,0,22,-11],[24,1,16,-14],[58,2,20,-2]].map(([x,f,w,dl],i)=>`<img src="${A}${tk.pet[f%tk.pet.length]}.webp" alt="" style="--x:${x}%;--w:${w}px;--d:${dl}s;--t:${13+i*1.6}s" decoding="async">`).join(''):pet;
+      return `<section class="cover cv-teras cv-taman${tk.cover==='gate'?' tm-cg':''}" id="${d.id}-cover">
       <img class="tr-bg" src="${A}sampul2.webp" alt="" decoding="async" aria-hidden="true">
-      <img class="tm-sd l" src="${A}sudut.webp" alt="" decoding="async" aria-hidden="true"><img class="tm-sd r" src="${A}sudut-r.webp" alt="" decoding="async" aria-hidden="true">
-      <div class="tm-arch cv-in" style="--i:3" aria-hidden="true"><div class="ph" style="background-image:url('${esc(ph)}')"></div></div>
+      ${tk.cover==='gate'?`<img class="tm-gate" src="${A}gerbang.webp" alt="" decoding="async" aria-hidden="true"><img class="tm-sd l g" src="${A}samping.webp" alt="" decoding="async" aria-hidden="true"><img class="tm-sd r g" src="${A}samping-r.webp" alt="" decoding="async" aria-hidden="true">`:`<img class="tm-sd l" src="${A}sudut.webp" alt="" decoding="async" aria-hidden="true"><img class="tm-sd r" src="${A}sudut-r.webp" alt="" decoding="async" aria-hidden="true">
+      <div class="tm-arch cv-in" style="--i:3" aria-hidden="true"><div class="ph" style="background-image:url('${esc(ph)}')"></div></div>`}
       <div class="tm-depan" aria-hidden="true">${['l','m','r'].map(k=>`<img class="tm-dp ${k}" src="${A}depan.webp" alt="" decoding="async">`).join('')}</div>
-      <div class="tr-pet" aria-hidden="true">${pet}${bf}</div>
+      <div class="tr-pet" aria-hidden="true">${pet2}${bf}</div>
       <div class="tr-top"><div class="k-label cv-in" style="--i:0" data-scramble="${esc(d.dateLong)}">The wedding of</div>
         <div class="names cv-in" style="--i:1">${esc(d.n1)}<span class="amp">&amp;</span>${esc(d.n2)}</div>
         <div class="date cv-in" style="--i:2">${esc(d.dateDots)}</div></div>
@@ -4068,21 +4104,21 @@ function invHTML0(opts={}){
     });
   }
   // Tema Teras: pita taman hijau bergelombang di bawah bagian berselang-seling
-  if(t.layout==='teras' && t.ilMode==='taman'){ const A=t.ilDir;
-    if(sec.acara) sec.acara=sec.acara.replace(/<\/section>\s*$/, `<img class="tm-bangku" src="${A}bangku.webp" alt="" aria-hidden="true" loading="eager" decoding="async"></section>`);
+  if(t.layout==='teras' && t.ilMode==='taman'){ const A=t.ilDir, tk=t.tm||{}, F=Object.assign({wis:'pita',sak:'sakura',kal:'kalung',bangku:'bangku'},tk.files||{}), BF=tk.bf||['b1','b3'], PT=tk.pet||['bunga6','bunga7','bunga8'];
+    if(sec.acara) sec.acara=sec.acara.replace(/<\/section>\s*$/, `<img class="tm-bangku" src="${A}${F.bangku}.webp" alt="" aria-hidden="true" loading="eager" decoding="async"></section>`);
     // tiap bagian punya pemandangan taman sendiri di dasarnya: [berkas, kiri%, lebar%, bawah%, kelas]
-    const SC=[
+    const SC=tk.scenes||[
       [['rumpun',-6,30,0,'w tall'],['mawar',18,46,0,'w'],['hortensia',58,48,0,'w']],
       [['willow',-16,52,0,'tr'],['minumburung',30,56,0,''],['rumpun-r',76,30,0,'w tall']],
       [['mawar',-8,48,0,'w'],['kucing',34,40,1,''],['pohon',66,46,0,'tr']],
       [['rumahburung',-4,40,0,''],['hortensia',30,46,0,'w'],['willow-r',62,52,0,'tr']],
       [['pohon',-14,40,10,'tr'],['depan',-6,112,0,'w']],
     ];
-    const TOPS=['c','wis','sak','wis','c','sak'];
+    const TOPS=tk.tops||['c','wis','sak','wis','c','sak'];
     order.forEach((k,i)=>{ const top=TOPS[i%TOPS.length], hasBed=k!=='acara';
-      const bf=[0,1].map(q=>{ const BX=[[8,22],[80,40],[14,58],[76,18],[6,44],[84,62],[20,30],[70,52]]; const [x,y]=BX[(i*2+q)%8]; return `<i class="tm-bf" style="--x:${x}%;--y:${y}%;--d:${-(i*1.7+q*3).toFixed(1)}s;--t:${10+q*3+i%3}s"><img src="${A}b${(i+q)%2?3:1}.webp" alt="" loading="lazy"></i>`; }).join('');
-      const pet=[0,1,2].map(q=>`<img class="tm-pt2" src="${A}bunga${6+(i+q)%3}.webp" alt="" loading="lazy" style="--x:${(i*29+q*31+11)%86+4}%;--d:${-(i*2.3+q*4.1).toFixed(1)}s;--t:${14+q*3}s">`).join('');
-      const head = top==='wis' ? `<img class="tm-wis" src="${A}pita.webp" alt="" loading="lazy" decoding="async">` : top==='sak' ? `<img class="tm-sak" src="${A}sakura.webp" alt="" loading="lazy" decoding="async">` : `<img class="tm-c l" src="${A}sudut.webp" alt="" loading="lazy" decoding="async"><img class="tm-c r" src="${A}sudut-r.webp" alt="" loading="lazy" decoding="async">`;
+      const bf=[0,1].map(q=>{ const BX=[[8,22],[80,40],[14,58],[76,18],[6,44],[84,62],[20,30],[70,52]]; const [x,y]=BX[(i*2+q)%8]; return `<i class="tm-bf" style="--x:${x}%;--y:${y}%;--d:${-(i*1.7+q*3).toFixed(1)}s;--t:${10+q*3+i%3}s"><img src="${A}${BF[(i+q)%BF.length]}.webp" alt="" loading="lazy"></i>`; }).join('');
+      const pet=[0,1,2].map(q=>`<img class="tm-pt2" src="${A}${PT[(i+q)%PT.length]}.webp" alt="" loading="lazy" style="--x:${(i*29+q*31+11)%86+4}%;--d:${-(i*2.3+q*4.1).toFixed(1)}s;--t:${14+q*3}s">`).join('');
+      const head = top==='wis' ? `<img class="tm-wis" src="${A}${F.wis}.webp" alt="" loading="lazy" decoding="async">` : top==='sak' ? `<img class="tm-sak" src="${A}${F.sak}.webp" alt="" loading="lazy" decoding="async">` : top==='kal' ? `<img class="tm-kal" src="${A}${F.kal}.webp" alt="" loading="lazy" decoding="async">` : `<img class="tm-c l" src="${A}sudut.webp" alt="" loading="lazy" decoding="async"><img class="tm-c r" src="${A}sudut-r.webp" alt="" loading="lazy" decoding="async">`;
       const scene = hasBed ? `<div class="tm-scene" aria-hidden="true">${SC[i%SC.length].map(([f,l,w,bt,c],q)=>`<img class="tm-it ${c}" src="${A}${f}.webp" alt="" loading="lazy" decoding="async" style="left:${l}%;width:${w}%;bottom:${bt}%;--d:${-(q*1.3+i).toFixed(1)}s;z-index:${c.includes('tr')?1:2+q}">`).join('')}</div>` : '';
       sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>{ const c='tm-s tm-h-'+top+(hasBed?' tm-hb':''); return a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="'+c+' '):b+' class="'+c+'"')+'>'+`<div class="tm-deco" aria-hidden="true">${head}${bf}${pet}</div>`; });
       if(hasBed) sec[k]=sec[k].replace(/<\/section>\s*$/, scene+'</section>');
@@ -4091,7 +4127,7 @@ function invHTML0(opts={}){
     order.forEach((k,i)=>{ if(i%2) return; sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="tr-pb '):b+' class="tr-pb"')+'>').replace(/<\/section>\s*$/, `<img class="tr-pita" src="${t.ilDir||'/assets/teras/'}pita.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></section>`); });
   }
   return `
-  <div class="inv${big}${t.layout?' lay-'+t.layout+' prem':''}${t.ilMode?' il-'+t.ilMode:''}" style="${themeStyle(t, S.accent, fontOf())};--t-op:${op2}${t.layout==='teras'&&t.ilVars?';'+t.ilVars:''}${t.layout==='kebun'&&t.kbSet?`;--kb-langit:url('${t.kbSet}s-langit.webp');--kb-sh2:${t.kbSh||'#8E6FC0'}`:''}" data-fp="${fontPair()?S.fontPair:'tema'}" data-inv>
+  <div class="inv${big}${t.layout?' lay-'+t.layout+' prem':''}${t.ilMode?' il-'+t.ilMode:''}${t.tm&&t.tm.cls?' '+t.tm.cls:''}" style="${themeStyle(t, S.accent, fontOf())};--t-op:${op2}${t.layout==='teras'&&t.ilVars?';'+t.ilVars:''}${t.layout==='kebun'&&t.kbSet?`;--kb-langit:url('${t.kbSet}s-langit.webp');--kb-sh2:${t.kbSh||'#8E6FC0'}`:''}" data-fp="${fontPair()?S.fontPair:'tema'}" data-inv>
     <div class="pat"></div>${t.layout==='dongeng'?`<div class="dg-stk" aria-hidden="true">${DG_BODY}</div>`:''}${t.layout==='goresan'?`<div class="go-stk" aria-hidden="true">${[[6,6,20,0],[90,12,16,-1],[5,24,14,-2],[92,33,20,-.5],[7,45,18,-1.4],[90,55,14,-2.2],[6,68,20,-.8],[91,78,16,-1.8],[8,90,14,-.3]].map(a=>goSt(...a)).join('')}</div>`:''}${t.dp?`<div class="dp-fly dp-body" aria-hidden="true"><span class="dp-bf" style="top:22%;--d:26s;--dl:-6s"><i>${DP_BF}</i></span><span class="dp-bf rev" style="top:48%;--d:30s;--dl:-18s;width:26px"><i>${DP_BF}</i></span><span class="dp-bf" style="top:74%;--d:28s;--dl:-11s"><i>${DP_BF}</i></span><span class="dp-bf rev" style="top:93%;--d:22s;--dl:-2s;width:26px"><i>${DP_BF}</i></span></div>`:''}
     ${opts.watermark ? `<span class="wm">Pratinjau · belum dipublikasikan</span>`:''}
     ${t.layout ? coverHTML(t, {id, guest, n1:nick1, n2:nick2, dateLong:first?fmtShort(first.date):'', dateDots:first?dateDots(first.date):'', accent:S.accent||t.accent, gate:opts.gate, photo:t.photo?coverPhoto(t):''}) : `
@@ -4106,7 +4142,7 @@ function invHTML0(opts={}){
     </section>`}
     ${order.map(k=>sec[k]).join('')}
     <section class="p-end">
-      ${t.layout==='teras'?`<div class="tr-akhir" aria-hidden="true"><img class="bg" src="${t.ilDir||'/assets/teras/'}sampul2.webp" alt="" loading="lazy" decoding="async"><img class="cp" src="${t.ilDir||'/assets/teras/'}${t.ilMode==='taman'?'depan':'pasangan'}.webp" alt="" loading="lazy" decoding="async">${t.ilMode==='taman'?`<img class="tm-arch2" src="${t.ilDir}lengkung.webp" alt="" loading="lazy">`:''}<div class="tr-badge"><img src="${t.ilDir||'/assets/teras/'}lencana.webp" alt=""><span>${esc((nick1||'?')[0])}${esc((nick2||'?')[0])}</span></div></div>`:''}
+      ${t.layout==='teras'?`<div class="tr-akhir" aria-hidden="true"><img class="bg" src="${t.ilDir||'/assets/teras/'}sampul2.webp" alt="" loading="lazy" decoding="async"><img class="cp" src="${t.ilDir||'/assets/teras/'}${t.ilMode==='taman'?'depan':'pasangan'}.webp" alt="" loading="lazy" decoding="async">${t.ilMode==='taman'?`<img class="tm-arch2" src="${t.ilDir}${(t.tm&&t.tm.files&&t.tm.files.arch)||'lengkung'}.webp" alt="" loading="lazy">`:''}<div class="tr-badge"><img src="${t.ilDir||'/assets/teras/'}${(t.tm&&t.tm.files&&t.tm.files.lencana)||'lencana'}.webp" alt=""><span>${esc((nick1||'?')[0])}${esc((nick2||'?')[0])}</span></div></div>`:''}
       ${t.layout==='kebun'&&t.kbSet?`<div class="kb-akhir"><img src="${t.kbSet}s-akhir.webp" alt="" loading="lazy" decoding="async"><span class="kb-akhir-t">Terima kasih</span></div>`:''}
       ${t.layout==='goresan'?`<div class="go-see">Sampai jumpa${first?`<br>di ${esc(dateDots(first.date))}`:''}</div>${goStrip(t)}`:''}
       ${t.layout==='dongeng'?`<div class="dg-win" aria-hidden="true"><div class="ph" style="background-image:url('${coverPhoto(t)}')"></div></div>`:''}
@@ -4289,7 +4325,7 @@ addEventListener('resize', ()=>fitLive());
 function renderStrip(){ $('#themeStrip').innerHTML = themeOrder(['sekar','kamboja','lentera','arunika'].map(themeById)).concat(themeOrder(THEMES)).filter((t,i,a)=>a.indexOf(t)===i).slice(0,4).map(tcard).join(''); fitLive($('#themeStrip')); }
 /* Galeri tema di beranda: isinya sama dengan halaman Tema (urutan & sembunyi dari admin ikut).
    Tema yang punya sampul potret di /assets/home/<id>.webp memakai gambar itu, sisanya memakai sampul langsung. */
-const HOME_COVER=new Set(['teras','joglo','kebun-teh','taman-wisteria','kebun-lila','kebun-senja','draperi-mawar','kawung','kebun-mawar','songket','atelier','draperi-zamrud','dongeng-pink','kebun-biru','kamboja','goresan-merah','kebun-sage']);
+const HOME_COVER=new Set(['teras','joglo','kebun-teh','taman-wisteria','taman-keraton','kebun-lila','kebun-senja','draperi-mawar','kawung','kebun-mawar','songket','atelier','draperi-zamrud','dongeng-pink','kebun-biru','kamboja','goresan-merah','kebun-sage']);
 function homeCard(t){
   const rg=(t.region||'').split(',')[0].trim(), lbl=[t.tags[0], rg&&rg!=='Nasional'&&rg.length<=12?rg:''].filter(Boolean).join(' · ');
   const n1=esc(S.bride.nick||'Sarah'), n2=esc(S.groom.nick||'Raka');
