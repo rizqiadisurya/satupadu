@@ -494,6 +494,7 @@ textarea.input{min-height:96px;resize:vertical}
   .g-side.scene .ph{background-position:78% 100%}
   .g-side.gs-teras.scene .ph{background-position:50% 45%}
   .g-side.gs-teras.scene .ph{background-position:50% 55%}
+  .g-side.gs-taman h1{font-family:'Great Vibes',cursive !important}
   .g-side.gs-teras h1{font-family:'Yellowtail','Great Vibes',cursive;font-size:clamp(54px,6vw,96px)}
   .g-side.mono-on{justify-content:center;align-items:center;text-align:center}
   .g-side.art .ph{inset:-80px;filter:blur(26px) saturate(1.15);transform:scale(1.15);animation:none;opacity:.95}
@@ -1855,6 +1856,73 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 .inv.lay-teras .tr-akhir .tr-badge{position:absolute;left:50%;top:7%;transform:translateX(-50%);width:calc(var(--il-bw,clamp(80px,23cqi,118px)) * 1.2)}
 .inv.lay-teras .tr-akhir .tr-badge span{font-size:clamp(36px,11cqi,54px)}
 .inv.lay-teras .p-end .names{font-family:'Yellowtail',cursive !important;color:var(--t-accent)}
+/* Taman Wisteria: cat air taman bunga Inggris, jendela lengkung berisi foto, cermin barok, untaian wisteria */
+.inv.il-taman{--tm-sl:#3F5560;--tm-cr:#FFFBEF;--tm-sh:#F6EBCB;--tm-sc:'Great Vibes',cursive}
+.inv.il-taman .cover.cv-taman{background:#DCEAF2;min-height:200cqi}
+.inv.il-taman .cv-taman .tr-bg{object-position:50% 100%}
+.inv.il-taman .tm-sd{position:absolute;top:-2%;width:34%;z-index:2;pointer-events:none}
+.inv.il-taman .tm-sd.l{left:-4%}.inv.il-taman .tm-sd.r{right:-4%}
+.inv.il-taman .tm-arch{position:absolute;left:16%;right:16%;top:30%;height:47%;z-index:1;border:2px solid var(--tm-sl);border-radius:999px 999px 0 0;overflow:hidden;background:#E9EFE6;box-shadow:0 10px 30px rgba(63,85,96,.18)}
+.inv.il-taman .tm-arch .ph{position:absolute;inset:0;background-size:cover;background-position:50% 30%}
+.inv.il-taman .tm-depan{position:absolute;left:-8%;width:116%;bottom:16%;z-index:2;pointer-events:none}
+.inv.il-taman .cv-taman .tr-top{padding-top:clamp(42px,15cqi,80px)}
+.inv.il-taman .cv-taman .tr-top::before{display:none}
+.inv.il-taman .cover .k-label{font-family:var(--tm-sc);text-transform:none;letter-spacing:0;font-size:clamp(22px,7cqi,32px);color:var(--tm-sl);margin:0}
+.inv.il-taman .cover .names{font-family:var(--tm-sc) !important;color:var(--il-nm);font-size:clamp(40px,13cqi,62px);text-shadow:0 0 18px rgba(255,255,255,.9)}
+.inv.il-taman .cover .names .amp{color:var(--tm-sl);font-size:.7em}
+.inv.il-taman .cover .date{color:var(--tm-sl);text-shadow:0 0 10px #fff}
+.inv.il-taman .tr-card{background:rgba(255,251,239,.94);border:1.5px solid var(--tm-sl);box-shadow:8px 8px 0 var(--tm-sh)}
+.inv.il-taman .cover .to b{font-family:var(--tm-sc) !important;font-size:30px;color:var(--il-nm)}
+.inv.il-taman .cover .open{background:var(--il-nm);border-radius:999px}
+.inv.il-taman .tm-bf{position:absolute;left:var(--x);top:var(--y);width:clamp(26px,8cqi,40px)}
+.inv.il-taman .tm-bf img{display:block;width:100%;height:auto}
+.inv.anim.il-taman .tm-bf{animation:tmFly var(--t) ease-in-out var(--d) infinite}
+.inv.anim.il-taman .tm-bf img{animation:tmFlap .35s ease-in-out infinite alternate;transform-origin:50% 50%}
+@keyframes tmFly{0%{translate:0 0;rotate:-6deg}25%{translate:6cqi -5cqi;rotate:8deg}50%{translate:12cqi 2cqi;rotate:-4deg}75%{translate:4cqi 6cqi;rotate:6deg}100%{translate:0 0;rotate:-6deg}}
+@keyframes tmFlap{from{scale:1 1}to{scale:.55 1}}
+.inv.anim.il-taman .tm-arch .ph{animation:trZoom 20s ease-in-out infinite alternate}
+.inv.anim.il-taman .cv-taman .tm-depan{transform:translateY(calc(var(--p) * -6%)) scale(calc(1 + var(--p) * .1));transform-origin:50% 100%}
+.inv.anim.il-taman .cv-taman .tm-sd.l{translate:calc(var(--p) * -30%) calc(var(--p) * -20%)}
+.inv.anim.il-taman .cv-taman .tm-sd.r{translate:calc(var(--p) * 30%) calc(var(--p) * -20%)}
+@media (prefers-reduced-motion:reduce){.inv.anim.il-taman .tm-bf,.inv.anim.il-taman .tm-bf img{animation:none}}
+/* isi: latar biru pucat, rangkaian bunga di sudut, untaian wisteria */
+.inv.il-taman>section:not(.cover){background:var(--il-bg) !important;padding-left:24px !important;padding-right:24px !important}
+.inv.il-taman>section.tm-s{padding-top:calc(34cqi + 10px) !important}
+.inv.il-taman>section.tm-pt{padding-top:calc(24cqi + 26px) !important}
+.inv.il-taman .tm-deco{position:absolute !important;inset:0;z-index:0 !important;pointer-events:none}
+.inv.il-taman .tm-c{position:absolute;top:-6px;width:28%;opacity:.95}
+.inv.il-taman .tm-c.l{left:-3%}.inv.il-taman .tm-c.r{right:-3%}
+.inv.il-taman .tm-wis{position:absolute;left:0;top:-2px;width:100%;height:auto}
+.inv.anim.il-taman .tm-wis{transform-origin:50% 0;animation:trSway 7s ease-in-out infinite alternate}
+.inv.il-taman h3{font-family:var(--tm-sc) !important;color:var(--tm-sl) !important;font-size:clamp(38px,12cqi,52px) !important;line-height:1.1}
+.inv.il-taman h3::after{display:none}
+.inv.il-taman .kick{color:var(--il-nm) !important}
+.inv.il-taman .lead,.inv.il-taman p{color:var(--tm-sl)}
+.inv.prem.il-taman .p-body h4,.inv.prem.il-taman .p-amp,.inv.il-taman .p-end .names{font-family:var(--tm-sc) !important;color:var(--il-nm) !important}
+.inv.prem.il-taman .p-body h4{font-size:clamp(32px,10cqi,44px)}
+.inv.prem.il-taman .p-pic .p-ph{border-radius:50%}
+.inv.il-taman .p-ig,.inv.il-taman a.p-ig{background:var(--il-nm) !important;color:#fff !important;border-color:var(--il-nm) !important;-webkit-text-fill-color:#fff}
+/* kartu krem bergaris batu tulis dengan bayangan kuning lembut */
+.inv.il-taman.prem .qband,.inv.il-taman.prem .ev2,.inv.il-taman.prem .bank{border-image:none !important;background:var(--tm-cr) !important;border:1.5px solid var(--tm-sl) !important;border-radius:22px !important;box-shadow:9px 9px 0 var(--tm-sh);color:var(--tm-sl) !important}
+.inv.il-taman.prem .qband{margin:40px 4px 0;padding:30px 22px 32px}
+.inv.il-taman.prem .qband blockquote,.inv.il-taman.prem .ev2-b,.inv.il-taman.prem .ev2-w,.inv.il-taman.prem .ev2-v,.inv.il-taman.prem .ev2-a,.inv.il-taman.prem .ev2-t,.inv.il-taman.prem .ev2-d,.inv.il-taman.prem .bank div,.inv.il-taman.prem .bank .bn,.inv.il-taman.prem .bank .ac{color:var(--tm-sl) !important}
+.inv.il-taman.prem .qband .orn{color:var(--il-nm)}
+.inv.il-taman.prem .qband figcaption{background:var(--tm-sl);color:#fff}
+.inv.il-taman.prem .ev2-d{border-bottom:1px dashed rgba(63,85,96,.35)}
+.inv.il-taman.prem .ev2-d b{font-family:var(--tm-sc) !important;color:var(--il-nm)}
+.inv.il-taman.prem .ev2-b .kick{color:var(--il-nm) !important}
+.inv.il-taman.prem .ev2 .ibtn,.inv.il-taman.prem .bank .bank-copy{background:transparent;color:var(--tm-sl);border-color:var(--tm-sl)}
+.inv.il-taman.prem .ev2 .ibtn.solid{background:var(--tm-sl);color:#fff;border-color:var(--tm-sl)}
+.inv.il-taman.prem .cd4{margin:16px 4px 34px;aspect-ratio:auto;background:var(--tm-cr) url(/assets/tamanbunga/pot.webp) 50% 100%/104% auto no-repeat;border:1.5px solid var(--tm-sl);border-radius:26px;box-shadow:9px 9px 0 var(--tm-sh);padding:26px 14px calc(44cqi + 8px);flex-wrap:wrap;gap:6px 0}
+.inv.il-taman.prem .cd4>div{flex:1 1 50% !important;background:none;box-shadow:none;color:var(--tm-sl)}
+.inv.il-taman.prem .cd4 b{font-family:var(--tm-sc) !important;color:var(--il-nm);font-size:clamp(40px,13cqi,56px) !important}
+.inv.il-taman .tm-bangku{display:block;width:calc(100% + 48px);max-width:none;margin:10px -24px -40px;position:relative;z-index:1}
+.inv.il-taman .tr-akhir{background:none;margin-left:-24px;margin-right:-24px}
+.inv.il-taman .tr-akhir>img.bg{object-position:50% 20%}
+.inv.il-taman .tr-akhir>img.cp{left:-8%;width:116%;height:auto;bottom:-2%;transform:none;filter:none}
+.inv.il-taman .tr-akhir .tr-badge{top:30%;width:clamp(130px,40cqi,190px)}
+.inv.il-taman .tr-akhir .tr-badge span{font-size:clamp(40px,12cqi,60px)}
+.inv.il-taman .tr-badge span{text-shadow:none}
 @media (prefers-reduced-motion: reduce){.inv.anim.lay-kebun .kb-l,.inv.anim.lay-kebun .kb-frame,.inv.anim.lay-kebun .kb-pet i{animation:none}}
 .inv.anim.lay-atelier .at-load{display:flex;position:absolute;inset:0;z-index:6;background:#1F2A22;color:#F3EEE4;flex-direction:column;justify-content:flex-end;align-items:flex-start;padding:0 24px 44px;font-family:'Bodoni Moda',Georgia,serif;animation:atOut 1s cubic-bezier(.77,0,.18,1) 1.55s both}
 .inv.anim.lay-atelier .at-load .at-lk{position:absolute;top:66px;left:24px;font-family:'Marcellus',Georgia,serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.6}
@@ -2011,6 +2079,14 @@ html.boot-done #gate:not(.show):not(.open){opacity:0;pointer-events:none}
 #gate.g-teras .gn{left:50%;right:auto;transform:translateX(-50%);width:max-content;max-width:90vw;padding:12px 22px 14px;border-radius:18px;background:rgba(251,243,228,.94);box-shadow:0 10px 26px rgba(80,50,30,.15);color:var(--il-nm,#C2573F);font-family:'Yellowtail','Great Vibes',cursive;font-style:normal;font-size:34px}
 #gate.g-teras .gn small{color:var(--il-amp,#6E8B5A)}
 #gate.g-teras .gbar{background:rgba(194,87,63,.25)}
+#gate.g-teras.g-taman{background:radial-gradient(70% 55% at 50% 50%,#FFFFFF 0%,#EEF5F8 75%)}
+#gate.g-teras.g-taman .gd{background:url(/assets/tamanbunga/sudut.webp) left -6px top -10px/62% auto no-repeat,url(/assets/tamanbunga/depan.webp) left bottom/200% auto no-repeat,#EEF5F8}
+#gate.g-teras.g-taman .gd.r{background:url(/assets/tamanbunga/sudut-r.webp) right -6px top -10px/62% auto no-repeat,url(/assets/tamanbunga/depan.webp) right bottom/200% auto no-repeat,#EEF5F8}
+#gate.g-teras.g-taman .gd.l{box-shadow:inset -1px 0 0 rgba(63,85,96,.3)}#gate.g-teras.g-taman .gd.r{box-shadow:inset 1px 0 0 rgba(63,85,96,.3)}
+#gate.g-teras.g-taman .gmed{filter:none}
+#gate.g-teras.g-taman .gmed::after{text-shadow:none;font-size:62px}
+#gate.g-teras.g-taman .gn{font-family:'Great Vibes',cursive;border:1.5px solid #3F5560;box-shadow:7px 7px 0 #F6EBCB;background:#FFFBEF}
+#gate.g-teras.g-taman .gn small{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.2em}
 /* Kebun: pintu warna lembut tema dengan untaian & rumpun bunga lukisan */
 #gate.g-kebun .gd{background-image:var(--gfl),linear-gradient(180deg,rgba(255,255,255,.35),transparent 50%);background-size:auto 46%,auto;background-repeat:no-repeat}
 #gate.g-kebun .gd.l{background-position:left -10px bottom -6px,0 0}
@@ -3555,12 +3631,16 @@ const LAYOUT_THEMES = [
     pat:(t)=>`radial-gradient(circle, #3F6B4512 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/kebun-teh.webp) center/cover`,
     ilVars:"--il-tegel:url(/assets/kebunteh/tegel.webp);--il-bingkai:url(/assets/kebunteh/bingkai.webp);--il-jalan:url(/assets/kebunteh/jalan.webp);--tr-k:url(/assets/kebunteh/kartu.webp) 130 139 200 137 fill / 26px 28px 40px 27px round;--tr-ink:#3E4B3A;--il-nm:#6B5B9A;--il-amp:#5E8358;--il-bg:#F6F4EA;--il-bar:413/420;--il-ini:#FFFDF6;--il-iy:3%;--il-topbg:radial-gradient(48% 46% at 50% 56%,rgba(246,244,234,.8),rgba(246,244,234,.45) 55%,rgba(246,244,234,0) 100%);--il-far:486/720;--il-fl:14%;--il-ft:9.5%;--il-fw:70%;--il-fh:80.5%",
     ilGate:{'--il-tegel':'url(/assets/kebunteh/tegel.webp)','--il-lencana':'url(/assets/kebunteh/lencana.webp)','--il-bg':'#F6F4EA','--il-amp':'#5E8358','--il-nm':'#6B5B9A','--il-ini':'#FFFDF6','--il-gw':'176px','--il-gh':'179px'}},
+  {id:'taman-wisteria', layout:'teras', ilMode:'taman', ilDir:'/assets/tamanbunga/', name:'Taman Wisteria', region:'Nasional', tags:['Floral','Foto'], bg:'#EEF5F8', fg:'#3F5560', accent:'#B5566C', soft:'#E2ECF1', font:"'Cormorant Garamond', Georgia, serif", side:'/assets/tamanbunga/foto.webp',
+    pat:(t)=>`radial-gradient(circle, #3F556010 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/taman-wisteria.webp) center/cover`,
+    ilVars:"--il-bingkai:url(/assets/tamanbunga/bingkai.webp);--tr-ink:#3F5560;--il-nm:#B5566C;--il-amp:#7C8FA0;--il-bg:#EEF5F8;--il-bar:477/480;--il-ini:#B5566C;--il-iy:2%;--il-far:680/1000;--il-fl:19%;--il-ft:20%;--il-fw:62%;--il-fh:59%",
+    ilGate:{'--il-lencana':'url(/assets/tamanbunga/lencana.webp)','--il-bg':'#EEF5F8','--il-amp':'#3F5560','--il-nm':'#B5566C','--il-ini':'#B5566C','--il-gw':'190px','--il-gh':'191px'}},
   {id:'goresan-merah', layout:'goresan', name:'Goresan Merah', region:'Nasional', tags:['Ilustrasi','Minimalis'], bg:'#F3EFEA', fg:'#2B1B17', accent:'#A3261E', soft:'#F1E1DC', font:"'Patrick Hand', cursive",
     pat:(t)=>`radial-gradient(circle, ${t.accent}0c 0 .8px, transparent 1.2px)`, size:'16px 16px', thumb:()=>`linear-gradient(180deg,#F3EFEA 0 60%,#A3261E 60% 62%,#F3EFEA 62%)`}
 ];
 THEMES.unshift(...LAYOUT_THEMES);
 /* thumbnail = cuplikan sampul asli */
-const THUMB_IMG=new Set(["kawung", "songket", "melati", "taman", "lontar", "ulos", "senja", "peranakan", "sakinah", "endek", "megamendung", "gigibalang", "sekar", "kamboja", "lentera", "arunika", "atelier", "kebun-lila", "kebun-sage", "kebun-biru", "kebun-senja", "kebun-mawar", "draperi-biru", "draperi-zamrud", "draperi-mawar", "dongeng-pink", "goresan-merah", "teras", "joglo", "kebun-teh"]);
+const THUMB_IMG=new Set(["kawung", "songket", "melati", "taman", "lontar", "ulos", "senja", "peranakan", "sakinah", "endek", "megamendung", "gigibalang", "sekar", "kamboja", "lentera", "arunika", "atelier", "kebun-lila", "kebun-sage", "kebun-biru", "kebun-senja", "kebun-mawar", "draperi-biru", "draperi-zamrud", "draperi-mawar", "dongeng-pink", "goresan-merah", "teras", "joglo", "kebun-teh", "taman-wisteria"]);
 THEMES.forEach(t=>{ if(THUMB_IMG.has(t.id)){ t.thumbNoTxt=true; t.thumbImg=`/assets/thumbs/${t.id}.webp`; } });
 TAGS.includes('Foto') || TAGS.push('Foto');
 LAYOUT_THEMES.filter(t=>t.photo).forEach(t=>t.tags.push('Foto'));
@@ -3637,6 +3717,19 @@ function coverHTML(t, d){
   if(L==='teras'){
     const A=t.ilDir||'/assets/teras/', ini=esc((d.n1||'?')[0])+esc((d.n2||'?')[0]);
     const pet=[[12,6,20,0],[70,8,14,-4],[38,7,18,-8],[86,6,22,-11],[24,8,16,-14],[58,7,20,-2]].map(([x,f,w,dl],i)=>`<img src="${A}bunga${f}.webp" alt="" style="--x:${x}%;--w:${w}px;--d:${dl}s;--t:${13+i*1.6}s" decoding="async">`).join('');
+    if(t.ilMode==='taman'){ const ph=S.coverPhoto || (S.gallery||[]).filter(Boolean)[0] || A+'foto.webp';
+      const bf=[[14,30,1,0],[78,22,3,-3],[66,58,1,-6]].map(([x,y,f,dl],i)=>`<i class="tm-bf" style="--x:${x}%;--y:${y}%;--d:${dl}s;--t:${9+i*2}s"><img src="${A}b${f}.webp" alt=""></i>`).join('');
+      return `<section class="cover cv-teras cv-taman" id="${d.id}-cover">
+      <img class="tr-bg" src="${A}sampul2.webp" alt="" decoding="async" aria-hidden="true">
+      <img class="tm-sd l" src="${A}sudut.webp" alt="" decoding="async" aria-hidden="true"><img class="tm-sd r" src="${A}sudut-r.webp" alt="" decoding="async" aria-hidden="true">
+      <div class="tm-arch cv-in" style="--i:3" aria-hidden="true"><div class="ph" style="background-image:url('${esc(ph)}')"></div></div>
+      <img class="tm-depan" src="${A}depan.webp" alt="" decoding="async" aria-hidden="true">
+      <div class="tr-pet" aria-hidden="true">${pet}${bf}</div>
+      <div class="tr-top"><div class="k-label cv-in" style="--i:0" data-scramble="${esc(d.dateLong)}">The wedding of</div>
+        <div class="names cv-in" style="--i:1">${esc(d.n1)}<span class="amp">&amp;</span>${esc(d.n2)}</div>
+        <div class="date cv-in" style="--i:2">${esc(d.dateDots)}</div></div>
+      <div class="tr-card"><div class="cv-slot">${to}${open}</div></div>
+    </section>`; }
     return `<section class="cover cv-teras" id="${d.id}-cover">
       <img class="tr-bg" src="${A}sampul2.webp" alt="" decoding="async" aria-hidden="true">
       <img class="tr-cpl" src="${A}pasangan.webp" alt="" decoding="async" aria-hidden="true">
@@ -3931,11 +4024,14 @@ function invHTML0(opts={}){
     });
   }
   // Tema Teras: pita taman hijau bergelombang di bawah bagian berselang-seling
-  if(t.layout==='teras'){
+  if(t.layout==='teras' && t.ilMode==='taman'){ const A=t.ilDir;
+    if(sec.acara) sec.acara=sec.acara.replace(/<\/section>\s*$/, `<img class="tm-bangku" src="${A}bangku.webp" alt="" aria-hidden="true" loading="eager" decoding="async"></section>`);
+    order.forEach((k,i)=>{ const top=i%2===1; sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>{ const c='tm-s'+(top?' tm-pt':''); return a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="'+c+' '):b+' class="'+c+'"')+'>'+`<div class="tm-deco" aria-hidden="true">${top?`<img class="tm-wis" src="${A}pita.webp" alt="" loading="lazy" decoding="async">`:`<img class="tm-c l" src="${A}sudut.webp" alt="" loading="lazy" decoding="async"><img class="tm-c r" src="${A}sudut-r.webp" alt="" loading="lazy" decoding="async">`}</div>`; }); });
+  } else if(t.layout==='teras'){
     order.forEach((k,i)=>{ if(i%2) return; sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="tr-pb '):b+' class="tr-pb"')+'>').replace(/<\/section>\s*$/, `<img class="tr-pita" src="${t.ilDir||'/assets/teras/'}pita.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></section>`); });
   }
   return `
-  <div class="inv${big}${t.layout?' lay-'+t.layout+' prem':''}" style="${themeStyle(t, S.accent, fontOf())};--t-op:${op2}${t.layout==='teras'&&t.ilVars?';'+t.ilVars:''}${t.layout==='kebun'&&t.kbSet?`;--kb-langit:url('${t.kbSet}s-langit.webp');--kb-sh2:${t.kbSh||'#8E6FC0'}`:''}" data-fp="${fontPair()?S.fontPair:'tema'}" data-inv>
+  <div class="inv${big}${t.layout?' lay-'+t.layout+' prem':''}${t.ilMode?' il-'+t.ilMode:''}" style="${themeStyle(t, S.accent, fontOf())};--t-op:${op2}${t.layout==='teras'&&t.ilVars?';'+t.ilVars:''}${t.layout==='kebun'&&t.kbSet?`;--kb-langit:url('${t.kbSet}s-langit.webp');--kb-sh2:${t.kbSh||'#8E6FC0'}`:''}" data-fp="${fontPair()?S.fontPair:'tema'}" data-inv>
     <div class="pat"></div>${t.layout==='dongeng'?`<div class="dg-stk" aria-hidden="true">${DG_BODY}</div>`:''}${t.layout==='goresan'?`<div class="go-stk" aria-hidden="true">${[[6,6,20,0],[90,12,16,-1],[5,24,14,-2],[92,33,20,-.5],[7,45,18,-1.4],[90,55,14,-2.2],[6,68,20,-.8],[91,78,16,-1.8],[8,90,14,-.3]].map(a=>goSt(...a)).join('')}</div>`:''}${t.dp?`<div class="dp-fly dp-body" aria-hidden="true"><span class="dp-bf" style="top:22%;--d:26s;--dl:-6s"><i>${DP_BF}</i></span><span class="dp-bf rev" style="top:48%;--d:30s;--dl:-18s;width:26px"><i>${DP_BF}</i></span><span class="dp-bf" style="top:74%;--d:28s;--dl:-11s"><i>${DP_BF}</i></span><span class="dp-bf rev" style="top:93%;--d:22s;--dl:-2s;width:26px"><i>${DP_BF}</i></span></div>`:''}
     ${opts.watermark ? `<span class="wm">Pratinjau · belum dipublikasikan</span>`:''}
     ${t.layout ? coverHTML(t, {id, guest, n1:nick1, n2:nick2, dateLong:first?fmtShort(first.date):'', dateDots:first?dateDots(first.date):'', accent:S.accent||t.accent, gate:opts.gate, photo:t.photo?coverPhoto(t):''}) : `
@@ -3950,7 +4046,7 @@ function invHTML0(opts={}){
     </section>`}
     ${order.map(k=>sec[k]).join('')}
     <section class="p-end">
-      ${t.layout==='teras'?`<div class="tr-akhir" aria-hidden="true"><img class="bg" src="${t.ilDir||'/assets/teras/'}sampul2.webp" alt="" loading="lazy" decoding="async"><img class="cp" src="${t.ilDir||'/assets/teras/'}pasangan.webp" alt="" loading="lazy" decoding="async"><div class="tr-badge"><img src="${t.ilDir||'/assets/teras/'}lencana.webp" alt=""><span>${esc((nick1||'?')[0])}${esc((nick2||'?')[0])}</span></div></div>`:''}
+      ${t.layout==='teras'?`<div class="tr-akhir" aria-hidden="true"><img class="bg" src="${t.ilDir||'/assets/teras/'}sampul2.webp" alt="" loading="lazy" decoding="async"><img class="cp" src="${t.ilDir||'/assets/teras/'}${t.ilMode==='taman'?'depan':'pasangan'}.webp" alt="" loading="lazy" decoding="async"><div class="tr-badge"><img src="${t.ilDir||'/assets/teras/'}lencana.webp" alt=""><span>${esc((nick1||'?')[0])}${esc((nick2||'?')[0])}</span></div></div>`:''}
       ${t.layout==='kebun'&&t.kbSet?`<div class="kb-akhir"><img src="${t.kbSet}s-akhir.webp" alt="" loading="lazy" decoding="async"><span class="kb-akhir-t">Terima kasih</span></div>`:''}
       ${t.layout==='goresan'?`<div class="go-see">Sampai jumpa${first?`<br>di ${esc(dateDots(first.date))}`:''}</div>${goStrip(t)}`:''}
       ${t.layout==='dongeng'?`<div class="dg-win" aria-hidden="true"><div class="ph" style="background-image:url('${coverPhoto(t)}')"></div></div>`:''}
@@ -4133,7 +4229,7 @@ addEventListener('resize', ()=>fitLive());
 function renderStrip(){ $('#themeStrip').innerHTML = themeOrder(['sekar','kamboja','lentera','arunika'].map(themeById)).concat(themeOrder(THEMES)).filter((t,i,a)=>a.indexOf(t)===i).slice(0,4).map(tcard).join(''); fitLive($('#themeStrip')); }
 /* Galeri tema di beranda: isinya sama dengan halaman Tema (urutan & sembunyi dari admin ikut).
    Tema yang punya sampul potret di /assets/home/<id>.webp memakai gambar itu, sisanya memakai sampul langsung. */
-const HOME_COVER=new Set(['teras','joglo','kebun-teh','kebun-lila','kebun-senja','draperi-mawar','kawung','kebun-mawar','songket','atelier','draperi-zamrud','dongeng-pink','kebun-biru','kamboja','goresan-merah','kebun-sage']);
+const HOME_COVER=new Set(['teras','joglo','kebun-teh','taman-wisteria','kebun-lila','kebun-senja','draperi-mawar','kawung','kebun-mawar','songket','atelier','draperi-zamrud','dongeng-pink','kebun-biru','kamboja','goresan-merah','kebun-sage']);
 function homeCard(t){
   const rg=(t.region||'').split(',')[0].trim(), lbl=[t.tags[0], rg&&rg!=='Nasional'&&rg.length<=12?rg:''].filter(Boolean).join(' · ');
   const n1=esc(S.bride.nick||'Sarah'), n2=esc(S.groom.nick||'Raka');
@@ -4837,7 +4933,7 @@ function guestSide(t){
   const mono = !ph || art;
   const d = (S.events.find(e=>e.date)||{}).date;
   const q = quoteText();
-  return `<aside class="g-side${ph?'':' nophoto'}${art?' art':''}${mono?' mono-on':''}${!real&&!art&&ph?' scene':''}${t.layout?' gs-'+t.layout:''}" aria-hidden="true">${ph?`<div class="ph" style="background-image:url('${esc(ph)}')"></div>`:''}
+  return `<aside class="g-side${ph?'':' nophoto'}${art?' art':''}${mono?' mono-on':''}${!real&&!art&&ph?' scene':''}${t.layout?' gs-'+t.layout:''}${t.ilMode?' gs-'+t.ilMode:''}" aria-hidden="true">${ph?`<div class="ph" style="background-image:url('${esc(ph)}')"></div>`:''}
     <div class="tx">${mono?`<div class="mono">${esc((S.bride.nick||'')[0]||'')}${esc((S.groom.nick||'')[0]||'')}</div>`:''}<small>The Wedding of</small><h1>${esc(S.bride.nick)}<i>&amp;</i>${esc(S.groom.nick)}</h1>${d?`<div class="dt">${esc(fmtDate(d))}</div>`:''}${q?`<blockquote>${esc(q)}</blockquote>`:''}</div></aside>`;
 }
 // Foto lama yang resolusinya kecil jadi pecah kalau dibentang penuh: tampilkan sebagai foto berbingkai di atas latar foto yang diburamkan
@@ -6506,7 +6602,7 @@ document.addEventListener('click', e=>{ const el=e.target.closest('[data-act]');
 const GATE={t0:performance.now(), busy:false};
 const lum = hex => { const m=String(hex||'').replace('#','').match(/^([0-9a-f]{6})$/i); if(!m) return .5; const n=parseInt(m[1],16); const c=[n>>16&255,n>>8&255,n&255].map(v=>{ v/=255; return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4); }); return .2126*c[0]+.7152*c[1]+.0722*c[2]; };
 const gPat = c => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'>${[0,90,180,270].map(r=>`<path transform='rotate(${r} 30 30)' d='M30 26C25.5 21.5 25.5 11.5 30 5C34.5 11.5 34.5 21.5 30 26Z' fill='none' stroke='${c}' stroke-opacity='.28' stroke-width='1'/>`).join('')}<circle cx='30' cy='30' r='1.6' fill='${c}' fill-opacity='.4'/></svg>`)}")`;
-const GATE_CLS = ['th','g-teras','g-dongeng','g-goresan','g-kebun','g-light','g-dark','drape','dpv'];
+const GATE_CLS = ['th','g-teras','g-taman','g-dongeng','g-goresan','g-kebun','g-light','g-dark','drape','dpv'];
 // Tampilan gerbang pembuka per gaya tema: warna, ornamen, dan huruf diambil dari tema itu sendiri
 function gateLook(t){
   const L=t.layout||'klasik', v={}, cls=[];
@@ -6519,7 +6615,7 @@ function gateLook(t){
   cls.push('th'); v['--gfont']=t.font; v['--gink']=t.fg;
   if(L==='dongeng'){ cls.push('g-dongeng'); Object.assign(v,{'--gbg':t.bg,'--gd':'#F2B3C6','--ga':t.accent,'--gm':'#FFF9FB','--gink':t.accent,'--gl':t.accent,'--gtop':'url(/assets/ceria/swag.webp)','--gtop-h':'26vh','--gtop-s':'min(100%,620px) auto'}); }
   else if(L==='goresan'){ cls.push('g-goresan'); Object.assign(v,{'--gbg':t.bg,'--gd':t.bg,'--ga':t.accent,'--gm':t.bg,'--gink':t.accent,'--gl':t.accent,'--gsh':'rgba(43,27,23,.1)','--gtop':'url(/assets/goresan/tangan.webp)','--gtop-h':'calc(50% - 120px)','--gtop-y':'62%','--gtop-s':'min(84%,440px) auto'}); }
-  else if(L==='teras'){ cls.push('g-teras'); Object.assign(v,{'--gbg':t.bg,'--gd':t.bg,'--ga':t.accent,'--gm':'#FFFDF8','--gl':'#B4472F','--gini':JSON.stringify(((S.bride.nick||'')[0]||'')+((S.groom.nick||'')[0]||''))}); if(t.ilGate) Object.assign(v,t.ilGate); }
+  else if(L==='teras'){ cls.push('g-teras'); Object.assign(v,{'--gbg':t.bg,'--gd':t.bg,'--ga':t.accent,'--gm':'#FFFDF8','--gl':'#B4472F','--gini':JSON.stringify(((S.bride.nick||'')[0]||'')+((S.groom.nick||'')[0]||''))}); if(t.ilGate) Object.assign(v,t.ilGate); if(t.ilMode) cls.push('g-'+t.ilMode); }
   else if(L==='kebun'){ const k=t.kbSet; cls.push('g-kebun'); Object.assign(v,{'--gbg':t.bg,'--gd':t.soft,'--ga':t.kbSh||t.accent,'--gm':'#FFFDF8','--gl':t.accent,'--gtop':`url(${k}s-atas.webp)`,'--gtop-h':'24vh','--gtop-s':'min(112%,640px) auto','--gfl':`url(${k}s-kiri.webp)`,'--gfr':`url(${k}s-kanan.webp)`}); }
   else if(['kamboja','arunika','atelier'].includes(L)){ const a = lum(t.accent)>.2 ? t.accent : t.soft; cls.push('g-dark'); Object.assign(v,{'--gbg':t.fg,'--gd':t.fg,'--ga':a,'--gm':t.bg,'--gl':a,'--gpat':gPat(a),'--gsh':'rgba(0,0,0,.35)','--gts':'0 2px 12px rgba(0,0,0,.35)'}); }
   else { cls.push('g-light'); Object.assign(v,{'--gbg':t.bg,'--gd':t.soft||t.bg,'--ga':t.accent,'--gm':'#FFFDF8','--gl':t.accent,'--gpat':gPat(t.accent)}); }
