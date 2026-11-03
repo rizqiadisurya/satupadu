@@ -1864,10 +1864,23 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 .inv.il-taman .tm-sd.l{left:-4%}.inv.il-taman .tm-sd.r{right:-4%}
 .inv.il-taman .tm-arch{position:absolute;left:16%;right:16%;top:30%;height:47%;z-index:1;border:2px solid var(--tm-sl);border-radius:999px 999px 0 0;overflow:hidden;background:#E9EFE6;box-shadow:0 10px 30px rgba(63,85,96,.18)}
 .inv.il-taman .tm-arch .ph{position:absolute;inset:0;background-size:cover;background-position:50% 30%}
-.inv.il-taman .tm-depan{position:absolute;left:-8%;width:116%;bottom:16%;z-index:2;pointer-events:none}
+.inv.il-taman .tm-depan{position:absolute;left:-8%;width:116%;bottom:16%;z-index:2;pointer-events:none;aspect-ratio:1200/670}
+.inv.il-taman .tm-dp{position:absolute;inset:0;width:100%;height:100%;transform-origin:var(--o) 100%}
+.inv.il-taman .tm-dp.l{--o:20%;-webkit-mask:linear-gradient(90deg,#000 0 36%,transparent 44%);mask:linear-gradient(90deg,#000 0 36%,transparent 44%)}
+.inv.il-taman .tm-dp.m{--o:50%;-webkit-mask:linear-gradient(90deg,transparent 30%,#000 38% 62%,transparent 70%);mask:linear-gradient(90deg,transparent 30%,#000 38% 62%,transparent 70%)}
+.inv.il-taman .tm-dp.r{--o:80%;-webkit-mask:linear-gradient(90deg,transparent 56%,#000 64%);mask:linear-gradient(90deg,transparent 56%,#000 64%)}
+.inv.anim.il-taman .tm-dp.l{animation:tmWind 4.2s ease-in-out infinite alternate}
+.inv.anim.il-taman .tm-dp.m{animation:tmWind 5s ease-in-out -1.6s infinite alternate-reverse}
+.inv.anim.il-taman .tm-dp.r{animation:tmWind 4.6s ease-in-out -3s infinite alternate}
+@keyframes tmWind{0%{transform:skewX(-2.2deg)}50%{transform:skewX(1.2deg) scaleY(1.012)}100%{transform:skewX(2.4deg)}}
+.inv.anim.il-taman .tm-sd.l,.inv.anim.il-taman .tm-c.l{transform-origin:0 0;animation:tmHang 6s ease-in-out infinite alternate}
+.inv.anim.il-taman .tm-sd.r,.inv.anim.il-taman .tm-c.r{transform-origin:100% 0;animation:tmHang 6.6s ease-in-out -2s infinite alternate-reverse}
+@keyframes tmHang{from{rotate:-2.5deg}to{rotate:2.5deg}}
+.inv.anim.il-taman .tr-akhir>img.cp{transform-origin:50% 100%;animation:tmWind 5s ease-in-out infinite alternate}
+@media (prefers-reduced-motion:reduce){.inv.anim.il-taman .tm-dp,.inv.anim.il-taman .tm-sd,.inv.anim.il-taman .tm-c,.inv.anim.il-taman .tr-akhir>img.cp{animation:none}}
 .inv.il-taman .cv-taman .tr-top{padding-top:clamp(42px,15cqi,80px)}
 .inv.il-taman .cv-taman .tr-top::before{display:none}
-.inv.il-taman .cover .k-label{font-family:var(--tm-sc);text-transform:none;letter-spacing:0;font-size:clamp(22px,7cqi,32px);color:var(--tm-sl);margin:0}
+.inv.il-taman .cover .k-label{font-family:var(--tm-sc) !important;text-transform:none !important;letter-spacing:0 !important;font-size:clamp(22px,7cqi,32px);color:var(--tm-sl);margin:0}
 .inv.il-taman .cover .names{font-family:var(--tm-sc) !important;color:var(--il-nm);font-size:clamp(40px,13cqi,62px);text-shadow:0 0 18px rgba(255,255,255,.9)}
 .inv.il-taman .cover .names .amp{color:var(--tm-sl);font-size:.7em}
 .inv.il-taman .cover .date{color:var(--tm-sl);text-shadow:0 0 10px #fff}
@@ -2084,6 +2097,8 @@ html.boot-done #gate:not(.show):not(.open){opacity:0;pointer-events:none}
 #gate.g-teras.g-taman .gd.r{background:url(/assets/tamanbunga/sudut-r.webp) right -6px top -10px/62% auto no-repeat,url(/assets/tamanbunga/depan.webp) right bottom/200% auto no-repeat,#EEF5F8}
 #gate.g-teras.g-taman .gd.l{box-shadow:inset -1px 0 0 rgba(63,85,96,.3)}#gate.g-teras.g-taman .gd.r{box-shadow:inset 1px 0 0 rgba(63,85,96,.3)}
 #gate.g-teras.g-taman .gmed{filter:none}
+#gate.g-teras.g-taman .gd{animation:gtWind 5s ease-in-out infinite alternate}
+@keyframes gtWind{from{background-position-x:-4px,-6px,0}to{background-position-x:4px,6px,0}}
 #gate.g-teras.g-taman .gmed::after{text-shadow:none;font-size:62px}
 #gate.g-teras.g-taman .gn{font-family:'Great Vibes',cursive;border:1.5px solid #3F5560;box-shadow:7px 7px 0 #F6EBCB;background:#FFFBEF}
 #gate.g-teras.g-taman .gn small{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.2em}
@@ -3723,7 +3738,7 @@ function coverHTML(t, d){
       <img class="tr-bg" src="${A}sampul2.webp" alt="" decoding="async" aria-hidden="true">
       <img class="tm-sd l" src="${A}sudut.webp" alt="" decoding="async" aria-hidden="true"><img class="tm-sd r" src="${A}sudut-r.webp" alt="" decoding="async" aria-hidden="true">
       <div class="tm-arch cv-in" style="--i:3" aria-hidden="true"><div class="ph" style="background-image:url('${esc(ph)}')"></div></div>
-      <img class="tm-depan" src="${A}depan.webp" alt="" decoding="async" aria-hidden="true">
+      <div class="tm-depan" aria-hidden="true">${['l','m','r'].map(k=>`<img class="tm-dp ${k}" src="${A}depan.webp" alt="" decoding="async">`).join('')}</div>
       <div class="tr-pet" aria-hidden="true">${pet}${bf}</div>
       <div class="tr-top"><div class="k-label cv-in" style="--i:0" data-scramble="${esc(d.dateLong)}">The wedding of</div>
         <div class="names cv-in" style="--i:1">${esc(d.n1)}<span class="amp">&amp;</span>${esc(d.n2)}</div>
