@@ -4283,7 +4283,7 @@ function tcard(t){
     </div>
   </article>`;
 }
-function tcLive(t){ const d0=S.events.find(e=>e.date)?.date||'2027-02-14'; return `<div class="inv lay-${t.layout}" style="${themeStyle(t)}"><div class="pat"></div>${coverHTML(t,{id:'tc'+t.id, guest:'Tamu undangan', n1:S.bride.nick||'Sarah', n2:S.groom.nick||'Raka', dateLong:fmtShort(d0), dateDots:dateDots(d0), accent:t.accent, gate:true, photo:t.photo?coverPhoto(t):''}).replace(/data-act="open-inv"/g,'tabindex="-1" aria-hidden="true"').replace(/ id="tc[a-z]+-cover"/,'')}</div>`; }
+function tcLive(t){ const d0=S.events.find(e=>e.date)?.date||'2027-02-14'; return `<div class="inv lay-${t.layout}" style="${themeStyle(t)}"><div class="pat"></div>${coverHTML(t,{id:'tc'+t.id, guest:'Tamu undangan', n1:S.bride.nick||'Sarah', n2:S.groom.nick||'Raka', dateLong:fmtShort(d0), dateDots:dateDots(d0), accent:t.accent, gate:false, photo:t.photo?coverPhoto(t):''}).replace(/data-act="open-inv"/g,'tabindex="-1" aria-hidden="true"').replace(/ id="tc[a-z]+-cover"/,'')}</div>`; }
 function fitLive(root){ $$('[data-tclive]', root||document).forEach(el=>{ const w=el.parentElement.clientWidth, h=el.parentElement.clientHeight; if(w) el.style.setProperty('--tcs', Math.max(w/360, h/450)); }); }
 addEventListener('resize', ()=>fitLive());
 function renderStrip(){ $('#themeStrip').innerHTML = themeOrder(['sekar','kamboja','lentera','arunika'].map(themeById)).concat(themeOrder(THEMES)).filter((t,i,a)=>a.indexOf(t)===i).slice(0,4).map(tcard).join(''); fitLive($('#themeStrip')); }
