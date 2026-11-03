@@ -2092,26 +2092,33 @@ html.boot-done #gate:not(.show):not(.open){opacity:0;pointer-events:none}
 #gate.g-teras .gn{left:50%;right:auto;transform:translateX(-50%);width:max-content;max-width:90vw;padding:12px 22px 14px;border-radius:18px;background:rgba(251,243,228,.94);box-shadow:0 10px 26px rgba(80,50,30,.15);color:var(--il-nm,#C2573F);font-family:'Yellowtail','Great Vibes',cursive;font-style:normal;font-size:34px}
 #gate.g-teras .gn small{color:var(--il-amp,#6E8B5A)}
 #gate.g-teras .gbar{background:rgba(194,87,63,.25)}
-/* isi dipenuhi taman: sulur bunga menjuntai di kedua sisi sepanjang halaman, hamparan bunga di dasar tiap bagian, kupu-kupu dan kelopak */
-.inv.il-taman>section:not(.cover){background:url(/assets/tamanbunga/sudut.webp) left -3cqi top 0/21cqi auto repeat-y,url(/assets/tamanbunga/sudut-r.webp) right -3cqi top 46%/21cqi auto repeat-y,var(--il-bg) !important;padding-left:15cqi !important;padding-right:15cqi !important}
-.inv.il-taman.prem>section.tm-hb,.inv.il-taman.prem>section.tm-hb.p-salam{padding-bottom:calc(52cqi + 24px) !important}
+/* isi: setiap bagian punya kepala (sudut bunga / wisteria / sakura) dan pemandangan taman berbeda di dasarnya */
+.inv.il-taman>section:not(.cover){background:var(--il-bg) !important;padding-left:14cqi !important;padding-right:14cqi !important}
+.inv.il-taman.prem>section.tm-hb,.inv.il-taman.prem>section.tm-hb.p-salam{padding-bottom:calc(50cqi + 24px) !important}
+.inv.il-taman>section.tm-h-c{padding-top:calc(44cqi + 10px) !important}
+.inv.il-taman>section.tm-h-wis{padding-top:calc(30cqi + 20px) !important}
+.inv.il-taman>section.tm-h-sak{padding-top:calc(26cqi + 20px) !important}
 .inv.il-taman .tm-c{width:40% !important;top:-10px}
 .inv.il-taman .tm-c.l{left:-5% !important}.inv.il-taman .tm-c.r{right:-5% !important}
-.inv.il-taman>section.tm-s{padding-top:calc(46cqi + 10px) !important}
+.inv.il-taman .tm-sak{position:absolute;left:-4%;width:108%;top:-2%}
+.inv.anim.il-taman .tm-sak{transform-origin:50% 0;animation:trSway 8s ease-in-out infinite alternate}
 .inv.il-taman .tm-wis{z-index:1}
-.inv.il-taman .tm-bed{position:absolute !important;left:-6%;right:-6%;bottom:-2px;aspect-ratio:1200/670;z-index:2 !important;pointer-events:none}
-.inv.il-taman .tm-bed .tm-dp{position:absolute;inset:0;width:100%;height:100%}
+.inv.il-taman .tm-scene{position:absolute !important;left:0;right:0;bottom:-2px;height:52cqi;z-index:2 !important;pointer-events:none}
+.inv.il-taman .tm-it{position:absolute;height:auto;max-width:none;transform-origin:50% 100%}
+.inv.il-taman .tm-it.tall{width:26% !important}
+.inv.il-taman .tm-it.tr{opacity:.95;max-height:66cqi;width:auto !important;aspect-ratio:auto}
+.inv.anim.il-taman .tm-it.w{animation:tmWind 4.6s ease-in-out var(--d) infinite alternate}
+.inv.anim.il-taman .tm-it.tr{animation:tmTree 7s ease-in-out var(--d) infinite alternate}
+@keyframes tmTree{from{rotate:-1.2deg}to{rotate:1.2deg}}
 .inv.il-taman .tm-deco .tm-bf{position:absolute;z-index:2}
 .inv.il-taman .tm-pt2{position:absolute;left:var(--x);top:-6%;width:clamp(14px,4.5cqi,22px);opacity:0}
 .inv.anim.il-taman .tm-pt2{animation:trFall var(--t) linear var(--d) infinite}
-.inv.anim.il-taman .tm-bed .tm-dp.l{animation:tmWind 4.4s ease-in-out infinite alternate}
-.inv.anim.il-taman .tm-bed .tm-dp.m{animation:tmWind 5.2s ease-in-out -1.8s infinite alternate-reverse}
-.inv.anim.il-taman .tm-bed .tm-dp.r{animation:tmWind 4.8s ease-in-out -3.1s infinite alternate}
-.inv.il-taman .tm-bangku{width:calc(100% + 30cqi) !important;margin:10px -15cqi -40px !important}
-.inv.il-taman.prem .cd4{margin-left:-6px;margin-right:-6px}
-.inv.il-taman>section:not(.cover) .form,.inv.il-taman>section:not(.cover) .bank,.inv.il-taman>section:not(.cover) .ev2,.inv.il-taman>section:not(.cover) [data-wishlist]{position:relative;z-index:3}
-.inv.il-taman .tr-akhir{margin-left:-15cqi !important;margin-right:-15cqi !important}
-@media (prefers-reduced-motion:reduce){.inv.anim.il-taman .tm-bed .tm-dp,.inv.anim.il-taman .tm-pt2{animation:none}}
+.inv.il-taman .tm-bangku{width:calc(100% + 28cqi) !important;margin:10px -14cqi -40px !important}
+.inv.il-taman>section:not(.cover) .form,.inv.il-taman>section:not(.cover) .bank,.inv.il-taman>section:not(.cover) .ev2,.inv.il-taman>section:not(.cover) .cd4,.inv.il-taman>section:not(.cover) .qband,.inv.il-taman>section:not(.cover) [data-wishlist],.inv.il-taman>section:not(.cover) [data-giftconfirm],.inv.il-taman>section:not(.cover) .gift-note{position:relative;z-index:3}
+.inv.il-taman .tr-akhir{margin-left:-14cqi !important;margin-right:-14cqi !important}
+.inv.il-taman .tr-akhir .tm-arch2{position:absolute;left:50%;top:6%;width:66%;transform:translateX(-50%);z-index:1}
+.inv.il-taman .tr-akhir .tr-badge{z-index:2}
+@media (prefers-reduced-motion:reduce){.inv.anim.il-taman .tm-it,.inv.anim.il-taman .tm-pt2,.inv.anim.il-taman .tm-sak{animation:none}}
 #gate.g-teras.g-taman{background:radial-gradient(70% 55% at 50% 50%,#FFFFFF 0%,#EEF5F8 75%)}
 #gate.g-teras.g-taman .gd{background:url(/assets/tamanbunga/sudut.webp) left -6px top -10px/62% auto no-repeat,url(/assets/tamanbunga/depan.webp) left bottom/200% auto no-repeat,#EEF5F8}
 #gate.g-teras.g-taman .gd.r{background:url(/assets/tamanbunga/sudut-r.webp) right -6px top -10px/62% auto no-repeat,url(/assets/tamanbunga/depan.webp) right bottom/200% auto no-repeat,#EEF5F8}
@@ -4061,13 +4068,22 @@ function invHTML0(opts={}){
   // Tema Teras: pita taman hijau bergelombang di bawah bagian berselang-seling
   if(t.layout==='teras' && t.ilMode==='taman'){ const A=t.ilDir;
     if(sec.acara) sec.acara=sec.acara.replace(/<\/section>\s*$/, `<img class="tm-bangku" src="${A}bangku.webp" alt="" aria-hidden="true" loading="eager" decoding="async"></section>`);
-    const bed=`<div class="tm-bed" aria-hidden="true">${['l','m','r'].map(q=>`<img class="tm-dp ${q}" src="${A}depan.webp" alt="" loading="lazy" decoding="async">`).join('')}</div>`;
-    const BX=[[8,22],[80,40],[14,58],[76,18],[6,44],[84,62],[20,30],[70,52]];
-    order.forEach((k,i)=>{ const top=i%2===1, hasBed=k!=='acara';
-      const bf=[0,1].map(q=>{ const [x,y]=BX[(i*2+q)%8]; return `<i class="tm-bf" style="--x:${x}%;--y:${y}%;--d:${-(i*1.7+q*3).toFixed(1)}s;--t:${10+q*3+i%3}s"><img src="${A}b${(i+q)%2?3:1}.webp" alt="" loading="lazy"></i>`; }).join('');
+    // tiap bagian punya pemandangan taman sendiri di dasarnya: [berkas, kiri%, lebar%, bawah%, kelas]
+    const SC=[
+      [['rumpun',-6,30,0,'w tall'],['mawar',18,46,0,'w'],['hortensia',58,48,0,'w']],
+      [['willow',-16,52,0,'tr'],['minumburung',30,56,0,''],['rumpun-r',76,30,0,'w tall']],
+      [['mawar',-8,48,0,'w'],['kucing',34,40,1,''],['pohon',66,46,0,'tr']],
+      [['rumahburung',-4,40,0,''],['hortensia',30,46,0,'w'],['willow-r',62,52,0,'tr']],
+      [['pohon',-14,40,10,'tr'],['depan',-6,112,0,'w']],
+    ];
+    const TOPS=['c','wis','sak','wis','c','sak'];
+    order.forEach((k,i)=>{ const top=TOPS[i%TOPS.length], hasBed=k!=='acara';
+      const bf=[0,1].map(q=>{ const BX=[[8,22],[80,40],[14,58],[76,18],[6,44],[84,62],[20,30],[70,52]]; const [x,y]=BX[(i*2+q)%8]; return `<i class="tm-bf" style="--x:${x}%;--y:${y}%;--d:${-(i*1.7+q*3).toFixed(1)}s;--t:${10+q*3+i%3}s"><img src="${A}b${(i+q)%2?3:1}.webp" alt="" loading="lazy"></i>`; }).join('');
       const pet=[0,1,2].map(q=>`<img class="tm-pt2" src="${A}bunga${6+(i+q)%3}.webp" alt="" loading="lazy" style="--x:${(i*29+q*31+11)%86+4}%;--d:${-(i*2.3+q*4.1).toFixed(1)}s;--t:${14+q*3}s">`).join('');
-      sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>{ const c='tm-s'+(top?' tm-pt':'')+(hasBed?' tm-hb':''); return a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="'+c+' '):b+' class="'+c+'"')+'>'+`<div class="tm-deco" aria-hidden="true"><img class="tm-c l" src="${A}sudut.webp" alt="" loading="lazy" decoding="async"><img class="tm-c r" src="${A}sudut-r.webp" alt="" loading="lazy" decoding="async">${top?`<img class="tm-wis" src="${A}pita.webp" alt="" loading="lazy" decoding="async">`:''}${bf}${pet}</div>`; });
-      if(hasBed) sec[k]=sec[k].replace(/<\/section>\s*$/, bed+'</section>');
+      const head = top==='wis' ? `<img class="tm-wis" src="${A}pita.webp" alt="" loading="lazy" decoding="async">` : top==='sak' ? `<img class="tm-sak" src="${A}sakura.webp" alt="" loading="lazy" decoding="async">` : `<img class="tm-c l" src="${A}sudut.webp" alt="" loading="lazy" decoding="async"><img class="tm-c r" src="${A}sudut-r.webp" alt="" loading="lazy" decoding="async">`;
+      const scene = hasBed ? `<div class="tm-scene" aria-hidden="true">${SC[i%SC.length].map(([f,l,w,bt,c],q)=>`<img class="tm-it ${c}" src="${A}${f}.webp" alt="" loading="lazy" decoding="async" style="left:${l}%;width:${w}%;bottom:${bt}%;--d:${-(q*1.3+i).toFixed(1)}s;z-index:${c.includes('tr')?1:2+q}">`).join('')}</div>` : '';
+      sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>{ const c='tm-s tm-h-'+top+(hasBed?' tm-hb':''); return a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="'+c+' '):b+' class="'+c+'"')+'>'+`<div class="tm-deco" aria-hidden="true">${head}${bf}${pet}</div>`; });
+      if(hasBed) sec[k]=sec[k].replace(/<\/section>\s*$/, scene+'</section>');
     });
   } else if(t.layout==='teras'){
     order.forEach((k,i)=>{ if(i%2) return; sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="tr-pb '):b+' class="tr-pb"')+'>').replace(/<\/section>\s*$/, `<img class="tr-pita" src="${t.ilDir||'/assets/teras/'}pita.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></section>`); });
@@ -4088,7 +4104,7 @@ function invHTML0(opts={}){
     </section>`}
     ${order.map(k=>sec[k]).join('')}
     <section class="p-end">
-      ${t.layout==='teras'?`<div class="tr-akhir" aria-hidden="true"><img class="bg" src="${t.ilDir||'/assets/teras/'}sampul2.webp" alt="" loading="lazy" decoding="async"><img class="cp" src="${t.ilDir||'/assets/teras/'}${t.ilMode==='taman'?'depan':'pasangan'}.webp" alt="" loading="lazy" decoding="async"><div class="tr-badge"><img src="${t.ilDir||'/assets/teras/'}lencana.webp" alt=""><span>${esc((nick1||'?')[0])}${esc((nick2||'?')[0])}</span></div></div>`:''}
+      ${t.layout==='teras'?`<div class="tr-akhir" aria-hidden="true"><img class="bg" src="${t.ilDir||'/assets/teras/'}sampul2.webp" alt="" loading="lazy" decoding="async"><img class="cp" src="${t.ilDir||'/assets/teras/'}${t.ilMode==='taman'?'depan':'pasangan'}.webp" alt="" loading="lazy" decoding="async">${t.ilMode==='taman'?`<img class="tm-arch2" src="${t.ilDir}lengkung.webp" alt="" loading="lazy">`:''}<div class="tr-badge"><img src="${t.ilDir||'/assets/teras/'}lencana.webp" alt=""><span>${esc((nick1||'?')[0])}${esc((nick2||'?')[0])}</span></div></div>`:''}
       ${t.layout==='kebun'&&t.kbSet?`<div class="kb-akhir"><img src="${t.kbSet}s-akhir.webp" alt="" loading="lazy" decoding="async"><span class="kb-akhir-t">Terima kasih</span></div>`:''}
       ${t.layout==='goresan'?`<div class="go-see">Sampai jumpa${first?`<br>di ${esc(dateDots(first.date))}`:''}</div>${goStrip(t)}`:''}
       ${t.layout==='dongeng'?`<div class="dg-win" aria-hidden="true"><div class="ph" style="background-image:url('${coverPhoto(t)}')"></div></div>`:''}
