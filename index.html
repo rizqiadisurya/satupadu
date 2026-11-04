@@ -567,6 +567,20 @@ textarea.input{min-height:96px;resize:vertical}
 .tile .v{font-family:var(--display);font-size:42px;line-height:1.1;margin-top:6px;font-variant-numeric:tabular-nums}
 .tile .s{font-size:13px;color:var(--muted)}
 .dgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;margin-top:20px}
+/* Siap dibagikan + sentuhan tambahan */
+.ready{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:18px 20px;margin-bottom:20px}
+.ready-h{display:flex;gap:14px;align-items:center}.ready-h>div{flex:1;display:grid;gap:2px}.ready-h b{font-size:16px}.ready-h span{color:var(--muted);font-size:14px}
+.ready-ic{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--blush);color:var(--beet)}.ready.ok .ready-ic{background:color-mix(in srgb,var(--ok) 15%,#fff);color:var(--ok)}
+.ready-ic .icon{width:20px;height:20px}
+.ready .tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:16px}
+.tip{display:flex;gap:12px;padding:14px;border-radius:14px;background:color-mix(in srgb,var(--blush) 55%,#fff);border:1px solid var(--line)}
+.tip-ic{flex:none;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:#fff;color:var(--beet)}.tip-ic .icon{width:17px;height:17px}
+.tip b{font-size:14.5px}.tip p{font-size:13px;color:var(--muted);margin:3px 0 10px;line-height:1.45}
+.tip-a{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.tip-a .linkbtn{font-size:13px;color:var(--muted)}
+/* Builder: penanda opsional & catatan mulai cepat */
+.opt-l{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:99px;background:var(--blush);color:var(--beet);font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;vertical-align:2px}
+.quick-note{display:flex;gap:12px;align-items:flex-start;margin:4px 0 20px;padding:14px 16px;border-radius:14px;background:color-mix(in srgb,var(--ok) 9%,#fff);border:1px solid color-mix(in srgb,var(--ok) 25%,transparent)}
+.quick-note .icon{flex:none;width:20px;height:20px;color:var(--ok);margin-top:1px}.quick-note>div{display:grid;gap:2px}.quick-note b{font-size:14.5px}.quick-note span{font-size:13.5px;color:var(--muted);line-height:1.5}
 /* Kartu statistik dashboard bergaya ikon */
 .tile.ic{padding:20px 22px;container-type:inline-size;display:grid;align-content:start}
 .tile.ic::before{display:none}
@@ -4536,7 +4550,7 @@ const EV_OPEN = new Set();
 function evMoreHTML(e,k){
   const n = [e.rundown, e.dress, (e.dcol||[]).length, e.live, e.tz&&e.tz!=='WIB'].filter(Boolean).length;
   const cols = e.dcol||[];
-  return `<details class="ev-more" data-evmore="${k}" ${EV_OPEN.has(k)?'open':''}><summary><span><b>Info tambahan untuk tamu</b><small>Zona waktu, susunan acara, dress code, siaran langsung</small></span>${n?`<em class="chip">${n} diisi</em>`:''}</summary>
+  return `<details class="ev-more" data-evmore="${k}" ${EV_OPEN.has(k)?'open':''}><summary><span><b>Info tambahan untuk tamu <span class="opt-l">opsional</span></b><small>Zona waktu, susunan acara, dress code, siaran langsung</small></span>${n?`<em class="chip">${n} diisi</em>`:''}</summary>
     <div class="fgrid">
       <div class="field"><label for="ez${k}">Zona waktu</label><select class="input" id="ez${k}" data-bind="events.${k}.tz">${['WIB','WITA','WIT'].map(z=>`<option value="${z}" ${evTz(e)===z?'selected':''}>${z}</option>`).join('')}</select><span class="hint">Tamu dari zona lain otomatis melihat jam versi tempatnya.</span></div>
       <div class="field"><label for="el${k}">Link siaran langsung</label><input class="input" id="el${k}" data-bind="events.${k}.live" value="${esc(e.live||'')}" type="url" inputmode="url" placeholder="youtube.com/live/…" autocomplete="off"><span class="hint">YouTube, Instagram Live, atau Zoom. Kosongkan kalau tidak ada.</span></div>
@@ -4560,7 +4574,7 @@ function renderStepper(){
   $('#mobileProgress').innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:13.5px;font-weight:700"><span>Langkah ${S.step+1} dari 5 · ${STEPS[S.step].k}</span><span class="muted" style="font-weight:600">Tersimpan otomatis</span></div><div class="stack" style="height:6px;margin-bottom:18px"><span style="width:${(S.step+1)*20}%;background:var(--beet)"></span></div>`;
 }
 const fld = (id,label,val,opt={}) => `<div class="field ${opt.full?'full':''}"><label for="${id}">${label}</label>${opt.area?`<textarea class="input" id="${id}" data-bind="${opt.bind}" rows="2" placeholder="${esc(opt.ph||'')}">${esc(val)}</textarea>`:`<input class="input" id="${id}" data-bind="${opt.bind}" value="${esc(val)}" type="${opt.type||'text'}" placeholder="${esc(opt.ph||'')}" ${opt.req?'required':''} autocomplete="off">`}${opt.hint?`<span class="hint">${opt.hint}</span>`:''}<span class="err" hidden></span></div>`;
-const photoFld = (who,label) => { const ph=S[who].photo; return `<div class="field full"><label>${label}</label><div class="up"><span class="thumb" ${ph?`style="background-image:url(${ph})"`:''}>${ph?'':esc(initials(S[who].name)||'?')}</span><label class="btn btn-soft btn-sm" for="up-${who}" style="cursor:pointer">${ico('up')}${ph?'Ganti foto':'Pilih foto'}</label><input type="file" id="up-${who}" data-photo="${who}" accept="image/*" hidden>${ph?`<button type="button" class="btn btn-ghost btn-sm" data-act="rm-photo" data-who="${who}">Hapus</button>`:''}</div><span class="hint">Opsional. Foto otomatis dikecilkan biar undangan cepat kebuka. Nggak pakai foto? Inisial kalian yang tampil.</span></div>`; };
+const photoFld = (who,label) => { const ph=S[who].photo; return `<div class="field full"><label>${label} <span class="opt-l">opsional</span></label><div class="up"><span class="thumb" ${ph?`style="background-image:url(${ph})"`:''}>${ph?'':esc(initials(S[who].name)||'?')}</span><label class="btn btn-soft btn-sm" for="up-${who}" style="cursor:pointer">${ico('up')}${ph?'Ganti foto':'Pilih foto'}</label><input type="file" id="up-${who}" data-photo="${who}" accept="image/*" hidden>${ph?`<button type="button" class="btn btn-ghost btn-sm" data-act="rm-photo" data-who="${who}">Hapus</button>`:''}</div><span class="hint">Opsional. Foto otomatis dikecilkan biar undangan cepat kebuka. Nggak pakai foto? Inisial kalian yang tampil.</span></div>`; };
 function renderStep(){
   if(EDIT.on){ const p=edPanel(EDIT.panel); $('#edInspT').textContent=p[1]; $('#edInspG').textContent=p[3]; $('#stepForm').innerHTML = edPanelHTML(p[0]) || '<p class="muted">Tidak ada pengaturan.</p>'; return; }
   renderStepCore();
@@ -4569,18 +4583,19 @@ function renderStepCore(onlyHTML, iOverride){
   const f = $('#stepForm'); const i = iOverride ?? S.step; let h='';
   if(i===0){
     h = `<span class="eyebrow">Langkah 1 dari 5</span><h2>Siapa nih yang mau nikah? 💍</h2><p class="sub">Nama panggilan bakal nyapa tamu di sampul dan pesan WhatsApp. Santai, semuanya bisa diubah nanti kok.</p>
+    ${EDIT.on?'':`<div class="quick-note">${ico('check')}<div><b>Cukup 3 hal untuk mulai</b><span>Nama kalian, tanggal, dan lokasi acara. Yang bertanda <i>opsional</i> boleh dilewati dan dilengkapi kapan aja, bahkan setelah undangan dibagikan.</span></div></div>`}
     <fieldset class="fieldset"><legend>Mempelai wanita</legend><div class="fgrid">
       ${fld('bn','Nama lengkap',S.bride.name,{bind:'bride.name',req:1,ph:'Sarah Amalia'})}
-      ${fld('bk','Nama panggilan',S.bride.nick,{bind:'bride.nick',ph:'Sarah'})}
-      ${fld('bp','Keterangan orang tua',S.bride.parents,{bind:'bride.parents',full:1,ph:'Putri pertama Bapak … & Ibu …'})}
-      ${fld('bi','Instagram <span class="muted" style="font-weight:500">(opsional)</span>',S.bride.ig||'',{bind:'bride.ig',full:1,ph:'@sarahamalia',hint:'Kosongkan kalau tidak ingin ditampilkan di undangan.'})}
+      ${fld('bk','Nama panggilan <span class="opt-l">opsional</span>',S.bride.nick,{bind:'bride.nick',ph:'Sarah'})}
+      ${fld('bp','Keterangan orang tua <span class="opt-l">opsional</span>',S.bride.parents,{bind:'bride.parents',full:1,ph:'Putri pertama Bapak … & Ibu …'})}
+      ${fld('bi','Instagram <span class="opt-l">opsional</span>',S.bride.ig||'',{bind:'bride.ig',full:1,ph:'@sarahamalia',hint:'Kosongkan kalau tidak ingin ditampilkan di undangan.'})}
       ${photoFld('bride','Foto mempelai wanita')}
     </div></fieldset>
     <fieldset class="fieldset"><legend>Mempelai pria</legend><div class="fgrid">
       ${fld('gn','Nama lengkap',S.groom.name,{bind:'groom.name',req:1,ph:'Raka Pratama'})}
-      ${fld('gk','Nama panggilan',S.groom.nick,{bind:'groom.nick',ph:'Raka'})}
-      ${fld('gp','Keterangan orang tua',S.groom.parents,{bind:'groom.parents',full:1,ph:'Putra kedua Bapak … & Ibu …'})}
-      ${fld('gi','Instagram <span class="muted" style="font-weight:500">(opsional)</span>',S.groom.ig||'',{bind:'groom.ig',full:1,ph:'@rakapratama',hint:'Kosongkan kalau tidak ingin ditampilkan di undangan.'})}
+      ${fld('gk','Nama panggilan <span class="opt-l">opsional</span>',S.groom.nick,{bind:'groom.nick',ph:'Raka'})}
+      ${fld('gp','Keterangan orang tua <span class="opt-l">opsional</span>',S.groom.parents,{bind:'groom.parents',full:1,ph:'Putra kedua Bapak … & Ibu …'})}
+      ${fld('gi','Instagram <span class="opt-l">opsional</span>',S.groom.ig||'',{bind:'groom.ig',full:1,ph:'@rakapratama',hint:'Kosongkan kalau tidak ingin ditampilkan di undangan.'})}
       ${photoFld('groom','Foto mempelai pria')}
     </div></fieldset>`;
   }
@@ -4590,7 +4605,7 @@ function renderStepCore(onlyHTML, iOverride){
       ${fld('et'+k,'Nama acara',e.type,{bind:`events.${k}.type`,ph:'Akad Nikah / Pemberkatan / Resepsi'})}
       ${fld('ed'+k,'Tanggal',e.date,{bind:`events.${k}.date`,type:'date'})}
       ${fld('es'+k,'Mulai',e.start,{bind:`events.${k}.start`,ph:'08.00'})}
-      ${fld('ee'+k,'Selesai',e.end,{bind:`events.${k}.end`,ph:'10.00',hint:'Kosongkan bila sampai selesai'})}
+      ${fld('ee'+k,'Selesai <span class="opt-l">opsional</span>',e.end,{bind:`events.${k}.end`,ph:'10.00',hint:'Kosongkan bila sampai selesai'})}
       ${fld('ev'+k,'Nama tempat',e.venue,{bind:`events.${k}.venue`,full:1,ph:'Gedung / masjid / rumah'})}
       ${fld('ea'+k,'Alamat',e.address,{bind:`events.${k}.address`,full:1,area:1,ph:'Alamat lengkap untuk peta'})}
       ${evMoreHTML(e,k)}
@@ -5369,6 +5384,25 @@ const dTile = (l,v,sub,ic,tn,hl) => `<div class="tile ic${hl?' hl':''}"><i class
 const dPanel = (t,d,body,extra='',cls='') => `<section class="panel-c pn ${cls}"><header class="pn-h"><div><h3>${t}</h3>${d?`<p>${d}</p>`:''}</div>${extra}</header><div class="pn-b">${body}</div></section>`;
 const dEmpty = (ic,t,d,tn='beet') => `<div class="adm-empty"><i class="adm-ic lg tn-${tn}">${ico(ic)}</i><b>${t}</b>${d?`<p>${d}</p>`:''}</div>`;
 function renderDash(){ const all=G; G_ALL=all; G=all.filter(g=>!isPending(g)); try{ renderDashCore(); } finally { G=all; } }
+/* ---------- Sentuhan tambahan: saran opsional yang muncul sesuai waktu acara ---------- */
+function touchTips(){
+  const first=S.events.find(e=>e.date), days=first ? Math.ceil((new Date(first.date+'T00:00:00')-new Date())/864e5) : null;
+  const evs=S.events.filter(e=>e.type||e.date||e.venue), off=S.tipsOff||[], t=[];
+  if(memActive()) t.push({k:'mem', ic:'heart', h:'Halaman kenangan sudah aktif', p:'Kirim ucapan terima kasih ke tamu, sekalian ajak mereka melihat doa dan foto dari hari itu.', b:'Kirim terima kasih', act:'tip-thx'});
+  else {
+    if(!(S.gallery||[]).length) t.push({k:'foto', ic:'camera', h:'Tambah beberapa foto kalian', p:'Undangan dengan foto terasa jauh lebih personal. Tiga sampai lima foto favorit sudah cukup.', b:'Tambah foto', panel:'galeri'});
+    if(!(S.story && S.story.on && (S.story.items||[]).length && !S.story.demo)) t.push({k:'cerita', ic:'heart', h:'Ceritakan perjalanan kalian', p:'Dua atau tiga momen singkat sudah cukup bikin tamu tersenyum.', b:'Tulis kisah', panel:'cerita'});
+    if(days!=null && days>=0 && days<=45 && evs.some(e=>!String(e.dress||'').trim() && !(e.dcol||[]).length)) t.push({k:'dress', ic:'users', h:'Sudah ada dress code?', p:'Ini pertanyaan yang paling sering ditanyakan tamu menjelang hari H.', b:'Tambah dress code', panel:'acara'});
+    if(days!=null && days>=0 && days<=10 && !evs.some(e=>liveUrl(e.live))) t.push({k:'live', ic:'play', h:'Ada keluarga yang tidak bisa datang?', p:'Tempel link siaran langsung, tombolnya muncul sendiri di undangan.', b:'Tambah link', panel:'acara'});
+    if(days!=null && days>=0 && days<=30 && G.length>=20 && !S.seatsDefault && !Object.keys(S.seats||{}).length) t.push({k:'kuota', ic:'users', h:'Batasi jumlah orang per undangan?', p:'Biar hitungan katering tetap aman dan link tidak diteruskan ke banyak orang.', b:'Atur batas', panel:'rsvp'});
+  }
+  return t.filter(x=>!off.includes(x.k)).slice(0,3);
+}
+function readyHTML(){
+  const ready = S.bride.name && S.groom.name && S.events.some(e=>e.date && e.venue), tips = ready ? touchTips() : [];
+  return `<section class="ready${ready?' ok':''}"><div class="ready-h"><span class="ready-ic">${ico(ready?'check':'edit')}</span><div><b>${!ready?'Tinggal sedikit lagi':S.published?'Undanganmu sudah tayang':'Undanganmu sudah siap dibagikan'}</b><span>${!ready?'Lengkapi nama, tanggal, dan lokasi acara, lalu undangannya siap dibagikan.':tips.length?`Mau bikin tamu makin senang? Ini ${tips.length} sentuhan tambahan, semuanya opsional.`:'Semuanya sudah lengkap. Tinggal nikmati prosesnya.'}</span></div>${ready?'':'<a class="btn btn-primary btn-sm" href="#buat">Lanjutkan</a>'}</div>
+    ${tips.length?`<div class="tips">${tips.map(x=>`<article class="tip"><span class="tip-ic">${ico(x.ic)}</span><div><b>${x.h}</b><p>${x.p}</p><div class="tip-a"><button type="button" class="btn btn-soft btn-sm" data-act="${x.act||'tip-go'}" data-panel="${x.panel||''}">${x.b}</button><button type="button" class="linkbtn" data-act="tip-off" data-k="${x.k}">Nanti saja</button></div></div></article>`).join('')}</div>`:''}</section>`;
+}
 function renderDashCore(){
   const total=G.length, hadir=G.filter(g=>g.status==='hadir'), tidak=G.filter(g=>g.status==='tidak').length, belum=G.filter(g=>g.status==='belum').length, sent=G.filter(g=>g.sent).length;
   const pax = hadir.reduce((a,g)=>a+g.pax,0);
@@ -5382,7 +5416,7 @@ function renderDashCore(){
   if(dTab==='ringkasan'){
     const pct = n => (total? n/total*100 : 0).toFixed(1)+'%';
     const groups=[...new Set(G.map(g=>g.group))];
-    body = `<div class="tiles">
+    body = `${readyHTML()}<div class="tiles">
       ${dTile('Undangan terkirim',`${sent}<span class="of">/${total}</span>`,`${total-sent} tamu belum dikirimi`,'mail','amber',1)}
       ${dTile('Akan hadir',pax,`orang, dari ${hadir.length} undangan`,'check','green')}
       ${dTile('Tidak hadir',tidak,'sudah mengabari','x','gray')}
@@ -5605,6 +5639,9 @@ document.addEventListener('click', e=>{
   if(a==='rm-photo'){ delete S[el.dataset.who].photo; save(); renderStep(); refreshPreview(); }
   if(a==='rm-gal'){ S.gallery.splice(+el.dataset.k,1); save(); renderStep(); refreshPreview(); }
   if(a==='souvenir'){ souvenirCard(el); return; }
+  if(a==='tip-go'){ EDIT.panel=el.dataset.panel||'mempelai'; location.hash='#edit'; return; }
+  if(a==='tip-thx'){ dTab='kenangan'; knTab='thx'; renderDash(); window.scrollTo({top:0}); return; }
+  if(a==='tip-off'){ S.tipsOff=[...new Set([...(S.tipsOff||[]), el.dataset.k])]; save(); renderDash(); toast('Oke, saran ini kami sembunyikan'); return; }
   if(a==='zoom'){ const src=S.gallery[+el.dataset.k]; const lb=document.createElement('div'); lb.className='lightbox'; lb.setAttribute('role','dialog'); lb.setAttribute('aria-label','Foto galeri'); lb.innerHTML=`<button class="close" aria-label="Tutup">${ico('x')}</button><img src="${src}" alt="Foto galeri ${+el.dataset.k+1}">`; lb.addEventListener('click',()=>lb.remove()); document.body.appendChild(lb); lb.querySelector('.close').focus(); }
   if(a==='copy') copyText(el.dataset.v);
   if(a==='demo') demoModal(el.dataset.t);
