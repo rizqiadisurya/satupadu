@@ -421,6 +421,22 @@ textarea.input{min-height:96px;resize:vertical}
 .inv .pax-max{display:block;font-size:12px;opacity:.7;margin-top:6px}
 .inv .sv-btn{margin:22px auto 0}
 .inv a.foot{display:block;color:inherit;text-decoration:none}.inv a.foot b{font-weight:700}.inv a.foot:hover{opacity:1;text-decoration:underline}
+/* Halaman kenangan */
+.inv .p-mem .mem-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:10px;max-width:340px;margin:22px auto 0}
+.inv .p-mem .mem-stats>div{padding:14px 8px;border-radius:16px;background:color-mix(in srgb,var(--t-accent) 9%,transparent);border:1px solid color-mix(in srgb,var(--t-accent) 22%,transparent)}
+.inv .p-mem .mem-stats b{display:block;font-family:var(--t-font);font-size:26px;line-height:1.1;color:var(--t-accent)}
+.inv .p-mem .mem-stats small{font-size:11.5px;opacity:.8}
+.inv .p-mem .mem-stats b.mem-d{font-size:19px;line-height:1.45;letter-spacing:.02em}
+.inv .p-mem .mem-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:340px;margin:18px auto 0}
+.inv .p-mem .mem-photos a{position:relative;aspect-ratio:1;border-radius:10px;background:color-mix(in srgb,var(--t-accent) 12%,transparent) center/cover;overflow:hidden}
+.inv .p-mem .mem-photos a span{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.45);color:#fff;font-weight:700;font-size:18px}
+.inv .p-mem .mem-empty{grid-column:1/-1;display:flex;gap:8px;align-items:center;justify-content:center;font-size:13px;opacity:.8;padding:16px;border:1px dashed color-mix(in srgb,currentColor 25%,transparent);border-radius:14px}
+.inv .p-mem .mem-empty .icon{width:18px;height:18px;flex:none}
+.inv .p-mem .mem-wish{display:grid;gap:10px;max-width:340px;margin:18px auto 0;text-align:left}
+.inv .p-mem .mem-wish figure{margin:0;padding:14px 16px;border-radius:16px;background:color-mix(in srgb,var(--t-soft) 85%,transparent);border:1px solid color-mix(in srgb,var(--t-accent) 18%,transparent)}
+.inv .p-mem .mem-wish blockquote{margin:0;font-family:var(--t-font);font-style:italic;font-size:16px;line-height:1.45}
+.inv .p-mem .mem-wish figcaption{margin-top:8px;font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--t-accent)}
+.inv .p-mem .acts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px}
 /* Editor: info tambahan acara & palet dress code */
 .ev-more{grid-column:1/-1;border:1px dashed var(--line);border-radius:14px;padding:0 14px;background:color-mix(in srgb,var(--card,#fff) 60%,transparent)}
 .ev-more[open]{padding-bottom:14px}
@@ -3991,6 +4007,35 @@ function evExtraHTML(e){
     ${live?`<div class="ev-xb"><span class="ev-xl">Siaran langsung${evLiveNow(e)?' <em class="ev-on">Sedang tayang</em>':''}</span><p>Belum bisa hadir? Ikuti momennya dari mana saja.</p><a class="ibtn" href="${esc(live)}" target="_blank" rel="noopener">${ico('play')}Tonton siaran langsung</a></div>`:''}
   </div>`;
 }
+/* ---------- Halaman kenangan: setelah acara selesai, undangan berubah jadi halaman terima kasih ---------- */
+function memEnd(){ const ev=S.events.filter(e=>e&&e.date); if(!ev.length) return null; return Math.max(...ev.map(e=> evUTC(e,e.end) || ((evUTC(e,e.start)||evUTC(e,'08.00'))+3*36e5))); }
+function memActive(opts){ if(opts && opts.mem) return true; const m=S.memMode||'auto'; if(m==='on') return true; if(m==='off') return false; const t=memEnd(); return t!=null && Date.now() > t + 3*36e5; }
+const MEM_MSG = 'Setiap doa, ucapan, dan foto dari kalian kami simpan di sini, supaya hari itu bisa kami buka lagi kapan pun.';
+function memAlbumHref(){ try{ return CLOUD.guestMode ? `/u/${CLOUD.slug}/album` : albumLink(); }catch(e){ return '#album'; } }
+function memSecHTML(id, guest){
+  const ws=W.filter(w=>w.show), first=S.events.find(e=>e.date);
+  const msg=String(S.memMsg||'').trim()||MEM_MSG;
+  return `<section id="${id}-kenangan" class="p-mem">
+    <span class="kick">Kenangan</span>
+    <h3>Terima kasih sudah menjadi bagian dari cerita kami</h3>
+    <p class="lead">${esc(msg)}</p>
+    <div class="mem-stats"><div><b class="num">${ws.length>=30?'30+':ws.length}</b><small>doa &amp; ucapan</small></div><div><b class="num" data-memcount>…</b><small>foto dari tamu</small></div>${first?`<div><b class="num mem-d">${esc(dateDots(first.date))}</b><small>hari bahagia</small></div>`:''}</div>
+    <div class="mem-photos" data-memphotos></div>
+    ${ws.length?`<div class="mem-wish">${ws.slice(0,6).map(w=>`<figure><blockquote>${esc(w.m)}</blockquote><figcaption>${esc(w.n)}</figcaption></figure>`).join('')}</div>`:''}
+    <div class="acts"><a class="ibtn solid" href="${esc(memAlbumHref())}" target="_blank" rel="noopener">${ico('camera')}Lihat &amp; tambah foto</a><button type="button" class="ibtn" data-act="souvenir" data-guest="${esc(guest)}">${ico('down')}Simpan kartu kenangan</button></div>
+  </section>`;
+}
+let MEM_PH = null;
+async function memPhotos(){
+  if(CLOUD.on && CLOUD.guestMode){ if(!MEM_PH) MEM_PH = CLOUD.sb.rpc('album_info',{p_slug:CLOUD.slug}).then(({data})=>((data&&data.photos)||[]).map(p=>({url:CLOUD.sb.storage.from('album').getPublicUrl(p.path).data.publicUrl, name:p.name}))).catch(()=>[]); return MEM_PH; }
+  return (typeof ALB!=='undefined'?ALB:[]).filter(p=>!p.hidden).map(p=>({url:alUrl(p), name:p.name})).filter(p=>p.url);
+}
+async function memFill(root){
+  const box=root.querySelector('[data-memphotos]'); if(!box || box.dataset.done) return; box.dataset.done=1;
+  const ph=await memPhotos(); const c=root.querySelector('[data-memcount]'); if(c) c.textContent=ph.length>=400?'400+':ph.length;
+  box.innerHTML = ph.length ? ph.slice(0,9).map((p,i)=>`<a href="${esc(memAlbumHref())}" target="_blank" rel="noopener" style="background-image:url('${esc(p.url)}')" aria-label="Foto ${i+1}${p.name?' dari '+esc(p.name):''}">${i===8&&ph.length>9?`<span>+${ph.length-9}</span>`:''}</a>`).join('')
+    : `<p class="mem-empty">${ico('camera')}Belum ada foto dari tamu. Punya foto dari hari itu? Bagikan di album, ya.</p>`;
+}
 /* ---------- Kuota tamu per undangan ---------- */
 const guestQuota = g => { if(!g) return 0; const own = S.seats && S.seats[g.id]; const n = own!=null && own!=='' ? +own : +(S.seatsDefault||0); return n>0 ? Math.min(n,12) : 0; };
 function guestEvents(g){
@@ -4013,6 +4058,7 @@ function invHTML(opts={}){
   const t = themeById(opts.theme || S.theme), o = themeOv(t.id);
   const kOld = {...P_KICK}; if(o.kick) Object.entries(o.kick).forEach(([k,v])=>{ if(typeof v==='string') P_KICK[k]=v; });
   let html; try{ html = invHTML0(opts); } finally { Object.assign(P_KICK, kOld); }
+  if(memActive(opts)) html = html.replace(/Buka undangan/g, 'Buka kenangan').replace(/>Tonton siaran langsung</g, '>Tonton rekaman<');
   const hide = new Set([...(o.hide||[]), ...SEC_FEATS.filter(k=>!ff(k))]);
   hide.forEach(k=>{ html = html.replace(new RegExp(`<section id="[^"]*-${k}"[^>]*>[\\s\\S]*?</section>`), ''); });
   Object.entries(o.titles||{}).forEach(([k,v])=>{ if(!v) return; html = html.replace(new RegExp(`(<section id="[^"]*-${k}"[^>]*>[\\s\\S]*?<h3[^>]*>)[\\s\\S]*?(</h3>)`), (m,a,b)=>a+esc(v)+b); });
@@ -4033,6 +4079,7 @@ function invHTML0(opts={}){
   const op = {...(OPENINGS[S.opening] || OPENINGS.umum), quote: quoteText()};
   const ev = guestEvents(gobj);
   const first = ev.find(e=>e.date);
+  const mem = memActive(opts), firstC = mem ? null : first;
   const nick1 = S.bride.nick || S.bride.name.split(' ')[0] || 'Mempelai';
   const nick2 = S.groom.nick || S.groom.name.split(' ')[0] || 'Mempelai';
   const mapUrl = e => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(`${e.venue} ${e.address}`);
@@ -4056,7 +4103,7 @@ function invHTML0(opts={}){
   sec.acara = `<section id="${id}-acara">
       <h3>Waktu &amp; tempat</h3>
       ${gobj && ev.length < S.events.filter(e=>e.type||e.date||e.venue).length ? `<p class="lead" style="margin-bottom:6px">Kami mengundang ${esc(gobj.name)} ke acara berikut.</p>`:''}
-      ${first ? `<div class="count" data-count="${esc(first.date)}">${countHTML(first.date)}</div>`:''}
+      ${firstC ? `<div class="count" data-count="${esc(first.date)}">${countHTML(first.date)}</div>`:''}
       ${ev.map(e=>`
         <div class="ev">
           <div class="ty">${esc(e.type||'Acara')}</div>
@@ -4103,8 +4150,9 @@ function invHTML0(opts={}){
     </section>`;
   const prem = !!t.layout;
   { const c=storySecHTML(id); if(c) sec.cerita=c; }
-  if(prem){ sec.salam=premSalam(id, op); sec.acara=premAcara(id, ev, first, gobj, mapUrl, calUrl); if(sec.galeri) sec.galeri=premGaleri(id); premDecorate(sec); }
-  const order = secOrder().filter(k=>sec[k]);
+  if(prem){ sec.salam=premSalam(id, op); sec.acara=premAcara(id, ev, firstC, gobj, mapUrl, calUrl); if(sec.galeri) sec.galeri=premGaleri(id); premDecorate(sec); }
+  if(mem){ delete sec.rsvp; sec.kenangan = memSecHTML(id, guest); }
+  const order = mem ? ['kenangan', ...secOrder().filter(k=>sec[k] && k!=='acara' && k!=='kenangan'), 'acara'].filter(k=>sec[k]) : secOrder().filter(k=>sec[k]);
   // Tema Kebun: aset lukisan ikut menghiasi setiap bagian (untaian bunga, rumpun di sudut, kupu-kupu)
   if(t.layout==='kebun' && t.kbSet){ const A=t.kbSet, im=(c,f,st)=>`<img class="${c}" src="${A}${f}" alt=""${st?` style="${st}"`:''} loading="lazy" decoding="async">`;
     const BX=[6,86,10,84,5,88,12,82], BY=[16,28,22,12,34,20,30,14];
@@ -4228,7 +4276,7 @@ function wishList(){
   return W.filter(w=>w.show).slice(0,6).map(w=>`<div class="wish"><b>${esc(w.n)}</b>${w.att?'<span class="att">Hadir</span>':''}<small>${esc(w.t)}</small><p>${esc(w.m)}</p></div>`).join('');
 }
 function bindInv(root){
-  renderCrowd(root);
+  renderCrowd(root); memFill(root);
   root.querySelectorAll('[data-rsvpform]').forEach(f=>{
     if(f.dataset.bound) return; f.dataset.bound=1;
     let att='hadir', pax=+f.querySelector('[data-paxv]').textContent||2, arrive=(f.querySelector('[data-arr][aria-pressed=true]')||{}).dataset?.arr||'';
@@ -4603,13 +4651,13 @@ function renderStepCore(onlyHTML, iOverride){
 }
 function setPath(obj, path, val){ const ks=path.split('.'); let o=obj; ks.slice(0,-1).forEach(k=>o=o[k]); o[ks.at(-1)]=val; }
 let pvT;
-function refreshPreview(){ clearTimeout(pvT); pvT=setTimeout(()=>{ if(EDIT.on){ const s=$('#edScreen'); const top=s.scrollTop; s.innerHTML = invHTML({idp:'e', watermark:!S.published, guest:'Bapak Budi & Keluarga'}); s.scrollTop=top; bindInv(s); edMark(); return; } const s=$('#builderScreen'); const top=s.scrollTop; s.innerHTML = invHTML({idp:'b', watermark:!S.published, guest:'Bapak Budi & Keluarga'}); s.scrollTop=top; bindInv(s); },120); }
+function refreshPreview(){ clearTimeout(pvT); pvT=setTimeout(()=>{ if(EDIT.on){ const s=$('#edScreen'); const top=s.scrollTop; s.innerHTML = invHTML({idp:'e', watermark:!S.published, guest:'Bapak Budi & Keluarga', mem:EDIT.panel==='kenangan'}); s.scrollTop=top; bindInv(s); edMark(); return; } const s=$('#builderScreen'); const top=s.scrollTop; s.innerHTML = invHTML({idp:'b', watermark:!S.published, guest:'Bapak Budi & Keluarga'}); s.scrollTop=top; bindInv(s); },120); }
 $('#stepForm').addEventListener('input', e=>{
   const b = e.target.dataset.bind; if(!b) return;
   let v = e.target.type==='checkbox' ? e.target.checked : e.target.value;
   if(b==='slug'){ v = v.toLowerCase().replace(/[^a-z0-9-]/g,'-').replace(/-+/g,'-'); }
   setPath(S,b,v);
-  if(b==='gift.on' || b==='galleryOn' || b==='music' || b==='quoteMode'){ if(b==='music') stopPrev(); renderStep(); }
+  if(b==='gift.on' || b==='galleryOn' || b==='music' || b==='quoteMode' || b==='memMode'){ if(b==='music') stopPrev(); renderStep(); }
   e.target.removeAttribute('aria-invalid'); const err=e.target.closest('.field')?.querySelector('.err'); if(err) err.hidden=true;
   save(); refreshPreview();
 });
@@ -4901,6 +4949,7 @@ const ED_PANELS = [
   ['tema','Tema, warna & huruf','eye','Tampilan', null, []],
   ['urutan','Urutan bagian','menu','Tampilan', null, []],
   ['salam','Salam pembuka','text','Pengaturan', null, []],
+  ['kenangan','Halaman kenangan','heart','Pengaturan', null, ['kenangan']],
   ['link','Alamat link','copy','Pengaturan', null, []]
 ];
 let EDIT = {on:false, panel:'mempelai', dev:'hp', undo:[], redo:[], last:null, snapT:null, restoring:false, sheet:false};
@@ -4922,6 +4971,12 @@ function pickPart(html, sel, withNext){ const d=document.createElement('div'); d
 function edPanelHTML(k){
   const s3 = () => stepBody(3);
   const togRow = b => { const d=document.createElement('div'); d.innerHTML=s3(); const inp=d.querySelector(`[data-bind="${b}"]`); return inp ? inp.closest('.toggle-row') : null; };
+  if(k==='kenangan'){ const t=memEnd(), on=memActive(), m=S.memMode||'auto';
+    return `<p class="muted" style="font-size:14px;margin-bottom:16px">Setelah acara selesai, undangan berubah jadi halaman terima kasih: doa, ucapan, dan foto dari tamu tampil paling atas. RSVP dan hitung mundur disembunyikan. Pratinjau di samping sudah memakai tampilan ini.</p>
+      <div class="field"><label for="memMode">Kapan tampil</label><select class="input" id="memMode" data-bind="memMode"><option value="auto" ${m==='auto'?'selected':''}>Otomatis setelah acara selesai</option><option value="on" ${m==='on'?'selected':''}>Tampilkan sekarang</option><option value="off" ${m==='off'?'selected':''}>Jangan tampilkan</option></select>
+      <span class="hint">${m==='auto'?(t?`Aktif otomatis mulai ${esc(new Intl.DateTimeFormat('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(t+3*36e5)))}.`:'Isi tanggal acara dulu supaya bisa aktif otomatis.'):m==='on'?'Tamu yang membuka undangan sekarang langsung melihat halaman kenangan.':'Undangan tetap tampil seperti biasa setelah acara.'}</span></div>
+      <div class="field" style="margin-top:14px"><label for="memMsg">Pesan terima kasih</label><textarea class="input" id="memMsg" data-bind="memMsg" rows="4" placeholder="${esc(MEM_MSG)}">${esc(S.memMsg||'')}</textarea><span class="hint">Kosongkan untuk memakai pesan bawaan.</span></div>
+      <div class="ed-note">${ico('eye')}<div><b>Status sekarang</b><span class="muted">${on?'Halaman kenangan sedang tampil ke tamu.':'Tamu masih melihat undangan biasa.'}</span></div></div>`; }
   if(k==='kado') return kadoPanelHTML();
   if(k==='cerita') return storyPanelHTML();
   if(k==='mempelai') return stepBody(0);
@@ -4948,7 +5003,7 @@ function edRail(){
     return `${head}<div class="ed-item ${EDIT.panel===k?'sel':''} ${on?'':'off'}"><button type="button" class="ed-pick" data-ed="${k}" aria-current="${EDIT.panel===k}">${ico(ic)}<span>${l}</span></button>${tog?`<button type="button" class="ed-vis" data-act="ed-vis" data-k="${tog}" aria-pressed="${on}" aria-label="${on?'Sembunyikan':'Tampilkan'} ${l}" title="${on?'Tampil di undangan':'Disembunyikan'}">${ico(on?'eye':'mute')}</button>`:''}</div>`; }).join('');
 }
 function edSelect(k, fromPreview){
-  EDIT.panel=k; stopPrev(); renderStep(); edRail();
+  const wasMem = EDIT.panel==='kenangan'; EDIT.panel=k; if(wasMem !== (k==='kenangan')) refreshPreview(); stopPrev(); renderStep(); edRail();
   if(innerWidth<900) edSheet(true);
   if(!fromPreview){ const p=edPanel(k); const id=p[5].map(x=>'e-'+x).find(x=>$('#'+x)); if(id) $('#'+id).scrollIntoView({behavior:'smooth', block:'start'}); }
   edMark();
@@ -5022,8 +5077,7 @@ function renderGuest(){
         <span style="display:flex;gap:8px"><button class="pill-btn" data-act="g-big" aria-pressed="${guestBig}" aria-label="Perbesar teks" style="${guestBig?'background:var(--beet);color:#fff':''}">Aa</button><button class="pill-btn" data-act="g-music" aria-pressed="${guestMusic}" aria-label="${guestMusic?'Matikan musik':'Nyalakan musik'}">${ico(guestMusic&&S.music?'music':'mute')}</button></span></div>
       <div id="guestInv" style="margin-top:-58px">${invHTML({gate:true, idp:'g', guest:guestLabel(), guestObj:g, big:guestBig})}</div>
       <nav class="g-nav" aria-label="Navigasi undangan">
-        <button data-go="g-acara">${ico('cal')}Acara</button>
-        <button data-go="g-rsvp">${ico('rsvp')}RSVP</button>
+        ${memActive()?`<button data-go="g-kenangan">${ico('heart')}Kenangan</button><button data-go="g-acara">${ico('cal')}Acara</button>`:`<button data-go="g-acara">${ico('cal')}Acara</button><button data-go="g-rsvp">${ico('rsvp')}RSVP</button>`}
         <button data-go="g-acara" data-map="1">${ico('pin')}Peta</button>
         ${S.gift.on?`<button data-go="g-hadiah">${ico('gift')}Hadiah</button>`:`<button data-go="g-salam">${ico('heart')}Mempelai</button>`}
         ${S.wishesOn?`<button data-go="g-ucapan">${ico('chat')}Ucapan</button>`:`<button data-go="g-cover">${ico('home')}Awal</button>`}
@@ -6038,7 +6092,7 @@ document.addEventListener('click', e=>{
 document.addEventListener('click', e=>{ const m=$('#acctMenu'); if(m && !m.hidden && !e.target.closest('.acct')) m.hidden=true; });
 
 /* ---------- Cloud: Supabase + Midtrans ---------- */
-const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','catering','arriveOn','wishlist','story','fontPair','waTpl','waTplR','albumOn','thanksMsg','thanksMsg2','thanked','gallery','galleryOn','groups','slug','quote','quoteMode','seats','seatsDefault'];
+const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','catering','arriveOn','wishlist','story','fontPair','waTpl','waTplR','albumOn','thanksMsg','thanksMsg2','thanked','gallery','galleryOn','groups','slug','quote','quoteMode','seats','seatsDefault','memMode','memMsg'];
 const pickData = () => { const d={}; DATA_KEYS.forEach(k=>{ if(S[k]!==undefined) d[k]=S[k]; }); return d; };
 const toRow = g => ({invitation_id:CLOUD.inv.id, id:g.id, name:g.name, phone:g.phone||'', grp:g.group||'Tanpa grup', sessions:g.sessions||[], code:g.code, status:g.status, pax:g.pax||0, sent:!!g.sent, walkin:!!g.walkin, checkin:g.checkin||null, fam:g.fam||null, approved:g.approved!==false, arrive:g.arrive||''});
 const fromRow = r => { const g={id:r.id, name:r.name, phone:r.phone||'', group:r.grp||'Tanpa grup', sessions:r.sessions||[], code:r.code, status:r.status||'belum', pax:r.pax||0, sent:!!r.sent, walkin:!!r.walkin, fam:r.fam||null, arrive:r.arrive||''}; if(r.approved===false) g.approved=false; if(r.checkin) g.checkin=r.checkin; return g; };
