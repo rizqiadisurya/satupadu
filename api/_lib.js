@@ -6,7 +6,7 @@ const SERVICE = () => env('SUPABASE_SERVICE_ROLE_KEY');
 const ANON = () => env('SUPABASE_ANON_KEY');
 const IS_PROD = () => env('MIDTRANS_IS_PRODUCTION') === 'true';
 
-const PLANS = { undangan: { name: 'Paket Undangan', price: 129000 }, tamu: { name: 'Paket Undangan + Tamu', price: 349000 } };
+const PLANS = { undangan: { name: 'Paket Undangan', price: 129000 }, tamu: { name: 'Paket Undangan Lengkap', price: 349000 } };
 const UPGRADE_PRICE = 220000;
 const VOUCHERS = { SAKARA10: { type: 'pct', v: 10 }, NIKAHHEMAT: { type: 'amt', v: 25000 } };
 
@@ -43,7 +43,7 @@ async function loadPackages() {
 }
 // Hitung harga. Sudah tayang = upgrade: bayar selisih ke paket yang lebih mahal.
 function priceFor(inv, plan, voucher, pk) {
-  pk = pk || { undangan: { name: 'Undangan', price: PLANS.undangan.price }, tamu: { name: 'Undangan + Tamu', price: PLANS.tamu.price } };
+  pk = pk || { undangan: { name: 'Undangan', price: PLANS.undangan.price }, tamu: { name: 'Undangan Lengkap', price: PLANS.tamu.price } };
   const target = pk[plan];
   if (!target) throw Object.assign(new Error('Paket tidak dikenal'), { status: 400 });
   let price = target.price, item = 'Paket ' + target.name, upgrade = false;
