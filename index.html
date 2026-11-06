@@ -867,6 +867,14 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .pin-row{display:flex;gap:12px;align-items:center}
 .pin{font-family:var(--display);font-size:34px;letter-spacing:.18em;background:var(--paper);border:1px dashed #D3BCC4;border-radius:12px;padding:4px 14px}
 .cloud-404{min-height:100vh;display:grid;place-items:center;text-align:center;padding:24px;background:var(--paper)}
+.kara{display:block;height:auto;margin:0 auto;pointer-events:none;user-select:none}
+.kara-empty{width:132px;margin-bottom:6px}
+.kara-done{width:190px;margin-bottom:10px}
+.kara-wait{width:170px;margin-bottom:10px;animation:karaFly 2.4s ease-in-out infinite}
+.kara-404{width:200px;margin-bottom:14px}
+@keyframes karaFly{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+@media (prefers-reduced-motion:reduce){.kara-wait{animation:none}}
+@media (max-width:600px){.kara-empty{width:108px}.kara-done{width:160px}.kara-404{width:170px}}
 /* Responsive */
 @media (max-width:1080px){
   .builder{grid-template-columns:1fr 340px}
@@ -5382,7 +5390,7 @@ function renderCatPage(){
   seedArrivals(); saveG(); save(); })();
 const dTile = (l,v,sub,ic,tn,hl) => `<div class="tile ic${hl?' hl':''}"><i class="adm-ic tn-${tn}">${ico(ic)}</i><div class="v">${v}</div><div class="l">${l}</div>${sub?`<div class="s">${sub}</div>`:''}</div>`;
 const dPanel = (t,d,body,extra='',cls='') => `<section class="panel-c pn ${cls}"><header class="pn-h"><div><h3>${t}</h3>${d?`<p>${d}</p>`:''}</div>${extra}</header><div class="pn-b">${body}</div></section>`;
-const dEmpty = (ic,t,d,tn='beet') => `<div class="adm-empty"><i class="adm-ic lg tn-${tn}">${ico(ic)}</i><b>${t}</b>${d?`<p>${d}</p>`:''}</div>`;
+const dEmpty = (ic,t,d,tn='beet') => `<div class="adm-empty"><img class="kara kara-empty" src="/assets/kara/kara-tidur.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><b>${t}</b>${d?`<p>${d}</p>`:''}</div>`;
 function renderDash(){ const all=G; G_ALL=all; G=all.filter(g=>!isPending(g)); try{ renderDashCore(); } finally { G=all; } }
 /* ---------- Sentuhan tambahan: saran opsional yang muncul sesuai waktu acara ---------- */
 function touchTips(){
@@ -5851,12 +5859,12 @@ function renderCheckout(){
   }
   if(CO.stage==='waiting'){
     root.innerHTML = `<div class="co-head"><h1 class="display">Menunggu konfirmasi pembayaran</h1></div>${steps}
-    <div class="co-done form-card"><div class="spin" aria-hidden="true"></div><h2 class="display" style="font-size:30px">Sebentar ya…</h2><p class="muted" style="max-width:46ch;margin:10px auto 0">Kami menunggu konfirmasi dari Midtrans. Untuk Virtual Account, selesaikan transfer dulu; halaman ini akan berubah otomatis begitu pembayaran diterima.</p><p class="muted num" style="margin-top:12px;font-size:13px">${esc(CLOUD.pendingOrder||'')}</p><div style="display:flex;gap:10px;justify-content:center;margin-top:20px"><button class="btn btn-ghost" data-act="co-back">Kembali</button><button class="btn btn-primary" data-act="co-check">Cek status sekarang</button></div></div>`;
+    <div class="co-done form-card"><img class="kara kara-wait" src="/assets/kara/kara-terbang.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><h2 class="display" style="font-size:30px">Sebentar ya…</h2><p class="muted" style="max-width:46ch;margin:10px auto 0">Kami menunggu konfirmasi dari Midtrans. Untuk Virtual Account, selesaikan transfer dulu; halaman ini akan berubah otomatis begitu pembayaran diterima.</p><p class="muted num" style="margin-top:12px;font-size:13px">${esc(CLOUD.pendingOrder||'')}</p><div style="display:flex;gap:10px;justify-content:center;margin-top:20px"><button class="btn btn-ghost" data-act="co-back">Kembali</button><button class="btn btn-primary" data-act="co-check">Cek status sekarang</button></div></div>`;
   }
   if(CO.stage==='done'){
     const inv=(S.invoices||[])[0];
     root.innerHTML = `<div class="co-head"><h1 class="display">Pembayaran berhasil</h1></div>${steps}
-    <div class="co-done form-card"><div class="okc">${ico('check')}</div><h2 class="display" style="font-size:34px">${inv&&inv.upgrade?`Paket ${esc((planOf(S.plan)||{name:'barumu'}).name)} aktif`:'Undanganmu sudah tayang'}</h2>
+    <div class="co-done form-card"><img class="kara kara-done" src="/assets/kara/kara-rayakan.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><h2 class="display" style="font-size:34px">${inv&&inv.upgrade?`Paket ${esc((planOf(S.plan)||{name:'barumu'}).name)} aktif`:'Undanganmu sudah tayang'}</h2>
       <p class="muted" style="max-width:46ch;margin:10px auto 0">${esc(pubHost())}${esc(S.slug)} aktif selamanya. Bukti bayar ${esc(inv?.no||'')} sudah dikirim ke ${esc(S.user.email)}.</p>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px"><button class="btn btn-ghost" data-act="copy" data-v="${esc(pubURL())}">${ico('copy')}Salin link</button><a class="btn btn-ghost" href="#tagihan">${ico('receipt')}Lihat tagihan</a><a class="btn btn-primary" href="#dashboard" data-act="co-reset">Mulai kirim ke tamu</a></div></div>`;
   }
@@ -5882,7 +5890,7 @@ function renderTagihan(){
     <div style="display:flex;gap:8px;flex-wrap:wrap">${canUpgrade()?`<button class="btn btn-soft btn-sm" data-act="upgrade">Upgrade paket</button>`:''}${S.published?'':`<a class="btn btn-primary btn-sm" href="#buat">Lanjut ke editor</a>`}<button class="btn btn-ghost btn-sm" data-act="logout">${ico('logout')}Keluar</button></div></div>
   <div><h2 class="co-h" style="margin-top:0">Riwayat tagihan</h2>
   ${inv.length?`<div class="tbl-wrap" style="display:block"><table><thead><tr><th>Nomor</th><th>Tanggal</th><th>Item</th><th class="num">Total</th><th>Status</th></tr></thead><tbody>${inv.map((x,k)=>`<tr><td class="nm num"><button type="button" class="inv-no" data-act="inv" data-k="${k}" title="Lihat bukti pembayaran">${esc(x.no)}</button></td><td class="muted td-date">${(()=>{ const [d,t]=fmtDT(x.date).split(' pukul '); return `${esc(d)}${t?`<small>pukul ${esc(t)}</small>`:''}`; })()}</td><td class="td-item">${esc(x.item)}</td><td class="num td-total">${rupiah(x.total)}<small>${esc(methodName(x.method))}</small></td><td><span class="status s-ok">${esc(x.status)}</span></td></tr>`).join('')}</tbody></table></div>`
-  :`<div class="empty">Belum ada tagihan, nih. Bukti bayar bakal muncul di sini begitu undanganmu dipublikasikan.<br><a class="btn btn-primary btn-sm" href="#buat" style="margin-top:14px">Lanjutkan undangan</a></div>`}</div></div>`;
+  :`<div class="empty"><img class="kara kara-empty" src="/assets/kara/kara-tidur.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">Belum ada tagihan, nih. Bukti bayar bakal muncul di sini begitu undanganmu dipublikasikan.<br><a class="btn btn-primary btn-sm" href="#buat" style="margin-top:14px">Lanjutkan undangan</a></div>`}</div></div>`;
 }
 function invoiceModal(k){
   const x=(S.invoices||[])[k]; if(!x) return;
@@ -6480,7 +6488,7 @@ async function alCompress(file, max=1600){
 }
 function renderAlbum(){
   const root=$('#album'); if(!root) return;
-  if(AP.err){ root.innerHTML=`<div class="fp"><div class="fp-card" style="text-align:center"><h1 class="display" style="font-size:30px">Album tidak ditemukan</h1><p class="muted" style="margin-top:10px">Link mungkin salah, atau undangan belum dipublikasikan.</p></div></div>`; return; }
+  if(AP.err){ root.innerHTML=`<div class="fp"><div class="fp-card" style="text-align:center"><img class="kara kara-404" src="/assets/kara/kara-bingung.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><h1 class="display" style="font-size:30px">Album tidak ditemukan</h1><p class="muted" style="margin-top:10px">Link mungkin salah, atau undangan belum dipublikasikan.</p></div></div>`; return; }
   const d=AP.d; if(!d){ root.innerHTML='<div class="fp"><div class="fp-card skel" style="height:220px"></div></div>'; return; }
   const ph=d.photos||[];
   root.innerHTML = `<div class="al">
@@ -7524,7 +7532,7 @@ function route(){
   if(CLOUD.guestMode || CLOUD.pinMode){
     const v = CLOUD.guestMode ? 'undangan' : 'checkin';
     $$('[data-view]').forEach(x=> x.hidden = x.dataset.view!==v); $('#siteHeader').hidden=true; $('#footerWrap').hidden=true; closeModal();
-    if(CLOUD.guestMode && CLOUD.notFound){ $('#guestShell').innerHTML = `<div class="cloud-404" style="width:100%"><div><h1 class="display" style="font-size:36px">Undangan tidak ditemukan</h1><p class="muted" style="margin-top:10px">Link mungkin salah ketik, atau undangan belum dipublikasikan oleh pasangan.</p></div></div>`; bootDone(); return; }
+    if(CLOUD.guestMode && CLOUD.notFound){ $('#guestShell').innerHTML = `<div class="cloud-404" style="width:100%"><div><img class="kara kara-404" src="/assets/kara/kara-bingung.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><h1 class="display" style="font-size:36px">Undangan tidak ditemukan</h1><p class="muted" style="margin-top:10px">Link mungkin salah ketik, atau undangan belum dipublikasikan oleh pasangan.</p></div></div>`; bootDone(); return; }
     if(CLOUD.guestMode) renderGuest(); else renderCheckin();
     bootDone(); return;
   }
