@@ -873,6 +873,8 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .kara-wait{width:170px;margin-bottom:10px;animation:karaFly 2.4s ease-in-out infinite}
 .kara-404{width:200px;margin-bottom:14px}
 .kara-sm{width:96px;margin-bottom:4px}
+.kara-gate{width:170px;margin-bottom:-4px}
+@media (max-width:600px){.kara-gate{width:140px}}
 .ci2-empty .kara{margin-bottom:8px}
 .ci2-pin-card .kara{width:120px;margin-bottom:6px}
 @keyframes karaFly{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
@@ -5340,7 +5342,7 @@ function parseNames(txt){
 }
 function renderFamPage(){
   const root=$('#keluarga');
-  if(FP.err){ root.innerHTML=`<div class="fp"><div class="fp-card" style="text-align:center"><h1 class="display" style="font-size:30px">Link tidak berlaku</h1><p class="muted" style="margin-top:10px">${esc(FP.err)}. Mintalah link terbaru kepada pengantin, ya.</p></div></div>`; return; }
+  if(FP.err){ root.innerHTML=`<div class="fp"><div class="fp-card" style="text-align:center">${karaImg('bingung','kara-404')}<h1 class="display" style="font-size:30px">Link tidak berlaku</h1><p class="muted" style="margin-top:10px">${esc(FP.err)}. Mintalah link terbaru kepada pengantin, ya.</p></div></div>`; return; }
   const f=FP.fam, used=FP.guests.length, left=Math.max(0,f.quota-used), pct=Math.min(100,Math.round(used/(f.quota||1)*100)), pend=FP.guests.filter(g=>!g.approved).length;
   root.innerHTML = `<div class="fp">
     <div class="fp-head"><span class="logo-sm">Sakara</span><span class="eyebrow">Undangan ${esc(FP.info.bride)} &amp; ${esc(FP.info.groom)}${FP.info.date?' · '+esc(fmtShort(FP.info.date)):''}</span><h1 class="display">Daftar tamu ${esc(f.name)}</h1>
@@ -5378,7 +5380,7 @@ async function catPageLoad(){
 }
 function renderCatPage(){
   const root=$('#katering');
-  if(CP.err){ root.innerHTML=`<div class="fp"><div class="fp-card" style="text-align:center"><h1 class="display" style="font-size:30px">Link tidak berlaku</h1><p class="muted" style="margin-top:10px">${esc(CP.err)}. Mintalah link terbaru kepada pengantin, ya.</p></div></div>`; return; }
+  if(CP.err){ root.innerHTML=`<div class="fp"><div class="fp-card" style="text-align:center">${karaImg('bingung','kara-404')}<h1 class="display" style="font-size:30px">Link tidak berlaku</h1><p class="muted" style="margin-top:10px">${esc(CP.err)}. Mintalah link terbaru kepada pengantin, ya.</p></div></div>`; return; }
   const d=CP.d, set=Object.assign({rate:50,defPax:2,buffer:10}, d.settings||{});
   root.innerHTML = `<div class="fp wide"><div class="fp-head"><span class="logo-sm">Sakara</span><span class="eyebrow">Untuk vendor katering</span><h1 class="display">Pernikahan ${esc(d.bride)} &amp; ${esc(d.groom)}</h1><p class="muted">Perkiraan porsi dari konfirmasi tamu. Diperbarui otomatis setiap menit · terakhir ${esc(fmtDT(d.updated))}</p></div>
     ${catCardsHTML(d.events||[], d.stats||[], set, true)}
@@ -5815,8 +5817,8 @@ function coItems(){
 function coTotals(){ const it=coItems(); let disc=0; const v=CO.applied&&VOUCHERS[CO.applied]; if(v) disc = v.type==='pct'? Math.round(it.price*v.v/100) : v.v; disc=Math.min(disc,it.price); return {...it, disc, total:it.price-disc}; }
 function renderCheckout(){
   const root=$('#checkout'); clearInterval(CO.timer);
-  if(!S.user){ root.innerHTML = `<div class="co-empty"><span class="eyebrow">Satu langkah lagi</span><h1 class="display">Simpan dulu undanganmu ke akun</h1><p class="muted">Semua yang udah kamu isi ikut tersimpan, nggak perlu ngulang. Habis itu langsung lanjut ke pembayaran.</p><button class="btn btn-primary" data-act="login-co">Masuk dan lanjutkan</button></div>`; return; }
-  if(coMode()==='done-already' && CO.stage!=='done'){ root.innerHTML = `<div class="co-empty"><span class="status s-ok">Aktif selamanya</span><h1 class="display">Paketmu udah yang paling lengkap!</h1><p class="muted">${esc((planOf(S.plan)||{name:'Paketmu'}).name)} sudah aktif untuk ${esc(pubHost())}${esc(S.slug)}.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn btn-primary" href="#dashboard">Buka dashboard</a><a class="btn btn-ghost" href="#tagihan">Lihat tagihan</a></div></div>`; return; }
+  if(!S.user){ root.innerHTML = `<div class="co-empty">${karaImg('bisik','kara-gate')}<span class="eyebrow">Satu langkah lagi</span><h1 class="display">Simpan dulu undanganmu ke akun</h1><p class="muted">Semua yang udah kamu isi ikut tersimpan, nggak perlu ngulang. Habis itu langsung lanjut ke pembayaran.</p><button class="btn btn-primary" data-act="login-co">Masuk dan lanjutkan</button></div>`; return; }
+  if(coMode()==='done-already' && CO.stage!=='done'){ root.innerHTML = `<div class="co-empty">${karaImg('rayakan','kara-gate')}<span class="status s-ok">Aktif selamanya</span><h1 class="display">Paketmu udah yang paling lengkap!</h1><p class="muted">${esc((planOf(S.plan)||{name:'Paketmu'}).name)} sudah aktif untuk ${esc(pubHost())}${esc(S.slug)}.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn btn-primary" href="#dashboard">Buka dashboard</a><a class="btn btn-ghost" href="#tagihan">Lihat tagihan</a></div></div>`; return; }
   const T=coTotals();
   const steps = `<ol class="co-steps">${['Paket','Pembayaran','Selesai'].map((s,i)=>`<li class="${(CO.stage==='form'&&i===0)||(CO.stage==='pending'&&i===1)||(CO.stage==='done'&&i===2)?'on':''} ${(CO.stage==='pending'&&i<1)||(CO.stage==='done'&&i<2)?'ok':''}"><span>${i+1}</span>${s}</li>`).join('')}</ol>`;
   const summary = `<aside class="co-sum"><div class="co-inv" style="${themeStyle(themeById(S.theme),S.accent,fontOf())}"><div class="pat2"></div><small>The wedding of</small><b>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</b><small>${esc(fmtShort(S.events[0].date))}</small></div>
@@ -5886,7 +5888,7 @@ function completePayment(){
 const fmtDT = iso => { try{ return new Intl.DateTimeFormat('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(iso)); }catch(e){ return iso; } };
 function renderTagihan(){
   const root=$('#tagihan');
-  if(!S.user){ root.innerHTML = `<div class="co-empty"><span class="eyebrow">Akun</span><h1 class="display">Masuk untuk melihat tagihan</h1><button class="btn btn-primary" data-act="login">Masuk atau daftar</button></div>`; return; }
+  if(!S.user){ root.innerHTML = `<div class="co-empty">${karaImg('lambai','kara-gate')}<span class="eyebrow">Akun</span><h1 class="display">Masuk untuk melihat tagihan</h1><button class="btn btn-primary" data-act="login">Masuk atau daftar</button></div>`; return; }
   const inv=S.invoices||[];
   root.innerHTML = `<div class="page-head" style="padding-bottom:20px"><span class="eyebrow">Akun</span><h1>Akun &amp; tagihan</h1></div>
   <div class="acct-grid"><div class="panel-c acct-card"><span class="av-btn big">${esc(initials(S.user.name))}</span><div><b style="font-size:18px">${esc(S.user.name)}</b><div class="muted">${esc(S.user.email)}</div></div>
