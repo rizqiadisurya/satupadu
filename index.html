@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Manrope:wght@400;500;600;700&family=Marcellus&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Great+Vibes&family=Yellowtail&family=Itim&family=Permanent+Marker&family=Patrick+Hand&family=Mali:wght@400;500;600&family=Oswald:wght@500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Great+Vibes&family=Pinyon+Script&family=Yellowtail&family=Itim&family=Permanent+Marker&family=Patrick+Hand&family=Mali:wght@400;500;600&family=Oswald:wght@500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>html.on-home #siteHeader,html.on-home #footerWrap{display:none!important}html.edh-first,html.edh-first body{background:#A4535E}
 /* sampul langsung di galeri beranda */
 .edh .e-live{position:absolute;inset:0;overflow:hidden;background:var(--t-bg)}
@@ -1823,6 +1823,100 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 @keyframes kbIn{from{opacity:0;scale:1.06}to{opacity:1;scale:1}}
 @keyframes kbFall{0%{opacity:0;transform:translate(0,0) rotate(0)}10%{opacity:.9}90%{opacity:.9}100%{opacity:0;transform:translate(40px,calc(100vh + 60px)) rotate(540deg)}}
 /* Teras Kamboja: ilustrasi gouache bertekstur, rumah tropis modernis, bingkai ubin tegel, pita taman hijau, kartu terakota bergelombang */
+/* ---------- Tema Beludru Anggur: beludru hijau, suede anggur, plester lumut, amplop & renda ---------- */
+.inv.lay-beludru{--bl-su:url(/assets/beludru/suede-wine.webp);--bl-pl:url(/assets/beludru/plaster-moss.webp);--bl-vv:url(/assets/beludru/velvet.webp);--bl-gold:#D9B98A;--bl-rose:#E7B9C6;--bl-cream:#F5EEE3;--bl-scr:'Pinyon Script','Great Vibes',cursive;color:var(--bl-cream);background:#5B0F16}
+.inv.lay-beludru .pat{display:none}
+.inv.lay-beludru .cover{min-height:max(100%,196cqi);position:relative;overflow:hidden;justify-content:flex-start;padding:0 0 clamp(26px,8cqi,44px);gap:0;background:#0E2A1C var(--bl-vv) center top/cover;color:var(--bl-cream)}
+.inv.lay-beludru .bl-val{position:absolute;top:0;left:0;width:100%;height:auto;z-index:5;pointer-events:none;filter:drop-shadow(0 8px 10px rgba(0,0,0,.4))}
+.inv.lay-beludru .bl-fl{position:absolute;z-index:6;pointer-events:none;height:auto;filter:drop-shadow(0 6px 8px rgba(0,0,0,.35))}
+.inv.lay-beludru .bl-fl1{left:-14%;top:22cqi;width:40%}
+.inv.lay-beludru .bl-fl2{right:-10%;bottom:4%;width:36%}
+.inv.lay-beludru .bl-top{position:relative;z-index:4;display:flex;flex-direction:column;align-items:center;text-align:center;padding:calc(40cqi + 10px) 24px 0}
+.inv.lay-beludru .cover .k-label{font-family:'Marcellus',Georgia,serif;font-size:clamp(10px,2.8cqi,12px);letter-spacing:.32em;text-transform:uppercase;color:var(--bl-gold)}
+.inv.lay-beludru .cover .names{display:flex;flex-direction:column;align-items:center;font-family:var(--bl-scr);font-weight:400;font-size:clamp(42px,14cqi,62px);line-height:1.02;margin:10px 0 6px;color:var(--bl-cream);text-shadow:0 2px 18px rgba(0,0,0,.6)}
+.inv.lay-beludru .cover .names .amp{display:block;font-style:normal;font-size:.66em;line-height:.9;margin:0;color:var(--bl-rose)}
+.inv.lay-beludru .cover .date{font-family:'Marcellus',Georgia,serif;font-size:clamp(11px,3.2cqi,14px);letter-spacing:.26em;color:var(--bl-cream)}
+.inv.lay-beludru .bl-env{position:relative;z-index:3;width:88%;max-width:390px;aspect-ratio:900/879;margin:auto auto 0}
+.inv.lay-beludru .cover .bl-env{margin-top:calc(30cqi + 6px)}
+.inv.lay-beludru .bl-env>img{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 14px 18px rgba(0,0,0,.45))}
+.inv.lay-beludru .bl-env .bk{z-index:1}.inv.lay-beludru .bl-env .ft{z-index:3}
+.inv.lay-beludru .bl-doily{position:absolute;z-index:2;left:9%;width:82%;bottom:27%}
+.inv.lay-beludru .bl-doily img{width:100%;height:auto;display:block;filter:drop-shadow(0 8px 14px rgba(0,0,0,.35))}
+.inv.lay-beludru .bl-dtx{position:absolute;left:22%;right:22%;top:17%;height:30%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#2B1410}
+.inv.lay-beludru .bl-dtx .to{margin:0;color:#5B0F16;font-size:clamp(10px,3cqi,13px);line-height:1.35}
+.inv.lay-beludru .bl-dtx .to b{display:block;margin-top:4px;font-family:var(--bl-scr);font-weight:400;font-size:clamp(18px,5.8cqi,26px);line-height:1.15;color:#3A080D;overflow-wrap:anywhere}
+.inv.lay-beludru .bl-tas{position:absolute;z-index:4 !important;left:50% !important;top:57% !important;width:7.5% !important;height:auto !important;inset:auto;margin-left:-3.75%;transform-origin:50% 0;filter:drop-shadow(0 6px 6px rgba(0,0,0,.4))}
+.inv.lay-beludru .bl-open{position:relative;z-index:5;margin-top:clamp(14px,5cqi,24px)}
+.inv.lay-beludru .cover .open{background:var(--bl-cream);color:#3A080D;border-radius:2px;font-family:'Marcellus',Georgia,serif;letter-spacing:.2em;text-transform:uppercase;font-size:12px;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+.inv.lay-beludru .bl-bf{position:absolute;z-index:6;width:clamp(34px,11cqi,48px);pointer-events:none}
+.inv.lay-beludru .bl-bf img{width:100%;height:auto;display:block}
+.inv.anim.lay-beludru .bl-bf{animation:blDrift 14s ease-in-out var(--d,0s) infinite}
+.inv.anim.lay-beludru .bl-bf img{animation:blFlap 1.6s ease-in-out infinite alternate}
+.inv.anim.lay-beludru .bl-tas{animation:blSway 5s ease-in-out infinite}
+.inv.anim.lay-beludru .bl-c,.inv.anim.lay-beludru .bl-fl{animation:blBreeze 7s ease-in-out infinite alternate}
+@keyframes blFlap{to{transform:scaleX(.82)}}
+@keyframes blDrift{0%,100%{transform:translate(0,0) rotate(-8deg)}25%{transform:translate(36px,-26px) rotate(6deg)}50%{transform:translate(70px,10px) rotate(-4deg)}75%{transform:translate(24px,34px) rotate(10deg)}}
+@keyframes blSway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes blBreeze{from{rotate:-1.2deg}to{rotate:1.6deg}}
+@media (prefers-reduced-motion:reduce){.inv.anim.lay-beludru .bl-bf,.inv.anim.lay-beludru .bl-bf img,.inv.anim.lay-beludru .bl-tas,.inv.anim.lay-beludru .bl-c,.inv.anim.lay-beludru .bl-fl{animation:none}}
+/* bagian isi */
+.inv.lay-beludru>section:not(.cover){position:relative;overflow:hidden;color:var(--bl-cream);padding-top:clamp(64px,20cqi,96px) !important;padding-bottom:clamp(64px,20cqi,96px) !important}
+.inv.lay-beludru>section.bl-su{background:#5B0F16 var(--bl-su) center top/1000px repeat !important}
+.inv.lay-beludru>section.bl-sd{background:linear-gradient(rgba(40,4,8,.42),rgba(40,4,8,.42)),var(--bl-su) center top/1000px repeat,#3A080D !important}
+.inv.lay-beludru>section.bl-pl{background:#30492F var(--bl-pl) center top/1100px repeat !important}
+.inv.lay-beludru>section.p-end{background:#0E2A1C var(--bl-vv) center top/cover !important;padding-bottom:0 !important;padding-top:clamp(120px,34cqi,170px) !important}
+.inv.lay-beludru>section:not(.cover)>*{position:relative;z-index:1}
+.inv.lay-beludru>section.bl-first{padding-top:calc(clamp(64px,20cqi,96px) + 26cqi) !important}
+.inv.lay-beludru .bl-dam{position:absolute !important;left:0;right:0;top:0;height:24cqi;background:#4A0B10 url(/assets/beludru/damask.webp) center/auto 100% repeat-x;z-index:0 !important;box-shadow:0 6px 14px rgba(0,0,0,.35)}
+.inv.lay-beludru .bl-dam::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,3,6,.55),rgba(30,3,6,.25) 50%,rgba(30,3,6,.6))}
+.inv.lay-beludru .bl-deco{position:absolute !important;inset:0;z-index:2 !important;pointer-events:none}
+.inv.lay-beludru .bl-c{position:absolute;height:auto;pointer-events:none;z-index:2;filter:drop-shadow(0 6px 8px rgba(0,0,0,.35));transform-origin:50% 0}
+.inv.lay-beludru .bl-c.tl{left:-10%;top:-2%;width:30%;max-height:none}
+.inv.lay-beludru .bl-c.tr{right:-10%;top:-2%;width:34%}
+.inv.lay-beludru .bl-c.tlx{left:-8%;top:-10px;width:30%;scale:-1 1}
+.inv.lay-beludru .bl-c.trx{right:-8%;top:-10px;width:30%}
+.inv.lay-beludru .p-end>.bl-c.tlx,.inv.lay-beludru .p-end>.bl-c.trx{width:36%}
+.inv.lay-beludru .bl-c.bl{left:-10%;bottom:-4%;width:28%;transform-origin:50% 100%}
+.inv.lay-beludru .bl-c.br{right:-10%;bottom:-4%;width:30%;transform-origin:50% 100%}
+.inv.lay-beludru .bl-first .bl-c.tl,.inv.lay-beludru .bl-first .bl-c.tr,.inv.lay-beludru .bl-first .bl-c.tlx,.inv.lay-beludru .bl-first .bl-c.trx{top:18cqi}
+.inv.lay-beludru h3{font-family:var(--bl-scr) !important;font-style:normal !important;font-weight:400 !important;color:var(--bl-cream) !important;font-size:clamp(40px,13cqi,60px) !important;line-height:1.05;letter-spacing:0;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.inv.lay-beludru .kick,.inv.lay-beludru .tl-d{font-family:'Marcellus',Georgia,serif;letter-spacing:.2em;text-transform:uppercase;color:var(--bl-gold) !important}
+.inv.lay-beludru .lead,.inv.lay-beludru p{color:rgba(245,238,227,.88)}
+.inv.lay-beludru .bl-lily{display:block;width:clamp(90px,28cqi,130px);height:auto;margin:6px auto 10px;filter:drop-shadow(0 6px 8px rgba(0,0,0,.35))}
+.inv.lay-beludru .bl-venue{display:block;width:calc(100% + 20px);max-width:none;height:auto;margin:30px -10px -30px}
+.inv.lay-beludru .bl-gift{display:block;width:clamp(96px,30cqi,130px);height:auto;margin:4px auto 18px}
+.inv.lay-beludru .bl-seal{display:block;width:clamp(56px,17cqi,76px);height:auto;margin:0 auto 6px;filter:drop-shadow(0 4px 5px rgba(0,0,0,.4))}
+/* kartu & formulir di atas latar gelap */
+.inv.lay-beludru .cd4{background:transparent !important;box-shadow:none !important;border:0 !important}
+.inv.lay-beludru .tl li{background:none !important;border:0 !important;box-shadow:none !important}
+.inv.lay-beludru>section>.bl-c,.inv.lay-beludru>section>.bl-bf{position:absolute !important;z-index:2 !important}
+.inv.lay-beludru.prem .p-card,.inv.lay-beludru .ev2,.inv.lay-beludru .bank,.inv.lay-beludru .form,.inv.lay-beludru .wish{background:rgba(0,0,0,.18) !important;border:1px solid rgba(245,238,227,.18) !important;color:var(--bl-cream) !important;box-shadow:none !important}
+.inv.lay-beludru .ev2 .kick{font-size:12px}
+.inv.lay-beludru .ev2-d{background:var(--bl-cream) !important;color:#3A080D !important}
+.inv.lay-beludru .ev2-v,.inv.lay-beludru .ev2-w,.inv.lay-beludru .ev2-t,.inv.lay-beludru .bank .ac,.inv.lay-beludru .tl b{color:var(--bl-cream) !important}
+.inv.lay-beludru .cd4>div{background:transparent !important;border:1px solid rgba(245,238,227,.4) !important;color:var(--bl-cream) !important;border-radius:0 !important}
+.inv.lay-beludru .cd4 i{color:var(--bl-gold)}
+.inv.lay-beludru input.in,.inv.lay-beludru textarea.in,.inv.lay-beludru select{background:rgba(245,238,227,.06) !important;border:0 !important;border-bottom:1px solid rgba(245,238,227,.4) !important;border-radius:0 !important;color:var(--bl-cream) !important}
+.inv.lay-beludru label{color:var(--bl-gold) !important;font-family:'Marcellus',Georgia,serif;letter-spacing:.14em;text-transform:uppercase;font-size:11px}
+.inv.lay-beludru .ibtn{border-color:rgba(245,238,227,.4) !important;color:var(--bl-cream) !important;background:transparent !important;border-radius:999px}
+.inv.lay-beludru .ibtn.solid{background:var(--bl-cream) !important;color:#3A080D !important;border-color:var(--bl-cream) !important}
+.inv.prem.lay-beludru .p-pic{padding:7px;background:none !important;border:0 !important;box-shadow:none !important}
+.inv.prem.lay-beludru .p-pic::before,.inv.prem.lay-beludru .p-pic::after{content:"";position:absolute;inset:0;border:1px solid var(--bl-gold);border-radius:999px 999px 6px 6px;pointer-events:none;z-index:2}
+.inv.prem.lay-beludru .p-pic::after{inset:-6px;opacity:.45}
+.inv.prem.lay-beludru .p-pic .p-ph{border-radius:999px 999px 3px 3px !important}
+.inv.prem.lay-beludru .p-body h4{font-family:var(--bl-scr);font-weight:400;color:var(--bl-cream);font-size:clamp(32px,10cqi,42px)}
+.inv.prem.lay-beludru .p-amp{font-family:var(--bl-scr);color:var(--bl-rose)}
+.inv.lay-beludru.prem .qband{background:rgba(0,0,0,.16) !important;color:var(--bl-cream)}
+.inv.lay-beludru.prem .qband blockquote{color:var(--bl-cream)}
+.inv.lay-beludru.prem .qband figcaption{background:var(--bl-cream);color:#3A080D}
+/* penutup: bingkai renda anggur di atas amplop */
+.inv.lay-beludru .bl-frame{position:relative;z-index:3 !important;width:80%;max-width:340px;aspect-ratio:760/1012;margin:0 auto -18cqi;background:url(/assets/beludru/doily-wine.webp) center/100% 100% no-repeat;filter:drop-shadow(0 10px 18px rgba(0,0,0,.45));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30% 17% 24%;text-align:center}
+.inv.lay-beludru .bl-frame h3{font-size:clamp(30px,9cqi,40px) !important;margin:0 0 6px}
+.inv.lay-beludru .bl-frame .lead{font-size:clamp(11px,3.2cqi,13.5px);line-height:1.45;margin:0}
+.inv.lay-beludru .bl-frame .names{font-family:var(--bl-scr) !important;font-size:clamp(28px,8.6cqi,38px) !important;line-height:1.05;margin-top:10px;color:var(--bl-cream)}
+.inv.lay-beludru .bl-env2{width:86%;margin:0 auto;z-index:2 !important}
+.inv.lay-beludru>section.p-end .sv-btn{position:relative;z-index:4;margin:14px auto 26px;display:flex}
+.inv.lay-beludru~.foot,.inv.lay-beludru .foot{background:#3A080D;color:rgba(245,238,227,.6)}
 .inv.lay-teras{--il-tegel:url(/assets/teras/tegel.webp);--il-bingkai:url(/assets/teras/bingkai.webp);--il-jalan:url(/assets/teras/jalan.webp);--tr-ink:#8E3A28;--tr-tg:clamp(34px,11.5cqi,58px);--tr-k:url(/assets/teras/kartu.webp) 123 136 185 126 fill / 25px 27px 37px 25px round}
 .inv.lay-teras .cover{min-height:178cqi;position:relative;overflow:hidden;justify-content:space-between;padding:0;gap:0;background:#BFD6E6}
 .inv.lay-teras .tr-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 100%;display:block}
@@ -3767,12 +3861,14 @@ const LAYOUT_THEMES = [
       ]},
     ilVars:"--il-bingkai:url(/assets/keraton/bingkai.webp);--tm-cd:url(/assets/keraton/sesaji.webp);--tr-ink:#5B2A2E;--il-nm:#7A2E35;--il-amp:#9C7A3C;--il-bg:#F4EEDF;--il-bar:243/420;--il-ini:#FFF6E0;--il-iy:-12%;--il-far:664/1000;--il-fl:17%;--il-ft:25%;--il-fw:64%;--il-fh:55%",
     ilGate:{'--il-lencana':'url(/assets/keraton/gunungan.webp)','--tm-g1':'url(/assets/keraton/sudut.webp)','--tm-g1r':'url(/assets/keraton/sudut-r.webp)','--tm-g2':'url(/assets/keraton/depan.webp)','--il-bg':'#F4EEDF','--il-amp':'#9C7A3C','--il-nm':'#7A2E35','--il-ini':'#FFF6E0','--il-gw':'124px','--il-gh':'214px','--gini-sh':'0 1px 6px rgba(70,30,10,.85)','--gini-fs':'44px','--gini-y':'-14px'}},
+  {id:'beludru', layout:'beludru', ilDir:'/assets/beludru/', name:'Beludru Anggur', region:'Nasional', tags:['Floral','Klasik'], bg:'#5B0F16', fg:'#F5EEE3', accent:'#D9B98A', soft:'#4A0B10', font:"'Cormorant Garamond', Georgia, serif", side:'/assets/beludru/side.webp',
+    pat:(t)=>`radial-gradient(circle, #F5EEE30a 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/beludru.webp) center/cover`},
   {id:'goresan-merah', layout:'goresan', name:'Goresan Merah', region:'Nasional', tags:['Ilustrasi','Minimalis'], bg:'#F3EFEA', fg:'#2B1B17', accent:'#A3261E', soft:'#F1E1DC', font:"'Patrick Hand', cursive",
     pat:(t)=>`radial-gradient(circle, ${t.accent}0c 0 .8px, transparent 1.2px)`, size:'16px 16px', thumb:()=>`linear-gradient(180deg,#F3EFEA 0 60%,#A3261E 60% 62%,#F3EFEA 62%)`}
 ];
 THEMES.unshift(...LAYOUT_THEMES);
 /* thumbnail = cuplikan sampul asli */
-const THUMB_IMG=new Set(["kawung", "songket", "melati", "taman", "lontar", "ulos", "senja", "peranakan", "sakinah", "endek", "megamendung", "gigibalang", "sekar", "kamboja", "lentera", "arunika", "atelier", "kebun-lila", "kebun-sage", "kebun-biru", "kebun-senja", "kebun-mawar", "draperi-biru", "draperi-zamrud", "draperi-mawar", "dongeng-pink", "goresan-merah", "teras", "joglo", "kebun-teh", "taman-wisteria", "taman-keraton"]);
+const THUMB_IMG=new Set(["kawung", "songket", "melati", "taman", "lontar", "ulos", "senja", "peranakan", "sakinah", "endek", "megamendung", "gigibalang", "sekar", "kamboja", "lentera", "arunika", "atelier", "kebun-lila", "kebun-sage", "kebun-biru", "kebun-senja", "kebun-mawar", "draperi-biru", "draperi-zamrud", "draperi-mawar", "dongeng-pink", "goresan-merah", "teras", "joglo", "kebun-teh", "taman-wisteria", "taman-keraton", "beludru"]);
 THEMES.forEach(t=>{ if(THUMB_IMG.has(t.id)){ t.thumbNoTxt=true; t.thumbImg=`/assets/thumbs/${t.id}.webp`; } });
 TAGS.includes('Foto') || TAGS.push('Foto');
 LAYOUT_THEMES.filter(t=>t.photo).forEach(t=>t.tags.push('Foto'));
@@ -3846,6 +3942,26 @@ function coverHTML(t, d){
       <div class="cv-slot dp-open">${open}</div>
       <div class="dp-tulle" aria-hidden="true"></div>
     </section>`;
+  if(L==='beludru'){ const A=t.ilDir||'/assets/beludru/';
+    return `<section class="cover cv-beludru" id="${d.id}-cover">
+      <img class="bl-val" src="${A}valance.webp" alt="" aria-hidden="true" decoding="async">
+      <img class="bl-fl bl-fl1" src="${A}flora-1.webp" alt="" aria-hidden="true" decoding="async">
+      <i class="bl-bf" aria-hidden="true" style="left:70%;top:24%"><img src="${A}butterfly.webp" alt=""></i>
+      <div class="bl-top">
+        <div class="k-label cv-in" style="--i:0" data-scramble="${esc(d.dateLong)}">The wedding of</div>
+        <div class="names cv-in" style="--i:1">${esc(d.n1)}<span class="amp">&amp;</span>${esc(d.n2)}</div>
+        <div class="date cv-in" style="--i:2">${esc(d.dateDots||d.dateLong)}</div>
+      </div>
+      <div class="bl-env cv-in" style="--i:3">
+        <img class="bk" src="${A}envelope-back.webp" alt="" aria-hidden="true" decoding="async">
+        <div class="bl-doily"><img src="${A}doily-cream.webp" alt="" aria-hidden="true" decoding="async"><div class="bl-dtx">${to.replace('cv-in','')}</div></div>
+        <img class="ft" src="${A}envelope-front.webp" alt="" aria-hidden="true" decoding="async">
+        <img class="bl-tas" src="${A}tassel-wine.webp" alt="" aria-hidden="true" decoding="async">
+      </div>
+      <div class="cv-slot bl-open">${open}</div>
+      <img class="bl-fl bl-fl2" src="${A}flora-2.webp" alt="" aria-hidden="true" decoding="async">
+    </section>`;
+  }
   if(L==='teras'){
     const A=t.ilDir||'/assets/teras/', ini=esc((d.n1||'?')[0])+esc((d.n2||'?')[0]);
     const pet=[[12,6,20,0],[70,8,14,-4],[38,7,18,-8],[86,6,22,-11],[24,8,16,-14],[58,7,20,-2]].map(([x,f,w,dl],i)=>`<img src="${A}bunga${f}.webp" alt="" style="--x:${x}%;--w:${w}px;--d:${dl}s;--t:${13+i*1.6}s" decoding="async">`).join('');
@@ -4188,6 +4304,19 @@ function invHTML0(opts={}){
       sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>{ const c='kb-s'+(top?'a':'b'); return a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="'+c+' '):b+' class="'+c+'"')+'>'+deco; });
     });
   }
+  // Tema Beludru: permukaan beludru, suede & plester berganti per bagian, rangkaian bunga di sudut
+  if(t.layout==='beludru'){ const A=t.ilDir, im=(c,f,st)=>`<img class="${c}" src="${A}${f}.webp" alt=""${st?` style="${st}"`:''} loading="lazy" decoding="async">`;
+    const SURF=['su','pl','su','sd','pl','su','sd'];
+    const FL=[[['bl-c tl','flora-3'],['bl-c br','flora-4']],[['bl-c tr','flora-4'],['bl-c bl','flora-3']],[['bl-c tlx','flora-1'],['bl-c trx','flora-2']],[['bl-c tr','flora-2']],[['bl-c tl','flora-1'],['bl-c br','flora-3']],[['bl-c trx','flora-4']],[['bl-c tlx','flora-2']]];
+    order.forEach((k,i)=>{ const f=FL[i%FL.length].map(([c,n])=>im(c,n)).join('');
+      const bf = i%3===1 ? `<i class="bl-bf" style="left:${i%2?12:74}%;top:${18+i*7%30}%;--d:${-i*2}s"><img src="${A}butterfly.webp" alt="" loading="lazy"></i>` : '';
+      const band = i===0 ? `<div class="bl-dam"></div>` : '';
+      sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>{ const c='bl-s bl-'+SURF[i%SURF.length]+(i===0?' bl-first':''); return a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="'+c+' '):b+' class="'+c+'"')+'>'+band+`<div class="bl-deco" aria-hidden="true">${f}${bf}</div>`; });
+    });
+    if(sec.acara){ sec.acara=sec.acara.replace(/(<h3>[\s\S]*?<\/h3>)/, `$1${im('bl-lily','calla-lily')}`).replace(/<\/section>\s*$/, `${im('bl-venue','venue')}</section>`); }
+    if(sec.hadiah) sec.hadiah=sec.hadiah.replace(/(<h3[^>]*>[\s\S]*?<\/h3>)/, `$1${im('bl-gift','giftbox')}`);
+    if(sec.cerita) sec.cerita=sec.cerita.replace(/(<h3[^>]*>[\s\S]*?<\/h3>)/, `${im('bl-seal','wax-seal')}$1`);
+  }
   // Tema Teras: pita taman hijau bergelombang di bawah bagian berselang-seling
   if(t.layout==='teras' && t.ilMode==='taman'){ const A=t.ilDir, tk=t.tm||{}, F=Object.assign({wis:'pita',sak:'sakura',kal:'kalung',bangku:'bangku'},tk.files||{}), BF=tk.bf||['b1','b3'], PT=tk.pet||['bunga6','bunga7','bunga8'];
     if(sec.acara) sec.acara=sec.acara.replace(/<\/section>\s*$/, `<img class="tm-bangku" src="${A}${F.bangku}.webp" alt="" aria-hidden="true" loading="eager" decoding="async"></section>`);
@@ -4232,9 +4361,10 @@ function invHTML0(opts={}){
       ${t.layout==='kebun'&&t.kbSet?`<div class="kb-akhir"><img src="${t.kbSet}s-akhir.webp" alt="" loading="lazy" decoding="async"><span class="kb-akhir-t">Terima kasih</span></div>`:''}
       ${t.layout==='goresan'?`<div class="go-see">Sampai jumpa${first?`<br>di ${esc(dateDots(first.date))}`:''}</div>${goStrip(t)}`:''}
       ${t.layout==='dongeng'?`<div class="dg-win" aria-hidden="true"><div class="ph" style="background-image:url('${coverPhoto(t)}')"></div></div>`:''}
+      ${t.layout==='beludru'?`<img class="bl-c tlx" src="${t.ilDir}flora-1.webp" alt="" aria-hidden="true" loading="lazy"><img class="bl-c trx" src="${t.ilDir}flora-2.webp" alt="" aria-hidden="true" loading="lazy"><i class="bl-bf" aria-hidden="true" style="right:18%;top:20%"><img src="${t.ilDir}butterfly.webp" alt="" loading="lazy"></i><div class="bl-frame">`:''}
       <h3>Terima kasih</h3>
       <p class="lead">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
-      <div class="names" style="font-size:38px">${esc(nick1)} <span style="color:var(--t-accent);font-style:italic">&amp;</span> ${esc(nick2)}</div>
+      <div class="names" style="font-size:38px">${esc(nick1)} <span style="color:var(--t-accent);font-style:italic">&amp;</span> ${esc(nick2)}</div>${t.layout==='beludru'?`</div><div class="bl-env bl-env2" aria-hidden="true"><img class="bk" src="${t.ilDir}envelope-back.webp" alt="" loading="lazy"><img class="ft" src="${t.ilDir}envelope-front.webp" alt="" loading="lazy"><img class="bl-tas" src="${t.ilDir}tassel-green.webp" alt="" loading="lazy"></div>`:''}
       <button type="button" class="ibtn sv-btn" data-act="souvenir" data-guest="${esc(guest)}">${ico('down')}Simpan kartu kenangan</button>
     </section>
     <a class="foot" href="/?ref=undangan" target="_blank" rel="noopener">Dibuat dengan <b>Sakara</b> · Bikin undanganmu</a>
@@ -4411,7 +4541,7 @@ addEventListener('resize', ()=>fitLive());
 function renderStrip(){ $('#themeStrip').innerHTML = themeOrder(['sekar','kamboja','lentera','arunika'].map(themeById)).concat(themeOrder(THEMES)).filter((t,i,a)=>a.indexOf(t)===i).slice(0,4).map(tcard).join(''); fitLive($('#themeStrip')); }
 /* Galeri tema di beranda: isinya sama dengan halaman Tema (urutan & sembunyi dari admin ikut).
    Tema yang punya sampul potret di /assets/home/<id>.webp memakai gambar itu, sisanya memakai sampul langsung. */
-const HOME_COVER=new Set(['teras','joglo','kebun-teh','taman-wisteria','taman-keraton','kebun-lila','kebun-senja','draperi-mawar','kawung','kebun-mawar','songket','atelier','draperi-zamrud','dongeng-pink','kebun-biru','kamboja','goresan-merah','kebun-sage']);
+const HOME_COVER=new Set(['beludru','teras','joglo','kebun-teh','taman-wisteria','taman-keraton','kebun-lila','kebun-senja','draperi-mawar','kawung','kebun-mawar','songket','atelier','draperi-zamrud','dongeng-pink','kebun-biru','kamboja','goresan-merah','kebun-sage']);
 function homeCard(t){
   const rg=(t.region||'').split(',')[0].trim(), lbl=[t.tags[0], rg&&rg!=='Nasional'&&rg.length<=12?rg:''].filter(Boolean).join(' · ');
   const n1=esc(S.bride.nick||'Sarah'), n2=esc(S.groom.nick||'Raka');
@@ -6824,6 +6954,7 @@ function gateLook(t){
     if(t.fabric) v['--fab']=t.fabric; cls.push('drape'); if(t.dp){ cls.push('dpv'); v['--dp-v']=`url(/assets/draperi/velvet-${t.dp.k}.webp)`; }
     return {v,cls};
   }
+  if(L==='beludru'){ Object.assign(v,{'--gd':'#3A080D','--gm':'#F5EEE3','--fab':'#0E2A1C','--dp-v':'url(/assets/beludru/velvet.webp)'}); cls.push('drape','dpv'); return {v,cls}; }
   cls.push('th'); v['--gfont']=t.font; v['--gink']=t.fg;
   if(L==='dongeng'){ cls.push('g-dongeng'); Object.assign(v,{'--gbg':t.bg,'--gd':'#F2B3C6','--ga':t.accent,'--gm':'#FFF9FB','--gink':t.accent,'--gl':t.accent,'--gtop':'url(/assets/ceria/swag.webp)','--gtop-h':'26vh','--gtop-s':'min(100%,620px) auto'}); }
   else if(L==='goresan'){ cls.push('g-goresan'); Object.assign(v,{'--gbg':t.bg,'--gd':t.bg,'--ga':t.accent,'--gm':t.bg,'--gink':t.accent,'--gl':t.accent,'--gsh':'rgba(43,27,23,.1)','--gtop':'url(/assets/goresan/tangan.webp)','--gtop-h':'calc(50% - 120px)','--gtop-y':'62%','--gtop-s':'min(84%,440px) auto'}); }
