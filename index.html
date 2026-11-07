@@ -231,8 +231,9 @@ img{max-width:100%}
 .footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
 
 /* Theme cards */
-.kind-tabs{display:flex;gap:10px;margin:0 0 22px;flex-wrap:wrap}
-.kind-tabs.sm{margin:4px 0 14px}.kind-tabs.sm button{min-width:0;flex:1;padding:10px 14px}
+.kind-tabs{display:flex;gap:10px;margin:0 0 14px;flex-wrap:wrap}
+.kind-desc{margin:0 0 22px;color:var(--muted);font-size:15.5px;max-width:62ch}
+.kind-tabs.sm{margin:4px 0 10px}.kind-tabs.sm button{min-width:0;flex:1;padding:10px 14px}
 .cx-ed{margin-top:22px}
 .cx-phs{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px;margin-top:10px}
 .cx-ph{display:grid;gap:4px;justify-items:start}
@@ -3642,9 +3643,10 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
     <div class="page-head">
       <span class="eyebrow">Katalog tema</span>
       <h1>Cari tema yang kalian banget</h1>
-      <p id="catLede">Buka demo buat lihat tiap tema pakai nama kalian sendiri. Semua tema bisa dipakai di paket apa pun, warna dan hurufnya bisa diganti, dan semuanya gratis dicoba.</p>
+      <p>Pilih koleksinya dulu, lalu buka demo untuk melihat tiap tema pakai nama kalian sendiri. Semuanya gratis dicoba.</p>
     </div>
     <div class="kind-tabs" id="kindTabs" role="tablist" aria-label="Koleksi tema"></div>
+    <p class="kind-desc" id="catLede" aria-live="polite"></p>
     <div class="toolbar" id="catToolbar">
       <div class="seg" id="tagFilter" role="group" aria-label="Filter gaya"></div>
       <label class="search"><span class="sr" hidden>Cari tema</span><svg class="icon"><use href="#i-search"/></svg><input class="input" id="themeSearch" placeholder="Cari: Minang, Jawa, floral…" aria-label="Cari tema"></label>
@@ -4705,10 +4707,10 @@ function cxCard(t){
 function renderCatalog(){
   const kt=$('#kindTabs'); if(kt) kt.innerHTML = [['lukisan','Lukisan','Tanpa foto, digambar khusus'],['custom','Custom','Pakai foto kalian · Paket Custom']].map(([k,l,d])=>`<button type="button" role="tab" data-kind="${k}" aria-selected="${catKind===k}"><b>${l}</b><small>${d}</small></button>`).join('');
   const lede=$('#catLede'), tb=$('#catToolbar');
-  if(catKind==='custom'){ if(tb) tb.hidden=true; if(lede) lede.textContent='Tema penuh foto yang bebas diatur: urutan bagian, bagian yang tampil, sampai foto di setiap bingkai. Bisa dicoba gratis, dipublikasikan dengan paket Custom.';
+  if(catKind==='custom'){ if(tb) tb.hidden=true; if(lede) lede.textContent='Tema penuh foto kalian. Urutan bagian, bagian yang tampil, dan foto di setiap bingkai bebas diatur. Dipublikasikan dengan paket Custom.';
     $('#themeGrid').innerHTML = CX_THEMES.filter(t=>!themeHidden(t.id)).map(cxCard).join('') + `<div class="cx-note"><span>Mau desain dari nol, khusus kalian?</span><a class="btn btn-ghost btn-sm" href="${customWaUrl()}" data-wa-custom target="_blank" rel="noopener">Ngobrol dengan kami</a></div>`;
     setTimeout(()=>aniScan($('[data-view=tema]')),0); return; }
-  if(tb) tb.hidden=false; if(lede) lede.textContent='Buka demo buat lihat tiap tema pakai nama kalian sendiri. Semua tema Lukisan bisa dipakai di paket apa pun, warna dan hurufnya bisa diganti, dan semuanya gratis dicoba.';
+  if(tb) tb.hidden=false; if(lede) lede.textContent='Tema yang digambar khusus, tanpa perlu foto. Bisa dipakai di paket apa pun, warna dan hurufnya bisa diganti.';
   $('#tagFilter').innerHTML = TAGS.map(t=>`<button type="button" data-tag="${t}" aria-pressed="${t===catTag}">${t}</button>`).join('');
   const q = catQ.toLowerCase();
   const list = themeOrder(THEMES).filter(t => (catTag==='Semua'||t.tags.includes(catTag)) && (!q || (t.name+' '+t.region+' '+t.tags.join(' ')).toLowerCase().includes(q) || (q.includes('jawa')&&t.id==='kawung') || (q.includes('minang')&&t.id==='songket') || (q.includes('batak')&&t.id==='ulos') || (q.includes('bugis')&&t.id==='lontar')));
@@ -4908,8 +4910,9 @@ function renderStepCore(onlyHTML, iOverride){
   }
   if(i===2){
     const t = themeById(S.theme);
-    h = `<span class="eyebrow">Langkah 3 dari 5</span><h2>Pilih tampilan yang kalian banget</h2><p class="sub">${(PICK_KIND||(isCx(S.theme)?'custom':'lukisan'))==='custom'?'Tema Custom penuh foto dan bebas diatur. Dipublikasikan dengan paket Custom.':'Semua tema Lukisan bisa dipakai di paket apa pun. Ganti sesukamu, isi undangannya tetap aman.'}</p>
+    h = `<span class="eyebrow">Langkah 3 dari 5</span><h2>Pilih tampilan yang kalian banget</h2><p class="sub">Pilih koleksinya dulu, lalu temanya. Ganti sesukamu, isi undangannya tetap aman.</p>
     <div class="kind-tabs sm" role="tablist" aria-label="Koleksi tema">${[['lukisan','Lukisan','Tanpa foto'],['custom','Custom','Pakai foto · Paket Custom']].map(([k,l,dd])=>`<button type="button" role="tab" data-pickkind="${k}" aria-selected="${(PICK_KIND||(isCx(S.theme)?'custom':'lukisan'))===k}"><b>${l}</b><small>${dd}</small></button>`).join('')}</div>
+    <p class="kind-desc">${(PICK_KIND||(isCx(S.theme)?'custom':'lukisan'))==='custom'?'Tema penuh foto kalian, susunan dan fotonya bebas diatur. Dipublikasikan dengan paket Custom.':'Digambar khusus, tanpa perlu foto. Bisa dipakai di paket apa pun.'}</p>
     ${(PICK_KIND||(isCx(S.theme)?'custom':'lukisan'))==='custom' ? `<div class="theme-pick" role="group" aria-label="Tema Custom">${CX_THEMES.filter(x=>!themeHidden(x.id)||x.id===S.theme).map(x=>`<button type="button" data-pick="${x.id}" aria-pressed="${x.id===S.theme}"><div class="tp" style="background:url(${x.thumbImg}) top/cover"></div><span>${esc(x.name)}</span></button>`).join('')}</div>${isCx(S.theme)?cxEditorHTML():`<p class="hint" style="margin-top:14px">Pilih salah satu tema di atas untuk mulai mengatur susunan dan fotonya.</p>`}` : `${t.photo?`<p class="hint" style="margin:-6px 0 14px">${ico('camera')} Tema ${esc(t.name)} memakai foto pertama di galeri sebagai sampul. Belum ada foto? Kami tampilkan ilustrasi dulu.</p>`:''}
     <div class="theme-pick" role="group" aria-label="Tema">${themeOrder(THEMES).concat(THEMES.filter(x=>themeHidden(x.id)&&x.id===S.theme)).map(x=>`<button type="button" data-pick="${x.id}" aria-pressed="${x.id===S.theme}"><div class="tp" style="${themeStyle(x)}${x.thumbImg?`background:url(${x.thumbImg}) center/cover;`:x.thumb?`background:${x.thumb(x)};`:''}${x.thumbFg?`color:${x.thumbFg};`:''}">${x.thumbNoTxt?'':`${esc((S.bride.nick||'N')[0])}&amp;${esc((S.groom.nick||'R')[0])}`}</div><span>${esc(x.name)}</span></button>`).join('')}</div>
     <div class="field" style="margin-top:26px"><label>Warna aksen</label><div class="swatches" role="group" aria-label="Warna aksen">
