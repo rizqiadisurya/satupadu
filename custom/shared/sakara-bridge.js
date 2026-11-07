@@ -48,7 +48,7 @@
       "And here’s the": "Dan ini dia,", "Bride!": "Mempelai wanita!", "Save the Date": "Simpan Tanggalnya", "MON": "SEN", "TUE": "SEL", "WED": "RAB", "THU": "KAM", "FRI": "JUM", "SAT": "SAB", "SUN": "MIN",
       "See Location": "Lihat Lokasi", "See you there!": "Sampai jumpa!", "Copy": "Salin", "Copied": "Tersalin",
       "RSVP": "Kehadiran", "Will you join us?": "Kamu bisa datang?", "Attending": "Hadir", "Can't make it": "Berhalangan", "Your wishes": "Ucapan & doa", "Send": "Kirim", "Thank you, we got your wishes!": "Makasih, ucapanmu sudah kami terima!", "Guests": "Jumlah tamu",
-      "Thank you": "Terima kasih", "Open Memories": "Buka Kenangan", "Photos from our guests": "Foto dari tamu", "Open the album": "Buka album", "Order of the day": "Susunan acara", "Live stream": "Siaran langsung", "Watch live": "Tonton siaran langsung", "Watch the recording": "Tonton rekaman", "Can't be there? Follow along from anywhere.": "Belum bisa hadir? Ikuti momennya dari mana saja.", "Live now": "Sedang tayang", "person": "orang", "people": "orang", "Up to": "Maksimal", "seats reserved for you": "kursi disiapkan untukmu", "Account name:": "Atas nama:", "just now": "baru saja", "1 person": "1 orang", "2 people": "2 orang", "3 people": "3 orang"
+      "Thank you": "Terima kasih", "Open Memories": "Buka Kenangan", "Photos from our guests": "Foto dari tamu", "Open the album": "Buka album", "Order of the day": "Susunan acara", "Live stream": "Siaran langsung", "Watch live": "Tonton siaran langsung", "Watch the recording": "Tonton rekaman", "Can't be there? Follow along from anywhere.": "Belum bisa hadir? Ikuti momennya dari mana saja.", "Live now": "Sedang tayang", "person": "orang", "people": "orang", "Up to": "Maksimal", "seats reserved for you": "kursi disiapkan untukmu", "Account name:": "Atas nama:", "Sample": "Contoh", "just now": "baru saja", "1 person": "1 orang", "2 people": "2 orang", "3 people": "3 orang"
     } },
     drapery: { en: {
       "The Wedding of": "The Wedding of", "Kepada Yth. Bapak/Ibu/Saudara/i": "Dear", "Buka Undangan": "Open Invitation", "ketuk pemutar untuk mendengarkan lagu kami": "tap the player to hear our song",
@@ -56,14 +56,14 @@
       "Petunjuk Lokasi": "Get Directions", "Kehadiran": "RSVP", "Mohon konfirmasi kehadiran Anda dan titipkan doa untuk kami.": "Please let us know if you can come, and leave your wishes for us.",
       "Nama": "Name", "Konfirmasi": "Attendance", "Akan hadir": "Attending", "Berhalangan": "Can't make it", "Jumlah tamu": "Guests", "1 orang": "1 guest", "2 orang": "2 guests", "3 orang": "3 guests",
       "Ucapan & doa": "Wishes", "Kirim": "Send", "Hadir": "Attending", "Salin": "Copy", "Tersalin": "Copied", "Terima kasih, ucapan Anda sudah kami terima.": "Thank you, we got your wishes.",
-      "Terima kasih": "Thank you", "Buka Kenangan": "Open Memories", "Foto dari tamu": "Photos from our guests", "Buka album": "Open the album", "Susunan acara": "Order of the day", "Siaran langsung": "Live stream", "Tonton siaran langsung": "Watch live", "Tonton rekaman": "Watch the recording", "Belum bisa hadir? Ikuti momennya dari mana saja.": "Can't be there? Follow along from anywhere.", "Sedang tayang": "Live now", "orang": "guests", "Maksimal": "Up to", "kursi disiapkan untukmu": "seats reserved for you"
+      "Contoh": "Sample", "Terima kasih": "Thank you", "Buka Kenangan": "Open Memories", "Foto dari tamu": "Photos from our guests", "Buka album": "Open the album", "Susunan acara": "Order of the day", "Siaran langsung": "Live stream", "Tonton siaran langsung": "Watch live", "Tonton rekaman": "Watch the recording", "Belum bisa hadir? Ikuti momennya dari mana saja.": "Can't be there? Follow along from anywhere.", "Sedang tayang": "Live now", "orang": "guests", "Maksimal": "Up to", "kursi disiapkan untukmu": "seats reserved for you"
     } },
     coretan: { en: {
       "Kepada Yth.": "Dear", "Buka Undangan": "Open Invitation", "Ketuk tombol putar untuk mendengarkan lagu kami..": "Tap play to hear our song..", "Bapak": "Mr.", "dan Ibu": "& Mrs.",
       "Akad": "Ceremony", "Resepsi": "Reception", "Lihat Lokasi": "See Location", "Ucapan & Kehadiran": "Wishes & RSVP", "Hadir": "Attending", "Berhalangan": "Can't make it", "Nama": "Name",
       "Ucapan": "Wishes", "Kehadiran": "Attendance", "Kirim Ucapan": "Send", "Menuju": "Counting", "hari H": "down", "HARI": "DAYS", "JAM": "HRS", "MENIT": "MINS", "DETIK": "SECS", "Sampai": "See", "jumpa di": "you at",
       "Salin": "Copy", "Tersalin": "Copied", "Makasih! Ucapanmu sudah masuk.": "Thanks! We got your wishes.", "Minggu": "Sun", "Senin": "Mon", "Selasa": "Tue", "Rabu": "Wed", "Kamis": "Thu", "Jumat": "Fri", "Sabtu": "Sat",
-      "Terima kasih": "Thank you", "Buka Kenangan": "Open Memories", "Foto dari tamu": "Photos from our guests", "Buka album": "Open the album", "Susunan acara": "Order of the day", "Siaran langsung": "Live stream", "Tonton siaran langsung": "Watch live", "Tonton rekaman": "Watch the recording", "Belum bisa hadir? Ikuti momennya dari mana saja.": "Can't be there? Follow along from anywhere.", "Sedang tayang": "Live now", "orang": "guests", "Maksimal": "Up to", "kursi disiapkan untukmu": "seats reserved for you"
+      "Contoh": "Sample", "Terima kasih": "Thank you", "Buka Kenangan": "Open Memories", "Foto dari tamu": "Photos from our guests", "Buka album": "Open the album", "Susunan acara": "Order of the day", "Siaran langsung": "Live stream", "Tonton siaran langsung": "Watch live", "Tonton rekaman": "Watch the recording", "Belum bisa hadir? Ikuti momennya dari mana saja.": "Can't be there? Follow along from anywhere.", "Sedang tayang": "Live now", "orang": "guests", "Maksimal": "Up to", "kursi disiapkan untukmu": "seats reserved for you"
     } }
   };
   const BASE_LANG = { drapery: "id", photobox: "en", coretan: "id" }[THEME] || "id";
@@ -132,6 +132,7 @@
 .sk-mem{padding:64px 24px;text-align:center}.sk-mem h2{margin:0 0 12px;font-size:34px;font-weight:400}.sk-mem p{max-width:340px;margin:0 auto 18px;line-height:1.6;white-space:pre-line}
 .sk-ph{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:340px;margin:0 auto 16px}.sk-ph img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block}
 .sk-hide{display:none!important}
+.sk-tag{position:absolute;top:6px;left:6px;z-index:5;background:#FFF6E6;color:#6b4a0c;font:700 10px/1 system-ui,sans-serif;letter-spacing:.04em;padding:4px 7px;border-radius:99px;box-shadow:0 1px 4px rgba(0,0,0,.25);pointer-events:none}
 .sk-edit [data-section]{cursor:pointer}.sk-edit section[data-section].sk-sel,.sk-edit div[data-section].sk-sel{outline:2px solid #A4535E;outline-offset:-2px}`;
     document.head.appendChild(s);
   }
@@ -181,6 +182,12 @@
     send(entry) { if (embedded) window.parent.postMessage({ type: "invite:rsvp", entry }, "*"); }
   };
 
+  function samples(list) {
+    document.querySelectorAll(".sk-tag").forEach(n => n.remove());
+    (list || []).forEach(k => document.querySelectorAll(`img[data-src="photos.${k}"]`).forEach(im => { const p = im.parentElement; if (!p) return;
+      if (getComputedStyle(p).position === "static") p.style.position = "relative";
+      const tag = document.createElement("span"); tag.className = "sk-tag sk-own"; tag.textContent = tx("Contoh"); p.appendChild(tag); }));
+  }
   function hook(d) {
     css();
     applyLook(d._palette, d._font);
@@ -189,6 +196,7 @@
     extras(d._extras);
     quota(d._quota || 0);
     memory(d._mem || null);
+    samples(d._editor ? d._sample : []);
     translate();
     if (d._mem) document.querySelectorAll("#openBtn,[data-open]").forEach(b => { const sp = b.querySelector("span") || b; const k = BASE_LANG === "en" ? "Open Memories" : "Buka Kenangan"; if (!sp.__skm) sp.__skm = 1; [...sp.childNodes].filter(n => n.nodeType === 3 && n.nodeValue.trim()).forEach(n => { n.nodeValue = " " + t(k); }); });
     if (d._guest) { const g = document.getElementById("guestName"); if (g) g.textContent = d._guest; }
