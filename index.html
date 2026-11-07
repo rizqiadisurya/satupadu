@@ -6570,8 +6570,18 @@ async function ownerLoad(user){
   S.invoices = ivs.filter(x=>x.status==='paid').map(x=>({no:x.id, date:x.paid_at||x.created_at, item:x.item, price:x.price, disc:x.discount, voucher:x.voucher, total:x.total, method:x.method, status:'Lunas', upgrade:/Upgrade/.test(x.item)}));
   const pend = ivs.find(x=>x.status==='pending' && Date.now()-new Date(x.created_at) < 60*60*1000);
   CLOUD.pendingOrder = pend ? pend.id : null;
+  { const lastPaid = ivs.filter(x=>x.status==='paid' && x.invitation_id===inv.id).sort((a,b)=>new Date(b.paid_at||b.created_at)-new Date(a.paid_at||a.created_at))[0];
+    if(lastPaid && (lastPaid.plan!==inv.plan || !inv.published)) planSync(); }
   try{ await extraOwnerLoad(inv); }catch(e){ console.warn('extra load', e); }
   subscribeRealtime(); renderAuthSlot();
+}
+/* Paket di undangan belum sama dengan tagihan lunas terakhir (mis. konfirmasi pembayaran gagal menyimpan paket): minta server menyamakannya. */
+async function planSync(){
+  try{ const { data:{ session } } = await CLOUD.sb.auth.getSession(); if(!session) return;
+    const r = await fetch('/api/pay/sync',{method:'POST', headers:{Authorization:'Bearer '+session.access_token}}); const j = await r.json().catch(()=>({}));
+    if(!r.ok){ console.warn('plan sync', j.error); toast('Paket belum aktif: '+(j.error||'coba muat ulang halaman')); return; }
+    if(j.plan){ S.plan=j.plan; S.published=!!j.published; if(CLOUD.inv){ CLOUD.inv.plan=j.plan; CLOUD.inv.published=!!j.published; } store.set('sp-state',S); reapplyConfig(); if(j.changed) toast('Paket '+((planOf(j.plan)||{}).name||j.plan)+' sudah aktif'); route(); }
+  }catch(e){ console.warn('plan sync', e); }
 }
 let csT;
 function cloudSave(){
