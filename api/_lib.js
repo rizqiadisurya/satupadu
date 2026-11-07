@@ -6,7 +6,7 @@ const SERVICE = () => env('SUPABASE_SERVICE_ROLE_KEY');
 const ANON = () => env('SUPABASE_ANON_KEY');
 const IS_PROD = () => env('MIDTRANS_IS_PRODUCTION') === 'true';
 
-const PLANS = { undangan: { name: 'Paket Undangan', price: 129000 }, tamu: { name: 'Paket Undangan Lengkap', price: 349000 }, custom: { name: 'Paket Custom', price: 499000 } };
+const PLANS = { undangan: { name: 'Paket Undangan', price: 129000 }, tamu: { name: 'Paket Undangan Lengkap', price: 349000 } };
 const UPGRADE_PRICE = 220000;
 const VOUCHERS = { SAKARA10: { type: 'pct', v: 10 }, NIKAHHEMAT: { type: 'amt', v: 25000 } };
 
@@ -35,17 +35,15 @@ async function loadPackages() {
   const out = {};
   if (Array.isArray(v.packages) && v.packages.length) {
     v.packages.forEach(p => { if (p && /^[a-z0-9][a-z0-9-]{1,29}$/.test(p.id) && p.id !== 'coba' && ok(Math.round(+p.price))) out[p.id] = { name: String(p.name || p.id).slice(0, 60), price: Math.round(+p.price), hidden: !!p.hidden }; });
-    if (!out.custom) out.custom = { name: 'Custom', price: PLANS.custom.price };
   } else {
     out.undangan = { name: PLANS.undangan.name.replace(/^Paket /, ''), price: ok(v.undangan) ? v.undangan : PLANS.undangan.price };
     out.tamu = { name: PLANS.tamu.name.replace(/^Paket /, ''), price: ok(v.tamu) ? v.tamu : PLANS.tamu.price };
-    out.custom = { name: 'Custom', price: ok(v.custom) ? v.custom : PLANS.custom.price };
   }
   return out;
 }
 // Hitung harga. Sudah tayang = upgrade: bayar selisih ke paket yang lebih mahal.
 function priceFor(inv, plan, voucher, pk) {
-  pk = pk || { undangan: { name: 'Undangan', price: PLANS.undangan.price }, tamu: { name: 'Undangan Lengkap', price: PLANS.tamu.price }, custom: { name: 'Custom', price: PLANS.custom.price } };
+  pk = pk || { undangan: { name: 'Undangan', price: PLANS.undangan.price }, tamu: { name: 'Undangan Lengkap', price: PLANS.tamu.price } };
   const target = pk[plan];
   if (!target) throw Object.assign(new Error('Paket tidak dikenal'), { status: 400 });
   let price = target.price, item = 'Paket ' + target.name, upgrade = false;

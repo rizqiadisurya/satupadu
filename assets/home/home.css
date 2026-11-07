@@ -454,7 +454,7 @@ html.edh-first body{overflow:hidden}
 .edh .e-all-n::after{content:" tema lainnya"}
 @media (max-width:760px){.edh .e-all-txt{padding:0 18px 20px}.edh .e-all-txt b{font-size:24px}.edh .e-all-go{width:44px;height:44px;right:16px;bottom:20px}}
 /* Paket Custom: harga berupa teks, tombol ke WhatsApp */
+.edh .e-row-custom .e-price b{font-size:clamp(26px,2.4vw,34px);line-height:1.1}
 .edh .e-btn.e-wa{display:inline-flex;align-items:center;gap:8px;background:#1F8F55;border-color:#1F8F55;color:#fff}
 .edh .e-btn.e-wa::before{background:#16663F}
-.edh .e-wa-note{margin:22px 0 0;font-size:15px;opacity:.8}
-.edh .e-wa-note a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+@media (max-width:960px){.edh .e-row-custom .e-price b{font-size:20px;max-width:9em}.edh .e-btn.e-wa{justify-content:center}}
