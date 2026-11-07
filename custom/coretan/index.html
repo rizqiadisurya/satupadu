@@ -216,8 +216,8 @@ footer{text-align:center;font-family:var(--name);color:#8a7770;font-size:15px;pa
 
   <!-- ================= COUPLE ================= -->
   <section data-section="couple" data-show="sections.couple">
-    <p class="bism rv">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
-    <p class="salam rv">Assalamu’alaikum Warahmatullahi Wabarakatuh<br><br>Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri pernikahan kami…</p>
+    <p class="bism rv" data-sk="bism">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
+    <p class="salam rv" data-sk="opening">Assalamu’alaikum Warahmatullahi Wabarakatuh<br><br>Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri pernikahan kami…</p>
     <h3 class="title center rv" style="position:relative">Bride &amp; Groom</h3>
     <div class="oval rv"><div class="photo"><img data-src="photos.couple" alt=""></div><img src="assets/frame-oval.webp" alt=""></div>
     <div class="person rv">
@@ -347,7 +347,7 @@ function renderDays(d){
   const base = new Date(d._date.y, d._date.m - 1, d._date.d);
   $("#days").innerHTML = [-1,0,1].map(o => {
     const x = new Date(base); x.setDate(base.getDate() + o);
-    return `<div class="${o ? "" : "on"}"><div class="wd">${ID_DAYS[x.getDay()]}</div><div class="num">${x.getDate()}${o ? "" : '<img src="assets/circle.webp" alt=""><span class="dday">D-day !!</span>'}</div></div>`;
+    return `<div class="${o ? "" : "on"}"><div class="wd">${SakaraBridge.t(ID_DAYS[x.getDay()])}</div><div class="num">${x.getDate()}${o ? "" : '<img src="assets/circle.webp" alt=""><span class="dday">D-day !!</span>'}</div></div>`;
   }).join("");
 }
 
@@ -392,7 +392,7 @@ document.addEventListener("click", async e => {
   const b = e.target.closest("[data-copy]"); if (!b) return;
   const t = b.closest(".ticket").querySelector(".num").textContent.replace(/\s+/g,"");
   try { await navigator.clipboard.writeText(t); } catch { const a = Object.assign(document.createElement("textarea"),{value:t}); document.body.append(a); a.select(); try{document.execCommand("copy")}catch{} a.remove(); }
-  b.textContent = "Tersalin"; setTimeout(() => b.textContent = "Salin", 1600);
+  b.textContent = SakaraBridge.t("Tersalin"); setTimeout(() => b.textContent = SakaraBridge.t("Salin"), 1600);
 });
 
 /* RSVP (local only in the prototype) */
@@ -406,7 +406,7 @@ const save = l => { try { localStorage.setItem(KEY, JSON.stringify(l)); } catch 
 const esc = s => s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function wall(){
   const all = SakaraBridge.host() ? load() : [...load(), ...seed];
-  $("#wall").innerHTML = all.map(w => `<div class="wish"><b>${esc(w.n)}</b><em>${w.a==="hadir"?"Hadir":"Berhalangan"} · ${esc(w.t)}</em><p>${esc(w.m)}</p></div>`).join("");
+  $("#wall").innerHTML = all.map(w => `<div class="wish"><b>${esc(w.n)}</b><em>${SakaraBridge.t(w.a==="hadir"?"Hadir":"Berhalangan")} · ${esc(w.t)}</em><p>${esc(w.m)}</p></div>`).join("");
   $("#tHadir").textContent = all.filter(w => w.a==="hadir").length; $("#tTidak").textContent = all.filter(w => w.a!=="hadir").length;
 }
 let att = "hadir";
@@ -415,7 +415,7 @@ $("#rsvpForm").addEventListener("submit", e => {
   e.preventDefault(); const n = $("#fName").value.trim(), m = $("#fMsg").value.trim(); if (!n || !m) return;
   if (SakaraBridge.host()) { SakaraBridge.send({n, a:att, m, pax: att==="hadir"?1:0}); Invite.data._wishes = [{n, a:att, m, t:"baru saja"}, ...load()]; }
   else save([{n, a:att, m, t:"baru saja"}, ...load()]);
-  e.target.reset(); $("#note").textContent = "Makasih! Ucapanmu sudah masuk."; wall();
+  e.target.reset(); $("#note").textContent = SakaraBridge.t("Makasih! Ucapanmu sudah masuk."); wall();
 });
 wall();
 document.addEventListener("sakara:render", wall);

@@ -97,7 +97,7 @@ window.INVITE_DEFAULTS = {
       g1: "assets/foto/g1.jpg", g2: "assets/foto/g2.jpg", g3: "assets/foto/g3.jpg", g4: "assets/foto/g4.jpg",
       strip1: "assets/foto/strip1.jpg", strip2: "assets/foto/strip2.jpg", strip3: "assets/foto/strip3.jpg", strip4: "assets/foto/strip4.jpg"
     },
-    sections: { quote: true, couple: true, date: true, countdown: false, event: true, dresscode: true, gift: true, rsvp: false, story: true, gallery: true, closing: true }
+    sections: { quote: true, couple: true, date: true, countdown: false, event: true, dresscode: true, gift: true, rsvp: true, story: true, gallery: true, closing: true }
   },
   coretan: {
     theme: "coretan",

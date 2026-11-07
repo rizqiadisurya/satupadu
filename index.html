@@ -235,6 +235,11 @@ img{max-width:100%}
 .kind-desc{margin:0 0 22px;color:var(--muted);font-size:15.5px;max-width:62ch}
 .kind-tabs.sm{margin:4px 0 10px}.kind-tabs.sm button{min-width:0;flex:1;padding:10px 14px}
 .cx-ed{margin-top:22px}
+.cx-pal{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.cx-pal button{display:grid;gap:2px;justify-items:start;padding:8px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;font:inherit;font-size:13.5px;color:var(--ink);min-width:96px}
+.cx-pal button i{display:block;width:100%;height:22px;border-radius:6px;margin-bottom:4px}
+.cx-pal button small{color:var(--muted);font-size:12px}
+.cx-pal button[aria-pressed="true"]{border-color:var(--beet);box-shadow:0 0 0 2px rgba(164,83,94,.18)}
 .cx-phs{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px;margin-top:10px}
 .cx-ph{display:grid;gap:4px;justify-items:start}
 .cx-ph label{position:relative;display:block;width:100%;aspect-ratio:1;border-radius:12px;overflow:hidden;cursor:pointer;border:1px solid var(--line);background:var(--paper)}
@@ -4233,6 +4238,14 @@ var CX_THEMES = [
   {id:'cx-photobox', dir:'photobox', name:'Photobox Archives', region:'Custom', lang:'en', tags:['Custom','Santai'], desc:'Polaroid bertempel selotip, profil mempelai seperti formulir, kalender dengan coretan tangan. Bahasa Inggris.', bg:'#4a0b11', fg:'#efe9df', accent:'#8e1c22', soft:'#5c1219', font:"'Cormorant Garamond', Georgia, serif"},
   {id:'cx-coretan', dir:'coretan', name:'Coretan Merah', region:'Custom', lang:'id', tags:['Custom','Jenaka'], desc:'Ilustrasi tangan bertinta merah dan foto masa kecil di dalam bingkai. Untuk pasangan yang sudah kenal sejak bocil.', bg:'#f6f2ee', fg:'#2b1d1a', accent:'#8c1c13', soft:'#efe6df', font:"'Cormorant Garamond', Georgia, serif"}
 ];
+const CX_LOOK = {
+  drapery:{pal:[['','Emerald','#13301f'],['navy','Biru malam','#0e1a2e'],['arang','Arang','#1c1b1a']], font:[['','Bawaan',"'Pinyon Script', cursive"],['great','Great Vibes',"'Great Vibes', cursive"],['parisienne','Parisienne',"'Parisienne', cursive"]]},
+  photobox:{pal:[['','Wine','#4a0b11'],['navy','Navy','#101b33'],['hutan','Hijau hutan','#0f2a1c']], font:[['','Bawaan',"'Yellowtail', cursive"],['dancing','Dancing Script',"'Dancing Script', cursive"],['satisfy','Satisfy',"'Satisfy', cursive"]]},
+  coretan:{pal:[['','Merah','#8c1c13'],['biru','Biru','#1f3a6b'],['hijau','Hijau','#285238']], font:[['','Bawaan',"'Permanent Marker', cursive"],['rock','Rock Salt',"'Rock Salt', cursive"],['amatic','Amatic SC',"'Amatic SC', cursive"]]}
+};
+const CX_OPEN_EN = {islam:{salam:'Assalamu’alaikum Warahmatullahi Wabarakatuh', text:'By the grace of Allah, we joyfully invite you to celebrate our wedding.', quote:'“And among His signs is that He created for you spouses from among yourselves, that you may find tranquility in them; and He placed between you affection and mercy.” — QS. Ar-Rum: 21'}, kristen:{salam:'Grace and peace to you', text:'With grateful hearts, we invite you to witness and bless our marriage.', quote:'“So they are no longer two, but one flesh.” — Matthew 19:6'}, umum:{salam:'With great joy', text:'We invite you to celebrate our wedding day with our families and friends.', quote:'“Home is where we find each other, every single day.”'}};
+const cxLook = t => (((S.cx||{}).look||{})[t.dir])||{};
+const cxLang = t => ((S.cx||{}).lang && (S.cx||{}).lang[t.dir]) || t.lang;
 CX_THEMES.forEach(t=>{ t.cx=true; t.pat=()=>'none'; t.size='auto'; t.thumbImg=`/assets/thumbs/${t.id}.webp`; });
 function cxTheme(id){ return (CX_THEMES||[]).find(t=>t.id===id) || null; }
 function isCx(id){ return !!cxTheme(id); }
@@ -4253,7 +4266,7 @@ function cxData(id){
   d.event={date:(ev.find(e=>e.date)||{}).date||D.event.date, akad:evo(akad), resepsi:evo(res||(!akad?ev[0]:null)), mapsUrl: main&&main.venue ? 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(`${main.venue} ${main.address||''}`) : ''};
   const g=S.gift||{}, xg=X.gift||{};
   d.gift={...D.gift, ...xg, accounts:[...(g.acct?[{bank:g.bank||'', number:String(g.acct).replace(/(\d{4})(?=\d)/g,'$1 '), holder:g.holder||''}]:[]), ...((xg.extra)||[])]};
-  const q=quoteText(); if(X.quote) d.quote=X.quote; else if(q){ const i=q.lastIndexOf('—'); d.quote = i>0 ? {text:q.slice(0,i).trim(), source:q.slice(i+1).trim()} : {text:q, source:''}; } else d.quote={text:'',source:''};
+  const q=(cxLang(t)==='en' && S.quoteMode!=='custom' && S.quoteMode!=='none') ? ((CX_OPEN_EN[S.opening||'islam']||CX_OPEN_EN.umum).quote) : quoteText(); if(X.quote) d.quote=X.quote; else if(q){ const i=q.lastIndexOf('—'); d.quote = i>0 ? {text:q.slice(0,i).trim(), source:q.slice(i+1).trim()} : {text:q, source:''}; } else d.quote={text:'',source:''};
   const st=S.story&&S.story.on&&(S.story.items||[]).length ? {title:(X.story&&X.story.title)||D.story.title, items:S.story.items.map(it=>({title:[it.title,it.date].filter(Boolean).join(' · '), text:it.text||''}))} : (X.story||D.story);
   d.story=st;
   ['dresscode','closing','gallery'].forEach(k=>{ if(X[k]) d[k]={...D[k], ...X[k]}; });
@@ -4266,11 +4279,23 @@ function cxData(id){
   const sec={...D.sections, ...(X.sections||{})}; sec.rsvp = sec.rsvp!==false && S.wishesOn!==false; sec.gift = sec.gift!==false && (S.gift?S.gift.on!==false:true); d.sections=sec;
   d.music={src: S.music===false ? '' : musicURL()};
   d._order = X.order || null;
+  const lk=cxLook(t), lang=cxLang(t); d._palette=lk.pal||''; d._font=lk.font||''; d._lang=lang;
+  const op=S.opening||'islam', O=(lang==='en'?CX_OPEN_EN:OPENINGS)[op]||(lang==='en'?CX_OPEN_EN.umum:OPENINGS.umum); d._opening={salam:O.salam||'', text:O.text||'', arabic:op==='islam'};
+  const past = memEnd()!=null && Date.now()>memEnd();
+  d._extras = ev.filter(e=>e.type||e.date||e.venue).map(e=>({label:e.type||'', rundown:rundownItems(e), live:liveUrl(e.live), liveNow:(()=>{ try{ return evLiveNow(e); }catch(_){ return false; } })(), past})).filter(x=>x.rundown.length||x.live);
+  const dcE=ev.find(e=>String(e.dress||'').trim()||(e.dcol||[]).length);
+  if(dcE){ const cols=(dcE.dcol||[]).filter(c=>/^#[0-9a-f]{6}$/i.test(c)); d.dresscode={...d.dresscode, text:String(dcE.dress||'').trim()||(d.dresscode||{}).text||'', colors:cols.length?cols:(d.dresscode||{}).colors||[], label:cols.length?cols.map(dcName).join(' · '):((d.dresscode||{}).label||'')}; }
+  try{ const g=guestObj(); d._quota = g ? guestQuota(g) : 0; }catch(_){ d._quota=0; }
+  d._mem = memActive({mem: typeof EDIT!=='undefined' && EDIT.on && EDIT.panel==='kenangan'}) ? {msg:String(S.memMsg||'').trim()||MEM_MSG, album:memAlbumHref(), photos:(CX_MEMPH||[]).slice(0,6)} : null;
   d._host = true;
   d._wishes = (W||[]).filter(w=>w.show!==false).map(w=>({n:w.n||'', a:w.att==='tidak'||w.att===false?'tidak':'hadir', m:w.m||'', t:w.t||''}));
   return d;
 }
+let CX_MEMPH=[];
+function cxMemLoad(){ if(!memActive()) return; Promise.resolve(memPhotos()).then(l=>{ CX_MEMPH=(l||[]).map(p=>p.url||p).filter(Boolean); cxPostAll(); }).catch(()=>{}); }
+function cxSampleLeft(){ const t=cxTheme(S.theme); if(!t) return 0; const D=((window.INVITE_DEFAULTS||{})[t.dir]||{}).photos||{}, d=cxData(t.id); return Object.keys(D).filter(k=>d.photos[k]===D[k]).length; }
 function cxFrameHTML(id, opts={}){
+  setTimeout(cxMemLoad, 0);
   const t=cxTheme(id); const demo = !!opts.demo, to = opts.guest || '';
   return `<iframe class="cx-frame" data-cx="${t.id}" ${demo?'data-cxdemo="1"':''} title="Undangan ${esc(t.name)}" allow="autoplay; clipboard-write" src="/custom/${t.dir}/index.html${to?'?to='+encodeURIComponent(to):''}${demo?'':'#preview'}"></iframe>`;
 }
@@ -4294,10 +4319,11 @@ function cxOrder(){ const ids=CX_SECTIONS.map(x=>x[0]); const o=((S.cx||{}).orde
 function cxSecOn(k){ const t=cxTheme(S.theme), D=((window.INVITE_DEFAULTS||{})[t.dir]||{}).sections||{}, X=((S.cx||{}).sections)||{}; if(k==='rsvp' && S.wishesOn===false) return false; return X[k]!==undefined ? !!X[k] : D[k]!==false; }
 function cxPhotoSrc(t, v){ return !v ? '' : /^(data:|https?:|\/)/.test(v) ? v : `/custom/${t.dir}/${v}`; }
 function cxEditorHTML(){
+  if(!document.getElementById('cx-fontprev')){ const l=document.createElement('link'); l.id='cx-fontprev'; l.rel='stylesheet'; l.href='https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Great+Vibes&family=Parisienne&family=Yellowtail&family=Dancing+Script:wght@600&family=Satisfy&family=Permanent+Marker&family=Rock+Salt&family=Amatic+SC:wght@700&display=swap'; document.head.appendChild(l); }
   const t=cxTheme(S.theme); if(!t) return ''; const D=(window.INVITE_DEFAULTS||{})[t.dir]||{}, d=cxData(t.id), X=S.cx||{};
   const has=k=>!!document && true;
   const ord=cxOrder();
-  const rows=ord.map((k,i)=>{ const lab=(CX_SECTIONS.find(x=>x[0]===k)||[k,k])[1], on=cxSecOn(k), sup = k==='rsvp' && t.dir==='photobox';
+  const rows=ord.map((k,i)=>{ const lab=(CX_SECTIONS.find(x=>x[0]===k)||[k,k])[1], on=cxSecOn(k), sup = false;
     return `<li class="${on&&!sup?'':'off'}"><b>${lab}</b>${sup?'<small class="muted">Tidak ada di tema ini</small>':''}<span class="mv"><label class="switch"><input type="checkbox" data-cxsec="${k}" ${on?'checked':''} ${sup?'disabled':''} aria-label="Tampilkan ${lab}"><span></span></label><button type="button" class="btn btn-ghost btn-sm" data-cxmv="${k}" data-dir="-1" ${i===0?'disabled':''} aria-label="Naikkan ${lab}">↑</button><button type="button" class="btn btn-ghost btn-sm" data-cxmv="${k}" data-dir="1" ${i===ord.length-1?'disabled':''} aria-label="Turunkan ${lab}">↓</button></span></li>`; }).join('');
   const keys=Object.keys(D.photos||{});
   const phs=keys.map(k=>{ const mine=!!(X.photos||{})[k], v=cxPhotoSrc(t, d.photos[k]); return `<div class="cx-ph${mine?' mine':''}"><label><img src="${esc(v)}" alt="" loading="lazy"><input type="file" accept="image/*" data-cxph="${k}" hidden><span class="cx-ph-l">${esc(CX_PH_LABEL(k))}</span><span class="cx-ph-b">${mine?'Ganti':'Unggah'}</span></label>${mine?`<button type="button" class="linkbtn" data-cxphx="${k}">Pakai contoh</button>`:'<small class="muted">Contoh</small>'}</div>`; }).join('');
@@ -4312,8 +4338,13 @@ function cxEditorHTML(){
     fx('gift.address','Alamat kirim kado',d.gift.address,{area:1,opt:1,hint:'Kosongkan kalau alamat dibagikan lewat WhatsApp.'}),
     fx('closing.text','Teks penutup',d.closing&&d.closing.text,{area:1,rows:4})
   ].join('');
+  const L=CX_LOOK[t.dir]||{pal:[],font:[]}, lk=cxLook(t), lang=cxLang(t);
+  const look=`<div class="field"><span style="font-weight:700;font-size:13.5px">Warna</span><div class="cx-pal" role="group" aria-label="Warna tema">${L.pal.map(([k,l,c])=>`<button type="button" data-cxpal="${k}" aria-pressed="${(lk.pal||'')===k}"><i style="background:${c}"></i>${esc(l)}</button>`).join('')}</div></div>
+    <div class="field" style="margin-top:16px"><span style="font-weight:700;font-size:13.5px">Huruf nama &amp; judul</span><div class="cx-pal" role="group" aria-label="Huruf">${L.font.map(([k,l,f])=>`<button type="button" data-cxfont="${k}" aria-pressed="${(lk.font||'')===k}"><span style="font-family:${f};font-size:19px">${esc(S.bride.nick||'Sarah')}</span><small>${esc(l)}</small></button>`).join('')}</div></div>
+    <div class="field" style="margin-top:16px"><span style="font-weight:700;font-size:13.5px">Bahasa undangan</span><div class="seg" role="group" aria-label="Bahasa">${[['id','Indonesia'],['en','English']].map(([k,l])=>`<button type="button" data-cxlang="${k}" aria-pressed="${lang===k}">${l}</button>`).join('')}</div><span class="hint">Mengganti teks bawaan tema (judul bagian, tombol, hari). Isi yang kalian tulis sendiri tidak ikut diterjemahkan.</span></div>`;
   return `<div class="cx-ed">
-    <div class="field"><span style="font-weight:700;font-size:13.5px">Susunan undangan</span><ol class="sec-order">${rows}</ol><span class="hint">Sampul dan ayat selalu di atas, penutup selalu di bawah. Matikan bagian yang tidak kalian pakai.</span></div>
+    ${look}
+    <div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Susunan undangan</span><ol class="sec-order">${rows}</ol><span class="hint">Sampul dan ayat selalu di atas, penutup selalu di bawah. Matikan bagian yang tidak kalian pakai.</span></div>
     <div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Foto di setiap bingkai</span><div class="cx-phs">${phs}</div><span class="hint">Yang bertanda “Contoh” masih memakai foto contoh. Ganti semuanya sebelum dibagikan, ya.</span></div>
     <div style="margin-top:22px"><span style="font-weight:700;font-size:13.5px;display:block;margin-bottom:8px">Teks khusus tema ini</span>${texts}</div>
   </div>`;
@@ -4329,6 +4360,10 @@ document.addEventListener('click', e=>{
   const mv=e.target.closest('[data-cxmv]'); if(mv){ const o=cxOrder(), i=o.indexOf(mv.dataset.cxmv), j=i+(+mv.dataset.dir); if(i<0||j<0||j>=o.length) return; [o[i],o[j]]=[o[j],o[i]]; cxSetPath('order', o); save(); renderStep(); refreshPreview(); return; }
   const px=e.target.closest('[data-cxphx]'); if(px){ if(S.cx&&S.cx.photos) delete S.cx.photos[px.dataset.cxphx]; save(); renderStep(); refreshPreview(); return; }
   const pk=e.target.closest('[data-pickkind]'); if(pk){ PICK_KIND=pk.dataset.pickkind; renderStep(); return; }
+  const cp=e.target.closest('[data-cxpal],[data-cxfont],[data-cxlang]'); if(cp){ const t=cxTheme(S.theme); if(!t) return; S.cx=S.cx||{};
+    if(cp.dataset.cxlang!==undefined){ S.cx.lang=S.cx.lang||{}; S.cx.lang[t.dir]=cp.dataset.cxlang; }
+    else { S.cx.look=S.cx.look||{}; const l=S.cx.look[t.dir]=S.cx.look[t.dir]||{}; if(cp.dataset.cxpal!==undefined) l.pal=cp.dataset.cxpal; else l.font=cp.dataset.cxfont; }
+    save(); renderStep(); refreshPreview(); return; }
 });
 let PICK_KIND=null;
 function invHTML(opts={}){
@@ -5300,6 +5335,7 @@ function edPanelHTML(k){
   if(k==='musik'){ const r=togRow('music'); return r ? r.outerHTML : ''; }
   if(k==='ucapan'){ const r=togRow('wishesOn'); return (r?r.outerHTML:'') + `<p class="hint" style="margin-top:12px">Ucapan dari tamu bisa kamu sembunyikan satu per satu di <a href="#dashboard" data-dtab-go="ucapan">Dashboard → Ucapan</a>.</p>`; }
   if(k==='hadiah'){ const d=document.createElement('div'); d.innerHTML=s3(); const inp=d.querySelector('[data-bind="gift.on"]'); const row=inp.closest('.toggle-row'); return row.outerHTML + (row.nextElementSibling?row.nextElementSibling.outerHTML:''); }
+  if(k==='urutan' && isCx(S.theme)){ const d=document.createElement('div'); d.innerHTML=cxEditorHTML(); const o=d.querySelector('.sec-order'); return o ? `<div class="field">${o.outerHTML}</div><p class="hint">Sampul dan ayat selalu di atas, penutup selalu di bawah. Foto, warna, dan huruf ada di panel Tema.</p>` : ''; }
   if(k==='urutan'){ return pickPart(s3(), '.sec-order') ? `<div class="field">${pickPart(s3(), '.sec-order')}</div><p class="hint">Bagian yang sedang dimatikan tetap ada di urutan, tapi tidak tampil ke tamu.</p>` : ''; }
   if(k==='salam'){ const d=document.createElement('div'); d.innerHTML=s3(); const sel=d.querySelector('#opening'); return (sel ? sel.closest('.field').outerHTML : '') + quoteFieldHTML(); }
   if(k==='link'){ const d=document.createElement('div'); d.innerHTML=stepBody(4); const inp=d.querySelector('#slug'); return (inp ? inp.closest('.field').outerHTML : '') + (S.published?`<p class="hint" style="margin-top:12px">Hati-hati: kalau alamat diganti, link yang sudah terkirim ke tamu tidak berlaku lagi.</p>`:''); }
@@ -5948,6 +5984,7 @@ document.addEventListener('click', e=>{
   if(a==='demo') demoModal(el.dataset.t);
   if(a==='use-theme' && S.published && !el.dataset.sure && el.dataset.t!==S.theme){ const nt=themeById(el.dataset.t); openModal(`<h2 class="display" style="font-size:28px">Ganti ke tema ${esc(nt.name)}?</h2><p class="muted" style="margin:8px 0 20px">Undanganmu sudah tayang, jadi tamu akan langsung melihat tema baru. Isi undangan, tamu, dan ucapan tidak berubah. Kamu bisa kembali ke tema lama kapan saja dari editor.</p><div class="form-foot"><button class="btn btn-ghost" data-act="close">Batal</button><button class="btn btn-primary" data-act="use-theme" data-t="${esc(nt.id)}" data-sure="1">Ganti tema</button></div>`); return; }
   if(a==='use-theme' && isCx(el.dataset.t) && S.published && S.plan!=='custom'){ const nt=themeById(el.dataset.t); const cp=planOf('custom'), cur=planOf(S.plan); openModal(`<h2 class="display" style="font-size:28px">${esc(nt.name)} ada di paket Custom</h2><p class="muted" style="margin:8px 0 20px">Undanganmu sudah tayang dengan paket ${esc(cur?cur.name:'kamu')}. Upgrade ke Custom${cp&&cur?` cukup tambah ${rupiah(cp.price-cur.price)}`:''}, lalu tema ini langsung bisa dipakai. Tamu dan isi undanganmu tetap aman.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary" data-act="co-upgrade-custom">Upgrade ke Custom</button><button class="btn btn-ghost" data-act="close">Nanti dulu</button></div>`); return; }
+  if(a==='cx-go-photos'){ S.step=2; if(S.published) EDIT.panel='tema'; save(); }
   if(a==='co-upgrade-custom'){ closeModal(); CO.stage='form'; CO.plan='custom'; location.hash='checkout'; return; }
   if(a==='use-theme' && isCx(el.dataset.t) && !S.published) { S.plan='custom'; if(!S.cx) S.cx={}; }
   if(a==='use-theme'){ S.theme=el.dataset.t; S.accent=null; S.step=2; save(); closeModal(); if(S.published){ EDIT.panel='tema'; } location.hash = S.published ? 'edit' : 'buat'; toast('Tema '+themeById(S.theme).name+' dipakai'); }
@@ -6121,7 +6158,7 @@ function renderCheckout(){
     root.innerHTML = `<div class="co-head"><a class="linkbtn" href="#${S.published?'edit':'buat'}">← Kembali ke editor</a><h1 class="display">${coMode()==='upgrade'?'Upgrade paket':'Publikasikan undangan'}</h1></div>${steps}
     <div class="co-grid"><form class="form-card co-form" id="coForm" novalidate>
       ${coMode()==='upgrade' ? `<h2 class="co-h">Upgrade ke</h2><div class="plan-pick">${upgradeTargets().filter(p=>!isCx(S.theme)||p.id==='custom').map(p=>`<label><input type="radio" name="coPlan" value="${p.id}" ${T.plan===p.id?'checked':''}><span><b>${esc(p.name)}</b><small>${esc(planSum(p))}</small></span><b class="num">+${rupiah(p.price-((planOf(S.plan)||{}).price||0))}</b></label>`).join('')}</div>`
-      : `<h2 class="co-h">Paket</h2>${isCx(S.theme)?`<p class="hint" style="margin:-4px 0 10px">Tema ${esc(themeById(S.theme).name)} termasuk koleksi Custom, jadi dipublikasikan dengan paket Custom. Mau paket lain? <a href="#tema">Pilih tema Lukisan</a>.</p>`:''}<div class="plan-pick">${shownPlans().filter(p=>p.price && (!isCx(S.theme)||p.id==='custom')).map(p=>`<label><input type="radio" name="coPlan" value="${p.id}" ${T.plan===p.id?'checked':''}><span><b>${esc(p.name)}</b><small>${esc(planSum(p))}</small></span><b class="num">${rupiah(p.price)}</b></label>`).join('')}</div>`}
+      : `${isCx(S.theme)&&cxSampleLeft()?`<div class="warn-box" style="margin-bottom:16px">${ico('camera')}<span>Masih ada ${cxSampleLeft()} foto contoh di undanganmu. Ganti dulu dengan foto kalian di <a href="#${S.published?'edit':'buat'}" data-act="cx-go-photos">langkah Tema</a>, supaya tamu tidak melihat foto orang lain.</span></div>`:''}<h2 class="co-h">Paket</h2>${isCx(S.theme)?`<p class="hint" style="margin:-4px 0 10px">Tema ${esc(themeById(S.theme).name)} termasuk koleksi Custom, jadi dipublikasikan dengan paket Custom. Mau paket lain? <a href="#tema">Pilih tema Lukisan</a>.</p>`:''}<div class="plan-pick">${shownPlans().filter(p=>p.price && (!isCx(S.theme)||p.id==='custom')).map(p=>`<label><input type="radio" name="coPlan" value="${p.id}" ${T.plan===p.id?'checked':''}><span><b>${esc(p.name)}</b><small>${esc(planSum(p))}</small></span><b class="num">${rupiah(p.price)}</b></label>`).join('')}</div>`}
       ${(()=>{ if(coMode()!=='new' || isCx(S.theme)) return ''; const cur=planOf(T.plan), up=shownPlans().filter(p=>p.price>(cur?cur.price:0)).sort((a,b)=>b.price-a.price)[0]; if(!cur||!up) return ''; const extra=FEAT_ROWS().filter(r=>planFeat(up,r.key)&&!planFeat(cur,r.key)).slice(0,3).map(r=>r[0].toLowerCase()); if(!extra.length) return '';
         return `<div class="co-upsell">${ico('up')}<span>Tambah ${rupiah(up.price-cur.price)} aja, kamu dapat ${esc(extra.join(', '))}. <button type="button" class="linkbtn" data-act="co-pick-plan" data-p="${esc(up.id)}">Pilih ${esc(up.name)}</button></span></div>`; })()}
       <h2 class="co-h">Kode voucher</h2>
@@ -6434,7 +6471,7 @@ document.addEventListener('click', e=>{
 document.addEventListener('click', e=>{ const m=$('#acctMenu'); if(m && !m.hidden && !e.target.closest('.acct')) m.hidden=true; });
 
 /* ---------- Cloud: Supabase + Midtrans ---------- */
-const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','catering','arriveOn','wishlist','story','fontPair','waTpl','waTplR','albumOn','thanksMsg','thanksMsg2','thanked','gallery','galleryOn','groups','slug','quote','quoteMode','seats','seatsDefault','memMode','memMsg'];
+const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','catering','arriveOn','wishlist','story','fontPair','waTpl','waTplR','albumOn','thanksMsg','thanksMsg2','thanked','gallery','galleryOn','groups','slug','quote','quoteMode','seats','seatsDefault','memMode','memMsg','cx'];
 const pickData = () => { const d={}; DATA_KEYS.forEach(k=>{ if(S[k]!==undefined) d[k]=S[k]; }); return d; };
 const toRow = g => ({invitation_id:CLOUD.inv.id, id:g.id, name:g.name, phone:g.phone||'', grp:g.group||'Tanpa grup', sessions:g.sessions||[], code:g.code, status:g.status, pax:g.pax||0, sent:!!g.sent, walkin:!!g.walkin, checkin:g.checkin||null, fam:g.fam||null, approved:g.approved!==false, arrive:g.arrive||''});
 const fromRow = r => { const g={id:r.id, name:r.name, phone:r.phone||'', group:r.grp||'Tanpa grup', sessions:r.sessions||[], code:r.code, status:r.status||'belum', pax:r.pax||0, sent:!!r.sent, walkin:!!r.walkin, fam:r.fam||null, arrive:r.arrive||''}; if(r.approved===false) g.approved=false; if(r.checkin) g.checkin=r.checkin; return g; };

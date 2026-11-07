@@ -304,8 +304,8 @@ img.is-empty{visibility:hidden}
 
   <!-- ============ COUPLE ============ -->
   <section class="suede center" id="couple" data-section="couple" data-show="sections.couple" style="padding-bottom:110px">
-    <p class="bism rv">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
-    <p class="lead rv d1">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir pada pernikahan kami:</p>
+    <p class="bism rv" data-sk="bism">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
+    <p class="lead rv d1" data-sk="opening">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir pada pernikahan kami:</p>
 
     <div class="person rev rv-r" style="text-align:left;flex-direction:row">
       <div class="arch"><div class="ph"><img data-src="photos.bride" alt=""></div></div>
@@ -528,8 +528,8 @@ document.addEventListener("click", async e => {
   const txt = btn.closest(".acct").querySelector(".no").textContent.replace(/\s+/g,""), label = btn.querySelector("span");
   try { await navigator.clipboard.writeText(txt); }
   catch { const t = Object.assign(document.createElement("textarea"), {value:txt}); document.body.append(t); t.select(); try{document.execCommand("copy")}catch{} t.remove(); }
-  btn.classList.add("ok"); label.textContent = "Tersalin";
-  setTimeout(() => { btn.classList.remove("ok"); label.textContent = "Salin"; }, 1800);
+  btn.classList.add("ok"); label.textContent = SakaraBridge.t("Tersalin");
+  setTimeout(() => { btn.classList.remove("ok"); label.textContent = SakaraBridge.t("Salin"); }, 1800);
 });
 
 /* ---------- RSVP + guest wall (local only; connect to a backend in production) ---------- */
@@ -544,7 +544,7 @@ const save = list => { try { localStorage.setItem(KEY, JSON.stringify(list)); } 
 const esc = s => s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function renderWall(){
   const all = SakaraBridge.host() ? load() : [...load(), ...seed];
-  $("#wall").innerHTML = all.map(w => `<div class="wish"><div class="av">${esc(w.n.trim()[0]||"?").toUpperCase()}</div><div><h5>${esc(w.n)}<em>${w.a==="hadir"?"Hadir":"Berhalangan"} · ${esc(w.t)}</em></h5><p>${esc(w.m)}</p></div></div>`).join("");
+  $("#wall").innerHTML = all.map(w => `<div class="wish"><div class="av">${esc(w.n.trim()[0]||"?").toUpperCase()}</div><div><h5>${esc(w.n)}<em>${SakaraBridge.t(w.a==="hadir"?"Hadir":"Berhalangan")} · ${esc(w.t)}</em></h5><p>${esc(w.m)}</p></div></div>`).join("");
   $("#tHadir").textContent = all.filter(w => w.a==="hadir").length;
   $("#tTidak").textContent = all.filter(w => w.a!=="hadir").length;
 }
@@ -557,7 +557,7 @@ $("#rsvpForm").addEventListener("submit", e => {
   const pax = att==="hadir" ? parseInt($("#fPax").value)||1 : 0;
   if (SakaraBridge.host()) { SakaraBridge.send({n, a:att, m, pax}); Invite.data._wishes = [{n, a:att, m, t:"baru saja"}, ...load()]; }
   else save([{n, a:att, m, t:"baru saja"}, ...load()]);
-  e.target.reset(); $("#rsvpNote").textContent = "Terima kasih, ucapan Anda sudah kami terima.";
+  e.target.reset(); $("#rsvpNote").textContent = SakaraBridge.t("Terima kasih, ucapan Anda sudah kami terima.");
   renderWall();
 });
 renderWall();

@@ -133,6 +133,23 @@ section{position:relative;padding:64px 26px}
 .dress .swatch{width:200px;margin:22px auto 16px}
 
 /* ---------- gift ---------- */
+.rsvp{text-align:center}
+.rsvp-form{display:grid;gap:10px;max-width:320px;margin:0 auto;text-align:left}
+.rsvp-form input,.rsvp-form select,.rsvp-form textarea{width:100%;box-sizing:border-box;font:14px var(--mono);padding:11px 12px;border:1px solid rgba(251,248,243,.35);border-radius:10px;background:rgba(0,0,0,.18);color:var(--white)}
+.rsvp-form textarea{min-height:90px;resize:vertical}
+.rsvp-form input::placeholder,.rsvp-form textarea::placeholder{color:rgba(251,248,243,.55)}
+.rsvp-form option{color:#2a1a17}
+.rsvp-form .att{display:flex;gap:8px}
+.rsvp-form .att button{flex:1;font:700 12px var(--mono);padding:9px;border-radius:999px;border:1px solid rgba(251,248,243,.45);background:transparent;color:var(--white);cursor:pointer}
+.rsvp-form .att button.on{background:var(--white);color:var(--wine)}
+.rsvp-form .btn{justify-content:center}
+.rsvp .note{font-size:12px;min-height:16px;text-align:center}
+.rsvp .wall{display:grid;gap:10px;max-width:320px;margin:22px auto 0;text-align:left}
+.rsvp .wish{background:var(--cream);color:var(--ink);padding:12px 14px;border-radius:4px;transform:rotate(-1deg)}
+.rsvp .wish:nth-child(2n){transform:rotate(1.2deg)}
+.rsvp .wish b{font-family:var(--hand);font-size:22px;font-weight:500;display:block;line-height:1}
+.rsvp .wish em{font:11px var(--mono);opacity:.6;font-style:normal}
+.rsvp .wish p{margin:6px 0 0;font-size:13px}
 .gift h2{font-family:var(--hand);font-weight:500;font-size:44px;margin:0 0 22px}
 .gift p{margin:0 0 16px}
 .bank{position:relative;width:250px;margin:26px auto;padding:30px 26px 26px;transform:rotate(-3deg)}
@@ -326,6 +343,21 @@ img.is-empty{visibility:hidden}
     </div>
   </section>
 
+  <!-- ================= RSVP ================= -->
+  <section class="wine rsvp" data-section="rsvp" data-show="sections.rsvp">
+    <h2 class="brush title rv">RSVP</h2>
+    <p class="rv" style="font-size:13px;margin:0 0 18px">Will you join us?</p>
+    <form class="rsvp-form rv" id="rsvpForm" autocomplete="off">
+      <input id="fName" maxlength="60" required placeholder="Name" aria-label="Name">
+      <div class="att"><button type="button" class="on" data-att="hadir">Attending</button><button type="button" data-att="tidak">Can't make it</button></div>
+      <select id="fPax" aria-label="Guests"><option value="1">1 person</option><option value="2">2 people</option><option value="3">3 people</option></select>
+      <textarea id="fMsg" maxlength="400" required placeholder="Your wishes" aria-label="Your wishes"></textarea>
+      <button class="btn" type="submit">Send</button>
+      <div class="note" id="rsvpNote"></div>
+    </form>
+    <div class="wall" id="wall"></div>
+  </section>
+
   <!-- ================= GALLERY ================= -->
   <section class="paper" style="padding-top:40px;border-top:1px solid rgba(0,0,0,.06)" data-section="gallery" data-show="sections.gallery">
     <div class="gal">
@@ -409,8 +441,25 @@ document.addEventListener("click", async e => {
   const btn = e.target.closest("[data-copy-from]"); if (!btn) return;
   const t = btn.closest(".bank").querySelector(".num").textContent.replace(/\s+/g,""), label = btn.querySelector("span");
   try { await navigator.clipboard.writeText(t); } catch { const a = Object.assign(document.createElement("textarea"),{value:t}); document.body.append(a); a.select(); try{document.execCommand("copy")}catch{} a.remove(); }
-  label.textContent = "Copied"; setTimeout(() => label.textContent = "Copy", 1600);
+  label.textContent = SakaraBridge.t("Copied"); setTimeout(() => label.textContent = SakaraBridge.t("Copy"), 1600);
 });
+
+/* RSVP + ucapan */
+const RKEY = "undangan-photobox-wishes";
+const rseed = [{n:"Laras & Bimo", a:"hadir", m:"So happy for you two! See you on the dance floor.", t:"2 days ago"},{n:"Tante Wulan", a:"hadir", m:"Barakallah, finally! Can't wait.", t:"3 days ago"}];
+const rload = () => { const h = SakaraBridge.wishes(); if (h) return h; try { return JSON.parse(localStorage.getItem(RKEY)) || []; } catch { return []; } };
+const resc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function rwall(){ const all = SakaraBridge.host() ? rload() : [...rload(), ...rseed];
+  $("#wall").innerHTML = all.map(w => `<div class="wish"><b>${resc(w.n)}</b><em>${SakaraBridge.t(w.a==="hadir"?"Attending":"Can't make it")} · ${resc(w.t)}</em><p>${resc(w.m)}</p></div>`).join(""); }
+let ratt = "hadir";
+$$("#rsvpForm [data-att]").forEach(b => b.onclick = () => { ratt = b.dataset.att; $$("#rsvpForm [data-att]").forEach(x => x.classList.toggle("on", x===b)); $("#fPax").style.display = ratt==="hadir" ? "" : "none"; });
+$("#rsvpForm").addEventListener("submit", e => { e.preventDefault(); const n = $("#fName").value.trim(), m = $("#fMsg").value.trim(); if (!n || !m) return;
+  const pax = ratt==="hadir" ? parseInt($("#fPax").value)||1 : 0;
+  if (SakaraBridge.host()) { SakaraBridge.send({n, a:ratt, m, pax}); Invite.data._wishes = [{n, a:ratt, m, t:SakaraBridge.t("just now")}, ...rload()]; }
+  else { try { localStorage.setItem(RKEY, JSON.stringify([{n, a:ratt, m, t:"just now"}, ...rload()])); } catch {} }
+  e.target.reset(); $("#rsvpNote").textContent = SakaraBridge.t("Thank you, we got your wishes!"); rwall(); });
+rwall();
+document.addEventListener("sakara:render", rwall);
 
 let lastMusic = null;
 Invite.init({
