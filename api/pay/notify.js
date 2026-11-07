@@ -12,11 +12,11 @@ module.exports = async (req, res) => {
     if (Math.round(Number(n.gross_amount)) !== inv.total) return send(res, 400, { error: 'Jumlah tidak cocok' });
     const st = n.transaction_status, fraud = n.fraud_status;
     const paid = (st === 'settlement') || (st === 'capture' && fraud === 'accept');
-    if (paid && inv.status !== 'paid') {
-      // Paket diaktifkan dulu, baru tagihan ditandai lunas: halaman pembayaran menunggu status lunas lalu membaca paket,
-      // jadi urutan ini memastikan paket yang terbaca sudah paket baru.
-      await sb(`/rest/v1/invitations?id=eq.${inv.invitation_id}`, { method: 'PATCH', body: { plan: inv.plan, published: true } });
-      await sb(`/rest/v1/invoices?id=eq.${encodeURIComponent(inv.id)}`, { method: 'PATCH', body: { status: 'paid', paid_at: new Date().toISOString(), method: n.payment_type || inv.method } });
+    if (paid) {
+      // Selalu pastikan paket undangan sesuai tagihan, juga saat notifikasi diulang, supaya kegagalan sebelumnya bisa pulih.
+      const up = await sb(`/rest/v1/invitations?id=eq.${inv.invitation_id}`, { method: 'PATCH', body: { plan: inv.plan, published: true } });
+      if (!up || !up[0] || up[0].plan !== inv.plan) return send(res, 500, { error: 'Paket belum tersimpan, coba lagi' });
+      if (inv.status !== 'paid') await sb(`/rest/v1/invoices?id=eq.${encodeURIComponent(inv.id)}`, { method: 'PATCH', body: { status: 'paid', paid_at: new Date().toISOString(), method: n.payment_type || inv.method } });
     } else if (['expire', 'cancel', 'deny', 'failure'].includes(st) && inv.status === 'pending') {
       await sb(`/rest/v1/invoices?id=eq.${encodeURIComponent(inv.id)}`, { method: 'PATCH', body: { status: st === 'expire' ? 'expired' : 'failed' } });
     }
