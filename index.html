@@ -5996,6 +5996,8 @@ document.addEventListener('click', e=>{
   if(a==='copy') copyText(el.dataset.v);
   if(a==='demo') demoModal(el.dataset.t);
   if(a==='use-theme' && S.published && !el.dataset.sure && el.dataset.t!==S.theme){ const nt=themeById(el.dataset.t); openModal(`<h2 class="display" style="font-size:28px">Ganti ke tema ${esc(nt.name)}?</h2><p class="muted" style="margin:8px 0 20px">Undanganmu sudah tayang, jadi tamu akan langsung melihat tema baru. Isi undangan, tamu, dan ucapan tidak berubah. Kamu bisa kembali ke tema lama kapan saja dari editor.</p><div class="form-foot"><button class="btn btn-ghost" data-act="close">Batal</button><button class="btn btn-primary" data-act="use-theme" data-t="${esc(nt.id)}" data-sure="1">Ganti tema</button></div>`); return; }
+  if(a==='use-theme' && isCx(el.dataset.t) && S.published && S.plan!=='custom' && CLOUD.on && CLOUD.inv && !el.dataset.fresh){ const tid=el.dataset.t;
+    CLOUD.sb.from('invitations').select('plan,published').eq('id',CLOUD.inv.id).single().then(({data})=>{ if(data && data.plan) { S.plan=data.plan; CLOUD.inv.plan=data.plan; } const b=document.createElement('button'); b.dataset.act='use-theme'; b.dataset.t=tid; b.dataset.sure='1'; b.dataset.fresh='1'; b.hidden=true; document.body.appendChild(b); b.click(); b.remove(); }); return; }
   if(a==='use-theme' && isCx(el.dataset.t) && S.published && S.plan!=='custom'){ const nt=themeById(el.dataset.t); const cp=planOf('custom'), cur=planOf(S.plan); openModal(`<h2 class="display" style="font-size:28px">${esc(nt.name)} ada di paket Custom</h2><p class="muted" style="margin:8px 0 20px">Undanganmu sudah tayang dengan paket ${esc(cur?cur.name:'kamu')}. Upgrade ke Custom${cp&&cur?` cukup tambah ${rupiah(cp.price-cur.price)}`:''}, lalu tema ini langsung bisa dipakai. Tamu dan isi undanganmu tetap aman.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary" data-act="co-upgrade-custom">Upgrade ke Custom</button><button class="btn btn-ghost" data-act="close">Nanti dulu</button></div>`); return; }
   if(a==='cx-go-photos'){ S.step=2; if(S.published) EDIT.panel='tema'; save(); }
   if(a==='co-upgrade-custom'){ closeModal(); CO.stage='form'; CO.plan='custom'; location.hash='checkout'; return; }
@@ -6668,8 +6670,9 @@ async function cloudPay(btn){
 async function waitPaid(orderId, tries=0){
   const { data } = await CLOUD.sb.from('invoices').select('*').eq('id',orderId).maybeSingle();
   if(data && data.status==='paid'){
-    const { data:inv } = await CLOUD.sb.from('invitations').select('*').eq('id',CLOUD.inv.id).single();
-    if(inv){ CLOUD.inv=inv; S.plan=inv.plan; S.published=inv.published; }
+    let { data:inv } = await CLOUD.sb.from('invitations').select('*').eq('id',CLOUD.inv.id).single();
+    for(let k=0; k<6 && inv && (inv.plan!==data.plan || !inv.published); k++){ await new Promise(r=>setTimeout(r,1500)); ({ data:inv } = await CLOUD.sb.from('invitations').select('*').eq('id',CLOUD.inv.id).single()); }
+    S.plan = data.plan || (inv&&inv.plan) || S.plan; S.published = true; if(inv) CLOUD.inv={...inv, plan:S.plan, published:true};
     S.invoices = [{no:data.id, date:data.paid_at||data.created_at, item:data.item, price:data.price, disc:data.discount, voucher:data.voucher, total:data.total, method:data.method, status:'Lunas', upgrade:/Upgrade/.test(data.item)}, ...(S.invoices||[]).filter(x=>x.no!==data.id)];
     CLOUD.pendingOrder=null; CO.stage='done'; store.set('sp-state',S); renderCheckout(); return;
   }
