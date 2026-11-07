@@ -58,11 +58,14 @@ module.exports = async (req, res) => {
     alt: 'Undangan pernikahan',
   };
 
+  let noGate = false;
   if (/^[a-z0-9][a-z0-9-]{2,39}$/.test(slug) && env('SUPABASE_URL')) {
     try {
       const inv = await sb('/rest/v1/rpc/get_public_invitation', { method: 'POST', body: { p_slug: slug, p_code: code || null }, key: ANON() || SERVICE() });
       if (inv && inv.data) {
         const d = inv.data;
+        const cx = t => /^cx-/.test(String(t || ''));
+        noGate = cx(d.theme) && !(inv.plan !== 'custom' && d.liveTheme && !cx(d.liveTheme));
         const n1 = (d.bride && (d.bride.nick || d.bride.name)) || '';
         const n2 = (d.groom && (d.groom.nick || d.groom.name)) || '';
         const pair = [n1, n2].filter(Boolean).join(' & ');
@@ -89,7 +92,9 @@ module.exports = async (req, res) => {
     catch (e2) { res.statusCode = 503; res.setHeader('Content-Type', 'text/html; charset=utf-8'); res.setHeader('Cache-Control', 'no-store'); res.end('<!doctype html><meta charset="utf-8"><p>Undangan sedang dimuat. Coba muat ulang halaman ini sebentar lagi.</p>'); return; }
   }
   const a = html.indexOf('<!--og:start-->'), b = html.indexOf('<!--og:end-->');
-  const out = a >= 0 && b > a ? html.slice(0, a) + '<!--og:start-->\n' + metaBlock(meta) + '\n' + html.slice(b) : html;
+  // Tema Custom punya pembuka sendiri, jadi layar gerbang/loading Sakara tidak ditampilkan sama sekali.
+  const flag = noGate ? '\n<script>document.documentElement.classList.add(\'gate-off\')</script>' : '';
+  const out = a >= 0 && b > a ? html.slice(0, a) + '<!--og:start-->\n' + metaBlock(meta) + flag + '\n' + html.slice(b) : html;
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
