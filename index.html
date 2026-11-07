@@ -633,7 +633,9 @@ textarea.input{min-height:96px;resize:vertical}
 .tip b{font-size:14.5px}.tip p{font-size:13px;color:var(--muted);margin:3px 0 10px;line-height:1.45}
 .tip-a{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.tip-a .linkbtn{font-size:13px;color:var(--muted)}
 /* Builder: penanda opsional & catatan mulai cepat */
-.opt-l{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:99px;background:var(--blush);color:var(--beet);font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;vertical-align:2px}
+.req{color:var(--beet);font-weight:700;margin-left:3px}
+.quick-note .req{margin-left:0}
+.opt-l{display:none !important;display:inline-block;margin-left:6px;padding:1px 7px;border-radius:99px;background:var(--blush);color:var(--beet);font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;vertical-align:2px}
 .quick-note{display:flex;gap:12px;align-items:flex-start;margin:4px 0 20px;padding:14px 16px;border-radius:14px;background:color-mix(in srgb,var(--ok) 9%,#fff);border:1px solid color-mix(in srgb,var(--ok) 25%,transparent)}
 .quick-note .icon{flex:none;width:20px;height:20px;color:var(--ok);margin-top:1px}.quick-note>div{display:grid;gap:2px}.quick-note b{font-size:14.5px}.quick-note span{font-size:13.5px;color:var(--muted);line-height:1.5}
 /* Kartu statistik dashboard bergaya ikon */
@@ -2565,6 +2567,16 @@ html.boot-app #bootSkel .bs-app{display:flex}
 .ed-insp-b .fieldset{margin:0 0 18px}
 .ed-insp-b .fgrid{grid-template-columns:1fr 1fr;gap:14px 12px}
 .ed-insp-b .fgrid > .field:not(.full){min-width:0}
+.ed-insp-b .fgrid > .field{display:grid;grid-row:span 2;grid-template-rows:subgrid;row-gap:6px;align-content:start}
+.ed-insp-b .fgrid > .field:has(> .hint){grid-row:span 3}
+.ed-insp-b .fgrid > .field > label{align-self:start}
+.ed-item.na .ed-pick{color:var(--muted)}
+.ed-item.na .ed-pick svg{opacity:.5}
+.ed-na{display:grid;justify-items:start;gap:10px;padding:4px 0}
+.ed-na img{width:96px;height:auto}
+.ed-na p{margin:0;line-height:1.55}
+.ed-note.warn{background:#fff7e8;border:1px solid #f0d9a8;border-radius:12px;padding:12px 14px}
+.ed-note.warn > div{display:grid;gap:2px}
 .ed-insp-b .theme-pick{grid-template-columns:repeat(3,1fr)}
 .ed-insp-b .form-foot{display:none}
 .ed-done,.ed-grab{display:none}
@@ -3616,7 +3628,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
       <article class="e-row" data-peek="0"><div class="e-n">1</div><div><h3>Coba</h3><span class="e-tag">Gratis</span></div><div><p class="e-fit">Untuk kalian yang ingin melihat hasilnya lebih dulu sebelum memutuskan.</p><ul><li>Semua tema bisa dicoba</li><li>Pratinjau lengkap di HP</li></ul></div><div class="e-price"><b>Gratis</b><small>Tanpa kartu kredit</small><br><a class="e-btn e-ghost" href="#buat" data-plan="coba">Mulai gratis</a></div></article>
       <article class="e-row" data-peek="1"><div class="e-n">2</div><div><h3>Undangan</h3><span class="e-tag">Cantik &amp; berkesan</span></div><div><p class="e-fit">Untuk kalian yang ingin undangan cantik, lengkap dengan cerita dan kenangan dari tamu.</p><ul><li>Semua tema Lukisan, kisah cinta, dan galeri foto</li><li>Nama setiap tamu di undangannya</li><li>Doa, ucapan, dan amplop digital</li><li>Album foto dari tamu dan buku kenangan</li></ul></div><div class="e-price"><b>Rp129.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#buat" data-plan="undangan">Pilih Undangan</a></div></article>
       <article class="e-row" data-peek="2"><div class="e-n">3</div><div><h3>Undangan <br>Lengkap</h3><span class="e-tag">Paling lengkap</span></div><div><p class="e-fit">Untuk acara besar. Semuanya beres, dari menyebar undangan sampai menyambut tamu di hari H.</p><ul><li>Semua yang ada di paket Undangan</li><li>Kirim ke semua tamu sekaligus lewat WhatsApp</li><li>Pengingat untuk tamu yang belum menjawab</li><li>QR check-in di meja penerima tamu</li></ul></div><div class="e-price"><b>Rp349.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#buat" data-plan="tamu">Pilih paket ini</a></div></article>
-      <article class="e-row e-row-custom" data-peek="3"><div class="e-n">4</div><div><h3>Custom</h3><span class="e-tag">Penuh foto, bebas diatur</span></div><div><p class="e-fit">Untuk kalian yang punya banyak foto dan ingin undangannya terasa seperti album sendiri.</p><ul><li>Semua yang ada di paket Undangan Lengkap</li><li>Tema Custom: polaroid, strip photobox, foto masa kecil</li><li>Urutan bagian dan foto di setiap bingkai bebas diatur</li><li>Bagian yang tidak dipakai bisa disembunyikan</li></ul></div><div class="e-price"><b>Rp499.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#tema-custom" data-plan="custom">Pilih Custom</a></div></article>
+      <article class="e-row e-row-custom" data-peek="3"><div class="e-n">4</div><div><h3>Custom</h3><span class="e-tag">Penuh foto, bebas diatur</span></div><div><p class="e-fit">Untuk kalian yang punya banyak foto dan ingin undangannya terasa seperti album sendiri.</p><ul><li>Semua fitur paket Undangan Lengkap, kecuali kado patungan</li><li>Tema Custom: polaroid, strip photobox, foto masa kecil</li><li>Urutan bagian dan foto di setiap bingkai bebas diatur</li><li>Bagian yang tidak dipakai bisa disembunyikan</li></ul></div><div class="e-price"><b>Rp499.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#tema-custom" data-plan="custom">Pilih Custom</a></div></article>
       <p class="e-wa-note">Mau desain dari nol, khusus kalian? <a href="https://wa.me/" data-wa-custom target="_blank" rel="noopener">Ngobrol dengan kami di WhatsApp</a></p>
     </div>
     <div class="e-peek" id="e-peek" aria-hidden="true"><img loading="lazy" decoding="async" src="/assets/home/kebun-sage.webp" alt=""><img loading="lazy" decoding="async" src="/assets/home/songket.webp" alt=""><img loading="lazy" decoding="async" src="/assets/home/kebun-lila.webp" alt=""><img loading="lazy" decoding="async" src="/assets/thumbs/cx-photobox.webp" alt=""></div>
@@ -4410,7 +4422,7 @@ const CX_PHOTO_SEC = {
   coretan:{cover:'sampul', player:'sampul', bride:'couple', groom:'couple', couple:'couple', strip1:'gallery', strip2:'gallery', strip3:'gallery'}
 };
 const CX_PANEL_DEF = {
-  sampul:['Sampul & pembuka','image',['quote'], null],
+  sampul:['Sampul & pembuka','mail',['quote'], null],
   couple:['Mempelai','heart',['couple'],'cx.sections.couple'],
   date:['Tanggal & acara','cal',['date','event'],'cx.sections.date'],
   dresscode:['Dress code','users',['dresscode'],'cx.sections.dresscode'],
@@ -4427,7 +4439,21 @@ function cxEdPanels(){
   const mid=cxOrder().map(k=>'cx:'+k);
   const list=['cx:sampul', ...mid, 'cx:closing'].map(k=>{ const id=k.slice(3), d=CX_PANEL_DEF[id]; return [k, d[0], d[1], 'Isi undangan', d[3], d[2]]; });
   const orig=k=>ED_PANELS.find(p=>p[0]===k);
-  return list.concat([['cx:tampilan','Tema, warna & bahasa','eye','Tampilan', null, []]], ['musik','kenangan','link'].map(orig).filter(Boolean).map(p=>{ const q=p.slice(); q[3]='Pengaturan'; return q; }));
+  const na = cxNA().map(k=>{ const d=CX_NA_DEF[k]; return ['na:'+k, d[0], d[1], 'Belum tersedia di tema ini', null, [], 'na']; });
+  return [['cx:tampilan','Tema, warna & bahasa','eye','Tampilan', null, []]].concat(list, ['musik','kenangan','link'].map(orig).filter(Boolean).map(p=>{ const q=p.slice(); q[3]='Pengaturan'; return q; }), na);
+}
+/* Fitur tema Lukisan yang belum didukung tiap tema Custom. Tema baru cukup didaftarkan di CX_NA. */
+const CX_NA_DEF = {
+  kado:['Kado patungan','gift', ()=>!!(S.wishlist && S.wishlist.on && (S.wishlist.items||[]).length)]
+};
+const CX_NA = {drapery:['kado'], photobox:['kado'], coretan:['kado']};
+function cxNA(id){ const t=cxTheme(id||S.theme); return t ? (CX_NA[t.dir] || Object.keys(CX_NA_DEF)) : []; }
+function naPanelHTML(k){
+  const key=k.slice(3), d=CX_NA_DEF[key], t=cxTheme(S.theme); if(!d||!t) return '';
+  const has=d[2]();
+  return `<div class="ed-na">${karaImg('bingung','')}<p><b>${esc(d[0])} belum tersedia di tema ${esc(t.name)}.</b></p>
+    <p class="muted">${has?'Yang sudah kalian isi tetap tersimpan, tapi tidak tampil ke tamu selama memakai tema ini. Pindah ke tema Lukisan kalau fitur ini penting buat kalian.':'Fitur ini ada di semua tema Lukisan. Kalau penting buat kalian, pertimbangkan pindah ke tema Lukisan.'}</p>
+    <button type="button" class="btn btn-ghost btn-sm" data-ed="cx:tampilan">${ico('eye')}Lihat pilihan tema</button></div>`;
 }
 const edPanels = () => isCx(S.theme) ? cxEdPanels() : ED_PANELS;
 function cxPhotoKeys(sec){ const t=cxTheme(S.theme); if(!t) return []; const D=((window.INVITE_DEFAULTS||{})[t.dir]||{}).photos||{}, M=CX_PHOTO_SEC[t.dir]||{}; return Object.keys(D).filter(k=>(M[k]||'gallery')===sec); }
@@ -4490,7 +4516,8 @@ function cxSwitch(id, done){
   const nt=themeById(id), live=S.published ? themeById(S.theme) : null;
   const tryMode = toCx && S.published && S.plan!=='custom';
   openModal(`<h2 class="display" style="font-size:28px">Pindah ke koleksi ${toCx?'Custom':'Lukisan'}?</h2>
-    <p class="muted" style="margin:8px 0 14px">Nama, orang tua, acara, rekening, ayat, dan cerita kalian tetap terbawa.${toCx?' Kado patungan tidak tampil di tema Custom.':' Foto dan pengaturan tema Custom tetap disimpan kalau nanti kalian kembali.'}</p>
+    <p class="muted" style="margin:8px 0 14px">Nama, orang tua, acara, rekening, ayat, dan cerita kalian tetap terbawa.${toCx?'':' Foto dan pengaturan tema Custom tetap disimpan kalau nanti kalian kembali.'}</p>
+    ${toCx?(()=>{ const na=cxNA(id); if(!na.length) return ''; const used=na.filter(k=>CX_NA_DEF[k][2]()), names=na.map(k=>CX_NA_DEF[k][0]).join(', '); return `<div class="ed-note warn" style="margin-bottom:14px">${ico('gift')}<div><b>${used.length?esc(used.map(k=>CX_NA_DEF[k][0]).join(', '))+' yang sudah kalian isi tidak akan tampil':'Belum tersedia di tema ini: '+esc(names)}</b><span class="muted">${used.length?'Datanya tetap tersimpan dan muncul lagi kalau kalian kembali ke tema Lukisan.':'Fitur lainnya tetap sama seperti tema Lukisan.'}</span></div></div>`; })():''}
     ${tryMode?`<div class="ed-note" style="margin-bottom:16px">${ico('eye')}<div><b>Coba dulu, gratis</b><span class="muted">Tamu tetap melihat tema ${esc(live.name)} sampai kalian upgrade ke paket Custom. Atur sepuasnya, lalu terapkan kalau sudah cocok.</span></div></div>`:''}
     <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary" data-act="cx-switch-go" data-t="${esc(id)}">${toCx?(tryMode?'Coba '+esc(nt.name):'Pakai '+esc(nt.name)):'Pakai '+esc(nt.name)}</button><button class="btn btn-ghost" data-act="close">Batal</button></div>`);
   CX_SWITCH_DONE = done;
@@ -4899,7 +4926,7 @@ const PLANS = [
   {id:'coba', name:'Coba', price:0, note:'gratis', tag:'Gratis dicoba', fit:'Buat kamu yang mau lihat hasilnya dulu sebelum mutusin.', sum:'Semua tema · Pratinjau penuh', cta:'Mulai gratis'},
   {id:'undangan', name:'Undangan', price:129000, note:'sekali bayar', tag:'Cantik & berkesan', fit:'Buat kamu yang ingin undangan cantik, lengkap dengan cerita dan kenangan dari tamu.', sum:'Semua tema Lukisan · Ucapan, doa & amplop · Album foto dari tamu', cta:'Pilih Undangan'},
   {id:'tamu', name:'Undangan Lengkap', price:349000, note:'sekali bayar', tag:'Paling lengkap', fit:'Buat acara besar. Semua beres, dari sebar undangan sampai sambut tamu di hari H.', feature:1, sum:'Semua di Undangan · Kirim WA sekaligus · Pengingat · QR check-in', cta:'Pilih Undangan Lengkap'},
-  {id:'custom', name:'Custom', price:499000, note:'sekali bayar', tag:'Tema Custom', fit:'Buat kalian yang mau undangan penuh foto dan bebas diatur: urutan bagian, bagian yang tampil, sampai foto di setiap bingkai.', sum:'Semua di Undangan Lengkap · Tema Custom · Editor bebas atur', cta:'Pilih Custom'}
+  {id:'custom', name:'Custom', price:499000, note:'sekali bayar', tag:'Tema Custom', fit:'Buat kalian yang mau undangan penuh foto dan bebas diatur: urutan bagian, bagian yang tampil, sampai foto di setiap bingkai.', sum:'Fitur Undangan Lengkap (tanpa kado patungan) · Tema Custom · Editor bebas atur', cta:'Pilih Custom'}
 ];
 const PLAN_RANK = {coba:0, undangan:1, tamu:2, custom:3};
 /* Nomor WA Sakara (format 62…, tanpa + dan spasi). Dipakai untuk yang ingin desain dibuat dari nol. */
@@ -5051,8 +5078,8 @@ function renderStepper(){
     </button>`).join('');
   $('#mobileProgress').innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:13.5px;font-weight:700"><span>Langkah ${S.step+1} dari 5 · ${stepsNow()[S.step].k}</span><span class="muted" style="font-weight:600">Tersimpan otomatis</span></div><div class="stack" style="height:6px;margin-bottom:18px"><span style="width:${(S.step+1)*20}%;background:var(--beet)"></span></div>`;
 }
-const fld = (id,label,val,opt={}) => `<div class="field ${opt.full?'full':''}"><label for="${id}">${label}</label>${opt.area?`<textarea class="input" id="${id}" data-bind="${opt.bind}" rows="2" placeholder="${esc(opt.ph||'')}">${esc(val)}</textarea>`:`<input class="input" id="${id}" data-bind="${opt.bind}" value="${esc(val)}" type="${opt.type||'text'}" placeholder="${esc(opt.ph||'')}" ${opt.req?'required':''} autocomplete="off">`}${opt.hint?`<span class="hint">${opt.hint}</span>`:''}<span class="err" hidden></span></div>`;
-const photoFld = (who,label) => { const ph=S[who].photo; return `<div class="field full"><label>${label} <span class="opt-l">opsional</span></label><div class="up"><span class="thumb" ${ph?`style="background-image:url(${ph})"`:''}>${ph?'':esc(initials(S[who].name)||'?')}</span><label class="btn btn-soft btn-sm" for="up-${who}" style="cursor:pointer">${ico('up')}${ph?'Ganti foto':'Pilih foto'}</label><input type="file" id="up-${who}" data-photo="${who}" accept="image/*" hidden>${ph?`<button type="button" class="btn btn-ghost btn-sm" data-act="rm-photo" data-who="${who}">Hapus</button>`:''}</div><span class="hint">Opsional. Foto otomatis dikecilkan biar undangan cepat kebuka. Nggak pakai foto? Inisial kalian yang tampil.</span></div>`; };
+const fld = (id,label,val,opt={}) => `<div class="field ${opt.full?'full':''}"><label for="${id}">${label}${opt.req||opt.star?'<span class="req" aria-hidden="true">*</span>':''}</label>${opt.area?`<textarea class="input" id="${id}" data-bind="${opt.bind}" rows="2" placeholder="${esc(opt.ph||'')}">${esc(val)}</textarea>`:`<input class="input" id="${id}" data-bind="${opt.bind}" value="${esc(val)}" type="${opt.type||'text'}" placeholder="${esc(opt.ph||'')}" ${opt.req?'required':''} autocomplete="off">`}${opt.hint?`<span class="hint">${opt.hint}</span>`:''}<span class="err" hidden></span></div>`;
+const photoFld = (who,label) => { const ph=S[who].photo; return `<div class="field full"><label>${label} <span class="opt-l">opsional</span></label><div class="up"><span class="thumb" ${ph?`style="background-image:url(${ph})"`:''}>${ph?'':esc(initials(S[who].name)||'?')}</span><label class="btn btn-soft btn-sm" for="up-${who}" style="cursor:pointer">${ico('up')}${ph?'Ganti foto':'Pilih foto'}</label><input type="file" id="up-${who}" data-photo="${who}" accept="image/*" hidden>${ph?`<button type="button" class="btn btn-ghost btn-sm" data-act="rm-photo" data-who="${who}">Hapus</button>`:''}</div><span class="hint">Foto otomatis dikecilkan biar undangan cepat kebuka. Nggak pakai foto? Inisial kalian yang tampil.</span></div>`; };
 function renderStep(){
   if(EDIT.on){ const p=edPanel(EDIT.panel); $('#edInspT').textContent=p[1]; $('#edInspG').textContent=p[3]; $('#stepForm').innerHTML = edPanelHTML(p[0]) || '<p class="muted">Tidak ada pengaturan.</p>'; return; }
   renderStepCore();
@@ -5061,7 +5088,7 @@ function renderStepCore(onlyHTML, iOverride){
   const f = $('#stepForm'); const i = iOverride ?? S.step; let h='';
   if(i===0){
     h = `<span class="eyebrow">Langkah 1 dari 5</span><h2>Siapa nih yang mau nikah? 💍</h2><p class="sub">Nama panggilan bakal nyapa tamu di sampul dan pesan WhatsApp. Santai, semuanya bisa diubah nanti kok.</p>
-    ${EDIT.on?'':`<div class="quick-note">${ico('check')}<div><b>Cukup 3 hal untuk mulai</b><span>Nama kalian, tanggal, dan lokasi acara. Yang bertanda <i>opsional</i> boleh dilewati dan dilengkapi kapan aja, bahkan setelah undangan dibagikan.</span></div></div>`}
+    ${EDIT.on?'':`<div class="quick-note">${ico('check')}<div><b>Cukup 3 hal untuk mulai</b><span>Nama kalian, tanggal, dan lokasi acara. Yang bertanda <b class="req">*</b> wajib diisi. Sisanya boleh dilewati dan dilengkapi kapan aja, bahkan setelah undangan dibagikan.</span></div></div>`}
     <fieldset class="fieldset"><legend>Mempelai wanita</legend><div class="fgrid">
       ${fld('bn','Nama lengkap',S.bride.name,{bind:'bride.name',req:1,ph:'Sarah Amalia'})}
       ${fld('bk','Nama panggilan <span class="opt-l">opsional</span>',S.bride.nick,{bind:'bride.nick',ph:'Sarah'})}
@@ -5082,10 +5109,10 @@ function renderStepCore(onlyHTML, iOverride){
     h = `<span class="eyebrow">Langkah 2 dari 5</span><h2>Kapan dan di mana acaranya?</h2><p class="sub">Tiap acara punya tombol peta dan simpan ke kalender. Tamu anti nyasar, anti lupa tanggal.</p>
     ${S.events.map((e,k)=>`<fieldset class="fieldset"><legend>Acara ${k+1}</legend><div class="fgrid">
       ${fld('et'+k,'Nama acara',e.type,{bind:`events.${k}.type`,ph:'Akad Nikah / Pemberkatan / Resepsi'})}
-      ${fld('ed'+k,'Tanggal',e.date,{bind:`events.${k}.date`,type:'date'})}
+      ${fld('ed'+k,'Tanggal',e.date,{bind:`events.${k}.date`,type:'date',star:1})}
       ${fld('es'+k,'Mulai',e.start,{bind:`events.${k}.start`,ph:'08.00'})}
       ${fld('ee'+k,'Selesai <span class="opt-l">opsional</span>',e.end,{bind:`events.${k}.end`,ph:'10.00',hint:'Kosongkan bila sampai selesai'})}
-      ${fld('ev'+k,'Nama tempat',e.venue,{bind:`events.${k}.venue`,full:1,ph:'Gedung / masjid / rumah'})}
+      ${fld('ev'+k,'Nama tempat',e.venue,{bind:`events.${k}.venue`,full:1,star:1,ph:'Gedung / masjid / rumah'})}
       ${fld('ea'+k,'Alamat',e.address,{bind:`events.${k}.address`,full:1,area:1,ph:'Alamat lengkap untuk peta'})}
       ${evMoreHTML(e,k)}
     </div>${S.events.length>1?`<button type="button" class="btn btn-ghost btn-sm" data-act="del-event" data-k="${k}" style="justify-self:start">Hapus acara ini</button>`:''}</fieldset>`).join('')}
@@ -5435,6 +5462,8 @@ function openCover(){
 
 /* ---------- Editor undangan (untuk undangan yang sudah ada) ---------- */
 const ED_PANELS = [
+  ['tema','Tema, warna & huruf','eye','Tampilan', null, []],
+  ['urutan','Urutan bagian','menu','Tampilan', null, []],
   ['mempelai','Mempelai','heart','Isi undangan', null, ['cover','salam']],
   ['acara','Acara','cal','Isi undangan', null, ['acara']],
   ['cerita','Kisah cinta','heart','Isi undangan', 'story.on', ['cerita']],
@@ -5444,8 +5473,6 @@ const ED_PANELS = [
   ['ucapan','Ucapan & doa','chat','Isi undangan', 'wishesOn', ['ucapan']],
   ['rsvp','Konfirmasi hadir','rsvp','Isi undangan', null, ['rsvp']],
   ['musik','Musik latar','music','Isi undangan', 'music', []],
-  ['tema','Tema, warna & huruf','eye','Tampilan', null, []],
-  ['urutan','Urutan bagian','menu','Tampilan', null, []],
   ['salam','Salam pembuka','text','Pengaturan', null, []],
   ['kenangan','Halaman kenangan','heart','Pengaturan', null, ['kenangan']],
   ['link','Alamat link','copy','Pengaturan', null, []]
@@ -5467,7 +5494,7 @@ function edRestore(json){
 function edTools(){ const u=$('[data-act=ed-undo]'), r=$('[data-act=ed-redo]'); if(u) u.disabled=!EDIT.undo.length; if(r) r.disabled=!EDIT.redo.length; }
 function stepBody(i){ return renderStepCore(true, i).replace(/^\s*<span class="eyebrow">[\s\S]*?<\/span><h2>[\s\S]*?<\/h2><p class="sub">[\s\S]*?<\/p>/, ''); }
 function pickPart(html, sel, withNext){ const d=document.createElement('div'); d.innerHTML=html; const el=d.querySelector(sel); if(!el) return ''; let out=el.outerHTML; if(withNext && el.nextElementSibling && el.nextElementSibling.matches(withNext)) out+=el.nextElementSibling.outerHTML; return out; }
-function edPanelHTML(k){ if(k && k.startsWith('cx:')) return cxPanelHTML(k); return edPanelHTML0(k); }
+function edPanelHTML(k){ if(k && k.startsWith('na:')) return naPanelHTML(k); if(k && k.startsWith('cx:')) return cxPanelHTML(k); return edPanelHTML0(k); }
 function edPanelHTML0(k){
   const s3 = () => stepBody(3);
   const togRow = b => { const d=document.createElement('div'); d.innerHTML=s3(); const inp=d.querySelector(`[data-bind="${b}"]`); return inp ? inp.closest('.toggle-row') : null; };
@@ -5501,7 +5528,8 @@ function edPanelHTML0(k){
 function edRail(){
   const rail=$('#edRail'); if(!rail) return; let grp='';
   { const tb=$('#cxTryBar'); if(tb) tb.innerHTML=cxDraftBar(); }
-  rail.innerHTML = edPanels().map(([k,l,ic,g,tog])=>{ const on = tog ? !!getPath(S,tog) : true; const head = g!==grp ? `<div class="ed-grp">${g}</div>` : ''; grp=g;
+  rail.innerHTML = edPanels().map(([k,l,ic,g,tog,,na])=>{ const on = tog ? !!getPath(S,tog) : true; const head = g!==grp ? `<div class="ed-grp">${g}</div>` : ''; grp=g;
+    if(na) return `${head}<div class="ed-item na ${EDIT.panel===k?'sel':''}"><button type="button" class="ed-pick" data-ed="${k}" aria-current="${EDIT.panel===k}">${ico(ic)}<span>${l}</span></button></div>`;
     return `${head}<div class="ed-item ${EDIT.panel===k?'sel':''} ${on?'':'off'}"><button type="button" class="ed-pick" data-ed="${k}" aria-current="${EDIT.panel===k}">${ico(ic)}<span>${l}</span></button>${tog?`<button type="button" class="ed-vis" data-act="ed-vis" data-k="${tog}" aria-pressed="${on}" aria-label="${on?'Sembunyikan':'Tampilkan'} ${l}" title="${on?'Tampil di undangan':'Disembunyikan'}">${ico(on?'eye':'mute')}</button>`:''}</div>`; }).join('');
 }
 function edSelect(k, fromPreview){
