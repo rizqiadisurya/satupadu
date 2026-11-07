@@ -13,6 +13,7 @@ module.exports = async (req, res) => {
     const inv = invs && invs[0];
     if (!inv) return send(res, 404, { error: 'Undangan belum dibuat' });
     const p = priceFor(inv, plan, body.voucher, await loadPackages());
+    if (/^cx-/.test((inv.data && inv.data.theme) || '') && p.plan !== 'custom') return send(res, 400, { error: 'Tema Custom hanya bisa dipublikasikan dengan paket Custom' });
     const orderId = `SP-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
     await sb('/rest/v1/invoices', { method: 'POST', body: { id: orderId, invitation_id: inv.id, owner: user.id, item: p.item, plan: p.plan, price: p.price, discount: p.discount, voucher: p.voucher, total: p.total, method: body.method || '', status: 'pending' } });
     const host = String(req.headers['x-forwarded-host'] || req.headers.host || '').split(',')[0].trim();
