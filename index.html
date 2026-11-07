@@ -633,7 +633,9 @@ textarea.input{min-height:96px;resize:vertical}
 .tip b{font-size:14.5px}.tip p{font-size:13px;color:var(--muted);margin:3px 0 10px;line-height:1.45}
 .tip-a{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.tip-a .linkbtn{font-size:13px;color:var(--muted)}
 /* Builder: penanda opsional & catatan mulai cepat */
-.opt-l{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:99px;background:var(--blush);color:var(--beet);font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;vertical-align:2px}
+.req{color:var(--beet);font-weight:700;margin-left:3px}
+.quick-note .req{margin-left:0}
+.opt-l{display:none !important;display:inline-block;margin-left:6px;padding:1px 7px;border-radius:99px;background:var(--blush);color:var(--beet);font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;vertical-align:2px}
 .quick-note{display:flex;gap:12px;align-items:flex-start;margin:4px 0 20px;padding:14px 16px;border-radius:14px;background:color-mix(in srgb,var(--ok) 9%,#fff);border:1px solid color-mix(in srgb,var(--ok) 25%,transparent)}
 .quick-note .icon{flex:none;width:20px;height:20px;color:var(--ok);margin-top:1px}.quick-note>div{display:grid;gap:2px}.quick-note b{font-size:14.5px}.quick-note span{font-size:13.5px;color:var(--muted);line-height:1.5}
 /* Kartu statistik dashboard bergaya ikon */
@@ -5076,8 +5078,8 @@ function renderStepper(){
     </button>`).join('');
   $('#mobileProgress').innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:13.5px;font-weight:700"><span>Langkah ${S.step+1} dari 5 · ${stepsNow()[S.step].k}</span><span class="muted" style="font-weight:600">Tersimpan otomatis</span></div><div class="stack" style="height:6px;margin-bottom:18px"><span style="width:${(S.step+1)*20}%;background:var(--beet)"></span></div>`;
 }
-const fld = (id,label,val,opt={}) => `<div class="field ${opt.full?'full':''}"><label for="${id}">${label}</label>${opt.area?`<textarea class="input" id="${id}" data-bind="${opt.bind}" rows="2" placeholder="${esc(opt.ph||'')}">${esc(val)}</textarea>`:`<input class="input" id="${id}" data-bind="${opt.bind}" value="${esc(val)}" type="${opt.type||'text'}" placeholder="${esc(opt.ph||'')}" ${opt.req?'required':''} autocomplete="off">`}${opt.hint?`<span class="hint">${opt.hint}</span>`:''}<span class="err" hidden></span></div>`;
-const photoFld = (who,label) => { const ph=S[who].photo; return `<div class="field full"><label>${label} <span class="opt-l">opsional</span></label><div class="up"><span class="thumb" ${ph?`style="background-image:url(${ph})"`:''}>${ph?'':esc(initials(S[who].name)||'?')}</span><label class="btn btn-soft btn-sm" for="up-${who}" style="cursor:pointer">${ico('up')}${ph?'Ganti foto':'Pilih foto'}</label><input type="file" id="up-${who}" data-photo="${who}" accept="image/*" hidden>${ph?`<button type="button" class="btn btn-ghost btn-sm" data-act="rm-photo" data-who="${who}">Hapus</button>`:''}</div><span class="hint">Opsional. Foto otomatis dikecilkan biar undangan cepat kebuka. Nggak pakai foto? Inisial kalian yang tampil.</span></div>`; };
+const fld = (id,label,val,opt={}) => `<div class="field ${opt.full?'full':''}"><label for="${id}">${label}${opt.req||opt.star?'<span class="req" aria-hidden="true">*</span>':''}</label>${opt.area?`<textarea class="input" id="${id}" data-bind="${opt.bind}" rows="2" placeholder="${esc(opt.ph||'')}">${esc(val)}</textarea>`:`<input class="input" id="${id}" data-bind="${opt.bind}" value="${esc(val)}" type="${opt.type||'text'}" placeholder="${esc(opt.ph||'')}" ${opt.req?'required':''} autocomplete="off">`}${opt.hint?`<span class="hint">${opt.hint}</span>`:''}<span class="err" hidden></span></div>`;
+const photoFld = (who,label) => { const ph=S[who].photo; return `<div class="field full"><label>${label} <span class="opt-l">opsional</span></label><div class="up"><span class="thumb" ${ph?`style="background-image:url(${ph})"`:''}>${ph?'':esc(initials(S[who].name)||'?')}</span><label class="btn btn-soft btn-sm" for="up-${who}" style="cursor:pointer">${ico('up')}${ph?'Ganti foto':'Pilih foto'}</label><input type="file" id="up-${who}" data-photo="${who}" accept="image/*" hidden>${ph?`<button type="button" class="btn btn-ghost btn-sm" data-act="rm-photo" data-who="${who}">Hapus</button>`:''}</div><span class="hint">Foto otomatis dikecilkan biar undangan cepat kebuka. Nggak pakai foto? Inisial kalian yang tampil.</span></div>`; };
 function renderStep(){
   if(EDIT.on){ const p=edPanel(EDIT.panel); $('#edInspT').textContent=p[1]; $('#edInspG').textContent=p[3]; $('#stepForm').innerHTML = edPanelHTML(p[0]) || '<p class="muted">Tidak ada pengaturan.</p>'; return; }
   renderStepCore();
@@ -5086,7 +5088,7 @@ function renderStepCore(onlyHTML, iOverride){
   const f = $('#stepForm'); const i = iOverride ?? S.step; let h='';
   if(i===0){
     h = `<span class="eyebrow">Langkah 1 dari 5</span><h2>Siapa nih yang mau nikah? 💍</h2><p class="sub">Nama panggilan bakal nyapa tamu di sampul dan pesan WhatsApp. Santai, semuanya bisa diubah nanti kok.</p>
-    ${EDIT.on?'':`<div class="quick-note">${ico('check')}<div><b>Cukup 3 hal untuk mulai</b><span>Nama kalian, tanggal, dan lokasi acara. Yang bertanda <i>opsional</i> boleh dilewati dan dilengkapi kapan aja, bahkan setelah undangan dibagikan.</span></div></div>`}
+    ${EDIT.on?'':`<div class="quick-note">${ico('check')}<div><b>Cukup 3 hal untuk mulai</b><span>Nama kalian, tanggal, dan lokasi acara. Yang bertanda <b class="req">*</b> wajib diisi. Sisanya boleh dilewati dan dilengkapi kapan aja, bahkan setelah undangan dibagikan.</span></div></div>`}
     <fieldset class="fieldset"><legend>Mempelai wanita</legend><div class="fgrid">
       ${fld('bn','Nama lengkap',S.bride.name,{bind:'bride.name',req:1,ph:'Sarah Amalia'})}
       ${fld('bk','Nama panggilan <span class="opt-l">opsional</span>',S.bride.nick,{bind:'bride.nick',ph:'Sarah'})}
@@ -5107,10 +5109,10 @@ function renderStepCore(onlyHTML, iOverride){
     h = `<span class="eyebrow">Langkah 2 dari 5</span><h2>Kapan dan di mana acaranya?</h2><p class="sub">Tiap acara punya tombol peta dan simpan ke kalender. Tamu anti nyasar, anti lupa tanggal.</p>
     ${S.events.map((e,k)=>`<fieldset class="fieldset"><legend>Acara ${k+1}</legend><div class="fgrid">
       ${fld('et'+k,'Nama acara',e.type,{bind:`events.${k}.type`,ph:'Akad Nikah / Pemberkatan / Resepsi'})}
-      ${fld('ed'+k,'Tanggal',e.date,{bind:`events.${k}.date`,type:'date'})}
+      ${fld('ed'+k,'Tanggal',e.date,{bind:`events.${k}.date`,type:'date',star:1})}
       ${fld('es'+k,'Mulai',e.start,{bind:`events.${k}.start`,ph:'08.00'})}
       ${fld('ee'+k,'Selesai <span class="opt-l">opsional</span>',e.end,{bind:`events.${k}.end`,ph:'10.00',hint:'Kosongkan bila sampai selesai'})}
-      ${fld('ev'+k,'Nama tempat',e.venue,{bind:`events.${k}.venue`,full:1,ph:'Gedung / masjid / rumah'})}
+      ${fld('ev'+k,'Nama tempat',e.venue,{bind:`events.${k}.venue`,full:1,star:1,ph:'Gedung / masjid / rumah'})}
       ${fld('ea'+k,'Alamat',e.address,{bind:`events.${k}.address`,full:1,area:1,ph:'Alamat lengkap untuk peta'})}
       ${evMoreHTML(e,k)}
     </div>${S.events.length>1?`<button type="button" class="btn btn-ghost btn-sm" data-act="del-event" data-k="${k}" style="justify-self:start">Hapus acara ini</button>`:''}</fieldset>`).join('')}
