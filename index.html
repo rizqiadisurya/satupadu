@@ -2243,6 +2243,26 @@ html.boot-done #gate:not(.show):not(.open){opacity:0;pointer-events:none}
 @keyframes gateDraw{to{stroke-dashoffset:0}}
 @keyframes gateFade{to{opacity:1}}
 @keyframes gateBar{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+/* Gerbang lukisan (AI): satu panel penuh yang terangkat ke atas */
+#gate.gimg{background:#efe9df}
+#gate.gimg .gd,#gate.gimg .gtop{display:none}
+#gate.gimg::before,#gate.gimg::after{content:"";position:absolute;inset:0;background:var(--gimg) center/cover no-repeat;pointer-events:none}
+#gate.gimg::before{filter:blur(28px) saturate(1.05);transform:scale(1.15);opacity:.9}
+@media (min-aspect-ratio:3/4){#gate.gimg::after{background-size:auto 100%}}
+#gate.gimg .gmed,#gate.gimg .gn,#gate.gimg .gbar{z-index:3}
+#gate.gimg.gimg .gn{left:50%;right:auto;transform:translateX(-50%);width:max-content;max-width:88vw;padding:12px 24px 14px;border-radius:18px;background:rgba(255,252,246,.9);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:0 10px 28px rgba(40,20,20,.16);color:var(--gimg-ink);text-shadow:none}
+#gate.gimg:not(.g-teras) .gmed{background:#FFFDF8}
+#gate.gimg:not(.g-teras) .gmed .pt{stroke:var(--gimg-ink)}
+#gate.gimg:not(.g-teras) .gmed b{color:var(--gimg-ink)}
+#gate.gimg:not(.g-teras) .gmed .sd{fill:var(--gimg-ac)}
+#gate.gimg .gn small{color:var(--gimg-ac);opacity:1}
+#gate.gimg .gbar{background:color-mix(in srgb,var(--gimg-ink) 18%,transparent)}
+#gate.gimg .gbar::after{background:var(--gimg-ac)}
+#gate.gimg{transition:transform 1.35s cubic-bezier(.77,0,.18,1) .25s, box-shadow 1.35s ease .25s;will-change:transform}
+#gate.gimg.open{opacity:1;background:#efe9df;transform:translateY(-104%);box-shadow:0 40px 80px rgba(20,10,10,.28)}
+#gate.gimg.open .gmed{transform:translateY(-24px) scale(.92);opacity:0}
+@media (prefers-reduced-motion:reduce){#gate.gimg{transition:opacity .5s ease}#gate.gimg.open{transform:none;opacity:0}}
+
 
 #gate.drape{background:radial-gradient(60% 50% at 50% 50%,color-mix(in srgb,var(--fab) 55%,#fff) 0%,var(--fab) 80%)}
 #gate.drape .gd{background-image:linear-gradient(180deg,rgba(255,255,255,.06),transparent 30%,rgba(0,0,0,.3)),repeating-linear-gradient(90deg,rgba(0,0,0,.36) 0,rgba(0,0,0,.08) 10px,rgba(255,255,255,.14) 21px,rgba(0,0,0,.28) 38px,rgba(0,0,0,.36) 44px);background-color:var(--fab);background-size:auto;box-shadow:none;transition:transform 1.4s cubic-bezier(.7,0,.2,1) .2s,filter 1.4s ease .2s}
@@ -7393,9 +7413,23 @@ document.addEventListener('click', e=>{ const el=e.target.closest('[data-act]');
 const GATE={t0:performance.now(), busy:false};
 const lum = hex => { const m=String(hex||'').replace('#','').match(/^([0-9a-f]{6})$/i); if(!m) return .5; const n=parseInt(m[1],16); const c=[n>>16&255,n>>8&255,n&255].map(v=>{ v/=255; return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4); }); return .2126*c[0]+.7152*c[1]+.0722*c[2]; };
 const gPat = c => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'>${[0,90,180,270].map(r=>`<path transform='rotate(${r} 30 30)' d='M30 26C25.5 21.5 25.5 11.5 30 5C34.5 11.5 34.5 21.5 30 26Z' fill='none' stroke='${c}' stroke-opacity='.28' stroke-width='1'/>`).join('')}<circle cx='30' cy='30' r='1.6' fill='${c}' fill-opacity='.4'/></svg>`)}")`;
-const GATE_CLS = ['th','g-teras','g-taman','g-dongeng','g-goresan','g-kebun','g-light','g-dark','drape','dpv'];
+const GATE_CLS = ['gimg','th','g-teras','g-taman','g-dongeng','g-goresan','g-kebun','g-light','g-dark','drape','dpv'];
 // Tampilan gerbang pembuka per gaya tema: warna, ornamen, dan huruf diambil dari tema itu sendiri
-function gateLook(t){
+/* Gerbang pembuka: lukisan AI per gaya tema (assets/gate). Panel terangkat dari bawah ke atas saat dibuka. */
+const GATE_IMGS = ['arunika','atelier','beludru','dongeng','draperi','goresan','kamboja','kebun','klasik-gelap','klasik-terang','lentera','sekar','teras'];
+function gateImg(t){
+  if(isCx(t.id)){ const d=(cxTheme(t.id)||{}).dir; return d==='drapery'?'beludru':d==='coretan'?'goresan':'klasik-gelap'; }
+  const L=t.layout||'klasik';
+  if(L==='klasik' || !GATE_IMGS.includes(L)) return lum(t.bg) < .35 ? 'klasik-gelap' : 'klasik-terang';
+  return L;
+}
+function gateLook(t){ const look=gateLook0(t), k=gateImg(t);
+  const ink = [t.fg,t.bg,t.accent].filter(Boolean).sort((a,b)=>lum(a)-lum(b))[0];
+  look.v['--gimg']=`url(/assets/gate/${k}.webp)`; look.v['--gimg-ink']=ink; look.v['--gimg-ac']=t.accent||ink; look.cls.push('gimg');
+  try{ const im=new Image(); im.src=`/assets/gate/${k}.webp`; }catch(e){}
+  return look;
+}
+function gateLook0(t){
   const L=t.layout||'klasik', v={}, cls=[];
   if(L==='draperi'){
     const dark = lum(t.fg) < lum(t.bg) ? t.fg : t.bg;
