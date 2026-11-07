@@ -2577,6 +2577,12 @@ html.boot-app #bootSkel .bs-app{display:flex}
 .ed-insp-b .fgrid > .field{display:grid;grid-row:span 2;grid-template-rows:subgrid;row-gap:6px;align-content:start}
 .ed-insp-b .fgrid > .field:has(> .hint){grid-row:span 3}
 .ed-insp-b .fgrid > .field > label{align-self:start}
+.ed-item .drag{position:relative;z-index:1;display:grid;place-items:center;width:20px;height:34px;margin:0 -6px 0 2px;color:#c2b3b8;cursor:grab;touch-action:none;border-radius:6px;flex:none}
+.ed-item .drag:hover{color:var(--ink);background:var(--paper)}
+.ed-item .drag-sp{width:20px;margin:0 -6px 0 2px;flex:none}
+.ed-sort.sorting{user-select:none}
+.ed-sort.sorting .drag{cursor:grabbing}
+.ed-item.dragging{background:#fff;box-shadow:0 8px 20px rgba(60,20,30,.16);outline:1px solid var(--beet);position:relative;z-index:2}
 .ed-item.na .ed-pick{color:var(--muted)}
 .ed-item.na .ed-pick svg{opacity:.5}
 .ed-na{display:grid;justify-items:start;gap:10px;padding:4px 0}
@@ -2610,6 +2616,9 @@ html.boot-app #bootSkel .bs-app{display:flex}
   .ed-item.sel .ed-pick,.ed-item.sel .ed-pick .icon{color:#fff}
   .ed-pick{padding:8px 12px;font-size:13.5px;min-height:40px;white-space:nowrap}
   .ed-vis{display:none}
+  .ed-sort{display:flex;gap:6px;flex:none}
+  .ed-item .drag{width:22px;height:34px;margin:0 -8px 0 4px}
+  .ed-item .drag-sp{display:none}
   .ed-insp{position:fixed;left:0;right:0;bottom:0;z-index:60;max-height:78dvh;border-radius:22px 22px 0 0;border:0;box-shadow:0 -18px 50px rgba(0,0,0,.25);transform:translateY(105%);transition:transform .38s cubic-bezier(.2,.8,.2,1)}
   .ed-insp.open{transform:none}
   .ed-grab{display:block;width:44px;height:5px;border-radius:99px;background:#dccdd2;margin:10px auto 0}
@@ -4376,17 +4385,24 @@ function secSortCommit(list){
   save(); renderStep(); if(EDIT.on) edRail(); refreshPreview();
 }
 document.addEventListener('pointerdown', e=>{
-  const h=e.target.closest('.sec-order[data-sort] .drag'); if(!h) return;
-  const li=h.closest('li'), list=li.parentElement; e.preventDefault();
+  const h=e.target.closest('[data-sort] .drag'); if(!h) return;
+  const li=h.closest('[data-k]'), list=li && li.parentElement; if(!list) return; e.preventDefault();
+  const cs=getComputedStyle(list), horiz=cs.display.includes('flex') && cs.flexDirection.startsWith('row');
   const start=[...list.children].map(x=>x.dataset.k).join();
   li.classList.add('dragging'); list.classList.add('sorting');
-  const sc=li.closest('.ed-insp-b');
-  const move=ev=>{ const y=ev.clientY; const sibs=[...list.children].filter(x=>x!==li);
-    const after=sibs.find(x=>{ const r=x.getBoundingClientRect(); return y < r.top + r.height/2; });
-    if(after){ if(li.nextElementSibling!==after) list.insertBefore(li, after); } else if(list.lastElementChild!==li) list.appendChild(li);
-    const R=sc?sc.getBoundingClientRect():{top:0,bottom:innerHeight}, T=sc||window;
-    if(y < R.top+48) T.scrollBy(0,-14); else if(y > R.bottom-48) T.scrollBy(0,14); };
-  const end=()=>{ document.removeEventListener('pointermove',move); document.removeEventListener('pointerup',end); document.removeEventListener('pointercancel',end);
+  const sc=li.closest('.ed-insp-b, .ed-rail');
+  let v=null, raf=0;
+  const place=()=>{ if(v==null) return; const sibs=[...list.children].filter(x=>x!==li && x.dataset.k);
+    const after=sibs.find(x=>{ const r=x.getBoundingClientRect(); return horiz ? v < r.left + r.width/2 : v < r.top + r.height/2; });
+    if(after){ if(li.nextElementSibling!==after) list.insertBefore(li, after); } else if(list.lastElementChild!==li) list.appendChild(li); };
+  const tick=()=>{ if(v!=null){ const R=sc?sc.getBoundingClientRect():{top:0,bottom:innerHeight,left:0,right:innerWidth}, T=sc||window;
+      const lo=horiz?Math.max(R.left,0):Math.max(R.top,0), hi=horiz?Math.min(R.right,innerWidth):Math.min(R.bottom,innerHeight), edge=horiz?44:52;
+      const d = v < lo+edge ? -Math.ceil((lo+edge-v)/4) : v > hi-edge ? Math.ceil((v-hi+edge)/4) : 0;
+      if(d){ horiz ? T.scrollBy(d,0) : T.scrollBy(0,d); place(); } }
+    raf=requestAnimationFrame(tick); };
+  raf=requestAnimationFrame(tick);
+  const move=ev=>{ v=horiz?ev.clientX:ev.clientY; place(); };
+  const end=()=>{ cancelAnimationFrame(raf); document.removeEventListener('pointermove',move); document.removeEventListener('pointerup',end); document.removeEventListener('pointercancel',end);
     li.classList.remove('dragging'); list.classList.remove('sorting');
     if([...list.children].map(x=>x.dataset.k).join()!==start) secSortCommit(list); };
   document.addEventListener('pointermove',move); document.addEventListener('pointerup',end); document.addEventListener('pointercancel',end);
@@ -4466,10 +4482,10 @@ function cxEnsure(){ const t=cxTheme(S.theme); if(!t) return; S.cx=S.cx||{}; con
   ['couple','date','dresscode','gallery','closing'].forEach(k=>{ if(sec[k]===undefined) sec[k]=D[k]!==false; }); }
 function cxEdPanels(){
   const mid=cxOrder().map(k=>'cx:'+k);
-  const list=['cx:sampul', ...mid, 'cx:closing'].map(k=>{ const id=k.slice(3), d=CX_PANEL_DEF[id]; return [k, d[0], d[1], 'Isi undangan', d[3], d[2]]; });
+  const list=['cx:sampul', ...mid, 'cx:closing'].map(k=>{ const id=k.slice(3), d=CX_PANEL_DEF[id]; return [k, d[0], d[1], 'Isi undangan', d[3], d[2], null, mid.includes(k)?id:null]; });
   const orig=k=>ED_PANELS.find(p=>p[0]===k);
   const na = cxNA().map(k=>{ const d=CX_NA_DEF[k]; return ['na:'+k, d[0], d[1], 'Belum tersedia di tema ini', null, [], 'na']; });
-  return [['cx:tampilan','Tema, warna & bahasa','eye','Tampilan', null, []], ['urutan','Urutan bagian','menu','Tampilan', null, []]].concat(list, ['musik','kenangan','link'].map(orig).filter(Boolean).map(p=>{ const q=p.slice(); q[3]='Pengaturan'; return q; }), na);
+  return [['cx:tampilan','Tema, warna & bahasa','eye','Tampilan', null, []]].concat(list, ['musik','kenangan','link'].map(orig).filter(Boolean).map(p=>{ const q=p.slice(); q[3]='Pengaturan'; return q; }), na);
 }
 /* Fitur tema Lukisan yang belum didukung tiap tema Custom. Tema baru cukup didaftarkan di CX_NA. */
 const CX_NA_DEF = {
@@ -4484,7 +4500,15 @@ function naPanelHTML(k){
     <p class="muted">${has?'Yang sudah kalian isi tetap tersimpan, tapi tidak tampil ke tamu selama memakai tema ini. Pindah ke tema Lukisan kalau fitur ini penting buat kalian.':'Fitur ini ada di semua tema Lukisan. Kalau penting buat kalian, pertimbangkan pindah ke tema Lukisan.'}</p>
     <button type="button" class="btn btn-ghost btn-sm" data-ed="cx:tampilan">${ico('eye')}Lihat pilihan tema</button></div>`;
 }
-const edPanels = () => isCx(S.theme) ? cxEdPanels() : ED_PANELS;
+const LK_SEC2PANEL = {salam:'mempelai', acara:'acara', cerita:'cerita', galeri:'galeri', hadiah:'hadiah', kado:'kado', ucapan:'ucapan', rsvp:'rsvp'};
+function lkEdPanels(){
+  const P=k=>ED_PANELS.find(p=>p[0]===k), used=new Set();
+  const isi=secOrder().map(sk=>{ const p=P(LK_SEC2PANEL[sk]); if(!p) return null; used.add(p[0]); const q=p.slice(); q[6]=null; q[7]=sk; return q; }).filter(Boolean);
+  const rest=ED_PANELS.filter(p=>p[3]==='Isi undangan' && !used.has(p[0]) && p[0]!=='musik');
+  const musik=P('musik').slice(); musik[3]='Pengaturan';
+  return ED_PANELS.filter(p=>p[3]==='Tampilan' && p[0]!=='urutan').concat(isi, rest, [musik], ED_PANELS.filter(p=>p[3]==='Pengaturan'));
+}
+const edPanels = () => isCx(S.theme) ? cxEdPanels() : lkEdPanels();
 function cxPhotoKeys(sec){ const t=cxTheme(S.theme); if(!t) return []; const D=((window.INVITE_DEFAULTS||{})[t.dir]||{}).photos||{}, M=CX_PHOTO_SEC[t.dir]||{}; return Object.keys(D).filter(k=>(M[k]||'gallery')===sec); }
 function cxPhotosHTML(keys, opts={}){
   const t=cxTheme(S.theme); if(!t||!keys.length) return ''; const d=cxData(t.id), X=S.cx||{}, D=((window.INVITE_DEFAULTS||{})[t.dir]||{}).photos||{};
@@ -5557,9 +5581,13 @@ function edPanelHTML0(k){
 function edRail(){
   const rail=$('#edRail'); if(!rail) return; let grp='';
   { const tb=$('#cxTryBar'); if(tb) tb.innerHTML=cxDraftBar(); }
-  rail.innerHTML = edPanels().map(([k,l,ic,g,tog,,na])=>{ const on = tog ? !!getPath(S,tog) : true; const head = g!==grp ? `<div class="ed-grp">${g}</div>` : ''; grp=g;
+  const sortMode = isCx(S.theme) ? 'cx' : 'lk'; let inSort=false;
+  rail.innerHTML = edPanels().map(([k,l,ic,g,tog,,na,sk])=>{ const on = tog ? !!getPath(S,tog) : true; let head = g!==grp ? `<div class="ed-grp">${g}</div>` : ''; grp=g;
+    let pre=''; if(sk && !inSort){ pre=`<div class="ed-sort" data-sort="${sortMode}">`; inSort=true; } else if(!sk && inSort){ pre='</div>'; inSort=false; }
+    head = pre.startsWith('</') ? pre+head : head+pre;
+    const grip = !sk && g==='Isi undangan' ? '<span class="drag-sp" aria-hidden="true"></span>' : sk ? `<span class="drag" aria-hidden="true" title="Tahan dan geser untuk pindah posisi"><svg viewBox="0 0 10 16" width="10" height="16"><g fill="currentColor"><circle cx="2" cy="2" r="1.5"/><circle cx="8" cy="2" r="1.5"/><circle cx="2" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="2" cy="14" r="1.5"/><circle cx="8" cy="14" r="1.5"/></g></svg></span>` : '';
     if(na) return `${head}<div class="ed-item na ${EDIT.panel===k?'sel':''}"><button type="button" class="ed-pick" data-ed="${k}" aria-current="${EDIT.panel===k}">${ico(ic)}<span>${l}</span></button></div>`;
-    return `${head}<div class="ed-item ${EDIT.panel===k?'sel':''} ${on?'':'off'}"><button type="button" class="ed-pick" data-ed="${k}" aria-current="${EDIT.panel===k}">${ico(ic)}<span>${l}</span></button>${tog?`<button type="button" class="ed-vis" data-act="ed-vis" data-k="${tog}" aria-pressed="${on}" aria-label="${on?'Sembunyikan':'Tampilkan'} ${l}" title="${on?'Tampil di undangan':'Disembunyikan'}">${ico(on?'eye':'mute')}</button>`:''}</div>`; }).join('');
+    return `${head}<div class="ed-item ${EDIT.panel===k?'sel':''} ${on?'':'off'}" ${sk?`data-k="${sk}"`:''}>${grip}<button type="button" class="ed-pick" data-ed="${k}" aria-current="${EDIT.panel===k}">${ico(ic)}<span>${l}</span></button>${tog?`<button type="button" class="ed-vis" data-act="ed-vis" data-k="${tog}" aria-pressed="${on}" aria-label="${on?'Sembunyikan':'Tampilkan'} ${l}" title="${on?'Tampil di undangan':'Disembunyikan'}">${ico(on?'eye':'mute')}</button>`:''}</div>`; }).join('') + (inSort?'</div>':'');
 }
 function edSelect(k, fromPreview){
   const wasMem = EDIT.panel==='kenangan'; EDIT.panel=k; if(wasMem !== (k==='kenangan')) refreshPreview(); stopPrev(); renderStep(); edRail();
