@@ -6241,7 +6241,7 @@ function openAuth(next, mode){
     lsSet('sp-last-email', v); otpStep(v); });
 }
 async function sendCode(email){
-  if(!CLOUD.on) return null;
+  if(!CLOUD.on) return /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? null : 'Server login lagi tidak terhubung, jadi kode belum bisa dikirim. Coba lagi sebentar, ya.';
   const { error } = await CLOUD.sb.auth.signInWithOtp({email, options:{shouldCreateUser:true, emailRedirectTo: location.origin+'/#'+(location.hash.slice(1)||'dashboard')}});
   if(!error) return null;
   const m = error.message||'';
