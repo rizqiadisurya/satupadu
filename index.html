@@ -240,12 +240,15 @@ img{max-width:100%}
 .cx-pal button i{display:block;width:100%;height:22px;border-radius:6px;margin-bottom:4px}
 .cx-pal button small{color:var(--muted);font-size:12px}
 .cx-pal button[aria-pressed="true"]{border-color:var(--beet);box-shadow:0 0 0 2px rgba(164,83,94,.18)}
-.cx-phs{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px;margin-top:10px}
+.cx-phs{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px;margin-top:10px}
+.cx-ed .field + .field{margin-top:16px}
+.cx-ph label{min-width:0}
 .cx-ph{display:grid;gap:4px;justify-items:start}
 .cx-ph label{position:relative;display:block;width:100%;aspect-ratio:1;border-radius:12px;overflow:hidden;cursor:pointer;border:1px solid var(--line);background:var(--paper)}
 .cx-ph img{width:100%;height:100%;object-fit:cover;display:block}
 .cx-ph:not(.mine) img{filter:saturate(.6) opacity(.75)}
-.cx-ph-l{position:absolute;left:6px;right:6px;bottom:6px;font-size:11.5px;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6);line-height:1.2}
+.cx-ph label::after{content:'';position:absolute;left:0;right:0;bottom:0;height:56%;background:linear-gradient(transparent,rgba(20,10,12,.62));pointer-events:none}
+.cx-ph-l{position:absolute;left:7px;right:7px;bottom:6px;z-index:1;font-size:11px;font-weight:700;color:#fff;line-height:1.2}
 .cx-ph-b{position:absolute;top:6px;right:6px;font-size:11px;font-weight:700;background:rgba(255,255,255,.92);color:var(--ink);border-radius:999px;padding:2px 8px}
 .cx-ph small,.cx-ph .linkbtn{font-size:12px}
 
@@ -254,6 +257,10 @@ img{max-width:100%}
 .kind-tabs button[aria-selected="true"]{border-color:var(--beet);box-shadow:0 0 0 1px var(--beet) inset;background:var(--paper)}
 .tcard.cx-card .cover{padding:0;background:#1b1214;aspect-ratio:4/5;overflow:hidden}
 .tcard.cx-card .cover img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.tcard.cx-card .meta{display:flex;flex-direction:column;flex:1}.tcard.cx-card .acts{margin-top:auto}
+.co-inv.cx-inv{background-size:cover!important;background-position:center 30%!important;position:relative;overflow:hidden}
+.co-inv.cx-inv::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,10,12,.15),rgba(20,10,12,.72))}
+.co-inv.cx-inv>*{position:relative;color:#fff}
 .cx-card .cx-desc{color:var(--muted);font-size:14.5px;margin:6px 0 10px}
 .cx-badge{white-space:nowrap;flex:none;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--beet);background:#F6E8EA;border-radius:999px;padding:3px 10px}
 .cx-note{grid-column:1/-1;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:16px 20px;border-radius:16px;background:var(--paper);border:1px dashed var(--line);color:var(--muted);font-size:14.5px}
@@ -335,7 +342,7 @@ textarea.input{min-height:96px;resize:vertical}
 .theme-pick button{border:2px solid var(--line);border-radius:14px;padding:0;overflow:hidden;cursor:pointer;background:#fff;text-align:left}
 .theme-pick button[aria-pressed="true"]{border-color:var(--beet);box-shadow:0 0 0 3px rgba(164,83,94,.15)}
 .theme-pick .tp{height:auto;aspect-ratio:3/2;background-color:var(--t-bg);background-image:var(--t-pattern);background-size:var(--t-size,auto);display:grid;place-items:center;font-family:var(--t-font);color:var(--t-fg);font-size:20px}
-.theme-pick span{display:block;padding:8px 10px;font-weight:700;font-size:13px}
+.theme-pick span{display:block;padding:8px 10px;font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .toggle-row{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
 .toggle-row:last-child{border:0}
 .switch{position:relative;width:48px;height:28px;flex:none}
@@ -3218,14 +3225,15 @@ html.intro .hero h1,html.intro .hero .lede,html.intro .hero .try,html.intro .her
 .cmp tbody th[scope=row]{background:transparent;font-family:var(--body)}
 .cmp-group th{letter-spacing:.08em;text-transform:uppercase}
 .cmp-tag{letter-spacing:.08em;text-transform:uppercase}
-@media (max-width:640px){
+@media (max-width:900px){
   .cmp{min-width:0;display:block}
   .cmp thead,.cmp tbody{display:block}
   .cmp tr{display:grid;grid-template-columns:repeat(var(--plan-n,3),minmax(0,1fr))}
   .cmp-head th:first-child{display:none}
   .cmp-head th{padding:14px 6px 12px;position:static;border-bottom:1px solid var(--line)}
   .cmp-head th b{font-size:14px;margin-top:6px}
-  .cmp-price{font-size:16px}.cmp-note{font-size:11px}
+  .cmp-price{font-size:clamp(13px,3.6vw,18px);white-space:nowrap}.cmp-note{font-size:11px}
+  .cmp-head th{padding-left:3px;padding-right:3px}
   .cmp-tag{font-size:9px;padding:3px 6px}
   .cmp-cta .btn{font-size:12px;padding:8px 6px;min-height:0}
   .cmp tbody th[scope=row]{grid-column:1/-1;border-bottom:0;padding:12px 14px 4px;font-size:14.5px}
@@ -4235,7 +4243,7 @@ function rsvpDone(g, att, pax){
 /* ---------- Koleksi Custom: tema foto yang dirender di iframe /custom/<dir>/, data diambil dari undangan Sakara ---------- */
 var CX_THEMES = [
   {id:'cx-drapery', dir:'drapery', name:'Drapery Emerald', region:'Custom', lang:'id', tags:['Custom','Klasik'], desc:'Tirai beludru yang terbuka, renda keluar dari amplop, dan rangkaian bunga kering. Klasik dan khidmat.', bg:'#13301f', fg:'#efe6d6', accent:'#5b0f16', soft:'#1d4430', font:"'Cormorant Garamond', Georgia, serif"},
-  {id:'cx-photobox', dir:'photobox', name:'Photobox Archives', region:'Custom', lang:'en', tags:['Custom','Santai'], desc:'Polaroid bertempel selotip, profil mempelai seperti formulir, kalender dengan coretan tangan. Bahasa Inggris.', bg:'#4a0b11', fg:'#efe9df', accent:'#8e1c22', soft:'#5c1219', font:"'Cormorant Garamond', Georgia, serif"},
+  {id:'cx-photobox', dir:'photobox', name:'Photobox Archives', region:'Custom', lang:'en', tags:['Custom','Santai'], desc:'Polaroid bertempel selotip, profil mempelai seperti formulir, dan kalender dengan coretan tangan. Santai dan jenaka.', thumbPos:'center 42%', bg:'#4a0b11', fg:'#efe9df', accent:'#8e1c22', soft:'#5c1219', font:"'Cormorant Garamond', Georgia, serif"},
   {id:'cx-coretan', dir:'coretan', name:'Coretan Merah', region:'Custom', lang:'id', tags:['Custom','Jenaka'], desc:'Ilustrasi tangan bertinta merah dan foto masa kecil di dalam bingkai. Untuk pasangan yang sudah kenal sejak bocil.', bg:'#f6f2ee', fg:'#2b1d1a', accent:'#8c1c13', soft:'#efe6df', font:"'Cormorant Garamond', Georgia, serif"}
 ];
 const CX_LOOK = {
@@ -4293,6 +4301,10 @@ function cxData(id){
 }
 let CX_MEMPH=[];
 function cxMemLoad(){ if(!memActive()) return; Promise.resolve(memPhotos()).then(l=>{ CX_MEMPH=(l||[]).map(p=>p.url||p).filter(Boolean); cxPostAll(); }).catch(()=>{}); }
+const CX_SEC2PANEL = {quote:'salam', couple:'mempelai', date:'acara', event:'acara', dresscode:'acara', gift:'hadiah', rsvp:'rsvp', story:'cerita', gallery:'tema', closing:'tema', memory:'kenangan'};
+const CX_PANEL2SEC = {mempelai:['couple'], acara:['date','event','dresscode'], hadiah:['gift'], rsvp:['rsvp'], ucapan:['rsvp'], cerita:['story'], galeri:['gallery'], salam:['quote'], kenangan:['memory'], tema:[], urutan:[], musik:[], link:[], kado:[]};
+let CX_PICKED=false;
+function cxEdMark(){ const f=$('#edScreen iframe.cx-frame'); if(!f||!f.contentWindow) return; const sc=!CX_PICKED; CX_PICKED=false; try{ f.contentWindow.postMessage({type:'sakara:mark', sections:CX_PANEL2SEC[EDIT.panel]||[], scroll:sc}, '*'); }catch(e){} }
 function cxSampleLeft(){ const t=cxTheme(S.theme); if(!t) return 0; const D=((window.INVITE_DEFAULTS||{})[t.dir]||{}).photos||{}, d=cxData(t.id); return Object.keys(D).filter(k=>d.photos[k]===D[k]).length; }
 function cxFrameHTML(id, opts={}){
   setTimeout(cxMemLoad, 0);
@@ -4303,7 +4315,8 @@ function cxPost(f){ try{ if(!f || f.dataset.cxdemo || !f.contentWindow) return; 
 const cxPostAll = () => $$('iframe.cx-frame').forEach(cxPost);
 addEventListener('message', async e=>{
   const m=e.data||{}; const f=$$('iframe.cx-frame').find(x=>x.contentWindow===e.source); if(!f) return;
-  if(m.type==='invite:ready') cxPost(f);
+  if(m.type==='invite:ready'){ cxPost(f); if(EDIT.on && f.closest('#edScreen')) setTimeout(cxEdMark, 300); }
+  if(m.type==='invite:pick' && EDIT.on && f.closest('#edScreen')){ const k=CX_SEC2PANEL[m.section]; if(k && edPanel(k)[0]===k){ CX_PICKED=true; edSelect(k, true); } }
   if(m.type==='invite:rsvp' && m.entry){ const x=m.entry, n=String(x.n||'').slice(0,60), msg=String(x.m||'').slice(0,400), att=x.a==='tidak'?'tidak':'hadir';
     if(CLOUD.on && CLOUD.guestMode){
       const r = await CLOUD.sb.rpc('rsvp',{p_slug:CLOUD.slug, p_code:CLOUD.guest?.code||null, p_name:n, p_status:att, p_pax:att==='hadir'?Math.max(1,+x.pax||1):0, p_arrive:''}); if(r.error) toast('Konfirmasi gagal terkirim: '+r.error.message);
@@ -4314,7 +4327,7 @@ addEventListener('message', async e=>{
   }
 });
 /* ---------- Editor Custom: susunan bagian, foto per bingkai, teks khusus tema ---------- */
-const CX_PH_LABEL = k => ({cover:'Sampul (bingkai foto)', couple:'Foto berdua', player:'Pemutar musik', bride:'Mempelai wanita', groom:'Mempelai pria'})[k] || ((m=>m?({g:'Galeri ',strip:'Strip foto ',row:'Polaroid cerita ',story:'Polaroid cerita '})[m[1]]+m[2]:k)(k.match(/^(g|strip|row|story)(\d)$/)));
+const CX_PH_LABEL = k => ({cover:'Sampul', couple:'Berdua', player:'Pemutar lagu', bride:'Pengantin wanita', groom:'Pengantin pria'})[k] || ((m=>m?({g:'Galeri ',strip:'Strip ',row:'Cerita ',story:'Cerita '})[m[1]]+m[2]:k)(k.match(/^(g|strip|row|story)(\d)$/)));
 function cxOrder(){ const ids=CX_SECTIONS.map(x=>x[0]); const o=((S.cx||{}).order||[]).filter(k=>ids.includes(k)); return o.concat(ids.filter(k=>!o.includes(k))); }
 function cxSecOn(k){ const t=cxTheme(S.theme), D=((window.INVITE_DEFAULTS||{})[t.dir]||{}).sections||{}, X=((S.cx||{}).sections)||{}; if(k==='rsvp' && S.wishesOn===false) return false; return X[k]!==undefined ? !!X[k] : D[k]!==false; }
 function cxPhotoSrc(t, v){ return !v ? '' : /^(data:|https?:|\/)/.test(v) ? v : `/custom/${t.dir}/${v}`; }
@@ -4736,7 +4749,7 @@ function cxCard(t){
   return `<article class="tcard cx-card"><div class="cover"><img loading="lazy" decoding="async" src="${t.thumbImg}" alt="Sampul tema ${esc(t.name)}"></div>
     <div class="meta"><div class="top"><h3>${esc(t.name)}</h3><span class="cx-badge">Paket Custom</span></div>
       <p class="cx-desc">${esc(t.desc)}</p>
-      <div class="chips">${t.tags.filter(x=>x!=='Custom').map(x=>`<span class="chip">${esc(x)}</span>`).join('')}<span class="chip">${t.lang==='en'?'Bahasa Inggris':'Bahasa Indonesia'}</span></div>
+      <div class="chips">${t.tags.filter(x=>x!=='Custom').map(x=>`<span class="chip">${esc(x)}</span>`).join('')}<span class="chip">Indonesia &amp; English</span></div>
       <div class="acts"><button class="btn btn-ghost btn-sm" data-act="demo" data-t="${t.id}">${ico('eye')}Demo</button><button class="btn btn-primary btn-sm" data-act="use-theme" data-t="${t.id}">Pakai</button></div></div></article>`;
 }
 function renderCatalog(){
@@ -4948,7 +4961,7 @@ function renderStepCore(onlyHTML, iOverride){
     h = `<span class="eyebrow">Langkah 3 dari 5</span><h2>Pilih tampilan yang kalian banget</h2><p class="sub">Pilih koleksinya dulu, lalu temanya. Ganti sesukamu, isi undangannya tetap aman.</p>
     <div class="kind-tabs sm" role="tablist" aria-label="Koleksi tema">${[['lukisan','Lukisan','Tanpa foto'],['custom','Custom','Pakai foto · Paket Custom']].map(([k,l,dd])=>`<button type="button" role="tab" data-pickkind="${k}" aria-selected="${(PICK_KIND||(isCx(S.theme)?'custom':'lukisan'))===k}"><b>${l}</b><small>${dd}</small></button>`).join('')}</div>
     <p class="kind-desc">${(PICK_KIND||(isCx(S.theme)?'custom':'lukisan'))==='custom'?'Tema penuh foto kalian, susunan dan fotonya bebas diatur. Dipublikasikan dengan paket Custom.':'Digambar khusus, tanpa perlu foto. Bisa dipakai di paket apa pun.'}</p>
-    ${(PICK_KIND||(isCx(S.theme)?'custom':'lukisan'))==='custom' ? `<div class="theme-pick" role="group" aria-label="Tema Custom">${CX_THEMES.filter(x=>!themeHidden(x.id)||x.id===S.theme).map(x=>`<button type="button" data-pick="${x.id}" aria-pressed="${x.id===S.theme}"><div class="tp" style="background:url(${x.thumbImg}) top/cover"></div><span>${esc(x.name)}</span></button>`).join('')}</div>${isCx(S.theme)?cxEditorHTML():`<p class="hint" style="margin-top:14px">Pilih salah satu tema di atas untuk mulai mengatur susunan dan fotonya.</p>`}` : `${t.photo?`<p class="hint" style="margin:-6px 0 14px">${ico('camera')} Tema ${esc(t.name)} memakai foto pertama di galeri sebagai sampul. Belum ada foto? Kami tampilkan ilustrasi dulu.</p>`:''}
+    ${(PICK_KIND||(isCx(S.theme)?'custom':'lukisan'))==='custom' ? `<div class="theme-pick" role="group" aria-label="Tema Custom">${CX_THEMES.filter(x=>!themeHidden(x.id)||x.id===S.theme).map(x=>`<button type="button" data-pick="${x.id}" aria-pressed="${x.id===S.theme}"><div class="tp" style="background:url(${x.thumbImg}) ${x.thumbPos||'top'}/cover"></div><span>${esc(x.name)}</span></button>`).join('')}</div>${isCx(S.theme)?cxEditorHTML():`<p class="hint" style="margin-top:14px">Pilih salah satu tema di atas untuk mulai mengatur susunan dan fotonya.</p>`}` : `${t.photo?`<p class="hint" style="margin:-6px 0 14px">${ico('camera')} Tema ${esc(t.name)} memakai foto pertama di galeri sebagai sampul. Belum ada foto? Kami tampilkan ilustrasi dulu.</p>`:''}
     <div class="theme-pick" role="group" aria-label="Tema">${themeOrder(THEMES).concat(THEMES.filter(x=>themeHidden(x.id)&&x.id===S.theme)).map(x=>`<button type="button" data-pick="${x.id}" aria-pressed="${x.id===S.theme}"><div class="tp" style="${themeStyle(x)}${x.thumbImg?`background:url(${x.thumbImg}) center/cover;`:x.thumb?`background:${x.thumb(x)};`:''}${x.thumbFg?`color:${x.thumbFg};`:''}">${x.thumbNoTxt?'':`${esc((S.bride.nick||'N')[0])}&amp;${esc((S.groom.nick||'R')[0])}`}</div><span>${esc(x.name)}</span></button>`).join('')}</div>
     <div class="field" style="margin-top:26px"><label>Warna aksen</label><div class="swatches" role="group" aria-label="Warna aksen">
       <button type="button" class="sw" style="background:${t.accent}" data-acc="" aria-pressed="${!S.accent}" aria-label="Warna bawaan tema"></button>
@@ -5000,7 +5013,7 @@ function renderStepCore(onlyHTML, iOverride){
 }
 function setPath(obj, path, val){ const ks=path.split('.'); let o=obj; ks.slice(0,-1).forEach(k=>o=o[k]); o[ks.at(-1)]=val; }
 let pvT;
-function refreshPreview(){ clearTimeout(pvT); pvT=setTimeout(()=>{ const cxs = EDIT.on ? $('#edScreen') : $('#builderScreen'); if(cxs && isCx(S.theme)){ const f=cxs.querySelector('iframe.cx-frame'); if(f && f.dataset.cx===S.theme){ cxPost(f); if(EDIT.on) edMark(); return; } } if(EDIT.on){ const s=$('#edScreen'); const top=s.scrollTop; s.innerHTML = invHTML({idp:'e', watermark:!S.published, guest:'Bapak Budi & Keluarga', mem:EDIT.panel==='kenangan'}); s.scrollTop=top; bindInv(s); edMark(); return; } const s=$('#builderScreen'); const top=s.scrollTop; s.innerHTML = invHTML({idp:'b', watermark:!S.published, guest:'Bapak Budi & Keluarga'}); s.scrollTop=top; bindInv(s); },120); }
+function refreshPreview(){ clearTimeout(pvT); pvT=setTimeout(()=>{ const cxs = EDIT.on ? $('#edScreen') : $('#builderScreen'); if(cxs && isCx(S.theme)){ const f=cxs.querySelector('iframe.cx-frame'); if(f && f.dataset.cx===S.theme){ cxPost(f); if(EDIT.on){ CX_PICKED=true; edMark(); } return; } } if(EDIT.on){ const s=$('#edScreen'); const top=s.scrollTop; s.innerHTML = invHTML({idp:'e', watermark:!S.published, guest:'Bapak Budi & Keluarga', mem:EDIT.panel==='kenangan'}); s.scrollTop=top; bindInv(s); edMark(); return; } const s=$('#builderScreen'); const top=s.scrollTop; s.innerHTML = invHTML({idp:'b', watermark:!S.published, guest:'Bapak Budi & Keluarga'}); s.scrollTop=top; bindInv(s); },120); }
 $('#stepForm').addEventListener('input', e=>{
   const b = e.target.dataset.bind; if(!b) return;
   let v = e.target.type==='checkbox' ? e.target.checked : e.target.value;
@@ -5349,7 +5362,7 @@ function edPanelHTML(k){
 }
 function edRail(){
   const rail=$('#edRail'); if(!rail) return; let grp='';
-  rail.innerHTML = ED_PANELS.map(([k,l,ic,g,tog])=>{ const on = tog ? !!getPath(S,tog) : true; const head = g!==grp ? `<div class="ed-grp">${g}</div>` : ''; grp=g;
+  rail.innerHTML = ED_PANELS.filter(([k])=>!(isCx(S.theme) && (k==='kado'||k==='galeri'))).map(([k,l,ic,g,tog])=>{ const on = tog ? !!getPath(S,tog) : true; const head = g!==grp ? `<div class="ed-grp">${g}</div>` : ''; grp=g;
     return `${head}<div class="ed-item ${EDIT.panel===k?'sel':''} ${on?'':'off'}"><button type="button" class="ed-pick" data-ed="${k}" aria-current="${EDIT.panel===k}">${ico(ic)}<span>${l}</span></button>${tog?`<button type="button" class="ed-vis" data-act="ed-vis" data-k="${tog}" aria-pressed="${on}" aria-label="${on?'Sembunyikan':'Tampilkan'} ${l}" title="${on?'Tampil di undangan':'Disembunyikan'}">${ico(on?'eye':'mute')}</button>`:''}</div>`; }).join('');
 }
 function edSelect(k, fromPreview){
@@ -5358,7 +5371,7 @@ function edSelect(k, fromPreview){
   if(!fromPreview){ const p=edPanel(k); const id=p[5].map(x=>'e-'+x).find(x=>$('#'+x)); if(id) $('#'+id).scrollIntoView({behavior:'smooth', block:'start'}); }
   edMark();
 }
-function edMark(){ const p=edPanel(EDIT.panel); $$('#edScreen section[id]').forEach(s=>s.classList.toggle('ed-on', p[5].includes(s.id.replace(/^e-/,'')))); }
+function edMark(){ if(isCx(S.theme)){ cxEdMark(); return; } const p=edPanel(EDIT.panel); $$('#edScreen section[id]').forEach(s=>s.classList.toggle('ed-on', p[5].includes(s.id.replace(/^e-/,'')))); }
 document.addEventListener('click', e=>{ if(document.body.classList.contains('ed-sheet-open') && (e.target===document.body || e.target===document.documentElement)) edSheet(false); });
 function edSheet(open){ EDIT.sheet=open; const ins=$('#edInsp'); if(ins) ins.classList.toggle('open', open); document.body.classList.toggle('ed-sheet-open', open && innerWidth<900); }
 function renderEditor(){
@@ -6149,7 +6162,7 @@ function renderCheckout(){
   if(coMode()==='done-already' && CO.stage!=='done'){ root.innerHTML = `<div class="co-empty">${karaImg('rayakan','kara-gate')}<span class="status s-ok">Aktif selamanya</span><h1 class="display">Paketmu udah yang paling lengkap!</h1><p class="muted">${esc((planOf(S.plan)||{name:'Paketmu'}).name)} sudah aktif untuk ${esc(pubHost())}${esc(S.slug)}.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn btn-primary" href="#dashboard">Buka dashboard</a><a class="btn btn-ghost" href="#tagihan">Lihat tagihan</a></div></div>`; return; }
   const T=coTotals();
   const steps = `<ol class="co-steps">${['Paket','Pembayaran','Selesai'].map((s,i)=>`<li class="${(CO.stage==='form'&&i===0)||(CO.stage==='pending'&&i===1)||(CO.stage==='done'&&i===2)?'on':''} ${(CO.stage==='pending'&&i<1)||(CO.stage==='done'&&i<2)?'ok':''}"><span>${i+1}</span>${s}</li>`).join('')}</ol>`;
-  const summary = `<aside class="co-sum"><div class="co-inv" style="${themeStyle(themeById(S.theme),S.accent,fontOf())}"><div class="pat2"></div><small>The wedding of</small><b>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</b><small>${esc(fmtShort(S.events[0].date))}</small></div>
+  const summary = `<aside class="co-sum"><div class="co-inv${isCx(S.theme)?' cx-inv':''}" style="${themeStyle(themeById(S.theme),S.accent,fontOf())}${isCx(S.theme)?`background-image:url(${themeById(S.theme).thumbImg});`:''}"><div class="pat2"></div><small>The wedding of</small><b>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</b><small>${esc(fmtShort(S.events[0].date))}</small></div>
     <div class="line"><span>${esc(T.name)}</span><b class="num">${rupiah(T.price)}</b></div>
     ${T.disc?`<div class="line ok"><span>Voucher ${esc(CO.applied)}</span><b class="num">−${rupiah(T.disc)}</b></div>`:''}
     <div class="line total"><span>Total</span><b class="num">${rupiah(T.total)}</b></div>

@@ -131,7 +131,8 @@
 .sk-quota{font-size:13px;opacity:.8;margin:6px 0 0}
 .sk-mem{padding:64px 24px;text-align:center}.sk-mem h2{margin:0 0 12px;font-size:34px;font-weight:400}.sk-mem p{max-width:340px;margin:0 auto 18px;line-height:1.6;white-space:pre-line}
 .sk-ph{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:340px;margin:0 auto 16px}.sk-ph img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block}
-.sk-hide{display:none!important}`;
+.sk-hide{display:none!important}
+.sk-edit [data-section]{cursor:pointer}.sk-edit section[data-section].sk-sel,.sk-edit div[data-section].sk-sel{outline:2px solid #A4535E;outline-offset:-2px}`;
     document.head.appendChild(s);
   }
   function opening(o) {
@@ -193,6 +194,21 @@
     if (d._guest) { const g = document.getElementById("guestName"); if (g) g.textContent = d._guest; }
     document.dispatchEvent(new CustomEvent("sakara:render", { detail: d }));
   }
+  /* Tema dirancang untuk lebar HP 390px. Di layar yang lebih sempit (pratinjau editor, HP kecil) seluruh tampilan diperkecil
+     secara proporsional supaya tata letaknya tetap persis seperti rancangan, bukan teksnya patah-patah. */
+  const DESIGN_W = 390;
+  function fit() { const w = document.documentElement.clientWidth || innerWidth; const z = w < DESIGN_W ? w / DESIGN_W : 1;
+    document.documentElement.style.zoom = z === 1 ? "" : String(z); document.documentElement.style.setProperty("--sk-z", z); }
+  fit(); addEventListener("resize", fit);
+  /* mode editor: klik bagian untuk mengeditnya, bagian yang sedang diedit diberi garis */
+  let editMode = false;
+  addEventListener("message", e => { const m = e.data || {}; if (m.type !== "sakara:mark") return; editMode = true; css();
+    document.documentElement.classList.add("sk-edit");
+    document.querySelectorAll("[data-section]").forEach(el => el.classList.toggle("sk-sel", (m.sections || []).includes(el.dataset.section)));
+    const first = (m.sections || []).map(k => document.querySelector(`[data-section="${k}"]`)).find(el => el && el.offsetParent !== null);
+    if (first && m.scroll) { document.dispatchEvent(new CustomEvent("invite:skipcover")); first.scrollIntoView({ behavior: "smooth", block: "start" }); }
+  });
+  document.addEventListener("click", e => { if (!editMode || !embedded) return; if (e.target.closest("a,button,input,textarea,select,label,#cover")) return; const sec = e.target.closest("[data-section]"); if (!sec) return; window.parent.postMessage({ type: "invite:pick", section: sec.dataset.section }, "*"); }, true);
   const boot = () => {
     if (!window.Invite) return setTimeout(boot, 0);
     const set = Invite.set.bind(Invite);
