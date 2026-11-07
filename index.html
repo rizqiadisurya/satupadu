@@ -743,6 +743,13 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .sec-order li.off{background:var(--paper)}
 .sec-order li.off b{color:var(--muted)}
 .sec-order .mv{margin-left:auto;display:flex;gap:6px}
+.sec-order[data-sort] li{padding-left:6px}
+.sec-order .chip{white-space:nowrap}
+.sec-order .drag{display:grid;place-items:center;width:28px;height:36px;margin-right:-4px;color:var(--muted);cursor:grab;touch-action:none;border-radius:8px;flex:none}
+.sec-order .drag:hover{background:var(--paper);color:var(--ink)}
+.sec-order.sorting{user-select:none}
+.sec-order.sorting .drag{cursor:grabbing}
+.sec-order li.dragging{box-shadow:0 10px 24px rgba(60,20,30,.16);border-color:var(--beet);position:relative;z-index:2;transform:scale(1.02)}
 .sec-order .mv .btn{min-width:40px;padding:6px}
 .sec-order .mv .btn:disabled{opacity:.35;cursor:not-allowed}
 .chip-ses{background:#EEF0F6;color:#2F3E64;margin:2px 0}
@@ -4362,6 +4369,28 @@ addEventListener('message', async e=>{
 });
 /* ---------- Editor Custom: susunan bagian, foto per bingkai, teks khusus tema ---------- */
 const CX_PH_LABEL = k => ({cover:'Sampul', couple:'Berdua', player:'Pemutar lagu', bride:'Pengantin wanita', groom:'Pengantin pria'})[k] || ((m=>m?({g:'Galeri ',strip:'Strip ',row:'Cerita ',story:'Cerita '})[m[1]]+m[2]:k)(k.match(/^(g|strip|row|story)(\d)$/)));
+/* Drag untuk ubah urutan bagian (mouse & sentuh). Tombol panah tetap ada untuk keyboard. */
+function secSortCommit(list){
+  const keys=[...list.children].map(li=>li.dataset.k).filter(Boolean);
+  if(list.dataset.sort==='cx'){ cxSetPath('order', keys); } else { S.order=keys; }
+  save(); renderStep(); if(EDIT.on) edRail(); refreshPreview();
+}
+document.addEventListener('pointerdown', e=>{
+  const h=e.target.closest('.sec-order[data-sort] .drag'); if(!h) return;
+  const li=h.closest('li'), list=li.parentElement; e.preventDefault();
+  const start=[...list.children].map(x=>x.dataset.k).join();
+  li.classList.add('dragging'); list.classList.add('sorting');
+  const sc=li.closest('.ed-insp-b');
+  const move=ev=>{ const y=ev.clientY; const sibs=[...list.children].filter(x=>x!==li);
+    const after=sibs.find(x=>{ const r=x.getBoundingClientRect(); return y < r.top + r.height/2; });
+    if(after){ if(li.nextElementSibling!==after) list.insertBefore(li, after); } else if(list.lastElementChild!==li) list.appendChild(li);
+    const R=sc?sc.getBoundingClientRect():{top:0,bottom:innerHeight}, T=sc||window;
+    if(y < R.top+48) T.scrollBy(0,-14); else if(y > R.bottom-48) T.scrollBy(0,14); };
+  const end=()=>{ document.removeEventListener('pointermove',move); document.removeEventListener('pointerup',end); document.removeEventListener('pointercancel',end);
+    li.classList.remove('dragging'); list.classList.remove('sorting');
+    if([...list.children].map(x=>x.dataset.k).join()!==start) secSortCommit(list); };
+  document.addEventListener('pointermove',move); document.addEventListener('pointerup',end); document.addEventListener('pointercancel',end);
+});
 function cxOrder(){ const ids=CX_SECTIONS.map(x=>x[0]); const o=((S.cx||{}).order||[]).filter(k=>ids.includes(k)); return o.concat(ids.filter(k=>!o.includes(k))); }
 function cxSecOn(k){ const t=cxTheme(S.theme), D=((window.INVITE_DEFAULTS||{})[t.dir]||{}).sections||{}, X=((S.cx||{}).sections)||{}; if(k==='rsvp' && S.wishesOn===false) return false; return X[k]!==undefined ? !!X[k] : D[k]!==false; }
 function cxPhotoSrc(t, v){ return !v ? '' : /^(data:|https?:|\/)/.test(v) ? v : `/custom/${t.dir}/${v}`; }
@@ -4371,7 +4400,7 @@ function cxEditorHTML(){
   const has=k=>!!document && true;
   const ord=cxOrder();
   const rows=ord.map((k,i)=>{ const lab=(CX_SECTIONS.find(x=>x[0]===k)||[k,k])[1], on=cxSecOn(k), sup = false;
-    return `<li class="${on&&!sup?'':'off'}"><b>${lab}</b>${sup?'<small class="muted">Tidak ada di tema ini</small>':''}<span class="mv"><label class="switch"><input type="checkbox" data-cxsec="${k}" ${on?'checked':''} ${sup?'disabled':''} aria-label="Tampilkan ${lab}"><span></span></label><button type="button" class="btn btn-ghost btn-sm" data-cxmv="${k}" data-dir="-1" ${i===0?'disabled':''} aria-label="Naikkan ${lab}">↑</button><button type="button" class="btn btn-ghost btn-sm" data-cxmv="${k}" data-dir="1" ${i===ord.length-1?'disabled':''} aria-label="Turunkan ${lab}">↓</button></span></li>`; }).join('');
+    return `<li class="${on&&!sup?'':'off'}" data-k="${k}"><span class="drag" aria-hidden="true" title="Geser untuk pindah"><svg viewBox="0 0 10 16" width="10" height="16"><g fill="currentColor"><circle cx="2" cy="2" r="1.5"/><circle cx="8" cy="2" r="1.5"/><circle cx="2" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="2" cy="14" r="1.5"/><circle cx="8" cy="14" r="1.5"/></g></svg></span><b>${lab}</b>${sup?'<small class="muted">Tidak ada di tema ini</small>':''}<span class="mv"><label class="switch"><input type="checkbox" data-cxsec="${k}" ${on?'checked':''} ${sup?'disabled':''} aria-label="Tampilkan ${lab}"><span></span></label><button type="button" class="btn btn-ghost btn-sm" data-cxmv="${k}" data-dir="-1" ${i===0?'disabled':''} aria-label="Naikkan ${lab}">↑</button><button type="button" class="btn btn-ghost btn-sm" data-cxmv="${k}" data-dir="1" ${i===ord.length-1?'disabled':''} aria-label="Turunkan ${lab}">↓</button></span></li>`; }).join('');
   const keys=Object.keys(D.photos||{});
   const phs=keys.map(k=>{ const mine=!!(X.photos||{})[k], v=cxPhotoSrc(t, d.photos[k]); return `<div class="cx-ph${mine?' mine':''}"><label><img src="${esc(v)}" alt="" loading="lazy"><input type="file" accept="image/*" data-cxph="${k}" hidden><span class="cx-ph-l">${esc(CX_PH_LABEL(k))}</span><span class="cx-ph-b">${mine?'Ganti':'Unggah'}</span></label>${mine?`<button type="button" class="linkbtn" data-cxphx="${k}">Pakai contoh</button>`:'<small class="muted">Contoh</small>'}</div>`; }).join('');
   const fx=(k,l,v,o={})=>`<div class="field"><label for="cx-${k.replace(/\W/g,'-')}">${l}${o.opt?' <span class="opt-l">opsional</span>':''}</label>${o.area?`<textarea class="input" rows="${o.rows||3}" id="cx-${k.replace(/\W/g,'-')}" data-cxk="${k}">${esc(v||'')}</textarea>`:`<input class="input" id="cx-${k.replace(/\W/g,'-')}" data-cxk="${k}" value="${esc(v||'')}">`}${o.hint?`<span class="hint">${o.hint}</span>`:''}</div>`;
@@ -4391,7 +4420,7 @@ function cxEditorHTML(){
     <div class="field" style="margin-top:16px"><span style="font-weight:700;font-size:13.5px">Bahasa undangan</span><div class="seg" role="group" aria-label="Bahasa">${[['id','Indonesia'],['en','English']].map(([k,l])=>`<button type="button" data-cxlang="${k}" aria-pressed="${lang===k}">${l}</button>`).join('')}</div><span class="hint">Mengganti teks bawaan tema (judul bagian, tombol, hari). Isi yang kalian tulis sendiri tidak ikut diterjemahkan.</span></div>`;
   return `<div class="cx-ed">
     ${look}
-    <div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Susunan undangan</span><ol class="sec-order">${rows}</ol><span class="hint">Sampul dan ayat selalu di atas, penutup selalu di bawah. Matikan bagian yang tidak kalian pakai.</span></div>
+    <div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Susunan undangan</span><ol class="sec-order" data-sort="cx">${rows}</ol><span class="hint">Sampul dan ayat selalu di atas, penutup selalu di bawah. Matikan bagian yang tidak kalian pakai.</span></div>
     <div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Foto di setiap bingkai</span><div class="cx-phs">${phs}</div><span class="hint">Yang bertanda “Contoh” masih memakai foto contoh. Ganti semuanya sebelum dibagikan, ya.</span></div>
     <div style="margin-top:22px"><span style="font-weight:700;font-size:13.5px;display:block;margin-bottom:8px">Teks khusus tema ini</span>${texts}</div>
   </div>`;
@@ -4440,7 +4469,7 @@ function cxEdPanels(){
   const list=['cx:sampul', ...mid, 'cx:closing'].map(k=>{ const id=k.slice(3), d=CX_PANEL_DEF[id]; return [k, d[0], d[1], 'Isi undangan', d[3], d[2]]; });
   const orig=k=>ED_PANELS.find(p=>p[0]===k);
   const na = cxNA().map(k=>{ const d=CX_NA_DEF[k]; return ['na:'+k, d[0], d[1], 'Belum tersedia di tema ini', null, [], 'na']; });
-  return [['cx:tampilan','Tema, warna & bahasa','eye','Tampilan', null, []]].concat(list, ['musik','kenangan','link'].map(orig).filter(Boolean).map(p=>{ const q=p.slice(); q[3]='Pengaturan'; return q; }), na);
+  return [['cx:tampilan','Tema, warna & bahasa','eye','Tampilan', null, []], ['urutan','Urutan bagian','menu','Tampilan', null, []]].concat(list, ['musik','kenangan','link'].map(orig).filter(Boolean).map(p=>{ const q=p.slice(); q[3]='Pengaturan'; return q; }), na);
 }
 /* Fitur tema Lukisan yang belum didukung tiap tema Custom. Tema baru cukup didaftarkan di CX_NA. */
 const CX_NA_DEF = {
@@ -5152,7 +5181,7 @@ function renderStepCore(onlyHTML, iOverride){
       <div class="toggle-row" style="flex-wrap:wrap"><div><b>Musik latar</b><div class="muted" style="font-size:14px">Musik mengalun pelan pas tamu buka undangan. Mau hening? Tamu bisa matikan sekali ketuk.</div></div><label class="switch"><input type="checkbox" data-bind="music" ${S.music?'checked':''} aria-label="Musik latar"><span></span></label>
         ${S.music?musicPickerHTML():''}</div>
     </div>
-    <div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Urutan bagian undangan</span><ol class="sec-order">${secOrder().map((k,i,arr)=>{ const off=(k==='galeri'&&(!S.galleryOn||!S.gallery.length))||(k==='hadiah'&&!S.gift.on)||(k==='kado'&&!(S.wishlist&&S.wishlist.on&&S.wishlist.items.length))||(k==='cerita'&&!(S.story&&S.story.on&&S.story.items.length))||(k==='ucapan'&&!S.wishesOn); return `<li class="${off?'off':''}"><span class="num muted">${i+1}</span><b>${SECTION_LABELS[k]}</b>${off?'<span class="chip">Tidak tampil</span>':''}<span class="mv"><button type="button" class="btn btn-ghost btn-sm" data-move="${k}" data-dir="-1" ${i===0?'disabled':''} aria-label="Naikkan ${SECTION_LABELS[k]}">↑</button><button type="button" class="btn btn-ghost btn-sm" data-move="${k}" data-dir="1" ${i===arr.length-1?'disabled':''} aria-label="Turunkan ${SECTION_LABELS[k]}">↓</button></span></li>`; }).join('')}</ol><span class="hint">Sampul selalu di paling atas, ucapan terima kasih selalu di paling bawah.</span></div>`;
+    <div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Urutan bagian undangan</span><ol class="sec-order" data-sort="lk">${secOrder().map((k,i,arr)=>{ const off=(k==='galeri'&&(!S.galleryOn||!S.gallery.length))||(k==='hadiah'&&!S.gift.on)||(k==='kado'&&!(S.wishlist&&S.wishlist.on&&S.wishlist.items.length))||(k==='cerita'&&!(S.story&&S.story.on&&S.story.items.length))||(k==='ucapan'&&!S.wishesOn); return `<li class="${off?'off':''}" data-k="${k}"><span class="drag" aria-hidden="true" title="Geser untuk pindah"><svg viewBox="0 0 10 16" width="10" height="16"><g fill="currentColor"><circle cx="2" cy="2" r="1.5"/><circle cx="8" cy="2" r="1.5"/><circle cx="2" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="2" cy="14" r="1.5"/><circle cx="8" cy="14" r="1.5"/></g></svg></span><span class="num muted">${i+1}</span><b>${SECTION_LABELS[k]}</b>${off?'<span class="chip">Tidak tampil</span>':''}<span class="mv"><button type="button" class="btn btn-ghost btn-sm" data-move="${k}" data-dir="-1" ${i===0?'disabled':''} aria-label="Naikkan ${SECTION_LABELS[k]}">↑</button><button type="button" class="btn btn-ghost btn-sm" data-move="${k}" data-dir="1" ${i===arr.length-1?'disabled':''} aria-label="Turunkan ${SECTION_LABELS[k]}">↓</button></span></li>`; }).join('')}</ol><span class="hint">Sampul selalu di paling atas, ucapan terima kasih selalu di paling bawah.</span></div>`;
   }
   if(i===4){
     const checks = [['Nama kedua mempelai', !!(S.bride.name&&S.groom.name), 0],['Minimal satu acara dengan tanggal & tempat', S.events.some(e=>e.date&&e.venue), 1],['Tema dipilih', !!S.theme, 2],['Rekening amplop digital', !S.gift.on || !!S.gift.acct, 3]];
@@ -5513,8 +5542,8 @@ function edPanelHTML0(k){
   if(k==='musik'){ const r=togRow('music'); return r ? r.outerHTML : ''; }
   if(k==='ucapan'){ const r=togRow('wishesOn'); return (r?r.outerHTML:'') + `<p class="hint" style="margin-top:12px">Ucapan dari tamu bisa kamu sembunyikan satu per satu di <a href="#dashboard" data-dtab-go="ucapan">Dashboard → Ucapan</a>.</p>`; }
   if(k==='hadiah'){ const d=document.createElement('div'); d.innerHTML=s3(); const inp=d.querySelector('[data-bind="gift.on"]'); const row=inp.closest('.toggle-row'); return row.outerHTML + (row.nextElementSibling?row.nextElementSibling.outerHTML:''); }
-  if(k==='urutan' && isCx(S.theme)){ const d=document.createElement('div'); d.innerHTML=cxEditorHTML(); const o=d.querySelector('.sec-order'); return o ? `<div class="field">${o.outerHTML}</div><p class="hint">Sampul dan ayat selalu di atas, penutup selalu di bawah. Foto, warna, dan huruf ada di panel Tema.</p>` : ''; }
-  if(k==='urutan'){ return pickPart(s3(), '.sec-order') ? `<div class="field">${pickPart(s3(), '.sec-order')}</div><p class="hint">Bagian yang sedang dimatikan tetap ada di urutan, tapi tidak tampil ke tamu.</p>` : ''; }
+  if(k==='urutan' && isCx(S.theme)){ const d=document.createElement('div'); d.innerHTML=cxEditorHTML(); const o=d.querySelector('.sec-order'); return o ? `<div class="field">${o.outerHTML}</div><p class="hint">Tahan dan geser titik-titik di kiri untuk pindah posisi. Sampul selalu di atas, penutup selalu di bawah.</p>` : ''; }
+  if(k==='urutan'){ return pickPart(s3(), '.sec-order') ? `<div class="field">${pickPart(s3(), '.sec-order')}</div><p class="hint">Tahan dan geser titik-titik di kiri untuk pindah posisi. Bagian yang dimatikan tetap ada di urutan, tapi tidak tampil ke tamu.</p>` : ''; }
   if(k==='salam'){ const d=document.createElement('div'); d.innerHTML=s3(); const sel=d.querySelector('#opening'); return (sel ? sel.closest('.field').outerHTML : '') + quoteFieldHTML(); }
   if(k==='link'){ const d=document.createElement('div'); d.innerHTML=stepBody(4); const inp=d.querySelector('#slug'); return (inp ? inp.closest('.field').outerHTML : '') + (S.published?`<p class="hint" style="margin-top:12px">Hati-hati: kalau alamat diganti, link yang sudah terkirim ke tamu tidak berlaku lagi.</p>`:''); }
   if(k==='rsvp'){ const first=S.events.find(e=>e.date);
