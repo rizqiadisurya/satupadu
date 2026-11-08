@@ -236,6 +236,7 @@ img{max-width:100%}
 .kind-tabs.sm{margin:4px 0 10px}.kind-tabs.sm button{min-width:0;flex:1;padding:10px 14px}
 .cx-ed{margin-top:22px}
 .cx-ed .field + .field{margin-top:16px}
+.cx-hr{border:0;border-top:1px dashed var(--line);margin:14px 0 4px}
 .cx-sechead{display:flex;align-items:center;gap:10px;padding:10px 12px;margin:0 0 16px;border:1px solid var(--line);border-radius:12px;background:var(--paper);font-size:14px;font-weight:600}
 .cx-sechead .mv{margin-left:auto;display:flex;gap:6px}.cx-sechead .mv .btn{min-width:38px;padding:6px}.cx-sechead .mv .btn:disabled{opacity:.35}
 .cx-sample{color:#9A6A12;font-weight:700}
@@ -4341,7 +4342,7 @@ function cxData(id){
   const main=res||akad||ev[0];
   d.event={date:(ev.find(e=>e.date)||{}).date||D.event.date, akad:evo(akad), resepsi:evo(res||(!akad?ev[0]:null)), mapsUrl: main&&main.venue ? 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(`${main.venue} ${main.address||''}`) : ''};
   const g=S.gift||{}, xg=X.gift||{};
-  d.gift={...D.gift, ...xg, address:xg.address||'', contacts:Object.values(xg.contacts||{}).filter(c=>c&&(c.name||c.phone)), accounts:[...(g.acct?[{bank:g.bank||'', number:String(g.acct).replace(/(\d{4})(?=\d)/g,'$1 '), holder:g.holder||''}]:[]), ...((xg.extra)||[])]};
+  d.gift={...D.gift, ...xg, address:xg.address||'', contacts:Object.values(xg.contacts||{}).filter(c=>c&&(c.name||c.phone)), accounts:[...(g.acct?[{bank:g.bank||'', number:String(g.acct).replace(/(\d{4})(?=\d)/g,'$1 '), holder:g.holder||''}]:[]), ...Object.values(xg.extra||{}).filter(a=>a&&(a.bank||a.number)).map(a=>({bank:a.bank||'', number:String(a.number||'').replace(/(\d{4})(?=\d)/g,'$1 '), holder:a.holder||''}))]};
   const q=(cxLang(t)==='en' && S.quoteMode!=='custom' && S.quoteMode!=='none') ? ((CX_OPEN_EN[S.opening||'islam']||CX_OPEN_EN.umum).quote) : quoteText(); if(X.quote) d.quote=X.quote; else if(q){ const i=q.lastIndexOf('—'); d.quote = i>0 ? {text:q.slice(0,i).trim(), source:q.slice(i+1).trim()} : {text:q, source:''}; } else d.quote={text:'',source:''};
   const st=S.story&&S.story.on&&(S.story.items||[]).length ? {title:(X.story&&X.story.title)||D.story.title, items:S.story.items.map(it=>({title:[it.title,it.date].filter(Boolean).join(' · '), text:it.text||''}))} : {title:D.story.title, items:[]};
   d.story=st;
@@ -4466,7 +4467,7 @@ function cxSetPath(path, v){ S.cx=S.cx||{}; const ks=path.split('.'); let o=S.cx
 let cxT;
 document.addEventListener('input', e=>{ const k=e.target.dataset && e.target.dataset.cxk; if(!k) return; cxSetPath(k, e.target.value); clearTimeout(cxT); cxT=setTimeout(()=>{ save(); refreshPreview(); },250); });
 document.addEventListener('change', async e=>{ const t=e.target;
-  if(t.dataset && t.dataset.cxtog){ setPath(S, t.dataset.cxtog, t.checked); save(); renderStep(); if(EDIT.on) edRail(); refreshPreview(); return; }
+  if(t.dataset && t.dataset.cxtog){ const tp=t.dataset.cxtog; if(tp.startsWith('cx.')) cxSetPath(tp.slice(3), t.checked); else setPath(S, tp, t.checked); save(); renderStep(); if(EDIT.on) edRail(); refreshPreview(); return; }
   if(t.dataset && t.dataset.cxsec){ cxSetPath('sections.'+t.dataset.cxsec, t.checked); if(t.dataset.cxsec==='rsvp' && t.checked) S.wishesOn=true; save(); renderStep(); refreshPreview(); return; }
   if(t.dataset && t.dataset.cxph && t.files && t.files[0]){ const k=t.dataset.cxph; try{ const d=await shrink(t.files[0], 1400, .8); const url=await storePhoto(d); if(url){ cxSetPath('photos.'+k, url); save(); renderStep(); refreshPreview(); } }catch(err){ toast('Foto gagal diunggah: '+(err.message||'coba lagi')); } }
 });
@@ -4560,12 +4561,13 @@ function cxPanelBody(id){
     cxPhotosHTML(cxPhotoKeys('sampul'),{title:'Foto sampul & pemutar lagu'}),
     `<div class="field">${edPanelHTML0('salam')}</div>`].join('');
   if(id==='couple') return stepBody(0) + cxCoupleExtra();
-  if(id==='date') return stepBody(1);
+  if(id==='date') return stepBody(1) + (['drapery','coretan'].includes(t.dir) ? `<div class="field cx-sechead" style="margin-top:18px"><label class="switch"><input type="checkbox" data-cxtog="cx.sections.countdown" ${(d.sections||{}).countdown?'checked':''} aria-label="Tampilkan hitung mundur"><span></span></label><span>Hitung mundur ke hari H</span></div>` : '');
   if(id==='dresscode'){ const e=S.events[0]||{}; const more=evMoreHTML(e,0); return `${cxPick(more,'.field:has([data-bind="events.0.dress"])')}${cxPick(more,'.field:has(.dc-pick)')}<p class="hint">Dress code ini ikut tampil di semua tema. Untuk acara lain, isi di panel Tanggal &amp; acara.</p>`; }
-  if(id==='gift'){ const c=Object.values((X.gift||{}).contacts||{}); return edPanelHTML0('hadiah') + cxFx('gift.shipText','Teks kirim kado',d.gift.shipText,{area:1,opt:1}) + cxFx('gift.address','Alamat kirim kado',d.gift.address,{area:1,opt:1,hint:'Kosongkan kalau alamat dibagikan lewat WhatsApp.'})
+  if(id==='gift'){ const c=Object.values((X.gift||{}).contacts||{}), ex=(X.gift||{}).extra||{}; return cxFx('gift.intro','Kalimat pengantar',d.gift.intro,{area:1,rows:3,hint:'Tampil di atas daftar rekening.'}) + edPanelHTML0('hadiah')
+      + `<fieldset class="fieldset"><legend>Rekening atau e-wallet lain</legend><p class="hint" style="margin:0 0 6px">Tema ini bisa menampilkan lebih dari satu rekening. Kosongkan kalau cukup satu.</p>${[0,1].map(i=>`<div class="fgrid" style="margin-top:8px">${cxFx(`gift.extra.${i}.bank`,'Bank / e-wallet',(ex[i]||{}).bank,{ph:i?'mis. GoPay':'mis. BCA'})}${cxFx(`gift.extra.${i}.number`,'Nomor',(ex[i]||{}).number)}</div>${cxFx(`gift.extra.${i}.holder`,'Atas nama',(ex[i]||{}).holder)}`).join('<hr class="cx-hr">')}</fieldset>` + cxFx('gift.shipText','Teks kirim kado',d.gift.shipText,{area:1,opt:1}) + cxFx('gift.address','Alamat kirim kado',d.gift.address,{area:1,opt:1,hint:'Kosongkan kalau alamat dibagikan lewat WhatsApp.'})
       + `<div class="field"><span style="font-weight:700;font-size:13.5px">Kontak konfirmasi kado <span class="opt-l">opsional</span></span>${[0,1].map(i=>`<div class="fgrid" style="margin-top:8px">${cxFx(`gift.contacts.${i}.name`,'Nama',(c[i]||{}).name)}${cxFx(`gift.contacts.${i}.phone`,'No. WhatsApp',(c[i]||{}).phone,{ph:'0812…'})}</div>`).join('')}</div>`; }
   if(id==='rsvp') return edPanelHTML0('rsvp') + edPanelHTML0('ucapan');
-  if(id==='story') return edPanelHTML0('cerita') + cxPhotosHTML(cxPhotoKeys('story'),{title:'Foto polaroid cerita'});
+  if(id==='story') return cxFx('story.title','Judul bagian cerita',d.story&&d.story.title,{hint:'Tampil di atas daftar cerita, mis. “Our Story” atau “Perjalanan Kami”.'}) + edPanelHTML0('cerita') + cxPhotosHTML(cxPhotoKeys('story'),{title:'Foto polaroid cerita'});
   if(id==='gallery') return cxPhotosHTML(cxPhotoKeys('gallery'),{title:'Foto galeri'}) + (t.dir==='photobox'?cxFx('gallery.caption','Keterangan galeri',d.gallery&&d.gallery.caption,{area:1,opt:1}):'');
   if(id==='closing') return cxFx('closing.text','Teks penutup',d.closing&&d.closing.text,{area:1,rows:4});
   if(id==='tampilan') return stepBody(2);
