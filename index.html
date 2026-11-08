@@ -6740,7 +6740,7 @@ document.addEventListener('click', e=>{
 document.addEventListener('click', e=>{ const m=$('#acctMenu'); if(m && !m.hidden && !e.target.closest('.acct')) m.hidden=true; });
 
 /* ---------- Cloud: Supabase + Midtrans ---------- */
-const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','catering','arriveOn','wishlist','story','fontPair','waTpl','waTplR','albumOn','thanksMsg','thanksMsg2','thanked','gallery','galleryOn','groups','slug','quote','quoteMode','seats','seatsDefault','memMode','memMsg','cx','liveTheme'];
+const DATA_KEYS = ['groom','bride','events','opening','theme','accent','font','order','gift','wishesOn','music','musicSrc','musicStart','catering','arriveOn','wishlist','story','fontPair','waTpl','waTplR','albumOn','thanksMsg','thanksMsg2','thanked','gallery','galleryOn','groups','slug','quote','quoteMode','seats','seatsDefault','memMode','memMsg','cx','liveTheme','oldSlugs'];
 const pickData = () => { const d={}; DATA_KEYS.forEach(k=>{ if(S[k]!==undefined) d[k]=S[k]; }); return d; };
 const toRow = g => ({invitation_id:CLOUD.inv.id, id:g.id, name:g.name, phone:g.phone||'', grp:g.group||'Tanpa grup', sessions:g.sessions||[], code:g.code, status:g.status, pax:g.pax||0, sent:!!g.sent, walkin:!!g.walkin, checkin:g.checkin||null, fam:g.fam||null, approved:g.approved!==false, arrive:g.arrive||''});
 const fromRow = r => { const g={id:r.id, name:r.name, phone:r.phone||'', group:r.grp||'Tanpa grup', sessions:r.sessions||[], code:r.code, status:r.status||'belum', pax:r.pax||0, sent:!!r.sent, walkin:!!r.walkin, fam:r.fam||null, arrive:r.arrive||''}; if(r.approved===false) g.approved=false; if(r.checkin) g.checkin=r.checkin; return g; };
@@ -6850,7 +6850,7 @@ async function cloudSaveNow(){
     else if(r.error.code==='23514') toast('Alamat minimal 3 karakter, hanya huruf kecil, angka, dan strip');
     else toast('Gagal menyimpan: '+r.error.message);
     setSaveState('Belum tersimpan');
-  } else { CLOUD.inv.slug=r.data.slug; setSaveState('Tersimpan ke akun'); }
+  } else { const old=CLOUD.inv.slug; CLOUD.inv.slug=r.data.slug; setSaveState('Tersimpan ke akun'); if(old!==r.data.slug){ $$('#edPub a[href]').forEach(a=>a.href=pubURL()); if(old && S.published){ S.oldSlugs=[...new Set([...(S.oldSlugs||[]), old])].filter(x=>x!==r.data.slug).slice(-10); save(); } } }
 }
 let cgT;
 function cloudSyncGuests(){ if(!CLOUD.on || !CLOUD.inv || CLOUD.guestMode || CLOUD.pinMode) return; clearTimeout(cgT); cgT=setTimeout(cloudSyncGuestsNow, 500); }
@@ -7483,6 +7483,7 @@ function playGate(){
 }
 
 
+document.addEventListener('click', e=>{ const a=e.target.closest('#edPub a[href]'); if(a) a.href=pubURL(); }, true);
 /* ---------- Editor pesan WhatsApp ---------- */
 let WAK='invite';
 function waTplModal(kind){

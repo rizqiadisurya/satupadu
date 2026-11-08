@@ -62,6 +62,16 @@ module.exports = async (req, res) => {
   if (/^[a-z0-9][a-z0-9-]{2,39}$/.test(slug) && env('SUPABASE_URL')) {
     try {
       const inv = await sb('/rest/v1/rpc/get_public_invitation', { method: 'POST', body: { p_slug: slug, p_code: code || null }, key: ANON() || SERVICE() });
+      // Alamat lama (sebelum pasangan menggantinya) diarahkan ke alamat sekarang, supaya link yang sudah disebar tetap bisa dibuka.
+      if (!(inv && inv.data) && SERVICE()) {
+        const hit = await sb(`/rest/v1/invitations?select=slug&data->oldSlugs=cs.${encodeURIComponent(JSON.stringify([slug]))}&limit=1`).catch(() => null);
+        const to = Array.isArray(hit) && hit[0] && hit[0].slug;
+        if (to && to !== slug) {
+          const sub = ['checkin', 'keluarga', 'katering', 'album'].includes(q.get('sub')) ? '/' + q.get('sub') : '';
+          const keep = new URLSearchParams(); q.forEach((v, k) => { if (k !== 'slug' && k !== 'sub') keep.append(k, v); });
+          res.statusCode = 301; res.setHeader('Location', `/u/${to}${sub}${keep.toString() ? '?' + keep : ''}`); res.setHeader('Cache-Control', 'public, s-maxage=300'); res.end(); return;
+        }
+      }
       if (inv && inv.data) {
         const d = inv.data;
         const cx = t => /^cx-/.test(String(t || ''));
@@ -72,7 +82,12 @@ module.exports = async (req, res) => {
         const ev = (Array.isArray(d.events) ? d.events : []).find(e => e && e.date);
         const tgl = ev ? tanggal(ev.date) : '';
         const guest = inv.guest && inv.guest.name;
-        const photo = httpsUrl(d.coverPhoto) || httpsUrl(Array.isArray(d.gallery) && d.gallery.find(httpsUrl)) || httpsUrl(d.bride && d.bride.photo) || httpsUrl(d.groom && d.groom.photo);
+        // Tema Custom menyimpan fotonya sendiri (d.cx.photos): pakai itu dulu untuk pratinjau link.
+        const cxPh = (noGate && d.cx && d.cx.photos) || {};
+        const CX_OG = { coretan: ['cover', 'couple', 'player', 'strip1'], photobox: ['player', 'strip1', 'row1', 'g1'], drapery: ['g1', 'story1', 'bride', 'groom'] };
+        const dir = String(d.theme || '').replace(/^cx-/, '');
+        const cxPick = (CX_OG[dir] || Object.keys(cxPh)).map(k => httpsUrl(cxPh[k])).find(Boolean) || Object.values(cxPh).map(httpsUrl).find(Boolean) || '';
+        const photo = cxPick || httpsUrl(d.coverPhoto) || httpsUrl(Array.isArray(d.gallery) && d.gallery.find(httpsUrl)) || httpsUrl(d.bride && d.bride.photo) || httpsUrl(d.groom && d.groom.photo);
         meta = {
           title: pair ? `Undangan Pernikahan ${pair}` : meta.title,
           desc: [guest ? `Kepada Yth. ${guest}.` : '', tgl ? `${tgl}.` : '', 'Dengan penuh sukacita, kami mengundang Anda untuk hadir di hari bahagia kami.'].filter(Boolean).join(' '),
