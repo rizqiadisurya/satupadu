@@ -62,6 +62,16 @@ module.exports = async (req, res) => {
   if (/^[a-z0-9][a-z0-9-]{2,39}$/.test(slug) && env('SUPABASE_URL')) {
     try {
       const inv = await sb('/rest/v1/rpc/get_public_invitation', { method: 'POST', body: { p_slug: slug, p_code: code || null }, key: ANON() || SERVICE() });
+      // Alamat lama (sebelum pasangan menggantinya) diarahkan ke alamat sekarang, supaya link yang sudah disebar tetap bisa dibuka.
+      if (!(inv && inv.data) && SERVICE()) {
+        const hit = await sb(`/rest/v1/invitations?select=slug&data->oldSlugs=cs.${encodeURIComponent(JSON.stringify([slug]))}&limit=1`).catch(() => null);
+        const to = Array.isArray(hit) && hit[0] && hit[0].slug;
+        if (to && to !== slug) {
+          const sub = ['checkin', 'keluarga', 'katering', 'album'].includes(q.get('sub')) ? '/' + q.get('sub') : '';
+          const keep = new URLSearchParams(); q.forEach((v, k) => { if (k !== 'slug' && k !== 'sub') keep.append(k, v); });
+          res.statusCode = 301; res.setHeader('Location', `/u/${to}${sub}${keep.toString() ? '?' + keep : ''}`); res.setHeader('Cache-Control', 'public, s-maxage=300'); res.end(); return;
+        }
+      }
       if (inv && inv.data) {
         const d = inv.data;
         const cx = t => /^cx-/.test(String(t || ''));

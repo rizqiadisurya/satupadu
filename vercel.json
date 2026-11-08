@@ -6,19 +6,19 @@
     },
     {
       "source": "/u/:slug/checkin",
-      "destination": "/api/undangan?slug=:slug"
+      "destination": "/api/undangan?slug=:slug&sub=checkin"
     },
     {
       "source": "/u/:slug/keluarga",
-      "destination": "/api/undangan?slug=:slug"
+      "destination": "/api/undangan?slug=:slug&sub=keluarga"
     },
     {
       "source": "/u/:slug/katering",
-      "destination": "/api/undangan?slug=:slug"
+      "destination": "/api/undangan?slug=:slug&sub=katering"
     },
     {
       "source": "/u/:slug/album",
-      "destination": "/api/undangan?slug=:slug"
+      "destination": "/api/undangan?slug=:slug&sub=album"
     },
     {
       "source": "/privasi",
