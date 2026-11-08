@@ -111,9 +111,12 @@
     groups.forEach(list => {
       if (list.length < 3) return;
       const rank = (el, i) => { const id = el.dataset.section; if (id in fixed) return fixed[id]; const k = order.indexOf(id); return k < 0 ? 500 + i : k; };
+      // Elemen di antara bagian (mis. pemutar musik Drapery) ikut bagian di atasnya, jadi tidak tertinggal saat diurutkan ulang.
+      const parent = list[0].parentElement, chunks = new Map();
+      list.forEach((el, i) => { const c = [el]; let x = el.nextSibling; while (x && !(x.nodeType === 1 && x.matches("section[data-section]")) && !(x.nodeType === 1 && x.tagName === "FOOTER")) { c.push(x); x = x.nextSibling; } chunks.set(el, c); });
+      const last = chunks.get(list[list.length - 1]), anchor = last[last.length - 1].nextSibling;
       const sorted = list.map((el, i) => [el, rank(el, i)]).sort((a, b) => a[1] - b[1]).map(x => x[0]);
-      const anchor = list[list.length - 1].nextSibling, parent = list[0].parentElement;
-      sorted.forEach(el => parent.insertBefore(el, anchor));
+      sorted.forEach(el => chunks.get(el).forEach(n => parent.insertBefore(n, anchor)));
     });
   }
 
@@ -133,7 +136,7 @@
 .sk-ph{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:340px;margin:0 auto 16px}.sk-ph img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block}
 .sk-hide{display:none!important}
 .sk-tag{position:absolute;top:6px;left:6px;z-index:5;background:#FFF6E6;color:#6b4a0c;font:700 10px/1 system-ui,sans-serif;letter-spacing:.04em;padding:4px 7px;border-radius:99px;box-shadow:0 1px 4px rgba(0,0,0,.25);pointer-events:none}
-.sk-edit [data-section]{cursor:pointer}.sk-edit section[data-section].sk-sel,.sk-edit div[data-section].sk-sel{outline:2px solid #A4535E;outline-offset:-2px}`;
+.sk-edit [data-section]{cursor:pointer}.sk-edit section[data-section].sk-sel,.sk-edit div[data-section].sk-sel,.sk-edit .damask.sk-sel,.sk-edit .player.sk-sel,.sk-edit .player-wrap.sk-sel{outline:2px solid #A4535E;outline-offset:-2px}`;
     document.head.appendChild(s);
   }
   function opening(o) {
@@ -212,9 +215,13 @@
   let editMode = false;
   addEventListener("message", e => { const m = e.data || {}; if (m.type !== "sakara:mark") return; editMode = true; css();
     document.documentElement.classList.add("sk-edit");
+    // "music" = pemutar lagu (di Drapery berdiri sendiri di antara bagian, di tema lain ada di dalam bagian pembuka)
+    const pl = document.querySelector(".player, .player-wrap"), musicEl = pl ? (pl.closest(".damask") || pl) : null;
+    const find = k => k === "music" ? musicEl : document.querySelector(`[data-section="${k}"]`);
     document.querySelectorAll("[data-section]").forEach(el => el.classList.toggle("sk-sel", (m.sections || []).includes(el.dataset.section)));
-    const first = (m.sections || []).map(k => document.querySelector(`[data-section="${k}"]`)).find(el => el && el.offsetParent !== null);
-    if (first && m.scroll) { document.dispatchEvent(new CustomEvent("invite:skipcover")); first.scrollIntoView({ behavior: "smooth", block: "start" }); }
+    if (musicEl) musicEl.classList.toggle("sk-sel", (m.sections || []).includes("music"));
+    const first = (m.sections || []).map(find).find(el => el && el.offsetParent !== null);
+    if (first && m.scroll) { document.dispatchEvent(new CustomEvent("invite:skipcover")); first.scrollIntoView({ behavior: "smooth", block: first === musicEl ? "center" : "start" }); }
   });
   document.addEventListener("click", e => { if (!editMode || !embedded) return; if (e.target.closest("a,button,input,textarea,select,label,#cover")) return; const sec = e.target.closest("[data-section]"); if (!sec) return; window.parent.postMessage({ type: "invite:pick", section: sec.dataset.section }, "*"); }, true);
   const boot = () => {
