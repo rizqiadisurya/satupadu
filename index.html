@@ -4356,7 +4356,7 @@ function cxData(id){
   if(S.bride.photo) ph.bride=S.bride.photo; if(S.groom.photo) ph.groom=S.groom.photo;
   Object.assign(ph, X.photos||{}); d.photos=ph;
   const sec={...D.sections, ...(X.sections||{})}; sec.rsvp = S.wishesOn!==false; sec.gift = S.gift?S.gift.on!==false:true; sec.story = !!(S.story&&S.story.on&&(S.story.items||[]).length); d.sections=sec;
-  { const P0=(((window.INVITE_DEFAULTS||{})[t.dir])||{}).photos||{}; d._sample = Object.keys(P0).filter(k=>ph[k]===P0[k]); } d._editor = !CLOUD.guestMode;
+  { const P0=cxPh0(t); d._sample = Object.keys(P0).filter(k=>ph[k]===P0[k]); } d._editor = !CLOUD.guestMode;
   d.music={src: S.music===false ? '' : musicURL()};
   d._order = X.order || null;
   const lk=cxLook(t), lang=cxLang(t); d._palette=lk.pal||''; d._font=lk.font||''; d._lang=lang;
@@ -4377,7 +4377,14 @@ const CX_SEC2PANEL = {quote:'cx:sampul', couple:'cx:couple', date:'cx:date', eve
 const CX_PANEL2SEC = {mempelai:['couple'], acara:['date','event','dresscode'], hadiah:['gift'], rsvp:['rsvp'], ucapan:['rsvp'], cerita:['story'], galeri:['gallery'], salam:['quote'], kenangan:['memory'], tema:[], urutan:[], musik:['music'], link:[], kado:[]};
 let CX_PICKED=false;
 function cxEdMark(){ const f=$('#edScreen iframe.cx-frame'); if(!f||!f.contentWindow) return; const sc=!CX_PICKED; CX_PICKED=false; const secs = String(EDIT.panel).startsWith('cx:') ? ((CX_PANEL_DEF[EDIT.panel.slice(3)]||[])[2]||[]) : (CX_PANEL2SEC[EDIT.panel]||[]); try{ f.contentWindow.postMessage({type:'sakara:mark', sections:secs, scroll:sc}, '*'); }catch(e){} }
-function cxSampleLeft(){ const t=cxTheme(S.theme); if(!t) return 0; const D=((window.INVITE_DEFAULTS||{})[t.dir]||{}).photos||{}, d=cxData(t.id); return Object.keys(D).filter(k=>d.photos[k]===D[k]).length; }
+/* Foto contoh yang memang tampil di tema (Coretan tidak memakai foto mempelai satu per satu) */
+const CX_PH_UNUSED = {coretan:['bride','groom']};
+/* Isian editor disembunyikan bila tema Custom yang dipakai tidak menampilkannya */
+const cxDir = () => isCx(S.theme) ? (cxTheme(S.theme)||{}).dir : '';
+const cxNoIG = () => cxDir()==='photobox';
+const cxNoSolo = () => cxDir()==='coretan';
+function cxPh0(t){ const P=Object.assign({}, (((window.INVITE_DEFAULTS||{})[t.dir])||{}).photos||{}); (CX_PH_UNUSED[t.dir]||[]).forEach(k=>delete P[k]); return P; }
+function cxSampleLeft(){ const t=cxTheme(S.theme); if(!t) return 0; const D=cxPh0(t), d=cxData(t.id); return Object.keys(D).filter(k=>d.photos[k]===D[k]).length; }
 function cxFrameHTML(id, opts={}){
   setTimeout(cxMemLoad, 0);
   const t=cxTheme(id); const demo = !!opts.demo, to = opts.guest || '';
@@ -4531,7 +4538,7 @@ function lkEdPanels(){
   return ED_PANELS.filter(p=>p[3]==='Tampilan' && p[0]!=='urutan').concat(isi, rest, [musik], ED_PANELS.filter(p=>p[3]==='Pengaturan'));
 }
 const edPanels = () => isCx(S.theme) ? cxEdPanels() : lkEdPanels();
-function cxPhotoKeys(sec){ const t=cxTheme(S.theme); if(!t) return []; const D=((window.INVITE_DEFAULTS||{})[t.dir]||{}).photos||{}, M=CX_PHOTO_SEC[t.dir]||{}; return Object.keys(D).filter(k=>(M[k]||'gallery')===sec); }
+function cxPhotoKeys(sec){ const t=cxTheme(S.theme); if(!t) return []; const D=cxPh0(t), M=CX_PHOTO_SEC[t.dir]||{}; return Object.keys(D).filter(k=>(M[k]||'gallery')===sec); }
 function cxPhotosHTML(keys, opts={}){
   const t=cxTheme(S.theme); if(!t||!keys.length) return ''; const d=cxData(t.id), X=S.cx||{}, D=((window.INVITE_DEFAULTS||{})[t.dir]||{}).photos||{};
   const phs=keys.map(k=>{ const mine=d.photos[k]!==D[k], v=cxPhotoSrc(t, d.photos[k]); return `<div class="cx-ph${mine?' mine':''}"><label><img src="${esc(v)}" alt="" loading="lazy"><input type="file" accept="image/*" data-cxph="${k}" hidden><span class="cx-ph-l">${esc(CX_PH_LABEL(k))}</span><span class="cx-ph-b">${mine?'Ganti':'Unggah'}</span></label>${(X.photos||{})[k]?`<button type="button" class="linkbtn" data-cxphx="${k}">Hapus</button>`:mine?'<small class="muted">Dari foto kalian</small>':'<small class="cx-sample">Contoh</small>'}</div>`; }).join('');
@@ -4575,9 +4582,9 @@ function cxPanelBody(id){
 }
 function cxCoupleExtra(){ const t=cxTheme(S.theme); if(!t) return ''; const d=cxData(t.id); return cxPhotosHTML(cxPhotoKeys('couple').filter(k=>k==='couple'),{title:'Foto berdua'}) + (t.dir==='photobox' ? `<fieldset class="fieldset"><legend>Profil singkat</legend>${cxFx('couple.groom.knownFor','Dikenal sebagai (pria)',d.couple.groom.knownFor,{opt:1,ph:'Fixing things at 2 a.m.'})}${cxFx('couple.groom.bio','Bio singkat (pria)',d.couple.groom.bio,{area:1,opt:1})}${cxFx('couple.bride.knownFor','Dikenal sebagai (wanita)',d.couple.bride.knownFor,{opt:1,ph:'Planning trips, not packing'})}${cxFx('couple.bride.bio','Bio singkat (wanita)',d.couple.bride.bio,{area:1,opt:1})}</fieldset>` : ''); }
 function cxPanelHTML(k){ const id=k.slice(3); return cxSecHead(id) + cxPanelBody(id); }
-function cxSampleList(){ const t=cxTheme(S.theme); if(!t) return []; const D=((window.INVITE_DEFAULTS||{})[t.dir]||{}).photos||{}, d=cxData(t.id), M=CX_PHOTO_SEC[t.dir]||{}; return Object.keys(D).filter(k=>d.photos[k]===D[k]).map(k=>({k, sec:M[k]||'gallery'})); }
+function cxSampleList(){ const t=cxTheme(S.theme); if(!t) return []; const D=cxPh0(t), d=cxData(t.id), M=CX_PHOTO_SEC[t.dir]||{}; return Object.keys(D).filter(k=>d.photos[k]===D[k]).map(k=>({k, sec:M[k]||'gallery'})); }
 function cxStep4HTML(){
-  const t=cxTheme(S.theme), left=cxSampleList(), total=Object.keys((((window.INVITE_DEFAULTS||{})[t.dir]||{}).photos)||{}).length;
+  const t=cxTheme(S.theme), left=cxSampleList(), total=Object.keys(cxPh0(t)).length;
   const secs=['sampul', ...cxOrder().filter(k=>!['couple','date'].includes(k)), 'closing'];
   return `<span class="eyebrow">Langkah 4 dari 5</span><h2>Foto &amp; isi undangan</h2><p class="sub">Diurutkan sesuai undangan dari atas ke bawah. Matikan bagian yang tidak kalian pakai.</p>
     <div class="cx-prog${left.length?'':' ok'}"><b>${total-left.length} dari ${total} foto sudah diganti</b><i style="--p:${total?(total-left.length)/total*100:100}%"></i>${left.length?'<span>Foto bertanda “Contoh” masih foto contoh. Ganti sebelum dibagikan, ya.</span>':'<span>Semua foto sudah foto kalian.</span>'}</div>
@@ -5169,20 +5176,20 @@ function renderStepCore(onlyHTML, iOverride){
       ${fld('bn','Nama lengkap',S.bride.name,{bind:'bride.name',req:1,ph:'Sarah Amalia'})}
       ${fld('bk','Nama panggilan <span class="opt-l">opsional</span>',S.bride.nick,{bind:'bride.nick',ph:'Sarah'})}
       ${fld('bp','Keterangan orang tua <span class="opt-l">opsional</span>',S.bride.parents,{bind:'bride.parents',full:1,ph:'Putri pertama Bapak … & Ibu …'})}
-      ${fld('bi','Instagram <span class="opt-l">opsional</span>',S.bride.ig||'',{bind:'bride.ig',full:1,ph:'@sarahamalia',hint:'Kosongkan kalau tidak ingin ditampilkan di undangan.'})}
-      ${photoFld('bride','Foto mempelai wanita')}
+      ${cxNoIG()?'':fld('bi','Instagram <span class="opt-l">opsional</span>',S.bride.ig||'',{bind:'bride.ig',full:1,ph:'@sarahamalia',hint:'Kosongkan kalau tidak ingin ditampilkan di undangan.'})}
+      ${cxNoSolo()?'':photoFld('bride','Foto mempelai wanita')}
     </div></fieldset>
     <fieldset class="fieldset"><legend>Mempelai pria</legend><div class="fgrid">
       ${fld('gn','Nama lengkap',S.groom.name,{bind:'groom.name',req:1,ph:'Raka Pratama'})}
       ${fld('gk','Nama panggilan <span class="opt-l">opsional</span>',S.groom.nick,{bind:'groom.nick',ph:'Raka'})}
       ${fld('gp','Keterangan orang tua <span class="opt-l">opsional</span>',S.groom.parents,{bind:'groom.parents',full:1,ph:'Putra kedua Bapak … & Ibu …'})}
-      ${fld('gi','Instagram <span class="opt-l">opsional</span>',S.groom.ig||'',{bind:'groom.ig',full:1,ph:'@rakapratama',hint:'Kosongkan kalau tidak ingin ditampilkan di undangan.'})}
-      ${photoFld('groom','Foto mempelai pria')}
+      ${cxNoIG()?'':fld('gi','Instagram <span class="opt-l">opsional</span>',S.groom.ig||'',{bind:'groom.ig',full:1,ph:'@rakapratama',hint:'Kosongkan kalau tidak ingin ditampilkan di undangan.'})}
+      ${cxNoSolo()?'':photoFld('groom','Foto mempelai pria')}
     </div></fieldset>`;
   }
   if(i===0 && isCx(S.theme) && !onlyHTML) h += cxCoupleExtra();
   if(i===1){
-    h = `<span class="eyebrow">Langkah 2 dari 5</span><h2>Kapan dan di mana acaranya?</h2><p class="sub">Tiap acara punya tombol peta dan simpan ke kalender. Tamu anti nyasar, anti lupa tanggal.</p>
+    h = `<span class="eyebrow">Langkah 2 dari 5</span><h2>Kapan dan di mana acaranya?</h2><p class="sub">Tiap acara punya tombol peta dan simpan ke kalender. Tamu anti nyasar, anti lupa tanggal.</p>${cxDir()==='photobox'?`<div class="ed-note" style="margin-bottom:14px">${ico('cal')}<div><b>Tema Photobox menampilkan satu acara utama</b><span class="muted">Yang tampil acara resepsi (atau acara pertama kalau tidak ada resepsi). Susunan acara dan siaran langsung dari acara lain tetap ikut tampil.</span></div></div>`:''}
     ${S.events.map((e,k)=>`<fieldset class="fieldset"><legend>Acara ${k+1}</legend><div class="fgrid">
       ${fld('et'+k,'Nama acara',e.type,{bind:`events.${k}.type`,ph:'Akad Nikah / Pemberkatan / Resepsi'})}
       ${fld('ed'+k,'Tanggal',e.date,{bind:`events.${k}.date`,type:'date',star:1})}
