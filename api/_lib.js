@@ -1,7 +1,8 @@
 // Helper bersama untuk fungsi serverless Sakara (tanpa dependensi npm).
 const crypto = require('crypto');
 // Nilai dibersihkan dari spasi/baris baru yang sering ikut tersalin saat menempel kunci di dashboard.
-const env = (k, d = '') => String(process.env[k] || d).trim();
+// Kunci (nama berakhiran _KEY) tidak pernah berisi spasi, jadi spasi di tengahnya ikut dibuang.
+const env = (k, d = '') => { const v = String(process.env[k] || d).trim(); return /_KEY$/.test(k) ? v.replace(/\s+/g, '') : v; };
 const SB_URL = () => env('SUPABASE_URL').replace(/\/$/, '');
 const SERVICE = () => env('SUPABASE_SERVICE_ROLE_KEY');
 const ANON = () => env('SUPABASE_ANON_KEY');
