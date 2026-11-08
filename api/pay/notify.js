@@ -4,8 +4,10 @@ module.exports = async (req, res) => {
   if (req.method !== 'POST') return send(res, 200, { ok: true, info: 'Sakara Midtrans webhook' });
   try {
     const n = await readBody(req);
-    const expected = sha512(`${n.order_id}${n.status_code}${n.gross_amount}${env('MIDTRANS_SERVER_KEY').trim()}`);
-    if (!n.order_id || n.signature_key !== expected) return send(res, 403, { error: 'Signature tidak valid' });
+    // Dashboard Midtrans baru memisahkan "Signature Secret Key" dari Server Key; terima tanda tangan dari salah satunya.
+    const sig = k => k ? sha512(`${n.order_id}${n.status_code}${n.gross_amount}${k}`) : null;
+    const ok = [env('MIDTRANS_SERVER_KEY'), env('MIDTRANS_SIGNATURE_KEY')].map(k => String(k || '').trim()).filter(Boolean).some(k => n.signature_key === sig(k));
+    if (!n.order_id || !ok) return send(res, 403, { error: 'Signature tidak valid' });
     const rows = await sb(`/rest/v1/invoices?id=eq.${encodeURIComponent(n.order_id)}&select=*`);
     const inv = rows && rows[0];
     if (!inv) return send(res, 404, { error: 'Tagihan tidak ditemukan' });
