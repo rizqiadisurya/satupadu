@@ -52,7 +52,7 @@ section{position:relative;padding:64px 26px}
 /* ---------- cover ---------- */
 #cover{position:fixed;inset:0;z-index:50;display:flex;justify-content:center;transition:transform 1s cubic-bezier(.7,0,.3,1),opacity 1s}
 #cover.open{transform:translateY(-100%)}
-#cover .in{width:100%;max-width:var(--col);height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center;position:relative;overflow:hidden}
+#cover .in{width:100%;max-width:var(--col);height:100%;display:flex;flex-direction:column;align-items:center;justify-content:safe center;padding:30px;text-align:center;position:relative;overflow-x:hidden;overflow-y:auto}
 #cover .strip{width:130px;transform:rotate(-4deg);margin-bottom:26px}
 #cover h1{font-family:var(--brush);font-weight:400;font-size:52px;margin:0;line-height:1}
 #cover .date{font-family:var(--mono);letter-spacing:.3em;font-size:13px;margin:10px 0 28px}
@@ -211,7 +211,7 @@ img.is-empty{visibility:hidden}
 <!-- ================= COVER ================= -->
 <div id="cover" class="wine">
   <div class="in">
-    <div class="strip filmstrip" style="width:120px">
+    <div class="strip filmstrip" style="width:clamp(86px,calc((100dvh - 380px) * .38),120px)">
       <div class="fmeta"><span>RN 01</span><span>▸ 17</span></div>
       <div class="photo"><img data-src="photos.strip1" alt=""></div><div class="photo"><img data-src="photos.strip2" alt=""></div>
       <div class="photo"><img data-src="photos.strip3" alt=""></div><div class="photo"><img data-src="photos.strip4" alt=""></div>
