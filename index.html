@@ -6825,7 +6825,7 @@ async function ownerLoad(user){
   const pend = ivs.find(x=>x.status==='pending' && Date.now()-new Date(x.created_at) < 60*60*1000);
   CLOUD.pendingOrder = pend ? pend.id : null;
   { const lastPaid = ivs.filter(x=>x.status==='paid' && x.invitation_id===inv.id).sort((a,b)=>new Date(b.paid_at||b.created_at)-new Date(a.paid_at||a.created_at))[0];
-    if(lastPaid && (lastPaid.plan!==inv.plan || !inv.published)) planSync(); }
+    if((lastPaid && (lastPaid.plan!==inv.plan || !inv.published)) || ivs.some(x=>x.status==='pending' && Date.now()-new Date(x.created_at) < 7*864e5)) planSync(); }
   try{ await extraOwnerLoad(inv); }catch(e){ console.warn('extra load', e); }
   subscribeRealtime(); renderAuthSlot();
 }
@@ -6933,6 +6933,8 @@ async function cloudPay(btn){
   }catch(e){ reset(); toast('Gagal memuat pembayaran: '+(e.message||'periksa koneksi')); }
 }
 async function waitPaid(orderId, tries=0){
+  /* Bila notifikasi Midtrans tidak sampai, minta server mengecek status langsung ke Midtrans. */
+  if(tries%3===1){ try{ const { data:{ session } } = await CLOUD.sb.auth.getSession(); if(session) await fetch('/api/pay/sync',{method:'POST', headers:{Authorization:'Bearer '+session.access_token}}); }catch(e){} }
   const { data } = await CLOUD.sb.from('invoices').select('*').eq('id',orderId).maybeSingle();
   if(data && data.status==='paid'){
     let { data:inv } = await CLOUD.sb.from('invitations').select('*').eq('id',CLOUD.inv.id).single();
