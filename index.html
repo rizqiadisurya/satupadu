@@ -4373,7 +4373,7 @@ function cxData(id){
 let CX_MEMPH=[];
 function cxMemLoad(){ if(!memActive()) return; Promise.resolve(memPhotos()).then(l=>{ CX_MEMPH=(l||[]).map(p=>p.url||p).filter(Boolean); cxPostAll(); }).catch(()=>{}); }
 const CX_SEC2PANEL = {quote:'cx:sampul', couple:'cx:couple', date:'cx:date', event:'cx:date', dresscode:'cx:dresscode', gift:'cx:gift', rsvp:'cx:rsvp', story:'cx:story', gallery:'cx:gallery', closing:'cx:closing', memory:'kenangan'};
-const CX_PANEL2SEC = {mempelai:['couple'], acara:['date','event','dresscode'], hadiah:['gift'], rsvp:['rsvp'], ucapan:['rsvp'], cerita:['story'], galeri:['gallery'], salam:['quote'], kenangan:['memory'], tema:[], urutan:[], musik:[], link:[], kado:[]};
+const CX_PANEL2SEC = {mempelai:['couple'], acara:['date','event','dresscode'], hadiah:['gift'], rsvp:['rsvp'], ucapan:['rsvp'], cerita:['story'], galeri:['gallery'], salam:['quote'], kenangan:['memory'], tema:[], urutan:[], musik:['music'], link:[], kado:[]};
 let CX_PICKED=false;
 function cxEdMark(){ const f=$('#edScreen iframe.cx-frame'); if(!f||!f.contentWindow) return; const sc=!CX_PICKED; CX_PICKED=false; const secs = String(EDIT.panel).startsWith('cx:') ? ((CX_PANEL_DEF[EDIT.panel.slice(3)]||[])[2]||[]) : (CX_PANEL2SEC[EDIT.panel]||[]); try{ f.contentWindow.postMessage({type:'sakara:mark', sections:secs, scroll:sc}, '*'); }catch(e){} }
 function cxSampleLeft(){ const t=cxTheme(S.theme); if(!t) return 0; const D=((window.INVITE_DEFAULTS||{})[t.dir]||{}).photos||{}, d=cxData(t.id); return Object.keys(D).filter(k=>d.photos[k]===D[k]).length; }
