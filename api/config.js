@@ -8,6 +8,6 @@ module.exports = (req, res) => {
     midtransProduction: IS_PROD(),
     googleLogin: env('GOOGLE_LOGIN') === 'true',
     // SEMENTARA (hanya Preview): bentuk kunci server untuk diagnosa, tanpa isi kuncinya.
-    ...(process.env.VERCEL_ENV === 'preview' ? { _diag: ['SUPABASE_SERVICE_ROLE_KEY', 'MIDTRANS_SERVER_KEY', 'MIDTRANS_SIGNATURE_KEY'].map(k => { const v = process.env[k] || ''; return { k, len: v.length, head: v.slice(0, v.startsWith('sb_') ? 10 : 9), ws: /\s/.test(v), odd: /[^\x21-\x7e]/.test(v) }; }) } : {}),
+    ...(process.env.VERCEL_ENV === 'preview' ? { _diag: ['SUPABASE_SERVICE_ROLE_KEY', 'MIDTRANS_SERVER_KEY', 'MIDTRANS_SIGNATURE_KEY'].map(k => { const v = process.env[k] || ''; const t = v.trim(); return { k, len: v.length, trimLen: t.length, head: t.slice(0, t.startsWith('sb_') ? 10 : 9), innerWs: [...t].map((c, i) => /\s/.test(c) ? i : -1).filter(i => i >= 0), odd: [...t].map((c, i) => /[^\x21-\x7e]/.test(c) ? i + ':' + c.charCodeAt(0) : '').filter(Boolean) }; }) } : {}),
   });
 };
