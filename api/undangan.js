@@ -72,7 +72,12 @@ module.exports = async (req, res) => {
         const ev = (Array.isArray(d.events) ? d.events : []).find(e => e && e.date);
         const tgl = ev ? tanggal(ev.date) : '';
         const guest = inv.guest && inv.guest.name;
-        const photo = httpsUrl(d.coverPhoto) || httpsUrl(Array.isArray(d.gallery) && d.gallery.find(httpsUrl)) || httpsUrl(d.bride && d.bride.photo) || httpsUrl(d.groom && d.groom.photo);
+        // Tema Custom menyimpan fotonya sendiri (d.cx.photos): pakai itu dulu untuk pratinjau link.
+        const cxPh = (noGate && d.cx && d.cx.photos) || {};
+        const CX_OG = { coretan: ['cover', 'couple', 'player', 'strip1'], photobox: ['player', 'strip1', 'row1', 'g1'], drapery: ['g1', 'story1', 'bride', 'groom'] };
+        const dir = String(d.theme || '').replace(/^cx-/, '');
+        const cxPick = (CX_OG[dir] || Object.keys(cxPh)).map(k => httpsUrl(cxPh[k])).find(Boolean) || Object.values(cxPh).map(httpsUrl).find(Boolean) || '';
+        const photo = cxPick || httpsUrl(d.coverPhoto) || httpsUrl(Array.isArray(d.gallery) && d.gallery.find(httpsUrl)) || httpsUrl(d.bride && d.bride.photo) || httpsUrl(d.groom && d.groom.photo);
         meta = {
           title: pair ? `Undangan Pernikahan ${pair}` : meta.title,
           desc: [guest ? `Kepada Yth. ${guest}.` : '', tgl ? `${tgl}.` : '', 'Dengan penuh sukacita, kami mengundang Anda untuk hadir di hari bahagia kami.'].filter(Boolean).join(' '),

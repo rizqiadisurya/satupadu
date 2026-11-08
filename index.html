@@ -6850,7 +6850,7 @@ async function cloudSaveNow(){
     else if(r.error.code==='23514') toast('Alamat minimal 3 karakter, hanya huruf kecil, angka, dan strip');
     else toast('Gagal menyimpan: '+r.error.message);
     setSaveState('Belum tersimpan');
-  } else { CLOUD.inv.slug=r.data.slug; setSaveState('Tersimpan ke akun'); }
+  } else { const old=CLOUD.inv.slug; CLOUD.inv.slug=r.data.slug; setSaveState('Tersimpan ke akun'); if(old!==r.data.slug){ $$('#edPub a[href]').forEach(a=>a.href=pubURL()); } }
 }
 let cgT;
 function cloudSyncGuests(){ if(!CLOUD.on || !CLOUD.inv || CLOUD.guestMode || CLOUD.pinMode) return; clearTimeout(cgT); cgT=setTimeout(cloudSyncGuestsNow, 500); }
@@ -7483,6 +7483,7 @@ function playGate(){
 }
 
 
+document.addEventListener('click', e=>{ const a=e.target.closest('#edPub a[href]'); if(a) a.href=pubURL(); }, true);
 /* ---------- Editor pesan WhatsApp ---------- */
 let WAK='invite';
 function waTplModal(kind){
