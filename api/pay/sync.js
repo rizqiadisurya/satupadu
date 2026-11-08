@@ -13,6 +13,7 @@ async function checkPending(invId) {
     try {
       const r = await fetch(`${api}/v2/${encodeURIComponent(p.id)}/status`, { headers: { Accept: 'application/json', Authorization: 'Basic ' + Buffer.from(key + ':').toString('base64') } });
       const t = await r.json().catch(() => ({}));
+      console.log('midtrans status', p.id, r.status, t.status_code, t.transaction_status || t.status_message);
       if (Math.round(Number(t.gross_amount)) !== p.total) continue;
       const st = t.transaction_status;
       if (st === 'settlement' || (st === 'capture' && t.fraud_status === 'accept')) await sb(`/rest/v1/invoices?id=eq.${encodeURIComponent(p.id)}`, { method: 'PATCH', body: { status: 'paid', paid_at: t.settlement_time ? new Date(t.settlement_time.replace(' ', 'T') + '+07:00').toISOString() : new Date().toISOString(), method: t.payment_type || p.method } });
