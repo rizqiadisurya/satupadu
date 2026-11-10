@@ -253,6 +253,16 @@ img{max-width:100%}
 .cx-try .icon{flex:none}.cx-try span{flex:1;min-width:180px}
 #cxTryBar:empty{display:none}
 .cx-pal{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+#kvOv{position:fixed;inset:0;z-index:9000;background:#f4f3f1}
+#kvOv iframe{width:100%;height:100%;border:0;display:block}
+html.kv-lock,html.kv-lock body{overflow:hidden}
+.kv-mode{margin-bottom:18px}
+.kv-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.kv-opts button{text-align:left;border:1.5px solid var(--line,#e5e2dd);background:#fff;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:4px;cursor:pointer;font:inherit;color:inherit}
+.kv-opts button b{font-size:14px}
+.kv-opts button small{font-size:12.5px;line-height:1.4;color:var(--muted,#7a746c)}
+.kv-opts button[aria-checked="true"]{border-color:var(--accent,#7D1D3F);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent,#7D1D3F) 14%,transparent)}
+@media (max-width:420px){.kv-opts{grid-template-columns:1fr}}
 .cx-pal button{display:grid;gap:2px;justify-items:start;padding:8px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;font:inherit;font-size:13.5px;color:var(--ink);min-width:96px}
 .cx-pal button i{display:block;width:100%;height:22px;border-radius:6px;margin-bottom:4px}
 .cx-pal button small{color:var(--muted);font-size:12px}
@@ -4367,6 +4377,7 @@ function cxData(id){
   if(dcE){ const cols=(dcE.dcol||[]).filter(c=>/^#[0-9a-f]{6}$/i.test(c)); d.dresscode={...d.dresscode, text:String(dcE.dress||'').trim()||(d.dresscode||{}).text||'', colors:cols.length?cols:(d.dresscode||{}).colors||[], label:cols.length?cols.map(dcName).join(' · '):((d.dresscode||{}).label||'')}; }
   try{ const g=guestObj(); d._quota = g ? guestQuota(g) : 0; }catch(_){ d._quota=0; }
   d._mem = memActive({mem: typeof EDIT!=='undefined' && EDIT.on && EDIT.panel==='kenangan'}) ? {msg:String(S.memMsg||'').trim()||MEM_MSG, album:memAlbumHref(), photos:(CX_MEMPH||[]).slice(0,6)} : null;
+  d._kv = kvOn(t) ? ((S.cx||{}).kv||{})[t.dir] || null : null;
   d._host = true;
   d._wishes = (W||[]).filter(w=>w.show!==false).map(w=>({n:w.n||'', a:w.att==='tidak'||w.att===false?'tidak':'hadir', m:w.m||'', t:w.t||''}));
   return d;
@@ -4481,6 +4492,8 @@ document.addEventListener('change', async e=>{ const t=e.target;
 document.addEventListener('click', e=>{
   const mv=e.target.closest('[data-cxmv]'); if(mv){ const o=cxOrder(), i=o.indexOf(mv.dataset.cxmv), j=i+(+mv.dataset.dir); if(i<0||j<0||j>=o.length) return; [o[i],o[j]]=[o[j],o[i]]; cxSetPath('order', o); save(); renderStep(); if(EDIT.on) edRail(); refreshPreview(); return; }
   const px=e.target.closest('[data-cxphx]'); if(px){ if(S.cx&&S.cx.photos) delete S.cx.photos[px.dataset.cxphx]; save(); renderStep(); refreshPreview(); return; }
+  const km=e.target.closest('[data-kvmode]'); if(km){ kvSetMode(km.dataset.kvmode); return; }
+  if(e.target.closest('[data-kvopen]')){ kvOpen(); return; }
   const pk=e.target.closest('[data-pickkind]'); if(pk){ PICK_KIND=pk.dataset.pickkind; renderStep(); return; }
   const cp=e.target.closest('[data-cxpal],[data-cxfont],[data-cxlang]'); if(cp){ const t=cxTheme(S.theme); if(!t) return; S.cx=S.cx||{};
     if(cp.dataset.cxlang!==undefined){ S.cx.lang=S.cx.lang||{}; S.cx.lang[t.dir]=cp.dataset.cxlang; }
@@ -4555,10 +4568,67 @@ function cxSecHead(id){
 function cxLookHTML(){
   if(!document.getElementById('cx-fontprev')){ const l=document.createElement('link'); l.id='cx-fontprev'; l.rel='stylesheet'; l.href='https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Great+Vibes&family=Parisienne&family=Yellowtail&family=Dancing+Script:wght@600&family=Satisfy&family=Permanent+Marker&family=Rock+Salt&family=Amatic+SC:wght@700&display=swap'; document.head.appendChild(l); }
   const t=cxTheme(S.theme); if(!t) return ''; const L=CX_LOOK[t.dir]||{pal:[],font:[]}, lk=cxLook(t), lang=cxLang(t);
-  return `<div class="cx-ed"><div class="field"><span style="font-weight:700;font-size:13.5px">Warna</span><div class="cx-pal" role="group" aria-label="Warna tema">${L.pal.map(([k,l,c])=>`<button type="button" data-cxpal="${k}" aria-pressed="${(lk.pal||'')===k}"><i style="background:${c}"></i>${esc(l)}</button>`).join('')}</div></div>
+  return `${kvModeHTML(t)}<div class="cx-ed"><div class="field"><span style="font-weight:700;font-size:13.5px">Warna</span><div class="cx-pal" role="group" aria-label="Warna tema">${L.pal.map(([k,l,c])=>`<button type="button" data-cxpal="${k}" aria-pressed="${(lk.pal||'')===k}"><i style="background:${c}"></i>${esc(l)}</button>`).join('')}</div></div>
     <div class="field"><span style="font-weight:700;font-size:13.5px">Huruf nama &amp; judul</span><div class="cx-pal" role="group" aria-label="Huruf">${L.font.map(([k,l,f])=>`<button type="button" data-cxfont="${k}" aria-pressed="${(lk.font||'')===k}"><span style="font-family:${f};font-size:19px">${esc(S.bride.nick||'Sarah')}</span><small>${esc(l)}</small></button>`).join('')}</div></div>
     <div class="field"><span style="font-weight:700;font-size:13.5px">Bahasa undangan</span><div class="seg" role="group" aria-label="Bahasa">${[['id','Indonesia'],['en','English']].map(([k,l])=>`<button type="button" data-cxlang="${k}" aria-pressed="${lang===k}">${l}</button>`).join('')}</div><span class="hint">Mengganti teks bawaan tema (judul bagian, tombol, hari). Isi yang kalian tulis sendiri tidak ikut diterjemahkan.</span></div></div>`;
 }
+/* ---------- Mode "Edit bebas" (kanvas) untuk tema Custom: geser & atur aset tema sendiri ---------- */
+const CX_KV = {drapery:1, photobox:1, coretan:1};
+const kvMode = t => (((S.cx||{}).mode||{})[t.dir]) || 'tema';
+const kvOn = t => !!(t && CX_KV[t.dir] && kvMode(t)==='kanvas' && ((S.cx||{}).kv||{})[t.dir]);
+function kvModeHTML(t){
+  if(!CX_KV[t.dir]) return '';
+  const m=kvMode(t), has=!!((S.cx||{}).kv||{})[t.dir];
+  return `<div class="field kv-mode" style="margin-top:18px"><span style="font-weight:700;font-size:13.5px">Cara mendesain</span>
+    <div class="kv-opts" role="radiogroup" aria-label="Cara mendesain">
+      <button type="button" role="radio" data-kvmode="tema" aria-checked="${m!=='kanvas'}"><b>Desain jadi</b><small>Tata letak tema sudah kami atur. Kalian cukup isi data dan foto.</small></button>
+      <button type="button" role="radio" data-kvmode="kanvas" aria-checked="${m==='kanvas'}"><b>Edit bebas</b><small>Geser, ubah ukuran, dan tambah aset tema sendiri, seperti mendesain di kanvas.</small></button>
+    </div>
+    ${m==='kanvas'?`<button type="button" class="btn btn-primary btn-sm" data-kvopen style="margin-top:10px">${ico('edit')}${has?'Lanjut edit di kanvas':'Mulai edit di kanvas'}</button><span class="hint">RSVP, hadiah, galeri, dan fitur lain tetap jalan. Posisinya bisa diatur di tab Section.</span>`:''}</div>`;
+}
+function kvSetMode(m){ const t=cxTheme(S.theme); if(!t||!CX_KV[t.dir]) return; cxSetPath('mode.'+t.dir, m==='kanvas'?'kanvas':'tema'); save(); renderStep(); if(EDIT.on) edRail(); refreshPreview();
+  if(m==='kanvas' && !((S.cx||{}).kv||{})[t.dir]) kvOpen(); }
+function kvEvPair(){ const ev=S.events||[], akad=ev.find(e=>/akad|pemberkatan|holy|janji|sakramen/i.test(e.type||'')), res=ev.find(e=>/resepsi|reception|pesta/i.test(e.type||''))||ev.filter(e=>e!==akad).slice(-1)[0]; return {akad, res: res||(!akad?ev[0]:null)}; }
+function kvFields(){ const t=cxTheme(S.theme), X=S.cx||{}, {akad,res}=kvEvPair(), d=t?cxData(t.id):{};
+  const f={}; [['p','groom'],['w','bride']].forEach(([k,w])=>{ const p=S[w]||{}; f[k+'.nick']=p.nick||''; f[k+'.full']=p.name||''; f[k+'.parents']=p.parents||''; f['photos.'+w]=p.photo?'1':''; });
+  f.date=((S.events||[]).find(e=>e.date)||{}).date||'';
+  [['akad',akad],['resepsi',res]].forEach(([k,e])=>{ e=e||{}; f[k+'.start']=e.start||''; f[k+'.end']=e.end||''; f[k+'.place']=e.venue||''; f[k+'.addr']=e.address||''; });
+  f.closing=(d.closing||{}).text||''; f['photos.couple']=(X.photos||{}).couple?'1':'';
+  return f; }
+let kvT=0;
+function kvSync(){ clearTimeout(kvT); kvT=setTimeout(()=>{ save(); refreshPreview(); kvPost('kv:data'); }, 300); }
+function kvPost(type, extra){ const f=$('#kvOv iframe'), t=cxTheme(S.theme); if(!f||!f.contentWindow||!t) return; try{ f.contentWindow.postMessage(Object.assign({type, data:cxData(t.id), fields:kvFields()}, extra||{}), '*'); }catch(e){} }
+function kvSetField(path, v){
+  const [a,b]=path.split('.');
+  if(a==='p'||a==='w'){ const w=a==='p'?'groom':'bride'; S[w]=S[w]||{}; S[w][{nick:'nick',full:'name',parents:'parents'}[b]]=v; }
+  else if(path==='date'){ const old=((S.events||[]).find(e=>e.date)||{}).date||''; (S.events||[]).forEach(e=>{ if(!e.date||e.date===old) e.date=v; }); }
+  else if(a==='akad'||a==='resepsi'){ const pr=kvEvPair(); let e=a==='akad'?pr.akad:pr.res;
+    if(!e){ e={type:a==='akad'?'Akad Nikah':'Resepsi',date:((S.events||[]).find(x=>x.date)||{}).date||'',start:'',end:'',venue:'',address:''}; S.events=S.events||[]; a==='akad'?S.events.unshift(e):S.events.push(e); }
+    e[{start:'start',end:'end',place:'venue',addr:'address'}[b]]=v; }
+  else if(path==='closing'){ cxSetPath('closing.text', v); }
+  kvSync();
+}
+function kvOpen(){
+  const t=cxTheme(S.theme); if(!t||!CX_KV[t.dir]) return;
+  if(kvMode(t)!=='kanvas'){ cxSetPath('mode.'+t.dir,'kanvas'); save(); }
+  let ov=$('#kvOv'); if(ov) ov.remove();
+  ov=document.createElement('div'); ov.id='kvOv'; ov.setAttribute('role','dialog'); ov.setAttribute('aria-label','Edit bebas');
+  ov.innerHTML=`<iframe title="Editor kanvas" src="/custom/shared/kanvas-editor.html?dir=${t.dir}&v=1" allow="clipboard-write"></iframe>`;
+  document.body.appendChild(ov); document.documentElement.classList.add('kv-lock');
+}
+function kvClose(){ const ov=$('#kvOv'); if(ov) ov.remove(); document.documentElement.classList.remove('kv-lock'); save(); renderStep(); if(EDIT.on) edRail(); refreshPreview(); }
+addEventListener('message', async e=>{
+  const f=$('#kvOv iframe'); if(!f || e.source!==f.contentWindow) return; const m=e.data||{}, t=cxTheme(S.theme); if(!t) return;
+  if(m.type==='kv:hello'){ const name=[S.groom.nick,S.bride.nick].filter(Boolean).join(' & '); kvPost('kv:init', {doc:((S.cx||{}).kv||{})[t.dir]||null, title:name?`Undangan ${name}`:'Edit bebas'}); }
+  if(m.type==='kv:doc' && m.doc){ cxSetPath('kv.'+t.dir, m.doc); clearTimeout(kvT); kvT=setTimeout(()=>{ save(); refreshPreview(); }, 400); }
+  if(m.type==='kv:field'){ kvSetField(String(m.path||''), String(m.value==null?'':m.value)); }
+  if(m.type==='kv:photo' && m.key){ const url=await storePhoto(m.dataUrl); if(!url){ kvPost('kv:photoDone',{key:m.key, ok:false}); return; }
+    if(m.key==='bride'||m.key==='groom'){ S[m.key].photo=url; } else cxSetPath('photos.'+m.key, url);
+    kvSync(); kvPost('kv:photoDone',{key:m.key, ok:true}); }
+  if(m.type==='kv:upload' && m.id){ const url=await storePhoto(m.dataUrl); try{ f.contentWindow.postMessage({type:'kv:uploaded', id:m.id, url}, '*'); }catch(_){} }
+  if(m.type==='kv:goto'){ kvClose(); if(EDIT.on && m.panel==='acara') edSelect('cx:date', true); }
+  if(m.type==='kv:close'){ kvClose(); }
+});
 function cxPick(html, sel){ const d=document.createElement('div'); d.innerHTML=html; const n=d.querySelector(sel); return n ? n.outerHTML : ''; }
 function cxPanelBody(id){
   const t=cxTheme(S.theme); if(!t) return ''; const d=cxData(t.id), X=S.cx||{};
