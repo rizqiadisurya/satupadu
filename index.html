@@ -4346,7 +4346,7 @@ function cxData(id){
   const g=S.gift||{}, xg=X.gift||{};
   d.gift={...D.gift, ...xg, address:xg.address||'', contacts:Object.values(xg.contacts||{}).filter(c=>c&&(c.name||c.phone)), accounts:[...(g.acct?[{bank:g.bank||'', number:String(g.acct).replace(/(\d{4})(?=\d)/g,'$1 '), holder:g.holder||''}]:[]), ...Object.values(xg.extra||{}).filter(a=>a&&(a.bank||a.number)).map(a=>({bank:a.bank||'', number:String(a.number||'').replace(/(\d{4})(?=\d)/g,'$1 '), holder:a.holder||''}))]};
   const q=(cxLang(t)==='en' && S.quoteMode!=='custom' && S.quoteMode!=='none') ? ((CX_OPEN_EN[S.opening||'islam']||CX_OPEN_EN.umum).quote) : quoteText(); if(X.quote) d.quote=X.quote; else if(q){ const i=q.lastIndexOf('—'); d.quote = i>0 ? {text:q.slice(0,i).trim(), source:q.slice(i+1).trim()} : {text:q, source:''}; } else d.quote={text:'',source:''};
-  const st=S.story&&S.story.on&&(S.story.items||[]).length ? {title:(X.story&&X.story.title)||D.story.title, items:S.story.items.map(it=>({title:[it.title,it.date].filter(Boolean).join(' · '), text:it.text||''}))} : {title:D.story.title, items:[]};
+  const st=S.story&&S.story.on&&(S.story.items||[]).length ? {title:(X.story&&X.story.title)||D.story.title, items:S.story.items.map(it=>({title:[it.title,it.date].filter(Boolean).join(' · '), text:it.text||'', img:it.img||''}))} : {title:D.story.title, items:[]};
   d.story=st;
   d.dresscode={...D.dresscode, text:'', label:'', colors:[]}; d.gallery={...D.gallery, caption:''};
   ['dresscode','closing','gallery'].forEach(k=>{ if(X[k]) d[k]={...d[k], ...X[k]}; });
