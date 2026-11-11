@@ -4408,7 +4408,7 @@ addEventListener('message', async e=>{
   }
 });
 /* ---------- Editor Custom: susunan bagian, foto per bingkai, teks khusus tema ---------- */
-const CX_PH_LABEL = k => ({cover:'Sampul', couple:'Berdua', player:'Pemutar lagu', bride:'Pengantin wanita', groom:'Pengantin pria'})[k] || ((m=>m?({g:'Galeri ',strip:'Strip ',row:'Cerita ',story:'Cerita '})[m[1]]+m[2]:k)(k.match(/^(g|strip|row|story)(\d)$/)));
+const CX_PH_LABEL = k => ({scene1:'Polaroid pembuka 1', scene2:'Polaroid pembuka 2', scene3:'Polaroid tanggal', scene4:'Latar cerita & RSVP', scene5:'Polaroid penutup', cover:'Sampul', couple:'Berdua', player:'Pemutar lagu', bride:'Pengantin wanita', groom:'Pengantin pria'})[k] || ((m=>m?({g:'Galeri ',strip:'Strip ',row:'Cerita ',story:'Cerita '})[m[1]]+m[2]:k)(k.match(/^(g|strip|row|story)(\d)$/)));
 /* Drag untuk ubah urutan bagian (mouse & sentuh). Tombol panah tetap ada untuk keyboard. */
 function secSortCommit(list){
   const keys=[...list.children].map(li=>li.dataset.k).filter(Boolean);
@@ -4571,7 +4571,7 @@ function cxPanelBody(id){
     cxPhotosHTML(cxPhotoKeys('sampul'),{title:'Foto sampul & pemutar lagu'}),
     `<div class="field">${edPanelHTML0('salam')}</div>`].join('');
   if(id==='couple') return stepBody(0) + cxCoupleExtra();
-  if(id==='date') return stepBody(1) + (['drapery','coretan'].includes(t.dir) ? `<div class="field cx-sechead" style="margin-top:18px"><label class="switch"><input type="checkbox" data-cxtog="cx.sections.countdown" ${(d.sections||{}).countdown?'checked':''} aria-label="Tampilkan hitung mundur"><span></span></label><span>Hitung mundur ke hari H</span></div>` : '');
+  if(id==='date') return stepBody(1) + (['drapery','coretan'].includes(t.dir) ? `<div class="field cx-sechead" style="margin-top:18px"><label class="switch"><input type="checkbox" data-cxtog="cx.sections.countdown" ${(d.sections||{}).countdown?'checked':''} aria-label="Tampilkan hitung mundur"><span></span></label><span>Hitung mundur ke hari H</span></div>` : '') + (cxPhotoKeys('date').length ? cxPhotosHTML(cxPhotoKeys('date'),{title:'Foto di bagian tanggal'}) : '');
   if(id==='dresscode'){ const e=S.events[0]||{}; const more=evMoreHTML(e,0); return `${cxPick(more,'.field:has([data-bind="events.0.dress"])')}${cxPick(more,'.field:has(.dc-pick)')}<p class="hint">Dress code ini ikut tampil di semua tema. Untuk acara lain, isi di panel Tanggal &amp; acara.</p>`; }
   if(id==='gift'){ const c=Object.values((X.gift||{}).contacts||{}), ex=(X.gift||{}).extra||{}; return cxFx('gift.intro','Kalimat pengantar',d.gift.intro,{area:1,rows:3,hint:'Tampil di atas daftar rekening.'}) + edPanelHTML0('hadiah')
       + `<fieldset class="fieldset"><legend>Rekening atau e-wallet lain</legend><p class="hint" style="margin:0 0 6px">Tema ini bisa menampilkan lebih dari satu rekening. Kosongkan kalau cukup satu.</p>${[0,1].map(i=>`<div class="fgrid" style="margin-top:8px">${cxFx(`gift.extra.${i}.bank`,'Bank / e-wallet',(ex[i]||{}).bank,{ph:i?'mis. GoPay':'mis. BCA'})}${cxFx(`gift.extra.${i}.number`,'Nomor',(ex[i]||{}).number)}</div>${cxFx(`gift.extra.${i}.holder`,'Atas nama',(ex[i]||{}).holder)}`).join('<hr class="cx-hr">')}</fieldset>` + cxFx('gift.shipText','Teks kirim kado',d.gift.shipText,{area:1,opt:1}) + cxFx('gift.address','Alamat kirim kado',d.gift.address,{area:1,opt:1,hint:'Kosongkan kalau alamat dibagikan lewat WhatsApp.'})
@@ -4579,7 +4579,7 @@ function cxPanelBody(id){
   if(id==='rsvp') return edPanelHTML0('rsvp') + edPanelHTML0('ucapan');
   if(id==='story') return cxFx('story.title','Judul bagian cerita',d.story&&d.story.title,{hint:'Tampil di atas daftar cerita, mis. “Our Story” atau “Perjalanan Kami”.'}) + edPanelHTML0('cerita') + cxPhotosHTML(cxPhotoKeys('story'),{title:'Foto polaroid cerita'});
   if(id==='gallery') return cxPhotosHTML(cxPhotoKeys('gallery'),{title:'Foto galeri'}) + (t.dir==='photobox'?cxFx('gallery.caption','Keterangan galeri',d.gallery&&d.gallery.caption,{area:1,opt:1}):'');
-  if(id==='closing') return cxFx('closing.text','Teks penutup',d.closing&&d.closing.text,{area:1,rows:4});
+  if(id==='closing') return cxFx('closing.text','Teks penutup',d.closing&&d.closing.text,{area:1,rows:4}) + (cxPhotoKeys('closing').length ? cxPhotosHTML(cxPhotoKeys('closing'),{title:'Foto penutup'}) : '');
   if(id==='tampilan') return stepBody(2);
   return '';
 }
