@@ -146,5 +146,51 @@ window.INVITE_DEFAULTS = {
       strip1: "assets/foto/strip1.jpg", strip2: "assets/foto/strip2.jpg", strip3: "assets/foto/strip3.jpg"
     },
     sections: { quote: true, couple: true, date: true, countdown: true, event: true, dresscode: false, gift: true, rsvp: true, story: true, gallery: true, closing: true }
+  },
+  encore: {
+    theme: "encore",
+    slug: "raka-nadine-encore",
+    guestDefault: "Tamu Undangan",
+    hashtag: "#RakaNadineEncore",
+    music: { src: "", start: "2:17" },
+    couple: {
+      bride: { name: "Nadine Salsabila Putri", short: "Nadine", parentsLine: "Putri kedua dari", father: "Faisal Rahman", mother: "Yuni Kartikasari", instagram: "", knownFor: "", bio: "" },
+      groom: { name: "Raka Aditya Pranata", short: "Raka", parentsLine: "Putra pertama dari", father: "Hendro Pranata", mother: "Lestari Wulandari", instagram: "", knownFor: "", bio: "" }
+    },
+    quote: {
+      text: "“Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.”",
+      source: "QS Ar-Rum : 21"
+    },
+    event: {
+      date: "2027-02-13",
+      akad: { time: "16.00 WIB", venue: "Masjid Cut Meutia", address: "Jl. Cut Meutia No. 1, Menteng, Jakarta Pusat" },
+      resepsi: { time: "19.00 – 21.30 WIB", venue: "Rooftop Langit Senja", address: "Jl. Senopati No. 8, Kebayoran Baru,\nJakarta Selatan 12190" },
+      mapsUrl: "https://maps.google.com/?q=Senopati+Jakarta+Selatan"
+    },
+    dresscode: { text: "Nuansa malam: ungu, pink tua, atau hitam.", label: "", colors: ["#4b2a8a", "#9b2f68", "#141019"] },
+    gift: {
+      intro: "Kehadiran dan doa Anda adalah hadiah terindah bagi kami. Namun bila ingin memberi tanda kasih, dapat melalui:",
+      accounts: [ { bank: "BCA", number: "8830 2214 57", holder: "Nadine Salsabila" }, { bank: "Mandiri", number: "1370 0215 8846", holder: "Raka Aditya" } ],
+      shipText: "Untuk kado fisik, silakan hubungi kami lewat WhatsApp.",
+      address: "",
+      contacts: [ { name: "Nadine", phone: "0812 8883 0417" }, { name: "Raka", phone: "0857 1006 2293" } ]
+    },
+    story: {
+      title: "Cerita Kami",
+      items: [
+        { title: "Musim Pertama", text: "Kami bertemu di sebuah pertunjukan musik kecil. Lagu terakhir malam itu jadi alasan kami mengobrol sampai lampu panggung dimatikan." },
+        { title: "Musim Kedua", text: "Ada jarak, ada jadwal yang tidak pernah cocok, ada telepon tengah malam. Tapi kami terus memilih satu sama lain." },
+        { title: "Musim Ketiga", text: "Di bawah langit malam Jakarta, Raka bertanya. Nadine menjawab sebelum pertanyaannya selesai." }
+      ]
+    },
+    gallery: { caption: "" },
+    closing: { text: "Merupakan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.\nSampai jumpa di bawah langit malam." },
+    photos: {
+      cover: "assets/cover.webp",
+      scene1: "assets/foto/scene1.jpg", scene2: "assets/foto/scene2.jpg", scene3: "assets/foto/scene3.jpg", scene4: "assets/foto/scene4.jpg", scene5: "assets/foto/scene5.jpg",
+      bride: "assets/foto/bride.jpg", groom: "assets/foto/groom.jpg",
+      g1: "assets/foto/g1.jpg", g2: "assets/foto/g2.jpg", g3: "assets/foto/g3.jpg", g4: "assets/foto/g4.jpg", g5: "assets/foto/g5.jpg", g6: "assets/foto/g6.jpg"
+    },
+    sections: { quote: true, couple: true, date: true, countdown: true, event: true, dresscode: true, gift: true, rsvp: true, story: true, gallery: true, closing: true }
   }
 };

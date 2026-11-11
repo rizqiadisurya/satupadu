@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Manrope:wght@400;500;600;700&family=Marcellus&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Great+Vibes&family=Pinyon+Script&family=Yellowtail&family=Anton&family=Poiret+One&family=Monoton&family=Courier+Prime:wght@400;700&family=Itim&family=Permanent+Marker&family=Patrick+Hand&family=Mali:wght@400;500;600&family=Oswald:wght@500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Great+Vibes&family=Pinyon+Script&family=Yellowtail&family=Itim&family=Permanent+Marker&family=Patrick+Hand&family=Mali:wght@400;500;600&family=Oswald:wght@500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>html.on-home #siteHeader,html.on-home #footerWrap{display:none!important}html.edh-first,html.edh-first body{background:#A4535E}
 /* sampul langsung di galeri beranda */
 .edh .e-live{position:absolute;inset:0;overflow:hidden;background:var(--t-bg)}
@@ -1888,171 +1888,6 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 @keyframes kbIn{from{opacity:0;scale:1.06}to{opacity:1;scale:1}}
 @keyframes kbFall{0%{opacity:0;transform:translate(0,0) rotate(0)}10%{opacity:.9}90%{opacity:.9}100%{opacity:0;transform:translate(40px,calc(100vh + 60px)) rotate(540deg)}}
 /* Teras Kamboja: ilustrasi gouache bertekstur, rumah tropis modernis, bingkai ubin tegel, pita taman hijau, kartu terakota bergelombang */
-/* ---------- Tema Encore: malam pertunjukan, langit ungu, tiket & pita berjalan ---------- */
-.inv.lay-encore{--en-night:#120A26;--en-plum:#241040;--en-violet:#6C35D9;--en-lilac:#B79CFF;--en-rose:#C04A85;--en-rose2:#9B2F68;--en-blush:#F2C6DD;--en-paper:#F5EBDF;--en-ink:#2A1436;--en-white:#FBF7FF;--en-deco:'Poiret One',Georgia,serif;--en-block:'Anton',Impact,sans-serif;--en-scr:'Yellowtail',cursive;--en-neon:'Monoton',cursive;--en-type:'Courier Prime','Courier New',monospace;--en-sans:'Josefin Sans',system-ui,sans-serif;color:var(--en-white);background:var(--en-night);font-family:var(--en-sans);overflow-x:clip}
-.inv.lay-encore .pat{display:none}
-.inv.lay-encore .cover{position:relative;overflow:hidden;min-height:max(100%,178cqi);justify-content:space-between;padding:0;gap:0;background:#0B0620;color:var(--en-white)}
-.inv.lay-encore .en-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% bottom;z-index:0}
-.inv.lay-encore .cover::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(11,6,32,.55),transparent 34%,transparent 52%,rgba(11,6,32,.9))}
-.inv.lay-encore .en-fx{position:absolute;inset:0;z-index:2;pointer-events:none}
-.inv.lay-encore .en-sp{position:absolute;aspect-ratio:1;background:url(/assets/encore/sparkle.webp) center/contain no-repeat;mix-blend-mode:screen;opacity:0;pointer-events:none;z-index:1}
-.inv.anim.lay-encore .en-sp{animation:enTw 3.2s ease-in-out var(--d,0s) infinite}
-.inv.lay-encore:not(.anim) .en-sp{opacity:.8}
-@keyframes enTw{0%,100%{opacity:0;transform:scale(.4)}45%{opacity:1;transform:scale(1)}60%{opacity:.85;transform:scale(.9) rotate(20deg)}}
-.inv.lay-encore .en-met{position:absolute;left:78%;top:6%;width:90px;height:2px;border-radius:2px;background:linear-gradient(90deg,#fff,rgba(242,198,221,0));opacity:0;rotate:-152deg;filter:drop-shadow(0 0 6px #fff)}
-.inv.anim.lay-encore .en-met{animation:enMet 6.5s ease-in 1.5s infinite}
-@keyframes enMet{0%{opacity:0;translate:0 0}3%{opacity:1}14%{opacity:0;translate:-220px 120px}100%{opacity:0;translate:-220px 120px}}
-.inv.lay-encore .en-top{position:relative;z-index:3;text-align:center;padding:clamp(34px,12cqi,56px) 18px 0}
-.inv.lay-encore .cover .k-label{font-family:var(--en-type);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--en-white)}
-.inv.lay-encore .cover .names{display:flex;flex-direction:column;align-items:center;margin:12px 0 0;font-family:var(--en-deco);font-weight:400;font-size:clamp(38px,12.5cqi,54px);line-height:.95;letter-spacing:.1em;text-transform:none;color:var(--en-white);text-shadow:0 0 18px rgba(183,156,255,.85),0 0 42px rgba(192,74,133,.55)}
-.inv.lay-encore .cover .names .amp{display:block;font-family:var(--en-scr);font-size:.88em;letter-spacing:0;color:var(--en-blush);margin:2px 0 -4px;rotate:-8deg;font-style:normal}
-.inv.lay-encore .en-ring{position:absolute;z-index:3;right:16px;top:41%;width:clamp(86px,26cqi,108px);aspect-ratio:1;border-radius:50%;background:var(--en-rose);box-shadow:0 0 0 3px var(--en-blush) inset,0 8px 20px rgba(0,0,0,.4);color:var(--en-white)}
-.inv.lay-encore .en-rt{position:absolute;inset:0}
-.inv.anim.lay-encore .en-rt{animation:enSpin 16s linear infinite}
-.inv.lay-encore .en-rt span{position:absolute;left:50%;top:6px;height:calc(50% - 6px);transform-origin:0 100%;font-family:var(--en-block);font-size:clamp(9px,2.6cqi,11px);text-transform:uppercase;margin-left:-.3em}
-.inv.lay-encore .en-ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--en-scr);font-weight:400;font-size:clamp(17px,5.4cqi,22px);rotate:-10deg}
-@keyframes enSpin{to{transform:rotate(360deg)}}
-.inv.lay-encore .en-bot{position:relative;z-index:3;text-align:center;padding:0 20px clamp(26px,8cqi,40px)}
-.inv.lay-encore .cover .to{font-family:var(--en-type);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--en-white);opacity:.9}
-.inv.lay-encore .cover .to b{display:block;font-family:var(--en-scr);font-weight:400;font-size:clamp(26px,8.6cqi,34px);letter-spacing:0;text-transform:none;line-height:1.1;margin:4px 0 12px;color:var(--en-blush);text-shadow:0 2px 12px rgba(0,0,0,.6)}
-.inv.lay-encore .en-open .open{width:min(270px,82%);aspect-ratio:700/349;height:auto;padding:0 25% 0 8%;border:0;border-radius:0;background:url(/assets/encore/ticket.webp) center/100% 100% no-repeat;box-shadow:none;filter:drop-shadow(0 10px 16px rgba(0,0,0,.45));color:var(--en-ink);font-family:var(--en-block);font-size:clamp(17px,5.4cqi,22px);letter-spacing:.1em;text-transform:uppercase;rotate:-3deg;justify-content:center}
-.inv.anim.lay-encore .en-open .open{animation:enNudge 2.8s ease-in-out infinite}
-@keyframes enNudge{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px) rotate(1.5deg)}}
-.inv.lay-encore .en-open .open svg{display:none}
-.inv.lay-encore .en-open .cv-count{background:rgba(18,10,38,.55);border:1px solid rgba(242,198,221,.35);color:var(--en-white)}
-/* bagian isi */
-.inv.lay-encore>section:not(.cover){position:relative;overflow:hidden;color:var(--en-white);padding-top:clamp(64px,20cqi,90px) !important;padding-bottom:clamp(64px,20cqi,90px) !important}
-.inv.lay-encore>section.en-a{background:radial-gradient(120% 70% at 50% 30%,rgba(108,53,217,.28),rgba(18,10,38,.85)),linear-gradient(180deg,rgba(36,16,64,.5),rgba(155,47,104,.35)),#140B2A url(/assets/encore/sky.webp) center/cover !important}
-.inv.lay-encore>section.en-b{background:radial-gradient(110% 60% at 30% 20%,rgba(192,74,133,.3),rgba(18,10,38,.8)),linear-gradient(180deg,rgba(18,10,38,.55),rgba(36,16,64,.8)),#1B0F33 url(/assets/encore/sky.webp) center 30%/180% auto !important}
-.inv.lay-encore>section.en-c{background:radial-gradient(120% 70% at 70% 40%,rgba(183,156,255,.22),rgba(18,10,38,.85)),linear-gradient(180deg,rgba(108,53,217,.3),rgba(18,10,38,.75)),#140B2A url(/assets/encore/sky.webp) right top/220% auto !important}
-.inv.lay-encore>section:not(.cover)>*{position:relative;z-index:1}
-.inv.lay-encore>section.en-tb{padding-top:calc(clamp(64px,20cqi,90px) + 40px) !important}
-.inv.lay-encore .en-deco{position:absolute !important;inset:0;z-index:0 !important;pointer-events:none}
-.inv.lay-encore .en-p{position:absolute;height:auto;pointer-events:none;max-width:none}
-.inv.anim.lay-encore .en-fl{animation:enFloat 7s ease-in-out infinite}
-@keyframes enFloat{0%,100%{translate:0 0}50%{translate:0 -12px}}
-.inv.lay-encore .en-moon{width:clamp(70px,22cqi,96px);right:-6px;top:36px;opacity:.95}
-.inv.lay-encore .en-tele{width:clamp(56px,17cqi,80px);left:-10px;bottom:24px;opacity:.9}
-.inv.lay-encore .en-lamp{width:clamp(30px,9cqi,42px);left:-8px;top:150px;filter:drop-shadow(0 0 16px rgba(255,236,200,.55))}
-.inv.lay-encore .en-trp{width:clamp(120px,38cqi,170px);right:-36px;top:30px;rotate:-14deg;opacity:.92}
-.inv.lay-encore .en-clap{width:clamp(66px,20cqi,92px);right:12px;top:28px;rotate:8deg}
-.inv.lay-encore .en-film{width:clamp(110px,34cqi,150px);left:-30px;bottom:20px;opacity:.85}
-.inv.lay-encore .en-mic{width:clamp(30px,9cqi,42px);right:18px;top:24px;transform-origin:50% 100%}
-.inv.anim.lay-encore .en-mic{animation:enSway 6s ease-in-out infinite}
-@keyframes enSway{0%,100%{rotate:-4deg}50%{rotate:4deg}}
-.inv.lay-encore .en-conf{width:100%;left:0;top:0;opacity:.45;mix-blend-mode:screen}
-.inv.lay-encore .en-proj{width:clamp(70px,22cqi,96px);right:-6px;bottom:18px;opacity:.9}
-.inv.lay-encore .en-plan{width:clamp(110px,34cqi,150px);left:-34px;top:26px;opacity:.9}
-.inv.lay-encore .en-cloud{width:140%;left:-20%;bottom:-6%;opacity:.35;mix-blend-mode:screen}
-.inv.lay-encore .en-marq{display:block;position:relative;z-index:1;width:calc(100% + 28px);max-width:none;height:auto;margin:-10px -14px 22px}
-.inv.anim.lay-encore .en-marq{animation:enBulb 2.2s ease-in-out infinite alternate}
-@keyframes enBulb{from{filter:brightness(.85)}to{filter:brightness(1.25) drop-shadow(0 0 10px rgba(255,210,170,.45))}}
-.inv.lay-encore .en-shoes{display:block;width:clamp(150px,50cqi,220px);height:auto;margin:34px auto -20px}
-.inv.lay-encore .en-piano{display:block;width:clamp(150px,50cqi,220px);height:auto;margin:26px auto -24px}
-.inv.lay-encore .en-roses{position:relative;height:0;z-index:3}
-.inv.lay-encore .en-rose{position:absolute;width:clamp(68px,22cqi,100px);height:auto;left:-14px;top:-26px;rotate:-14deg}
-.inv.lay-encore .en-rose.r{left:auto;right:-14px;scale:-1 1;rotate:14deg}
-/* pita berjalan */
-.inv.lay-encore .en-tick{position:absolute !important;z-index:2 !important;left:-30px;right:-30px;top:14px;padding:9px 0;background:var(--en-rose);border-block:3px solid var(--en-blush);overflow:hidden;rotate:-3deg;box-shadow:0 10px 22px rgba(0,0,0,.35)}
-.inv.lay-encore .en-tick.alt{background:var(--en-violet);rotate:2.5deg}
-.inv.lay-encore .en-tk{display:flex;width:max-content}
-.inv.anim.lay-encore .en-tk{animation:enTk 22s linear infinite}
-.inv.anim.lay-encore .en-tick.alt .en-tk{animation-direction:reverse}
-@keyframes enTk{to{transform:translateX(-50%)}}
-.inv.lay-encore .en-tk span{font-family:var(--en-block);font-size:clamp(17px,5.4cqi,22px);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;padding:0 12px;color:var(--en-white)}
-.inv.lay-encore .en-tk i{font-style:normal;color:var(--en-blush);padding-left:22px}
-/* tipografi */
-.inv.lay-encore h3{font-family:var(--en-block) !important;font-weight:400 !important;font-style:normal !important;text-transform:uppercase;letter-spacing:.01em;font-size:clamp(40px,13cqi,58px) !important;line-height:.95;color:var(--en-white) !important;text-shadow:3px 3px 0 var(--en-rose),6px 6px 0 rgba(0,0,0,.35)}
-.inv.lay-encore section:not(.p-end) h3::after{content:"";display:block;width:min(260px,80%);aspect-ratio:700/91;margin:14px auto 0;background:url(/assets/encore/divider.webp) center/contain no-repeat;opacity:.9}
-.inv.lay-encore .kick,.inv.lay-encore .tl-d{font-family:var(--en-type) !important;font-weight:400;letter-spacing:.26em;text-transform:uppercase;color:var(--en-blush) !important}
-.inv.lay-encore .lead,.inv.lay-encore section p{color:rgba(251,247,255,.9)}
-.inv.lay-encore .ibtn{border:2px solid var(--en-blush) !important;background:transparent !important;color:var(--en-white) !important;border-radius:4px !important;font-family:var(--en-block);font-weight:400;letter-spacing:.12em;text-transform:uppercase;box-shadow:4px 4px 0 var(--en-night)}
-.inv.lay-encore .ibtn.solid{background:var(--en-rose) !important}
-/* pasangan: kartu bintang */
-.inv.prem.lay-encore .p-pic{background:#0D0818 !important;padding:8px !important;border:0 !important;border-radius:0 !important;box-shadow:0 18px 32px rgba(0,0,0,.5),0 0 0 2px var(--en-blush) !important;overflow:visible !important}
-.inv.prem.lay-encore .p-pic:first-child{rotate:-4deg}.inv.prem.lay-encore .p-pic:last-child{rotate:4deg}
-.inv.prem.lay-encore .p-pic .p-ph{border-radius:0 !important}
-.inv.prem.lay-encore .p-pic::after{content:"Starring";position:absolute;top:-14px;right:-10px;z-index:3;font-family:var(--en-block);font-size:12px;letter-spacing:.2em;text-transform:uppercase;background:var(--en-blush);color:var(--en-ink);padding:5px 10px;rotate:8deg;box-shadow:3px 3px 0 var(--en-rose2)}
-.inv.prem.lay-encore .p-pic:last-child::after{content:"Co-starring";right:auto;left:-10px;rotate:-8deg}
-.inv.prem.lay-encore .p-body h4{font-family:var(--en-deco);font-weight:400;letter-spacing:.06em;color:var(--en-blush);font-size:clamp(24px,7.6cqi,30px)}
-.inv.prem.lay-encore .p-body p{font-family:var(--en-type);font-size:13.5px}
-.inv.prem.lay-encore .p-amp{font-family:var(--en-scr);color:var(--en-blush);text-shadow:0 0 22px rgba(192,74,133,.7)}
-.inv.prem.lay-encore .p-ig{color:var(--en-blush)}
-/* kutipan: kartu lobi */
-.inv.lay-encore.prem .qband{background:var(--en-paper) !important;color:var(--en-ink) !important;rotate:-2deg;border-radius:0 !important;box-shadow:0 18px 30px rgba(0,0,0,.45),inset 0 0 0 6px var(--en-paper),inset 0 0 0 8px var(--en-rose2) !important}
-.inv.lay-encore.prem .qband blockquote{font-family:var(--en-type);font-style:normal;font-size:14.5px;line-height:1.65;color:var(--en-ink) !important}
-.inv.lay-encore.prem .qband figcaption{background:none;color:var(--en-rose2);font-family:var(--en-block);letter-spacing:.2em;text-transform:uppercase}
-.inv.lay-encore.prem .qband .orn{color:var(--en-rose2)}
-/* hitung mundur papan */
-.inv.lay-encore .cd4{background:transparent !important;border:0 !important;box-shadow:none !important;gap:6px}
-.inv.lay-encore .cd4>i{display:none}
-.inv.lay-encore .cd4>div{flex:1;background:none !important;border:0 !important}
-.inv.lay-encore .cd4 b{position:relative;display:block;font-family:var(--en-block);font-weight:400;font-size:clamp(26px,8.6cqi,34px);line-height:1;padding:12px 0;color:var(--en-white);background:linear-gradient(180deg,#2D1648 50%,#22103A 50%);border-radius:6px;box-shadow:0 6px 0 #0C0618,0 10px 16px rgba(0,0,0,.4)}
-.inv.lay-encore .cd4 b::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.55)}
-.inv.lay-encore .cd4 small{display:block;font-family:var(--en-type);font-size:10px;letter-spacing:.24em;text-transform:uppercase;margin-top:10px;color:var(--en-white);opacity:.85}
-/* acara: kartu kertas dengan label */
-.inv.lay-encore .ev2{background:var(--en-paper) !important;color:var(--en-ink) !important;border:0 !important;border-radius:0 !important;box-shadow:0 12px 22px rgba(0,0,0,.4) !important;rotate:1.5deg}
-.inv.lay-encore .ev2:nth-of-type(even){rotate:-1.5deg}
-.inv.lay-encore .ev2-d{background:var(--en-rose) !important;color:var(--en-white) !important;border-radius:0 !important}
-.inv.lay-encore .ev2-d b{font-family:var(--en-block);font-weight:400}
-.inv.lay-encore .ev2 .kick{color:var(--en-rose2) !important}
-.inv.lay-encore .ev2-w,.inv.lay-encore .ev2-t,.inv.lay-encore .ev2-a{font-family:var(--en-type);color:var(--en-ink) !important}
-.inv.lay-encore .ev2-v{font-family:var(--en-deco);font-size:21px;color:var(--en-ink) !important}
-.inv.lay-encore .ev2 .ibtn{color:var(--en-ink) !important;border-color:var(--en-ink) !important;box-shadow:3px 3px 0 var(--en-rose)}
-.inv.lay-encore .ev2 .ibtn.solid{color:var(--en-white) !important;border-color:var(--en-rose) !important}
-.inv.lay-encore .dress,.inv.lay-encore .dc{color:var(--en-white)}
-/* kisah: naskah film */
-.inv.lay-encore .tl{background:var(--en-paper);color:var(--en-ink);padding:30px 22px 30px 40px !important;box-shadow:0 18px 30px rgba(0,0,0,.45);rotate:-1deg;font-family:var(--en-type)}
-.inv.lay-encore .tl::before{background:radial-gradient(circle,#B9A68F 3px,transparent 3.5px) 0 0/8px 60px repeat-y !important;width:8px !important;left:14px !important;top:18px !important;bottom:18px !important}
-.inv.lay-encore .tl li{background:none !important;border:0 !important;box-shadow:none !important;color:var(--en-ink) !important}
-.inv.lay-encore .tl li::before{display:none}
-.inv.lay-encore .tl .tl-d{color:var(--en-rose2) !important;font-weight:700}
-.inv.lay-encore .tl b{font-family:var(--en-type);font-weight:700;text-transform:uppercase;color:var(--en-ink) !important}
-.inv.lay-encore .tl p{color:var(--en-ink) !important;font-family:var(--en-type)}
-/* galeri: gulungan film */
-.inv.lay-encore .gal{position:relative;background:#0B0710;padding:24px 8px;margin-inline:-22px;rotate:-2deg;gap:8px}
-.inv.lay-encore .gal::before,.inv.lay-encore .gal::after{content:"";position:absolute;left:0;right:0;height:12px;z-index:2;background:repeating-linear-gradient(90deg,transparent 0 8px,#E9DFEE 8px 18px,transparent 18px 26px);opacity:.9;pointer-events:none}
-.inv.lay-encore .gal::before{top:5px}.inv.lay-encore .gal::after{bottom:5px}
-.inv.lay-encore .gal button{border-radius:0 !important}
-/* hadiah: tiket loket */
-.inv.lay-encore .bank{position:relative;background:url(/assets/encore/ticket.webp) center/100% 100% no-repeat !important;border:0 !important;box-shadow:none !important;filter:drop-shadow(0 10px 18px rgba(0,0,0,.4));color:var(--en-ink) !important;aspect-ratio:700/349;max-width:330px;margin-inline:auto;padding:0 33% 0 11% !important;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left;rotate:-3deg;border-radius:0 !important}
-.inv.lay-encore .bank+.bank{rotate:3deg}
-.inv.lay-encore .bank .bn{font-family:var(--en-block);font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--en-ink)}
-.inv.lay-encore .bank .ac{font-family:var(--en-type);font-weight:700;font-size:17px;color:var(--en-ink) !important}
-.inv.lay-encore .bank>div{color:var(--en-ink);font-family:var(--en-type)}
-.inv.lay-encore .bank .bank-copy{position:absolute !important;right:5%;top:50%;translate:0 -50%;rotate:90deg;background:none !important;border:0 !important;box-shadow:none !important;color:var(--en-ink) !important;font-family:var(--en-type);font-weight:700;font-size:11px;letter-spacing:.2em;padding:0 !important}
-.inv.lay-encore .bank .bank-copy svg{display:none}
-.inv.lay-encore .gift-note,.inv.lay-encore .gift-opt{color:rgba(251,247,255,.85)}
-/* formulir: kartu ulasan */
-.inv.lay-encore .form{background:var(--en-paper) !important;color:var(--en-ink) !important;border:0 !important;border-left:10px dashed var(--en-rose) !important;border-radius:0 !important;box-shadow:0 16px 28px rgba(0,0,0,.45) !important;rotate:1deg}
-.inv.lay-encore .form label,.inv.lay-encore .form>span,.inv.lay-encore .form [data-paxwrap]>span{font-family:var(--en-block);font-weight:400 !important;font-size:13px !important;letter-spacing:.18em;text-transform:uppercase;color:var(--en-rose2) !important}
-.inv.lay-encore .form input.in,.inv.lay-encore .form textarea.in,.inv.lay-encore .form select{background:transparent !important;border:0 !important;border-bottom:2px solid var(--en-ink) !important;border-radius:0 !important;color:var(--en-ink) !important;font-family:var(--en-type)}
-.inv.lay-encore .form .opt button,.inv.lay-encore .form .arr button,.inv.lay-encore .form .pax button{border:2px solid var(--en-ink) !important;border-radius:3px !important;background:none !important;color:var(--en-ink) !important;font-family:var(--en-block);letter-spacing:.1em;text-transform:uppercase}
-.inv.lay-encore .form .opt button[aria-pressed="true"],.inv.lay-encore .form .arr button[aria-pressed="true"]{background:var(--en-ink) !important;color:var(--en-blush) !important}
-.inv.lay-encore .form output{color:var(--en-ink)}
-.inv.lay-encore .form .ibtn{color:var(--en-white) !important;border-color:var(--en-blush) !important;background:var(--en-rose) !important}
-/* penutup */
-.inv.lay-encore>section.p-end{background:linear-gradient(180deg,transparent,rgba(18,10,38,.7) 30%,rgba(18,10,38,.92)),#140B2A url(/assets/encore/sky.webp) center/cover !important;padding-bottom:0 !important}
-.inv.lay-encore .en-neon{position:relative;z-index:1;font-family:var(--en-neon);font-size:clamp(46px,15cqi,64px);line-height:1;color:#FFE9F6;text-shadow:0 0 6px #fff,0 0 14px var(--en-rose),0 0 30px var(--en-rose),0 0 60px var(--en-violet);margin:0 0 18px}
-.inv.anim.lay-encore .en-neon{animation:enFlick 6s infinite}
-@keyframes enFlick{0%,18%,22%,62%,64%,100%{opacity:1}20%,63%{opacity:.35}}
-.inv.lay-encore .p-end h3{font-family:var(--en-scr) !important;text-transform:none;font-size:clamp(34px,11cqi,46px) !important;color:var(--en-blush) !important;text-shadow:0 0 18px rgba(192,74,133,.6)}
-.inv.lay-encore .p-end .names{font-family:var(--en-deco) !important;letter-spacing:.12em;color:var(--en-white);text-shadow:0 0 22px rgba(183,156,255,.7)}
-.inv.lay-encore .p-end .names span{color:var(--en-blush) !important;font-style:normal !important}
-.inv.lay-encore .en-palms{width:clamp(100px,32cqi,140px);left:-34px;bottom:70px;opacity:.9;z-index:0 !important}
-.inv.lay-encore>section>.en-p,.inv.lay-encore>section>.en-sp{position:absolute !important}
-.inv.lay-encore .en-hor{display:block;width:calc(100% + 44px);max-width:none;height:auto;margin:30px -22px 0}
-.inv.lay-encore .p-end .sv-btn{position:relative;z-index:2}
-.inv.lay-encore .foot{background:#0B0620;color:rgba(251,247,255,.6);opacity:1;text-align:center;font-family:var(--en-type);letter-spacing:.2em;font-size:11px;text-transform:uppercase;padding:16px 20px 92px}
-.phone .screen .inv:not(#z).lay-encore .foot,.ed-device .screen .inv:not(#z).lay-encore .foot{padding:14px 20px 18px}
-@media (prefers-reduced-motion:reduce){.inv.anim.lay-encore .en-sp,.inv.anim.lay-encore .en-met,.inv.anim.lay-encore .en-rt,.inv.anim.lay-encore .en-open .open,.inv.anim.lay-encore .en-fl,.inv.anim.lay-encore .en-mic,.inv.anim.lay-encore .en-marq,.inv.anim.lay-encore .en-tk,.inv.anim.lay-encore .en-neon{animation:none}.inv.lay-encore .en-sp{opacity:.8}}
-.inv.lay-encore [data-rsvp]{background:transparent !important;border:0 !important;box-shadow:none !important;padding:0 !important}
-.inv.lay-encore .form{padding:20px 18px 20px 22px !important}
-.inv.lay-encore .p-salam h3{font-family:var(--en-deco) !important;text-transform:none;font-size:clamp(24px,7.6cqi,32px) !important;letter-spacing:.06em;line-height:1.2;text-shadow:0 0 18px rgba(183,156,255,.7)}
-.inv.lay-encore>section.p-end{display:flex;flex-direction:column;align-items:center}
-.inv.lay-encore .p-end .lead{max-width:34em}
-.inv.lay-encore .en-hor{order:5;align-self:stretch;width:auto !important;margin:30px -22px 0 !important}
-.inv.lay-encore .p-end .sv-btn{margin:18px auto 0}
 /* ---------- Tema Beludru Anggur: beludru hijau, suede anggur, plester lumut, amplop & renda ---------- */
 .inv.lay-beludru{--bl-su:url(/assets/beludru/suede-wine.webp);--bl-pl:url(/assets/beludru/plaster-moss.webp);--bl-vv:url(/assets/beludru/velvet.webp);--bl-gold:#D9B98A;--bl-rose:#E7B9C6;--bl-cream:#F5EEE3;--bl-scr:'Pinyon Script','Great Vibes',cursive;color:var(--bl-cream);background:#5B0F16}
 .inv.lay-beludru .pat{display:none}
@@ -4140,14 +3975,12 @@ const LAYOUT_THEMES = [
     ilGate:{'--il-lencana':'url(/assets/keraton/gunungan.webp)','--tm-g1':'url(/assets/keraton/sudut.webp)','--tm-g1r':'url(/assets/keraton/sudut-r.webp)','--tm-g2':'url(/assets/keraton/depan.webp)','--il-bg':'#F4EEDF','--il-amp':'#9C7A3C','--il-nm':'#7A2E35','--il-ini':'#FFF6E0','--il-gw':'124px','--il-gh':'214px','--gini-sh':'0 1px 6px rgba(70,30,10,.85)','--gini-fs':'44px','--gini-y':'-14px'}},
   {id:'beludru', layout:'beludru', ilDir:'/assets/beludru/', name:'Beludru Anggur', region:'Nasional', tags:['Floral','Klasik'], bg:'#5B0F16', fg:'#F5EEE3', accent:'#D9B98A', soft:'#4A0B10', font:"'Cormorant Garamond', Georgia, serif", side:'/assets/beludru/side.webp',
     pat:(t)=>`radial-gradient(circle, #F5EEE30a 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/beludru.webp) center/cover`},
-  {id:'encore', layout:'encore', ilDir:'/assets/encore/', name:'Encore', region:'Nasional', tags:['Modern','Ceria'], bg:'#120A26', fg:'#FBF7FF', accent:'#F2C6DD', soft:'#241040', font:"'Josefin Sans', system-ui, sans-serif", side:'/assets/encore/side.webp',
-    pat:(t)=>`radial-gradient(circle, #FBF7FF10 0 1px, transparent 1.4px)`, size:'22px 22px', thumb:()=>`url(/assets/thumbs/encore.webp) center/cover`},
   {id:'goresan-merah', layout:'goresan', name:'Goresan Merah', region:'Nasional', tags:['Ilustrasi','Minimalis'], bg:'#F3EFEA', fg:'#2B1B17', accent:'#A3261E', soft:'#F1E1DC', font:"'Patrick Hand', cursive",
     pat:(t)=>`radial-gradient(circle, ${t.accent}0c 0 .8px, transparent 1.2px)`, size:'16px 16px', thumb:()=>`linear-gradient(180deg,#F3EFEA 0 60%,#A3261E 60% 62%,#F3EFEA 62%)`}
 ];
 THEMES.unshift(...LAYOUT_THEMES);
 /* thumbnail = cuplikan sampul asli */
-const THUMB_IMG=new Set(["kawung", "songket", "melati", "taman", "lontar", "ulos", "senja", "peranakan", "sakinah", "endek", "megamendung", "gigibalang", "sekar", "kamboja", "lentera", "arunika", "atelier", "kebun-lila", "kebun-sage", "kebun-biru", "kebun-senja", "kebun-mawar", "draperi-biru", "draperi-zamrud", "draperi-mawar", "dongeng-pink", "goresan-merah", "teras", "joglo", "kebun-teh", "taman-wisteria", "taman-keraton", "beludru", "encore"]);
+const THUMB_IMG=new Set(["kawung", "songket", "melati", "taman", "lontar", "ulos", "senja", "peranakan", "sakinah", "endek", "megamendung", "gigibalang", "sekar", "kamboja", "lentera", "arunika", "atelier", "kebun-lila", "kebun-sage", "kebun-biru", "kebun-senja", "kebun-mawar", "draperi-biru", "draperi-zamrud", "draperi-mawar", "dongeng-pink", "goresan-merah", "teras", "joglo", "kebun-teh", "taman-wisteria", "taman-keraton", "beludru"]);
 THEMES.forEach(t=>{ if(THUMB_IMG.has(t.id)){ t.thumbNoTxt=true; t.thumbImg=`/assets/thumbs/${t.id}.webp`; } });
 TAGS.includes('Foto') || TAGS.push('Foto');
 LAYOUT_THEMES.filter(t=>t.photo).forEach(t=>t.tags.push('Foto'));
@@ -4221,23 +4054,6 @@ function coverHTML(t, d){
       <div class="cv-slot dp-open">${open}</div>
       <div class="dp-tulle" aria-hidden="true"></div>
     </section>`;
-  if(L==='encore'){ const A=t.ilDir||'/assets/encore/';
-    const rt='Satu malam saja · Save the date · ', ring=[...rt].map((c,i,a)=>`<span style="rotate:${(i*360/a.length).toFixed(1)}deg">${c===' '?'&nbsp;':esc(c)}</span>`).join('');
-    const SP=[[12,14,22,0],[78,9,16,1.2],[30,30,12,2.1],[88,36,20,.6],[8,52,14,1.7],[62,22,10,2.6]].map(([x,y,w,d])=>`<i class="en-sp" style="left:${x}%;top:${y}%;width:${w}px;--d:${d}s"></i>`).join('');
-    return `<section class="cover cv-encore" id="${d.id}-cover">
-      <img class="en-art" src="${A}cover.webp" alt="" aria-hidden="true" decoding="async">
-      <div class="en-fx" aria-hidden="true">${SP}<i class="en-met"></i></div>
-      <div class="en-top">
-        <div class="k-label cv-in" style="--i:0" data-scramble="${esc(d.dateLong)}">Malam pertunjukan</div>
-        <div class="names cv-in" style="--i:1"><span>${esc(d.n1)}</span><span class="amp">and</span><span>${esc(d.n2)}</span></div>
-      </div>
-      <span class="en-ring cv-in" style="--i:2" aria-hidden="true"><span class="en-rt">${ring}</span><b>${esc(d.dateDots||'')}</b></span>
-      <div class="en-bot">
-        ${to}
-        <div class="cv-slot en-open">${open}</div>
-      </div>
-    </section>`;
-  }
   if(L==='beludru'){ const A=t.ilDir||'/assets/beludru/';
     return `<section class="cover cv-beludru" id="${d.id}-cover">
       <img class="bl-val" src="${A}valance.webp" alt="" aria-hidden="true" decoding="async">
@@ -4497,11 +4313,13 @@ function rsvpDone(g, att, pax){
 var CX_THEMES = [
   {id:'cx-drapery', dir:'drapery', name:'Drapery Emerald', region:'Custom', lang:'id', tags:['Custom','Klasik'], desc:'Tirai beludru yang terbuka, renda keluar dari amplop, dan rangkaian bunga kering. Klasik dan khidmat.', bg:'#13301f', fg:'#efe6d6', accent:'#5b0f16', soft:'#1d4430', font:"'Cormorant Garamond', Georgia, serif"},
   {id:'cx-photobox', dir:'photobox', name:'Photobox Archives', region:'Custom', lang:'en', tags:['Custom','Santai'], desc:'Polaroid bertempel selotip, profil mempelai seperti formulir, dan kalender dengan coretan tangan. Santai dan jenaka.', thumbPos:'center 42%', bg:'#4a0b11', fg:'#efe9df', accent:'#8e1c22', soft:'#5c1219', font:"'Cormorant Garamond', Georgia, serif"},
+  {id:'cx-encore', dir:'encore', name:'Encore', region:'Custom', lang:'id', tags:['Custom','Meriah'], desc:'Malam pertunjukan di bawah langit ungu: tiket bioskop yang disobek, pita berjalan, papan acara bioskop, dan gulungan film. Meriah dan sinematik.', bg:'#120a26', fg:'#fbf7ff', accent:'#c04a85', soft:'#241040', font:"'Poiret One', Georgia, serif"},
   {id:'cx-coretan', dir:'coretan', name:'Coretan Merah', region:'Custom', lang:'id', tags:['Custom','Jenaka'], desc:'Ilustrasi tangan bertinta merah dan foto masa kecil di dalam bingkai. Untuk pasangan yang sudah kenal sejak bocil.', bg:'#f6f2ee', fg:'#2b1d1a', accent:'#8c1c13', soft:'#efe6df', font:"'Cormorant Garamond', Georgia, serif"}
 ];
 const CX_LOOK = {
   drapery:{pal:[['','Emerald','#13301f'],['navy','Biru malam','#0e1a2e'],['arang','Arang','#1c1b1a']], font:[['','Bawaan',"'Pinyon Script', cursive"],['great','Great Vibes',"'Great Vibes', cursive"],['parisienne','Parisienne',"'Parisienne', cursive"]]},
   photobox:{pal:[['','Wine','#4a0b11'],['navy','Navy','#101b33'],['hutan','Hijau hutan','#0f2a1c']], font:[['','Bawaan',"'Yellowtail', cursive"],['dancing','Dancing Script',"'Dancing Script', cursive"],['satisfy','Satisfy',"'Satisfy', cursive"]]},
+  encore:{pal:[['','Ungu malam','#241040']], font:[['','Bawaan',"'Yellowtail', cursive"]]},
   coretan:{pal:[['','Merah','#8c1c13'],['biru','Biru','#1f3a6b'],['hijau','Hijau','#285238']], font:[['','Bawaan',"'Permanent Marker', cursive"],['rock','Rock Salt',"'Rock Salt', cursive"],['amatic','Amatic SC',"'Amatic SC', cursive"]]}
 };
 const CX_OPEN_EN = {islam:{salam:'Assalamu’alaikum Warahmatullahi Wabarakatuh', text:'By the grace of Allah, we joyfully invite you to celebrate our wedding.', quote:'“And among His signs is that He created for you spouses from among yourselves, that you may find tranquility in them; and He placed between you affection and mercy.” — QS. Ar-Rum: 21'}, kristen:{salam:'Grace and peace to you', text:'With grateful hearts, we invite you to witness and bless our marriage.', quote:'“So they are no longer two, but one flesh.” — Matthew 19:6'}, umum:{salam:'With great joy', text:'We invite you to celebrate our wedding day with our families and friends.', quote:'“Home is where we find each other, every single day.”'}};
@@ -4677,6 +4495,7 @@ let PICK_KIND=null;
 const CX_PHOTO_SEC = {
   drapery:{bride:'couple', groom:'couple', story1:'story', story2:'story', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
   photobox:{strip1:'sampul', strip2:'sampul', strip3:'sampul', strip4:'sampul', player:'sampul', bride:'couple', groom:'couple', row1:'story', row2:'story', row3:'story', row4:'story', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery'},
+  encore:{cover:'sampul', scene1:'sampul', scene2:'sampul', bride:'couple', groom:'couple', scene3:'date', scene4:'story', scene5:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
   coretan:{cover:'sampul', player:'sampul', bride:'couple', groom:'couple', couple:'couple', strip1:'gallery', strip2:'gallery', strip3:'gallery'}
 };
 const CX_PANEL_DEF = {
@@ -4704,7 +4523,7 @@ function cxEdPanels(){
 const CX_NA_DEF = {
   kado:['Kado patungan','gift', ()=>!!(S.wishlist && S.wishlist.on && (S.wishlist.items||[]).length)]
 };
-const CX_NA = {drapery:['kado'], photobox:['kado'], coretan:['kado']};
+const CX_NA = {drapery:['kado'], photobox:['kado'], coretan:['kado'], encore:['kado']};
 function cxNA(id){ const t=cxTheme(id||S.theme); return t ? (CX_NA[t.dir] || Object.keys(CX_NA_DEF)) : []; }
 function naPanelHTML(k){
   const key=k.slice(3), d=CX_NA_DEF[key], t=cxTheme(S.theme); if(!d||!t) return '';
@@ -4907,20 +4726,6 @@ function invHTML0(opts={}){
       sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>{ const c='kb-s'+(top?'a':'b'); return a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="'+c+' '):b+' class="'+c+'"')+'>'+deco; });
     });
   }
-  // Tema Encore: malam pertunjukan — langit ungu, pita berjalan, properti panggung per bagian
-  if(t.layout==='encore'){ const A=t.ilDir, im=(c,f,st)=>`<img class="${c}" src="${A}${f}.webp" alt=""${st?` style="${st}"`:''} loading="lazy" decoding="async">`;
-    const TONE=['a','b','c','a','b','c','b','a'];
-    const PROP={salam:[['en-p en-moon en-fl','moon'],['en-p en-tele','telescope']], acara:[['en-p en-lamp','lamp']], cerita:[['en-p en-trp en-fl','trumpet']], galeri:[['en-p en-clap','clapper'],['en-p en-film en-fl','film']], rsvp:[['en-p en-mic','mic']], hadiah:[['en-p en-conf','confetti'],['en-p en-proj','projector']], ucapan:[['en-p en-plan en-fl','planet'],['en-p en-cloud','cloud']], kado:[['en-p en-plan en-fl','planet']], kenangan:[['en-p en-film en-fl','film']]};
-    const tk=`${esc(nick1)} &amp; ${esc(nick2)}`, tick=(alt)=>{ const one=`<span>Kami menikah<i>✦</i></span><span>${tk}<i>✦</i></span><span>Satu malam saja<i>✦</i></span><span>Save the date<i>✦</i></span>`; return `<div class="en-tick${alt?' alt':''}" aria-hidden="true"><div class="en-tk">${one}${one}${one}${one}</div></div>`; };
-    order.forEach((k,i)=>{ const pr=(PROP[k]||[['en-p en-plan en-fl','planet']]).map(([c,n])=>im(c,n)).join('');
-      const sp=[0,1,2].map(j=>`<i class="en-sp" style="left:${(i*37+j*29)%86+6}%;top:${(i*23+j*31)%70+8}%;width:${10+(i+j)%3*6}px;--d:${(i+j)*.7%3}s"></i>`).join('');
-      const band = (i===1||i===4) ? tick(i===4) : '';
-      sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>{ const c='en-s en-'+TONE[i%TONE.length]+(band?' en-tb':''); return a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="'+c+' '):b+' class="'+c+'"')+'>'+band+`<div class="en-deco" aria-hidden="true">${pr}${sp}</div>`; });
-    });
-    if(sec.acara) sec.acara=sec.acara.replace(/(<div class="en-deco"[\s\S]*?<\/div>)/, `$1${im('en-marq','marquee')}`).replace(/<\/section>\s*$/, `${im('en-shoes','shoes')}</section>`);
-    if(sec.cerita) sec.cerita=sec.cerita.replace(/<\/section>\s*$/, `${im('en-piano','piano')}</section>`);
-    if(sec.salam) sec.salam=sec.salam.replace(/(<div class="p-couple">)/, `<div class="en-roses">${im('en-rose','roses')}${im('en-rose r','roses')}</div>$1`);
-  }
   // Tema Beludru: permukaan beludru, suede & plester berganti per bagian, rangkaian bunga di sudut
   if(t.layout==='beludru'){ const A=t.ilDir, im=(c,f,st)=>`<img class="${c}" src="${A}${f}.webp" alt=""${st?` style="${st}"`:''} loading="lazy" decoding="async">`;
     const SURF=['su','pl','su','sd','pl','su','sd'];
@@ -4978,11 +4783,10 @@ function invHTML0(opts={}){
       ${t.layout==='kebun'&&t.kbSet?`<div class="kb-akhir"><img src="${t.kbSet}s-akhir.webp" alt="" loading="lazy" decoding="async"><span class="kb-akhir-t">Terima kasih</span></div>`:''}
       ${t.layout==='goresan'?`<div class="go-see">Sampai jumpa${first?`<br>di ${esc(dateDots(first.date))}`:''}</div>${goStrip(t)}`:''}
       ${t.layout==='dongeng'?`<div class="dg-win" aria-hidden="true"><div class="ph" style="background-image:url('${coverPhoto(t)}')"></div></div>`:''}
-      ${t.layout==='encore'?`<img class="en-p en-palms" src="${t.ilDir}palms.webp" alt="" aria-hidden="true" loading="lazy"><i class="en-sp" style="left:14%;top:12%;width:18px"></i><i class="en-sp" style="left:80%;top:20%;width:14px;--d:1.4s"></i><div class="en-neon" aria-hidden="true">Encore</div>`:''}
       ${t.layout==='beludru'?`<img class="bl-c tlx" src="${t.ilDir}flora-1.webp" alt="" aria-hidden="true" loading="lazy"><img class="bl-c trx" src="${t.ilDir}flora-2.webp" alt="" aria-hidden="true" loading="lazy"><i class="bl-bf" aria-hidden="true" style="right:18%;top:20%"><img src="${t.ilDir}butterfly.webp" alt="" loading="lazy"></i><div class="bl-frame">`:''}
       <h3>Terima kasih</h3>
       <p class="lead">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
-      <div class="names" style="font-size:38px">${esc(nick1)} <span style="color:var(--t-accent);font-style:italic">&amp;</span> ${esc(nick2)}</div>${t.layout==='beludru'?`</div><div class="bl-env bl-env2" aria-hidden="true"><img class="bk" src="${t.ilDir}envelope-back.webp" alt="" loading="lazy"><img class="ft" src="${t.ilDir}envelope-front.webp" alt="" loading="lazy"><img class="bl-tas" src="${t.ilDir}tassel-green.webp" alt="" loading="lazy"></div>`:''}${t.layout==='encore'?`<img class="en-hor" src="${t.ilDir}observatory.webp" alt="" aria-hidden="true" loading="lazy">`:''}
+      <div class="names" style="font-size:38px">${esc(nick1)} <span style="color:var(--t-accent);font-style:italic">&amp;</span> ${esc(nick2)}</div>${t.layout==='beludru'?`</div><div class="bl-env bl-env2" aria-hidden="true"><img class="bk" src="${t.ilDir}envelope-back.webp" alt="" loading="lazy"><img class="ft" src="${t.ilDir}envelope-front.webp" alt="" loading="lazy"><img class="bl-tas" src="${t.ilDir}tassel-green.webp" alt="" loading="lazy"></div>`:''}
       <button type="button" class="ibtn sv-btn" data-act="souvenir" data-guest="${esc(guest)}">${ico('down')}Simpan kartu kenangan</button>
     </section>
     <a class="foot" href="/?ref=undangan" target="_blank" rel="noopener">Dibuat dengan <b>Sakara</b> · Bikin undanganmu</a>
@@ -5159,7 +4963,7 @@ addEventListener('resize', ()=>fitLive());
 function renderStrip(){ $('#themeStrip').innerHTML = themeOrder(['sekar','kamboja','lentera','arunika'].map(themeById)).concat(themeOrder(THEMES)).filter((t,i,a)=>a.indexOf(t)===i).slice(0,4).map(tcard).join(''); fitLive($('#themeStrip')); }
 /* Galeri tema di beranda: isinya sama dengan halaman Tema (urutan & sembunyi dari admin ikut).
    Tema yang punya sampul potret di /assets/home/<id>.webp memakai gambar itu, sisanya memakai sampul langsung. */
-const HOME_COVER=new Set(['encore','beludru','teras','joglo','kebun-teh','taman-wisteria','taman-keraton','kebun-lila','kebun-senja','draperi-mawar','kawung','kebun-mawar','songket','atelier','draperi-zamrud','dongeng-pink','kebun-biru','kamboja','goresan-merah','kebun-sage']);
+const HOME_COVER=new Set(['beludru','teras','joglo','kebun-teh','taman-wisteria','taman-keraton','kebun-lila','kebun-senja','draperi-mawar','kawung','kebun-mawar','songket','atelier','draperi-zamrud','dongeng-pink','kebun-biru','kamboja','goresan-merah','kebun-sage']);
 function homeCard(t){
   const rg=(t.region||'').split(',')[0].trim(), lbl=[t.tags[0], rg&&rg!=='Nasional'&&rg.length<=12?rg:''].filter(Boolean).join(' · ');
   const n1=esc(S.bride.nick||'Sarah'), n2=esc(S.groom.nick||'Raka');
@@ -7646,7 +7450,6 @@ function gateLook0(t){
     if(t.fabric) v['--fab']=t.fabric; cls.push('drape'); if(t.dp){ cls.push('dpv'); v['--dp-v']=`url(/assets/draperi/velvet-${t.dp.k}.webp)`; }
     return {v,cls};
   }
-  if(L==='encore'){ cls.push('th','g-dark'); Object.assign(v,{'--gfont':"'Poiret One', Georgia, serif",'--gink':'#FBF7FF','--gbg':'#120A26','--gd':'#241040','--ga':'#C04A85','--gm':'#FBF7FF','--gl':'#F2C6DD','--gpat':gPat('#B79CFF'),'--gsh':'rgba(0,0,0,.4)','--gts':'0 0 18px rgba(183,156,255,.85)'}); return {v,cls}; }
   if(L==='beludru'){ Object.assign(v,{'--gd':'#3A080D','--gm':'#F5EEE3','--fab':'#0E2A1C','--dp-v':'url(/assets/beludru/velvet.webp)'}); cls.push('drape','dpv'); return {v,cls}; }
   cls.push('th'); v['--gfont']=t.font; v['--gink']=t.fg;
   if(L==='dongeng'){ cls.push('g-dongeng'); Object.assign(v,{'--gbg':t.bg,'--gd':'#F2B3C6','--ga':t.accent,'--gm':'#FFF9FB','--gink':t.accent,'--gl':t.accent,'--gtop':'url(/assets/ceria/swag.webp)','--gtop-h':'26vh','--gtop-s':'min(100%,620px) auto'}); }
