@@ -111,7 +111,12 @@
       const el = document.querySelector(`[data-section="${section}"]`);
       if (el && !el.hidden) el.scrollIntoView({ behavior: "smooth", block: "start" });
     },
-    get
+    get,
+    /* "2:17" or "137" → seconds; used to start the couple's own song mid-track */
+    musicStart() {
+      const v = String(this.data?.music?.start ?? "").trim(); if (!v) return 0;
+      const p = v.split(":").map(Number); return p.some(isNaN) ? 0 : p.reduce((a, n) => a * 60 + n, 0);
+    }
   };
   window.Invite = Invite;
 })();

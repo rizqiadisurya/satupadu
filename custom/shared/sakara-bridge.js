@@ -110,7 +110,9 @@
     document.querySelectorAll("section[data-section]").forEach(el => { const p = el.parentElement; if (!groups.has(p)) groups.set(p, []); groups.get(p).push(el); });
     groups.forEach(list => {
       if (list.length < 3) return;
-      const rank = (el, i) => { const id = el.dataset.section; if (id in fixed) return fixed[id]; const k = order.indexOf(id); return k < 0 ? 500 + i : k; };
+      // Bagian yang di Sakara digabung ke panel lain ikut tepat di belakang induknya (mis. "event" ikut "date").
+      const follow = { event: "date" };
+      const rank = (el, i) => { const id = el.dataset.section; if (id in fixed) return fixed[id]; let k = order.indexOf(id); if (k < 0 && follow[id]) { const j = order.indexOf(follow[id]); if (j >= 0) k = j + 0.5; } return k < 0 ? 500 + i : k; };
       // Elemen di antara bagian (mis. pemutar musik Drapery) ikut bagian di atasnya, jadi tidak tertinggal saat diurutkan ulang.
       const parent = list[0].parentElement, chunks = new Map();
       list.forEach((el, i) => { const c = [el]; let x = el.nextSibling; while (x && !(x.nodeType === 1 && x.matches("section[data-section]")) && !(x.nodeType === 1 && x.tagName === "FOOTER")) { c.push(x); x = x.nextSibling; } chunks.set(el, c); });
@@ -187,7 +189,7 @@
 
   function samples(list) {
     document.querySelectorAll(".sk-tag").forEach(n => n.remove());
-    (list || []).forEach(k => document.querySelectorAll(`img[data-src="photos.${k}"]`).forEach(im => { const p = im.parentElement; if (!p) return;
+    (list || []).forEach(k => document.querySelectorAll(`img[data-src="photos.${k}"]`).forEach(im => { const p = im.parentElement; if (!p || im.closest("[aria-hidden=true],[hidden]")) return;
       if (getComputedStyle(p).position === "static") p.style.position = "relative";
       const tag = document.createElement("span"); tag.className = "sk-tag sk-own"; tag.textContent = tx("Contoh"); p.appendChild(tag); }));
   }
