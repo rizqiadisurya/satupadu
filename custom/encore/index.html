@@ -282,9 +282,9 @@ footer{position:relative;z-index:1;max-width:var(--col);margin:0 auto;text-align
     <canvas id="sky"></canvas>
     <div class="top">
       <div class="presents">Malam pertunjukan</div>
-      <h1><span data-k="couple.groom.short"></span><span class="amp">and</span><span data-k="couple.bride.short"></span></h1>
+      <h1><span data-k="couple.bride.short"></span><span class="amp">and</span><span data-k="couple.groom.short"></span></h1>
     </div>
-    <span class="ring stamp" data-ring="Satu malam saja · Save the date · "><b data-k="_date.mini"></b></span>
+    <span class="ring stamp" data-ring="Satu hari yang indah · Save the date · "><b data-k="_date.mini"></b></span>
     <div class="bottom">
       <div class="to">Kepada Yth.</div>
       <div class="guest" id="guestName" data-k="guestDefault"></div>
@@ -395,7 +395,7 @@ footer{position:relative;z-index:1;max-width:var(--col);margin:0 auto;text-align
     <div class="script rv" style="margin-top:28px">
       <span class="hole">Draf final</span>
       <p class="fade">Fade in:</p>
-      <div data-list="story.items"><template><div class="scene"><h4><em>Ext.</em> <span data-k="$.title"></span> — malam</h4><p class="pre" data-k="$.text"></p><figure class="pol tape sc-pol" data-show="$.img"><img data-src="$.img" alt=""></figure><p class="cut">Cut to:</p></div></template></div>
+      <div data-list="story.items"><template><div class="scene"><h4><em>Ext.</em> <span data-k="$.title"></span></h4><p class="pre" data-k="$.text"></p><figure class="pol tape sc-pol" data-show="$.img"><img data-src="$.img" alt=""></figure><p class="cut">Cut to:</p></div></template></div>
       <p class="fade end">Bersambung.</p>
     </div>
     <figure class="pol tape rv story-pol"><img data-src="photos.scene4" alt=""><figcaption>adegan favorit</figcaption></figure>
@@ -535,7 +535,7 @@ function ring(el){
 /* ---------- tickers ---------- */
 function tickers(d){
   const g = d.couple.groom.short, b = d.couple.bride.short, date = d._date.dotsPlain || "";
-  const bits = [`${g} <i>✦</i> ${b}`, date, "Sedang tayang", d.hashtag || "Satu malam saja", "Jangan sampai terlewat"];
+  const bits = [`${g} <i>✦</i> ${b}`, date, "Sedang tayang", d.hashtag || "Satu Hari yang Indah", "Jangan sampai terlewat"];
   const run = bits.filter(Boolean).map(x => `<span>${x}</span><span><i>★</i></span>`).join("");
   $$("[data-ticker]").forEach(t => t.innerHTML = `<div class="tk-track" aria-hidden="true">${run}${run}${run}${run}</div>`);
 }
