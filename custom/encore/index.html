@@ -309,7 +309,7 @@ footer{position:relative;z-index:1;max-width:var(--col);margin:0 auto;text-align
     <img class="dec float moon" src="assets/moon.webp" alt="">
     <p class="kicker rv">Sedang tayang</p>
     <h2 class="title rv">Kami<span class="s">menikah!</span></h2>
-    <p class="names rv"><span data-k="couple.groom.short"></span> &amp; <span data-k="couple.bride.short"></span></p>
+    <p class="names rv"><span data-k="couple.bride.short"></span> &amp; <span data-k="couple.groom.short"></span></p>
     <div class="pile">
       <figure class="pol tape a rv"><img data-src="photos.scene1" alt=""><figcaption data-k="hashtag"></figcaption></figure>
       <figure class="pol tape b rv"><img data-src="photos.scene2" alt=""><figcaption>malam itu</figcaption></figure>
@@ -368,7 +368,7 @@ footer{position:relative;z-index:1;max-width:var(--col);margin:0 auto;text-align
       <h2 class="title rv">Acara<span class="s">malam ini</span></h2>
       <div class="board rv" style="margin-top:26px">
         <div class="row pink">Sedang tayang</div>
-        <div class="row"><span data-k="couple.groom.short"></span> + <span data-k="couple.bride.short"></span></div>
+        <div class="row"><span data-k="couple.bride.short"></span> + <span data-k="couple.groom.short"></span></div>
         <hr>
         <div data-show="event.akad.venue"><div class="row">Akad nikah</div><div class="row sm pink" data-k="event.akad.time"></div><hr></div>
         <div class="row">Resepsi</div><div class="row sm pink" data-k="event.resepsi.time"></div>
@@ -449,13 +449,13 @@ footer{position:relative;z-index:1;max-width:var(--col);margin:0 auto;text-align
     <h2 class="neon flicker encore rv">Encore</h2>
     <figure class="pol tape rv"><img data-src="photos.scene5" alt=""><figcaption>dan seterusnya</figcaption></figure>
     <p class="msg pre rv" data-k="closing.text"></p>
-    <div class="names rv"><span data-k="couple.groom.short"></span><br>&amp; <span data-k="couple.bride.short"></span></div>
+    <div class="names rv"><span data-k="couple.bride.short"></span><br>&amp; <span data-k="couple.groom.short"></span></div>
     <p class="when rv" data-k="_date.dotsPlain"></p>
     <button class="btn again rv" id="again">Tepuk tangan</button>
     <img class="horizon" src="assets/observatory.webp" alt="">
   </section>
 </main>
-<footer><span data-k="_names.gb"></span> · <span data-k="_date.year"></span></footer>
+<footer><span data-k="_names.bg"></span> · <span data-k="_date.year"></span></footer>
 
 <button class="fab" id="fab" aria-label="Putar atau jeda musik"><span class="bars"><i></i><i></i><i></i></span></button>
 <div class="lightbox" id="lb"><button class="lb-x" aria-label="Tutup">×</button><button class="lb-p" aria-label="Sebelumnya">‹</button><img alt=""><button class="lb-n" aria-label="Berikutnya">›</button></div>
@@ -535,7 +535,7 @@ function ring(el){
 /* ---------- tickers ---------- */
 function tickers(d){
   const g = d.couple.groom.short, b = d.couple.bride.short, date = d._date.dotsPlain || "";
-  const bits = [`${g} <i>✦</i> ${b}`, date, "Sedang tayang", d.hashtag || "Satu Hari yang Indah", "Jangan sampai terlewat"];
+  const bits = [`${b} <i>✦</i> ${g}`, date, "Sedang tayang", d.hashtag || "Satu Hari yang Indah", "Jangan sampai terlewat"];
   const run = bits.filter(Boolean).map(x => `<span>${x}</span><span><i>★</i></span>`).join("");
   $$("[data-ticker]").forEach(t => t.innerHTML = `<div class="tk-track" aria-hidden="true">${run}${run}${run}${run}</div>`);
 }
@@ -626,10 +626,10 @@ Invite.init({
     const q = new URLSearchParams(location.search).get("to"), h = location.hash.slice(1);
     const guest = q || (h && /^[A-Za-z0-9-]+$/.test(h) && !["preview","draft"].includes(h) ? h.replace(/-/g," ") : "");
     if (guest) $("#guestName").textContent = guest;
-    document.title = `${d._names.gb} — Undangan Pernikahan`;
+    document.title = `${d._names.bg} — Undangan Pernikahan`;
     if (lastMusic !== null && lastMusic !== d.music.src) Music.reset();
     lastMusic = d.music.src;
-    const nr = $("[data-ring-names]"); if (nr) nr.dataset.ring = `${d.couple.groom.short} · ${d.couple.bride.short} · `.repeat(2);
+    const nr = $("[data-ring-names]"); if (nr) nr.dataset.ring = `${d.couple.bride.short} · ${d.couple.groom.short} · `.repeat(2);
     $$("[data-ring]").forEach(ring);
     tickers(d); gallery = reels();
     $$(".rv,.pop").forEach(el => { if (!el.classList.contains("in")) io.observe(el); });
