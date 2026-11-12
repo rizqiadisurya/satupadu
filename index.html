@@ -953,6 +953,19 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .ci2-empty .kara{margin-bottom:8px}
 .ci2-pin-card .kara{width:120px;margin-bottom:6px}
 @keyframes karaFly{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+
+/* Kara, maskot Sakara, di landing page */
+.e-kara{display:block;height:auto;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.e-kara-fly{position:absolute;left:calc(100% + 18px);top:50%;width:92px;margin-top:-58px;animation:karaFly 2.6s ease-in-out infinite}
+.e-wa-note{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.e-kara-wa{width:64px;flex:none}
+.e-kara-cta{width:150px;margin:0 auto 6px}
+.e-promo{overflow:visible}
+.e-kara-promo{transition:opacity .3s}
+.e-promo:not(.e-on) .e-kara-promo{opacity:0}
+.e-kara-promo{position:absolute;right:14px;top:-66px;width:76px}
+@media (max-width:760px){.e-kara-fly{width:70px;margin-top:-46px;left:calc(100% + 10px)}.e-kara-cta{width:124px}.e-kara-wa{width:52px}.e-kara-promo{width:62px;top:-54px}}
+@media (prefers-reduced-motion:reduce){.e-kara-fly{animation:none}}
 @media (prefers-reduced-motion:reduce){.kara-wait{animation:none}}
 @media (max-width:600px){.kara-empty{width:108px}.kara-done{width:160px}.kara-404{width:170px}}
 /* Responsive */
@@ -3658,7 +3671,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
         <div class="e-scr"><img loading="lazy" decoding="async" class="e-on" src="/assets/home/st1.webp" alt="Layar memilih tema di Sakara"><img loading="lazy" decoding="async" src="/assets/home/st2.webp" alt="Layar mengisi data mempelai"><img loading="lazy" decoding="async" src="/assets/home/st3.webp" alt="Undangan terkirim lewat WhatsApp"></div>
       </div>
       <div>
-        <p class="e-eyebrow" style="margin-bottom:14px">Cara kerja</p>
+        <p class="e-eyebrow" style="margin-bottom:14px;position:relative;display:inline-block">Cara kerja<img class="e-kara e-kara-fly" src="/assets/kara/kara-terbang.webp" alt="" loading="lazy" decoding="async" aria-hidden="true"></p>
         <h2 class="e-display" id="e-ch"><span class="e-line"><span>Siap dalam <em>tiga langkah</em></span></span></h2>
         <article class="e-step e-on" tabindex="0"><div class="e-num">1</div><h3>Pilih tema</h3><p>Ada motif batik klasik dan ada ilustrasi lukisan tangan. Kalau berubah pikiran, tema bisa diganti kapan saja tanpa kehilangan isi.</p><div class="e-t">Sekitar 2 menit</div></article>
         <article class="e-step" tabindex="0"><div class="e-num">2</div><h3>Ceritakan kisah kalian</h3><p>Nama, acara, kisah cinta, foto, dan kutipan favorit kalian. Tampilannya langsung berubah selagi kalian mengetik.</p><div class="e-t">Sekitar 10 menit</div></article>
@@ -3677,7 +3690,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
       <article class="e-row" data-peek="1"><div class="e-n">2</div><div><h3>Undangan</h3><span class="e-tag">Cantik &amp; berkesan</span></div><div><p class="e-fit">Undangan cantik, lengkap dengan cerita dan kenangan dari tamu.</p><ul><li>Semua tema Lukisan, kisah cinta, dan galeri foto</li><li>Nama setiap tamu di undangannya</li><li>Doa, ucapan, amplop digital, dan kado patungan</li><li>Album foto dari tamu dan buku kenangan</li></ul></div><div class="e-price"><b>Rp129.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#buat" data-plan="undangan">Pilih Undangan</a></div></article>
       <article class="e-row" data-peek="2"><div class="e-n">3</div><div><h3>Undangan <br>Lengkap</h3><span class="e-tag">Paling lengkap</span></div><div><p class="e-fit">Untuk acara besar. Semuanya beres, dari menyebar undangan sampai menyambut tamu di hari H.</p><ul><li>Semua yang ada di paket Undangan</li><li>Kirim ke semua tamu sekaligus lewat WhatsApp</li><li>Pengingat untuk tamu yang belum menjawab</li><li>QR check-in di meja penerima tamu</li></ul></div><div class="e-price"><b>Rp349.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#buat" data-plan="tamu">Pilih paket ini</a></div></article>
       <article class="e-row e-row-custom" data-peek="3"><div class="e-n">4</div><div><h3>Custom</h3><span class="e-tag">Penuh foto, bebas diatur</span></div><div><p class="e-fit">Punya banyak foto? Undangannya bisa terasa seperti album sendiri.</p><ul><li>Semua fitur paket Undangan Lengkap, kecuali kado patungan</li><li>Tema Custom: polaroid, strip photobox, foto masa kecil</li><li>Urutan bagian dan foto di setiap bingkai bebas diatur</li><li>Bagian yang tidak dipakai bisa disembunyikan</li></ul></div><div class="e-price"><b>Rp499.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#tema-custom" data-plan="custom">Pilih Custom</a></div></article>
-      <p class="e-wa-note">Mau desain dari nol, khusus kalian? <a href="https://wa.me/" data-wa-custom target="_blank" rel="noopener">Ngobrol dengan kami di WhatsApp</a></p>
+      <p class="e-wa-note"><img class="e-kara e-kara-wa" src="/assets/kara/kara-bisik.webp" alt="" loading="lazy" decoding="async" aria-hidden="true">Mau desain dari nol, khusus kalian? <a href="https://wa.me/" data-wa-custom target="_blank" rel="noopener">Ngobrol dengan kami di WhatsApp</a></p>
     </div>
     <div class="e-peek" id="e-peek" aria-hidden="true"><img loading="lazy" decoding="async" src="/assets/home/kebun-sage.webp" alt=""><img loading="lazy" decoding="async" src="/assets/home/songket.webp" alt=""><img loading="lazy" decoding="async" src="/assets/home/kebun-lila.webp" alt=""><img loading="lazy" decoding="async" src="/assets/thumbs/cx-photobox.webp" alt=""></div>
   </section>
@@ -3697,6 +3710,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
   </section>
 
   <section class="e-cta e-wrap" data-tone="dk" aria-labelledby="e-ct">
+    <img class="e-kara e-kara-cta" src="/assets/kara/kara-rayakan.webp" alt="" loading="lazy" decoding="async" aria-hidden="true">
     <p class="e-eyebrow">Hari bahagia kalian sudah dekat</p>
     <h2 class="e-display" id="e-ct" style="margin-top:18px"><span class="e-line"><span>Mari mulai <em>cerita kalian</em></span></span></h2>
     <p class="e-lead">Dari kabar bahagia hari ini sampai kenangan yang bisa kalian buka lagi nanti.</p>
@@ -3720,6 +3734,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
   <button type="button" class="e-totop" id="e-totop" data-sec="e-top" aria-label="Kembali ke atas" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Kembali ke atas</span></button>
 
 <aside class="e-promo" id="e-promo" aria-label="Promo">
+  <img class="e-kara e-kara-promo" src="/assets/kara/kara-lambai.webp" alt="" loading="lazy" decoding="async" aria-hidden="true">
   <button class="e-x" id="e-promoX" aria-label="Tutup promo">×</button>
   <h5>Promo pembuka</h5>
   <p>Coba gratis sampai undangan kalian selesai, bayar saat sudah yakin.</p>
