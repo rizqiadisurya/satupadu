@@ -950,6 +950,11 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .e-wa-note{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .e-kara-wa{width:64px;flex:none}
 .e-kara-cta{width:150px;margin:0 auto 6px}
+.e-kara-host{position:relative;display:inline-block}
+.e-kara-h{position:absolute;left:100%;bottom:.08em;width:.95em;margin-left:.2em}
+@media (max-width:600px){.e-kara-h{width:1.05em;margin-left:.12em}.e-tema-head .e-kara-host{margin-right:1.3em}}
+.e-foot-kara{display:inline-flex;align-items:center;gap:10px}
+.e-kara-sleep{width:46px}
 .e-promo{overflow:visible}
 .e-kara-promo{transition:opacity .3s}
 .e-promo:not(.e-on) .e-kara-promo{opacity:0}
@@ -3645,7 +3650,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
   <section class="e-tema" id="e-tema" aria-labelledby="e-th">
     <div class="e-tema-pin">
       <div class="e-wrap e-tema-head">
-        <h2 class="e-display" id="e-th"><span class="e-line"><span>Temukan <em>tema</em> kalian</span></span></h2>
+        <h2 class="e-display e-kara-host" id="e-th"><span class="e-line"><span>Temukan <em>tema</em> kalian</span></span><img class="e-kara e-kara-h" src="/assets/kara/kara-bingung.webp" alt="" loading="lazy" decoding="async" aria-hidden="true"></h2>
         <div class="e-count"><span id="e-tc">01</span> / <span id="e-tt">12</span></div>
       </div>
       <div class="e-track" id="e-track">
@@ -3673,7 +3678,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
   <section class="e-paket" data-tone="dk" id="e-paket" aria-labelledby="e-ph">
     <div class="e-wrap">
       <div class="e-paket-head">
-        <h2 class="e-display" id="e-ph"><span class="e-line"><span>Koleksi <em>paket</em></span></span></h2>
+        <h2 class="e-display e-kara-host" id="e-ph"><span class="e-line"><span>Koleksi <em>paket</em></span></span><img class="e-kara e-kara-h" src="/assets/kara/kara-kaget.webp" alt="" loading="lazy" decoding="async" aria-hidden="true"></h2>
         <p>Sekali bayar, tanpa biaya bulanan. Coba gratis sampai undangannya jadi, lalu pilih paket saat kalian sudah yakin.</p>
       </div>
       <article class="e-row" data-peek="0"><div class="e-n">1</div><div><h3>Coba</h3><span class="e-tag">Gratis</span></div><div><p class="e-fit">Untuk kalian yang ingin melihat hasilnya lebih dulu sebelum memutuskan.</p><ul><li>Semua tema bisa dicoba</li><li>Pratinjau lengkap di HP</li></ul></div><div class="e-price"><b>Gratis</b><small>Tanpa kartu kredit</small><br><a class="e-btn e-ghost" href="#buat" data-plan="coba">Mulai gratis</a></div></article>
@@ -3718,7 +3723,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
       <div><h4>Bantuan</h4><a href="/syarat">Syarat layanan</a><a href="/privasi">Kebijakan privasi</a></div>
     </div>
     <div class="e-foot-big" aria-hidden="true">SAKARA</div>
-    <div class="e-foot-bot"><span>© 2026 Sakara</span><span class="e-craft">Crafted by <a href="https://rizqiadisurya.vercel.app" target="_blank" rel="noopener">Really Studio</a></span></div>
+    <div class="e-foot-bot"><span class="e-foot-kara"><img class="e-kara e-kara-sleep" src="/assets/kara/kara-tidur.webp" alt="" loading="lazy" decoding="async" aria-hidden="true">© 2026 Sakara</span><span class="e-craft">Crafted by <a href="https://rizqiadisurya.vercel.app" target="_blank" rel="noopener">Really Studio</a></span></div>
   </div>
 </footer>
   <button type="button" class="e-totop" id="e-totop" data-sec="e-top" aria-label="Kembali ke atas" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Kembali ke atas</span></button>
