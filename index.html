@@ -3703,7 +3703,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
       <article class="e-row" data-peek="2"><div class="e-n">3</div><div><h3>Undangan <br>Lengkap</h3><span class="e-tag">Paling lengkap</span></div><div><p class="e-fit">Untuk acara besar. Semuanya beres, dari menyebar undangan sampai menyambut tamu di hari H.</p><ul><li>Semua yang ada di paket Undangan</li><li>Kirim WhatsApp ke semua tamu berurutan, tinggal ketuk</li><li>Pengingat untuk tamu yang belum menjawab</li><li>QR check-in di meja penerima tamu</li></ul></div><div class="e-price"><b>Rp349.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#buat" data-plan="tamu">Pilih paket ini</a></div></article>
       <article class="e-row e-row-custom" data-peek="3"><div class="e-n">4</div><div><h3>Custom</h3><span class="e-tag">Penuh foto, bebas diatur</span></div><div><p class="e-fit">Untuk kalian yang punya banyak foto dan ingin undangannya terasa seperti album sendiri.</p><ul><li>Semua fitur paket Undangan Lengkap, kecuali kado patungan</li><li>Tema Custom: polaroid, strip photobox, foto masa kecil</li><li>Urutan bagian dan foto di setiap bingkai bebas diatur</li><li>Bagian yang tidak dipakai bisa disembunyikan</li></ul></div><div class="e-price"><b>Rp499.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#tema-custom" data-plan="custom">Pilih Custom</a></div></article>
       <p class="e-pk-more"><a href="#bandingkan">Bandingkan semua paket →</a><span>Sekali bayar · garansi uang kembali 7 hari</span></p>
-      <p class="e-wa-note"><img class="e-kara e-kara-wa" src="/assets/kara/kara-bisik-s.webp" alt="" loading="lazy" decoding="async" aria-hidden="true">Mau desain dari nol, khusus kalian? <a href="https://wa.me/" data-wa-custom target="_blank" rel="noopener">Ngobrol dengan kami di WhatsApp</a></p>
+      <p class="e-wa-note"><img class="e-kara e-kara-wa" src="/assets/kara/kara-bisik-s.webp" alt="" loading="lazy" decoding="async" aria-hidden="true">Mau desain dari nol, khusus kalian? <a href="https://wa.me/" data-wa-custom target="_blank" rel="noopener">Hubungi kami di WhatsApp</a></p>
     </div>
     <div class="e-peek" id="e-peek" aria-hidden="true"><img loading="lazy" decoding="async" src="/assets/home/kebun-sage.webp" alt=""><img loading="lazy" decoding="async" src="/assets/home/songket.webp" alt=""><img loading="lazy" decoding="async" src="/assets/home/kebun-lila.webp" alt=""><img loading="lazy" decoding="async" src="/assets/thumbs/cx-photobox.webp" alt=""></div>
   </section>
@@ -4289,7 +4289,7 @@ function evTimeHTML(e){
   if(!e.start) return {main:'', alt:''};
   const tz=evTz(e), g=guestOffset(e.date), diff=g-TZ_OFF[tz];
   const main=`${esc(e.start)}${e.end?` – ${esc(e.end)}`:' – selesai'} ${tz}`;
-  const alt = diff ? `<span class="ev-tz">${ico('pin')}Di tempatmu pukul ${shiftHM(e.start,diff)}${e.end?` – ${shiftHM(e.end,diff)}`:''} ${tzName(g)}</span>` : '';
+  const alt = diff ? `<span class="ev-tz">${ico('pin')}Di zona waktu Anda pukul ${shiftHM(e.start,diff)}${e.end?` – ${shiftHM(e.end,diff)}`:''} ${tzName(g)}</span>` : '';
   return {main, alt};
 }
 function rundownItems(e){ return String((e&&e.rundown)||'').split('\n').map(l=>l.trim()).filter(Boolean).slice(0,12).map(l=>{ const m=l.match(/^(\d{1,2}[.:]\d{2})(?:\s*[-–]\s*(\d{1,2}[.:]\d{2}))?\s*[-–:|]?\s*(.*)$/); return m ? {t:m[1].replace(':','.')+(m[2]?' – '+m[2].replace(':','.'):''), x:m[3]} : {t:'', x:l}; }); }
@@ -4896,7 +4896,7 @@ function invHTML0(opts={}){
       <div class="names" style="font-size:38px">${esc(nick1)} <span style="color:var(--t-accent);font-style:italic">&amp;</span> ${esc(nick2)}</div>${t.layout==='beludru'?`</div><div class="bl-env bl-env2" aria-hidden="true"><img class="bk" src="${t.ilDir}envelope-back.webp" alt="" loading="lazy"><img class="ft" src="${t.ilDir}envelope-front.webp" alt="" loading="lazy"><img class="bl-tas" src="${t.ilDir}tassel-green.webp" alt="" loading="lazy"></div>`:''}
       <button type="button" class="ibtn sv-btn" data-act="souvenir" data-guest="${esc(guest)}">${ico('down')}Simpan kartu kenangan</button>
     </section>
-    <a class="foot" href="/?ref=undangan" target="_blank" rel="noopener">Dibuat dengan <b>Sakara</b> · Bikin undanganmu</a>
+    <a class="foot" href="/?ref=undangan" target="_blank" rel="noopener">Dibuat dengan <b>Sakara</b> · Buat undangan kalian</a>
   </div>`;
 }
 /* ---------- Kartu kenangan digital: PNG 1080×1350 bergaya tema, berisi nama tamu ---------- */
@@ -5116,15 +5116,15 @@ $('#themeSearch').addEventListener('input',e=>{ catQ=e.target.value; renderCatal
 
 /* ---------- Pricing ---------- */
 const PLANS = [
-  {id:'coba', name:'Coba', price:0, note:'gratis', tag:'Gratis dicoba', fit:'Buat kamu yang mau lihat hasilnya dulu sebelum mutusin.', sum:'Semua tema · Pratinjau penuh', cta:'Coba sekarang'},
-  {id:'undangan', name:'Undangan', price:129000, note:'sekali bayar', tag:'Cantik & berkesan', fit:'Buat kamu yang ingin undangan cantik, lengkap dengan cerita dan kenangan dari tamu.', sum:'Semua tema Lukisan · Ucapan, doa, amplop & kado patungan · Album foto dari tamu', cta:'Pilih Undangan'},
+  {id:'coba', name:'Coba', price:0, note:'gratis', tag:'Gratis dicoba', fit:'Untuk kalian yang ingin melihat hasilnya dulu sebelum memutuskan.', sum:'Semua tema · Pratinjau penuh', cta:'Coba sekarang'},
+  {id:'undangan', name:'Undangan', price:129000, note:'sekali bayar', tag:'Cantik & berkesan', fit:'Untuk kalian yang ingin undangan cantik, lengkap dengan cerita dan kenangan dari tamu.', sum:'Semua tema Lukisan · Ucapan, doa, amplop & kado patungan · Album foto dari tamu', cta:'Pilih Undangan'},
   {id:'tamu', name:'Undangan Lengkap', price:349000, note:'sekali bayar', tag:'Paling lengkap', fit:'Buat acara besar. Semua beres, dari sebar undangan sampai sambut tamu di hari H.', feature:1, sum:'Semua di Undangan · Kirim WA berurutan · Pengingat · QR check-in', cta:'Pilih Undangan Lengkap'},
   {id:'custom', name:'Custom', price:499000, note:'sekali bayar', tag:'Tema Custom', fit:'Buat kalian yang mau undangan penuh foto dan bebas diatur: urutan bagian, bagian yang tampil, sampai foto di setiap bingkai.', sum:'Fitur Undangan Lengkap (tanpa kado patungan) · Tema Custom · Editor bebas atur', cta:'Pilih Custom'}
 ];
 const PLAN_RANK = {coba:0, undangan:1, tamu:2, custom:3};
 /* Nomor WA Sakara (format 62…, tanpa + dan spasi). Dipakai untuk yang ingin desain dibuat dari nol. */
 const SAKARA_WA = '6281995050125';
-const customWaUrl = () => `https://wa.me/${SAKARA_WA}?text=${encodeURIComponent('Halo Sakara! Aku mau bikin undangan dengan desain dari nol, khusus buat kami. Boleh ngobrol soal konsep dan harganya?')}`;
+const customWaUrl = () => `https://wa.me/${SAKARA_WA}?text=${encodeURIComponent('Halo Sakara! Saya ingin membuat undangan dengan desain dari nol, khusus untuk kami. Boleh berdiskusi soal konsep dan harganya?')}`;
 document.querySelectorAll('[data-wa-custom]').forEach(a=>a.href=customWaUrl());
 /* [label, coba, undangan, tamu, tampil di kartu?]  nilai: 1 ada, 0 tidak, atau teks */
 const FEATS = [
@@ -5184,23 +5184,23 @@ function myPlan(){ const r=(DEMO.on&&DEMO.saved)?DEMO.saved.S:S; if(!r.user) ret
 function planCta(p){
   const cur=myPlan(), cls=`btn ${p.feature?'btn-primary':'btn-ghost'} btn-block`;
   if(!cur) return `<a class="${cls}" href="${p.id==='custom'?'#tema-custom':'#buat'}" data-plan="${p.id}">${p.cta}</a>`;
-  if(p.id===cur) return `<span class="btn btn-block plan-state is-cur" role="note">${ico('check')}Paket kamu sekarang</span>`;
-  if(planRank(p.id)<planRank(cur)) return `<span class="btn btn-block plan-state" role="note">Sudah termasuk di paketmu</span>`;
+  if(p.id===cur) return `<span class="btn btn-block plan-state is-cur" role="note">${ico('check')}Paket kalian sekarang</span>`;
+  if(planRank(p.id)<planRank(cur)) return `<span class="btn btn-block plan-state" role="note">Sudah termasuk di paket kalian</span>`;
   if(cur==='coba') return `<a class="${cls}" href="${p.id==='custom'?'#tema-custom':'#buat'}" data-plan="${p.id}">${p.cta}</a>`;
   return `<button type="button" class="${cls}" data-act="upgrade">${ico('up')}Upgrade ke ${esc(p.name)}</button>`;
 }
 function renderCompare(){
   const ps=shownPlans(), cur=myPlan();
-  const head = `<tr class="cmp-head"><th scope="col"><span class="sr">Fitur</span></th>${ps.map(p=>`<th scope="col" class="${p.feature?'feat':''}${p.id===cur?' mine':''}"><span class="cmp-tag">${p.id===cur?'Paketmu':p.tag}</span><b>${p.name}</b><span class="cmp-price num">${p.price?rupiah(p.price):'Gratis'}</span><span class="cmp-note">${p.price?'sekali bayar':'tanpa daftar'}</span><div class="cmp-cta">${planCta(p)}</div></th>`).join('')}</tr>`;
+  const head = `<tr class="cmp-head"><th scope="col"><span class="sr">Fitur</span></th>${ps.map(p=>`<th scope="col" class="${p.feature?'feat':''}${p.id===cur?' mine':''}"><span class="cmp-tag">${p.id===cur?'Paket kalian':p.tag}</span><b>${p.name}</b><span class="cmp-price num">${p.price?rupiah(p.price):'Gratis'}</span><span class="cmp-note">${p.price?'sekali bayar':'tanpa daftar'}</span><div class="cmp-cta">${planCta(p)}</div></th>`).join('')}</tr>`;
   const body = FEATS.map(([g,rows])=>`<tr class="cmp-group"><th scope="rowgroup" colspan="${ps.length+1}">${g}</th></tr>`+rows.map(r=>`<tr><th scope="row">${r[0]}</th>${ps.map(p=>`<td class="${p.feature?'feat':''}">${featCell(planFeat(p,r.key))}</td>`).join('')}</tr>`).join('')).join('');
-  $('#bandingkan').innerHTML = `<div class="page-head"><a class="linkbtn" href="#harga">← Kembali ke harga</a><h1>Bandingkan semua paket</h1><p>Semua paket dibayar sekali, tanpa biaya per tamu. Mulai dari Coba dulu, lalu naik paket kapan aja tanpa ngulang dari awal.</p></div>
+  $('#bandingkan').innerHTML = `<div class="page-head"><a class="linkbtn" href="#harga">← Kembali ke harga</a><h1>Bandingkan semua paket</h1><p>Semua paket dibayar sekali, tanpa biaya per tamu. Mulai dari Coba dulu, lalu naik paket kapan saja tanpa mengulang dari awal.</p></div>
     <div class="cmp-wrap"><table class="cmp" style="--plan-n:${ps.length}"><thead>${head}</thead><tbody>${body}</tbody></table></div>
     <p class="muted" style="margin-top:18px;font-size:14px">Mau naik paket nanti? Cukup bayar selisih harganya, tanpa mengulang dari awal. <a href="/syarat">Garansi uang kembali 7 hari</a> berlaku untuk semua paket berbayar.</p>
     <div class="panel-c" style="margin-top:24px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap"><div><b>Mau desain dari nol, khusus kalian?</b><div class="muted" style="font-size:14px">Ceritakan konsepnya, kami bantu buatkan. Harga dibahas langsung lewat chat.</div></div><a class="btn btn-primary btn-sm" href="${customWaUrl()}" data-wa-custom target="_blank" rel="noopener">Chat di WhatsApp</a></div>`;
 }
 function planCardHTML(p, cur, preview){
   return `<div class="plan${p.feature?' feature':''}${p.id===cur?' mine':''}">
-      ${(p.id===cur||p.tag)?`<span class="tag">${p.id===cur?'Paketmu':esc(p.tag)}</span>`:''}
+      ${(p.id===cur||p.tag)?`<span class="tag">${p.id===cur?'Paket kalian':esc(p.tag)}</span>`:''}
       <h3>${esc(p.name)}</h3>
       <div class="price num">${p.price?rupiah(p.price):'Rp0'} <small>${esc(p.note||'')}</small></div>
       ${p.fit?`<p class="plan-fit">${esc(p.fit)}</p>`:''}
@@ -5244,7 +5244,7 @@ function quoteFieldHTML(){
   return `<div class="field" id="quoteWrap" style="margin-top:16px"><label for="quoteMode">Kutipan pembuka</label><select class="input" id="quoteMode" data-bind="quoteMode">
       <option value="" ${!m?'selected':''}>Ikuti salam pembuka</option><option value="custom" ${m==='custom'?'selected':''}>Tulis sendiri atau pilih kutipan lain</option><option value="none" ${m==='none'?'selected':''}>Tanpa kutipan</option></select>
     ${m==='custom'?`<textarea class="input" id="quoteTxt" data-bind="quote" rows="3" style="margin-top:10px" placeholder="Tulis kalimat pembuka kalian">${esc(S.quote||'')}</textarea>
-    <div class="q-pre">${QUOTE_PRESETS.map((q,i)=>`<button type="button" class="chip" data-quote="${i}">${esc(q.length>46?q.slice(0,44)+'…':q)}</button>`).join('')}</div><span class="hint">Ketuk salah satu untuk memakainya, lalu ubah sesukamu.</span>`:''}</div>`;
+    <div class="q-pre">${QUOTE_PRESETS.map((q,i)=>`<button type="button" class="chip" data-quote="${i}">${esc(q.length>46?q.slice(0,44)+'…':q)}</button>`).join('')}</div><span class="hint">Ketuk salah satu untuk memakainya, lalu ubah sesuai keinginan.</span>`:''}</div>`;
 }
 const EV_OPEN = new Set();
 function evMoreHTML(e,k){
@@ -5283,7 +5283,7 @@ function renderStepper(){
   $('#mobileProgress').innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:13.5px;font-weight:700"><span>Langkah ${S.step+1} dari 5 · ${stepsNow()[S.step].k}</span><span class="muted" style="font-weight:600">Tersimpan otomatis</span></div><div class="stack" style="height:6px;margin-bottom:18px"><span style="width:${(S.step+1)*20}%;background:var(--beet)"></span></div>`;
 }
 const fld = (id,label,val,opt={}) => `<div class="field ${opt.full?'full':''}"><label for="${id}">${label}${opt.req||opt.star?'<span class="req" aria-hidden="true">*</span>':''}</label>${opt.area?`<textarea class="input" id="${id}" data-bind="${opt.bind}" rows="2" placeholder="${esc(opt.ph||'')}">${esc(val)}</textarea>`:`<input class="input" id="${id}" data-bind="${opt.bind}" value="${esc(val)}" type="${opt.type||'text'}" placeholder="${esc(opt.ph||'')}" ${opt.req?'required':''} autocomplete="off">`}${opt.hint?`<span class="hint">${opt.hint}</span>`:''}<span class="err" hidden></span></div>`;
-const photoFld = (who,label) => { const ph=S[who].photo; return `<div class="field full"><label>${label} <span class="opt-l">opsional</span></label><div class="up"><span class="thumb" ${ph?`style="background-image:url(${ph})"`:''}>${ph?'':esc(initials(S[who].name)||'?')}</span><label class="btn btn-soft btn-sm" for="up-${who}" style="cursor:pointer">${ico('up')}${ph?'Ganti foto':'Pilih foto'}</label><input type="file" id="up-${who}" data-photo="${who}" accept="image/*" hidden>${ph?`<button type="button" class="btn btn-ghost btn-sm" data-act="rm-photo" data-who="${who}">Hapus</button>`:''}</div><span class="hint">Foto otomatis dikecilkan biar undangan cepat kebuka. Nggak pakai foto? Inisial kalian yang tampil.</span></div>`; };
+const photoFld = (who,label) => { const ph=S[who].photo; return `<div class="field full"><label>${label} <span class="opt-l">opsional</span></label><div class="up"><span class="thumb" ${ph?`style="background-image:url(${ph})"`:''}>${ph?'':esc(initials(S[who].name)||'?')}</span><label class="btn btn-soft btn-sm" for="up-${who}" style="cursor:pointer">${ico('up')}${ph?'Ganti foto':'Pilih foto'}</label><input type="file" id="up-${who}" data-photo="${who}" accept="image/*" hidden>${ph?`<button type="button" class="btn btn-ghost btn-sm" data-act="rm-photo" data-who="${who}">Hapus</button>`:''}</div><span class="hint">Foto otomatis dikecilkan agar undangan cepat terbuka. Tidak memakai foto? Inisial kalian yang tampil.</span></div>`; };
 function renderStep(){
   if(EDIT.on){ const p=edPanel(EDIT.panel); $('#edInspT').textContent=p[1]; $('#edInspG').textContent=p[3]; $('#stepForm').innerHTML = edPanelHTML(p[0]) || '<p class="muted">Tidak ada pengaturan.</p>'; return; }
   renderStepCore();
@@ -5291,8 +5291,8 @@ function renderStep(){
 function renderStepCore(onlyHTML, iOverride){
   const f = $('#stepForm'); const i = iOverride ?? S.step; let h='';
   if(i===0){
-    h = `<span class="eyebrow">Langkah 1 dari 5</span><h2>Siapa nih yang mau nikah? 💍</h2><p class="sub">Nama panggilan bakal nyapa tamu di sampul dan pesan WhatsApp. Santai, semuanya bisa diubah nanti kok.</p>
-    ${EDIT.on?'':`<div class="quick-note">${ico('check')}<div><b>Cukup 3 hal untuk mulai</b><span>Nama kalian, tanggal, dan lokasi acara. Yang bertanda <b class="req">*</b> wajib diisi. Sisanya boleh dilewati dan dilengkapi kapan aja, bahkan setelah undangan dibagikan.</span></div></div>`}
+    h = `<span class="eyebrow">Langkah 1 dari 5</span><h2>Siapa yang akan menikah? 💍</h2><p class="sub">Nama panggilan akan menyapa tamu di sampul dan pesan WhatsApp. Tenang, semuanya bisa diubah nanti.</p>
+    ${EDIT.on?'':`<div class="quick-note">${ico('check')}<div><b>Cukup 3 hal untuk mulai</b><span>Nama kalian, tanggal, dan lokasi acara. Yang bertanda <b class="req">*</b> wajib diisi. Sisanya boleh dilewati dan dilengkapi kapan saja, bahkan setelah undangan dibagikan.</span></div></div>`}
     <fieldset class="fieldset"><legend>Mempelai wanita</legend><div class="fgrid">
       ${fld('bn','Nama lengkap',S.bride.name,{bind:'bride.name',req:1,ph:'Sarah Amalia'})}
       ${fld('bk','Nama panggilan <span class="opt-l">opsional</span>',S.bride.nick,{bind:'bride.nick',ph:'Sarah'})}
@@ -5324,7 +5324,7 @@ function renderStepCore(onlyHTML, iOverride){
   }
   if(i===2){
     const t = themeById(S.theme);
-    h = `<span class="eyebrow">Langkah 3 dari 5</span><h2>Pilih tampilan yang kalian banget</h2><p class="sub">Pilih koleksinya dulu, lalu temanya. Ganti sesukamu, isi undangannya tetap aman.</p>
+    h = `<span class="eyebrow">Langkah 3 dari 5</span><h2>Pilih tampilan yang paling kalian sukai</h2><p class="sub">Pilih koleksinya dulu, lalu temanya. Ganti kapan saja, isi undangannya tetap aman.</p>
     <div class="kind-tabs sm" role="tablist" aria-label="Koleksi tema">${[['lukisan','Lukisan','Tanpa foto'],['custom','Custom','Pakai foto · Paket Custom']].map(([k,l,dd])=>`<button type="button" role="tab" data-pickkind="${k}" aria-selected="${(PICK_KIND||(isCx(S.theme)?'custom':'lukisan'))===k}"><b>${l}</b><small>${dd}</small></button>`).join('')}</div>
     <p class="kind-desc">${(PICK_KIND||(isCx(S.theme)?'custom':'lukisan'))==='custom'?'Tema penuh foto kalian, susunan dan fotonya bebas diatur. Dipublikasikan dengan paket Custom.':'Digambar khusus, tanpa perlu foto. Bisa dipakai di paket apa pun.'}</p>
     ${(PICK_KIND||(isCx(S.theme)?'custom':'lukisan'))==='custom' ? `<div class="theme-pick" role="group" aria-label="Tema Custom">${CX_THEMES.filter(x=>!themeHidden(x.id)||x.id===S.theme).map(x=>`<button type="button" data-pick="${x.id}" aria-pressed="${x.id===S.theme}"><div class="tp" style="background:url(${x.thumbImg}) ${x.thumbPos||'top'}/cover"></div><span>${esc(x.name)}</span></button>`).join('')}</div>${isCx(S.theme)?cxLookHTML():`<p class="hint" style="margin-top:14px">Pilih salah satu tema di atas untuk mulai.</p>`}` : `${t.photo?`<p class="hint" style="margin:-6px 0 14px">${ico('camera')} Tema ${esc(t.name)} memakai foto pertama di galeri sebagai sampul. Belum ada foto? Kami tampilkan ilustrasi dulu.</p>`:''}
@@ -5337,23 +5337,23 @@ function renderStepCore(onlyHTML, iOverride){
   }
   if(i===3 && isCx(S.theme) && !onlyHTML){ h = cxStep4HTML(); }
   else if(i===3){
-    h = `<span class="eyebrow">Langkah 4 dari 5</span><h2>Sentuhan akhir biar makin lengkap</h2><p class="sub">Nyalakan yang kamu butuh aja. Bagian yang dimatikan nggak bakal tampil di undangan.</p>
+    h = `<span class="eyebrow">Langkah 4 dari 5</span><h2>Sentuhan akhir agar makin lengkap</h2><p class="sub">Nyalakan yang kalian butuhkan saja. Bagian yang dimatikan tidak akan tampil di undangan.</p>
     <div class="field"><label for="opening">Salam pembuka</label><select class="input" id="opening" data-bind="opening">
       <option value="islam" ${S.opening==='islam'?'selected':''}>Islami (Assalamu’alaikum + QS. Ar-Rum: 21)</option>
       <option value="kristen" ${S.opening==='kristen'?'selected':''}>Kristiani (Matius 19:6)</option>
       <option value="umum" ${S.opening==='umum'?'selected':''}>Umum</option></select></div>
     ${quoteFieldHTML()}
     <div style="margin-top:18px">
-      <div class="toggle-row"><div><b>Amplop digital</b><div class="muted" style="font-size:14px">Tamu tinggal salin nomor rekening, nggak perlu repot konfirmasi ke kalian.</div></div><label class="switch"><input type="checkbox" data-bind="gift.on" ${S.gift.on?'checked':''} aria-label="Amplop digital"><span></span></label></div>
+      <div class="toggle-row"><div><b>Amplop digital</b><div class="muted" style="font-size:14px">Tamu tinggal menyalin nomor rekening, tidak perlu repot konfirmasi ke kalian.</div></div><label class="switch"><input type="checkbox" data-bind="gift.on" ${S.gift.on?'checked':''} aria-label="Amplop digital"><span></span></label></div>
       <div class="fgrid" ${S.gift.on?'':'hidden'} style="padding:6px 0 16px">
         ${fld('gb','Bank / e-wallet',S.gift.bank,{bind:'gift.bank',ph:'BCA / Mandiri / GoPay'})}
         ${fld('ga','Nomor rekening',S.gift.acct,{bind:'gift.acct',ph:'1234567890'})}
         ${fld('gh','Atas nama',S.gift.holder,{bind:'gift.holder',full:1})}
       </div>
-      <div class="toggle-row"><div><b>Ucapan &amp; doa</b><div class="muted" style="font-size:14px">Doa dan ucapan tamu tampil di undangan. Ada yang kurang pas? Sembunyikan aja dari dashboard.</div></div><label class="switch"><input type="checkbox" data-bind="wishesOn" ${S.wishesOn?'checked':''} aria-label="Ucapan dan doa"><span></span></label></div>
-      <div class="toggle-row" style="flex-wrap:wrap"><div><b>Galeri foto</b><div class="muted" style="font-size:14px">Pilih sampai 8 foto favorit. Foto pertama bakal tampil paling gede.</div></div><label class="switch"><input type="checkbox" data-bind="galleryOn" ${S.galleryOn?'checked':''} aria-label="Galeri foto"><span></span></label>
+      <div class="toggle-row"><div><b>Ucapan &amp; doa</b><div class="muted" style="font-size:14px">Doa dan ucapan tamu tampil di undangan. Ada yang kurang pas? Sembunyikan saja dari dashboard.</div></div><label class="switch"><input type="checkbox" data-bind="wishesOn" ${S.wishesOn?'checked':''} aria-label="Ucapan dan doa"><span></span></label></div>
+      <div class="toggle-row" style="flex-wrap:wrap"><div><b>Galeri foto</b><div class="muted" style="font-size:14px">Pilih sampai 8 foto favorit. Foto pertama akan tampil paling besar.</div></div><label class="switch"><input type="checkbox" data-bind="galleryOn" ${S.galleryOn?'checked':''} aria-label="Galeri foto"><span></span></label>
         ${S.galleryOn?`<div class="gal-edit" style="width:100%">${S.gallery.map((g,k)=>`<div class="g" style="background-image:url(${g})"><button type="button" data-act="rm-gal" data-k="${k}" aria-label="Hapus foto ${k+1}">${ico('x')}</button></div>`).join('')}${S.gallery.length<8?`<label class="add" for="up-gal">${ico('plus')}<span>Tambah foto<br><span style="font-weight:500;color:var(--muted)">${S.gallery.length}/8</span></span></label><input type="file" id="up-gal" data-photo="gallery" accept="image/*" multiple hidden>`:''}</div>`:''}</div>
-      <div class="toggle-row" style="flex-wrap:wrap"><div><b>Musik latar</b><div class="muted" style="font-size:14px">Musik mengalun pelan pas tamu buka undangan. Mau hening? Tamu bisa matikan sekali ketuk.</div></div><label class="switch"><input type="checkbox" data-bind="music" ${S.music?'checked':''} aria-label="Musik latar"><span></span></label>
+      <div class="toggle-row" style="flex-wrap:wrap"><div><b>Musik latar</b><div class="muted" style="font-size:14px">Musik mengalun pelan saat tamu membuka undangan. Mau hening? Tamu bisa matikan sekali ketuk.</div></div><label class="switch"><input type="checkbox" data-bind="music" ${S.music?'checked':''} aria-label="Musik latar"><span></span></label>
         ${S.music?musicPickerHTML():''}</div>
     </div>
     <div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Urutan bagian undangan</span><ol class="sec-order" data-sort="lk">${secOrder().map((k,i,arr)=>{ const off=(k==='galeri'&&(!S.galleryOn||!S.gallery.length))||(k==='hadiah'&&!S.gift.on)||(k==='kado'&&!(S.wishlist&&S.wishlist.on&&S.wishlist.items.length))||(k==='cerita'&&!(S.story&&S.story.on&&S.story.items.length))||(k==='ucapan'&&!S.wishesOn); return `<li class="${off?'off':''}" data-k="${k}"><span class="drag" aria-hidden="true" title="Geser untuk pindah"><svg viewBox="0 0 10 16" width="10" height="16"><g fill="currentColor"><circle cx="2" cy="2" r="1.5"/><circle cx="8" cy="2" r="1.5"/><circle cx="2" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="2" cy="14" r="1.5"/><circle cx="8" cy="14" r="1.5"/></g></svg></span><span class="num muted">${i+1}</span><b>${SECTION_LABELS[k]}</b>${off?'<span class="chip">Tidak tampil</span>':''}<span class="mv"><button type="button" class="btn btn-ghost btn-sm" data-move="${k}" data-dir="-1" ${i===0?'disabled':''} aria-label="Naikkan ${SECTION_LABELS[k]}">↑</button><button type="button" class="btn btn-ghost btn-sm" data-move="${k}" data-dir="1" ${i===arr.length-1?'disabled':''} aria-label="Turunkan ${SECTION_LABELS[k]}">↓</button></span></li>`; }).join('')}</ol><span class="hint">Sampul selalu di paling atas, ucapan terima kasih selalu di paling bawah.</span></div>`;
@@ -5363,13 +5363,13 @@ function renderStepCore(onlyHTML, iOverride){
     const checks = [['Nama kedua mempelai', !!(S.bride.name&&S.groom.name), 0],['Minimal satu acara dengan tanggal & tempat', S.events.some(e=>e.date&&e.venue), 1],['Tema dipilih', !!S.theme, 2],['Rekening amplop digital', !S.gift.on || !!S.gift.acct, 3],
       ...sl.map(([l,k])=>[`${l} masih contoh, ganti dengan milik kalian`, false, k])];
     const ready = checks.every(c=>c[1]);
-    h = `<span class="eyebrow">Langkah 5 dari 5</span><h2>${S.published?'Undanganmu sudah tayang':'Siap disebar ke tamu? 🎉'}</h2><p class="sub">${S.published?'Undangan kalian udah bisa dibuka tamu. Kirim dari dashboard, dan ubah isinya kapan aja perlu.':'Cek sekali lagi, lalu pilih alamat link kalian. Habis bayar, undangan langsung bisa dikirim ke semua tamu. Nggak cocok? Ada garansi uang kembali 7 hari.'}</p>
+    h = `<span class="eyebrow">Langkah 5 dari 5</span><h2>${S.published?'Undangan kalian sudah tayang':'Siap disebar ke tamu? 🎉'}</h2><p class="sub">${S.published?'Undangan kalian sudah bisa dibuka tamu. Kirim dari dashboard, dan ubah isinya kapan saja perlu.':'Cek sekali lagi, lalu pilih alamat link kalian. Habis bayar, undangan langsung bisa dikirim ke semua tamu. Tidak cocok? Ada garansi uang kembali 7 hari.'}</p>
     <ul class="check-list">${checks.map(([l,ok,k])=>`<li>${ok?`<span class="status s-ok" style="padding:4px">${ico('check')}</span>`:`<span class="status s-wait" style="padding:4px">!</span>`}${l}<span class="st">${ok?'<span class="muted">Lengkap</span>':`<button type="button" class="btn btn-soft btn-sm" data-step="${k}">Lengkapi</button>`}</span></li>`).join('')}</ul>
-    <div class="field"><label for="slug">Alamat undangan</label><div class="slug"><span>${pubHost()}</span><input id="slug" data-bind="slug" value="${esc(S.slug)}" autocomplete="off" aria-describedby="slugHint"></div><span class="hint" id="slugHint">Pakai huruf kecil, angka, dan tanda strip. Link ini yang dilihat tamu, jadi bikin yang gampang diingat ya.</span><span class="err" hidden></span></div>
+    <div class="field"><label for="slug">Alamat undangan</label><div class="slug"><span>${pubHost()}</span><input id="slug" data-bind="slug" value="${esc(S.slug)}" autocomplete="off" aria-describedby="slugHint"></div><span class="hint" id="slugHint">Pakai huruf kecil, angka, dan tanda strip. Link ini yang dilihat tamu, jadi buat yang mudah diingat.</span><span class="err" hidden></span></div>
     ${S.published?'':`<div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Paket</span><div class="plan-pick">
       ${PLANS.filter(p=>p.price).map(p=>`<label><input type="radio" name="plan" value="${p.id}" ${S.plan===p.id?'checked':''}><span><b>${p.name}</b><small>${esc(p.sum)}</small></span><b class="num">${rupiah(p.price)}</b></label>`).join('')}
     </div></div>`}
-    ${ready?'':'<p class="err" style="margin-top:14px;color:var(--warn);font-weight:600">Lengkapi yang bertanda ! dulu ya, biar tamu nggak lihat bagian yang masih kosong.</p>'}`;
+    ${ready?'':'<p class="err" style="margin-top:14px;color:var(--warn);font-weight:600">Lengkapi yang bertanda ! dulu, agar tamu tidak melihat bagian yang masih kosong.</p>'}`;
   }
   if(onlyHTML) return h;
   const last = i===4;
@@ -5483,10 +5483,10 @@ function musicPickerHTML(){
       <p class="m-note">Instrumen asli racikan Sakara. Bebas dipakai, aman dari klaim hak cipta.</p>`;
   } else if(tab==='upload'){
     const has = src.type==='upload' && src.url;
-    body = `${has?`<div class="m-item sel">${playBtn('cur', src.name)}<div class="m-meta"><b>${esc(src.name||'Lagu unggahan')}</b><span>${src.temp?'Mode demo: hilang setelah halaman dimuat ulang':'Tersimpan di akunmu'}</span></div></div>`:''}
+    body = `${has?`<div class="m-item sel">${playBtn('cur', src.name)}<div class="m-meta"><b>${esc(src.name||'Lagu unggahan')}</b><span>${src.temp?'Mode demo: hilang setelah halaman dimuat ulang':'Tersimpan di akun kalian'}</span></div></div>`:''}
       <label class="m-drop" for="up-music">${ico(has?'edit':'up')}<b>${has?'Ganti lagu':'Pilih file lagu'}</b><span class="m-note">MP3 atau M4A, maksimal 15 MB</span></label>
       <input type="file" id="up-music" accept="audio/mpeg,audio/mp3,audio/mp4,audio/x-m4a,audio/aac,audio/ogg,audio/wav,.mp3,.m4a,.aac,.ogg,.wav" hidden>
-      <p class="m-note">Dengan mengunggah, kamu menyatakan punya hak memakai lagu ini.</p>`;
+      <p class="m-note">Dengan mengunggah, kalian menyatakan punya hak memakai lagu ini.</p>`;
   } else {
     const has = src.type==='link' && src.url;
     body = `<div class="field" style="margin:0"><label for="m-link">Link file audio</label><div style="display:flex;gap:8px"><input class="input" id="m-link" type="url" inputmode="url" autocapitalize="off" spellcheck="false" placeholder="https://…/lagu.mp3" value="${has?esc(src.orig||src.url):''}" style="flex:1;min-width:0"><button type="button" class="btn btn-ghost" data-act="m-link-check">Pakai</button></div></div>
@@ -5717,7 +5717,7 @@ function edPanelHTML0(k){
   if(k==='tema') return stepBody(2);
   if(k==='galeri'){ const r=togRow('galleryOn'); return r ? r.outerHTML : ''; }
   if(k==='musik'){ const r=togRow('music'); return r ? r.outerHTML : ''; }
-  if(k==='ucapan'){ const r=togRow('wishesOn'); return (r?r.outerHTML:'') + `<p class="hint" style="margin-top:12px">Ucapan dari tamu bisa kamu sembunyikan satu per satu di <a href="#dashboard" data-dtab-go="ucapan">Dashboard → Ucapan</a>.</p>`; }
+  if(k==='ucapan'){ const r=togRow('wishesOn'); return (r?r.outerHTML:'') + `<p class="hint" style="margin-top:12px">Ucapan dari tamu bisa kalian sembunyikan satu per satu di <a href="#dashboard" data-dtab-go="ucapan">Dashboard → Ucapan</a>.</p>`; }
   if(k==='hadiah'){ const d=document.createElement('div'); d.innerHTML=s3(); const inp=d.querySelector('[data-bind="gift.on"]'); const row=inp.closest('.toggle-row'); return row.outerHTML + (row.nextElementSibling?row.nextElementSibling.outerHTML:''); }
   if(k==='urutan' && isCx(S.theme)){ const d=document.createElement('div'); d.innerHTML=cxEditorHTML(); const o=d.querySelector('.sec-order'); return o ? `<div class="field">${o.outerHTML}</div><p class="hint">Tahan dan geser titik-titik di kiri untuk pindah posisi. Sampul selalu di atas, penutup selalu di bawah.</p>` : ''; }
   if(k==='urutan'){ return pickPart(s3(), '.sec-order') ? `<div class="field">${pickPart(s3(), '.sec-order')}</div><p class="hint">Tahan dan geser titik-titik di kiri untuk pindah posisi. Bagian yang dimatikan tetap ada di urutan, tapi tidak tampil ke tamu.</p>` : ''; }
@@ -5866,7 +5866,7 @@ const PRO = ['import','bulk','groups','harih','remind'];
 const LOCK_OF = {import:'import', bulk:'bulk', groups:'groups', harih:'qr', remind:'remind'};
 const isLocked = f => S.published && PRO.includes(f) && !planFeat(planOf(S.plan), LOCK_OF[f]||f);
 const lockNote = (what, f='harih') => { const t=cheapestWith(LOCK_OF[f]||f), cur=planOf(S.plan); const diff = t&&cur ? t.price-cur.price : 0;
-  return `<div class="lock-card">${ico('lock')}<div><b>${what} ada di paket ${esc(t?t.name:'yang lebih lengkap')}</b><p class="muted">${diff>0?`Cukup tambah ${rupiah(diff)} aja. `:''}Tamu dan isi undanganmu tetap aman, nggak perlu mulai dari awal.</p></div><button class="btn btn-primary btn-sm" data-act="upgrade">Upgrade sekarang</button></div>`; };
+  return `<div class="lock-card">${ico('lock')}<div><b>${what} ada di paket ${esc(t?t.name:'yang lebih lengkap')}</b><p class="muted">${diff>0?`Cukup tambah ${rupiah(diff)} saja. `:''}Tamu dan isi undangan kalian tetap aman, tidak perlu mulai dari awal.</p></div><button class="btn btn-primary btn-sm" data-act="upgrade">Upgrade sekarang</button></div>`; };
 function pubHost(){ return CLOUD.on ? location.host+'/u/' : 'undangansakara.vercel.app/u/'; }
 function pubURL(){ return 'https://'+pubHost()+((CLOUD.inv&&CLOUD.inv.slug)||S.slug); }
 function link(g){ return CLOUD.on ? `${location.origin}/u/${(CLOUD.inv&&CLOUD.inv.slug)||S.slug}?to=${g.code}` : `https://undangansakara.vercel.app/u/${S.slug}?to=${encodeURIComponent(g.code||g.name)}`; }
@@ -5990,7 +5990,7 @@ function famTabHTML(){
       <div class="fam-meter"><span style="width:${pct}%;${pct>=100?'background:var(--no)':''}"></span></div><div class="fam-q num"><b>${used}</b> dari ${f.quota} jatah</div>
       <div class="fam-link"><input class="input" readonly value="${esc(famLink(f))}" aria-label="Link ${esc(f.name)}"><button class="btn btn-soft btn-sm" data-act="copy" data-v="${esc(famLink(f))}">${ico('copy')}Salin</button></div>
       <a class="btn btn-ghost btn-sm" style="width:100%;justify-content:center" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(`Assalamu'alaikum. Ini link untuk menambahkan tamu dari ${f.name} ke undangan pernikahan ${S.bride.nick} & ${S.groom.nick}. Jatahnya ${f.quota} tamu.\n\nCukup ketik nama (dan nomor WA kalau ada), satu per baris:\n${famLink(f)}\n\nTerima kasih 🙏`)}">${ico('wa')}Kirim link lewat WhatsApp</a></div>`; };
-  return `<div class="fam-intro"><div><h3 style="font-family:var(--display);font-size:26px">Akun keluarga</h3><p class="muted" style="max-width:62ch;margin-top:6px">Biar orang tua dan keluarga besar nambahin tamu mereka sendiri lewat link khusus, tanpa perlu akun. Tiap keluarga punya jatah, dan nama yang mereka tambahkan baru masuk setelah kalian setujui. Bye-bye daftar tamu yang tercecer di chat!</p></div><button class="btn btn-primary btn-sm" data-act="fam-add">${ico('plus')}Tambah keluarga</button></div>
+  return `<div class="fam-intro"><div><h3 style="font-family:var(--display);font-size:26px">Akun keluarga</h3><p class="muted" style="max-width:62ch;margin-top:6px">Agar orang tua dan keluarga besar bisa menambahkan tamu mereka sendiri lewat link khusus, tanpa perlu akun. Tiap keluarga punya jatah, dan nama yang mereka tambahkan baru masuk setelah kalian setujui. Bye-bye daftar tamu yang tercecer di chat!</p></div><button class="btn btn-primary btn-sm" data-act="fam-add">${ico('plus')}Tambah keluarga</button></div>
     ${pend.length?`<div class="panel-c fam-pend"><h3>Menunggu persetujuan <span class="cnt num">${pend.length}</span><button class="btn btn-primary btn-sm" data-act="fam-approve-all" style="margin-left:auto">Setujui semua</button></h3>
       <ul>${pend.slice(0,60).map(g=>`<li><div><b>${esc(g.name)}</b><small class="muted">${esc(famById(g.fam)?.name||g.group)}${g.phone?' · '+esc(g.phone):''}</small></div><div class="fam-acts"><button class="btn btn-soft btn-sm" data-act="fam-ok" data-id="${g.id}">${ico('check')}Setujui</button><button class="btn btn-ghost btn-sm" data-act="fam-no" data-id="${g.id}" aria-label="Tolak ${esc(g.name)}">Tolak</button></div></li>`).join('')}</ul>${pend.length>60?`<p class="muted" style="font-size:13px">+${pend.length-60} lainnya</p>`:''}</div>`:''}
     ${fams.length?`<div class="fam-grid">${fams.map(card).join('')}</div>`:`<div class="empty">${karaImg('tidur','kara-empty')}<b style="color:var(--ink)">Belum ada akun keluarga.</b><br>Contoh: “Keluarga ${esc(S.bride.nick)}” jatah 150 dan “Keluarga ${esc(S.groom.nick)}” jatah 150.<br><button class="btn btn-primary btn-sm" data-act="fam-quick" style="margin-top:12px">Buat dua akun keluarga sekarang</button></div>`}`;
@@ -6037,7 +6037,7 @@ document.addEventListener('click', async e=>{
 /* tab Katering (dashboard) */
 function catTabHTML(){
   const set=catSet(); const st=catStatsLocal(); const tot=S.events.map((e,i)=>catCalc(st[i],set).rec);
-  return `<div class="fam-intro"><div><h3 style="font-family:var(--display);font-size:26px">Hitungan katering</h3><p class="muted" style="max-width:62ch;margin-top:6px">Perkiraan porsi tiap sesi, dihitung dari konfirmasi tamu dan langsung update tiap ada jawaban baru. Atur asumsinya sesuai pengalaman keluarga, biar nggak ada tamu yang kehabisan makanan.</p></div></div>
+  return `<div class="fam-intro"><div><h3 style="font-family:var(--display);font-size:26px">Hitungan katering</h3><p class="muted" style="max-width:62ch;margin-top:6px">Perkiraan porsi tiap sesi, dihitung dari konfirmasi tamu dan langsung update tiap ada jawaban baru. Atur asumsinya sesuai pengalaman keluarga, agar tidak ada tamu yang kehabisan makanan.</p></div></div>
     ${catCardsHTML(S.events, st, set, false)}
     <div class="dgrid" style="margin-top:20px">
       <div class="panel-c"><h3>Asumsi hitungan</h3>
@@ -6045,7 +6045,7 @@ function catTabHTML(){
         <div class="cat-ctl"><label for="cs-pax">Rata-rata orang per undangan yang belum menjawab</label><div><input type="range" id="cs-pax" min="1" max="4" step="0.5" value="${set.defPax}"><output class="num">${set.defPax}</output></div></div>
         <div class="cat-ctl"><label for="cs-buf">Cadangan untuk tamu tambahan</label><div><input type="range" id="cs-buf" min="0" max="30" step="5" value="${set.buffer}"><output class="num">${set.buffer}%</output></div></div>
         <p class="muted" style="font-size:13px;margin-top:6px">Hasil dibulatkan ke atas per 10 porsi.</p></div>
-      <div class="panel-c"><h3>Link untuk vendor katering</h3><p class="muted" style="font-size:14px">Vendor bisa pantau angka terbaru tanpa akun. Yang kelihatan cuma jumlah per sesi, nama tamu tetap rahasia.</p>
+      <div class="panel-c"><h3>Link untuk vendor katering</h3><p class="muted" style="font-size:14px">Vendor bisa pantau angka terbaru tanpa akun. Yang terlihat hanya jumlah per sesi, nama tamu tetap rahasia.</p>
         <div class="fam-link" style="margin-top:12px"><input class="input" readonly value="${esc(catLink())}" aria-label="Link vendor katering"><button class="btn btn-soft btn-sm" data-act="copy" data-v="${esc(catLink())}">${ico('copy')}Salin</button></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(`Halo, ini link perkiraan porsi katering untuk pernikahan ${S.bride.nick} & ${S.groom.nick}. Angkanya diperbarui otomatis dari konfirmasi tamu:\n${catLink()}`)}">${ico('wa')}Kirim ke vendor</a><button class="btn btn-ghost btn-sm" data-act="cat-rotate">Ganti link</button></div></div>
     </div>`;
@@ -6135,16 +6135,16 @@ function touchTips(){
   else {
     if(isCx(S.theme)){ const left=cxSampleList(); if(left.length) t.push({k:'cxfoto', ic:'camera', h:`Masih ada ${left.length} foto contoh`, p:'Ganti dengan foto kalian sebelum dibagikan, supaya tamu tidak melihat foto orang lain.', b:'Ganti foto', panel:'cx:'+left[0].sec}); }
     if(!isCx(S.theme) && !(S.gallery||[]).length) t.push({k:'foto', ic:'camera', h:'Tambah beberapa foto kalian', p:'Undangan dengan foto terasa jauh lebih personal. Tiga sampai lima foto favorit sudah cukup.', b:'Tambah foto', panel:'galeri'});
-    if(!(S.story && S.story.on && (S.story.items||[]).length && !S.story.demo)) t.push({k:'cerita', ic:'heart', h:'Ceritakan perjalanan kalian', p:'Dua atau tiga momen singkat sudah cukup bikin tamu tersenyum.', b:'Tulis kisah', panel:'cerita'});
+    if(!(S.story && S.story.on && (S.story.items||[]).length && !S.story.demo)) t.push({k:'cerita', ic:'heart', h:'Ceritakan perjalanan kalian', p:'Dua atau tiga momen singkat sudah cukup membuat tamu tersenyum.', b:'Tulis kisah', panel:'cerita'});
     if(days!=null && days>=0 && days<=45 && evs.some(e=>!String(e.dress||'').trim() && !(e.dcol||[]).length)) t.push({k:'dress', ic:'users', h:'Sudah ada dress code?', p:'Ini pertanyaan yang paling sering ditanyakan tamu menjelang hari H.', b:'Tambah dress code', panel:'acara'});
     if(days!=null && days>=0 && days<=10 && !evs.some(e=>liveUrl(e.live))) t.push({k:'live', ic:'play', h:'Ada keluarga yang tidak bisa datang?', p:'Tempel link siaran langsung, tombolnya muncul sendiri di undangan.', b:'Tambah link', panel:'acara'});
-    if(days!=null && days>=0 && days<=30 && G.length>=20 && !S.seatsDefault && !Object.keys(S.seats||{}).length) t.push({k:'kuota', ic:'users', h:'Batasi jumlah orang per undangan?', p:'Biar hitungan katering tetap aman dan link tidak diteruskan ke banyak orang.', b:'Atur batas', panel:'rsvp'});
+    if(days!=null && days>=0 && days<=30 && G.length>=20 && !S.seatsDefault && !Object.keys(S.seats||{}).length) t.push({k:'kuota', ic:'users', h:'Batasi jumlah orang per undangan?', p:'Agar hitungan katering tetap aman dan link tidak diteruskan ke banyak orang.', b:'Atur batas', panel:'rsvp'});
   }
   return t.filter(x=>!off.includes(x.k)).slice(0,3);
 }
 function readyHTML(){
   const ready = S.bride.name && S.groom.name && S.events.some(e=>e.date && e.venue), tips = ready ? touchTips() : [];
-  return `<section class="ready${ready?' ok':''}"><div class="ready-h"><span class="ready-ic">${ico(ready?'check':'edit')}</span><div><b>${!ready?'Tinggal sedikit lagi':S.published?'Undanganmu sudah tayang':'Undanganmu sudah siap dibagikan'}</b><span>${!ready?'Lengkapi nama, tanggal, dan lokasi acara, lalu undangannya siap dibagikan.':tips.length?`Mau bikin tamu makin senang? Ini ${tips.length} sentuhan tambahan, semuanya opsional.`:'Semuanya sudah lengkap. Tinggal nikmati prosesnya.'}</span></div>${ready?'':'<a class="btn btn-primary btn-sm" href="#buat">Lanjutkan</a>'}</div>
+  return `<section class="ready${ready?' ok':''}"><div class="ready-h"><span class="ready-ic">${ico(ready?'check':'edit')}</span><div><b>${!ready?'Tinggal sedikit lagi':S.published?'Undangan kalian sudah tayang':'Undangan kalian sudah siap dibagikan'}</b><span>${!ready?'Lengkapi nama, tanggal, dan lokasi acara, lalu undangannya siap dibagikan.':tips.length?`Mau membuat tamu makin senang? Ini ${tips.length} sentuhan tambahan, semuanya opsional.`:'Semuanya sudah lengkap. Tinggal nikmati prosesnya.'}</span></div>${ready?'':'<a class="btn btn-primary btn-sm" href="#buat">Lanjutkan</a>'}</div>
     ${tips.length?`<div class="tips">${tips.map(x=>`<article class="tip"><span class="tip-ic">${ico(x.ic)}</span><div><b>${x.h}</b><p>${x.p}</p><div class="tip-a"><button type="button" class="btn btn-soft btn-sm" data-act="${x.act||'tip-go'}" data-panel="${x.panel||''}">${x.b}</button><button type="button" class="linkbtn" data-act="tip-off" data-k="${x.k}">Nanti saja</button></div></div></article>`).join('')}</div>`:''}</section>`;
 }
 function renderDashCore(){
@@ -6174,7 +6174,7 @@ function renderDashCore(){
           return `<div class="grp-row"><span style="font-weight:600">${esc(gr)}</span><span class="track"><span style="width:${h/n*100}%;background:var(--ok)"></span><span style="width:${t/n*100}%;background:var(--no)"></span><span style="width:${(n-h-t)/n*100}%;background:#E9D4A9"></span></span><span class="num muted" style="text-align:right">${h}/${n}</span></div>`;}).join('')}`
         : dEmpty('users','Belum ada tamu.','Tambahkan tamu dulu, nanti jawabannya terkumpul di sini.'),
         `<button type="button" class="linkbtn" data-dtab="tamu">Lihat tamu</button>`)}
-      ${dPanel('Per sesi acara','Tiap tamu cuma lihat acara yang memang buat dia.',
+      ${dPanel('Per sesi acara','Tiap tamu hanya melihat acara yang memang untuknya.',
         S.events.map((e,i)=>{ const inv=G.filter(g=>guestEvents(g).some(x=>x.i===i)); const hp=inv.filter(g=>g.status==='hadir').reduce((a,g)=>a+g.pax,0); return `<div class="ses-row"><div><b>${esc(e.type||'Acara '+(i+1))}</b><small class="muted">${esc(e.venue||'')}${e.start?` · ${esc(e.start)}`:''}</small></div><div class="num"><b>${inv.length}</b><small class="muted">diundang</small></div><div class="num"><b>${hp}</b><small class="muted">orang hadir</small></div></div>`; }).join(''))}
     </div>`;
   }
@@ -6197,7 +6197,7 @@ function renderDashCore(){
       <button class="btn btn-sm" style="background:#fff;color:var(--ink);margin-left:auto" data-act="${isLocked('bulk')?'upgrade':'bulk-send'}">${ico(isLocked('bulk')?'lock':'wa')}Kirim ke ${sel.size} tamu</button><button class="btn btn-sm" style="color:#fff;border-color:#ffffff55" data-act="${isLocked('bulk')?'upgrade':'cards-print'}">${ico(isLocked('bulk')?'lock':'qr')}Kartu cetak</button><button class="btn btn-sm" style="color:#fff;border-color:#ffffff55" data-act="bulk-clear">Batal</button></div>`:''}
     <div class="tbl-wrap"><table><thead><tr><th style="width:40px"><input type="checkbox" data-act="sel-all" aria-label="Pilih semua" ${list.length&&list.every(g=>sel.has(g.id))?'checked':''}></th><th>Nama</th><th>Grup</th><th>Sesi</th><th>Status</th><th class="num">Orang</th><th>Dikirim</th><th style="text-align:right">Aksi</th></tr></thead><tbody>
       ${list.map(g=>`<tr><td><input type="checkbox" data-sel="${g.id}" ${sel.has(g.id)?'checked':''} aria-label="Pilih ${esc(g.name)}"></td><td><div class="nm">${esc(g.name)}</div><div class="sub num">${esc(g.phone||'—')} · ${esc(g.code)}</div></td><td>${esc(g.group)}</td><td>${sesChips(g)}</td><td><span class="status ${stLabel[g.status][1]}">${stLabel[g.status][0]}</span>${g.checkin?' <span class="status s-mute">Sudah datang</span>':''}</td><td class="num">${g.pax||'—'}</td><td>${g.sent?'<span class="status s-mute">Terkirim</span>':'<span class="muted" style="font-size:13px">Belum</span>'}</td>
-      <td class="acts"><a class="btn btn-soft btn-sm" href="${waUrl(g)}" target="_blank" rel="noopener" data-sent="${g.id}">${ico('wa')}${g.sent?'Kirim ulang':'Kirim WA'}</a> <button class="btn btn-ghost btn-sm" data-act="guest-menu" data-id="${g.id}" aria-label="Opsi ${esc(g.name)}">Opsi</button></td></tr>`).join('') || `<tr><td colspan="8"><div class="empty" style="border:0">Hmm, nggak ada tamu yang cocok. Coba ubah kata pencarian atau filternya.</div></td></tr>`}
+      <td class="acts"><a class="btn btn-soft btn-sm" href="${waUrl(g)}" target="_blank" rel="noopener" data-sent="${g.id}">${ico('wa')}${g.sent?'Kirim ulang':'Kirim WA'}</a> <button class="btn btn-ghost btn-sm" data-act="guest-menu" data-id="${g.id}" aria-label="Opsi ${esc(g.name)}">Opsi</button></td></tr>`).join('') || `<tr><td colspan="8"><div class="empty" style="border:0">Tidak ada tamu yang cocok. Coba ubah kata pencarian atau filternya.</div></td></tr>`}
     </tbody></table></div>
     <div class="gcards">${list.map(g=>`<div class="gcard"><input type="checkbox" data-sel="${g.id}" ${sel.has(g.id)?'checked':''} aria-label="Pilih ${esc(g.name)}"><div><div style="font-weight:700">${esc(g.name)}</div><div class="muted" style="font-size:13px">${esc(g.group)} · ${esc(sessionNames(g))}${g.pax?` · ${g.pax} orang`:''}</div></div><span class="status ${stLabel[g.status][1]}">${stLabel[g.status][0].replace(' menjawab','')}</span>
       <div class="acts"><a class="btn btn-soft btn-sm" href="${waUrl(g)}" target="_blank" rel="noopener" data-sent="${g.id}">${ico('wa')}${g.sent?'Kirim ulang':'Kirim WA'}</a><button class="btn btn-ghost btn-sm" data-act="guest-menu" data-id="${g.id}">Opsi</button></div></div>`).join('') || (G.length ? '<div class="empty">Tidak ada tamu yang cocok dengan pencarian atau filter ini.</div>' : `<div class="empty">${karaImg('lambai','kara-sm')}<b style="display:block;margin:8px 0 4px">Belum ada tamu</b>Tambahkan satu per satu, atau impor dari Excel kalau daftarnya sudah ada.<div style="margin-top:12px"><button class="btn btn-primary btn-sm" data-act="add-guest">${ico('plus')}Tambah tamu</button></div></div>`)}</div>
@@ -6209,7 +6209,7 @@ function renderDashCore(){
       const expect = hadir.filter(g=>!g.checkin);
       const ppl = arrived.reduce((a,g)=>a+g.checkin.pax,0);
       const gifts = arrived.filter(g=>g.checkin.gift).length;
-      body = `<div class="harih-hero"><div><span class="eyebrow">Hari H</span><h2 class="display" style="font-size:34px;margin-top:8px">Buku tamu digital dengan QR</h2><p class="muted" style="max-width:56ch;margin-top:8px">Tiap tamu yang bakal hadir dapat kartu masuk QR di undangannya. Pas hari H, penerima tamu tinggal buka mode ini di HP atau tablet, lalu scan QR atau cari nama. Antre nulis buku tamu? Udah bukan zamannya.</p></div><a class="btn btn-primary" href="#checkin">${ico('qr')}Buka mode penerima tamu</a></div>
+      body = `<div class="harih-hero"><div><span class="eyebrow">Hari H</span><h2 class="display" style="font-size:34px;margin-top:8px">Buku tamu digital dengan QR</h2><p class="muted" style="max-width:56ch;margin-top:8px">Tiap tamu yang akan hadir mendapat kartu masuk QR di undangannya. Pas hari H, penerima tamu tinggal buka mode ini di HP atau tablet, lalu scan QR atau cari nama. Antre menulis buku tamu? Sudah bukan zamannya.</p></div><a class="btn btn-primary" href="#checkin">${ico('qr')}Buka mode penerima tamu</a></div>
       ${CLOUD.inv?`<div class="panel-c pin-card"><div><b>Link untuk penerima tamu</b><p class="muted" style="font-size:14px;margin-top:4px">Kirim ke petugas penerima tamu. Mereka tidak perlu akun, cukup link dan PIN ini. Bisa dibuka di beberapa HP sekaligus.</p></div><div class="pin-row"><span class="pin num">${esc(CLOUD.inv.checkin_pin)}</span><button class="btn btn-soft btn-sm" data-act="copy" data-v="${esc(`${location.origin}/u/${CLOUD.inv.slug}/checkin?pin=${CLOUD.inv.checkin_pin}`)}">${ico('copy')}Salin link</button><button class="btn btn-ghost btn-sm" data-act="pin-rotate" title="Link & PIN lama langsung tidak berlaku">Ganti PIN</button></div>${/^\d{6}$/.test(CLOUD.inv.checkin_pin||'')?`<p class="hint" style="margin-top:8px">PIN 6 angka mudah ditebak. Ganti ke PIN baru yang lebih aman, lalu kirim ulang link ke penerima tamu.</p>`:''}</div>`:''}
       <div class="tiles" style="margin-top:20px">
         ${dTile('Sudah datang',arrived.length,`undangan · ${ppl} orang`,'check','green',1)}
@@ -6227,12 +6227,12 @@ function renderDashCore(){
   if(dTab==='kenangan') body = knTabHTML();
   if(dTab==='katering') body = catTabHTML();
   if(dTab==='ucapan'){
-    body = `<p class="muted" style="margin-bottom:16px">Ucapan yang kalian sembunyikan nggak tampil di undangan, tapi tetap tersimpan aman di sini.</p>${W.length?'':dEmpty('chat','Belum ada ucapan.','Ucapan dari tamu langsung masuk ke sini begitu mereka mengirimnya.')}<div class="wish-admin">${W.map((w,k)=>`<div class="w ${w.show?'':'hid'}"><div><b>${esc(w.n)}</b> ${w.att?'<span class="status s-ok">Hadir</span>':''} <span class="muted" style="font-size:13px">${esc(w.t)}</span><p style="margin-top:6px">${esc(w.m)}</p></div><button class="btn btn-ghost btn-sm" data-act="toggle-wish" data-k="${k}">${w.show?'Sembunyikan':'Tampilkan'}</button></div>`).join('')}</div>`;
+    body = `<p class="muted" style="margin-bottom:16px">Ucapan yang kalian sembunyikan tidak tampil di undangan, tapi tetap tersimpan aman di sini.</p>${W.length?'':dEmpty('chat','Belum ada ucapan.','Ucapan dari tamu langsung masuk ke sini begitu mereka mengirimnya.')}<div class="wish-admin">${W.map((w,k)=>`<div class="w ${w.show?'':'hid'}"><div><b>${esc(w.n)}</b> ${w.att?'<span class="status s-ok">Hadir</span>':''} <span class="muted" style="font-size:13px">${esc(w.t)}</span><p style="margin-top:6px">${esc(w.m)}</p></div><button class="btn btn-ghost btn-sm" data-act="toggle-wish" data-k="${k}">${w.show?'Sembunyikan':'Tampilkan'}</button></div>`).join('')}</div>`;
   }
   if(dTab==='hadiah'){
     const sum = GIFTS.reduce((a,g)=>a+g.amt,0);
     body = `<div class="tiles t2">${dTile('Tamu menitipkan nama',GIFTS.length,'kirim hadiah lewat undangan','users','amber',1)}${dTile('Total dilaporkan tamu',rupiah(sum),'cek lagi di mutasi rekening','wallet','green')}</div>
-    <p class="muted" style="margin:16px 0">Uang langsung masuk ke rekening ${esc(S.gift.bank)} ${esc(S.gift.holder)}. Tamu tidak diminta konfirmasi. Daftar ini hanya berisi tamu yang menitipkan nama secara sukarela, jadi tetap cek mutasi rekeningmu.</p>
+    <p class="muted" style="margin:16px 0">Uang langsung masuk ke rekening ${esc(S.gift.bank)} ${esc(S.gift.holder)}. Tamu tidak diminta konfirmasi. Daftar ini hanya berisi tamu yang menitipkan nama secara sukarela, jadi tetap cek mutasi rekening kalian.</p>
     ${GIFTS.length?'':`<section class="panel-c">${dEmpty('gift','Belum ada titipan nama.','Saat tamu mengirim hadiah dan menitipkan namanya, catatannya muncul di sini.')}</section>`}<div class="tbl-wrap" style="display:block${GIFTS.length?'':';display:none'}"><table><thead><tr><th>Dari</th><th>Ke</th><th class="num">Jumlah</th><th>Waktu</th></tr></thead><tbody>${GIFTS.map(g=>`<tr><td class="nm">${esc(g.n)}</td><td>${esc(g.bank)}</td><td class="num">${g.amt?rupiah(g.amt):'—'}</td><td class="muted">${esc(g.t)}</td></tr>`).join('')}</tbody></table></div>` + kadoAdminHTML();
   }
   // Tata letak seperti panel admin: menu samping + isi
@@ -6402,7 +6402,7 @@ document.addEventListener('click', e=>{
   if(a==='use-theme' && isCx(el.dataset.t)!==isCx(S.theme) && !el.dataset.cxok){ const tid=el.dataset.t; cxSwitch(tid, ()=>{ const b=document.createElement('button'); b.dataset.act='use-theme'; b.dataset.t=tid; b.dataset.sure='1'; b.dataset.cxok='1'; b.hidden=true; document.body.appendChild(b); b.click(); b.remove(); }); return; }
   if(a==='cx-switch-go'){ closeModal(); const f=CX_SWITCH_DONE; CX_SWITCH_DONE=null; if(f) f(); return; }
   if(a==='cx-try-back'){ const lt=S.liveTheme; if(lt){ S.theme=lt; delete S.liveTheme; EDIT.panel='tema'; save(); renderStep(); edRail(); refreshPreview(); toast('Kembali ke tema '+themeById(lt).name); } return; }
-  if(a==='use-theme' && S.published && !el.dataset.sure && el.dataset.t!==S.theme){ const nt=themeById(el.dataset.t); openModal(`<h2 class="display" style="font-size:28px">Ganti ke tema ${esc(nt.name)}?</h2><p class="muted" style="margin:8px 0 20px">Undanganmu sudah tayang, jadi tamu akan langsung melihat tema baru. Isi undangan, tamu, dan ucapan tidak berubah. Kamu bisa kembali ke tema lama kapan saja dari editor.</p><div class="form-foot"><button class="btn btn-ghost" data-act="close">Batal</button><button class="btn btn-primary" data-act="use-theme" data-t="${esc(nt.id)}" data-sure="1">Ganti tema</button></div>`); return; }
+  if(a==='use-theme' && S.published && !el.dataset.sure && el.dataset.t!==S.theme){ const nt=themeById(el.dataset.t); openModal(`<h2 class="display" style="font-size:28px">Ganti ke tema ${esc(nt.name)}?</h2><p class="muted" style="margin:8px 0 20px">Undangan kalian sudah tayang, jadi tamu akan langsung melihat tema baru. Isi undangan, tamu, dan ucapan tidak berubah. Kalian bisa kembali ke tema lama kapan saja dari editor.</p><div class="form-foot"><button class="btn btn-ghost" data-act="close">Batal</button><button class="btn btn-primary" data-act="use-theme" data-t="${esc(nt.id)}" data-sure="1">Ganti tema</button></div>`); return; }
   if(a==='co-upgrade-custom'){ closeModal(); CO.stage='form'; CO.plan='custom'; location.hash='checkout'; return; }
   if(a==='use-theme'){ cxApplyTheme(el.dataset.t); S.step=2; save(); closeModal(); if(S.published){ EDIT.panel=isCx(S.theme)?'cx:tampilan':'tema'; } location.hash = S.published ? 'edit' : 'buat'; toast('Tema '+themeById(S.theme).name+' dipakai'); }
   if(a==='clear-filter'){ catTag='Semua'; catQ=''; $('#themeSearch').value=''; renderCatalog(); }
@@ -6432,7 +6432,7 @@ document.addEventListener('click', e=>{
 
   if(a==='add-guest'){
     const groups=[...new Set([...(S.groups||[]),...G.map(g=>g.group)])];
-    openModal(`<h2 class="display" style="font-size:30px">Tambah tamu</h2><p class="muted" style="margin:6px 0 18px">Nama ini yang bakal nyapa tamu di sampul undangan.</p>
+    openModal(`<h2 class="display" style="font-size:30px">Tambah tamu</h2><p class="muted" style="margin:6px 0 18px">Nama ini yang akan menyapa tamu di sampul undangan.</p>
       <form id="addG" class="fgrid" novalidate><div class="field full"><label for="ag-n">Nama di undangan</label><input class="input" id="ag-n" required placeholder="Bapak Hendra & Keluarga"><span class="err" hidden>Isi nama tamu</span></div>
       <div class="field"><label for="ag-p">Nomor WhatsApp</label><input class="input" id="ag-p" inputmode="tel" placeholder="0812…"></div>
       <div class="field"><label for="ag-g">Grup</label><select class="input" id="ag-g">${groups.map(g=>`<option>${esc(g)}</option>`).join('')}</select></div>
@@ -6501,15 +6501,15 @@ let authMode=null;
 function openAuth(next, mode){
   if(next!==undefined) authNext = next || null; authMode = mode || null;
   const last=lsGet('sp-last-email');
-  openModal(`<div class="auth"><span class="eyebrow">${mode==='publish'?'Satu langkah lagi':mode==='demo'?'Mulai undanganmu':'Akun Sakara'}</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">${mode==='publish'?'Simpan undangan <em>ke akun</em>':mode==='demo'?'Masuk, <em>gratis</em>':(last?'Selamat datang <em>kembali</em>':'Masuk atau <em>daftar</em>')}</h2>
-    <p class="muted">${mode==='publish'?'Undangan yang sudah kamu buat ikut tersimpan. Tidak perlu isi ulang.':mode==='demo'?'Siapin undangan dan daftar tamu dari sekarang. Bayarnya nanti aja, pas undangan siap dikirim.':'Pakai Google atau email. Tanpa kata sandi, dan akun baru langsung kami buatkan.'}</p>
-    ${CLOUD.on && !CLOUD.cfg.googleLogin ? '' : `<div style="margin-top:20px"><button class="btn btn-google btn-block" data-act="google-login"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.6h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.2z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1a10 10 0 0 0 0 9.2z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.8-2.8A10 10 0 0 0 3.1 7.4L6.4 10C7.2 7.7 9.4 5.9 12 5.9z"/></svg>Lanjut dengan Google</button><p class="g-hint">Pakai akun Google kantor atau kampus? Kadang diblokir admin‑nya. Masuk pakai Gmail pribadi atau lewat email di bawah aja, ya.</p></div><div class="or"><span>atau pakai email</span></div>`}
+  openModal(`<div class="auth"><span class="eyebrow">${mode==='publish'?'Satu langkah lagi':mode==='demo'?'Mulai undangan kalian':'Akun Sakara'}</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">${mode==='publish'?'Simpan undangan <em>ke akun</em>':mode==='demo'?'Masuk, <em>gratis</em>':(last?'Selamat datang <em>kembali</em>':'Masuk atau <em>daftar</em>')}</h2>
+    <p class="muted">${mode==='publish'?'Undangan yang sudah kalian buat ikut tersimpan. Tidak perlu mengisi ulang.':mode==='demo'?'Siapkan undangan dan daftar tamu dari sekarang. Bayarnya nanti saja, saat undangan siap dikirim.':'Pakai Google atau email. Tanpa kata sandi, dan akun baru langsung kami buatkan.'}</p>
+    ${CLOUD.on && !CLOUD.cfg.googleLogin ? '' : `<div style="margin-top:20px"><button class="btn btn-google btn-block" data-act="google-login"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.6h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.2z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1a10 10 0 0 0 0 9.2z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.8-2.8A10 10 0 0 0 3.1 7.4L6.4 10C7.2 7.7 9.4 5.9 12 5.9z"/></svg>Lanjut dengan Google</button><p class="g-hint">Pakai akun Google kantor atau kampus? Kadang diblokir admin‑nya. Masuk memakai Gmail pribadi atau lewat email di bawah saja.</p></div><div class="or"><span>atau pakai email</span></div>`}
     <form id="authForm" style="margin-top:${CLOUD.on && !CLOUD.cfg.googleLogin ? 20 : 0}px;display:grid;gap:14px" novalidate>
       <div class="field"><label for="au-mail">Email</label><input class="input" id="au-mail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="nama@email.com" value="${esc(last)}" required><span class="err" hidden></span></div>
       <button class="btn btn-primary btn-block">Kirim kode masuk</button>
     </form>
 
-    <p class="muted" style="font-size:12.5px;margin-top:14px">Kalau lewat email, kami kirim kode 6 angka. Dengan melanjutkan, kamu setuju dengan <a href="/syarat" target="_blank" rel="noopener">Syarat</a> &amp; <a href="/privasi" target="_blank" rel="noopener">Kebijakan Privasi</a> Sakara.</p></div>`);
+    <p class="muted" style="font-size:12.5px;margin-top:14px">Kalau lewat email, kami kirim kode 6 angka. Dengan melanjutkan, kalian setuju dengan <a href="/syarat" target="_blank" rel="noopener">Syarat</a> &amp; <a href="/privasi" target="_blank" rel="noopener">Kebijakan Privasi</a> Sakara.</p></div>`);
   setTimeout(()=>{ const m=$('#au-mail'); if(m && !(CLOUD.on && CLOUD.cfg.googleLogin) && matchMedia('(hover:hover)').matches){ m.focus(); m.select(); } },60);
   $('#authForm').addEventListener('submit',async ev=>{ ev.preventDefault(); const m=$('#au-mail'); const v=m.value.trim().toLowerCase(); const er=m.parentElement.querySelector('.err');
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ m.setAttribute('aria-invalid','true'); er.textContent='Masukkan email yang valid, misal sarah@gmail.com'; er.hidden=false; m.focus(); return; }
@@ -6537,7 +6537,7 @@ function otpStep(email){
   setTimeout(()=>$('#otp')?.focus(),60);
   let left=60; const rs=$('#otpResend');
   const tick=setInterval(()=>{ if(!document.body.contains(rs)) return clearInterval(tick); left--; if(left<=0){ clearInterval(tick); rs.disabled=false; rs.textContent='Kirim ulang kode'; } else rs.textContent=`Kirim ulang (${left})`; },1000);
-  rs.addEventListener('click',async()=>{ rs.disabled=true; rs.textContent='Mengirim…'; const e=await sendCode(email); if(e){ toast(e); rs.disabled=false; rs.textContent='Kirim ulang kode'; return; } toast('Kode baru udah dikirim. Cek emailmu, ya'); otpStep(email); });
+  rs.addEventListener('click',async()=>{ rs.disabled=true; rs.textContent='Mengirim…'; const e=await sendCode(email); if(e){ toast(e); rs.disabled=false; rs.textContent='Kirim ulang kode'; return; } toast('Kode baru sudah dikirim. Silakan cek email kalian.'); otpStep(email); });
   $('#otp').addEventListener('input',e=>{ e.target.value=e.target.value.replace(/\D/g,'').slice(0,6); if(e.target.value.length===6) $('#otpForm').requestSubmit(); });
   $('#otpForm').addEventListener('submit',async ev=>{ ev.preventDefault(); const inp=$('#otp'); const v=inp.value; const er=$('#otpForm .err'); if(v.length<6){ er.textContent='Kode terdiri dari 6 angka'; er.hidden=false; return; }
     const b=$('#otpForm button'); b.disabled=true; b.textContent='Memeriksa…';
@@ -6554,8 +6554,8 @@ function afterLogin(isNew){
 }
 function nameStep(){
   const guess = S.bride.name && !['Sarah Amalia','Nadia Larasati'].includes(S.bride.name) ? S.bride.name : '';
-  openModal(`<div class="auth"><span class="eyebrow">Akun baru</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">Enaknya dipanggil <em>siapa?</em></h2><p class="muted">Biar kami bisa nyapa kamu dengan benar. Bisa diganti kapan aja.</p>
-    <form id="nameForm" style="margin-top:20px;display:grid;gap:14px" novalidate><div class="field"><label for="au-name">Nama kamu</label><input class="input" id="au-name" autocomplete="name" autocapitalize="words" placeholder="Sarah Amalia" value="${esc(guess)}"><span class="err" hidden></span></div>
+  openModal(`<div class="auth"><span class="eyebrow">Akun baru</span><h2 class="display" style="font-size:32px;margin:8px 0 6px">Enaknya dipanggil <em>siapa?</em></h2><p class="muted">Agar kami bisa menyapa dengan benar. Bisa diganti kapan saja.</p>
+    <form id="nameForm" style="margin-top:20px;display:grid;gap:14px" novalidate><div class="field"><label for="au-name">Nama panggilan</label><input class="input" id="au-name" autocomplete="name" autocapitalize="words" placeholder="Sarah Amalia" value="${esc(guess)}"><span class="err" hidden></span></div>
     <button class="btn btn-primary btn-block">Mulai</button></form></div>`);
   setTimeout(()=>$('#au-name')?.focus(),60);
   $('#nameForm').addEventListener('submit',async ev=>{ ev.preventDefault(); const i=$('#au-name'); const nm=i.value.trim().replace(/\s+/g,' ').slice(0,60); const er=$('#nameForm .err');
@@ -6579,8 +6579,8 @@ function coItems(){
 function coTotals(){ const it=coItems(); let disc=0; const v=CO.applied&&VOUCHERS[CO.applied]; if(v) disc = v.type==='pct'? Math.round(it.price*v.v/100) : v.v; disc=Math.min(disc,it.price); return {...it, disc, total:it.price-disc}; }
 function renderCheckout(){
   const root=$('#checkout'); clearInterval(CO.timer);
-  if(!S.user){ root.innerHTML = `<div class="co-empty">${karaImg('bisik','kara-gate')}<span class="eyebrow">Satu langkah lagi</span><h1 class="display">Simpan dulu undanganmu ke akun</h1><p class="muted">Semua yang udah kamu isi ikut tersimpan, nggak perlu ngulang. Habis itu langsung lanjut ke pembayaran.</p><button class="btn btn-primary" data-act="login-co">Masuk dan lanjutkan</button></div>`; return; }
-  if(coMode()==='done-already' && CO.stage!=='done'){ root.innerHTML = `<div class="co-empty">${karaImg('rayakan','kara-gate')}<span class="status s-ok">Aktif selamanya</span><h1 class="display">Paketmu udah yang paling lengkap!</h1><p class="muted">${esc((planOf(S.plan)||{name:'Paketmu'}).name)} sudah aktif untuk ${esc(pubHost())}${esc(S.slug)}.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn btn-primary" href="#dashboard">Buka dashboard</a><a class="btn btn-ghost" href="#tagihan">Lihat tagihan</a></div></div>`; return; }
+  if(!S.user){ root.innerHTML = `<div class="co-empty">${karaImg('bisik','kara-gate')}<span class="eyebrow">Satu langkah lagi</span><h1 class="display">Simpan dulu undangan kalian ke akun</h1><p class="muted">Semua yang sudah kalian isi ikut tersimpan, tidak perlu mengulang. Setelah itu langsung lanjut ke pembayaran.</p><button class="btn btn-primary" data-act="login-co">Masuk dan lanjutkan</button></div>`; return; }
+  if(coMode()==='done-already' && CO.stage!=='done'){ root.innerHTML = `<div class="co-empty">${karaImg('rayakan','kara-gate')}<span class="status s-ok">Aktif selamanya</span><h1 class="display">Paket kalian sudah yang paling lengkap!</h1><p class="muted">${esc((planOf(S.plan)||{name:'Paket kalian'}).name)} sudah aktif untuk ${esc(pubHost())}${esc(S.slug)}.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn btn-primary" href="#dashboard">Buka dashboard</a><a class="btn btn-ghost" href="#tagihan">Lihat tagihan</a></div></div>`; return; }
   const T=coTotals();
   const steps = `<ol class="co-steps">${['Paket','Pembayaran','Selesai'].map((s,i)=>`<li class="${(CO.stage==='form'&&i===0)||(CO.stage==='pending'&&i===1)||(CO.stage==='done'&&i===2)?'on':''} ${(CO.stage==='pending'&&i<1)||(CO.stage==='done'&&i<2)?'ok':''}"><span>${i+1}</span>${s}</li>`).join('')}</ol>`;
   const summary = `<aside class="co-sum"><div class="co-inv${isCx(S.theme)?' cx-inv':''}" style="${themeStyle(themeById(S.theme),S.accent,fontOf())}${isCx(S.theme)?`background-image:url(${themeById(S.theme).thumbImg});`:''}"><div class="pat2"></div><small>The wedding of</small><b>${esc(S.bride.nick)} &amp; ${esc(S.groom.nick)}</b><small>${esc(fmtShort(S.events[0].date))}</small></div>
@@ -6592,9 +6592,9 @@ function renderCheckout(){
     root.innerHTML = `<div class="co-head"><a class="linkbtn" href="#${S.published?'edit':'buat'}">← Kembali ke editor</a><h1 class="display">${coMode()==='upgrade'?'Upgrade paket':'Publikasikan undangan'}</h1></div>${steps}
     <div class="co-grid"><form class="form-card co-form" id="coForm" novalidate>
       ${coMode()==='upgrade' ? `<h2 class="co-h">Upgrade ke</h2><div class="plan-pick">${upgradeTargets().filter(p=>!isCx(S.theme)||p.id==='custom').map(p=>`<label><input type="radio" name="coPlan" value="${p.id}" ${T.plan===p.id?'checked':''}><span><b>${esc(p.name)}</b><small>${esc(planSum(p))}</small></span><b class="num">+${rupiah(p.price-((planOf(S.plan)||{}).price||0))}</b></label>`).join('')}</div>`
-      : `${isCx(S.theme)&&cxSampleLeft()?`<div class="warn-box" style="margin-bottom:16px">${ico('camera')}<span>Masih ada ${cxSampleLeft()} foto contoh di undanganmu. Ganti dulu dengan foto kalian di <a href="#${S.published?'edit':'buat'}" data-act="cx-go-photos">langkah Tema</a>, supaya tamu tidak melihat foto orang lain.</span></div>`:''}<h2 class="co-h">Paket</h2>${isCx(S.theme)?`<p class="hint" style="margin:-4px 0 10px">Tema ${esc(themeById(S.theme).name)} termasuk koleksi Custom, jadi dipublikasikan dengan paket Custom. Mau paket lain? <a href="#tema">Pilih tema Lukisan</a>.</p>`:''}<div class="plan-pick">${shownPlans().filter(p=>p.price && (!isCx(S.theme)||p.id==='custom')).map(p=>`<label><input type="radio" name="coPlan" value="${p.id}" ${T.plan===p.id?'checked':''}><span><b>${esc(p.name)}</b><small>${esc(planSum(p))}</small></span><b class="num">${rupiah(p.price)}</b></label>`).join('')}</div>`}
+      : `${isCx(S.theme)&&cxSampleLeft()?`<div class="warn-box" style="margin-bottom:16px">${ico('camera')}<span>Masih ada ${cxSampleLeft()} foto contoh di undangan kalian. Ganti dulu dengan foto kalian di <a href="#${S.published?'edit':'buat'}" data-act="cx-go-photos">langkah Tema</a>, supaya tamu tidak melihat foto orang lain.</span></div>`:''}<h2 class="co-h">Paket</h2>${isCx(S.theme)?`<p class="hint" style="margin:-4px 0 10px">Tema ${esc(themeById(S.theme).name)} termasuk koleksi Custom, jadi dipublikasikan dengan paket Custom. Mau paket lain? <a href="#tema">Pilih tema Lukisan</a>.</p>`:''}<div class="plan-pick">${shownPlans().filter(p=>p.price && (!isCx(S.theme)||p.id==='custom')).map(p=>`<label><input type="radio" name="coPlan" value="${p.id}" ${T.plan===p.id?'checked':''}><span><b>${esc(p.name)}</b><small>${esc(planSum(p))}</small></span><b class="num">${rupiah(p.price)}</b></label>`).join('')}</div>`}
       ${(()=>{ if(coMode()!=='new' || isCx(S.theme)) return ''; const cur=planOf(T.plan), up=shownPlans().filter(p=>p.price>(cur?cur.price:0)).sort((a,b)=>b.price-a.price)[0]; if(!cur||!up) return ''; const extra=FEAT_ROWS().filter(r=>planFeat(up,r.key)&&!planFeat(cur,r.key)).slice(0,3).map(r=>r[0].toLowerCase()); if(!extra.length) return '';
-        return `<div class="co-upsell">${ico('up')}<span>Tambah ${rupiah(up.price-cur.price)} aja, kamu dapat ${esc(extra.join(', '))}. <button type="button" class="linkbtn" data-act="co-pick-plan" data-p="${esc(up.id)}">Pilih ${esc(up.name)}</button></span></div>`; })()}
+        return `<div class="co-upsell">${ico('up')}<span>Tambah ${rupiah(up.price-cur.price)} saja, kalian dapat ${esc(extra.join(', '))}. <button type="button" class="linkbtn" data-act="co-pick-plan" data-p="${esc(up.id)}">Pilih ${esc(up.name)}</button></span></div>`; })()}
       <h2 class="co-h">Kode voucher</h2>
       <div class="vrow"><input class="input" id="coV" placeholder="Masukkan kode" value="${esc(CO.voucher)}" aria-label="Kode voucher" autocomplete="off"><button type="button" class="btn btn-ghost" data-act="apply-voucher">Pakai</button></div>
       <p class="hint" id="coVmsg" style="margin-top:6px;font-size:13px;${CO.applied?'color:var(--ok);font-weight:700':'color:var(--muted)'}">${CO.applied?`${esc(VOUCHERS[CO.applied].label)} dipakai.`:'Tidak punya kode? Lewati saja.'}</p>
@@ -6622,7 +6622,7 @@ function renderCheckout(){
       <div class="form-foot"><button class="btn btn-ghost" data-act="co-back">Ganti metode</button><button class="btn btn-primary" data-act="co-paid">Saya sudah bayar</button></div>
       <p class="muted" style="font-size:12.5px">Prototype: tekan "Saya sudah bayar" untuk mensimulasikan pembayaran berhasil.</p>
     </div>${summary}</div>`;
-    const tick=()=>{ const s=Math.max(0,Math.round((CO.end-Date.now())/1000)); const el=$('#coTimer'); if(el) el.textContent=`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`; if(!s){ clearInterval(CO.timer); CO.stage='form'; toast('Waktu pembayaran habis. Nggak apa-apa, buat ulang aja.'); renderCheckout(); } };
+    const tick=()=>{ const s=Math.max(0,Math.round((CO.end-Date.now())/1000)); const el=$('#coTimer'); if(el) el.textContent=`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`; if(!s){ clearInterval(CO.timer); CO.stage='form'; toast('Waktu pembayaran habis. Tidak apa-apa, silakan buat ulang.'); renderCheckout(); } };
     tick(); CO.timer=setInterval(tick,1000);
   }
   if(CO.stage==='waiting'){
@@ -6632,7 +6632,7 @@ function renderCheckout(){
   if(CO.stage==='done'){
     const inv=(S.invoices||[])[0];
     root.innerHTML = `<div class="co-head"><h1 class="display">Pembayaran berhasil</h1></div>${steps}
-    <div class="co-done form-card"><img class="kara kara-done" src="/assets/kara/kara-rayakan.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><h2 class="display" style="font-size:34px">${inv&&inv.upgrade?`Paket ${esc((planOf(S.plan)||{name:'barumu'}).name)} aktif`:'Undanganmu sudah tayang'}</h2>
+    <div class="co-done form-card"><img class="kara kara-done" src="/assets/kara/kara-rayakan.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><h2 class="display" style="font-size:34px">${inv&&inv.upgrade?`Paket ${esc((planOf(S.plan)||{name:'baru'}).name)} aktif`:'Undangan kalian sudah tayang'}</h2>
       <p class="muted" style="max-width:46ch;margin:10px auto 0">${esc(pubHost())}${esc(S.slug)} aktif selamanya. Bukti bayar ${esc(inv?.no||'')} sudah dikirim ke ${esc(S.user.email)}.</p>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px"><button class="btn btn-ghost" data-act="copy" data-v="${esc(pubURL())}">${ico('copy')}Salin link</button><a class="btn btn-ghost" href="#tagihan">${ico('receipt')}Lihat tagihan</a><a class="btn btn-primary" href="#dashboard" data-act="co-reset">Mulai kirim ke tamu</a></div></div>`;
   }
@@ -6660,7 +6660,7 @@ function renderTagihan(){
     <div style="display:flex;gap:8px;flex-wrap:wrap">${canUpgrade()?`<button class="btn btn-soft btn-sm" data-act="upgrade">Upgrade paket</button>`:''}${S.published?'':`<a class="btn btn-primary btn-sm" href="#buat">Lanjut ke editor</a>`}<button class="btn btn-ghost btn-sm" data-act="logout">${ico('logout')}Keluar</button></div></div>
   <div><h2 class="co-h" style="margin-top:0">Riwayat tagihan</h2>
   ${inv.length?`<div class="tbl-wrap" style="display:block"><table><thead><tr><th>Nomor</th><th>Tanggal</th><th>Item</th><th class="num">Total</th><th>Status</th></tr></thead><tbody>${inv.map((x,k)=>`<tr><td class="nm num"><button type="button" class="inv-no" data-act="inv" data-k="${k}" title="Lihat bukti pembayaran">${esc(x.no)}</button></td><td class="muted td-date">${(()=>{ const [d,t]=fmtDT(x.date).split(' pukul '); return `${esc(d)}${t?`<small>pukul ${esc(t)}</small>`:''}`; })()}</td><td class="td-item">${esc(x.item)}</td><td class="num td-total">${rupiah(x.total)}<small>${esc(methodName(x.method))}</small></td><td><span class="status s-ok">${esc(x.status)}</span></td></tr>`).join('')}</tbody></table></div>`
-  :`<div class="empty"><img class="kara kara-empty" src="/assets/kara/kara-tidur.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">Belum ada tagihan, nih. Bukti bayar bakal muncul di sini begitu undanganmu dipublikasikan.<br><a class="btn btn-primary btn-sm" href="#buat" style="margin-top:14px">Lanjutkan undangan</a></div>`}</div></div>`;
+  :`<div class="empty"><img class="kara kara-empty" src="/assets/kara/kara-tidur.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">Belum ada tagihan. Bukti bayar akan muncul di sini begitu undangan kalian dipublikasikan.<br><a class="btn btn-primary btn-sm" href="#buat" style="margin-top:14px">Lanjutkan undangan</a></div>`}</div></div>`;
 }
 function invoiceModal(k){
   const x=(S.invoices||[])[k]; if(!x) return;
@@ -6685,7 +6685,7 @@ function renderCheckin(){
     root.innerHTML = `<div class="ci2-pin"><div class="ci2-pin-card">
       ${karaImg(CLOUD.pinError?'kaget':'lambai','')}<span class="ci2-badge">${ico('qr')}Penerima tamu</span>
       <h1 class="display">Masuk ke buku tamu</h1>
-      <p class="muted">Masukkan PIN dari pengantin. Kamu tidak perlu akun.</p>
+      <p class="muted">Masukkan PIN dari pengantin. Anda tidak perlu akun.</p>
       <form id="pinF" novalidate><label for="pinI" class="sr-only">PIN</label><input class="input otp" id="pinI" inputmode="text" maxlength="10" autocomplete="one-time-code" autocapitalize="characters" spellcheck="false" placeholder="PIN">
       ${CLOUD.pinError?`<span class="err">${/terlalu banyak/i.test(CLOUD.pinError)?esc(CLOUD.pinError):'PIN salah. Cek lagi ke pengantin.'}</span>`:''}
       <button class="btn btn-primary btn-block">Masuk</button></form></div></div>`;
@@ -6883,7 +6883,7 @@ document.addEventListener('click', e=>{
   if(a==='google-login' && !PROTO){ toast(OFFLINE_MSG); return; }
   if(a==='google-login'){ finishLogin(S.bride.name||'Pengguna Google', (S.bride.nick||'pengguna').toLowerCase()+'@gmail.com'); }
   if(a==='logout' && CLOUD.uid){ e.preventDefault(); if(ADM.sso) admSetTok(''); signOutAll(); return; }
-  if(a==='logout'){ S.user=null; save(); renderAuthSlot(); toast('Kamu udah keluar. Sampai jumpa lagi! 👋'); if(['tagihan','checkout'].includes(location.hash.slice(1))) location.hash='beranda'; }
+  if(a==='logout'){ S.user=null; save(); renderAuthSlot(); toast('Kalian sudah keluar. Sampai jumpa lagi! 👋'); if(['tagihan','checkout'].includes(location.hash.slice(1))) location.hash='beranda'; }
   if(a==='acct-menu'){ const m=$('#acctMenu'); m.hidden=!m.hidden; el.setAttribute('aria-expanded',!m.hidden); return; }
   if(a==='apply-voucher') applyVoucher();
   if(a==='co-back'){ clearInterval(CO.timer); CO.stage='form'; renderCheckout(); }
@@ -7105,7 +7105,7 @@ function snapOpen(token, orderId, reset){
     onSuccess:()=>{ CO.stage='waiting'; renderCheckout(); waitPaid(orderId); },
     onPending:()=>{ CO.stage='waiting'; renderCheckout(); waitPaid(orderId); },
     onError:()=>{ reset&&reset(); toast('Pembayaran belum berhasil. Coba pakai metode lain, ya.'); },
-    onClose:()=>{ reset&&reset(); renderCheckout(); toast('Pembayaran belum selesai. Kamu bisa melanjutkannya dari halaman ini.'); }
+    onClose:()=>{ reset&&reset(); renderCheckout(); toast('Pembayaran belum selesai. Kalian bisa melanjutkannya dari halaman ini.'); }
   });
 }
 async function snapResume(btn){
@@ -7153,8 +7153,8 @@ async function waitPaid(orderId, tries=0){
 const rpShort = n => { n=Math.round(n||0); if(n>=1e6){ const v=n/1e6; return 'Rp'+(v>=10?Math.round(v):(Math.round(v*100)/100)).toLocaleString('id-ID')+' jt'; } if(n>=1e3) return 'Rp'+Math.round(n/1e3).toLocaleString('id-ID')+' rb'; return 'Rp'+n; };
 const digits = v => parseInt(String(v||'').replace(/\D/g,''),10)||0;
 const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36)+Math.random().toString(36).slice(2));
-const THX_DEF = 'Halo {nama},\n\nTerima kasih sudah hadir di {sesi} kami. Doa dan kehadiranmu membuat hari itu makin berarti untuk kami berdua.\n\nSalam hangat,\n{pasangan}';
-const THX_DEF2 = 'Halo {nama},\n\nTerima kasih atas doa dan perhatianmu untuk pernikahan kami. Semoga kita bisa segera bertemu, ya.\n\nSalam hangat,\n{pasangan}';
+const THX_DEF = 'Halo {nama},\n\nTerima kasih sudah hadir di {sesi} kami. Doa dan kehadiran Anda membuat hari itu makin berarti untuk kami berdua.\n\nSalam hangat,\n{pasangan}';
+const THX_DEF2 = 'Halo {nama},\n\nTerima kasih atas doa dan perhatian Anda untuk pernikahan kami. Semoga kita bisa segera bertemu, ya.\n\nSalam hangat,\n{pasangan}';
 if(!S.wishlist) S.wishlist = {on:false, items:[]};
 if(!S.wlInit){ S.wlInit=true; S.wishlist={on:true, demo:true, items:[{id:'k1',name:'Kulkas dua pintu',price:6000000,note:'Untuk dapur rumah baru kami'},{id:'k2',name:'Mesin cuci',price:4500000,note:''},{id:'k3',name:'Set alat masak',price:1500000,note:'Panci, wajan, dan pisau'}]}; }
 if(S.albumOn===undefined) S.albumOn=true;
@@ -7208,7 +7208,7 @@ function kdStep(card, it, step){
     a.addEventListener('input',()=>{ const v=digits(a.value); a.value=v?v.toLocaleString('id-ID'):''; f.querySelectorAll('[data-kdamt]').forEach(x=>x.setAttribute('aria-pressed', +x.dataset.kdamt===v)); });
     f.addEventListener('submit',ev=>{ ev.preventDefault(); const v=digits(a.value), n=f.querySelector('#kd-n').value.trim(), er=f.querySelector('.kd-err');
       if(v<10000){ er.textContent='Minimal Rp10.000'; er.hidden=false; a.focus(); return; }
-      if(!n){ er.textContent='Tulis namamu supaya pengantin tahu dari siapa'; er.hidden=false; f.querySelector('#kd-n').focus(); return; }
+      if(!n){ er.textContent='Tulis nama Anda supaya pengantin tahu dari siapa'; er.hidden=false; f.querySelector('#kd-n').focus(); return; }
       KD={id:it.id, amt:v, name:n, msg:f.querySelector('#kd-m').value.trim()}; kdStep(card,it,2); });
     setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'nearest'}),30);
   }
@@ -7229,7 +7229,7 @@ async function kdConfirm(card, it){
   } else { PL.unshift({id:'p'+Date.now(), item:it.id, name:KD.name, amount:KD.amt, msg:KD.msg||'', t:new Date().toISOString()}); savePL(); }
   const done={...KD}; KD={};
   card.outerHTML = kadoCard(it); const nc=$(`[data-kd="${CSS.escape(it.id)}"]`);
-  if(nc){ nc.querySelector('[data-kdform]').innerHTML = `<div class="ok-box kd-ok"><b>Terima kasih, ${esc(done.name)}!</b><p>Patunganmu ${esc(rupiah(done.amt))} untuk ${esc(it.name)} sudah tercatat. Pengantin akan mencocokkannya dengan mutasi rekening.</p></div>`; const bar=nc.querySelector('.kd-bar span'); if(bar){ const w=bar.style.width; bar.style.width='0'; requestAnimationFrame(()=>requestAnimationFrame(()=>bar.style.width=w)); } }
+  if(nc){ nc.querySelector('[data-kdform]').innerHTML = `<div class="ok-box kd-ok"><b>Terima kasih, ${esc(done.name)}!</b><p>Patungan Anda ${esc(rupiah(done.amt))} untuk ${esc(it.name)} sudah tercatat. Pengantin akan mencocokkannya dengan mutasi rekening.</p></div>`; const bar=nc.querySelector('.kd-bar span'); if(bar){ const w=bar.style.width; bar.style.width='0'; requestAnimationFrame(()=>requestAnimationFrame(()=>bar.style.width=w)); } }
 }
 document.addEventListener('click', e=>{
   const el=e.target.closest('[data-act]'); if(!el) return; const a=el.dataset.act;
@@ -7311,14 +7311,14 @@ function renderAlbum(){
   const ph=d.photos||[];
   root.innerHTML = `<div class="al">
     <header class="al-head"><span class="logo-sm">Sakara</span><span class="eyebrow">Album dari tamu${d.date?' · '+esc(fmtShort(d.date)):''}</span><h1 class="display">${esc(d.bride||'')} <i>&amp;</i> ${esc(d.groom||'')}</h1>
-      <p class="muted">Bagikan momen hari ini dari sudut pandangmu. Foto langsung masuk ke album pengantin, tanpa perlu akun.</p></header>
+      <p class="muted">Bagikan momen hari ini dari sudut pandang Anda. Foto langsung masuk ke album pengantin, tanpa perlu akun.</p></header>
     ${d.open?`<div class="al-up fp-card">
       <label class="btn btn-primary btn-block al-pick" for="alFile">${ico('camera')}Pilih atau ambil foto</label><input type="file" id="alFile" accept="image/*" multiple hidden>
-      <label class="al-nm"><span>Nama kamu <em>(opsional)</em></span><input class="input" id="alName" maxlength="60" value="${esc(lsGet('sp-al-name'))}" placeholder="Supaya pengantin tahu fotonya dari siapa"></label>
+      <label class="al-nm"><span>Nama Anda <em>(opsional)</em></span><input class="input" id="alName" maxlength="60" value="${esc(lsGet('sp-al-name'))}" placeholder="Supaya pengantin tahu fotonya dari siapa"></label>
       <div class="al-q" id="alQ" aria-live="polite">${AP.q.map(alQItem).join('')}</div></div>`:`<div class="fp-card al-closed">${ico('lock')}<div><b>Album sudah ditutup</b><p class="muted">Pengantin tidak menerima foto baru lagi. Terima kasih sudah berbagi!</p></div></div>`}
     <div class="al-bar"><b class="num">${ph.length}</b> foto dari tamu</div>
     ${ph.length?`<div class="al-grid">${ph.map((p,k)=>`<button type="button" class="al-ph" data-act="al-zoom" data-k="${k}" aria-label="Lihat foto ${k+1}${p.name?' dari '+esc(p.name):''}"><img src="${esc(alUrl(p))}" alt="" loading="lazy" decoding="async">${p.name?`<span>${esc(p.name)}</span>`:''}</button>`).join('')}</div>`:`<div class="al-empty">${karaImg('lambai','kara-empty')}<p>Belum ada foto. Jadilah yang pertama berbagi!</p></div>`}
-    <p class="fp-foot muted">Foto yang kamu unggah bisa dilihat siapa saja yang punya link album ini.</p></div>`;
+    <p class="fp-foot muted">Foto yang Anda unggah bisa dilihat siapa saja yang punya link album ini.</p></div>`;
 }
 function alQItem(q){ return `<div class="al-qi ${q.st}" data-q="${q.id}"><span class="al-th" style="background-image:url(${q.thumb})"></span><span>${q.st==='ok'?`${ico('check')}Terkirim`:q.st==='err'?`Gagal. <button type="button" class="linkbtn" data-act="al-retry" data-q="${q.id}">Coba lagi</button>`:'Mengunggah…'}</span></div>`; }
 function alQPaint(){ const el=$('#alQ'); if(el) el.innerHTML=AP.q.map(alQItem).join(''); }
@@ -7374,12 +7374,12 @@ document.addEventListener('click', e=>{
 let knTab='album', thxF='datang';
 const K_TABS=[['album','Album tamu'],['buku','Buku kenangan'],['thx','Terima kasih']];
 function knTabHTML(){
-  const head=`<div class="fam-intro"><div><h3 style="font-family:var(--display);font-size:26px">Setelah acara</h3><p class="muted" style="max-width:60ch;margin-top:6px">Acara udah selesai? Kumpulkan foto dari tamu, simpan semua doa jadi buku kenangan, terus ucapkan terima kasih ke mereka satu per satu.</p></div></div>
+  const head=`<div class="fam-intro"><div><h3 style="font-family:var(--display);font-size:26px">Setelah acara</h3><p class="muted" style="max-width:60ch;margin-top:6px">Acara sudah selesai? Kumpulkan foto dari tamu, simpan semua doa jadi buku kenangan, terus ucapkan terima kasih ke mereka satu per satu.</p></div></div>
     <div class="seg kn-seg" role="tablist" aria-label="Bagian kenangan">${K_TABS.map(([k,l])=>`<button type="button" role="tab" data-kn="${k}" aria-pressed="${knTab===k}" aria-selected="${knTab===k}">${l}</button>`).join('')}</div>`;
   let b='';
   if(knTab==='album'){
     const ph=ALB, vis=ph.filter(p=>!p.hidden).length;
-    b=`<div class="kn-grid"><div class="panel-c al-share"><div class="al-qr">${qrSVG(albumLink(),150)}</div><div><b>Pasang QR ini di venue</b><p class="muted">Tamu scan, pilih foto, terkirim. Tanpa aplikasi, tanpa akun. Pas banget ditaruh di meja penerima tamu, meja makan, atau dekat pelaminan.</p>
+    b=`<div class="kn-grid"><div class="panel-c al-share"><div class="al-qr">${qrSVG(albumLink(),150)}</div><div><b>Pasang QR ini di venue</b><p class="muted">Tamu scan, pilih foto, terkirim. Tanpa aplikasi, tanpa akun. Cocok diletakkan di meja penerima tamu, meja makan, atau dekat pelaminan.</p>
         <div class="al-link"><code>${esc(albumLink().replace(/^https?:\/\//,''))}</code></div>
         <div class="al-btns"><button class="btn btn-primary btn-sm" data-act="al-poster">${ico('qr')}Cetak poster QR</button><button class="btn btn-ghost btn-sm" data-act="copy" data-v="${esc(albumLink())}">${ico('copy')}Salin link</button><a class="btn btn-ghost btn-sm" href="${esc(albumLink())}" target="_blank" rel="noopener">${ico('eye')}Buka album</a></div></div></div>
       <div class="panel-c"><div class="toggle-row" style="border:0;padding:0"><div><b>Terima foto baru</b><div class="muted" style="font-size:14px">Matikan setelah acara selesai supaya album tidak bertambah lagi.</div></div><label class="switch"><input type="checkbox" id="alOn" ${S.albumOn!==false?'checked':''}><span></span></label></div>
@@ -7392,7 +7392,7 @@ function knTabHTML(){
       <div class="panel-c"><b style="font-size:18px">Buku kenangan otomatis</b><p class="muted" style="margin-top:6px">Semua ucapan, foto dari tamu, dan cerita hari itu dirangkum jadi buku yang rapi. Bisa disimpan jadi PDF, dibagikan ke keluarga, atau dicetak buat kenang-kenangan.</p>
         <div class="kn-stat"><div><b class="num">${st.wishes}</b><span>ucapan & doa</span></div><div><b class="num">${st.photos}</b><span>foto</span></div><div><b class="num">${st.people}</b><span>orang hadir</span></div><div><b class="num">${st.pages}</b><span>halaman</span></div></div>
         <div class="al-btns" style="margin-top:16px"><button class="btn btn-primary" data-act="bk-open">${ico('eye')}Lihat buku</button><button class="btn btn-ghost" data-act="bk-print">Simpan PDF</button></div>
-        <p class="hint" style="margin-top:12px">Ucapan yang kamu sembunyikan dan foto yang disembunyikan tidak masuk buku.</p></div></div>`;
+        <p class="hint" style="margin-top:12px">Ucapan yang kalian sembunyikan dan foto yang disembunyikan tidak masuk buku.</p></div></div>`;
   }
   if(knTab==='thx'){
     const g1=G.filter(g=>g.checkin), g2=G.filter(g=>!g.checkin && (g.sent || g.status!=='belum'));
@@ -7709,7 +7709,7 @@ let WAK='invite';
 function waTplModal(kind){
   WAK = kind || WAK; const ex = G.find(g=>!isPending(g)) || {name:'Bapak Budi & Keluarga', code:'SP-CONTOH', sessions:S.events.map((e,i)=>i)};
   const tpl = waTpl(WAK);
-  openModal(`<h2 class="display" style="font-size:30px">Pesan WhatsApp</h2><p class="muted" style="margin:6px 0 16px">Tulis sesukamu! Bagian dalam kurung kurawal otomatis diganti sesuai tiap tamu, jadi satu template beres buat semua.</p>
+  openModal(`<h2 class="display" style="font-size:30px">Pesan WhatsApp</h2><p class="muted" style="margin:6px 0 16px">Tulis sesuai keinginan. Bagian dalam kurung kurawal otomatis diganti sesuai tiap tamu, jadi satu template beres buat semua.</p>
     <div class="seg" role="tablist" aria-label="Jenis pesan" style="margin-bottom:14px"><button type="button" role="tab" data-wak="invite" aria-pressed="${WAK==='invite'}" aria-selected="${WAK==='invite'}">Undangan</button><button type="button" role="tab" data-wak="remind" aria-pressed="${WAK==='remind'}" aria-selected="${WAK==='remind'}">Pengingat</button></div>
     <div class="wa-ed"><div class="wa-ed-l"><label for="waTa" class="sr">Isi pesan</label><textarea class="input" id="waTa" rows="11">${esc(tpl)}</textarea>
       <div class="thx-chips"><span class="muted">Sisipkan:</span>${WA_TOKENS.map(([t,l])=>`<button type="button" class="chip" data-watok="${t}">${l}</button>`).join('')}</div>
@@ -7760,18 +7760,18 @@ function demoAfterLogin(uid){
   if(!sid || !uid) return; demoLog('login','',null,uid); try{ sessionStorage.removeItem('sp-demo-sid'); }catch(e){}
 }
 const NUDGE = {
-  tamu:   ['Tamu contoh berhasil ditambahkan! 🎉', 'Seru, kan? Mau mulai pakai daftar tamumu sendiri? Masuk gratis, bisa dicicil dari sekarang.'],
-  import: ['Ratusan tamu masuk dalam sekejap.', 'Mau import daftar tamumu yang asli? Masuk gratis, bayarnya nanti pas undangan siap dikirim.'],
-  checkin:['Begini rasanya jadi penerima tamu. Gampang, kan?', 'Mau siapin undanganmu sendiri? Masuk gratis buat mulai.'],
-  wa:     ['Di undanganmu, tombol ini langsung buka WhatsApp.', 'Tiap tamu dapat link dengan namanya sendiri. Masuk gratis buat mulai nyiapin.'],
-  edit:   ['Wah, suka sama hasilnya?', 'Bikin punyamu sendiri, yuk. Isinya bisa diubah kapan aja, bahkan setelah dikirim.']
+  tamu:   ['Tamu contoh berhasil ditambahkan! 🎉', 'Seru, bukan? Mau mulai memakai daftar tamu kalian sendiri? Masuk gratis, bisa dicicil dari sekarang.'],
+  import: ['Ratusan tamu masuk dalam sekejap.', 'Mau impor daftar tamu kalian yang asli? Masuk gratis, bayarnya nanti saat undangan siap dikirim.'],
+  checkin:['Begini rasanya menjadi penerima tamu. Mudah, bukan?', 'Mau menyiapkan undangan kalian sendiri? Masuk gratis untuk mulai.'],
+  wa:     ['Di undangan kalian, tombol ini langsung membuka WhatsApp.', 'Tiap tamu dapat link dengan namanya sendiri. Masuk gratis untuk mulai menyiapkan.'],
+  edit:   ['Wah, suka sama hasilnya?', 'Buat undangan kalian sendiri. Isinya bisa diubah kapan saja, bahkan setelah dikirim.']
 };
 function demoNudge(kind){
   if(!DEMO.on || DEMO.nudged[kind] || Object.keys(DEMO.nudged).length>=2 || Date.now()-DEMO.lastNudge<20000) return;
   DEMO.nudged[kind]=1; DEMO.lastNudge=Date.now(); demoLog('nudge',kind);
   const [t,sub]=NUDGE[kind];
   setTimeout(()=>{ if(!DEMO.on) return; demoNudgeClose();
-    const n=document.createElement('div'); n.id='demoNudge'; n.setAttribute('role','dialog'); n.setAttribute('aria-label','Mulai undanganmu sendiri');
+    const n=document.createElement('div'); n.id='demoNudge'; n.setAttribute('role','dialog'); n.setAttribute('aria-label','Mulai undangan kalian sendiri');
     n.innerHTML=`<button type="button" class="dn-x" data-act="nudge-close" aria-label="Tutup">${ico('x')}</button><b>${t}</b><p>${sub}</p><div class="dn-a"><button type="button" class="btn btn-primary btn-sm" data-act="nudge-go" data-k="${kind}">Masuk, gratis</button><button type="button" class="btn btn-ghost btn-sm" data-act="nudge-close">Nanti saja</button></div>`;
     document.body.appendChild(n); requestAnimationFrame(()=>n.classList.add('in')); }, 1100);
 }
@@ -7846,29 +7846,29 @@ function demoPill(){
   p.innerHTML=`<span class="dp-dot" aria-hidden="true"></span><span><b>Mode demo</b><span class="dp-x"> · data contoh, tidak disimpan</span></span><a href="#dashboard" class="dp-btn dp-back">Dashboard</a><button type="button" class="dp-btn" data-act="demo-exit">Keluar</button>`;
 }
 function demoBanner(){
-  return `<div class="demo-ban" role="note"><div class="db-ic" aria-hidden="true">${ico('eye')}</div><div class="db-t"><b>Kamu lagi lihat demo, nih</b><span>Ini dashboard contoh punya Sarah &amp; Raka. Klik apa aja, bebas! Nggak ada yang tersimpan dan nggak ada pesan yang beneran terkirim.</span></div><div class="db-a"><button type="button" class="btn btn-primary btn-sm" data-act="demo-start">Buat undanganku</button><button type="button" class="btn btn-ghost btn-sm" data-act="demo-exit">Keluar dari demo</button></div></div>`;
+  return `<div class="demo-ban" role="note"><div class="db-ic" aria-hidden="true">${ico('eye')}</div><div class="db-t"><b>Kalian sedang melihat demo</b><span>Ini dashboard contoh punya Sarah &amp; Raka. Klik apa saja dengan bebas. Tidak ada yang tersimpan dan tidak ada pesan yang benar-benar terkirim.</span></div><div class="db-a"><button type="button" class="btn btn-primary btn-sm" data-act="demo-start">Buat undanganku</button><button type="button" class="btn btn-ghost btn-sm" data-act="demo-exit">Keluar dari demo</button></div></div>`;
 }
 function prepBanner(){
   const n=G.length;
-  return `<div class="demo-ban prep" role="note"><div class="db-ic" aria-hidden="true">${ico('users')}</div><div class="db-t"><b>${n?`${n} tamu sudah kamu siapkan`:'Yuk, cicil daftar tamu dari sekarang'}</b><span>Tempel daftar dari keluarga atau import Excel. Tombol kirim WhatsApp kebuka begitu undanganmu dipublikasikan.</span></div><div class="db-a"><button type="button" class="btn btn-primary btn-sm" data-act="prep-publish">Publikasikan undangan</button></div></div>`;
+  return `<div class="demo-ban prep" role="note"><div class="db-ic" aria-hidden="true">${ico('users')}</div><div class="db-t"><b>${n?`${n} tamu sudah kalian siapkan`:'Cicil daftar tamu dari sekarang'}</b><span>Tempel daftar dari keluarga atau import Excel. Tombol kirim WhatsApp terbuka begitu undangan kalian dipublikasikan.</span></div><div class="db-a"><button type="button" class="btn btn-primary btn-sm" data-act="prep-publish">Publikasikan undangan</button></div></div>`;
 }
 function demoIntro(){
   try{ if(sessionStorage.getItem('sp-demo-intro')) return; sessionStorage.setItem('sp-demo-intro','1'); }catch(e){}
   openModal(`<div class="demo-intro"><span class="eyebrow">Mode demo</span><h2 class="display" style="font-size:32px;margin:8px 0 10px">Selamat datang di demo! 👋</h2>
-    <p class="muted">Kamu akan melihat undangan dan dashboard milik pasangan contoh, Sarah &amp; Raka, lengkap dengan ${G.filter(g=>g.approved!==false).length} tamu. Klik apa aja sesukamu: lihat siapa yang udah jawab, buka mode penerima tamu, atau utak-atik undangannya di editor.</p>
-    <ul class="di-list"><li>${ico('check')}Nggak ada yang tersimpan</li><li>${ico('check')}Nggak ada pesan WhatsApp yang terkirim</li><li>${ico('check')}Undanganmu sendiri aman, nggak kesentuh</li></ul>
+    <p class="muted">Kalian akan melihat undangan dan dashboard milik pasangan contoh, Sarah &amp; Raka, lengkap dengan ${G.filter(g=>g.approved!==false).length} tamu. Klik apa saja: lihat siapa yang sudah menjawab, buka mode penerima tamu, atau utak-atik undangannya di editor.</p>
+    <ul class="di-list"><li>${ico('check')}Tidak ada yang tersimpan</li><li>${ico('check')}Tidak ada pesan WhatsApp yang terkirim</li><li>${ico('check')}Undangan kalian sendiri aman, tidak tersentuh</li></ul>
     <div class="form-foot"><button class="btn btn-ghost" data-act="demo-start">Buat undangan sendiri</button><button class="btn btn-primary" data-act="close">Mulai lihat demo</button></div></div>`);
 }
 function prepLock(){
-  openModal(`<h2 class="display" style="font-size:28px;padding-right:44px">Sedikit lagi bisa dikirim!</h2><p class="muted" style="margin:8px 0 18px">Daftar tamumu udah aman tersimpan. Begitu undangan dipublikasikan, tiap tamu langsung punya link dengan namanya sendiri dan bisa kamu kirim lewat WhatsApp.</p><div class="form-foot"><button class="btn btn-ghost" data-act="close">Nanti dulu</button><button class="btn btn-primary" data-act="prep-publish">Publikasikan undangan</button></div>`);
+  openModal(`<h2 class="display" style="font-size:28px;padding-right:44px">Sedikit lagi bisa dikirim!</h2><p class="muted" style="margin:8px 0 18px">Daftar tamu kalian sudah aman tersimpan. Begitu undangan dipublikasikan, tiap tamu langsung punya link dengan namanya sendiri dan bisa kalian kirim lewat WhatsApp.</p><div class="form-foot"><button class="btn btn-ghost" data-act="close">Nanti dulu</button><button class="btn btn-primary" data-act="prep-publish">Publikasikan undangan</button></div>`);
 }
 document.addEventListener('click', e=>{
   const pl = DEMO.on && e.target.closest('a[href*="/u/"]');
-  if(pl){ e.preventDefault(); e.stopImmediatePropagation(); demoLog('act','buka-link'); location.hash='#undangan'; toast('Ini undangan contoh, jadi belum punya link beneran'); return; }
+  if(pl){ e.preventDefault(); e.stopImmediatePropagation(); demoLog('act','buka-link'); location.hash='#undangan'; toast('Ini undangan contoh, jadi belum punya link sungguhan'); return; }
   const cp = DEMO.on && e.target.closest('[data-act=copy][data-v*="/u/"]');
-  if(cp){ e.preventDefault(); e.stopImmediatePropagation(); toast('Ini cuma demo. Link asli muncul begitu undanganmu dipublikasikan'); return; }
+  if(cp){ e.preventDefault(); e.stopImmediatePropagation(); toast('Ini hanya demo. Link asli muncul begitu undangan kalian dipublikasikan'); return; }
   const wa = e.target.closest('a[href*="wa.me"]:not([data-wa-custom])');
-  if(wa && DEMO.on){ e.preventDefault(); e.stopImmediatePropagation(); toast('Ini cuma demo, jadi pesannya nggak dikirim beneran 😉'); demoLog('act','kirim-wa'); demoNudge('wa'); return; }
+  if(wa && DEMO.on){ e.preventDefault(); e.stopImmediatePropagation(); toast('Ini hanya demo, jadi pesannya tidak benar-benar dikirim 😉'); demoLog('act','kirim-wa'); demoNudge('wa'); return; }
   if(isPrep() && (wa || e.target.closest('[data-act=bulk-send],[data-act=remind]'))){ e.preventDefault(); e.stopImmediatePropagation(); prepLock(); return; }
   const el=e.target.closest('[data-act]'); if(!el) return; const a=el.dataset.act;
   if(DEMO.on && ['upgrade','ed-publish','logout','login'].includes(a)){ e.preventDefault(); e.stopImmediatePropagation(); closeModal(); exitDemo(); location.hash = a==='login'||a==='logout' ? '#beranda' : '#buat'; return; }
