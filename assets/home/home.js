@@ -76,11 +76,12 @@ function init(){
   let shift=0;
   if(first){
     lenis.stop();
-    const el=(performance.now()-(window.__edhT0||performance.now()))/1000; shift=Math.max(0,1.7-el)-1.7;
-    intro.add(()=>{ $$('.e-loader .e-brand span, .e-loader .e-mark').forEach(x=>x.style.animation='none'); gsap.set('.e-loader .e-brand span',{y:0}); gsap.set('.e-loader .e-mark',{opacity:1,rotate:90}); $('#e-pct').textContent='100'; },1.69+shift)
-      .to('.e-loader .e-brand span',{y:'-110%',duration:.8,stagger:.04,ease:'expo.in'},1.7+shift)
-      .to('.e-loader',{yPercent:-100,duration:1.2,ease:'expo.inOut'},2.15+shift)
-      .add(()=>{ H.classList.remove('edh-first'); loader.remove(); if(lenis) lenis.start(); if(pending){ const p=pending; pending=null; setTimeout(()=>go(p),300); } },3.2+shift);
+    /* pembuka singkat: merek tampil ±0,5 detik, lalu judul langsung terlihat (sebelumnya ±3,3 detik) */
+    const el=(performance.now()-(window.__edhT0||performance.now()))/1000, T0=Math.max(0,.5-el); shift=T0-2.9;
+    intro.add(()=>{ $$('.e-loader .e-brand span, .e-loader .e-mark').forEach(x=>x.style.animation='none'); gsap.set('.e-loader .e-brand span',{y:0}); gsap.set('.e-loader .e-mark',{opacity:1,rotate:90}); $('#e-pct').textContent='100'; },T0)
+      .to('.e-loader .e-brand span',{y:'-110%',duration:.4,stagger:.025,ease:'expo.in'},T0)
+      .to('.e-loader',{yPercent:-100,duration:.6,ease:'expo.inOut'},T0+.15)
+      .add(()=>{ H.classList.remove('edh-first'); loader.remove(); if(lenis) lenis.start(); if(pending){ const p=pending; pending=null; setTimeout(()=>go(p),300); } },T0+.8);
   } else { loader&&loader.remove(); H.classList.remove('edh-first'); }
   const o=first?shift:-2.7;
   intro.from('.e-hl-bawah img',{yPercent:40,duration:2.2,ease:'power3.out',force3D:true},2.95+o)
@@ -214,4 +215,13 @@ function sync(o){
 }
 function scrollToId(id){ if(!active) return; if(document.documentElement.classList.contains('edh-first')){ pending=id; return; } setTimeout(()=>{ if(HAS&&inited) ScrollTrigger.refresh(); go(id); },120); }
 return {enter,leave,sync,scrollTo:scrollToId,gallery};
+})();
+
+/* tombol "Coba buat gratis" melayang di HP: muncul setelah bagian pembuka, sembunyi di bagian harga & footer */
+(function(){
+  const b=document.getElementById('e-fcta'); if(!b || !('IntersectionObserver' in window)) return;
+  const seen=new Map(), tgt=['.e-hero','#e-paket','.edh footer, #e-top ~ footer'].map(s=>document.querySelector(s)).filter(Boolean);
+  const upd=()=>{ const on=[...seen.values()].every(v=>!v) && seen.size===tgt.length; b.classList.toggle('on', on); b.setAttribute('aria-hidden', on?'false':'true'); b.tabIndex=on?0:-1; };
+  const io=new IntersectionObserver(es=>{ es.forEach(e=>seen.set(e.target, e.isIntersecting)); upd(); }, {threshold:0});
+  tgt.forEach(t=>io.observe(t));
 })();
