@@ -49,10 +49,13 @@ end $$;
 revoke execute on function public.client_ip(), public.rate_ok(text,text,int,interval), public.rate_hit(text,text), public.rate_guard(text,text,int,interval) from public, anon, authenticated;
 
 -- ============ 2) Kode tamu 8 karakter acak (kode lama tetap berlaku) ============
+-- gen_random_uuid() selalu tersedia (pgcrypto di Supabase ada di skema extensions, di luar search_path fungsi).
+-- Byte 0–5 dari dua UUID v4 sepenuhnya acak.
 create or replace function public.gen_code() returns text
 language sql volatile as $$
   select 'SP-' || string_agg(substr('ABCDEFGHJKLMNPQRSTUVWXYZ23456789', 1 + (get_byte(x.b, i) % 32), 1), '' order by i)
-  from (select gen_random_bytes(8) b) x, generate_series(0, 7) i;
+  from (select substr(decode(replace(gen_random_uuid()::text,'-',''),'hex'), 1, 6) || substr(decode(replace(gen_random_uuid()::text,'-',''),'hex'), 1, 2) b) x,
+       generate_series(0, 7) i;
 $$;
 
 -- Undangan publik: tebakan kode tamu yang salah dibatasi 40 per 10 menit per IP.
@@ -137,12 +140,12 @@ end $$;
 
 -- ============ 4) PIN check-in ============
 -- Undangan baru dapat PIN 10 karakter; PIN lama tetap berlaku sampai diganti pemilik.
-alter table public.invitations alter column checkin_pin set default upper(encode(gen_random_bytes(5), 'hex'));
+alter table public.invitations alter column checkin_pin set default upper(substr(replace(gen_random_uuid()::text,'-',''), 1, 10));
 
 -- Pemilik bisa mengganti PIN (link penerima tamu lama langsung tidak berlaku).
 create or replace function public.rotate_checkin_pin() returns text
 language plpgsql security definer set search_path = public as $$
-declare p text := upper(encode(gen_random_bytes(5), 'hex')); n int;
+declare p text := upper(substr(replace(gen_random_uuid()::text,'-',''), 1, 10)); n int;
 begin
   perform set_config('satupadu.bypass', 'on', true);
   update invitations set checkin_pin = p where owner = auth.uid();
