@@ -63,6 +63,29 @@ function priceFor(inv, plan, voucher, pk) {
   discount = Math.min(discount, price - 1000);
   return { item, price, discount, voucher: v ? String(voucher).toUpperCase() : '', total: price - discount, upgrade, plan };
 }
+// Paket undangan = paket termahal dari tagihan yang masih lunas (pembayaran tagihan lama yang lebih murah tidak menurunkan paket).
+// Tanpa tagihan lunas (mis. semua di-refund) undangan kembali ke Coba dan berhenti tayang.
+async function applyBestPlan(invitationId, cur) {
+  const pk = await loadPackages();
+  const paid = await sb(`/rest/v1/invoices?invitation_id=eq.${invitationId}&status=eq.paid&select=plan,price`) || [];
+  const rank = x => (pk[x.plan] ? pk[x.plan].price : 0) * 10 + (x.price || 0) / 1e9;
+  const best = paid.sort((a, b) => rank(b) - rank(a))[0];
+  const body = best ? { plan: best.plan, published: true } : { plan: 'coba', published: false };
+  if (cur && cur.plan === body.plan && cur.published === body.published) return cur;
+  const rows = await sb(`/rest/v1/invitations?id=eq.${invitationId}`, { method: 'PATCH', body });
+  const now = rows && rows[0];
+  if (!now || now.plan !== body.plan) throw Object.assign(new Error(`Paket ${body.plan} belum tersimpan`), { status: 500 });
+  return now;
+}
+// Status Midtrans → status tagihan (null = tidak berubah)
+function invoiceStatus(st, fraud) {
+  if (st === 'settlement' || (st === 'capture' && fraud === 'accept')) return 'paid';
+  if (st === 'refund' || st === 'chargeback') return 'refunded';
+  if (st === 'partial_refund' || st === 'partial_chargeback') return 'partial_refund';
+  if (st === 'expire') return 'expired';
+  if (['cancel', 'deny', 'failure'].includes(st)) return 'failed';
+  return null;
+}
 const sha512 = s => crypto.createHash('sha512').update(s).digest('hex');
 const send = (res, status, obj) => { res.statusCode = status; res.setHeader('Content-Type', 'application/json'); res.setHeader('Cache-Control', 'no-store'); res.end(JSON.stringify(obj)); };
 async function readBody(req) {
@@ -70,4 +93,4 @@ async function readBody(req) {
   if (typeof req.body === 'string') { try { return JSON.parse(req.body); } catch (e) { return {}; } }
   return await new Promise(resolve => { let d = ''; req.on('data', c => d += c); req.on('end', () => { try { resolve(JSON.parse(d || '{}')); } catch (e) { resolve({}); } }); });
 }
-module.exports = { env, SB_URL, SERVICE, ANON, IS_PROD, sb, userFromReq, priceFor, loadPackages, sha512, send, readBody, PLANS, UPGRADE_PRICE };
+module.exports = { env, SB_URL, SERVICE, ANON, IS_PROD, sb, userFromReq, priceFor, loadPackages, applyBestPlan, invoiceStatus, sha512, send, readBody, PLANS, UPGRADE_PRICE };

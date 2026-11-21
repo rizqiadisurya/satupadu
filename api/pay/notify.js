@@ -1,5 +1,5 @@
 // Webhook notifikasi Midtrans. Atur URL ini di Midtrans Dashboard → Settings → Payment → Notification URL.
-const { env, sb, sha512, send, readBody } = require('../_lib');
+const { env, sb, sha512, send, readBody, applyBestPlan, invoiceStatus } = require('../_lib');
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return send(res, 200, { ok: true, info: 'Sakara Midtrans webhook' });
   try {
@@ -12,15 +12,15 @@ module.exports = async (req, res) => {
     const inv = rows && rows[0];
     if (!inv) return send(res, 404, { error: 'Tagihan tidak ditemukan' });
     if (Math.round(Number(n.gross_amount)) !== inv.total) return send(res, 400, { error: 'Jumlah tidak cocok' });
-    const st = n.transaction_status, fraud = n.fraud_status;
-    const paid = (st === 'settlement') || (st === 'capture' && fraud === 'accept');
-    if (paid) {
-      // Selalu pastikan paket undangan sesuai tagihan, juga saat notifikasi diulang, supaya kegagalan sebelumnya bisa pulih.
-      const up = await sb(`/rest/v1/invitations?id=eq.${inv.invitation_id}`, { method: 'PATCH', body: { plan: inv.plan, published: true } });
-      if (!up || !up[0] || up[0].plan !== inv.plan) return send(res, 500, { error: 'Paket belum tersimpan, coba lagi' });
-      if (inv.status !== 'paid') await sb(`/rest/v1/invoices?id=eq.${encodeURIComponent(inv.id)}`, { method: 'PATCH', body: { status: 'paid', paid_at: new Date().toISOString(), method: n.payment_type || inv.method } });
-    } else if (['expire', 'cancel', 'deny', 'failure'].includes(st) && inv.status === 'pending') {
-      await sb(`/rest/v1/invoices?id=eq.${encodeURIComponent(inv.id)}`, { method: 'PATCH', body: { status: st === 'expire' ? 'expired' : 'failed' } });
+    const next = invoiceStatus(n.transaction_status, n.fraud_status);
+    const patch = { status: next };
+    if (next === 'paid' && inv.status !== 'paid') { patch.paid_at = new Date().toISOString(); patch.method = n.payment_type || inv.method; }
+    // Tagihan yang sudah lunas tidak kembali ke gagal/kedaluwarsa; refund hanya untuk tagihan lunas.
+    const allowed = (next === 'paid' && !['refunded', 'partial_refund'].includes(inv.status)) || (['expired', 'failed'].includes(next) && inv.status === 'pending') || (['refunded', 'partial_refund'].includes(next) && ['paid', 'partial_refund'].includes(inv.status));
+    if (next && allowed && (next !== inv.status || next === 'paid')) {
+      if (next !== inv.status) await sb(`/rest/v1/invoices?id=eq.${encodeURIComponent(inv.id)}`, { method: 'PATCH', body: patch });
+      // Selalu samakan paket dengan tagihan lunas, juga saat notifikasi diulang, supaya kegagalan sebelumnya bisa pulih.
+      if (next === 'paid' || next === 'refunded') await applyBestPlan(inv.invitation_id);
     }
     send(res, 200, { ok: true });
   } catch (e) { send(res, 500, { error: e.message }); }
