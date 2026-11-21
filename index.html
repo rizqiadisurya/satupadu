@@ -3141,6 +3141,7 @@ html.boot-app #bootSkel .bs-app{display:flex}
 .wa-ed .hint{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.5}
 #waTa{width:100%;font-size:15px;line-height:1.55;resize:vertical;min-height:220px}
 .wa-phone{margin-top:8px;background:#EFE7DD;border-radius:18px;padding:16px;min-height:220px}
+.wq-bar{height:6px;border-radius:9px;background:var(--line,#e8e1da);overflow:hidden;margin-top:6px}.wq-bar i{display:block;height:100%;background:var(--ok,#2f8a57);border-radius:9px;transition:width .3s}
 .wa-bubble{background:#DCF8C6;border-radius:4px 14px 14px 14px;padding:10px 12px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:14px;line-height:1.5;color:#1f2c22;white-space:normal;overflow-wrap:anywhere;box-shadow:0 1px 1px rgba(0,0,0,.08);max-width:100%}
 .wa-bubble u{color:#2A6BB0}
 .modal .wa-bubble{white-space:pre-wrap}
@@ -3683,7 +3684,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
       </div>
       <article class="e-row" data-peek="0"><div class="e-n">1</div><div><h3>Coba</h3><span class="e-tag">Gratis</span></div><div><p class="e-fit">Untuk kalian yang ingin melihat hasilnya lebih dulu sebelum memutuskan.</p><ul><li>Semua tema bisa dicoba</li><li>Pratinjau lengkap di HP</li></ul></div><div class="e-price"><b>Gratis</b><small>Tanpa kartu kredit</small><br><a class="e-btn e-ghost" href="#buat" data-plan="coba">Mulai gratis</a></div></article>
       <article class="e-row" data-peek="1"><div class="e-n">2</div><div><h3>Undangan</h3><span class="e-tag">Cantik &amp; berkesan</span></div><div><p class="e-fit">Untuk kalian yang ingin undangan cantik, lengkap dengan cerita dan kenangan dari tamu.</p><ul><li>Semua tema Lukisan, kisah cinta, dan galeri foto</li><li>Nama setiap tamu di undangannya</li><li>Doa, ucapan, dan amplop digital</li><li>Album foto dari tamu dan buku kenangan</li></ul></div><div class="e-price"><b>Rp129.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#buat" data-plan="undangan">Pilih Undangan</a></div></article>
-      <article class="e-row" data-peek="2"><div class="e-n">3</div><div><h3>Undangan <br>Lengkap</h3><span class="e-tag">Paling lengkap</span></div><div><p class="e-fit">Untuk acara besar. Semuanya beres, dari menyebar undangan sampai menyambut tamu di hari H.</p><ul><li>Semua yang ada di paket Undangan</li><li>Kirim ke semua tamu sekaligus lewat WhatsApp</li><li>Pengingat untuk tamu yang belum menjawab</li><li>QR check-in di meja penerima tamu</li></ul></div><div class="e-price"><b>Rp349.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#buat" data-plan="tamu">Pilih paket ini</a></div></article>
+      <article class="e-row" data-peek="2"><div class="e-n">3</div><div><h3>Undangan <br>Lengkap</h3><span class="e-tag">Paling lengkap</span></div><div><p class="e-fit">Untuk acara besar. Semuanya beres, dari menyebar undangan sampai menyambut tamu di hari H.</p><ul><li>Semua yang ada di paket Undangan</li><li>Kirim WhatsApp ke semua tamu berurutan, tinggal ketuk</li><li>Pengingat untuk tamu yang belum menjawab</li><li>QR check-in di meja penerima tamu</li></ul></div><div class="e-price"><b>Rp349.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#buat" data-plan="tamu">Pilih paket ini</a></div></article>
       <article class="e-row e-row-custom" data-peek="3"><div class="e-n">4</div><div><h3>Custom</h3><span class="e-tag">Penuh foto, bebas diatur</span></div><div><p class="e-fit">Untuk kalian yang punya banyak foto dan ingin undangannya terasa seperti album sendiri.</p><ul><li>Semua fitur paket Undangan Lengkap, kecuali kado patungan</li><li>Tema Custom: polaroid, strip photobox, foto masa kecil</li><li>Urutan bagian dan foto di setiap bingkai bebas diatur</li><li>Bagian yang tidak dipakai bisa disembunyikan</li></ul></div><div class="e-price"><b>Rp499.000</b><small>Sekali bayar</small><br><a class="e-btn" href="#tema-custom" data-plan="custom">Pilih Custom</a></div></article>
       <p class="e-wa-note"><img class="e-kara e-kara-wa" src="/assets/kara/kara-bisik.webp" alt="" loading="lazy" decoding="async" aria-hidden="true">Mau desain dari nol, khusus kalian? <a href="https://wa.me/" data-wa-custom target="_blank" rel="noopener">Ngobrol dengan kami di WhatsApp</a></p>
     </div>
@@ -5033,7 +5034,7 @@ $('#themeSearch').addEventListener('input',e=>{ catQ=e.target.value; renderCatal
 const PLANS = [
   {id:'coba', name:'Coba', price:0, note:'gratis', tag:'Gratis dicoba', fit:'Buat kamu yang mau lihat hasilnya dulu sebelum mutusin.', sum:'Semua tema · Pratinjau penuh', cta:'Mulai gratis'},
   {id:'undangan', name:'Undangan', price:129000, note:'sekali bayar', tag:'Cantik & berkesan', fit:'Buat kamu yang ingin undangan cantik, lengkap dengan cerita dan kenangan dari tamu.', sum:'Semua tema Lukisan · Ucapan, doa & amplop · Album foto dari tamu', cta:'Pilih Undangan'},
-  {id:'tamu', name:'Undangan Lengkap', price:349000, note:'sekali bayar', tag:'Paling lengkap', fit:'Buat acara besar. Semua beres, dari sebar undangan sampai sambut tamu di hari H.', feature:1, sum:'Semua di Undangan · Kirim WA sekaligus · Pengingat · QR check-in', cta:'Pilih Undangan Lengkap'},
+  {id:'tamu', name:'Undangan Lengkap', price:349000, note:'sekali bayar', tag:'Paling lengkap', fit:'Buat acara besar. Semua beres, dari sebar undangan sampai sambut tamu di hari H.', feature:1, sum:'Semua di Undangan · Kirim WA berurutan · Pengingat · QR check-in', cta:'Pilih Undangan Lengkap'},
   {id:'custom', name:'Custom', price:499000, note:'sekali bayar', tag:'Tema Custom', fit:'Buat kalian yang mau undangan penuh foto dan bebas diatur: urutan bagian, bagian yang tampil, sampai foto di setiap bingkai.', sum:'Fitur Undangan Lengkap (tanpa kado patungan) · Tema Custom · Editor bebas atur', cta:'Pilih Custom'}
 ];
 const PLAN_RANK = {coba:0, undangan:1, tamu:2, custom:3};
@@ -5055,7 +5056,8 @@ const FEATS = [
   ]],
   ['Tamu & konfirmasi', [
     ['RSVP, ucapan & doa', 0,1,1],
-    ['Amplop digital & kado patungan', 0,1,1],
+    ['Amplop digital', 0,1,1],
+    ['Kado patungan (tema Lukisan)', 0,1,1],
     ['Daftar tamu & status per nama', 0,1,1, 1],
     ['Akun keluarga (keluarga tambah tamu sendiri)', 0,1,1],
     ['Import tamu dari Excel/CSV', 0,0,1],
@@ -5064,8 +5066,8 @@ const FEATS = [
   ['Kirim undangan', [
     ['Kirim WhatsApp satu per satu', 0,1,1],
     ['Tulis sendiri template pesan WhatsApp', 0,1,1],
-    ['Kirim WhatsApp ke semua tamu sekaligus', 0,0,1, 1],
-    ['Pengingat H-3 untuk yang belum jawab', 0,0,1]
+    ['Kirim WhatsApp berurutan ke semua tamu', 0,0,1, 1],
+    ['Pengingat untuk tamu yang belum menjawab', 0,0,1]
   ]],
   ['Hari H & sesudahnya', [
     ['Hitungan porsi katering', 0,1,1],
@@ -5075,17 +5077,18 @@ const FEATS = [
 ];
 const PLAN_COL = {coba:1, undangan:2, tamu:3, custom:3};
 /* Mesin paket: tiap paket punya daftar fitur sendiri (bisa diatur dari panel admin) */
-const FEAT_LOCK_KEY = {'Tema Custom & editor bebas atur':'custom','Import tamu dari Excel/CSV':'import','Grup tamu (keluarga, kantor, dst.)':'groups','Kirim WhatsApp ke semua tamu sekaligus':'bulk','Pengingat H-3 untuk yang belum jawab':'remind','QR check-in & buku tamu digital':'qr'};
-const FEAT_LOCKS = {custom:'Tema Custom', import:'Import tamu dari Excel/CSV', groups:'Kelola grup tamu', bulk:'Kirim WhatsApp sekaligus & kartu cetak', remind:'Pengingat H-3', qr:'Halaman penerima tamu & QR check-in'};
+const FEAT_LOCK_KEY = {'Tema Custom & editor bebas atur':'custom','Import tamu dari Excel/CSV':'import','Grup tamu (keluarga, kantor, dst.)':'groups','Kirim WhatsApp berurutan ke semua tamu':'bulk','Pengingat untuk tamu yang belum menjawab':'remind','QR check-in & buku tamu digital':'qr'};
+const FEAT_LOCKS = {custom:'Tema Custom', import:'Import tamu dari Excel/CSV', groups:'Kelola grup tamu', bulk:'Kirim WhatsApp berurutan & kartu cetak', remind:'Pengingat tamu yang belum menjawab', qr:'Halaman penerima tamu & QR check-in'};
 const fslug = t => t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40);
 FEATS.forEach(g=>g[1].forEach(r=>{ r.key = FEAT_LOCK_KEY[r[0]] || fslug(r[0]); }));
 const FEAT_ROWS = () => FEATS.flatMap(g=>g[1]);
 const CARD_DEFAULT = FEAT_ROWS().filter(r=>r[4]).map(r=>r.key);
 let CARD_KEYS = CARD_DEFAULT.slice();
 const PKG_DEFAULT = PLANS.map(p=>({...p, feats:Object.fromEntries(FEAT_ROWS().map(r=>[r.key, r[PLAN_COL[p.id]]]))}));
-PKG_DEFAULT.forEach(p=>{ if(p.id==='custom') p.feats.custom=1; });
+PKG_DEFAULT.forEach(p=>{ if(p.id==='custom'){ p.feats.custom=1; p.feats['kado-patungan-tema-lukisan']=0; } });
 const planOf = id => PLANS.find(p=>p.id===id) || null;
-const planFeat = (p, k) => { if(!p) return 1; const v = p.feats ? p.feats[k] : undefined; return v===undefined ? 0 : v; };
+/* fitur yang belum ada di pengaturan paket dari admin memakai nilai bawaan paket itu */
+const planFeat = (p, k) => { if(!p) return 1; const v = p.feats ? p.feats[k] : undefined; if(v!==undefined) return v; const d=PKG_DEFAULT.find(x=>x.id===p.id); return d && d.feats[k]!==undefined ? d.feats[k] : 0; };
 const planRank = id => { const p=planOf(id); return p ? (p.id==='coba' ? -1 : p.price) : 1e12; };
 const planSum = p => { const rows=FEAT_ROWS().filter(r=>(CARD_KEYS.includes(r.key)||FEAT_LOCKS[r.key]) && planFeat(p,r.key)); const cx=rows.find(r=>r.key==='custom'); return (cx?[cx].concat(rows.filter(r=>r!==cx).slice(-2)):rows.slice(-3)).map(r=>r[0]).join(' · '); };
 const shownPlans = () => PLANS.filter(p=>!p.hidden);
@@ -5795,8 +5798,23 @@ function waFill(tpl, g){
   if(!/\{link\}/.test(tpl)) out += `\n\n${link(g)}`;
   return out;
 }
+/* Antrean kirim WhatsApp: satu tamu per ketukan (WhatsApp tidak mengizinkan kirim massal otomatis tanpa API bisnis) */
+let WQ=null;
+function wqRender(){
+  if(!WQ) return; const n=WQ.ids.length;
+  while(WQ.i<n && !G.find(x=>x.id===WQ.ids[WQ.i])) WQ.i++;
+  if(WQ.i>=n){ const d=WQ.done; WQ=null; closeModal(); renderDash(); toast(d?`Selesai. ${d} pesan dibuka di WhatsApp.`:'Selesai.'); return; }
+  const g=G.find(x=>x.id===WQ.ids[WQ.i]), ok=waNum(g.phone).length>=10;
+  openModal(`<span class="eyebrow">${WQ.mode==='remind'?'Pengingat':'Kirim undangan'} · ${WQ.i+1} dari ${n}</span>
+    <h2 class="display" style="font-size:28px;margin:8px 0">${esc(g.name)}</h2>
+    <div class="wq-bar" aria-hidden="true"><i style="width:${Math.round(WQ.i/n*100)}%"></i></div>
+    ${ok?`<div class="wa-bubble" style="margin:14px 0 8px">${esc(waMsg(g, WQ.mode))}</div>`:`<p class="warn-box" style="margin:14px 0">${ico('wa')}<span>Nomor WhatsApp ${esc(g.name)} belum diisi. Lewati dulu, atau isi nomornya di daftar tamu.</span></p>`}
+    <div class="form-foot"><button class="btn btn-ghost" data-act="wq-stop">Berhenti</button><button class="btn btn-ghost" data-act="wq-skip">Lewati</button>${ok?`<a class="btn btn-primary" data-act="wq-open" href="${esc(waUrl(g, WQ.mode))}" target="_blank" rel="noopener">${ico('wa')}Buka WhatsApp</a>`:''}</div>`);
+}
 function waMsg(g, kind){ return waFill(waTpl(kind), g); }
-function waUrl(g, kind){ return `https://wa.me/${(g.phone||'').replace(/^0/,'62')}?text=${encodeURIComponent(waMsg(g, kind))}`; }
+/* nomor WhatsApp: hanya angka, 0/+62/8xx → 62xx */
+const waNum = ph => { let d=String(ph||'').replace(/\D/g,''); if(d.startsWith('0')) d='62'+d.slice(1); else if(d.startsWith('8')) d='62'+d; return d; };
+function waUrl(g, kind){ return `https://wa.me/${waNum(g.phone)}?text=${encodeURIComponent(waMsg(g, kind))}`; }
 const filteredGuests = () => { const q=gQ.toLowerCase(); return G.filter(g=>(gStatus==='semua'||g.status===gStatus) && (gGroup==='semua'||g.group===gGroup) && (!q||g.name.toLowerCase().includes(q)||(g.phone||'').includes(q)||(g.code||'').toLowerCase().includes(q))); };
 const sesChips = g => guestEvents(g).map(e=>`<span class="chip chip-ses">${esc(e.type)}</span>`).join(' ');
 /* ---------- Akun keluarga · jam kedatangan · katering ---------- */
@@ -6062,7 +6080,7 @@ function renderDashCore(){
       ${dTile('Undangan terkirim',`${sent}<span class="of">/${total}</span>`,`${total-sent} tamu belum dikirimi`,'mail','amber',1)}
       ${dTile('Akan hadir',pax,`orang, dari ${hadir.length} undangan`,'check','green')}
       ${dTile('Tidak hadir',tidak,'sudah mengabari','x','gray')}
-      ${dTile('Belum menjawab',belum,isLocked('remind')?`<button class="btn btn-ghost btn-sm" data-act="upgrade">${ico('lock')}Pengingat otomatis</button>`:`<button class="btn btn-soft btn-sm" data-act="remind">Kirim pengingat</button>`,'chat','blue')}
+      ${dTile('Belum menjawab',belum,isLocked('remind')?`<button class="btn btn-ghost btn-sm" data-act="upgrade">${ico('lock')}Kirim pengingat</button>`:`<button class="btn btn-soft btn-sm" data-act="remind">Kirim pengingat</button>`,'chat','blue')}
     </div>
     <div class="dgrid">
       ${dPanel('Jawaban per grup', total?`${hadir.length+tidak} dari ${total} undangan sudah menjawab.`:'Lihat siapa saja yang sudah membalas undangan.',
@@ -6329,10 +6347,13 @@ document.addEventListener('click', e=>{
     const ex = targets[0];
     openModal(`<span class="eyebrow">${a==='remind'?'Pengingat':'Kirim undangan'}</span><h2 class="display" style="font-size:30px;margin:8px 0">Kirim ke ${targets.length} tamu</h2><p class="muted">Setiap tamu menerima link dengan namanya sendiri. Contoh pesan untuk ${esc(ex?.name||'tamu')}:</p>
       <div class="wa-bubble" style="margin:16px 0 8px">${esc(ex?waMsg(ex, a==='remind'?'remind':'invite'):'')}</div><p style="margin:0 0 14px"><button class="linkbtn" data-act="wa-tpl" data-kind="${a==='remind'?'remind':'invite'}">Ubah isi pesan</button></p>
-      <div class="form-foot"><button class="btn btn-ghost" data-act="close">Batal</button><button class="btn btn-primary" data-act="bulk-go" data-n="${targets.length}" data-mode="${a}">${ico('wa')}Kirim ${targets.length} pesan</button></div>
-      <p class="muted" style="font-size:12.5px">Prototype: pengiriman massal disimulasikan. Di paket Undangan, kirim satu per satu lewat tombol Kirim WA.</p>`);
+      <div class="form-foot"><button class="btn btn-ghost" data-act="close">Batal</button><button class="btn btn-primary" data-act="bulk-go" data-n="${targets.length}" data-mode="${a}">${ico('wa')}Mulai kirim</button></div>
+      <p class="muted" style="font-size:12.5px">WhatsApp terbuka untuk tiap tamu secara berurutan dengan pesan yang sudah terisi. Kalian tinggal ketuk Kirim di WhatsApp, lalu kembali ke sini untuk tamu berikutnya.</p>`);
   }
-  if(a==='bulk-go'){ const ids = el.dataset.mode==='remind' ? G.filter(g=>g.status==='belum').map(g=>g.id) : [...sel]; G.forEach(g=>{ if(ids.includes(g.id)) g.sent=true; }); saveG(); sel.clear(); closeModal(); renderDash(); toast(el.dataset.n+' pesan masuk antrean kirim'); }
+  if(a==='bulk-go'){ const ids = el.dataset.mode==='remind' ? G.filter(g=>g.status==='belum').map(g=>g.id) : [...sel]; WQ={ids, i:0, mode:el.dataset.mode==='remind'?'remind':'invite', done:0}; sel.clear(); wqRender(); }
+  if(a==='wq-open'){ const g=G.find(x=>x.id===WQ.ids[WQ.i]); if(g){ g.sent=true; WQ.done++; saveG(); } WQ.i++; setTimeout(wqRender, 400); return; }
+  if(a==='wq-skip'){ WQ.i++; wqRender(); return; }
+  if(a==='wq-stop'){ const n=WQ.done; WQ=null; closeModal(); renderDash(); if(n) toast(`${n} pesan dibuka di WhatsApp`); return; }
   if(a==='bulk-clear'){ sel.clear(); renderDash(); }
   if(a==='toggle-wish'){ const w=W[+el.dataset.k]; w.show=!w.show; saveW(); if(CLOUD.uid && w.id) CLOUD.sb.from('wishes').update({hidden:!w.show}).eq('id',w.id).then(({error})=>{ if(error) toast('Gagal menyimpan: '+error.message); }); renderDash(); }
 });
