@@ -93,4 +93,4 @@ async function readBody(req) {
   if (typeof req.body === 'string') { try { return JSON.parse(req.body); } catch (e) { return {}; } }
   return await new Promise(resolve => { let d = ''; req.on('data', c => d += c); req.on('end', () => { try { resolve(JSON.parse(d || '{}')); } catch (e) { resolve({}); } }); });
 }
-module.exports = { env, SB_URL, SERVICE, ANON, IS_PROD, sb, userFromReq, priceFor, loadPackages, applyBestPlan, invoiceStatus, sha512, send, readBody, PLANS, UPGRADE_PRICE };
+module.exports = { VOUCHERS, env, SB_URL, SERVICE, ANON, IS_PROD, sb, userFromReq, priceFor, loadPackages, applyBestPlan, invoiceStatus, sha512, send, readBody, PLANS, UPGRADE_PRICE };

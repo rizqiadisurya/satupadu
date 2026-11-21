@@ -222,7 +222,7 @@ body.edh-loading{overflow:hidden}
 .edh .e-foot .e-logo{display:inline-flex!important;align-items:center;gap:14px;line-height:1}
 .edh .e-foot .e-logo svg{width:32px;height:32px;flex:none}
 .edh .e-foot .e-logo b{color:var(--cream);line-height:1}
-.edh .e-foot h4{font-size:13px;opacity:.65;margin-bottom:14px;font-weight:700}
+.edh .e-foot h3,.edh .e-foot h4{font-size:13px;opacity:.85;margin-bottom:14px;font-weight:700;font-family:inherit;letter-spacing:inherit}
 .edh .e-foot a{display:block;font-family:var(--serif);font-size:22px;line-height:1.5}
 .edh .e-foot p{opacity:.7;max-width:30ch;margin-top:18px;font-size:14px}
 .edh .e-foot-big{font-family:var(--brand);font-size:clamp(70px,17vw,280px);letter-spacing:.2em;line-height:1;margin-top:70px;opacity:.16;white-space:nowrap;overflow:hidden;color:var(--gold-l)}
@@ -474,3 +474,13 @@ html:not(.on-home) .e-fcta{display:none}
 .e-pk-more{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:center;margin:26px 0 6px;font-size:15px}
 .e-pk-more a{font-weight:700;color:inherit;text-decoration:underline;text-underline-offset:4px}
 .e-pk-more span{opacity:.8}
+
+/* Tahap 6: kontras & area sentuh */
+.edh .e-eyebrow{color:#93434F}
+.edh .e-hero-copy .e-eyebrow{color:var(--cream)}
+.e-step{opacity:1}.e-step:hover{opacity:1}
+.e-step h3{color:var(--muted);transition:color .4s}
+.e-step.e-on h3{color:var(--ink);font-weight:600}
+.e-step .e-num{opacity:.55;transition:opacity .4s}.e-step.e-on .e-num{opacity:1}
+.e-card .e-meta small{opacity:1;color:inherit}
+.e-promo .e-x{width:44px;height:44px;top:4px;right:4px;display:grid;place-items:center}

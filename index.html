@@ -726,6 +726,8 @@ input[type=checkbox]{accent-color:var(--beet);width:18px;height:18px}
 .dash-nav{display:none}
 
 /* Toast */
+.toast-undo{background:none;border:0;color:#F3D18A;font:inherit;font-weight:800;margin-left:6px;padding:6px 4px;min-height:36px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.is-armed{color:var(--danger,#B42318)!important;border-color:currentColor!important}
 .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:14px;font-weight:600;font-size:14.5px;z-index:100;box-shadow:var(--shadow);display:flex;gap:10px;align-items:center;max-width:calc(100% - 32px)}
 
 /* ---- v3 additions ---- */
@@ -3650,7 +3652,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
       <p class="e-sub e-split-fade">Cantik saat dibuka, tetap dikenang setelah hari bahagia.</p>
       <div class="e-hcta e-split-fade"><a class="e-hb" href="#buat">Coba buat gratis</a><button type="button" class="e-hb e-hb-g" data-act="demo" data-t="kebun-sage">Lihat contoh undangan</button></div>
     </div>
-    <div class="e-hero-foot"><span>Mulai Rp129.000, sekali bayar</span><span class="e-scroll-cue">Gulir pelan <i></i></span><span>Bisa dicoba gratis</span></div>
+    <div class="e-hero-foot"><span>Mulai Rp129.000, sekali bayar</span><span class="e-scroll-cue">Gulir ke bawah <i></i></span><span>Bisa dicoba gratis</span></div>
   </section>
 
   <section class="e-intro e-wrap" data-tone="dk" aria-labelledby="e-st">
@@ -3734,12 +3736,12 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
     <div class="e-foot-hero"><h2>Rayakan cinta,<br><em>bagikan kabar bahagia.</em></h2><a class="e-mail" href="https://www.instagram.com/withsakara/">@withsakara</a></div>
     <div class="e-foot">
       <div><a href="#" data-sec="e-top" class="e-logo"><svg viewBox="0 0 100 100" data-mark="#E7C3C8" aria-hidden="true"></svg><b>SAKARA</b></a><p>Undangan pernikahan digital yang terasa seperti kertas.</p></div>
-      <div><h4>Jelajahi</h4><a href="#" data-sec="e-tema">Tema</a><a href="#" data-sec="e-cara">Cara kerja</a><a href="#" data-sec="e-paket">Harga</a></div>
-      <div><h4>Ikuti</h4><a href="https://www.instagram.com/withsakara/">Instagram</a><a href="#tema">Semua tema</a></div>
-      <div><h4>Bantuan</h4><a href="/syarat">Syarat layanan</a><a href="/privasi">Kebijakan privasi</a></div>
+      <div><h3>Jelajahi</h3><a href="#" data-sec="e-tema">Tema</a><a href="#" data-sec="e-cara">Cara kerja</a><a href="#" data-sec="e-paket">Harga</a></div>
+      <div><h3>Ikuti</h3><a href="https://www.instagram.com/withsakara/">Instagram</a><a href="#tema">Semua tema</a></div>
+      <div><h3>Bantuan</h3><a href="/syarat">Syarat layanan</a><a href="/privasi">Kebijakan privasi</a></div>
     </div>
     <div class="e-foot-big" aria-hidden="true">SAKARA</div>
-    <div class="e-foot-bot"><span class="e-foot-kara"><img class="e-kara e-kara-sleep" src="/assets/kara/kara-tidur-s.webp" alt="" loading="lazy" decoding="async" aria-hidden="true">© 2026 Sakara</span><span class="e-craft">Crafted by <a href="https://rizqiadisurya.vercel.app" target="_blank" rel="noopener">Really Studio</a></span></div>
+    <div class="e-foot-bot"><span class="e-foot-kara"><img class="e-kara e-kara-sleep" src="/assets/kara/kara-tidur-s.webp" alt="" loading="lazy" decoding="async" aria-hidden="true">© 2026 Sakara</span><span class="e-craft">Dibuat oleh <a href="https://rizqiadisurya.vercel.app" target="_blank" rel="noopener">Really Studio</a></span></div>
   </div>
 </footer>
   <button type="button" class="e-totop" id="e-totop" data-sec="e-top" aria-label="Kembali ke atas" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Kembali ke atas</span></button>
@@ -3845,11 +3847,14 @@ const store = {
   get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
   set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
 };
-function toast(msg){
+function toast(msg, undo){
   const r = $('#toastRoot');
-  r.innerHTML = `<div class="toast">${ico('check')}${esc(msg)}</div>`;
-  clearTimeout(toast.t); toast.t = setTimeout(()=> r.innerHTML='', 2600);
+  r.innerHTML = `<div class="toast" role="status">${ico('check')}${esc(msg)}${undo?'<button type="button" class="toast-undo">Urungkan</button>':''}</div>`;
+  if(undo) r.querySelector('.toast-undo').onclick=()=>{ r.innerHTML=''; clearTimeout(toast.t); undo(); };
+  clearTimeout(toast.t); toast.t = setTimeout(()=> r.innerHTML='', undo?6500:2600);
 }
+/* tombol hapus dua ketukan: ketuk pertama minta konfirmasi */
+function armed(el, label){ if(el.dataset.sure==='1') return true; const t=el.textContent; el.dataset.sure='1'; el.textContent=label||'Yakin hapus? Ketuk lagi'; el.classList.add('is-armed'); setTimeout(()=>{ if(el.isConnected){ el.dataset.sure=''; el.textContent=t; el.classList.remove('is-armed'); } },3500); return false; }
 async function copyText(t){
   try{ await navigator.clipboard.writeText(t); toast('Tersalin'); }
   catch(e){ toast('Salin manual: ' + t); }
@@ -4219,6 +4224,7 @@ const OPENINGS = {
 const FIRST = ['Ani','Budi','Citra','Dimas','Eka','Fajar','Gita','Hendra','Indah','Joko','Kartika','Lukman','Maya','Nanda','Oki','Putri','Rahmat','Sinta','Taufik','Utami','Vina','Wahyu','Yudi','Zahra','Arif','Bella','Doni','Fitri','Galih','Hana','Irfan','Laras','Mira','Rudi','Sari','Tono','Wulan','Yoga','Dewi','Bagas'];
 const LAST = ['Wulandari','Santoso','Lestari','Saputra','Pratiwi','Nugroho','Hidayat','Siregar','Rahayu','Kusuma','Harahap','Wibowo','Permata','Setiawan','Gunawan','Simanjuntak','Anggraini','Putra','Halim','Darmawan'];
 const GROUPS = ['Keluarga Sarah','Keluarga Raka','Kantor Raka','Teman kampus','Tetangga'];
+const GROUPS_REAL = ['Keluarga mempelai wanita','Keluarga mempelai pria','Teman','Rekan kerja','Tetangga'];
 function seedGuests(){
   let x = 7; const rnd = () => (x = (x*9301+49297)%233280)/233280;
   const g = [];
@@ -4711,8 +4717,8 @@ function cxSwitch(id, done){
 }
 let CX_SWITCH_DONE = null;
 function cxApplyTheme(id){
-  if(isCx(id)){ if(S.published && S.plan!=='custom' && !isCx(S.theme)) S.liveTheme=S.theme; if(!S.published) S.plan='custom'; S.theme=id; cxEnsure(); }
-  else { S.theme=id; delete S.liveTheme; }
+  if(isCx(id)){ if(S.published && S.plan!=='custom' && !isCx(S.theme)) S.liveTheme=S.theme; if(!S.published){ if(S.plan!=='custom') S.planPrev=S.plan; S.plan='custom'; } S.theme=id; cxEnsure(); }
+  else { S.theme=id; delete S.liveTheme; /* draf kembali ke tema Lukisan: paket ikut kembali, tidak terkunci di Custom */ if(!S.published && S.plan==='custom'){ S.plan=S.planPrev||'coba'; } delete S.planPrev; }
   S.accent=null; PICK_KIND=null; if(EDIT.on && !edPanels().some(p=>p[0]===EDIT.panel)) EDIT.panel = isCx(id) ? 'cx:tampilan' : 'tema';
 }
 function cxDraftBar(){
@@ -5776,7 +5782,7 @@ function renderEditor(){
     }, true);
   }
   const insp=$('#edInspBody'); const sf=$('#stepForm'); if(sf.parentElement!==insp) insp.appendChild(sf);
-  $('#edPub').innerHTML = DEMO.on ? '' : S.published ? `<a class="btn btn-primary btn-sm" href="${esc(pubURL())}" target="_blank" rel="noopener">${ico('copy')}<span>Buka link</span></a>` : `<button type="button" class="btn btn-primary btn-sm" data-act="ed-publish">Publikasikan</button>`;
+  $('#edPub').innerHTML = DEMO.on ? '' : S.published ? `<a class="btn btn-primary btn-sm" href="${esc(pubURL())}" target="_blank" rel="noopener">${ico('eye')}<span>Buka link</span></a>` : `<button type="button" class="btn btn-primary btn-sm" data-act="ed-publish">Publikasikan</button>`;
   const st=$('#edSave'); if(st && (!st.textContent||DEMO.on||st.textContent.startsWith('Demo'))) st.textContent = DEMO.on ? 'Demo · tidak disimpan' : S.published ? 'Tersimpan · tayang' : 'Draf tersimpan'; st.title = S.published ? 'Perubahan langsung terlihat oleh tamu' : 'Belum dipublikasikan';
   EDIT.on=true; if(!EDIT.last) EDIT.last=edSnapshot();
   edRail(); renderStep(); refreshPreview(); edTools();
@@ -6194,7 +6200,7 @@ function renderDashCore(){
       <td class="acts"><a class="btn btn-soft btn-sm" href="${waUrl(g)}" target="_blank" rel="noopener" data-sent="${g.id}">${ico('wa')}${g.sent?'Kirim ulang':'Kirim WA'}</a> <button class="btn btn-ghost btn-sm" data-act="guest-menu" data-id="${g.id}" aria-label="Opsi ${esc(g.name)}">Opsi</button></td></tr>`).join('') || `<tr><td colspan="8"><div class="empty" style="border:0">Hmm, nggak ada tamu yang cocok. Coba ubah kata pencarian atau filternya.</div></td></tr>`}
     </tbody></table></div>
     <div class="gcards">${list.map(g=>`<div class="gcard"><input type="checkbox" data-sel="${g.id}" ${sel.has(g.id)?'checked':''} aria-label="Pilih ${esc(g.name)}"><div><div style="font-weight:700">${esc(g.name)}</div><div class="muted" style="font-size:13px">${esc(g.group)} · ${esc(sessionNames(g))}${g.pax?` · ${g.pax} orang`:''}</div></div><span class="status ${stLabel[g.status][1]}">${stLabel[g.status][0].replace(' menjawab','')}</span>
-      <div class="acts"><a class="btn btn-soft btn-sm" href="${waUrl(g)}" target="_blank" rel="noopener" data-sent="${g.id}">${ico('wa')}${g.sent?'Kirim ulang':'Kirim WA'}</a><button class="btn btn-ghost btn-sm" data-act="guest-menu" data-id="${g.id}">Opsi</button></div></div>`).join('') || '<div class="empty">Tidak ada tamu yang cocok.</div>'}</div>
+      <div class="acts"><a class="btn btn-soft btn-sm" href="${waUrl(g)}" target="_blank" rel="noopener" data-sent="${g.id}">${ico('wa')}${g.sent?'Kirim ulang':'Kirim WA'}</a><button class="btn btn-ghost btn-sm" data-act="guest-menu" data-id="${g.id}">Opsi</button></div></div>`).join('') || (G.length ? '<div class="empty">Tidak ada tamu yang cocok dengan pencarian atau filter ini.</div>' : `<div class="empty">${karaImg('lambai','kara-sm')}<b style="display:block;margin:8px 0 4px">Belum ada tamu</b>Tambahkan satu per satu, atau impor dari Excel kalau daftarnya sudah ada.<div style="margin-top:12px"><button class="btn btn-primary btn-sm" data-act="add-guest">${ico('plus')}Tambah tamu</button></div></div>`)}</div>
     <p class="muted" style="font-size:13px;margin-top:12px">Menampilkan ${list.length} dari ${total} tamu. <button class="linkbtn" data-act="import-help">Lihat format file Excel</button></p>`;
   }
   if(dTab==='harih'){
@@ -6347,12 +6353,22 @@ function guestModal(id){
 
 /* ---------- Modals ---------- */
 function openModal(html, wide){
+  const ae=document.activeElement; if(!$('#modalRoot').contains(ae)) openModal.from = ae && ae!==document.body ? ae : null;
   const isAuth = html.startsWith('<div class="auth">');
   $('#modalRoot').innerHTML = `<div class="modal${isAuth?' modal-auth':''}" role="dialog" aria-modal="true"><div class="panel${isAuth?' auth-panel':''}" style="${wide||isAuth?'':'max-width:560px'}"><button class="close" data-act="close" aria-label="Tutup">${ico('x')}</button>${isAuth?'<div class="auth-art" aria-hidden="true"><img src="/assets/home/auth-amplop.webp" srcset="/assets/home/auth-amplop-s.webp 480w, /assets/home/auth-amplop.webp 960w" sizes="(max-width:760px) 100vw, 400px" alt=""></div>':''}${html}</div></div>`;
   setTimeout(()=> $('#modalRoot .close')?.focus({preventScroll:true}), 30);
 }
-function closeModal(){ $('#modalRoot').innerHTML=''; }
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+function closeModal(){ const was=!!$('#modalRoot').firstElementChild; $('#modalRoot').innerHTML=''; const f=openModal.from; openModal.from=null; if(was && f && f.isConnected && typeof f.focus==='function') f.focus({preventScroll:true}); }
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape'){ if($('#modalRoot').firstElementChild) closeModal(); else if(document.body.classList.contains('ed-sheet-open')) edSheet(false); return; }
+  /* fokus tetap di dalam modal selama terbuka */
+  if(e.key==='Tab'){ const m=$('#modalRoot .modal'); if(!m) return;
+    const f=[...m.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(x=>x.offsetParent!==null);
+    if(!f.length) return; const first=f[0], last=f[f.length-1];
+    if(!m.contains(document.activeElement)){ e.preventDefault(); first.focus(); }
+    else if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); } }
+});
 function demoModal(id){
   const t=themeById(id); const prevTheme=S.theme;
   openModal(`<div class="demo-grid"><div class="phone"><div class="screen" id="demoScreen">${invHTML({theme:id, idp:'d', guest:'Tamu undangan'})}</div></div>
@@ -6375,7 +6391,7 @@ document.addEventListener('click', e=>{
   const a = el.dataset.act;
   if(a==='close') closeModal();
   if(a==='rm-photo'){ delete S[el.dataset.who].photo; save(); renderStep(); refreshPreview(); }
-  if(a==='rm-gal'){ S.gallery.splice(+el.dataset.k,1); save(); renderStep(); refreshPreview(); }
+  if(a==='rm-gal'){ const k=+el.dataset.k, [ph]=S.gallery.splice(k,1); save(); renderStep(); refreshPreview(); toast('Foto dihapus dari galeri', ()=>{ S.gallery.splice(Math.min(k,S.gallery.length),0,ph); save(); renderStep(); refreshPreview(); }); }
   if(a==='souvenir'){ souvenirCard(el); return; }
   if(a==='tip-go'){ EDIT.panel=el.dataset.panel||'mempelai'; location.hash='#edit'; return; }
   if(a==='tip-thx'){ dTab='kenangan'; knTab='thx'; renderDash(); window.scrollTo({top:0}); return; }
@@ -6392,7 +6408,12 @@ document.addEventListener('click', e=>{
   if(a==='clear-filter'){ catTag='Semua'; catQ=''; $('#themeSearch').value=''; renderCatalog(); }
   if(a==='prev') goStep(S.step-1);
   if(a==='add-event'){ S.events.push({type:'Ngunduh Mantu',date:'',start:'',end:'',venue:'',address:''}); save(); renderStep(); refreshPreview(); }
-  if(a==='del-event'){ S.events.splice(+el.dataset.k,1); save(); renderStep(); refreshPreview(); }
+  if(a==='del-event'){ const k=+el.dataset.k, used=G.filter(g=>(g.sessions||[]).includes(k)).length;
+    if(!armed(el, used?`Hapus? ${used} tamu diundang ke acara ini. Ketuk lagi`:'Yakin hapus acara ini? Ketuk lagi')) return;
+    /* undangan tamu disimpan sebagai nomor urut acara: geser supaya tetap menunjuk acara yang sama */
+    S.events.splice(k,1);
+    G.forEach(g=>{ if(!Array.isArray(g.sessions)) return; const s=g.sessions.filter(i=>i!==k).map(i=>i>k?i-1:i); g.sessions = s.length ? s : S.events.map((e,i)=>i); });
+    save(); saveG(); renderStep(); refreshPreview(); toast('Acara dihapus'); }
   if(a==='publish' && sampleLeft().length){ toast(sampleLeft().map(x=>x[0]).join(', ')+' masih contoh. Ganti dulu sebelum dipublikasikan, ya.'); return; }
   if(a==='publish'){ CO.stage='form'; CO.plan=S.plan; if(!S.user) openAuth(()=>{ location.hash='checkout'; },'publish'); else location.hash='checkout'; }
   if(a==='open-inv') openGuest();
@@ -6448,7 +6469,8 @@ $('#mobileMenu').addEventListener('click',e=>{ if(e.target.closest('a')){ $('#mo
 
 /* ---------- Account ---------- */
 let UPGRADE_PRICE = 220000;
-const VOUCHERS = {SAKARA10:{type:'pct',v:10,label:'Diskon 10%'}, NIKAHHEMAT:{type:'amt',v:25000,label:'Potongan Rp25.000'}};
+/* kode voucher dicek di server (/api/pay/voucher); daftar lokal hanya untuk prototipe di localhost */
+const VOUCHERS = {}; const PROTO_VOUCHERS = {SAKARA10:{type:'pct',v:10,label:'Diskon 10%'}};
 function renderAuthSlot(){
   if($('#plans') && $('#plans').children.length) renderPlans();
   const real = (DEMO.on && DEMO.saved) ? DEMO.saved.S : S;
@@ -6575,13 +6597,13 @@ function renderCheckout(){
         return `<div class="co-upsell">${ico('up')}<span>Tambah ${rupiah(up.price-cur.price)} aja, kamu dapat ${esc(extra.join(', '))}. <button type="button" class="linkbtn" data-act="co-pick-plan" data-p="${esc(up.id)}">Pilih ${esc(up.name)}</button></span></div>`; })()}
       <h2 class="co-h">Kode voucher</h2>
       <div class="vrow"><input class="input" id="coV" placeholder="Masukkan kode" value="${esc(CO.voucher)}" aria-label="Kode voucher" autocomplete="off"><button type="button" class="btn btn-ghost" data-act="apply-voucher">Pakai</button></div>
-      <p class="hint" id="coVmsg" style="margin-top:6px;font-size:13px;${CO.applied?'color:var(--ok);font-weight:700':'color:var(--muted)'}">${CO.applied?`${esc(VOUCHERS[CO.applied].label)} dipakai.`:(CLOUD.on?'Nggak punya kode? Lewati aja.':'Coba SAKARA10 di prototype ini.')}</p>
+      <p class="hint" id="coVmsg" style="margin-top:6px;font-size:13px;${CO.applied?'color:var(--ok);font-weight:700':'color:var(--muted)'}">${CO.applied?`${esc(VOUCHERS[CO.applied].label)} dipakai.`:'Tidak punya kode? Lewati saja.'}</p>
       <h2 class="co-h">Metode pembayaran</h2>
       <div class="pay-opts" role="radiogroup" aria-label="Metode pembayaran">
-        ${[['qris','QRIS','Scan dari m-banking atau e-wallet apa pun','qr'],['va','Virtual Account','BCA, Mandiri, BNI, BRI','receipt'],['ewallet','E-wallet','GoPay, OVO, DANA, ShopeePay','wa']].map(([k,l,d,i])=>`<label class="pay-opt"><input type="radio" name="coM" value="${k}" ${CO.method===k?'checked':''}><span class="pi">${ico(i)}</span><span><b>${l}</b><small>${d}</small></span></label>`).join('')}
+        ${[['qris','QRIS','Scan dari m-banking atau e-wallet apa pun','qr'],['va','Virtual Account','BCA, Mandiri, BNI, BRI','receipt'],['ewallet','E-wallet','GoPay, ShopeePay','wa']].map(([k,l,d,i])=>`<label class="pay-opt"><input type="radio" name="coM" value="${k}" ${CO.method===k?'checked':''}><span class="pi">${ico(i)}</span><span><b>${l}</b><small>${d}</small></span></label>`).join('')}
       </div>
       ${CO.method==='va'?`<div class="seg" style="margin-top:12px" role="group" aria-label="Bank">${['BCA','Mandiri','BNI','BRI'].map(b=>`<button type="button" data-bank="${b}" aria-pressed="${CO.bank===b}">${b}</button>`).join('')}</div>`:''}
-      ${CO.method==='ewallet'?`<div class="seg" style="margin-top:12px" role="group" aria-label="E-wallet">${['GoPay','OVO','DANA','ShopeePay'].map(b=>`<button type="button" data-wallet="${b}" aria-pressed="${CO.wallet===b}">${b}</button>`).join('')}</div>`:''}
+      ${CO.method==='ewallet'?`<div class="seg" style="margin-top:12px" role="group" aria-label="E-wallet">${['GoPay','ShopeePay'].map(b=>`<button type="button" data-wallet="${b}" aria-pressed="${CO.wallet===b}">${b}</button>`).join('')}</div>`:''}
       <div class="form-foot"><span class="muted" style="font-size:13px">Bukti bayar dikirim ke ${esc(S.user.email)}</span><button class="btn btn-primary">Bayar ${rupiah(T.total)}</button></div>
       ${CLOUD.on?`<p class="muted" style="font-size:12.5px">Pembayaran diproses aman oleh Midtrans${CLOUD.cfg.midtransProduction?'':' (mode uji coba / sandbox)'}.</p>`:'<p class="muted" style="font-size:12.5px">Prototype: tidak ada pembayaran sungguhan yang diproses.</p>'}
       ${CLOUD.pendingOrder?`<div class="warn-box" style="margin-top:12px">${ico('receipt')}<span>Ada pembayaran yang belum selesai (${esc(CLOUD.pendingOrder)}). <button type="button" class="linkbtn" data-act="co-resume">Lanjutkan pembayaran</button> · <button type="button" class="linkbtn" data-act="co-check">Cek status</button></span></div>`:''}
@@ -6615,7 +6637,9 @@ function renderCheckout(){
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px"><button class="btn btn-ghost" data-act="copy" data-v="${esc(pubURL())}">${ico('copy')}Salin link</button><a class="btn btn-ghost" href="#tagihan">${ico('receipt')}Lihat tagihan</a><a class="btn btn-primary" href="#dashboard" data-act="co-reset">Mulai kirim ke tamu</a></div></div>`;
   }
 }
-function applyVoucher(){ const c=($('#coV').value||'').trim().toUpperCase(); CO.voucher=c; if(VOUCHERS[c]){ CO.applied=c; renderCheckout(); toast(VOUCHERS[c].label+' dipakai'); } else { CO.applied=null; const m=$('#coVmsg'); m.textContent= c?`Kode "${c}" tidak berlaku. Periksa ejaannya.`:'Masukkan kode voucher dulu.'; m.style.color='var(--no)'; m.style.fontWeight='700'; } }
+async function applyVoucher(){ const c=($('#coV').value||'').trim().toUpperCase(); CO.voucher=c;
+  if(c && !VOUCHERS[c]){ try{ if(CLOUD.on){ const r=await fetch('/api/pay/voucher?code='+encodeURIComponent(c)); if(r.ok){ const j=await r.json(); VOUCHERS[c]={type:j.type, v:j.v, label:j.label}; } } else if(PROTO && PROTO_VOUCHERS[c]) VOUCHERS[c]=PROTO_VOUCHERS[c]; }catch(_){} }
+  if(VOUCHERS[c]){ CO.applied=c; renderCheckout(); toast(VOUCHERS[c].label+' dipakai'); } else { CO.applied=null; const m=$('#coVmsg'); m.textContent= c?`Kode "${c}" tidak berlaku. Periksa ejaannya.`:'Masukkan kode voucher dulu.'; m.style.color='var(--no)'; m.style.fontWeight='700'; } }
 function completePayment(){
   const T=coTotals(); const up = coMode()==='upgrade';
   S.invoices = S.invoices||[]; const seq = String(S.invoices.length+1).padStart(4,'0');
@@ -6878,9 +6902,11 @@ document.addEventListener('click', e=>{
   if(a==='ci-undo' && ciAuth()){ const g=G.find(x=>x.id===el.dataset.id); ciRpc('ci_undo',{p_id:el.dataset.id}).then(r=>{ if(r.error||!g) return; delete g.checkin; if(CLOUD.inv) CLOUD.lastG.set(g.id, JSON.stringify(toRow(g))); closeModal(); if(location.hash==='#checkin'||CLOUD.pinMode) renderCheckin(); else renderDash(); toast('Check-in '+g.name+' dibatalkan'); }); return; }
   if(a==='ci-undo'){ const g=G.find(x=>x.id===el.dataset.id); if(g){ delete g.checkin; saveG(); closeModal(); if(location.hash==='#checkin') renderCheckin(); else renderDash(); toast('Check-in '+g.name+' dibatalkan'); } }
   if(a==='groups') groupsModal();
-  if(a==='grp-del'){ const gname=el.dataset.g; G.forEach(g=>{ if(g.group===gname) g.group='Tanpa grup'; }); S.groups=(S.groups||[]).filter(x=>x!==gname); if(gGroup===gname) gGroup='semua'; saveG(); save(); groupsModal(); renderDash(); }
+  if(a==='grp-del'){ const gname=el.dataset.g, ids=G.filter(g=>g.group===gname).map(g=>g.id), had=(S.groups||[]).includes(gname);
+    G.forEach(g=>{ if(g.group===gname) g.group='Tanpa grup'; }); S.groups=(S.groups||[]).filter(x=>x!==gname); if(gGroup===gname) gGroup='semua'; saveG(); save(); groupsModal(); renderDash();
+    toast(`Grup ${gname} dihapus${ids.length?`, ${ids.length} tamu pindah ke Tanpa grup`:''}`, ()=>{ G.forEach(g=>{ if(ids.includes(g.id)) g.group=gname; }); if(had && !(S.groups||[]).includes(gname)) S.groups=[...(S.groups||[]), gname]; saveG(); save(); if($('.grp-list')) groupsModal(); renderDash(); }); }
   if(a==='guest-menu') guestModal(el.dataset.id);
-  if(a==='del-guest'){ const i=G.findIndex(x=>x.id===el.dataset.id); if(i>-1){ const n=G[i].name; G.splice(i,1); saveG(); closeModal(); renderDash(); toast(n+' dihapus'); } }
+  if(a==='del-guest'){ const i=G.findIndex(x=>x.id===el.dataset.id); if(i>-1){ const g=G[i]; G.splice(i,1); sel.delete(g.id); saveG(); closeModal(); renderDash(); toast(g.name+' dihapus', ()=>{ if(!G.some(x=>x.id===g.id)){ G.splice(Math.min(i,G.length),0,g); saveG(); renderDash(); toast(g.name+' dikembalikan'); } }); } }
   if(a==='view-as'){ guestId = el.dataset.id || null; closeModal(); location.hash='undangan'; if(location.hash==='#undangan') renderGuest(); }
   if(a==='import-help') importHelp();
 });
@@ -6964,6 +6990,9 @@ async function ownerLoad(user){
     sb.from('families').select('*').eq('invitation_id',inv.id).order('created_at')]);
   S.families = (fm.data||[]).map(x=>({id:x.id, name:x.name, quota:x.quota, token:x.token}));
   G = (g.data||[]).map(fromRow);
+  /* grup contoh (Keluarga Sarah, Kantor Raka, …) tidak dipakai di akun asli bila belum ada tamu di dalamnya */
+  if(Array.isArray(S.groups) && S.groups.some(x=>GROUPS.includes(x))){ const used=new Set(G.map(x=>x.group)); const keep=S.groups.filter(x=>!GROUPS.includes(x) || used.has(x)); if(keep.length!==S.groups.length){ S.groups = keep.length ? keep : [...GROUPS_REAL]; save(); } }
+  if(Array.isArray(S.groups) && !S.groups.length) S.groups=[...GROUPS_REAL];
   CLOUD.lastG = new Map(G.map(x=>[x.id, JSON.stringify(toRow(x))]));
   W = (w.data||[]).map(x=>({id:x.id, n:x.name, m:x.message, t:relTime(x.created_at), att:x.attending, show:!x.hidden}));
   GIFTS = (gf.data||[]).map(x=>({n:x.name, bank:x.bank, amt:Number(x.amount), t:fmtDT(x.created_at)}));
@@ -7605,7 +7634,7 @@ document.addEventListener('change', async e=>{ const t=e.target;
   if(t.dataset && t.dataset.stimg!==undefined && t.files && t.files[0]){ const it=S.story.items[+t.dataset.stimg]; const d=await shrink(t.files[0], 900); const url=await storePhoto(d); if(url){ it.img=url; delete S.story.demo; save(); renderStep(); refreshPreview(); } } });
 document.addEventListener('click', e=>{ const el=e.target.closest('[data-act]'); if(!el) return; const a=el.dataset.act;
   if(a==='st-add'){ delete S.story.demo; S.story.items.push({id:'c'+Date.now().toString(36), date:'', title:'', text:''}); S.story.on=true; save(); renderStep(); refreshPreview(); edRail(); const ins=$$('[data-st=date]'); ins[ins.length-1]?.focus(); }
-  if(a==='st-del'){ delete S.story.demo; S.story.items.splice(+el.dataset.i,1); save(); renderStep(); refreshPreview(); edRail(); }
+  if(a==='st-del'){ delete S.story.demo; const k=+el.dataset.i, [it]=S.story.items.splice(k,1); save(); renderStep(); refreshPreview(); edRail(); toast('Momen dihapus', ()=>{ S.story.items.splice(Math.min(k,S.story.items.length),0,it); save(); renderStep(); refreshPreview(); edRail(); }); }
   if(a==='st-up'){ const i=+el.dataset.i; if(i>0){ const x=S.story.items; [x[i-1],x[i]]=[x[i],x[i-1]]; delete S.story.demo; save(); renderStep(); refreshPreview(); } }
 });
 
