@@ -311,8 +311,8 @@ img.is-empty{visibility:hidden}
       <div class="arch"><div class="ph"><img data-src="photos.bride" alt=""></div></div>
       <div>
         <h3 data-k="couple.bride.name"></h3>
-        <p><span data-k="couple.bride.parentsLine"></span><br>Bapak <span data-k="couple.bride.father"></span><br>&amp; Ibu <span data-k="couple.bride.mother"></span></p>
-        <a class="ig" data-show="couple.bride.instagram" target="_blank" rel="noopener">@<span data-k="couple.bride.instagram"></span></a>
+        <p><span data-k="couple.bride.pl"></span><br data-show="couple.bride.dad"><span data-k="couple.bride.dad"></span><br data-show="couple.bride.mom"><span data-k="couple.bride.amp"></span><span data-k="couple.bride.mom"></span></p>
+        <a class="ig" data-href="couple.bride.igUrl" data-show="couple.bride.instagram" target="_blank" rel="noopener">@<span data-k="couple.bride.instagram"></span></a>
       </div>
     </div>
 
@@ -322,8 +322,8 @@ img.is-empty{visibility:hidden}
       <div class="arch"><div class="ph"><img data-src="photos.groom" alt=""></div></div>
       <div>
         <h3 data-k="couple.groom.name"></h3>
-        <p><span data-k="couple.groom.parentsLine"></span><br>Bapak <span data-k="couple.groom.father"></span><br>&amp; Ibu <span data-k="couple.groom.mother"></span></p>
-        <a class="ig" data-show="couple.groom.instagram" target="_blank" rel="noopener">@<span data-k="couple.groom.instagram"></span></a>
+        <p><span data-k="couple.groom.pl"></span><br data-show="couple.groom.dad"><span data-k="couple.groom.dad"></span><br data-show="couple.groom.mom"><span data-k="couple.groom.amp"></span><span data-k="couple.groom.mom"></span></p>
+        <a class="ig" data-href="couple.groom.igUrl" data-show="couple.groom.instagram" target="_blank" rel="noopener">@<span data-k="couple.groom.instagram"></span></a>
       </div>
     </div>
     <div class="flora" style="left:-10%;bottom:-150px;width:32%;transform:rotate(-6deg)"><img src="assets/flora-3.webp" alt=""></div>
@@ -353,19 +353,22 @@ img.is-empty{visibility:hidden}
       <img class="venue-art rv" src="assets/venue.webp" alt="">
       <div class="event rv" data-show="event.akad.venue">
         <h4>Akad Nikah</h4>
-        <div class="when" data-k="_date.long"></div>
+        <div class="when" data-k="event.akad.long"></div>
         <p data-k="event.akad.time"></p>
         <div class="where" data-k="event.akad.venue"></div>
         <p class="pre" data-k="event.akad.address"></p>
+        <a class="btn" data-href="event.akad.maps" data-show="event.akad.maps" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          Petunjuk Lokasi
+        </a>
       </div>
       <img class="lily rv" src="assets/calla-lily.webp" alt="" data-show="event.akad.venue">
       <div class="event rv">
         <h4>Resepsi</h4>
-        <div class="when" data-k="_date.long"></div>
+        <div class="when" data-k="event.resepsi.long"></div>
         <p data-k="event.resepsi.time"></p>
         <div class="where" data-k="event.resepsi.venue"></div>
         <p class="pre" data-k="event.resepsi.address"></p>
-        <a class="btn" data-href="event.mapsUrl" data-show="event.mapsUrl" target="_blank" rel="noopener">
+        <a class="btn" data-href="event.resepsi.maps" data-show="event.resepsi.maps" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
           Petunjuk Lokasi
         </a>
@@ -581,7 +584,7 @@ Invite.init({
   theme: "drapery", locale: "id",
   onRender(d){
     const [y,m,day] = (d.event.date || "").split("-").map(Number);
-    eventAt = y ? new Date(y, m-1, day, 8).getTime() : 0;
+    eventAt = d._at || 0;
     const q = new URLSearchParams(location.search).get("to"), h = location.hash.slice(1);
     const guest = q || (h && /^[A-Za-z0-9-]+$/.test(h) && !["preview","draft"].includes(h) ? h.replace(/-/g," ") : "");
     if (guest) $("#guestName").textContent = guest;

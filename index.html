@@ -1859,7 +1859,7 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 .inv.lay-kebun .kb-l{position:absolute;inset:0;width:100%;height:100%;display:block}
 .inv.lay-kebun .kb-txt{position:absolute;left:20%;right:20%;top:26%;display:flex;flex-direction:column;align-items:center;text-align:center;z-index:2;color:#4A2C40}
 .inv.lay-kebun .kb-txt .k-label{text-shadow:0 1px 6px var(--kb-sh);font-family:var(--inv-body);font-size:clamp(9px,2.6cqi,12px);letter-spacing:.24em;text-transform:uppercase;color:#FFFDF8;opacity:1}
-.inv.lay-kebun .kb-txt .names{font-family:'Great Vibes',cursive;font-weight:400;font-size:clamp(30px,12cqi,56px);line-height:1;margin:6px 0 4px;color:#FFFDF8;text-shadow:0 2px 0 var(--kb-sh),0 0 18px color-mix(in srgb,var(--kb-sh) 60%,transparent);display:flex;flex-direction:column;align-items:center}
+.inv.lay-kebun .kb-txt .names{font-family:'Great Vibes',cursive;font-weight:400;font-size:clamp(30px,12cqi,56px);line-height:1;margin:6px 0 4px;color:#FFFDF8;text-shadow:0 2px 0 var(--kb-sh),0 1px 3px rgba(0,0,0,.45),0 0 18px color-mix(in srgb,var(--kb-sh) 75%,transparent);display:flex;flex-direction:column;align-items:center}
 .inv.lay-kebun .kb-txt .names .amp{font-size:.62em;margin:-2px 0;color:var(--kb-amp)}
 .inv.lay-kebun .kb-txt .date{text-shadow:0 1px 6px var(--kb-sh);font-family:var(--inv-body);font-weight:600;font-size:clamp(10px,3cqi,13px);letter-spacing:.3em;color:#FFFDF8}
 .inv.lay-kebun .kb-pet{position:absolute;inset:0;pointer-events:none;z-index:3;overflow:hidden}
@@ -1919,7 +1919,7 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 /* ---------- Tema Beludru Anggur: beludru hijau, suede anggur, plester lumut, amplop & renda ---------- */
 .inv.lay-beludru{--bl-su:url(/assets/beludru/suede-wine.webp);--bl-pl:url(/assets/beludru/plaster-moss.webp);--bl-vv:url(/assets/beludru/velvet.webp);--bl-gold:#D9B98A;--bl-rose:#E7B9C6;--bl-cream:#F5EEE3;--bl-scr:'Pinyon Script','Great Vibes',cursive;color:var(--bl-cream);background:#5B0F16}
 .inv.lay-beludru .pat{display:none}
-.inv.lay-beludru .cover{min-height:max(100%,196cqi);position:relative;overflow:hidden;justify-content:flex-start;padding:0 0 clamp(26px,8cqi,44px);gap:0;background:#0E2A1C var(--bl-vv) center top/cover;color:var(--bl-cream)}
+.inv.lay-beludru .cover{min-height:max(100%,min(196cqi,100svh));position:relative;overflow:hidden;justify-content:flex-start;padding:0 0 clamp(26px,8cqi,44px);gap:0;background:#0E2A1C var(--bl-vv) center top/cover;color:var(--bl-cream)}
 .inv.lay-beludru .bl-val{position:absolute;top:0;left:0;width:100%;height:auto;z-index:5;pointer-events:none;filter:drop-shadow(0 8px 10px rgba(0,0,0,.4))}
 .inv.lay-beludru .bl-fl{position:absolute;z-index:6;pointer-events:none;height:auto;filter:drop-shadow(0 6px 8px rgba(0,0,0,.35))}
 .inv.lay-beludru .bl-fl1{left:-14%;top:22cqi;width:40%}
@@ -1929,7 +1929,7 @@ html.ff-off-musik [data-act=g-music]{display:none !important}
 .inv.lay-beludru .cover .names{display:flex;flex-direction:column;align-items:center;font-family:var(--bl-scr);font-weight:400;font-size:clamp(42px,14cqi,62px);line-height:1.02;margin:10px 0 6px;color:var(--bl-cream);text-shadow:0 2px 18px rgba(0,0,0,.6)}
 .inv.lay-beludru .cover .names .amp{display:block;font-style:normal;font-size:.66em;line-height:.9;margin:0;color:var(--bl-rose)}
 .inv.lay-beludru .cover .date{font-family:'Marcellus',Georgia,serif;font-size:clamp(11px,3.2cqi,14px);letter-spacing:.26em;color:var(--bl-cream)}
-.inv.lay-beludru .bl-env{position:relative;z-index:3;width:88%;max-width:390px;aspect-ratio:900/879;margin:auto auto 0}
+.inv.lay-beludru .bl-env{position:relative;z-index:3;width:min(88%,calc((100svh - 300px)*.98));max-width:390px;aspect-ratio:900/879;margin:auto auto 0}
 .inv.lay-beludru .cover .bl-env{margin-top:calc(30cqi + 6px)}
 .inv.lay-beludru .bl-env>img{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 14px 18px rgba(0,0,0,.45))}
 .inv.lay-beludru .bl-env .bk{z-index:1}.inv.lay-beludru .bl-env .ft{z-index:3}
@@ -4371,7 +4371,8 @@ function cxData(id){
     return {...D.couple[w], name:p.name||'', short:p.nick||'', instagram:(p.ig||'').replace(/^@/,''), parentsLine:pr.line, father:pr.father, mother:pr.mother, knownFor:x.knownFor||'', bio:x.bio||''}; };
   d.couple={bride:person('bride'), groom:person('groom')};
   const ev=S.events||[], akad=ev.find(e=>/akad|pemberkatan|holy|janji|sakramen/i.test(e.type||'')), res=ev.find(e=>/resepsi|reception|pesta/i.test(e.type||''))||ev.filter(e=>e!==akad).slice(-1)[0];
-  const evo=e=>e?{time:cxTime(e), venue:e.venue||'', address:e.address||''}:{time:'',venue:'',address:''};
+  const evMap=e=>e&&e.venue ? 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(`${e.venue} ${e.address||''}`) : '';
+  const evo=e=>e?{time:cxTime(e), venue:e.venue||'', address:e.address||'', date:e.date||'', start:e.start||'', off:({WIB:7,WITA:8,WIT:9})[typeof evTz==='function'?evTz(e):'WIB']||7, maps:evMap(e)}:{time:'',venue:'',address:'',date:'',start:'',maps:''};
   const main=res||akad||ev[0];
   d.event={date:(ev.find(e=>e.date)||{}).date||D.event.date, akad:evo(akad), resepsi:evo(res||(!akad?ev[0]:null)), mapsUrl: main&&main.venue ? 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(`${main.venue} ${main.address||''}`) : ''};
   const g=S.gift||{}, xg=X.gift||{};
@@ -4390,7 +4391,7 @@ function cxData(id){
   Object.assign(ph, X.photos||{}); d.photos=ph;
   const sec={...D.sections, ...(X.sections||{})}; sec.rsvp = S.wishesOn!==false; sec.gift = S.gift?S.gift.on!==false:true; sec.story = !!(S.story&&S.story.on&&(S.story.items||[]).length); d.sections=sec;
   { const P0=cxPh0(t); d._sample = Object.keys(P0).filter(k=>ph[k]===P0[k]); } d._editor = !CLOUD.guestMode;
-  d.music={src: S.music===false ? '' : musicURL()};
+  d.music={src: S.music===false ? '' : musicURL(), start: +S.musicStart||0};
   d._order = X.order || null;
   const lk=cxLook(t), lang=cxLang(t); d._palette=lk.pal||''; d._font=lk.font||''; d._lang=lang;
   const op=S.opening||'islam', O=(lang==='en'?CX_OPEN_EN:OPENINGS)[op]||(lang==='en'?CX_OPEN_EN.umum:OPENINGS.umum); d._opening={salam:O.salam||'', text:O.text||'', arabic:op==='islam'};
@@ -7404,6 +7405,23 @@ document.addEventListener('input', e=>{
 document.addEventListener('change', async e=>{
   if(e.target.id==='alOn'){ S.albumOn=e.target.checked; save(); toast(S.albumOn?'Album menerima foto lagi':'Album ditutup. Foto yang ada tetap bisa dilihat.'); }
 });
+
+/* ---------- Nama di sampul: tidak terpotong di tengah kata ---------- */
+/* nama panjang (mis. "Anastasiaputri") mengecil sampai muat satu kata per baris */
+function fitNames(){
+  document.querySelectorAll('.inv .cover .names, .tx>h1').forEach(n=>{
+    if(!n.isConnected || !n.clientWidth) return;
+    n.style.fontSize=''; let fs=parseFloat(getComputedStyle(n).fontSize)||40; const cv=n.closest('.cover')||n.parentElement, min=fs*.45, avail=Math.min((n.parentElement||n).clientWidth, cv.clientWidth*.9);
+    const raw=(n.innerText||n.textContent), words=/nowrap/.test(getComputedStyle(n).whiteSpace) ? [raw.replace(/\s+/g,' ').trim()] : raw.split(/\s+/).filter(Boolean); if(!words.length) return;
+    const pr=document.createElement('span'); pr.style.cssText='position:absolute;left:0;top:0;visibility:hidden;white-space:nowrap;pointer-events:none'; n.appendChild(pr);
+    const widest=()=>Math.max(...words.map(w=>{ pr.textContent=w; return pr.offsetWidth; }));
+    let i=0; while(widest() > avail && fs>min && i++<24){ fs*=.93; n.style.fontSize=fs.toFixed(1)+'px'; }
+    pr.remove();
+  });
+}
+let fitT=0; const fitSoon=()=>{ clearTimeout(fitT); fitT=setTimeout(fitNames,60); };
+new MutationObserver(ms=>{ if(ms.some(m=>[...m.addedNodes].some(x=>x.nodeType===1 && (x.matches?.('.cover,.inv,.tx') || x.querySelector?.('.cover .names,.tx>h1'))))) fitSoon(); }).observe(document.body,{childList:true,subtree:true});
+addEventListener('resize', fitSoon); document.fonts && document.fonts.ready.then(fitSoon); document.fonts && document.fonts.addEventListener?.('loadingdone', fitSoon);
 
 /* ---------- Cetak (PDF) ---------- */
 function printHTML(html, kind){

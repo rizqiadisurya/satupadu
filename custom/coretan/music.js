@@ -40,7 +40,8 @@ window.Music = (() => {
     reset(){ const was = playing; this.pause(); audio = null; step = 0; if (was) this.play(); },
     play(){
       const SRC = (window.Invite && Invite.data && Invite.data.music && Invite.data.music.src) || "";
-      if (SRC){ audio ||= Object.assign(new Audio(SRC),{loop:true}); audio.play().catch(()=>{}); playing = true; return; }
+      if (!SRC && window.Invite && Invite.data && Invite.data._host) return; /* musik dimatikan pasangan: jangan putar musik bawaan */
+      if (SRC){ audio ||= Object.assign(new Audio(SRC),{loop:true}); if (!audio._seeked) { audio._seeked = true; const st = Invite.musicStart(); if (st) audio.addEventListener("loadedmetadata", () => { audio.currentTime = st; }, { once: true }); } audio.play().catch(()=>{}); playing = true; return; }
       if (!ctx) init(); ctx.resume(); nextT = ctx.currentTime + .05; startAt = nextT - (step%LOOP)*beat; timer = setInterval(tick, 60); playing = true;
     },
     pause(){ playing = false; if (audio) return audio.pause(); clearInterval(timer); },

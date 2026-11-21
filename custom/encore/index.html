@@ -171,7 +171,7 @@ sec,.sec{position:relative;display:block;padding:64px 22px}
 .venue .tag span{rotate:-90deg;font-family:var(--block);font-size:18px;letter-spacing:.16em;white-space:nowrap}
 .venue h4{font-family:var(--deco);font-weight:400;font-size:21px;margin:0;letter-spacing:.04em}
 .venue p{font-family:var(--type);font-size:13.5px;margin:4px 0 0;line-height:1.5}
-.maps{text-align:center;margin-top:26px}
+.maps{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:26px}
 .lamp{width:40px;left:-14px;top:150px;filter:drop-shadow(0 0 16px rgba(255,236,200,.55))}
 .wardrobe{margin-top:44px;text-align:center}
 .wardrobe h3{font-family:var(--script);font-weight:400;font-size:40px;color:var(--blush);margin:0;line-height:1}
@@ -232,7 +232,7 @@ sec,.sec{position:relative;display:block;padding:64px 22px}
 .form{margin-top:22px;background:var(--paper);color:var(--ink);padding:20px;box-shadow:0 16px 28px rgba(0,0,0,.45);rotate:1deg;border-left:10px dashed var(--rose)}
 .form label{display:block;font-family:var(--block);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--rose-2);margin:14px 0 2px}
 .form label:first-child{margin-top:0}
-.form input,.form textarea{width:100%;background:transparent;border:0;border-bottom:2px solid var(--ink);color:var(--ink);font-family:var(--type);font-size:16px;padding:6px 2px;outline:none;border-radius:0}
+.form input,.form textarea,.form select{width:100%;background:transparent;border:0;border-bottom:2px solid var(--ink);color:var(--ink);font-family:var(--type);font-size:16px;padding:6px 2px;outline:none;border-radius:0}
 .form textarea{resize:vertical;min-height:70px}
 .att{display:flex;gap:8px;margin-top:6px}
 .att button{flex:1;border:2px solid var(--ink);border-radius:3px;background:none;color:var(--ink);padding:8px;font-family:var(--block);font-size:14px;letter-spacing:.1em;text-transform:uppercase}
@@ -337,13 +337,13 @@ footer{position:relative;z-index:1;max-width:var(--col);margin:0 auto;text-align
     <div class="star rv">
       <div class="card"><img data-src="photos.bride" alt=""><span class="badge">Starring</span><h3 class="nm" data-k="couple.bride.short"></h3></div>
       <img class="dec roses" src="assets/roses.webp" alt="">
-      <div class="info"><span class="full" data-k="couple.bride.name"></span><span data-k="couple.bride.parentsLine"></span><br>Bapak <span data-k="couple.bride.father"></span> &amp; Ibu <span data-k="couple.bride.mother"></span><br><a class="ig" data-show="couple.bride.instagram" target="_blank" rel="noopener">@<span data-k="couple.bride.instagram"></span></a></div>
+      <div class="info"><span class="full" data-k="couple.bride.name"></span><span data-k="couple.bride.pl"></span><br data-show="couple.bride.pl"><span data-k="couple.bride.dad"></span> <span data-k="couple.bride.amp"></span><span data-k="couple.bride.mom"></span><br data-show="couple.bride.instagram"><a class="ig" data-href="couple.bride.igUrl" data-show="couple.bride.instagram" target="_blank" rel="noopener">@<span data-k="couple.bride.instagram"></span></a></div>
     </div>
     <div class="and rv">and</div>
     <div class="star r rv">
       <div class="card"><img data-src="photos.groom" alt=""><span class="badge">Co-starring</span><h3 class="nm" data-k="couple.groom.short"></h3></div>
       <img class="dec roses" src="assets/roses.webp" alt="">
-      <div class="info"><span class="full" data-k="couple.groom.name"></span><span data-k="couple.groom.parentsLine"></span><br>Bapak <span data-k="couple.groom.father"></span> &amp; Ibu <span data-k="couple.groom.mother"></span><br><a class="ig" data-show="couple.groom.instagram" target="_blank" rel="noopener">@<span data-k="couple.groom.instagram"></span></a></div>
+      <div class="info"><span class="full" data-k="couple.groom.name"></span><span data-k="couple.groom.pl"></span><br data-show="couple.groom.pl"><span data-k="couple.groom.dad"></span> <span data-k="couple.groom.amp"></span><span data-k="couple.groom.mom"></span><br data-show="couple.groom.instagram"><a class="ig" data-href="couple.groom.igUrl" data-show="couple.groom.instagram" target="_blank" rel="noopener">@<span data-k="couple.groom.instagram"></span></a></div>
     </div>
     <img src="assets/shoes.webp" alt="" style="width:220px;margin:40px auto 0" class="rv">
   </section>
@@ -365,18 +365,18 @@ footer{position:relative;z-index:1;max-width:var(--col);margin:0 auto;text-align
         <div data-show="sections.event">
       <img class="marq" src="assets/marquee.webp" alt="">
       <p class="kicker rv">Jadwal tayang</p>
-      <h2 class="title rv">Acara<span class="s">malam ini</span></h2>
+      <h2 class="title rv">Acara<span class="s">hari bahagia</span></h2>
       <div class="board rv" style="margin-top:26px">
         <div class="row pink">Sedang tayang</div>
         <div class="row"><span data-k="couple.bride.short"></span> + <span data-k="couple.groom.short"></span></div>
         <hr>
-        <div data-show="event.akad.venue"><div class="row">Akad nikah</div><div class="row sm pink" data-k="event.akad.time"></div><hr></div>
+        <div data-show="event.akad.venue"><div class="row">Akad nikah</div><div class="row sm pink" data-k="event.akad.time"></div><div class="row sm" data-k="event.akad.note" data-show="event.akad.note"></div><hr></div>
         <div class="row">Resepsi</div><div class="row sm pink" data-k="event.resepsi.time"></div>
-        <hr><div class="row sm" data-k="_date.long"></div>
+        <hr><div class="row sm" data-k="event.resepsi.long"></div>
       </div>
       <div class="venue rv" data-show="event.akad.venue"><span class="tag"><span>Akad</span></span><h4 data-k="event.akad.venue"></h4><p class="pre" data-k="event.akad.address"></p></div>
       <div class="venue rv"><span class="tag"><span>Resepsi</span></span><h4 data-k="event.resepsi.venue"></h4><p class="pre" data-k="event.resepsi.address"></p></div>
-      <div class="maps rv"><a class="btn" data-href="event.mapsUrl" data-show="event.mapsUrl" target="_blank" rel="noopener">Petunjuk lokasi</a></div>
+      <div class="maps rv"><a class="btn" data-href="event.akad.maps" data-show="event.akad.maps" target="_blank" rel="noopener">Lokasi akad</a> <a class="btn" data-href="event.resepsi.maps" data-show="event.resepsi.maps" target="_blank" rel="noopener"><span data-k="event.resepsi.mapLabel"></span></a></div>
     </div>
     <div class="wardrobe rv" data-section="dresscode" data-show="sections.dresscode">
       <h3>wardrobe</h3>
@@ -437,6 +437,7 @@ footer{position:relative;z-index:1;max-width:var(--col);margin:0 auto;text-align
       <label for="fMsg">Ucapan &amp; doa</label><textarea id="fMsg" maxlength="400" required></textarea>
       <label>Kehadiran</label>
       <div class="att"><button type="button" class="on" data-att="hadir">Hadir</button><button type="button" data-att="tidak">Berhalangan</button></div>
+      <div id="paxField"><label for="fPax">Jumlah tamu</label><select id="fPax"><option value="1">1 orang</option><option value="2">2 orang</option><option value="3">3 orang</option><option value="4">4 orang</option></select></div>
       <button class="btn" type="submit">Kirim ulasan</button>
       <div class="note" id="note"></div>
     </form>
@@ -611,8 +612,8 @@ function wall(){
   $("#tHadir").textContent = all.filter(w => w.a==="hadir").length; $("#tTidak").textContent = all.filter(w => w.a!=="hadir").length;
 }
 let att = "hadir";
-$$("[data-att]").forEach(b => b.onclick = () => { att = b.dataset.att; $$("[data-att]").forEach(x => x.classList.toggle("on", x===b)); });
-$("#rsvpForm").addEventListener("submit", e => { e.preventDefault(); const n = $("#fName").value.trim(), m = $("#fMsg").value.trim(); if (!n || !m) return; if (SakaraBridge.host()) { SakaraBridge.send({n, a:att, m, pax: att==="hadir" ? 1 : 0}); Invite.data._wishes = [{n, a:att, m, t:"baru saja"}, ...load()]; } else save([{n, a:att, m, t:"baru saja"}, ...load()]); e.target.reset(); $("#note").textContent = "Terima kasih, ulasan Anda sudah tayang."; wall(); const r = e.target.getBoundingClientRect(); burst(r.left + r.width/2, r.bottom - 40, 24, 1); });
+$$("[data-att]").forEach(b => b.onclick = () => { att = b.dataset.att; $$("[data-att]").forEach(x => x.classList.toggle("on", x===b)); $("#paxField").hidden = att!=="hadir"; });
+$("#rsvpForm").addEventListener("submit", e => { e.preventDefault(); const n = $("#fName").value.trim(), m = $("#fMsg").value.trim(); if (!n || !m) return; if (SakaraBridge.host()) { SakaraBridge.send({n, a:att, m, pax: att==="hadir" ? parseInt($("#fPax").value)||1 : 0}); Invite.data._wishes = [{n, a:att, m, t:"baru saja"}, ...load()]; } else save([{n, a:att, m, t:"baru saja"}, ...load()]); e.target.reset(); $("#note").textContent = "Terima kasih, ulasan Anda sudah tayang."; wall(); const r = e.target.getBoundingClientRect(); burst(r.left + r.width/2, r.bottom - 40, 24, 1); });
 wall();
 document.addEventListener("sakara:render", wall);
 
@@ -622,7 +623,7 @@ Invite.init({
   theme: "encore", locale: "id",
   onRender(d){
     const [y,m,day] = (d.event.date || "").split("-").map(Number);
-    eventAt = y ? new Date(y, m-1, day, 9).getTime() : 0;
+    eventAt = d._at || 0;
     $$("[data-wa]").forEach(a => { const num = (a.querySelector("[data-k='$.phone']")?.textContent || "").replace(/\D/g,"").replace(/^0/,"62"); a.href = num ? `https://wa.me/${num}` : ""; a.target = "_blank"; a.rel = "noopener"; });
     const q = new URLSearchParams(location.search).get("to"), h = location.hash.slice(1);
     const guest = q || (h && /^[A-Za-z0-9-]+$/.test(h) && !["preview","draft"].includes(h) ? h.replace(/-/g," ") : "");

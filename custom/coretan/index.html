@@ -122,7 +122,7 @@ section{position:relative;padding:56px 26px}
 .form{border:2px solid var(--ink);border-radius:14px;padding:16px;background:var(--white);box-shadow:3px 4px 0 rgba(140,28,19,.3)}
 .form label{display:block;font-family:var(--name);color:var(--red);font-size:18px;margin:10px 0 4px}
 .form label:first-child{margin-top:0}
-.form input,.form textarea{width:100%;border:0;border-bottom:2px dashed #b9a69c;background:transparent;font:inherit;font-size:18px;padding:6px 2px;outline:none;border-radius:0}
+.form input,.form textarea,.form select{width:100%;border:0;border-bottom:2px dashed #b9a69c;background:transparent;font:inherit;font-size:18px;padding:6px 2px;outline:none;border-radius:0}
 .form input:focus,.form textarea:focus{border-bottom-color:var(--red)}
 .form textarea{resize:vertical;min-height:70px}
 .att{display:flex;gap:10px;margin-top:4px}
@@ -223,14 +223,14 @@ footer{text-align:center;font-family:var(--name);color:#8a7770;font-size:15px;pa
     <div class="oval rv"><div class="photo"><img data-src="photos.couple" alt=""></div><img src="assets/frame-oval.webp" alt=""></div>
     <div class="person rv">
       <h3 data-k="couple.bride.name"></h3>
-      <p><span data-k="couple.bride.parentsLine"></span><br>Bapak <span data-k="couple.bride.father"></span><br>dan Ibu <span data-k="couple.bride.mother"></span></p>
-      <a class="ig" data-show="couple.bride.instagram" target="_blank" rel="noopener">@<span data-k="couple.bride.instagram"></span></a>
+      <p><span data-k="couple.bride.pl"></span><br data-show="couple.bride.dad"><span data-k="couple.bride.dad"></span><br data-show="couple.bride.mom"><span data-k="couple.bride.dan"></span><span data-k="couple.bride.mom"></span></p>
+      <a class="ig" data-href="couple.bride.igUrl" data-show="couple.bride.instagram" target="_blank" rel="noopener">@<span data-k="couple.bride.instagram"></span></a>
     </div>
     <div class="amp rv">&amp;</div>
     <div class="person rv">
       <h3 data-k="couple.groom.name"></h3>
-      <p><span data-k="couple.groom.parentsLine"></span><br>Bapak <span data-k="couple.groom.father"></span><br>dan Ibu <span data-k="couple.groom.mother"></span></p>
-      <a class="ig" data-show="couple.groom.instagram" target="_blank" rel="noopener">@<span data-k="couple.groom.instagram"></span></a>
+      <p><span data-k="couple.groom.pl"></span><br data-show="couple.groom.dad"><span data-k="couple.groom.dad"></span><br data-show="couple.groom.mom"><span data-k="couple.groom.dan"></span><span data-k="couple.groom.mom"></span></p>
+      <a class="ig" data-href="couple.groom.igUrl" data-show="couple.groom.instagram" target="_blank" rel="noopener">@<span data-k="couple.groom.instagram"></span></a>
     </div>
   </section>
 
@@ -244,19 +244,20 @@ footer{text-align:center;font-family:var(--name);color:#8a7770;font-size:15px;pa
       <div class="ev rv" data-show="event.akad.venue">
         <img class="icon" src="assets/candles.webp" alt="">
         <h4>Akad</h4>
-        <p data-k="_date.long"></p>
+        <p data-k="event.akad.long"></p>
         <p data-k="event.akad.time"></p>
         <p class="venue" data-k="event.akad.venue"></p>
         <p class="pre" data-k="event.akad.address"></p>
+        <a class="btn" data-href="event.akad.maps" data-show="event.akad.maps" target="_blank" rel="noopener">Lihat Lokasi</a>
       </div>
       <div class="ev rv">
         <img class="icon" src="assets/heels.webp" alt="">
         <h4>Resepsi</h4>
-        <p data-k="_date.long"></p>
+        <p data-k="event.resepsi.long"></p>
         <p data-k="event.resepsi.time"></p>
         <p class="venue" data-k="event.resepsi.venue"></p>
         <p class="pre" data-k="event.resepsi.address"></p>
-        <a class="btn" data-href="event.mapsUrl" data-show="event.mapsUrl" target="_blank" rel="noopener">Lihat Lokasi</a>
+        <a class="btn" data-href="event.resepsi.maps" data-show="event.resepsi.maps" target="_blank" rel="noopener">Lihat Lokasi</a>
       </div>
     </div>
     <div class="dress rv" data-section="dresscode" data-show="sections.dresscode">
@@ -276,6 +277,7 @@ footer{text-align:center;font-family:var(--name);color:#8a7770;font-size:15px;pa
       <label for="fMsg">Ucapan</label><textarea id="fMsg" maxlength="400" required></textarea>
       <label>Kehadiran</label>
       <div class="att"><button type="button" class="on" data-att="hadir">Hadir</button><button type="button" data-att="tidak">Berhalangan</button></div>
+      <div id="paxField"><label for="fPax">Jumlah tamu</label><select id="fPax"><option value="1">1 orang</option><option value="2">2 orang</option><option value="3">3 orang</option><option value="4">4 orang</option></select></div>
       <button class="btn send" type="submit">Kirim Ucapan</button>
       <div class="note" id="note"></div>
     </form>
@@ -414,10 +416,10 @@ function wall(){
   $("#tHadir").textContent = all.filter(w => w.a==="hadir").length; $("#tTidak").textContent = all.filter(w => w.a!=="hadir").length;
 }
 let att = "hadir";
-$$("[data-att]").forEach(b => b.onclick = () => { att = b.dataset.att; $$("[data-att]").forEach(x => x.classList.toggle("on", x===b)); });
+$$("[data-att]").forEach(b => b.onclick = () => { att = b.dataset.att; $$("[data-att]").forEach(x => x.classList.toggle("on", x===b)); $("#paxField").hidden = att!=="hadir"; });
 $("#rsvpForm").addEventListener("submit", e => {
   e.preventDefault(); const n = $("#fName").value.trim(), m = $("#fMsg").value.trim(); if (!n || !m) return;
-  if (SakaraBridge.host()) { SakaraBridge.send({n, a:att, m, pax: att==="hadir"?1:0}); Invite.data._wishes = [{n, a:att, m, t:"baru saja"}, ...load()]; }
+  if (SakaraBridge.host()) { SakaraBridge.send({n, a:att, m, pax: att==="hadir" ? parseInt($("#fPax").value)||1 : 0}); Invite.data._wishes = [{n, a:att, m, t:"baru saja"}, ...load()]; }
   else save([{n, a:att, m, t:"baru saja"}, ...load()]);
   e.target.reset(); $("#note").textContent = SakaraBridge.t("Makasih! Ucapanmu sudah masuk."); wall();
 });
@@ -431,7 +433,7 @@ Invite.init({
   onRender(d){
     renderDays(d);
     const [y,m,day] = (d.event.date || "").split("-").map(Number);
-    eventAt = y ? new Date(y, m-1, day, 9).getTime() : 0;
+    eventAt = d._at || 0;
     $$("[data-wa]").forEach(a => { const num = (a.querySelector("[data-k='$.phone']")?.textContent || "").replace(/\D/g,"").replace(/^0/,"62"); a.href = num ? `https://wa.me/${num}` : ""; a.target = "_blank"; a.rel = "noopener"; });
     const q = new URLSearchParams(location.search).get("to"), h = location.hash.slice(1);
     const guest = q || (h && /^[A-Za-z0-9-]+$/.test(h) && !["preview","draft"].includes(h) ? h.replace(/-/g," ") : "");
