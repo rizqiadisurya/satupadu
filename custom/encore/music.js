@@ -43,6 +43,7 @@ window.Music = (() => {
     reset(){ const was = playing; this.pause(); audioEl = null; step = 0; if (was) this.play(); },
     play(){
       const SRC = (window.Invite && Invite.data && Invite.data.music && Invite.data.music.src) || "";
+      if (!SRC && window.Invite && Invite.data && Invite.data._host) return; /* musik dimatikan pasangan: jangan putar musik bawaan */
       if (SRC){ audioEl ||= Object.assign(new Audio(SRC), {loop:false}); if (!audioEl._seeked) { audioEl._seeked = true; const st = Invite.musicStart(); if (st) audioEl.addEventListener("loadedmetadata", () => { audioEl.currentTime = st; }, { once: true }); } if (!audioEl.onended) audioEl.onended = () => { audioEl.currentTime = Invite.musicStart(); audioEl.play().catch(()=>{}); }; audioEl.play().catch(()=>{}); playing = true; return; }
       if (!ctx) init(); ctx.resume();
       nextT = ctx.currentTime + .05; startAt = nextT - (step % LOOP_BEATS)*beat;

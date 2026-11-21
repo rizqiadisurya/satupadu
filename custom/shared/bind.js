@@ -76,7 +76,35 @@
       dotsPlain: `${pad(d)}.${pad(m)}.${y}`,
       mini: `${d}.${m}.${String(y).slice(-2)}`
     } : {};
+    /* tanggal panjang per acara (akad & resepsi bisa beda hari) dan waktu mulai acara untuk hitung mundur */
+    const longOf = iso => { const [yy, mm, dd] = String(iso || "").split("-").map(Number); if (!(yy && mm && dd)) return ""; const t = new Date(yy, mm - 1, dd); return `${D[t.getDay()]}, ${dd} ${M[mm - 1]} ${yy}`; };
+    const shortOf = iso => { const [yy, mm, dd] = String(iso || "").split("-").map(Number); if (!(yy && mm && dd)) return ""; const t = new Date(yy, mm - 1, dd); return locale === "en" ? `${D[t.getDay()].toUpperCase()}, ${M[mm-1].slice(0,3).toUpperCase()} ${dd}` : `${D[t.getDay()]}, ${dd} ${M[mm-1]}`; };
+    const at = e => { if (!e) return 0; const [yy, mm, dd] = String(e.date || data.event?.date || "").split("-").map(Number); if (!(yy && mm && dd)) return 0;
+      const [h, mi] = String(e.start || "").split(/[.:]/).map(Number); const off = +e.off || 7;
+      return Date.UTC(yy, mm - 1, dd, (isNaN(h) ? 8 : h) - off, isNaN(mi) ? 0 : mi); };
+    if (data.event) {
+      ["akad", "resepsi"].forEach(k => { const e = data.event[k]; if (!e) return; e.long = longOf(e.date) || data._date.long || ""; e.short = shortOf(e.date) || data._date.short || ""; if (e.maps === undefined) e.maps = k === "resepsi" ? (data.event.mapsUrl || "") : ""; });
+      { const a = data.event.akad, r = data.event.resepsi; if (a && r && a.maps && a.maps === r.maps) a.maps = "";
+        if (a && r && a.venue && a.long !== r.long) { a.note = a.long; }
+        if (r) r.mapLabel = a && a.maps ? "Lokasi resepsi" : "Petunjuk lokasi"; }
+      const ts = ["akad", "resepsi"].map(k => data.event[k]).filter(e => e && (e.venue || e.time)).map(at).filter(Boolean);
+      data._at = ts.length ? Math.min(...ts) : (ok ? Date.UTC(y, m - 1, d, 1) : 0);
+    }
+    /* blok tanpa isi tidak ditampilkan ke tamu */
+    const sec = data.sections || {}, txt = v => String(v || "").trim();
+    if (sec.quote && !txt(data.quote?.text)) sec.quote = false;
+    if (sec.dresscode && !txt(data.dresscode?.text) && !(data.dresscode?.colors || []).length) sec.dresscode = false;
+    if (data.gift) {
+      const gf = data.gift, acc = (gf.accounts || []).filter(x => x && txt(x.number)), con = (gf.contacts || []).filter(x => x && txt(x.phone)), adr = txt(gf.address);
+      if (!con.length && !adr) gf.shipText = "";
+      if (sec.gift && !acc.length && !con.length && !adr) sec.gift = false;
+    }
     const g = data.couple?.groom || {}, b = data.couple?.bride || {};
+    /* orang tua: baris yang kosong tidak ditampilkan ("Bapak  & Ibu" tanpa nama) */
+    [g, b].forEach(p => { const f = String(p.father || "").trim(), mo = String(p.mother || "").trim(), en = locale === "en";
+      p.dad = f ? (en ? "Mr. " : "Bapak ") + f : ""; p.mom = mo ? (en ? "Mrs. " : "Ibu ") + mo : ""; p.amp = f && mo ? "& " : ""; p.dan = f && mo ? (en ? "and " : "dan ") : "";
+      p.pl = f || mo ? (p.parentsLine || "") : (/\b(dari|of)\s*$/i.test(p.parentsLine || "") ? "" : (p.parentsLine || "")); });
+    [g, b].forEach(p => { const h = String(p.instagram || "").trim().replace(/^@/, "").replace(/^https?:\/\/(www\.)?instagram\.com\//i, "").replace(/[/?#].*$/, ""); p.igUrl = /^[A-Za-z0-9._]{1,30}$/.test(h) ? "https://instagram.com/" + h : ""; });
     data._names = { gb: `${g.short || ""} & ${b.short || ""}`, bg: `${b.short || ""} & ${g.short || ""}` };
     return data;
   }
@@ -104,9 +132,12 @@
     },
     set(data) {
       this.data = derive(structuredClone(data), this.locale);
+      /* undangan asli tanpa lagu (musik dimatikan): sembunyikan pemutar & tombol musik */
+      document.documentElement.classList.toggle("no-music", !!this.data._host && !(this.data.music && this.data.music.src));
       renderLists(document, this.data);
       bindNode(document.body, this.data, false);
       this.hooks.forEach(fn => { try { fn(this.data); } catch (err) { console.error(err); } });
+      pastTick();
     },
     focus(section) {
       document.dispatchEvent(new CustomEvent("invite:skipcover"));
@@ -121,4 +152,40 @@
     }
   };
   window.Invite = Invite;
+  /* setelah acara mulai: hitung mundur diganti ucapan terima kasih, tidak berhenti di 00 selamanya */
+  function pastTick() {
+    const d = Invite.data; if (!d) return;
+    const cd = document.querySelector("[data-cd]"); if (!cd) return;
+    const box = cd.parentElement && cd.parentElement.parentElement; if (!box) return;
+    const past = !!d._at && Date.now() >= d._at;
+    box.classList.toggle("cd-hide", past);
+    let note = box.nextElementSibling && box.nextElementSibling.classList.contains("cd-past") ? box.nextElementSibling : null;
+    if (past && !note) { note = document.createElement("p"); note.className = "cd-past"; box.after(note); }
+    if (note) { note.hidden = !past; note.textContent = Invite.locale === "en" ? "The celebration has taken place. Thank you for your prayers and wishes." : "Acara telah berlangsung. Terima kasih atas doa dan ucapannya."; }
+  }
+  setInterval(pastTick, 30000);
+  /* lightbox bersama untuk tema yang belum punya: ketuk foto galeri untuk memperbesar */
+  function sharedLightbox() {
+    if (document.querySelector(".lightbox")) return;
+    const pics = () => [...document.querySelectorAll('[data-section="gallery"] .photo img[src]')].filter(i => !i.closest("[hidden]"));
+    const box = document.createElement("div"); box.className = "sk-lb"; box.setAttribute("role", "dialog"); box.setAttribute("aria-label", "Foto");
+    box.innerHTML = '<img alt=""><button class="x" aria-label="Tutup">×</button><button class="p" aria-label="Sebelumnya">‹</button><button class="n" aria-label="Berikutnya">›</button>';
+    document.body.appendChild(box); let i = 0;
+    const show = k => { const L = pics(); if (!L.length) return; i = (k + L.length) % L.length; box.querySelector("img").src = L[i].src; box.classList.add("on"); };
+    document.addEventListener("click", e => { const im = e.target.closest('[data-section="gallery"] .photo'); if (!im) return; const L = pics(), k = L.indexOf(im.querySelector("img")); if (k >= 0) show(k); });
+    box.addEventListener("click", e => { if (e.target.classList.contains("p")) show(i - 1); else if (e.target.classList.contains("n")) show(i + 1); else if (e.target === box || e.target.classList.contains("x")) box.classList.remove("on"); });
+    document.addEventListener("keydown", e => { if (!box.classList.contains("on")) return; if (e.key === "Escape") box.classList.remove("on"); if (e.key === "ArrowLeft") show(i - 1); if (e.key === "ArrowRight") show(i + 1); });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", sharedLightbox); else sharedLightbox();
+  /* jumlah tamu tidak melebihi jatah undangan */
+  Invite.hooks.push(d => { const q = +d._quota || 0, sel = document.getElementById("fPax"); if (!sel) return;
+    [...sel.options].forEach(o => { o.hidden = q > 0 && parseInt(o.value || o.text) > q; }); if (sel.selectedOptions[0] && sel.selectedOptions[0].hidden) sel.selectedIndex = 0; });
+  { const st = document.createElement("style"); st.textContent = ".sk-lb{position:fixed;inset:0;z-index:80;background:rgba(10,6,6,.92);display:none;align-items:center;justify-content:center;padding:20px}.sk-lb.on{display:flex}.sk-lb img{max-width:100%;max-height:86vh;object-fit:contain}.sk-lb button{position:absolute;background:none;border:0;color:#fff;font-size:36px;line-height:1;padding:12px;cursor:pointer}.sk-lb .x{top:8px;right:10px}.sk-lb .p{left:6px;top:50%;transform:translateY(-50%)}.sk-lb .n{right:6px;top:50%;transform:translateY(-50%)}[data-section=gallery] .photo{cursor:zoom-in}.cd-hide{display:none!important}.cd-past{text-align:center;margin:18px auto 6px;max-width:30ch;font-size:15px;line-height:1.5}html.no-music .fab,html.no-music .player,html.no-music .player-wrap{display:none!important}"; document.head.appendChild(st); }
+  /* tamu pindah ke WhatsApp/aplikasi lain: musik dijeda, lalu lanjut saat kembali */
+  let resumeOnShow = false;
+  document.addEventListener("visibilitychange", () => {
+    const M = window.Music; if (!M) return;
+    if (document.hidden) { resumeOnShow = M.playing; if (M.playing) M.pause(); }
+    else if (resumeOnShow) { resumeOnShow = false; M.play(); }
+  });
 })();

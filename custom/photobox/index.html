@@ -190,6 +190,9 @@ section{position:relative;padding:64px 26px}
 .end .last{font-size:14px;line-height:1.35;position:relative;display:inline-block;padding-bottom:6px}
 .end .last .ul{position:absolute;left:28%;width:44%;bottom:-24px}
 footer{background:#2a0609;color:rgba(251,248,243,.5);text-align:center;font-size:11px;padding:18px;letter-spacing:.08em}
+.fab{position:fixed;right:max(16px,calc(50% - var(--col)/2 + 16px));bottom:18px;z-index:40;width:46px;height:46px;border-radius:50%;border:2px solid var(--cream);background:var(--wine);color:var(--cream);display:none;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer}
+.fab.show{display:grid}.fab svg{width:20px;height:20px}
+.fab.playing svg{animation:fabspin 3s linear infinite}@keyframes fabspin{to{transform:rotate(360deg)}}
 </style>
 <style>
 [hidden]{display:none!important}
@@ -269,9 +272,9 @@ img.is-empty{visibility:hidden}
       <h3>Introducing the <b>Groom!</b></h3>
       <dl class="fields">
         <dt>Name</dt><dd data-k="couple.groom.name"></dd>
-        <dt>Known for</dt><dd data-k="couple.groom.knownFor"></dd>
-        <dt>Dad</dt><dd data-k="couple.groom.father"></dd>
-        <dt>Mom</dt><dd data-k="couple.groom.mother"></dd>
+        <dt data-show="couple.groom.knownFor">Known for</dt><dd data-k="couple.groom.knownFor" data-show="couple.groom.knownFor"></dd>
+        <dt data-show="couple.groom.father">Dad</dt><dd data-k="couple.groom.father" data-show="couple.groom.father"></dd>
+        <dt data-show="couple.groom.mother">Mom</dt><dd data-k="couple.groom.mother" data-show="couple.groom.mother"></dd>
       </dl>
       <div class="body">
         <div class="ppic polaroid rv tilt"><img class="tape" src="assets/tape-2.webp" alt=""><div class="photo"><img data-src="photos.groom" alt=""></div></div>
@@ -284,9 +287,9 @@ img.is-empty{visibility:hidden}
       <h3>And here’s the <b>Bride!</b></h3>
       <dl class="fields">
         <dt>Name</dt><dd data-k="couple.bride.name"></dd>
-        <dt>Known for</dt><dd data-k="couple.bride.knownFor"></dd>
-        <dt>Dad</dt><dd data-k="couple.bride.father"></dd>
-        <dt>Mom</dt><dd data-k="couple.bride.mother"></dd>
+        <dt data-show="couple.bride.knownFor">Known for</dt><dd data-k="couple.bride.knownFor" data-show="couple.bride.knownFor"></dd>
+        <dt data-show="couple.bride.father">Dad</dt><dd data-k="couple.bride.father" data-show="couple.bride.father"></dd>
+        <dt data-show="couple.bride.mother">Mom</dt><dd data-k="couple.bride.mother" data-show="couple.bride.mother"></dd>
       </dl>
       <div class="body">
         <p class="bio" data-k="couple.bride.bio"></p>
@@ -304,11 +307,19 @@ img.is-empty{visibility:hidden}
       <h4 data-k="_date.monthUpper"></h4>
       <table><thead><tr><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th><th>SUN</th></tr></thead><tbody id="calBody"></tbody></table>
       <div data-section="event" data-show="sections.event">
-        <div class="info"><div data-k="_date.short"></div><div data-k="event.resepsi.time"></div></div>
+        <div data-show="event.akad.venue">
+          <div class="info"><div data-k="event.akad.short"></div><div data-k="event.akad.time"></div></div>
+          <div class="venue">
+            <h5>Akad · <span data-k="event.akad.venue"></span></h5>
+            <p class="pre" data-k="event.akad.address"></p>
+            <a class="btn red" data-href="event.akad.maps" data-show="event.akad.maps" target="_blank" rel="noopener">See Location</a>
+          </div>
+        </div>
+        <div class="info"><div data-k="event.resepsi.short"></div><div data-k="event.resepsi.time"></div></div>
         <div class="venue">
-          <h5 data-k="event.resepsi.venue"></h5>
+          <h5><span data-show="event.akad.venue">Reception · </span><span data-k="event.resepsi.venue"></span></h5>
           <p class="pre" data-k="event.resepsi.address"></p>
-          <a class="btn red" data-href="event.mapsUrl" data-show="event.mapsUrl" target="_blank" rel="noopener">See Location</a>
+          <a class="btn red" data-href="event.resepsi.maps" data-show="event.resepsi.maps" target="_blank" rel="noopener">See Location</a>
         </div>
       </div>
     </div>
@@ -390,6 +401,7 @@ img.is-empty{visibility:hidden}
   </section>
   <footer><span data-k="_names.gb"></span> · <span data-k="_date.year"></span></footer>
 </main>
+<button class="fab" id="fab" aria-label="Putar atau jeda musik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></button>
 
 <script src="../shared/defaults.js"></script>
 <script src="../shared/bind.js"></script>
@@ -417,8 +429,9 @@ function renderCalendar(d){
 function sync(){
   $("#playIco").innerHTML = Music.playing ? '<path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/>' : '<path d="M7 5v14l12-7z"/>';
   $("#vinyl").classList.toggle("spin", Music.playing);
+  $("#fab").classList.toggle("playing", Music.playing);
 }
-$("#playBtn").onclick = () => { Music.playing ? Music.pause() : Music.play(); sync(); };
+$("#playBtn").onclick = $("#fab").onclick = () => { Music.playing ? Music.pause() : Music.play(); sync(); };
 $("#prevBtn").onclick = $("#nextBtn").onclick = () => Music.restart();
 (function loop(){ const p = Music.progress()*100; $("#bar i").style.width = p+"%"; $("#bar b").style.left = p+"%"; requestAnimationFrame(loop); })();
 
@@ -428,7 +441,7 @@ function openInvite(withMusic){
   if (opened) return; opened = true;
   $("#cover").classList.add("open"); document.body.classList.remove("locked");
   if (withMusic) { try { Music.play(); } catch(e){} }
-  sync(); setTimeout(() => $("#cover").style.display = "none", 1100);
+  sync(); $("#fab").classList.add("show"); setTimeout(() => $("#cover").style.display = "none", 1100);
 }
 $("#openBtn").onclick = () => openInvite(true);
 document.addEventListener("invite:skipcover", () => { openInvite(false); $$(".rv").forEach(e => e.classList.add("in")); });
