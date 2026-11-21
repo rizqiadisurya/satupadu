@@ -4431,8 +4431,10 @@ addEventListener('message', async e=>{
   if(m.type==='invite:pick' && EDIT.on && f.closest('#edScreen')){ const k=CX_SEC2PANEL[m.section]; if(k && edPanel(k)[0]===k){ CX_PICKED=true; edSelect(k, true); } }
   if(m.type==='invite:rsvp' && m.entry){ const x=m.entry, n=String(x.n||'').slice(0,60), msg=String(x.m||'').slice(0,400), att=x.a==='tidak'?'tidak':'hadir';
     if(CLOUD.on && CLOUD.guestMode){
-      const r = await CLOUD.sb.rpc('rsvp',{p_slug:CLOUD.slug, p_code:CLOUD.guest?.code||null, p_name:n, p_status:att, p_pax:att==='hadir'?Math.max(1,+x.pax||1):0, p_arrive:''}); if(r.error) toast('Konfirmasi gagal terkirim: '+r.error.message);
-      if(msg){ const w = await CLOUD.sb.rpc('add_wish',{p_slug:CLOUD.slug, p_name:n, p_message:msg, p_code:CLOUD.guest?.code||null}); if(w.error) toast('Ucapan gagal terkirim: '+w.error.message); }
+      /* tamu tanpa kode: kode hasil RSVP pertama diingat, jadi RSVP berikutnya memperbarui data yang sama, bukan menambah tamu baru */
+      const r = await CLOUD.sb.rpc('rsvp',{p_slug:CLOUD.slug, p_code:rsvpCode(n), p_name:n, p_status:att, p_pax:att==='hadir'?Math.max(1,+x.pax||1):0, p_arrive:''});
+      if(r.error) toast('Konfirmasi gagal terkirim: '+r.error.message); else rsvpRemember(r.data);
+      if(msg){ const w = await CLOUD.sb.rpc('add_wish',{p_slug:CLOUD.slug, p_name:n, p_message:msg, p_code:rsvpCode(n), p_attending:att==='hadir'}); if(w.error) toast('Ucapan gagal terkirim: '+w.error.message); }
     }
     W.unshift({n, m:msg, t:'baru saja', att, show:true}); if(!CLOUD.guestMode){ try{ store.set('sp-wishes', W); }catch(_){} }
     cxPost(f);
@@ -4961,9 +4963,9 @@ function bindInv(root){
       if(!n){ f.querySelector('input').focus(); return; }
       if(CLOUD.guestMode){
         const btn=f.querySelector('button.solid'); btn.disabled=true; btn.textContent='Mengirim…';
-        const { data, error } = await CLOUD.sb.rpc('rsvp',{p_slug:CLOUD.slug, p_code:CLOUD.guest?.code||null, p_name:n, p_status:att, p_pax:pax, p_arrive: att==='hadir'?arrive:''});
+        const { data, error } = await CLOUD.sb.rpc('rsvp',{p_slug:CLOUD.slug, p_code:rsvpCode(n), p_name:n, p_status:att, p_pax:pax, p_arrive: att==='hadir'?arrive:''});
         if(error){ btn.disabled=false; btn.textContent='Kirim konfirmasi'; toast('Gagal mengirim: '+error.message); return; }
-        CLOUD.guest = fromRow(data); G=[CLOUD.guest];
+        rsvpRemember(data); G=[CLOUD.guest];
         if(!CLOUD.code){ CLOUD.code=data.code; try{ history.replaceState(null,'',`/u/${CLOUD.slug}?to=${data.code}`); }catch(err){} }
         f.parentElement.dataset.gid = CLOUD.guest.id; f.parentElement.innerHTML = rsvpDone(CLOUD.guest, att, data.pax); return;
       }
@@ -5240,9 +5242,18 @@ function evMoreHTML(e,k){
       <div class="field full"><span class="lbl-s">Palet warna dress code <span class="muted" style="font-weight:500">(pilih sampai 4)</span></span><div class="dc-pick" role="group" aria-label="Palet warna dress code">${DC_COLORS.map(([c,nm])=>`<button type="button" data-dcol="${k}" data-c="${c}" aria-pressed="${cols.includes(c)}" title="${nm}"><i style="background:${c}"></i><span>${nm}</span></button>`).join('')}</div></div>
     </div></details>`;
 }
+/* Isian yang masih sama dengan data contoh (Sarah & Raka). Tidak boleh ikut tayang, terutama nomor rekening. */
+function sampleLeft(){
+  const D=DEFAULT, out=[], ev=D.events.flatMap(e=>[e.venue,e.address]);
+  if(S.bride.name===D.bride.name || S.groom.name===D.groom.name || S.bride.nick===D.bride.nick&&S.groom.nick===D.groom.nick) out.push(['Nama mempelai', 0]);
+  if(S.bride.parents===D.bride.parents || S.groom.parents===D.groom.parents) out.push(['Nama orang tua', 0]);
+  if((S.events||[]).some(e=>ev.includes(e.venue)||ev.includes(e.address))) out.push(['Tempat & alamat acara', 1]);
+  if(S.gift && S.gift.on!==false && String(S.gift.acct||'').replace(/\D/g,'')===D.gift.acct) out.push(['Nomor rekening amplop digital', 3]);
+  return out;
+}
 function stepDone(i){
-  if(i===0) return !!(S.bride.name && S.groom.name);
-  if(i===1) return S.events.some(e=>e.date && e.venue);
+  if(i===0) return !!(S.bride.name && S.groom.name) && !sampleLeft().some(x=>x[1]===0);
+  if(i===1) return S.events.some(e=>e.date && e.venue) && !sampleLeft().some(x=>x[1]===1);
   if(i===2) return !!S.theme;
   if(i===3) return true;
   return S.published;
@@ -5331,7 +5342,9 @@ function renderStepCore(onlyHTML, iOverride){
     <div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Urutan bagian undangan</span><ol class="sec-order" data-sort="lk">${secOrder().map((k,i,arr)=>{ const off=(k==='galeri'&&(!S.galleryOn||!S.gallery.length))||(k==='hadiah'&&!S.gift.on)||(k==='kado'&&!(S.wishlist&&S.wishlist.on&&S.wishlist.items.length))||(k==='cerita'&&!(S.story&&S.story.on&&S.story.items.length))||(k==='ucapan'&&!S.wishesOn); return `<li class="${off?'off':''}" data-k="${k}"><span class="drag" aria-hidden="true" title="Geser untuk pindah"><svg viewBox="0 0 10 16" width="10" height="16"><g fill="currentColor"><circle cx="2" cy="2" r="1.5"/><circle cx="8" cy="2" r="1.5"/><circle cx="2" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="2" cy="14" r="1.5"/><circle cx="8" cy="14" r="1.5"/></g></svg></span><span class="num muted">${i+1}</span><b>${SECTION_LABELS[k]}</b>${off?'<span class="chip">Tidak tampil</span>':''}<span class="mv"><button type="button" class="btn btn-ghost btn-sm" data-move="${k}" data-dir="-1" ${i===0?'disabled':''} aria-label="Naikkan ${SECTION_LABELS[k]}">↑</button><button type="button" class="btn btn-ghost btn-sm" data-move="${k}" data-dir="1" ${i===arr.length-1?'disabled':''} aria-label="Turunkan ${SECTION_LABELS[k]}">↓</button></span></li>`; }).join('')}</ol><span class="hint">Sampul selalu di paling atas, ucapan terima kasih selalu di paling bawah.</span></div>`;
   }
   if(i===4){
-    const checks = [['Nama kedua mempelai', !!(S.bride.name&&S.groom.name), 0],['Minimal satu acara dengan tanggal & tempat', S.events.some(e=>e.date&&e.venue), 1],['Tema dipilih', !!S.theme, 2],['Rekening amplop digital', !S.gift.on || !!S.gift.acct, 3]];
+    const sl = sampleLeft();
+    const checks = [['Nama kedua mempelai', !!(S.bride.name&&S.groom.name), 0],['Minimal satu acara dengan tanggal & tempat', S.events.some(e=>e.date&&e.venue), 1],['Tema dipilih', !!S.theme, 2],['Rekening amplop digital', !S.gift.on || !!S.gift.acct, 3],
+      ...sl.map(([l,k])=>[`${l} masih contoh, ganti dengan milik kalian`, false, k])];
     const ready = checks.every(c=>c[1]);
     h = `<span class="eyebrow">Langkah 5 dari 5</span><h2>${S.published?'Undanganmu sudah tayang':'Siap disebar ke tamu? 🎉'}</h2><p class="sub">${S.published?'Undangan kalian udah bisa dibuka tamu. Kirim dari dashboard, dan ubah isinya kapan aja perlu.':'Cek sekali lagi, lalu pilih alamat link kalian. Habis bayar, undangan langsung bisa dikirim ke semua tamu. Nggak cocok? Ada garansi uang kembali 7 hari.'}</p>
     <ul class="check-list">${checks.map(([l,ok,k])=>`<li>${ok?`<span class="status s-ok" style="padding:4px">${ico('check')}</span>`:`<span class="status s-wait" style="padding:4px">!</span>`}${l}<span class="st">${ok?'<span class="muted">Lengkap</span>':`<button type="button" class="btn btn-soft btn-sm" data-step="${k}">Lengkapi</button>`}</span></li>`).join('')}</ul>
@@ -6165,7 +6178,7 @@ function renderDashCore(){
       const ppl = arrived.reduce((a,g)=>a+g.checkin.pax,0);
       const gifts = arrived.filter(g=>g.checkin.gift).length;
       body = `<div class="harih-hero"><div><span class="eyebrow">Hari H</span><h2 class="display" style="font-size:34px;margin-top:8px">Buku tamu digital dengan QR</h2><p class="muted" style="max-width:56ch;margin-top:8px">Tiap tamu yang bakal hadir dapat kartu masuk QR di undangannya. Pas hari H, penerima tamu tinggal buka mode ini di HP atau tablet, lalu scan QR atau cari nama. Antre nulis buku tamu? Udah bukan zamannya.</p></div><a class="btn btn-primary" href="#checkin">${ico('qr')}Buka mode penerima tamu</a></div>
-      ${CLOUD.inv?`<div class="panel-c pin-card"><div><b>Link untuk penerima tamu</b><p class="muted" style="font-size:14px;margin-top:4px">Kirim ke petugas penerima tamu. Mereka tidak perlu akun, cukup link dan PIN ini. Bisa dibuka di beberapa HP sekaligus.</p></div><div class="pin-row"><span class="pin num">${esc(CLOUD.inv.checkin_pin)}</span><button class="btn btn-soft btn-sm" data-act="copy" data-v="${esc(`${location.origin}/u/${CLOUD.inv.slug}/checkin?pin=${CLOUD.inv.checkin_pin}`)}">${ico('copy')}Salin link</button></div></div>`:''}
+      ${CLOUD.inv?`<div class="panel-c pin-card"><div><b>Link untuk penerima tamu</b><p class="muted" style="font-size:14px;margin-top:4px">Kirim ke petugas penerima tamu. Mereka tidak perlu akun, cukup link dan PIN ini. Bisa dibuka di beberapa HP sekaligus.</p></div><div class="pin-row"><span class="pin num">${esc(CLOUD.inv.checkin_pin)}</span><button class="btn btn-soft btn-sm" data-act="copy" data-v="${esc(`${location.origin}/u/${CLOUD.inv.slug}/checkin?pin=${CLOUD.inv.checkin_pin}`)}">${ico('copy')}Salin link</button><button class="btn btn-ghost btn-sm" data-act="pin-rotate" title="Link & PIN lama langsung tidak berlaku">Ganti PIN</button></div>${/^\d{6}$/.test(CLOUD.inv.checkin_pin||'')?`<p class="hint" style="margin-top:8px">PIN 6 angka mudah ditebak. Ganti ke PIN baru yang lebih aman, lalu kirim ulang link ke penerima tamu.</p>`:''}</div>`:''}
       <div class="tiles" style="margin-top:20px">
         ${dTile('Sudah datang',arrived.length,`undangan · ${ppl} orang`,'check','green',1)}
         ${dTile('Konfirmasi hadir, belum datang',expect.length,`${expect.reduce((a,g)=>a+g.pax,0)} orang diharapkan`,'cal','amber')}
@@ -6354,6 +6367,7 @@ document.addEventListener('click', e=>{
   if(a==='prev') goStep(S.step-1);
   if(a==='add-event'){ S.events.push({type:'Ngunduh Mantu',date:'',start:'',end:'',venue:'',address:''}); save(); renderStep(); refreshPreview(); }
   if(a==='del-event'){ S.events.splice(+el.dataset.k,1); save(); renderStep(); refreshPreview(); }
+  if(a==='publish' && sampleLeft().length){ toast(sampleLeft().map(x=>x[0]).join(', ')+' masih contoh. Ganti dulu sebelum dipublikasikan, ya.'); return; }
   if(a==='publish'){ CO.stage='form'; CO.plan=S.plan; if(!S.user) openAuth(()=>{ location.hash='checkout'; },'publish'); else location.hash='checkout'; }
   if(a==='open-inv') openGuest();
   if(a==='g-big'){ guestBig=!guestBig; const y=window.scrollY; renderGuest(); openGuest(); window.scrollTo(0,y); }
@@ -6425,6 +6439,11 @@ function renderAuthSlot(){
 }
 let authNext=null;
 const lsGet=k=>{ try{ return localStorage.getItem(k)||''; }catch(e){ return ''; } };
+/* kode tamu untuk RSVP: dari link tamu, atau dari RSVP sebelumnya di HP ini dengan nama yang sama */
+function rsvpCode(name){ if(CLOUD.code && CLOUD.guest) return CLOUD.guest.code; let m={}; try{ m=JSON.parse(lsGet('sp-rsvp:'+CLOUD.slug)||'{}'); }catch(e){}
+  const same = n => String(n||'').trim().toLowerCase() === String(name||'').trim().toLowerCase();
+  if(CLOUD.guest && (name==null || same(CLOUD.guest.name))) return CLOUD.guest.code; return m.code && (name==null || same(m.name)) ? m.code : null; }
+function rsvpRemember(d){ if(!d||!d.code) return; CLOUD.guest = fromRow(d); if(!CLOUD.code) lsSet('sp-rsvp:'+CLOUD.slug, JSON.stringify({code:d.code, name:d.name})); }
 const lsSet=(k,v)=>{ try{ localStorage.setItem(k,v); }catch(e){} };
 function knownNames(){ try{ return JSON.parse(lsGet('sp-names')||'{}'); }catch(e){ return {}; } }
 let authMode=null;
@@ -6536,9 +6555,9 @@ function renderCheckout(){
       ${CO.method==='ewallet'?`<div class="seg" style="margin-top:12px" role="group" aria-label="E-wallet">${['GoPay','OVO','DANA','ShopeePay'].map(b=>`<button type="button" data-wallet="${b}" aria-pressed="${CO.wallet===b}">${b}</button>`).join('')}</div>`:''}
       <div class="form-foot"><span class="muted" style="font-size:13px">Bukti bayar dikirim ke ${esc(S.user.email)}</span><button class="btn btn-primary">Bayar ${rupiah(T.total)}</button></div>
       ${CLOUD.on?`<p class="muted" style="font-size:12.5px">Pembayaran diproses aman oleh Midtrans${CLOUD.cfg.midtransProduction?'':' (mode uji coba / sandbox)'}.</p>`:'<p class="muted" style="font-size:12.5px">Prototype: tidak ada pembayaran sungguhan yang diproses.</p>'}
-      ${CLOUD.pendingOrder?`<div class="warn-box" style="margin-top:12px">${ico('receipt')}<span>Ada pembayaran yang belum selesai (${esc(CLOUD.pendingOrder)}). <button type="button" class="linkbtn" data-act="co-check">Cek status</button></span></div>`:''}
+      ${CLOUD.pendingOrder?`<div class="warn-box" style="margin-top:12px">${ico('receipt')}<span>Ada pembayaran yang belum selesai (${esc(CLOUD.pendingOrder)}). <button type="button" class="linkbtn" data-act="co-resume">Lanjutkan pembayaran</button> · <button type="button" class="linkbtn" data-act="co-check">Cek status</button></span></div>`:''}
     </form>${summary}</div>`;
-    $('#coForm').addEventListener('submit',ev=>{ ev.preventDefault(); if(CLOUD.on){ cloudPay(ev.target.querySelector('.form-foot .btn-primary')); return; } if(!PROTO){ toast(OFFLINE_MSG); return; } CO.stage='pending'; CO.end=Date.now()+15*60*1000; renderCheckout(); window.scrollTo(0,0); });
+    $('#coForm').addEventListener('submit',ev=>{ ev.preventDefault(); if(coMode()!=='upgrade' && sampleLeft().length){ toast(sampleLeft().map(x=>x[0]).join(', ')+' masih contoh. Ganti dulu sebelum dipublikasikan, ya.'); return; } if(CLOUD.on){ cloudPay(ev.target.querySelector('.form-foot .btn-primary')); return; } if(!PROTO){ toast(OFFLINE_MSG); return; } CO.stage='pending'; CO.end=Date.now()+15*60*1000; renderCheckout(); window.scrollTo(0,0); });
     $('#coForm').addEventListener('change',ev=>{ if(ev.target.name==='coPlan'){ CO.plan=ev.target.value; renderCheckout(); } if(ev.target.name==='coM'){ CO.method=ev.target.value; renderCheckout(); } });
     $('#coV').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); applyVoucher(); } });
   }
@@ -6613,11 +6632,11 @@ function renderCheckin(){
     root.innerHTML = `<div class="ci2-pin"><div class="ci2-pin-card">
       ${karaImg(CLOUD.pinError?'kaget':'lambai','')}<span class="ci2-badge">${ico('qr')}Penerima tamu</span>
       <h1 class="display">Masuk ke buku tamu</h1>
-      <p class="muted">Masukkan 6 angka PIN dari pengantin. Kamu tidak perlu akun.</p>
-      <form id="pinF" novalidate><label for="pinI" class="sr-only">PIN</label><input class="input otp" id="pinI" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="••••••">
-      ${CLOUD.pinError?`<span class="err">PIN salah. Cek lagi ke pengantin.</span>`:''}
+      <p class="muted">Masukkan PIN dari pengantin. Kamu tidak perlu akun.</p>
+      <form id="pinF" novalidate><label for="pinI" class="sr-only">PIN</label><input class="input otp" id="pinI" inputmode="text" maxlength="10" autocomplete="one-time-code" autocapitalize="characters" spellcheck="false" placeholder="PIN">
+      ${CLOUD.pinError?`<span class="err">${/terlalu banyak/i.test(CLOUD.pinError)?esc(CLOUD.pinError):'PIN salah. Cek lagi ke pengantin.'}</span>`:''}
       <button class="btn btn-primary btn-block">Masuk</button></form></div></div>`;
-    const inp=$('#pinI'); inp.addEventListener('input',()=>{ inp.value=inp.value.replace(/\D/g,'').slice(0,6); if(inp.value.length===6) $('#pinF').requestSubmit(); });
+    const inp=$('#pinI'); inp.addEventListener('input',()=>{ inp.value=inp.value.toUpperCase().replace(/[^0-9A-F]/g,'').slice(0,10); if(inp.value.length===10) $('#pinF').requestSubmit(); });
     $('#pinF').addEventListener('submit',async ev=>{ ev.preventDefault(); const b=ev.target.querySelector('button'); b.disabled=true; b.textContent='Memeriksa…'; CLOUD.pin=inp.value.trim(); CLOUD.pinError=null; await pinLoad(); if(!CLOUD.needPin){ try{ history.replaceState(null,'',`/u/${CLOUD.slug}/checkin?pin=${CLOUD.pin}`); }catch(e){} } renderCheckin(); });
     setTimeout(()=>inp.focus(),50); return;
   }
@@ -6816,6 +6835,7 @@ document.addEventListener('click', e=>{
   if(a==='apply-voucher') applyVoucher();
   if(a==='co-back'){ clearInterval(CO.timer); CO.stage='form'; renderCheckout(); }
   if(a==='co-paid' && PROTO) completePayment();
+  if(a==='co-resume' && CLOUD.pendingOrder){ snapResume(el); return; }
   if(a==='co-check' && CLOUD.pendingOrder){ clearTimeout(CO.waitT); CO.stage='waiting'; renderCheckout(); waitPaid(CLOUD.pendingOrder); }
   if(a==='co-reset'){ CO.stage='form'; }
   if(a==='co-pick-tamu' || a==='co-pick-plan'){ CO.plan=el.dataset.p||'tamu'; renderCheckout(); }
@@ -6824,6 +6844,8 @@ document.addEventListener('click', e=>{
   if(a==='ci-open') ciOpen(el.dataset.id);
   if(a==='ci-confirm') ciConfirm(el.dataset.id);
   if(a==='ci-walkin') ciWalkin();
+  if(a==='pin-rotate' && CLOUD.on && CLOUD.inv){ if(el.dataset.sure!=='1'){ el.dataset.sure='1'; el.textContent='Yakin ganti? Link lama mati'; setTimeout(()=>{ if(el.isConnected){ el.dataset.sure=''; el.textContent='Ganti PIN'; } },3500); return; }
+    el.disabled=true; CLOUD.sb.rpc('rotate_checkin_pin').then(({data,error})=>{ el.disabled=false; if(error){ toast('PIN belum bisa diganti: '+error.message); return; } CLOUD.inv.checkin_pin=data; toast('PIN baru siap. Kirim link barunya ke penerima tamu.'); renderDash(); }); return; }
   if(a==='ci-undo' && ciAuth()){ const g=G.find(x=>x.id===el.dataset.id); ciRpc('ci_undo',{p_id:el.dataset.id}).then(r=>{ if(r.error||!g) return; delete g.checkin; if(CLOUD.inv) CLOUD.lastG.set(g.id, JSON.stringify(toRow(g))); closeModal(); if(location.hash==='#checkin'||CLOUD.pinMode) renderCheckin(); else renderDash(); toast('Check-in '+g.name+' dibatalkan'); }); return; }
   if(a==='ci-undo'){ const g=G.find(x=>x.id===el.dataset.id); if(g){ delete g.checkin; saveG(); closeModal(); if(location.hash==='#checkin') renderCheckin(); else renderDash(); toast('Check-in '+g.name+' dibatalkan'); } }
   if(a==='groups') groupsModal();
@@ -6992,6 +7014,8 @@ function scrubUrls(o, hint){
 async function guestLoad(){
   const { data, error } = await CLOUD.sb.rpc('get_public_invitation',{p_slug:CLOUD.slug, p_code:CLOUD.code||null});
   if(error || !data){ CLOUD.notFound=true; return; }
+  /* mulai dari data bawaan, bukan draf Sakara milik pengunjung yang kebetulan tersimpan di browsernya */
+  for(const k of Object.keys(S)) delete S[k]; Object.assign(S, structuredClone(DEFAULT), {user:null});
   Object.assign(S, scrubUrls(data.data||{})); S.published=true; S.plan=data.plan; reapplyConfig();
   if(isCx(S.theme) && S.plan!=='custom' && S.liveTheme && !isCx(S.liveTheme)) S.theme=S.liveTheme;
   if(!(data.data||{}).wishlist) S.wishlist={on:false, items:[]};
@@ -7006,16 +7030,32 @@ async function pinLoad(){
   if(!CLOUD.pin){ CLOUD.needPin=true; return; }
   const { data, error } = await CLOUD.sb.rpc('ci_guests',{p_slug:CLOUD.slug, p_pin:CLOUD.pin});
   if(error){ CLOUD.pinError=error.message; CLOUD.needPin=true; return; }
+  if(data && data.error){ CLOUD.pinError=data.error; CLOUD.needPin=true; return; }
   CLOUD.needPin=false; CLOUD.pinError=null;
   Object.assign(S, scrubUrls(data.data||{})); S.giftNo=data.gift_no; S.plan='tamu'; S.published=true;
   G = (data.guests||[]).map(fromRow);
 }
 const ciAuth = () => CLOUD.on ? (CLOUD.pinMode ? {p_slug:CLOUD.slug, p_pin:CLOUD.pin} : (CLOUD.inv ? {p_slug:CLOUD.inv.slug, p_pin:CLOUD.inv.checkin_pin} : null)) : null;
-async function ciRpc(fn, args){ const a=ciAuth(); if(!a) return {local:true}; if(!CLOUD.pinMode) await cloudSyncGuestsNow(); const { data, error } = await CLOUD.sb.rpc(fn, {...a, ...args}); if(error){ toast(error.message); return {error}; } return {data}; }
+async function ciRpc(fn, args){ const a=ciAuth(); if(!a) return {local:true}; if(!CLOUD.pinMode) await cloudSyncGuestsNow(); const { data, error } = await CLOUD.sb.rpc(fn, {...a, ...args}); if(error){ toast(error.message); return {error}; } if(data && data.error){ toast(data.error==='PIN salah'?'PIN penerima tamu sudah diganti. Muat ulang halaman ini.':data.error); return {error:{message:data.error}}; } return {data}; }
 function ensureSnap(){
   if(window.snap) return Promise.resolve();
   const src = CLOUD.cfg.midtransProduction ? 'https://app.midtrans.com/snap/snap.js' : 'https://app.sandbox.midtrans.com/snap/snap.js';
   return loadScript(src, {'data-client-key':CLOUD.cfg.midtransClientKey});
+}
+function snapOpen(token, orderId, reset){
+  window.snap.pay(token, {
+    onSuccess:()=>{ CO.stage='waiting'; renderCheckout(); waitPaid(orderId); },
+    onPending:()=>{ CO.stage='waiting'; renderCheckout(); waitPaid(orderId); },
+    onError:()=>{ reset&&reset(); toast('Pembayaran belum berhasil. Coba pakai metode lain, ya.'); },
+    onClose:()=>{ reset&&reset(); renderCheckout(); toast('Pembayaran belum selesai. Kamu bisa melanjutkannya dari halaman ini.'); }
+  });
+}
+async function snapResume(btn){
+  const id=CLOUD.pendingOrder; if(!id) return; if(btn){ btn.disabled=true; }
+  try{ const { data } = await CLOUD.sb.from('invoices').select('snap_token,status').eq('id',id).maybeSingle();
+    if(!data || data.status!=='pending' || !data.snap_token){ if(btn) btn.disabled=false; toast('Pembayaran ini tidak bisa dilanjutkan. Tekan Bayar untuk membuat yang baru.'); CLOUD.pendingOrder=null; renderCheckout(); return; }
+    await ensureSnap(); snapOpen(data.snap_token, id, ()=>{ if(btn) btn.disabled=false; });
+  }catch(e){ if(btn) btn.disabled=false; toast('Gagal memuat pembayaran: '+(e.message||'periksa koneksi')); }
 }
 async function cloudPay(btn){
   if(!CLOUD.cfg.midtransClientKey){ toast('Pembayaran belum dikonfigurasi di server'); return; }
@@ -7030,12 +7070,8 @@ async function cloudPay(btn){
     if(!r.ok){ reset(); toast(j.error||'Gagal membuat pembayaran'); return; }
     await ensureSnap();
     CLOUD.pendingOrder=j.orderId;
-    window.snap.pay(j.token, {
-      onSuccess:()=>{ CO.stage='waiting'; renderCheckout(); waitPaid(j.orderId); },
-      onPending:()=>{ CO.stage='waiting'; renderCheckout(); waitPaid(j.orderId); },
-      onError:()=>{ reset(); toast('Pembayaran belum berhasil. Coba pakai metode lain, ya.'); },
-      onClose:()=>{ reset(); toast('Pembayaran belum selesai. Kamu bisa lanjutkan dari halaman ini.'); }
-    });
+    if(j.resumed) toast('Melanjutkan pembayaran yang belum selesai');
+    snapOpen(j.token, j.orderId, reset);
   }catch(e){ reset(); toast('Gagal memuat pembayaran: '+(e.message||'periksa koneksi')); }
 }
 async function waitPaid(orderId, tries=0){
@@ -7050,8 +7086,9 @@ async function waitPaid(orderId, tries=0){
     CLOUD.pendingOrder=null; CO.stage='done'; store.set('sp-state',S); renderCheckout(); return;
   }
   if(data && ['expired','failed'].includes(data.status)){ CLOUD.pendingOrder=null; CO.stage='form'; toast('Pembayaran kedaluwarsa atau belum berhasil. Silakan buat ulang, ya.'); renderCheckout(); return; }
-  if(tries>100) return;
-  CO.waitT = setTimeout(()=>waitPaid(orderId, tries+1), 3000);
+  /* Virtual Account berlaku 60 menit: cek tiap 3 detik di awal, lalu tiap 15 detik */
+  if(tries>300) return;
+  CO.waitT = setTimeout(()=>waitPaid(orderId, tries+1), tries<60 ? 3000 : 15000);
 }
 
 /* ================= Kado patungan · Album tamu · Buku kenangan · Terima kasih · Kartu cetak ================= */

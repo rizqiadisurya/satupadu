@@ -14,6 +14,14 @@ module.exports = async (req, res) => {
     if (!inv) return send(res, 404, { error: 'Undangan belum dibuat' });
     const p = priceFor(inv, plan, body.voucher, await loadPackages());
     if (/^cx-/.test((inv.data && inv.data.theme) || '') && p.plan !== 'custom') return send(res, 400, { error: 'Tema Custom hanya bisa dipublikasikan dengan paket Custom' });
+    const gift = (inv.data && inv.data.gift) || {};
+    if (gift.on !== false && String(gift.acct || '').replace(/\D/g, '') === '8720112345') return send(res, 400, { error: 'Nomor rekening di Amplop digital masih contoh. Ganti dengan rekening kalian dulu, ya.' });
+    // Masih ada tagihan yang sama dan belum kedaluwarsa? Lanjutkan itu, jangan buat transaksi baru (cegah bayar dua kali).
+    const since = new Date(Date.now() - 55 * 60 * 1000).toISOString();
+    const pend = await sb(`/rest/v1/invoices?invitation_id=eq.${inv.id}&status=eq.pending&created_at=gte.${since}&select=id,plan,total,voucher,snap_token,snap_url&order=created_at.desc`) || [];
+    const same = pend.find(x => x.plan === p.plan && x.total === p.total && (x.voucher || '') === (p.voucher || '') && x.snap_token);
+    if (same) return send(res, 200, { orderId: same.id, token: same.snap_token, redirectUrl: same.snap_url, total: same.total, resumed: true });
+    if (pend.length >= 5) return send(res, 429, { error: 'Terlalu banyak pembayaran yang belum selesai. Selesaikan atau tunggu sebentar, ya.' });
     const orderId = `SP-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
     await sb('/rest/v1/invoices', { method: 'POST', body: { id: orderId, invitation_id: inv.id, owner: user.id, item: p.item, plan: p.plan, price: p.price, discount: p.discount, voucher: p.voucher, total: p.total, method: body.method || '', status: 'pending' } });
     const host = String(req.headers['x-forwarded-host'] || req.headers.host || '').split(',')[0].trim();
@@ -37,6 +45,7 @@ module.exports = async (req, res) => {
       await sb(`/rest/v1/invoices?id=eq.${orderId}`, { method: 'PATCH', body: { status: 'failed' } });
       return send(res, 502, { error: ((snap.error_messages && snap.error_messages.join(', ')) || snap.status_message || 'Gagal membuat transaksi Midtrans') + ` (Midtrans ${r.status})` });
     }
+    await sb(`/rest/v1/invoices?id=eq.${orderId}`, { method: 'PATCH', body: { snap_token: snap.token, snap_url: snap.redirect_url || null } }).catch(() => {});
     send(res, 200, { orderId, token: snap.token, redirectUrl: snap.redirect_url, total: p.total });
   } catch (e) { send(res, e.status || 500, { error: e.message || 'Terjadi kesalahan' }); }
 };
