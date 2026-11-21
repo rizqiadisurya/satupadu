@@ -6175,12 +6175,12 @@ function renderDashCore(){
         ${isLocked('groups')?'':`<button class="btn btn-ghost btn-sm" data-act="groups">${ico('users')}Kelola grup</button>`}
         ${isLocked('import')?`<button class="btn btn-ghost btn-sm" data-act="upgrade">${ico('lock')}Import Excel</button>`:`<label class="btn btn-ghost btn-sm" for="importFile" style="cursor:pointer">${ico('up')}Import Excel/CSV</label><input type="file" id="importFile" accept=".xlsx,.xls,.csv,text/csv" hidden>`}
         <button class="btn btn-ghost btn-sm" data-act="wa-tpl" data-kind="invite">${ico('wa')}Pesan WhatsApp</button>
-        <button class="btn btn-ghost btn-sm" data-act="cards-print">${ico('qr')}Kartu cetak</button>
+        <button class="btn btn-ghost btn-sm" data-act="${isLocked('bulk')?'upgrade':'cards-print'}">${ico(isLocked('bulk')?'lock':'qr')}Kartu cetak</button>
         <button class="btn btn-primary btn-sm" data-act="add-guest">${ico('plus')}Tambah tamu</button></div>
     </div>
     ${sel.size?`<div class="bulk"><span>${sel.size} tamu dipilih</span>
       <select class="input" id="bulkGroup" aria-label="Pindah ke grup" style="width:auto;min-height:36px;padding:6px 10px;color:var(--ink)"><option value="">Pindah ke grup…</option>${groups.map(x=>`<option>${esc(x)}</option>`).join('')}</select>
-      <button class="btn btn-sm" style="background:#fff;color:var(--ink);margin-left:auto" data-act="${isLocked('bulk')?'upgrade':'bulk-send'}">${ico(isLocked('bulk')?'lock':'wa')}Kirim ke ${sel.size} tamu</button><button class="btn btn-sm" style="color:#fff;border-color:#ffffff55" data-act="cards-print">${ico('qr')}Kartu cetak</button><button class="btn btn-sm" style="color:#fff;border-color:#ffffff55" data-act="bulk-clear">Batal</button></div>`:''}
+      <button class="btn btn-sm" style="background:#fff;color:var(--ink);margin-left:auto" data-act="${isLocked('bulk')?'upgrade':'bulk-send'}">${ico(isLocked('bulk')?'lock':'wa')}Kirim ke ${sel.size} tamu</button><button class="btn btn-sm" style="color:#fff;border-color:#ffffff55" data-act="${isLocked('bulk')?'upgrade':'cards-print'}">${ico(isLocked('bulk')?'lock':'qr')}Kartu cetak</button><button class="btn btn-sm" style="color:#fff;border-color:#ffffff55" data-act="bulk-clear">Batal</button></div>`:''}
     <div class="tbl-wrap"><table><thead><tr><th style="width:40px"><input type="checkbox" data-act="sel-all" aria-label="Pilih semua" ${list.length&&list.every(g=>sel.has(g.id))?'checked':''}></th><th>Nama</th><th>Grup</th><th>Sesi</th><th>Status</th><th class="num">Orang</th><th>Dikirim</th><th style="text-align:right">Aksi</th></tr></thead><tbody>
       ${list.map(g=>`<tr><td><input type="checkbox" data-sel="${g.id}" ${sel.has(g.id)?'checked':''} aria-label="Pilih ${esc(g.name)}"></td><td><div class="nm">${esc(g.name)}</div><div class="sub num">${esc(g.phone||'—')} · ${esc(g.code)}</div></td><td>${esc(g.group)}</td><td>${sesChips(g)}</td><td><span class="status ${stLabel[g.status][1]}">${stLabel[g.status][0]}</span>${g.checkin?' <span class="status s-mute">Sudah datang</span>':''}</td><td class="num">${g.pax||'—'}</td><td>${g.sent?'<span class="status s-mute">Terkirim</span>':'<span class="muted" style="font-size:13px">Belum</span>'}</td>
       <td class="acts"><a class="btn btn-soft btn-sm" href="${waUrl(g)}" target="_blank" rel="noopener" data-sent="${g.id}">${ico('wa')}${g.sent?'Kirim ulang':'Kirim WA'}</a> <button class="btn btn-ghost btn-sm" data-act="guest-menu" data-id="${g.id}" aria-label="Opsi ${esc(g.name)}">Opsi</button></td></tr>`).join('') || `<tr><td colspan="8"><div class="empty" style="border:0">Hmm, nggak ada tamu yang cocok. Coba ubah kata pencarian atau filternya.</div></td></tr>`}
@@ -7395,7 +7395,7 @@ document.addEventListener('click', async e=>{
   if(a==='al-poster') printPoster();
   if(a==='bk-open') bookOpen();
   if(a==='bk-print') printHTML(bookPages(), 'bk');
-  if(a==='cards-print') cardsModal();
+  if(a==='cards-print'){ if(isLocked('bulk')) toast('Kartu cetak tersedia di paket Tamu'); else cardsModal(); }
 });
 document.addEventListener('input', e=>{
   if(e.target.id==='thxMsg'){ if(thxF==='datang') S.thanksMsg=e.target.value; else S.thanksMsg2=e.target.value; save(); const pv=$('#thxPrev'); const list=thxF==='datang'?G.filter(g=>g.checkin):G.filter(g=>!g.checkin&&(g.sent||g.status!=='belum')); const g=list[0]||G[0]; if(pv&&g) pv.innerHTML=esc(thxText(g,e.target.value)).replace(/\n/g,'<br>');
@@ -8255,7 +8255,7 @@ const FEATURE_LIST = [
   ['d_keluarga','Tab Keluarga','Dashboard pasangan'],['d_katering','Tab Katering','Dashboard pasangan'],['d_harih','Tab Hari H (check-in)','Dashboard pasangan'],['d_kenangan','Tab Kenangan / album','Dashboard pasangan'],['d_hadiah','Tab Hadiah','Dashboard pasangan'],
   ['demo','Mode demo untuk pengunjung','Situs']
 ];
-const FF_ROW = {cerita:'Musik latar, galeri foto & kisah cinta', galeri:'Musik latar, galeri foto & kisah cinta', musik:'Musik latar, galeri foto & kisah cinta', rsvp:'RSVP, ucapan & doa', ucapan:'RSVP, ucapan & doa', hadiah:'Amplop digital & kado patungan', kado:'Amplop digital & kado patungan', d_hadiah:'Amplop digital & kado patungan', d_keluarga:'Akun keluarga (keluarga tambah tamu sendiri)', d_katering:'Hitungan porsi katering', d_kenangan:'Album foto dari tamu & buku kenangan', d_harih:'QR check-in & buku tamu digital'};
+const FF_ROW = {cerita:'Musik latar, galeri foto & kisah cinta', galeri:'Musik latar, galeri foto & kisah cinta', musik:'Musik latar, galeri foto & kisah cinta', rsvp:'RSVP, ucapan & doa', ucapan:'RSVP, ucapan & doa', hadiah:'Amplop digital', kado:'Kado patungan (tema Lukisan)', d_hadiah:'Amplop digital', d_keluarga:'Akun keluarga (keluarga tambah tamu sendiri)', d_katering:'Hitungan porsi katering', d_kenangan:'Album foto dari tamu & buku kenangan', d_harih:'QR check-in & buku tamu digital'};
 const featEnforced = k => !!FEAT_LOCKS[k] || Object.values(FF_ROW).some(l=>rowKeyOf(l)===k);
 const rowKeyOf = label => { const r = FEAT_ROWS().find(x=>x[0]===label); return r ? r.key : null; };
 // Fitur mengikuti isi paket (hanya untuk undangan yang sudah tayang; paket Coba tetap bisa mencoba semuanya)
