@@ -20,9 +20,14 @@ $$('[data-words]').forEach(el=>{
 
 // ---------- menu HP & akun (selalu aktif) ----------
 const drawer=$('#e-drawer'), mb=$('#e-menuBtn'), avBtn=$('#e-avBtn'), menuEl=$('#e-acctMenu'), nav=$('#e-nav');
-function closeMenu(){ drawer.classList.remove('e-open'); drawer.setAttribute('aria-hidden','true'); mb.setAttribute('aria-expanded','false'); }
+/* laci menu: tidak bisa difokus saat tertutup; saat terbuka fokus masuk, terkunci, Esc menutup & mengembalikan fokus */
+drawer.inert=true; drawer.setAttribute('role','dialog'); drawer.setAttribute('aria-modal','true'); drawer.setAttribute('aria-label','Menu');
+function closeMenu(){ const was=drawer.classList.contains('e-open'); drawer.classList.remove('e-open'); drawer.setAttribute('aria-hidden','true'); drawer.inert=true; mb.setAttribute('aria-expanded','false'); if(was && drawer.contains(document.activeElement)) mb.focus({preventScroll:true}); }
+document.addEventListener('keydown',e=>{ if(!drawer.classList.contains('e-open')) return; if(e.key==='Escape'){ closeMenu(); mb.focus({preventScroll:true}); return; }
+  if(e.key==='Tab'){ const f=[...drawer.querySelectorAll('a[href],button')].filter(x=>x.offsetParent!==null); if(!f.length) return; const a=f[0], z=f[f.length-1];
+    if(!drawer.contains(document.activeElement)){ e.preventDefault(); a.focus(); } else if(e.shiftKey&&document.activeElement===a){ e.preventDefault(); z.focus(); } else if(!e.shiftKey&&document.activeElement===z){ e.preventDefault(); a.focus(); } } });
 function closeAcct(){ menuEl.hidden=true; avBtn.setAttribute('aria-expanded','false'); }
-mb.addEventListener('click',()=>{ drawer.classList.add('e-open'); drawer.setAttribute('aria-hidden','false'); mb.setAttribute('aria-expanded','true'); if(HAS&&!RM) gsap.from($$('a',drawer),{yPercent:60,opacity:0,stagger:.06,duration:.9,ease:'expo.out',delay:.25}); });
+mb.addEventListener('click',()=>{ drawer.classList.add('e-open'); drawer.setAttribute('aria-hidden','false'); drawer.inert=false; mb.setAttribute('aria-expanded','true'); setTimeout(()=>$('#e-menuX').focus({preventScroll:true}),60); if(HAS&&!RM) gsap.from($$('a',drawer),{yPercent:60,opacity:0,stagger:.06,duration:.9,ease:'expo.out',delay:.25}); });
 $('#e-menuX').addEventListener('click',closeMenu);
 const placeMenu=()=>{ const r=avBtn.getBoundingClientRect(); menuEl.style.top=(r.bottom+10)+'px'; menuEl.style.right=(innerWidth-r.right)+'px'; };
 addEventListener('resize',()=>{ if(!menuEl.hidden) placeMenu(); });
