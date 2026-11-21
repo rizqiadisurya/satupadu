@@ -4412,7 +4412,7 @@ function cxFrameHTML(id, opts={}){
   const t=cxTheme(id); const demo = !!opts.demo, to = opts.guest || '';
   return `<iframe class="cx-frame" data-cx="${t.id}" ${demo?'data-cxdemo="1"':''} title="Undangan ${esc(t.name)}" allow="autoplay; clipboard-write" src="/custom/${t.dir}/index.html${to?'?to='+encodeURIComponent(to):''}${demo?'':'#preview'}"></iframe>`;
 }
-function cxPost(f){ try{ if(!f || f.dataset.cxdemo || !f.contentWindow) return; f.contentWindow.postMessage({type:'invite:update', data:cxData(f.dataset.cx)}, '*'); }catch(e){ console.warn('cx', e); } }
+function cxPost(f){ try{ if(!f || f.dataset.cxdemo || !f.contentWindow) return; f.contentWindow.postMessage({type:'invite:update', data:cxData(f.dataset.cx)}, location.origin); }catch(e){ console.warn('cx', e); } }
 const cxPostAll = () => $$('iframe.cx-frame').forEach(cxPost);
 addEventListener('message', async e=>{
   const m=e.data||{}; const f=$$('iframe.cx-frame').find(x=>x.contentWindow===e.source); if(!f) return;
@@ -6378,8 +6378,10 @@ function openAuth(next, mode){
     if(err){ b.disabled=false; b.textContent='Kirim kode masuk'; er.textContent=err; er.hidden=false; return; }
     lsSet('sp-last-email', v); otpStep(v); });
 }
+const PROTO = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+const OFFLINE_MSG = 'Server Sakara lagi tidak terhubung. Muat ulang halaman sebentar lagi, ya.';
 async function sendCode(email){
-  if(!CLOUD.on) return /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? null : 'Server login lagi tidak terhubung, jadi kode belum bisa dikirim. Coba lagi sebentar, ya.';
+  if(!CLOUD.on) return PROTO ? null : 'Server login lagi tidak terhubung, jadi kode belum bisa dikirim. Coba lagi sebentar, ya.';
   const { error } = await CLOUD.sb.auth.signInWithOtp({email, options:{shouldCreateUser:true, emailRedirectTo: location.origin+'/#'+(location.hash.slice(1)||'dashboard')}});
   if(!error) return null;
   const m = error.message||'';
@@ -6466,7 +6468,7 @@ function renderCheckout(){
       ${CLOUD.on?`<p class="muted" style="font-size:12.5px">Pembayaran diproses aman oleh Midtrans${CLOUD.cfg.midtransProduction?'':' (mode uji coba / sandbox)'}.</p>`:'<p class="muted" style="font-size:12.5px">Prototype: tidak ada pembayaran sungguhan yang diproses.</p>'}
       ${CLOUD.pendingOrder?`<div class="warn-box" style="margin-top:12px">${ico('receipt')}<span>Ada pembayaran yang belum selesai (${esc(CLOUD.pendingOrder)}). <button type="button" class="linkbtn" data-act="co-check">Cek status</button></span></div>`:''}
     </form>${summary}</div>`;
-    $('#coForm').addEventListener('submit',ev=>{ ev.preventDefault(); if(CLOUD.on){ cloudPay(ev.target.querySelector('.form-foot .btn-primary')); return; } CO.stage='pending'; CO.end=Date.now()+15*60*1000; renderCheckout(); window.scrollTo(0,0); });
+    $('#coForm').addEventListener('submit',ev=>{ ev.preventDefault(); if(CLOUD.on){ cloudPay(ev.target.querySelector('.form-foot .btn-primary')); return; } if(!PROTO){ toast(OFFLINE_MSG); return; } CO.stage='pending'; CO.end=Date.now()+15*60*1000; renderCheckout(); window.scrollTo(0,0); });
     $('#coForm').addEventListener('change',ev=>{ if(ev.target.name==='coPlan'){ CO.plan=ev.target.value; renderCheckout(); } if(ev.target.name==='coM'){ CO.method=ev.target.value; renderCheckout(); } });
     $('#coV').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); applyVoucher(); } });
   }
@@ -6736,13 +6738,14 @@ document.addEventListener('click', e=>{
   if(a==='login-co'){ openAuth(()=>renderCheckout(),'publish'); }
   if(a==='google-login' && CLOUD.on){ const hv=location.hash.slice(1); const dest = authMode==='publish' ? 'checkout' : (!hv||['beranda','harga'].includes(hv) ? 'dashboard' : hv); lsSet('sp-after-login', dest); el.disabled=true; el.lastChild.textContent='Menghubungkan ke Google…';
     CLOUD.sb.auth.signInWithOAuth({provider:'google', options:{redirectTo: location.origin+'/', queryParams:{prompt:'select_account'}}}).then(({error})=>{ if(error){ el.disabled=false; el.lastChild.textContent='Lanjut dengan Google'; toast('Login Google belum bisa: '+error.message); } }); return; }
+  if(a==='google-login' && !PROTO){ toast(OFFLINE_MSG); return; }
   if(a==='google-login'){ finishLogin(S.bride.name||'Pengguna Google', (S.bride.nick||'pengguna').toLowerCase()+'@gmail.com'); }
   if(a==='logout' && CLOUD.uid){ e.preventDefault(); if(ADM.sso) admSetTok(''); signOutAll(); return; }
   if(a==='logout'){ S.user=null; save(); renderAuthSlot(); toast('Kamu udah keluar. Sampai jumpa lagi! 👋'); if(['tagihan','checkout'].includes(location.hash.slice(1))) location.hash='beranda'; }
   if(a==='acct-menu'){ const m=$('#acctMenu'); m.hidden=!m.hidden; el.setAttribute('aria-expanded',!m.hidden); return; }
   if(a==='apply-voucher') applyVoucher();
   if(a==='co-back'){ clearInterval(CO.timer); CO.stage='form'; renderCheckout(); }
-  if(a==='co-paid') completePayment();
+  if(a==='co-paid' && PROTO) completePayment();
   if(a==='co-check' && CLOUD.pendingOrder){ clearTimeout(CO.waitT); CO.stage='waiting'; renderCheckout(); waitPaid(CLOUD.pendingOrder); }
   if(a==='co-reset'){ CO.stage='form'; }
   if(a==='co-pick-tamu' || a==='co-pick-plan'){ CO.plan=el.dataset.p||'tamu'; renderCheckout(); }
@@ -6826,7 +6829,7 @@ async function ownerLoad(user){
     G=[]; W=[]; GIFTS=[]; S.invoices=[]; S.giftNo=0;
   }
   CLOUD.inv=inv;
-  Object.assign(S, inv.data||{}, {slug:inv.slug, published:inv.published, giftNo:inv.gift_no});
+  Object.assign(S, scrubUrls(inv.data||{}), {slug:inv.slug, published:inv.published, giftNo:inv.gift_no});
   if(!(inv.data||{}).wishlist) S.wishlist={on:false, items:[]};
   if(!(inv.data||{}).story) S.story={on:false, items:[]};
   if(!(inv.data||{}).thanked) S.thanked=[];
@@ -6906,10 +6909,20 @@ function liveRefresh(){
   if((h==='checkin' || CLOUD.pinMode) && document.activeElement?.id!=='ciQ' && !document.getElementById('ciCam')) renderCheckin();
   else if(h==='dashboard' && !['gSearch'].includes(document.activeElement?.id)) renderDash();
 }
+/* URL dari data undangan (foto, musik, peta) bisa ditulis siapa saja lewat API database:
+   hanya skema aman yang dipakai, dan karakter yang bisa keluar dari atribut/CSS di-encode. */
+const URL_KEY = /(photo|cover|gallery|galeri|src|img|image|url|music|foto|avatar|thumb)/i, URL_SKIP = /(title|text|caption|label|pos|start|fg|on|mode|name|alt|note)$/i;
+function safeUrl(u){ u=String(u??'').trim(); if(!u) return ''; if(!/^(https?:\/\/|\/(?!\/)|data:image\/(png|jpe?g|webp|gif);base64,|blob:)/i.test(u)) return '';
+  return u.replace(/[\s"'<>`\\()]/g, c=>'%'+c.charCodeAt(0).toString(16).padStart(2,'0').toUpperCase()); }
+function scrubUrls(o, hint){
+  if(Array.isArray(o)) return o.map(v=>scrubUrls(v, hint));
+  if(o && typeof o==='object'){ const r={}; for(const k in o) r[k]=scrubUrls(o[k], URL_SKIP.test(k) ? false : (hint||URL_KEY.test(k))); return r; }
+  return (hint && typeof o==='string') ? safeUrl(o) : o;
+}
 async function guestLoad(){
   const { data, error } = await CLOUD.sb.rpc('get_public_invitation',{p_slug:CLOUD.slug, p_code:CLOUD.code||null});
   if(error || !data){ CLOUD.notFound=true; return; }
-  Object.assign(S, data.data||{}); S.published=true; S.plan=data.plan; reapplyConfig();
+  Object.assign(S, scrubUrls(data.data||{})); S.published=true; S.plan=data.plan; reapplyConfig();
   if(isCx(S.theme) && S.plan!=='custom' && S.liveTheme && !isCx(S.liveTheme)) S.theme=S.liveTheme;
   if(!(data.data||{}).wishlist) S.wishlist={on:false, items:[]};
   if(!(data.data||{}).story) S.story={on:false, items:[]};
@@ -6924,7 +6937,7 @@ async function pinLoad(){
   const { data, error } = await CLOUD.sb.rpc('ci_guests',{p_slug:CLOUD.slug, p_pin:CLOUD.pin});
   if(error){ CLOUD.pinError=error.message; CLOUD.needPin=true; return; }
   CLOUD.needPin=false; CLOUD.pinError=null;
-  Object.assign(S, data.data||{}); S.giftNo=data.gift_no; S.plan='tamu'; S.published=true;
+  Object.assign(S, scrubUrls(data.data||{})); S.giftNo=data.gift_no; S.plan='tamu'; S.published=true;
   G = (data.guests||[]).map(fromRow);
 }
 const ciAuth = () => CLOUD.on ? (CLOUD.pinMode ? {p_slug:CLOUD.slug, p_pin:CLOUD.pin} : (CLOUD.inv ? {p_slug:CLOUD.inv.slug, p_pin:CLOUD.inv.checkin_pin} : null)) : null;
