@@ -59,6 +59,13 @@ const actions = {
     let user = null; try { user = await sb('/auth/v1/user', { key: ANON() || SERVICE(), token: tok }); } catch (e) {}
     const email = String(user && user.email || '').trim().toLowerCase();
     if (!email || !(user.email_confirmed_at || user.confirmed_at)) throw ERR(403, 'Bukan admin');
+    // Hanya sesi dari login Google atau kode email (OTP). Akun yang masuk pakai kata sandi bisa dibuat siapa saja
+    // dengan email admin bila pendaftaran email+sandi aktif, jadi tidak boleh jadi jalan masuk admin.
+    let amr = [];
+    try { amr = (JSON.parse(Buffer.from(tok.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString()).amr || []).map(x => String(x.method || x)); } catch (e) {}
+    const viaGoogle = (user.identities || []).some(i => i.provider === 'google') && amr.includes('oauth');
+    const viaOtp = amr.some(m => m === 'otp' || m === 'magiclink' || m === 'email/signup');
+    if (!(viaGoogle || viaOtp) || amr.includes('password')) throw ERR(403, 'Masuk admin hanya lewat Google atau kode email');
     const rows = await sb(`/rest/v1/admins?email=ilike.${enc(email.replace(/[%_*]/g, ''))}&select=*`);
     const a = (rows || []).find(r => String(r.email).trim().toLowerCase() === email);
     if (!a) throw ERR(403, 'Bukan admin');

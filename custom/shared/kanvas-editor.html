@@ -365,12 +365,12 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const Q=new URLSearchParams(location.search), DIR=(Q.get('dir')||'drapery').replace(/[^a-z]/g,'');
 const BASE=`/custom/${DIR}/`;
 const host=window.parent!==window?window.parent:null;
-const post=m=>{try{host&&host.postMessage(m,'*')}catch(e){}};
+const post=m=>{try{host&&host.postMessage(m,location.origin)}catch(e){}};
 function load(src){return new Promise((ok,no)=>{const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
 
 let cfg,KV=window.KV;
 let D={},F={},inited=false;
-addEventListener('message',e=>{const m=e.data||{};
+addEventListener('message',e=>{if(e.origin!==location.origin)return;if(e.source!==host&&e.source!==(pvFrame&&pvFrame.contentWindow))return;const m=e.data||{};
  if(m.type==='kv:init'&&!inited){inited=true;D=m.data||{};F=m.fields||{};start(m.doc,m.title)}
  else if(m.type==='kv:data'&&inited){D=m.data||D;F=m.fields||F;CTXup();refreshBound();fillForm()}
  else if(m.type==='kv:uploaded'&&inited){const el=get(m.id);if(el){if(m.url){el.src=m.url;delete el.pending;refresh(el);commit()}else{toast('Foto belum terunggah. Coba lagi, ya.')}}}
@@ -774,7 +774,7 @@ function fitIfNeeded(){const f=fitZoom();if(zoom>f+.001||isNarrow())setZoom(f)}
 
 /* ---------- pratinjau: tema asli dengan kanvas ini ---------- */
 let pvFrame=null;
-function pvSend(){if(!pvFrame||!pvFrame.contentWindow)return;try{pvFrame.contentWindow.postMessage({type:'invite:update',data:{...D,_editor:false,_sample:[],_kv:KV.split(state.sections,state.els)}},'*')}catch(e){}}
+function pvSend(){if(!pvFrame||!pvFrame.contentWindow)return;try{pvFrame.contentWindow.postMessage({type:'invite:update',data:{...D,_editor:false,_sample:[],_kv:KV.split(state.sections,state.els)}},location.origin)}catch(e){}}
 function preview(){
  if(editing)stopEdit();select(null);
  const scr=$('#screen');const s=Math.min(1,(innerHeight-110)/800,(innerWidth-48)/390);

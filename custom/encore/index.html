@@ -533,9 +533,10 @@ function ring(el){
 }
 
 /* ---------- tickers ---------- */
+const escH = v => String(v == null ? "" : v).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 function tickers(d){
-  const g = d.couple.groom.short, b = d.couple.bride.short, date = d._date.dotsPlain || "";
-  const bits = [`${b} <i>✦</i> ${g}`, date, "Sedang tayang", d.hashtag || "Satu Hari yang Indah", "Jangan sampai terlewat"];
+  const g = escH(d.couple.groom.short), b = escH(d.couple.bride.short), date = escH(d._date.dotsPlain || "");
+  const bits = [`${b} <i>✦</i> ${g}`, date, "Sedang tayang", escH(d.hashtag || "Satu Hari yang Indah"), "Jangan sampai terlewat"];
   const run = bits.filter(Boolean).map(x => `<span>${x}</span><span><i>★</i></span>`).join("");
   $$("[data-ticker]").forEach(t => t.innerHTML = `<div class="tk-track" aria-hidden="true">${run}${run}${run}${run}</div>`);
 }
@@ -543,7 +544,7 @@ function tickers(d){
 /* ---------- film reel gallery ---------- */
 function reels(){
   const srcs = $$("#gsrc img").map(i => i.getAttribute("src")).filter(Boolean);
-  const half = (list) => list.map((s) => `<button data-g="${srcs.indexOf(s)}"><img src="${s}" alt=""></button>`).join("");
+  const half = (list) => list.map((s) => `<button data-g="${srcs.indexOf(s)}" aria-label="Lihat foto"><img src="${escH(s)}" alt=""></button>`).join("");
   const a = srcs, b = [...srcs].reverse();
   $("#reelA").innerHTML = half(a) + half(a) + half(a);
   $("#reelB").innerHTML = half(b) + half(b) + half(b);

@@ -31,10 +31,10 @@
         const v = get(scope, p);
         if (a === "k") n.textContent = v == null ? "" : String(v);
         else if (a === "src") {
-          if (empty(v)) { n.removeAttribute("src"); n.classList.add("is-empty"); }
+          if (empty(v) || /^\s*javascript:/i.test(String(v))) { n.removeAttribute("src"); n.classList.add("is-empty"); }
           else { if (n.getAttribute("src") !== v) n.src = v; n.classList.remove("is-empty"); }
         }
-        else if (a === "href") { if (empty(v)) n.removeAttribute("href"); else n.href = v; }
+        else if (a === "href") { const ok = !empty(v) && /^(https?:|mailto:|tel:|#|\/(?!\/))/i.test(String(v).trim()); if (!ok) n.removeAttribute("href"); else n.href = v; }
         else if (a === "bgc") n.style.background = v || "";
         else if (a === "show") n.hidden = empty(v);
       }
@@ -94,11 +94,13 @@
       if (embedded) { root.style.visibility = "hidden"; setTimeout(() => root.style.visibility = "", 1500); }
       this.set(initial);
       window.addEventListener("message", e => {
+        /* hanya dari editor/halaman Sakara yang membingkai tema ini, bukan dari situs lain */
+        if (e.origin !== location.origin || (e.source !== window.parent && e.source !== window)) return;
         const msg = e.data || {};
         if (msg.type === "invite:update") { this.set(msg.data); root.style.visibility = ""; }
         if (msg.type === "invite:focus") this.focus(msg.section);
       });
-      if (window.parent !== window) window.parent.postMessage({ type: "invite:ready", theme }, "*");
+      if (window.parent !== window) window.parent.postMessage({ type: "invite:ready", theme }, location.origin);
     },
     set(data) {
       this.data = derive(structuredClone(data), this.locale);

@@ -184,7 +184,7 @@
     embedded, t, tx,
     host: () => !!(window.Invite && Invite.data && Invite.data._host),
     wishes: () => (window.Invite && Invite.data && Array.isArray(Invite.data._wishes)) ? Invite.data._wishes : null,
-    send(entry) { if (embedded) window.parent.postMessage({ type: "invite:rsvp", entry }, "*"); }
+    send(entry) { if (embedded) window.parent.postMessage({ type: "invite:rsvp", entry }, location.origin); }
   };
 
   function samples(list) {
@@ -215,7 +215,7 @@
   fit(); addEventListener("resize", fit);
   /* mode editor: klik bagian untuk mengeditnya, bagian yang sedang diedit diberi garis */
   let editMode = false;
-  addEventListener("message", e => { const m = e.data || {}; if (m.type !== "sakara:mark") return; editMode = true; css();
+  addEventListener("message", e => { if (e.origin !== location.origin || e.source !== window.parent) return; const m = e.data || {}; if (m.type !== "sakara:mark") return; editMode = true; css();
     document.documentElement.classList.add("sk-edit");
     // "music" = pemutar lagu (di Drapery berdiri sendiri di antara bagian, di tema lain ada di dalam bagian pembuka)
     const pl = document.querySelector(".player, .player-wrap"), musicEl = pl ? (pl.closest(".damask") || pl) : null;
@@ -225,7 +225,7 @@
     const first = (m.sections || []).map(find).find(el => el && el.offsetParent !== null);
     if (first && m.scroll) { document.dispatchEvent(new CustomEvent("invite:skipcover")); first.scrollIntoView({ behavior: "smooth", block: first === musicEl ? "center" : "start" }); }
   });
-  document.addEventListener("click", e => { if (!editMode || !embedded) return; if (e.target.closest("a,button,input,textarea,select,label,#cover")) return; const sec = e.target.closest("[data-section]"); if (!sec) return; window.parent.postMessage({ type: "invite:pick", section: sec.dataset.section }, "*"); }, true);
+  document.addEventListener("click", e => { if (!editMode || !embedded) return; if (e.target.closest("a,button,input,textarea,select,label,#cover")) return; const sec = e.target.closest("[data-section]"); if (!sec) return; window.parent.postMessage({ type: "invite:pick", section: sec.dataset.section }, location.origin); }, true);
   const boot = () => {
     if (!window.Invite) return setTimeout(boot, 0);
     const set = Invite.set.bind(Invite);

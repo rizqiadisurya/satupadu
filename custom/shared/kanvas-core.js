@@ -123,7 +123,7 @@
       const B = cfg.button || {};
       Object.assign(n.style, { background: el.bg || B.bg || "#f5eee3", color: el.color || B.color || "#3a080d", fontFamily: fontOf(cfg, el.font || B.font || "sans") });
       n.innerHTML = `${(el.icon ?? "pin") === "pin" ? PIN : ""}<span>${esc(el.label || "Petunjuk Lokasi")}</span>`;
-      if (o.pv && n.tagName === "A") { const h = el.href === "maps" ? o.C.mapsUrl : el.href; if (h) { n.href = h; n.target = "_blank"; n.rel = "noopener"; } else n.removeAttribute("href"); }
+      if (o.pv && n.tagName === "A") { const h0 = el.href === "maps" ? o.C.mapsUrl : el.href, h = /^https?:\/\//i.test(String(h0 || "")) ? h0 : ""; if (h) { n.href = h; n.target = "_blank"; n.rel = "noopener"; } else n.removeAttribute("href"); }
     }
   }
   function box(n, el) {
