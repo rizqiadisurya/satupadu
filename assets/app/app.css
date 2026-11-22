@@ -3508,3 +3508,14 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
 .ci2-pax{display:grid;justify-items:center;line-height:1;font-size:11px;font-weight:700;color:var(--muted);min-width:34px}
 .ci2-pax b{font-size:20px;color:var(--ink);margin-bottom:2px}
 .ci2-code{font-family:ui-monospace,Menlo,monospace;font-weight:700;color:var(--beet)}
+
+/* Gelombang 3: navigasi bawah undangan muncul setelah sampul, ruang bawah cukup, penutup satu baris */
+.g-nav{transition:transform .35s ease,opacity .35s ease}
+.g-nav.g-hide,.guest-col:not(.locked) .g-nav.g-hide{animation:none;transform:translateY(130%);opacity:0;pointer-events:none}
+.inv .foot{white-space:nowrap}
+/* Tombol Pratinjau di HP: bulat kecil di pojok, hilang saat mengetik supaya tidak menutupi kolom */
+@media (max-width:900px){
+  .preview-fab{width:54px;height:54px;padding:0;border-radius:50%;justify-content:center;font-size:0;gap:0;bottom:calc(16px + env(safe-area-inset-bottom));transition:transform .25s,opacity .25s}
+  .preview-fab .icon{width:22px;height:22px}
+  body.is-typing .preview-fab{transform:translateY(140%);opacity:0;pointer-events:none}
+}
