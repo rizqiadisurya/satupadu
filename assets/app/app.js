@@ -1064,7 +1064,7 @@ function invHTML0(opts={}){
       <div class="names" style="font-size:38px">${esc(nick1)} <span style="color:var(--t-accent);font-style:italic">&amp;</span> ${esc(nick2)}</div>${t.layout==='beludru'?`</div><div class="bl-env bl-env2" aria-hidden="true"><img class="bk" src="${t.ilDir}envelope-back.webp" alt="" loading="lazy"><img class="ft" src="${t.ilDir}envelope-front.webp" alt="" loading="lazy"><img class="bl-tas" src="${t.ilDir}tassel-green.webp" alt="" loading="lazy"></div>`:''}
       <button type="button" class="ibtn sv-btn" data-act="souvenir" data-guest="${esc(guest)}">${ico('down')}Simpan kartu kenangan</button>
     </section>
-    <a class="foot" href="/?ref=undangan" target="_blank" rel="noopener">Dibuat dengan <b>Sakara</b> · Buat undangan kalian</a>
+    <a class="foot" href="/?ref=undangan" target="_blank" rel="noopener">Dibuat dengan Sakara</a>
   </div>`;
 }
 /* ---------- Kartu kenangan digital: PNG 1080×1350 bergaya tema, berisi nama tamu ---------- */
@@ -4567,7 +4567,7 @@ function route(){
   if(CLOUD.guestMode || CLOUD.pinMode){
     const v = CLOUD.guestMode ? 'undangan' : 'checkin';
     $$('[data-view]').forEach(x=> x.hidden = x.dataset.view!==v); $('#siteHeader').hidden=true; $('#footerWrap').hidden=true; closeModal();
-    if(CLOUD.guestMode && CLOUD.notFound){ $('#guestShell').innerHTML = `<div class="cloud-404" style="width:100%"><div><img class="kara kara-404" src="/assets/kara/kara-bingung.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><h1 class="display" style="font-size:36px">Undangan tidak ditemukan</h1><p class="muted" style="margin-top:10px">Link mungkin salah ketik, atau undangan belum dipublikasikan oleh pasangan.</p></div></div>`; bootDone(); return; }
+    if(CLOUD.guestMode && CLOUD.notFound){ $('#guestShell').innerHTML = `<div class="cloud-404" style="width:100%"><div><img class="kara kara-404" src="/assets/kara/kara-bingung.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><h1 class="display" style="font-size:36px">Undangan tidak ditemukan</h1><p class="muted" style="margin-top:10px">Link mungkin salah ketik, atau undangan belum dipublikasikan oleh pasangan. Coba minta link terbaru ke pengantin.</p><p style="margin-top:20px"><a class="btn btn-primary" href="/">Ke beranda Sakara</a></p></div></div>`; bootDone(); return; }
     if(CLOUD.guestMode) renderGuest(); else renderCheckin();
     bootDone(); return;
   }
@@ -4629,3 +4629,11 @@ if(/^\/?$/.test(location.pathname) && /^#(tema|tema-custom|bandingkan)$/.test(lo
 cloudInit().catch(e=>console.warn('cloud init', e)).finally(()=>{ const H=document.documentElement, held=H.classList.contains('boot-oauth'); H.classList.remove('boot-oauth'); route(); if(held) bootDone(); });
 setInterval(()=> $$('[data-count]').forEach(el=> el.innerHTML = countHTML(el.dataset.count)), 30000);
 })();
+
+/* Navigasi bawah undangan disembunyikan selama sampul masih memenuhi layar, supaya tidak menumpuk dengan hitung mundur */
+(function(){ let raf=0; const upd=()=>{ raf=0; const vw=document.querySelector('[data-view="undangan"]:not([hidden])'); if(!vw) return; const nav=vw.querySelector('.g-nav'); if(!nav) return; const cv=vw.querySelector('.inv .cover'); const hide=!!cv && cv.getBoundingClientRect().bottom > innerHeight*0.55; nav.classList.toggle('g-hide', hide); };
+  addEventListener('scroll', ()=>{ if(!raf) raf=requestAnimationFrame(upd); }, {passive:true}); new MutationObserver(()=>{ if(!raf) raf=requestAnimationFrame(upd); }).observe(document.body,{childList:true,subtree:false}); setInterval(upd, 1500); })();
+
+/* tandai saat sedang mengetik (keyboard HP terbuka) */
+document.addEventListener('focusin', e=>{ if(e.target.matches && e.target.matches('input:not([type=checkbox]):not([type=radio]):not([type=file]),textarea,select')) document.body.classList.add('is-typing'); });
+document.addEventListener('focusout', ()=>{ setTimeout(()=>{ const a=document.activeElement; if(!(a && a.matches && a.matches('input,textarea,select'))) document.body.classList.remove('is-typing'); }, 60); });
