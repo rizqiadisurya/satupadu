@@ -69,6 +69,15 @@
       ]
     },
     {
+      "source": "/api/config",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=60, s-maxage=300, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
       "source": "/music/(.*)",
       "headers": [
         {
@@ -85,11 +94,23 @@
           "value": "public, max-age=86400"
         }
       ]
+    },
+    {
+      "source": "/assets/vendor/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
+      ]
     }
   ],
   "functions": {
     "api/undangan.js": {
       "includeFiles": "index.html"
     }
-  }
+  },
+  "regions": [
+    "hnd1"
+  ]
 }
