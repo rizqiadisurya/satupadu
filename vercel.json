@@ -60,7 +60,7 @@
       ]
     },
     {
-      "source": "/api/(.*)",
+      "source": "/api/((?!config$).*)",
       "headers": [
         {
           "key": "Cache-Control",
