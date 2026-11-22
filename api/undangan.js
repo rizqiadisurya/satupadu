@@ -3,7 +3,7 @@
 // Isi halamannya tetap index.html yang sama; hanya blok <!--og:start-->…<!--og:end--> yang diganti.
 const fs = require('fs');
 const path = require('path');
-const { env, sb, ANON, SERVICE } = require('./_lib');
+const { env, sb, ANON, SERVICE, IS_PROD } = require('./_lib');
 
 let HTML = null;
 function page() {
@@ -109,7 +109,10 @@ module.exports = async (req, res) => {
   const a = html.indexOf('<!--og:start-->'), b = html.indexOf('<!--og:end-->');
   // Tema Custom punya pembuka sendiri, jadi layar gerbang/loading Sakara tidak ditampilkan sama sekali.
   const flag = noGate ? '\n<script>document.documentElement.classList.add(\'gate-off\')</script>' : '';
-  const out = a >= 0 && b > a ? html.slice(0, a) + '<!--og:start-->\n' + metaBlock(meta) + flag + '\n' + html.slice(b) : html;
+  // Konfigurasi publik disisipkan langsung, supaya halaman tamu tidak perlu menunggu /api/config.
+  const cfg = { supabaseUrl: env('SUPABASE_URL'), supabaseAnonKey: env('SUPABASE_ANON_KEY'), midtransClientKey: env('MIDTRANS_CLIENT_KEY'), midtransProduction: IS_PROD(), googleLogin: env('GOOGLE_LOGIN') === 'true' };
+  const cfgTag = cfg.supabaseUrl ? '\n<script>window.__SK_CFG=' + JSON.stringify(cfg).replace(/</g, '\\u003c') + '</script>' : '';
+  const out = a >= 0 && b > a ? html.slice(0, a) + '<!--og:start-->\n' + metaBlock(meta) + flag + cfgTag + '\n' + html.slice(b) : html;
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');

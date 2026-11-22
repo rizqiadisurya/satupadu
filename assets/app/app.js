@@ -3041,12 +3041,18 @@ function loadScript(src, attrs={}){ return new Promise((res,rej)=>{ const s=docu
 const setSaveState = t => { const el=$('#saveState'); if(el) el.textContent=t; };
 async function cloudInit(){
   if(!/^https?:$/.test(location.protocol)) return;
-  let cfg; try{ const r=await fetch('/api/config',{cache:'no-store'}); if(!r.ok) return; cfg=await r.json(); }catch(e){ return; }
+  /* konfigurasi publik: disisipkan server di halaman undangan (tanpa permintaan tambahan), selain itu dari /api/config (di-cache di tepi) */
+  let cfg = window.__SK_CFG || null;
+  if(!cfg){ try{ const r=await fetch('/api/config'); if(!r.ok) return; cfg=await r.json(); }catch(e){ return; } }
   if(!cfg || !cfg.supabaseUrl || !cfg.supabaseAnonKey) return;
-  if(!window.supabase){ try{ await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js'); }catch(e){ return; } }
+  if(!window.supabase){ try{ await loadScript('/assets/vendor/supabase.js'); }catch(e){ return; } }
   CLOUD.cfg=cfg; CLOUD.sb=window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {auth:{persistSession:true, autoRefreshToken:true, detectSessionInUrl:true}}); CLOUD.on=true;
-  await loadAppConfig();
   const m = location.pathname.match(/^\/u\/([a-z0-9-]+)(\/(?:checkin|keluarga|katering|album))?\/?$/);
+  /* halaman tamu: pengaturan aplikasi, data undangan, dan progres kado diambil bersamaan */
+  if(m && !m[2]){ CLOUD.slug=m[1]; const qs=new URLSearchParams(location.search); CLOUD.guestMode=true; CLOUD.code=(qs.get('to')||'').toUpperCase();
+    CLOUD.wlpP = CLOUD.sb.rpc('wishlist_progress',{p_slug:CLOUD.slug}).then(r=>r.data||{}, ()=>({}));
+    await Promise.all([loadAppConfig(), guestLoad()]); if(!CLOUD.notFound) reapplyConfig(); return; }
+  await loadAppConfig();
   if(m){
     CLOUD.slug=m[1]; const qs=new URLSearchParams(location.search);
     if(m[2]==='/album'){ CLOUD.albumMode=true; await albumLoad(); setInterval(()=>{ if(!AP.busy && !document.querySelector('.al-lb') && document.activeElement?.id!=='alName') albumLoad().then(()=>{ if(!AP.err){ const n=$('#alName')?.value; renderAlbum(); if(n!==undefined && $('#alName')) $('#alName').value=n; } }); }, 30000); return; }
@@ -3654,6 +3660,7 @@ async function extraOwnerLoad(inv){
 }
 async function extraGuestLoad(){
   if(!S.wishlist || !S.wishlist.on) return;
+  if(CLOUD.wlpP){ WLP = await CLOUD.wlpP; return; }
   const { data } = await CLOUD.sb.rpc('wishlist_progress',{p_slug:CLOUD.slug}); WLP = data || {};
 }
 

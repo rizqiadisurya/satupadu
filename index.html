@@ -39,6 +39,7 @@
 </style>
 <link rel="stylesheet" href="/assets/home/home.css">
 <link rel="preload" href="/assets/app/app.js" as="script">
+<link rel="preload" href="/assets/vendor/supabase.js" as="script">
 <link rel="stylesheet" href="/assets/app/app.css">
 </head>
 <body>
@@ -369,7 +370,7 @@ var n=document.getElementById('gateNames');if(n&&c.n1&&c.n2){n.textContent='';va
 
 <script src="/assets/vendor/qrcode.js" defer onload="window.qrReady&&qrReady()"></script>
 <script>/* halaman tamu (/u/…) & admin tidak butuh animasi beranda: lewati gsap, lenis, home.js (±160 KB). Urutan eksekusi tetap terjaga (async=false). */
-(function(){var p=location.pathname,lite=/^\/(u\/|admin\/?$)/.test(p),L=['/custom/shared/defaults.js'];if(!lite)L.push('/assets/vendor/gsap.min.js','/assets/vendor/ScrollTrigger.min.js','/assets/vendor/lenis.min.js','/assets/home/home.js');L.push('/assets/app/app.js');
+(function(){var p=location.pathname,lite=/^\/(u\/|admin\/?$)/.test(p),L=['/custom/shared/defaults.js'];if(!lite)L.push('/assets/vendor/gsap.min.js','/assets/vendor/ScrollTrigger.min.js','/assets/vendor/lenis.min.js','/assets/home/home.js');L.push('/assets/vendor/supabase.js','/assets/app/app.js');
 L.forEach(function(s){var e=document.createElement('script');e.src=s;e.async=false;document.body.appendChild(e);});})();</script>
 </body>
 </html>
