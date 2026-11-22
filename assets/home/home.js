@@ -76,7 +76,9 @@ function init(){
   makeLenis();
 
   // pembuka: hanya saat pertama kali membuka situs di beranda
-  const H=document.documentElement, loader=$('.e-loader'), first=H.classList.contains('edh-first') && loader;
+  /* jaringan lambat (skrip animasi baru tiba >1,5 dtk): halaman sudah tampil, langsung siap tanpa animasi pembuka */
+  const late = performance.now() > 1500;
+  const H=document.documentElement, loader=$('.e-loader'), first=H.classList.contains('edh-first') && loader && !late;
   const intro=gsap.timeline({defaults:{ease:'expo.out'},paused:true});
   let shift=0;
   if(first){
@@ -88,15 +90,18 @@ function init(){
       .to('.e-loader',{yPercent:-100,duration:.6,ease:'expo.inOut'},T0+.15)
       .add(()=>{ H.classList.remove('edh-first'); loader.remove(); if(lenis) lenis.start(); if(pending){ const p=pending; pending=null; setTimeout(()=>go(p),300); } },T0+.8);
   } else { loader&&loader.remove(); H.classList.remove('edh-first'); }
-  const o=first?shift:-2.7;
-  intro.from('.e-hl-bawah img',{yPercent:40,duration:2.2,ease:'power3.out',force3D:true},2.95+o)
-    .from('.e-hl-kiri img',{xPercent:-55,duration:2.2,ease:'power3.out',force3D:true},3.1+o)
-    .from('.e-hl-kanan img',{xPercent:55,duration:2.2,ease:'power3.out',force3D:true},3.1+o)
-    .from('.e-kp',{opacity:0,scale:.4,duration:1.2,stagger:.18,ease:'back.out(2)'},4.0+o)
-    .from('#e-h1 .e-line>span',{yPercent:110,duration:1.4,stagger:.14},3.35+o)
-    .from('.e-hero-copy .e-split-fade',{opacity:0,y:20,duration:1.1,stagger:.25},3.5+o)
-    .fromTo('.e-nav',{opacity:0},{opacity:1,duration:1},3.6+o)
-    .from('.e-hero-foot',{opacity:0,duration:1},4.0+o);
+  /* animasi pembuka dipadatkan: judul & tombol ajakan siap ±1 detik setelah layar pembuka (sebelumnya ±2 detik) */
+  const b0=first?shift+2.9:.2;
+  /* jaringan lambat: judul & tombol sudah terlihat sebelum skrip animasi tiba, jangan disembunyikan lalu dimunculkan lagi */
+  if(late) gsap.set('.e-nav',{opacity:1});
+  else intro.from('.e-hl-bawah img',{yPercent:40,duration:1.5,ease:'power3.out',force3D:true},b0)
+    .from('.e-hl-kiri img',{xPercent:-55,duration:1.5,ease:'power3.out',force3D:true},b0+.1)
+    .from('.e-hl-kanan img',{xPercent:55,duration:1.5,ease:'power3.out',force3D:true},b0+.1)
+    .from('.e-kp',{opacity:0,scale:.4,duration:.9,stagger:.12,ease:'back.out(2)'},b0+.7)
+    .from('#e-h1 .e-line>span',{yPercent:110,duration:.9,stagger:.08},b0+.2)
+    .from('.e-hero-copy .e-split-fade',{opacity:0,y:16,duration:.6,stagger:.12},b0+.35)
+    .fromTo('.e-nav',{opacity:0},{opacity:1,duration:.6},b0+.35)
+    .from('.e-hero-foot',{opacity:0,duration:.6},b0+.7);
   const t0=Date.now();
   (function wait(){ if(H.classList.contains('e-intro') && Date.now()-t0<4500) return setTimeout(wait,60); intro.play(); })();
 
@@ -232,3 +237,6 @@ return {enter,leave,sync,scrollTo:scrollToId,gallery};
   tgt.forEach(t=>io.observe(t));
   if(promo) new MutationObserver(upd).observe(promo,{attributes:true,attributeFilter:['class']});
 })();
+
+/* beranda langsung dijalankan begitu skrip animasi siap, tanpa menunggu kode aplikasi (±170 KB) selesai diunduh */
+(function(){ try{ if(location.pathname==='/' && /^(#|#beranda|#harga)?$/.test(location.hash) && window.EDH){ const v=document.querySelector('[data-view="beranda"]'); if(v && !v.hidden) EDH.enter(); } }catch(e){} })();

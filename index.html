@@ -38,7 +38,12 @@
 .edh .e-card .e-meta small{white-space:nowrap;flex:none}
 </style>
 <link rel="stylesheet" href="/assets/home/home.css">
+<link rel="preload" href="/custom/shared/defaults.js" as="script">
 <link rel="preload" href="/assets/app/app.js" as="script">
+<script>/* beranda & halaman aplikasi: mulai unduh skrip animasi dan gambar pembuka sedini mungkin (halaman tamu/admin tidak) */
+(function(){var p=location.pathname,hs=location.hash;if(/^\/(u\/|admin\/?$)/.test(p))return;var d=document.head,add=function(h,as,m,pr){var l=document.createElement('link');l.rel='preload';l.href=h;l.as=as;if(m)l.media=m;if(pr)l.setAttribute('fetchpriority',pr);d.appendChild(l);};
+['/assets/vendor/gsap.min.js','/assets/vendor/ScrollTrigger.min.js','/assets/vendor/lenis.min.js','/assets/home/home.js'].forEach(function(s){add(s,'script')});
+if(p==='/'&&/^(#|#beranda|#harga)?$/.test(hs)){add('/assets/home/h-bawah-s.webp','image','(max-width:900px)','high');add('/assets/home/h-bawah.webp','image','(min-width:901px)','high');}})();</script>
 <link rel="preload" href="/assets/vendor/supabase.js" as="script">
 <link rel="stylesheet" href="/assets/app/app.css">
 </head>
