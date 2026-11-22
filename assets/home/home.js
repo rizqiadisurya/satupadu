@@ -225,8 +225,10 @@ return {enter,leave,sync,scrollTo:scrollToId,gallery};
 /* tombol "Coba buat gratis" melayang di HP: muncul setelah bagian pembuka, sembunyi di bagian harga & footer */
 (function(){
   const b=document.getElementById('e-fcta'); if(!b || !('IntersectionObserver' in window)) return;
-  const seen=new Map(), tgt=['.e-hero','#e-paket','.edh footer, #e-top ~ footer'].map(s=>document.querySelector(s)).filter(Boolean);
-  const upd=()=>{ const on=[...seen.values()].every(v=>!v) && seen.size===tgt.length; b.classList.toggle('on', on); b.setAttribute('aria-hidden', on?'false':'true'); b.tabIndex=on?0:-1; };
+  const seen=new Map(), tgt=['.e-hero','#e-tema','#e-paket','.edh footer, #e-top ~ footer'].map(s=>document.querySelector(s)).filter(Boolean), promo=document.getElementById('e-promo');
+  /* tidak tampil bersamaan dengan kotak promo dan tidak menutupi carousel tema */
+  const upd=()=>{ const on=[...seen.values()].every(v=>!v) && seen.size===tgt.length && !(promo && promo.classList.contains('e-on')); b.classList.toggle('on', on); b.setAttribute('aria-hidden', on?'false':'true'); b.tabIndex=on?0:-1; };
   const io=new IntersectionObserver(es=>{ es.forEach(e=>seen.set(e.target, e.isIntersecting)); upd(); }, {threshold:0});
   tgt.forEach(t=>io.observe(t));
+  if(promo) new MutationObserver(upd).observe(promo,{attributes:true,attributeFilter:['class']});
 })();

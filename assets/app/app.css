@@ -3444,3 +3444,20 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
 /* pasangan dan latar sampul diam, hanya bunga dan kupu-kupu yang bergerak */
 .inv.anim.lay-kebun .kb-pria,.inv.anim.lay-kebun .kb-wanita,.inv.anim.lay-kebun .kb-psg,.inv.anim.lay-kebun .kb-latar,.inv.anim.lay-kebun .kb-lukis,.inv.anim.lay-kebun .kb-set .kb-bedb,.inv.anim.lay-kebun .kb-set .kb-bedd,.inv.anim.lay-kebun.kb-x .kb-set .kb-pria,.inv.anim.lay-kebun .kb-set .kb-pria,.inv.anim.lay-kebun .kb-set .kb-wanita,.inv.anim.lay-kebun .kb-img .kb-lukis{animation:none !important;transform:none !important}
 @media (prefers-reduced-motion:reduce){.inv.anim.lay-kebun .kb-bf{animation:none}}
+
+/* Checkout di HP: harga di bawah nama paket, tombol Bayar menempel di bawah layar */
+@media (max-width:640px){
+  .plan-pick label{grid-template-columns:22px 1fr;row-gap:4px;padding:14px}
+  .plan-pick label .num{grid-column:2;justify-self:start;font-size:16px}
+  .plan-pick small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13px;line-height:1.45}
+  .co-sum .co-inv,.co-sum .co-trust{display:none}
+  .co-sum{padding:14px 16px}
+  .co-foot{position:sticky;bottom:0;z-index:6;background:var(--card,#fff);margin:16px -16px -16px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line);border-radius:0 0 var(--r-lg) var(--r-lg);flex-wrap:wrap;gap:8px}
+  .co-foot .btn{flex:1 1 100%}
+}
+
+/* Dashboard di HP: kepala lengkap hanya di Ringkasan, tab lain cukup nama pasangan */
+@media (max-width:760px){
+  .dash-head.is-compact .eyebrow,.dash-head.is-compact .meta,.dash-head.is-compact .dh-acts{display:none!important}
+  .dash-head.is-compact h1{font-size:22px;margin:0}
+}
