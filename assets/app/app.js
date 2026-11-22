@@ -2300,7 +2300,9 @@ const dTile = (l,v,sub,ic,tn,hl) => `<div class="tile ic${hl?' hl':''}"><i class
 const dPanel = (t,d,body,extra='',cls='') => `<section class="panel-c pn ${cls}"><header class="pn-h"><div><h3>${t}</h3>${d?`<p>${d}</p>`:''}</div>${extra}</header><div class="pn-b">${body}</div></section>`;
 const dEmpty = (ic,t,d,tn='beet') => `<div class="adm-empty"><img class="kara kara-empty" src="/assets/kara/kara-tidur.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><b>${t}</b>${d?`<p>${d}</p>`:''}</div>`;
 function karaImg(n,c='kara-empty'){ return `<img class="kara ${c}" src="/assets/kara/kara-${n}.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">`; }
-function renderDash(){ const all=G; G_ALL=all; G=all.filter(g=>!isPending(g)); try{ renderDashCore(); } finally { G=all; } }
+function renderDash(){ const all=G; G_ALL=all; G=all.filter(g=>!isPending(g)); try{ renderDashCore(); } finally { G=all; }
+  /* tab aktif selalu terlihat di baris tab yang bisa digeser (HP) */
+  requestAnimationFrame(()=>{ $$('.dtabs, .dash-nav').forEach(bar=>{ const a=bar.querySelector('[aria-selected="true"]'); if(a && bar.scrollWidth>bar.clientWidth){ const l=a.offsetLeft-(bar.clientWidth-a.offsetWidth)/2; bar.scrollTo({left:Math.max(0,l), behavior:'smooth'}); } }); }); }
 /* ---------- Sentuhan tambahan: saran opsional yang muncul sesuai waktu acara ---------- */
 function touchTips(){
   const first=S.events.find(e=>e.date), days=first ? Math.ceil((new Date(first.date+'T00:00:00')-new Date())/864e5) : null;
@@ -2884,10 +2886,13 @@ function renderCheckin(){
   else if(ciTab==='sudah'){ list = arrived; title = ''; }
   else if(ciTab==='semua'){ list = pool.filter(inSes).sort((a,b)=>a.name.localeCompare(b.name)); title=''; }
   else { list = notYet.sort((a,b)=>a.name.localeCompare(b.name)); title=''; }
-  const row = g => { const c=g.checkin; const other = c && c.session!==ciSession;
+  /* nama kembar: tampilkan kode tamu supaya tidak salah check-in */
+  const dupN={}; pool.forEach(x=>{ const k=String(x.name||'').trim().toLowerCase(); dupN[k]=(dupN[k]||0)+1; });
+  const row = g => { const c=g.checkin; const other = c && c.session!==ciSession; const dup = dupN[String(g.name||'').trim().toLowerCase()]>1;
     return `<li><button class="ci2-row ${c?'in':''}" data-act="ci-open" data-id="${esc(g.id)}">
       <span class="av">${c?ico('check'):esc(initials(g.name))}</span>
-      <span class="ci2-info"><b>${esc(g.name)}</b><small>${esc(g.group||'')}${g.status==='hadir'?` · RSVP ${g.pax||1} orang`:g.status==='tidak'?' · RSVP tidak hadir':' · belum RSVP'}${g.walkin?' · tamu tambahan':''}</small></span>
+      <span class="ci2-info"><b>${esc(g.name)}</b><small>${dup&&g.code?`<span class="ci2-code">${esc(g.code)}</span> · `:''}${esc(g.group||'')}${g.status==='tidak'?' · RSVP tidak hadir':g.status==='hadir'?'':' · belum RSVP'}${g.walkin?' · tamu tambahan':''}</small></span>
+      ${g.status==='hadir'?`<span class="ci2-pax" aria-label="${g.pax||1} orang"><b class="num">${g.pax||1}</b>org</span>`:''}
       <span class="ci2-st">${c?`<span class="ci2-in">Masuk ${esc(c.time)}${c.gift?` · ${giftNo(c.gift)}`:''}${other?` · ${esc(S.events[c.session]?.type||'')}`:''}</span>`:`<span class="ci2-pill">Check-in</span>`}</span></button></li>`; };
   const help = ciHelpSeen ? '' : `<div class="ci2-help"><b>Cara pakai</b><ol><li><span>1</span><p>Tamu datang, minta tunjukkan <b>QR di undangan</b> mereka.</p></li><li><span>2</span><p>Ketuk <b>Scan QR</b>. Tidak punya QR? <b>Cari namanya</b>.</p></li><li><span>3</span><p>Cek jumlah orang dan kado, lalu ketuk <b>Check-in</b>.</p></li></ol><button class="btn btn-soft btn-sm" data-act="ci-help-ok">Mengerti</button></div>`;
   root.innerHTML = `
