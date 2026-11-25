@@ -192,5 +192,51 @@ window.INVITE_DEFAULTS = {
       g1: "assets/foto/g1.jpg", g2: "assets/foto/g2.jpg", g3: "assets/foto/g3.jpg", g4: "assets/foto/g4.jpg", g5: "assets/foto/g5.jpg", g6: "assets/foto/g6.jpg"
     },
     sections: { quote: true, couple: true, date: true, countdown: true, event: true, dresscode: true, gift: true, rsvp: true, story: true, gallery: true, closing: true }
+  },
+  kolase: {
+    theme: "kolase",
+    slug: "nadine-raka-kolase",
+    guestDefault: "Tamu Undangan",
+    hashtag: "#NadineRakaKolase",
+    music: { src: "", start: "" },
+    couple: {
+      bride: { name: "Nadine Salsabila Putri", short: "Nadine", parentsLine: "Putri kedua dari", father: "Faisal Rahman", mother: "Yuni Kartikasari", instagram: "", knownFor: "", bio: "" },
+      groom: { name: "Raka Aditya Pranata", short: "Raka", parentsLine: "Putra pertama dari", father: "Hendro Pranata", mother: "Lestari Wulandari", instagram: "", knownFor: "", bio: "" }
+    },
+    quote: {
+      text: "“Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.”",
+      source: "QS Ar-Rum : 21"
+    },
+    event: {
+      date: "2027-04-17",
+      akad: { time: "08.00 – 10.00 WIB", venue: "Masjid Raya Al-Azhom", address: "Jl. Satria No. 2, Tangerang" },
+      resepsi: { time: "11.00 – 14.00 WIB", venue: "Taman Kertas Ballroom", address: "Jl. Kemang Raya No. 12, Kemang,\nJakarta Selatan 12730" },
+      mapsUrl: "https://maps.google.com/?q=Kemang+Jakarta+Selatan"
+    },
+    dresscode: { text: "Warna hangat tanah: terakota, sage, atau krem.", label: "", colors: ["#C2623F", "#9AAA8A", "#E9DCC4"] },
+    gift: {
+      intro: "Kehadiran dan doa Anda adalah hadiah terindah bagi kami. Namun bila ingin memberi tanda kasih, dapat melalui:",
+      accounts: [ { bank: "BCA", number: "8830 2214 57", holder: "Nadine Salsabila" }, { bank: "Mandiri", number: "1370 0215 8846", holder: "Raka Aditya" } ],
+      shipText: "Untuk kado fisik, silakan hubungi kami lewat WhatsApp.",
+      address: "",
+      contacts: [ { name: "Nadine", phone: "0812 8883 0417" }, { name: "Raka", phone: "0857 1006 2293" } ]
+    },
+    story: {
+      title: "Cerita Kami",
+      items: [
+        { title: "Potongan pertama", text: "Kami bertemu di sebuah kelas menggambar akhir pekan. Satu gunting dipakai berdua, dan obrolannya tidak selesai-selesai." },
+        { title: "Ditempel pelan-pelan", text: "Ada jarak dan jadwal yang tidak cocok, tapi setiap minggu selalu ada cerita baru yang kami tempelkan bersama." },
+        { title: "Jadi satu kolase", text: "Di sebuah sore yang hangat, Raka bertanya. Nadine menjawab sebelum kalimatnya selesai." }
+      ]
+    },
+    gallery: { caption: "" },
+    closing: { text: "Merupakan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.\nSampai jumpa di hari bahagia kami." },
+    photos: {
+      cover: "../encore/assets/foto/scene4.jpg",
+      scene1: "../encore/assets/foto/scene2.jpg", scene2: "../encore/assets/foto/scene3.jpg", scene3: "../encore/assets/foto/scene1.jpg",
+      bride: "../encore/assets/foto/bride.jpg", groom: "../encore/assets/foto/groom.jpg",
+      g1: "../encore/assets/foto/g1.jpg", g2: "../encore/assets/foto/g2.jpg", g3: "../encore/assets/foto/g3.jpg", g4: "../encore/assets/foto/g4.jpg", g5: "../encore/assets/foto/g5.jpg", g6: "../encore/assets/foto/g6.jpg"
+    },
+    sections: { quote: true, couple: true, date: true, countdown: true, event: true, dresscode: true, gift: true, rsvp: true, story: true, gallery: true, closing: true }
   }
 };
