@@ -162,6 +162,10 @@ const LAYOUT_THEMES = [
     pat:(t)=>`radial-gradient(circle, #7A4A2A12 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/joglo.webp) center/cover`,
     ilVars:"--il-tegel:url(/assets/joglo/tegel.webp);--il-bingkai:url(/assets/joglo/bingkai.webp);--il-jalan:url(/assets/joglo/jalan.webp);--tr-k:url(/assets/joglo/kartu.webp) 127 146 187 138 fill / 25px 29px 37px 27px round;--tr-ink:#5A3A22;--il-nm:#7A4A2A;--il-amp:#2F5D3A;--il-bg:#FBF3E2;--il-bar:244/420;--il-bw:clamp(54px,15cqi,78px);--il-ini:#F3D9A0;--il-iy:8%;--il-topbg:radial-gradient(48% 46% at 50% 56%,rgba(251,243,226,.92),rgba(251,243,226,.7) 55%,rgba(251,243,226,0) 100%);--il-far:474/720;--il-fl:19%;--il-ft:5.5%;--il-fw:66%;--il-fh:83%",
     ilGate:{'--il-tegel':'url(/assets/joglo/tegel.webp)','--il-lencana':'url(/assets/joglo/lencana.webp)','--il-bg':'#FBF3E2','--il-amp':'#2F5D3A','--il-nm':'#7A4A2A','--il-ini':'#F3D9A0','--il-gw':'124px','--il-gh':'214px'}},
+  {id:'rumah-gadang', layout:'teras', ilDir:'/assets/minang/', gate:'minang', name:'Rumah Gadang', region:'Sumatera Barat', tags:['Ilustrasi','Adat'], bg:'#F6EBD6', fg:'#3B1A14', accent:'#8E1B1B', soft:'#EFDDBF', font:"'Cormorant Garamond', Georgia, serif", side:'/assets/minang/sampul2.webp',
+    pat:(t)=>`radial-gradient(circle, #8E1B1B12 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/rumah-gadang.webp) center/cover`,
+    ilVars:"--il-tegel:url(/assets/minang/tegel.webp);--il-bingkai:url(/assets/minang/bingkai.webp);--il-jalan:url(/assets/minang/jalan.webp);--tr-k:url(/assets/minang/kartu.webp) 80 95 95 84 fill / 22px 26px 26px 23px round;--tr-ink:#5A1F17;--il-nm:#8E1B1B;--il-amp:#B8862A;--il-bg:#F6EBD6;--il-bar:244/499;--il-bw:clamp(52px,14cqi,74px);--il-ini:#F3D9A0;--il-iy:24%;--il-topbg:radial-gradient(48% 46% at 50% 56%,rgba(246,235,214,.92),rgba(246,235,214,.7) 55%,rgba(246,235,214,0) 100%);--il-far:474/665;--il-fl:18.8%;--il-ft:16.8%;--il-fw:62.2%;--il-fh:66.9%",
+    ilGate:{'--il-tegel':'url(/assets/minang/tegel.webp)','--il-lencana':'url(/assets/minang/lencana.webp)','--il-bg':'#F6EBD6','--il-amp':'#B8862A','--il-nm':'#8E1B1B','--il-ini':'#F3D9A0','--il-gw':'120px','--il-gh':'245px'}},
   {id:'kebun-teh', layout:'teras', ilDir:'/assets/kebunteh/', name:'Kebun Teh', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#F6F4EA', fg:'#2F3B2C', accent:'#3F6B45', soft:'#E6EBDD', font:"'Cormorant Garamond', Georgia, serif", side:'/assets/kebunteh/sampul2.webp',
     pat:(t)=>`radial-gradient(circle, #3F6B4512 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/kebun-teh.webp) center/cover`,
     ilVars:"--il-tegel:url(/assets/kebunteh/tegel.webp);--il-bingkai:url(/assets/kebunteh/bingkai.webp);--il-jalan:url(/assets/kebunteh/jalan.webp);--tr-k:url(/assets/kebunteh/kartu.webp) 130 139 200 137 fill / 26px 28px 40px 27px round;--tr-ink:#3E4B3A;--il-nm:#6B5B9A;--il-amp:#5E8358;--il-bg:#F6F4EA;--il-bar:413/420;--il-ini:#FFFDF6;--il-iy:3%;--il-topbg:radial-gradient(48% 46% at 50% 56%,rgba(246,244,234,.8),rgba(246,244,234,.45) 55%,rgba(246,244,234,0) 100%);--il-far:486/720;--il-fl:14%;--il-ft:9.5%;--il-fw:70%;--il-fh:80.5%",
@@ -189,7 +193,7 @@ const LAYOUT_THEMES = [
 ];
 THEMES.unshift(...LAYOUT_THEMES);
 /* thumbnail = cuplikan sampul asli */
-const THUMB_IMG=new Set(["kawung", "songket", "melati", "taman", "lontar", "ulos", "senja", "peranakan", "sakinah", "endek", "megamendung", "gigibalang", "sekar", "kamboja", "lentera", "arunika", "atelier", "kebun-lila", "kebun-sage", "kebun-biru", "kebun-senja", "kebun-mawar", "draperi-biru", "draperi-zamrud", "draperi-mawar", "dongeng-pink", "goresan-merah", "teras", "joglo", "kebun-teh", "taman-wisteria", "taman-keraton", "beludru"]);
+const THUMB_IMG=new Set(["kawung", "songket", "melati", "taman", "lontar", "ulos", "senja", "peranakan", "sakinah", "endek", "megamendung", "gigibalang", "sekar", "kamboja", "lentera", "arunika", "atelier", "kebun-lila", "kebun-sage", "kebun-biru", "kebun-senja", "kebun-mawar", "draperi-biru", "draperi-zamrud", "draperi-mawar", "dongeng-pink", "goresan-merah", "teras", "joglo", "kebun-teh", "taman-wisteria", "taman-keraton", "beludru", "rumah-gadang"]);
 THEMES.forEach(t=>{ if(THUMB_IMG.has(t.id)){ t.thumbNoTxt=true; t.thumbImg=`/assets/thumbs/${t.id}.webp`; } });
 TAGS.includes('Foto') || TAGS.push('Foto');
 LAYOUT_THEMES.filter(t=>t.photo).forEach(t=>t.tags.push('Foto'));
@@ -1182,7 +1186,7 @@ addEventListener('resize', ()=>fitLive());
 function renderStrip(){ $('#themeStrip').innerHTML = themeOrder(['sekar','kamboja','lentera','arunika'].map(themeById)).concat(themeOrder(THEMES)).filter((t,i,a)=>a.indexOf(t)===i).slice(0,4).map(tcard).join(''); fitLive($('#themeStrip')); }
 /* Galeri tema di beranda: isinya sama dengan halaman Tema (urutan & sembunyi dari admin ikut).
    Tema yang punya sampul potret di /assets/home/<id>.webp memakai gambar itu, sisanya memakai sampul langsung. */
-const HOME_COVER=new Set(['beludru','teras','joglo','kebun-teh','taman-wisteria','taman-keraton','kebun-lila','kebun-senja','draperi-mawar','kawung','kebun-mawar','songket','atelier','draperi-zamrud','dongeng-pink','kebun-biru','kamboja','goresan-merah','kebun-sage']);
+const HOME_COVER=new Set(['rumah-gadang','beludru','teras','joglo','kebun-teh','taman-wisteria','taman-keraton','kebun-lila','kebun-senja','draperi-mawar','kawung','kebun-mawar','songket','atelier','draperi-zamrud','dongeng-pink','kebun-biru','kamboja','goresan-merah','kebun-sage']);
 function homeCard(t){
   const rg=(t.region||'').split(',')[0].trim(), lbl=[t.tags[0], rg&&rg!=='Nasional'&&rg.length<=12?rg:''].filter(Boolean).join(' · ');
   const n1=esc(S.bride.nick||'Sarah'), n2=esc(S.groom.nick||'Raka');
@@ -3777,6 +3781,7 @@ const GATE_CLS = ['gimg','th','g-teras','g-taman','g-dongeng','g-goresan','g-keb
 const GATE_IMGS = ['arunika','atelier','beludru','dongeng','draperi','goresan','kamboja','kebun','klasik-gelap','klasik-terang','lentera','sekar','teras'];
 function gateImg(t){
   if(isCx(t.id)){ const d=(cxTheme(t.id)||{}).dir; return d==='drapery'?'beludru':d==='coretan'?'goresan':d==='kolase'?'kolase':'klasik-gelap'; }
+  if(t.gate) return t.gate;
   const L=t.layout||'klasik';
   if(L==='klasik' || !GATE_IMGS.includes(L)) return lum(t.bg) < .35 ? 'klasik-gelap' : 'klasik-terang';
   return L;
