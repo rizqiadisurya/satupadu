@@ -20,6 +20,10 @@
       navy:  { vars: { "--wine": "#101b33", "--wine-2": "#17254a", "--red": "#2a3f73" }, files: ["paper-wine", "heart-doodle", "circle-doodle"] },
       hutan: { vars: { "--wine": "#0f2a1c", "--wine-2": "#173a28", "--red": "#2f5a3f" }, files: ["paper-wine", "heart-doodle", "circle-doodle"] }
     },
+    kolase: {
+      laut:   { vars: { "--terra": "#2F5F96", "--terra-2": "#244B78", "--blush": "#B5CDE6" }, files: "*" },
+      zaitun: { vars: { "--terra": "#5E7036", "--terra-2": "#4A5A2A", "--blush": "#D9DDB4" }, files: "*" }
+    },
     coretan: {
       biru:  { vars: { "--red": "#1f3a6b", "--red-2": "#2b4c85" }, files: "*" },
       hijau: { vars: { "--red": "#285238", "--red-2": "#336644" }, files: "*" }

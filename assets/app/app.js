@@ -532,7 +532,7 @@ var CX_THEMES = [
 const CX_LOOK = {
   drapery:{pal:[['','Emerald','#13301f'],['navy','Biru malam','#0e1a2e'],['arang','Arang','#1c1b1a']], font:[['','Bawaan',"'Pinyon Script', cursive"],['great','Great Vibes',"'Great Vibes', cursive"],['parisienne','Parisienne',"'Parisienne', cursive"]]},
   photobox:{pal:[['','Wine','#4a0b11'],['navy','Navy','#101b33'],['hutan','Hijau hutan','#0f2a1c']], font:[['','Bawaan',"'Yellowtail', cursive"],['dancing','Dancing Script',"'Dancing Script', cursive"],['satisfy','Satisfy',"'Satisfy', cursive"]]},
-  kolase:{pal:[['','Terakota','#c2623f']], font:[['','Bawaan',"'DM Serif Display', Georgia, serif"]]},
+  kolase:{pal:[['','Terakota','#c2623f'],['laut','Biru laut','#2f5f96'],['zaitun','Hijau zaitun','#5e7036']], font:[['','Bawaan',"'DM Serif Display', Georgia, serif"]]},
   encore:{pal:[['','Ungu malam','#241040']], font:[['','Bawaan',"'Yellowtail', cursive"]]},
   coretan:{pal:[['','Merah','#8c1c13'],['biru','Biru','#1f3a6b'],['hijau','Hijau','#285238']], font:[['','Bawaan',"'Permanent Marker', cursive"],['rock','Rock Salt',"'Rock Salt', cursive"],['amatic','Amatic SC',"'Amatic SC', cursive"]]}
 };
