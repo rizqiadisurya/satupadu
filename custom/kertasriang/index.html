@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23F4C430%27/%3E%3Ctext x=%2716%27 y=%2723%27 text-anchor=%27middle%27 font-family=%27Georgia,serif%27 font-size=%2720%27 fill=%27%232F4FC8%27%3EK%3C/text%3E%3C/svg%3E">
+<title>Kertas Riang — Undangan Pernikahan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Gluten:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --yel:#F4C430; --red:#E2553B; --blue:#2F4FC8; --pink:#F2A0C0; --mint:#7FCDAE; --lilac:#B9A5E6; --orange:#F28C38;
+  --cream:#F6EFE2; --ink:#262033; --ink-2:#6A6272;
+  --disp:"Gluten", "Trebuchet MS", cursive; --sans:"DM Sans", system-ui, sans-serif;
+  --col:440px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream) url("assets/kr-kertas.webp") 0 0/260px 260px;color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.locked{overflow:hidden;height:100vh}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+[hidden]{display:none!important}
+.pre{white-space:pre-line}
+img.is-empty{visibility:hidden}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;background:var(--blue);color:#fff;border-radius:999px;padding:11px 22px;font-family:var(--disp);font-weight:700;font-size:16px;text-decoration:none;box-shadow:0 5px 0 #1d3592}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #1d3592}
+.btn.ghost{background:#fff;color:var(--blue);box-shadow:inset 0 0 0 2.5px var(--blue),0 5px 0 rgba(47,79,200,.25)}
+.sh{position:absolute;pointer-events:auto;filter:drop-shadow(0 6px 6px rgba(60,40,20,.18));cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sh.boing{animation:boing .7s cubic-bezier(.3,1.6,.5,1)}
+@keyframes boing{0%{transform:scale(1) rotate(0)}30%{transform:scale(1.22) rotate(-10deg)}60%{transform:scale(.92) rotate(6deg)}100%{transform:scale(1) rotate(0)}}
+.wig{animation:wig 6s ease-in-out infinite}
+.wig:nth-of-type(2n){animation-duration:7.5s;animation-direction:reverse}
+@keyframes wig{0%,100%{translate:0 0}50%{translate:0 -8px}}
+.zig{--z:10px;-webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 90deg,#0000 91deg) bottom/calc(var(--z)*2) var(--z) repeat-x,conic-gradient(from 135deg at top,#0000,#000 1deg 90deg,#0000 91deg) top/calc(var(--z)*2) var(--z) repeat-x,linear-gradient(#000 0 0) center/100% calc(100% - var(--z)*2) no-repeat;mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 90deg,#0000 91deg) bottom/calc(var(--z)*2) var(--z) repeat-x,conic-gradient(from 135deg at top,#0000,#000 1deg 90deg,#0000 91deg) top/calc(var(--z)*2) var(--z) repeat-x,linear-gradient(#000 0 0) center/100% calc(100% - var(--z)*2) no-repeat}
+
+/* ---------- sampul ---------- */
+#cover{position:fixed;inset:0;z-index:50;display:flex;justify-content:center;transition:opacity .5s ease}
+#cover .box{position:relative;width:100%;max-width:var(--col);height:100%;overflow:hidden;background:var(--cream) url("assets/kr-kertas.webp") 0 0/260px 260px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 22px}
+#cover .sh{pointer-events:none;transition:transform 1s cubic-bezier(.55,-.2,.4,1),opacity .8s ease .2s}
+#cover.go .sh{transform:translate(var(--fx),var(--fy)) rotate(var(--fr));opacity:0}
+.sun{position:relative;width:min(86%,340px);aspect-ratio:1;display:grid;place-items:center;transition:transform .9s cubic-bezier(.6,-.3,.4,1),opacity .6s ease .4s}
+.sun img{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 10px 10px rgba(60,40,20,.2));animation:spin 60s linear infinite}
+@keyframes spin{to{rotate:360deg}}
+.sun .names{position:relative;text-align:center;font-family:var(--disp);font-weight:800;line-height:.95}
+.sun .n1{display:block;color:var(--red);font-size:clamp(42px,12.5vw,56px);text-shadow:0 3px 0 rgba(0,0,0,.12);rotate:-4deg}
+.sun .n2{display:block;color:var(--blue);font-size:clamp(42px,12.5vw,56px);text-shadow:0 3px 0 rgba(0,0,0,.12);rotate:3deg}
+.sun .amp{display:inline-grid;place-items:center;width:44px;height:44px;margin:4px 0;border-radius:50%;background:var(--pink);color:#fff;font-size:22px}
+#cover.go .sun{transform:scale(2.2) rotate(40deg);opacity:0}
+.datepita{position:relative;margin-top:10px;width:min(80%,300px);aspect-ratio:520/91;display:grid;place-items:center;transition:opacity .4s}
+.datepita img{position:absolute;inset:0;width:100%;height:100%}
+.datepita span{position:relative;font-family:var(--disp);font-weight:700;font-size:18px;color:var(--ink);margin-top:-2px}
+.tocard{margin-top:14px;width:min(88%,330px);background:#fff;padding:20px 18px 16px;text-align:center;rotate:-1.5deg;filter:drop-shadow(0 8px 10px rgba(60,40,20,.15));transition:opacity .4s}
+.tocard .to{font-weight:700;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--red)}
+.tocard .guest{font-family:var(--disp);font-weight:700;font-size:26px;line-height:1.2;margin:2px 0 0}
+#cover .open{position:relative;z-index:2;margin-top:18px;transition:opacity .4s}
+#cover.go .datepita,#cover.go .tocard,#cover.go .open{opacity:0}
+#cover.gone{opacity:0;pointer-events:none}
+.confetti{position:fixed;z-index:70;width:28px;pointer-events:none;animation:conf 1.6s cubic-bezier(.2,.7,.4,1) forwards}
+@keyframes conf{to{transform:translate(var(--dx),var(--dy)) rotate(var(--r));opacity:0}}
+
+/* ---------- isi ---------- */
+main{position:relative;max-width:var(--col);margin:0 auto;padding:0 18px 40px}
+.hero{position:relative;min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 0 30px}
+.hero .k{font-weight:700;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-2)}
+.hero h2{font-family:var(--disp);font-weight:800;line-height:.95;margin:10px 0 6px;position:relative;z-index:1}
+.hero h2 span{display:block}
+.hero .n1{color:var(--red);font-size:clamp(52px,16vw,72px);rotate:-3deg}
+.hero .n2{color:var(--blue);font-size:clamp(52px,16vw,72px);rotate:2deg}
+.hero .amp{display:inline-grid!important;place-items:center;width:46px;height:46px;margin:4px auto;border-radius:50%;background:var(--yel);color:var(--ink);font-size:22px}
+.hero .d{font-family:var(--disp);font-weight:700;font-size:20px;background:var(--ink);color:#fff;padding:4px 16px;rotate:-2deg;position:relative;z-index:1}
+.hero .scroll{margin-top:28px;font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
+.hero .scroll span{display:block;font-size:20px;animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(6px)}}
+
+section[data-section]{position:relative;margin:0 0 46px}
+.card{position:relative;isolation:isolate;padding:34px 20px 30px;text-align:center;opacity:0;transform:translateY(30px) rotate(-1deg);transition:opacity .6s,transform .8s cubic-bezier(.3,1.4,.5,1);filter:drop-shadow(0 10px 12px rgba(60,40,20,.12))}
+section:nth-of-type(even) .card{transform:translateY(30px) rotate(1deg)}
+.card.in{opacity:1;transform:none!important}
+.card::before{content:"";position:absolute;inset:0;z-index:-1;background:#fff;--z:10px;-webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 90deg,#0000 91deg) bottom/calc(var(--z)*2) var(--z) repeat-x,conic-gradient(from 135deg at top,#0000,#000 1deg 90deg,#0000 91deg) top/calc(var(--z)*2) var(--z) repeat-x,linear-gradient(#000 0 0) center/100% calc(100% - var(--z)*2) no-repeat;mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 90deg,#0000 91deg) bottom/calc(var(--z)*2) var(--z) repeat-x,conic-gradient(from 135deg at top,#0000,#000 1deg 90deg,#0000 91deg) top/calc(var(--z)*2) var(--z) repeat-x,linear-gradient(#000 0 0) center/100% calc(100% - var(--z)*2) no-repeat}
+.kicker{margin:-56px auto 14px;display:flex;justify-content:center}
+.kicker span{position:relative;display:inline-block;white-space:nowrap;font-family:var(--disp);font-weight:800;font-size:19px;color:var(--ink);padding:8px 40px 8px;background:url("assets/kr-pita1.webp") center/100% 100% no-repeat;rotate:-3deg;filter:drop-shadow(0 3px 3px rgba(60,40,20,.15))}
+.kicker span::before{content:"";position:absolute;left:50%;top:-8px;width:64px;height:20px;transform:translateX(-50%) rotate(4deg);background:rgba(255,255,255,.65);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+section:nth-of-type(4n+1) .kicker span{background-image:url("assets/kr-pita2.webp");rotate:2deg}
+section:nth-of-type(4n+2) .kicker span{background-image:url("assets/kr-pita3.webp")}
+section:nth-of-type(4n+3) .kicker span{background-image:url("assets/kr-pita4.webp");rotate:-2deg}
+.title{font-family:var(--disp);font-weight:700;font-size:30px;line-height:1.15;margin:0 0 8px;color:var(--blue)}
+.lead{color:var(--ink-2);margin:6px auto 0;max-width:330px}
+.bism{font-family:Amiri,serif;font-size:26px;margin:0 0 6px;line-height:1.8}
+.q{font-family:var(--disp);font-weight:500;font-size:19px;line-height:1.45;margin:0;color:var(--blue)}
+cite{display:block;font-style:normal;font-weight:700;font-size:12px;letter-spacing:.22em;text-transform:uppercase;margin-top:12px;color:var(--red)}
+.deco{position:absolute;z-index:2}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.duo .ph{width:100%;aspect-ratio:1;overflow:hidden;background:#eee;border:5px solid var(--yel);border-radius:62% 38% 55% 45%/48% 58% 42% 52%}
+.duo > div:last-child .ph{border-color:var(--pink);border-radius:42% 58% 40% 60%/57% 43% 57% 43%}
+.duo .ph img{width:100%;height:100%;object-fit:cover}
+.duo h3{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.15;margin:12px 0 2px}
+.duo .info{font-size:12.5px;color:var(--ink-2);line-height:1.45}
+.duo .ig{color:var(--blue);font-weight:700;font-size:12px;text-decoration:none}
+
+.dateblock{display:inline-flex;align-items:center;gap:14px;margin:8px 0 2px}
+.dateblock b{display:grid;place-items:center;width:96px;height:96px;border-radius:50%;background:var(--red);color:#fff;font-family:var(--disp);font-weight:800;font-size:54px;line-height:1;padding-top:6px}
+.dateblock > span{display:flex;flex-direction:column;text-align:left;font-family:var(--disp);font-weight:700;font-size:20px;line-height:1.2}
+.cd{display:flex;gap:8px;justify-content:center;margin-top:18px}
+.cd div{flex:1;max-width:72px;aspect-ratio:1;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--yel)}
+.cd div:nth-child(2){background:var(--mint)}.cd div:nth-child(3){background:var(--pink)}.cd div:nth-child(4){background:var(--lilac)}
+.cd b{display:block;font-family:var(--disp);font-weight:800;font-size:24px;line-height:1}
+.cd span{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+
+.ev{position:relative;background:var(--cream);padding:16px;margin-top:14px;text-align:left;border-radius:6px}
+.ev .lbl{display:inline-block;font-family:var(--disp);font-weight:700;font-size:17px;color:#fff;background:var(--red);padding:3px 12px;border-radius:999px}
+.ev.s .lbl{background:var(--blue)}
+.ev .t{font-weight:700;font-size:14px;margin-top:6px}
+.ev h4{font-family:var(--disp);font-weight:700;font-size:20px;margin:2px 0 0;line-height:1.25}
+.ev p{margin:2px 0 0;font-size:13.5px;color:var(--ink-2)}
+.maps{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.dress{margin-top:20px;padding-top:14px;border-top:3px dotted var(--yel)}
+.dress h3{font-family:var(--disp);font-weight:700;font-size:22px;color:var(--red);margin:0}
+.dress p{margin:2px 0 8px;font-size:13.5px;color:var(--ink-2)}
+.dots{display:flex;justify-content:center;gap:10px}
+.dots i{width:38px;height:38px;border-radius:62% 38% 55% 45%/48% 58% 42% 52%;box-shadow:0 3px 0 rgba(0,0,0,.1)}
+
+.moments{text-align:left;margin-top:12px}
+.moment{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;margin-bottom:16px}
+.moment .n{width:30px;height:30px;background:url("assets/kr-kilau.webp") center/contain no-repeat}
+.moment:nth-child(2) .n{background-image:url("assets/kr-bunga5.webp")}
+.moment:nth-child(3) .n{background-image:url("assets/kr-hati.webp")}
+.moment h4{font-family:var(--disp);font-weight:700;font-size:20px;margin:0;line-height:1.25;color:var(--blue)}
+.moment p{margin:2px 0 0;font-size:14px;color:var(--ink-2)}
+.moment .mp{width:100%;aspect-ratio:4/3;object-fit:cover;margin-top:10px;border:6px solid #fff;box-shadow:0 6px 12px rgba(60,40,20,.15);rotate:-1.5deg}
+
+.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+.gal button{position:relative;border:6px solid #fff;padding:0;aspect-ratio:4/5;background:#eee;box-shadow:0 6px 12px rgba(60,40,20,.15)}
+.gal button:nth-child(4n+1){rotate:-2.5deg}.gal button:nth-child(4n+2){rotate:2deg;margin-top:14px}.gal button:nth-child(4n+3){rotate:1.5deg}.gal button:nth-child(4n){rotate:-2deg;margin-top:10px}
+.gal button::after{content:"";position:absolute;left:50%;top:-12px;width:54px;height:18px;transform:translateX(-50%) rotate(-3deg);background:rgba(244,196,48,.75)}
+.gal button:nth-child(even)::after{background:rgba(242,160,192,.75);transform:translateX(-50%) rotate(4deg)}
+.gal img{width:100%;height:100%;object-fit:cover}
+.lightbox{position:fixed;inset:0;z-index:60;background:rgba(38,32,51,.94);display:none;align-items:center;justify-content:center;padding:20px}
+.lightbox.show{display:flex}
+.lightbox img{max-height:86vh;border:8px solid #fff}
+.lightbox button{position:absolute;background:none;border:0;color:#fff;font-size:34px;padding:10px}
+.lb-x{top:10px;right:14px}.lb-p{left:6px;top:50%}.lb-n{right:6px;top:50%}
+
+.acct{background:var(--cream);border-radius:6px;padding:14px;margin-top:12px}
+.acct .bank{display:inline-block;font-family:var(--disp);font-weight:700;font-size:15px;background:var(--mint);padding:2px 12px;border-radius:999px}
+.acct .num{font-family:var(--disp);font-weight:800;font-size:26px;margin:6px 0 0;color:var(--blue)}
+.acct .holder{font-size:13px;color:var(--ink-2)}
+.acct .copy{margin-top:8px;border:0;background:var(--ink);color:#fff;border-radius:999px;padding:6px 16px;font-weight:700;font-size:12px}
+.wa{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:16px}
+
+.tally{display:flex;gap:10px;margin-top:10px}
+.tally span{flex:1;background:var(--cream);border-radius:6px;padding:8px 0;font-weight:700;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase}
+.tally b{display:block;font-family:var(--disp);font-weight:800;font-size:28px;line-height:1.1;color:var(--red);letter-spacing:0}
+.form{text-align:left;margin-top:12px}
+.form label{display:block;font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);margin:12px 0 4px}
+.form input,.form textarea,.form select{width:100%;background:var(--cream);border:2.5px solid transparent;border-radius:10px;color:var(--ink);font-family:var(--sans);font-size:15px;padding:10px 12px;outline:none}
+.form input:focus,.form textarea:focus{border-color:var(--blue);background:#fff}
+.form textarea{resize:vertical;min-height:70px}
+.att{display:flex;gap:8px}
+.att button{flex:1;border:2.5px solid var(--cream);border-radius:999px;background:#fff;padding:8px;font-family:var(--disp);font-weight:700;font-size:16px}
+.att button.on{background:var(--yel);border-color:var(--yel)}
+.form .btn{width:100%;margin-top:16px}
+.okmsg{text-align:center;color:var(--blue);min-height:18px;margin-top:8px;font-size:13px;font-weight:500}
+.wall{margin-top:14px;max-height:280px;overflow:auto;text-align:left}
+.wish{background:var(--cream);border-radius:6px;padding:10px 12px;margin-bottom:8px;border-left:6px solid var(--pink)}
+.wish:nth-child(3n+2){border-left-color:var(--mint)}.wish:nth-child(3n){border-left-color:var(--yel)}
+.wish b{font-family:var(--disp);font-weight:700;font-size:16px}
+.wish em{font-style:normal;font-size:11.5px;color:var(--ink-2);margin-left:6px}
+.wish p{margin:2px 0 0;font-size:13.5px}
+
+.closing .ph{width:70%;margin:6px auto 16px;aspect-ratio:1;overflow:hidden;background:#eee;border:6px solid var(--mint);border-radius:55% 45% 60% 40%/45% 55% 45% 55%}
+.closing .ph img{width:100%;height:100%;object-fit:cover}
+.closing .names{font-family:var(--disp);font-weight:800;font-size:36px;line-height:1.1;margin:10px 0 2px;color:var(--red)}
+.closing .when{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--ink-2)}
+
+.fab{position:fixed;right:max(14px,calc(50% - var(--col)/2 + 14px));top:calc(env(safe-area-inset-top) + 14px);z-index:40;width:46px;height:46px;border-radius:50%;border:0;background:var(--yel);display:none;place-items:center;box-shadow:0 4px 0 #c99a10}
+.fab.show{display:grid}
+.fab .bars{display:flex;gap:2px;align-items:flex-end;height:14px}
+.fab .bars i{width:3px;background:var(--ink);height:30%;border-radius:1px}
+.fab.playing .bars i{animation:eq .9s ease-in-out infinite}
+.fab.playing .bars i:nth-child(2){animation-delay:.2s}.fab.playing .bars i:nth-child(3){animation-delay:.4s}
+@keyframes eq{0%,100%{height:25%}50%{height:100%}}
+footer{text-align:center;color:var(--ink-2);font-family:var(--disp);font-weight:700;font-size:14px;padding:0 0 40px}
+@media (prefers-reduced-motion:reduce){.wig,.sun img{animation:none}.card{transition:none}}
+</style>
+</head>
+<body class="locked">
+
+<div id="cover">
+  <div class="box">
+    <img class="sh" src="assets/kr-awan.webp" alt="" style="width:44%;left:-10%;top:4%;--fx:-70vw;--fy:-20vh;--fr:-40deg">
+    <img class="sh" src="assets/kr-hati.webp" alt="" style="width:20%;right:6%;top:6%;--fx:60vw;--fy:-30vh;--fr:50deg">
+    <img class="sh" src="assets/kr-bulan.webp" alt="" style="width:18%;right:-2%;top:22%;--fx:70vw;--fy:-10vh;--fr:80deg">
+    <img class="sh" src="assets/kr-kilau.webp" alt="" style="width:10%;left:8%;top:34%;--fx:-50vw;--fy:0;--fr:-90deg">
+    <img class="sh" src="assets/kr-daun.webp" alt="" style="width:34%;left:-8%;bottom:8%;--fx:-60vw;--fy:30vh;--fr:-30deg">
+    <img class="sh" src="assets/kr-tunas.webp" alt="" style="width:22%;right:-2%;bottom:14%;--fx:60vw;--fy:30vh;--fr:30deg">
+    <img class="sh" src="assets/kr-gelombang.webp" alt="" style="width:30%;left:34%;bottom:2%;--fx:0;--fy:40vh;--fr:20deg">
+    <img class="sh" src="assets/kr-titik.webp" alt="" style="width:9%;right:22%;top:30%;--fx:40vw;--fy:-40vh;--fr:0deg">
+    <div class="sun"><img src="assets/kr-matahari.webp" alt=""><div class="names"><span class="n1" data-k="couple.bride.short"></span><span class="amp">&amp;</span><span class="n2" data-k="couple.groom.short"></span></div></div>
+    <div class="datepita" id="datepita"><img src="assets/kr-pita1.webp" alt=""><span data-k="_date.dotsPlain"></span></div>
+    <div class="tocard zig"><div class="to">Kepada Yth.</div><div class="guest" id="guestName" data-k="guestDefault"></div></div>
+    <button class="btn open" id="openBtn">Buka undangan</button>
+  </div>
+</div>
+
+<main id="main">
+  <section class="hero">
+    <img class="sh wig" src="assets/kr-bunga.webp" alt="" aria-hidden="true" style="width:46%;left:-6%;bottom:6%;rotate:-8deg">
+    <img class="sh wig" src="assets/kr-matahari.webp" alt="" aria-hidden="true" style="width:30%;right:-4%;top:12%">
+    <img class="sh wig" src="assets/kr-kilau.webp" alt="" aria-hidden="true" style="width:9%;left:14%;top:20%">
+    <div class="k">Dengan penuh sukacita</div>
+    <h2><span class="n1" data-k="couple.bride.short"></span><span class="amp">&amp;</span><span class="n2" data-k="couple.groom.short"></span></h2>
+    <div class="d" data-k="_date.dotsPlain"></div>
+    <div class="scroll">Gulir ke bawah<span>↓</span></div>
+  </section>
+
+  <section data-section="quote" data-show="sections.quote">
+    <img class="sh deco wig" src="assets/kr-titik.webp" alt="" aria-hidden="true" style="width:12%;right:-4%;top:-14px">
+    
+    <div class="card"><p class="bism">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p><p class="q pre" data-k="quote.text"></p><cite data-k="quote.source"></cite></div>
+  </section>
+
+  <section data-section="couple" data-show="sections.couple">
+    <img class="sh deco wig" src="assets/kr-hati.webp" alt="" aria-hidden="true" style="width:14%;left:-5%;top:30%">
+    
+    <div class="card">
+      <p class="kicker"><span>Kedua mempelai</span></p>
+      <h2 class="title">Dua potong, satu karya</h2>
+      <p class="lead">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i ke pernikahan kami.</p>
+      <div class="duo">
+        <div><div class="ph"><img data-src="photos.bride" alt=""></div><h3 data-k="couple.bride.name"></h3><div class="info"><span data-k="couple.bride.pl"></span><br data-show="couple.bride.pl"><span data-k="couple.bride.dad"></span> <span data-k="couple.bride.amp"></span><span data-k="couple.bride.mom"></span><br data-show="couple.bride.instagram"><a class="ig" data-href="couple.bride.igUrl" data-show="couple.bride.instagram" target="_blank" rel="noopener">@<span data-k="couple.bride.instagram"></span></a></div></div>
+        <div><div class="ph"><img data-src="photos.groom" alt=""></div><h3 data-k="couple.groom.name"></h3><div class="info"><span data-k="couple.groom.pl"></span><br data-show="couple.groom.pl"><span data-k="couple.groom.dad"></span> <span data-k="couple.groom.amp"></span><span data-k="couple.groom.mom"></span><br data-show="couple.groom.instagram"><a class="ig" data-href="couple.groom.igUrl" data-show="couple.groom.instagram" target="_blank" rel="noopener">@<span data-k="couple.groom.instagram"></span></a></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section data-section="date" data-show="sections.date">
+    <img class="sh deco wig" src="assets/kr-pelangi.webp" alt="" aria-hidden="true" style="width:22%;right:-6%;bottom:-18px">
+    
+    <div class="card">
+      <p class="kicker"><span>Simpan tanggalnya</span></p>
+      <h2 class="title">Hari bahagia</h2>
+      <div class="dateblock"><b data-k="_date.day"></b><span><span data-k="_date.weekday"></span><span><span data-k="_date.month"></span> <span data-k="_date.year"></span></span></span></div>
+      <div class="cd" data-show="sections.countdown"><div><b data-cd="d">00</b><span>Hari</span></div><div><b data-cd="h">00</b><span>Jam</span></div><div><b data-cd="m">00</b><span>Menit</span></div><div><b data-cd="s">00</b><span>Detik</span></div></div>
+    </div>
+  </section>
+
+  <section data-section="event">
+    <img class="sh deco wig" src="assets/kr-daun.webp" alt="" aria-hidden="true" style="width:22%;left:-8%;bottom:20%">
+    
+    <div class="card">
+      <div data-show="sections.event">
+        
+        <p class="kicker"><span>Rangkaian acara</span></p>
+        <h2 class="title">Akad &amp; resepsi</h2>
+        <div class="ev" data-show="event.akad.venue"><div class="lbl">Akad nikah</div><div class="t" data-k="event.akad.time"></div><h4 data-k="event.akad.venue"></h4><p class="pre" data-k="event.akad.address"></p><p data-k="event.akad.note" data-show="event.akad.note"></p></div>
+        <div class="ev s"><div class="lbl">Resepsi</div><div class="t" data-k="event.resepsi.time"></div><h4 data-k="event.resepsi.venue"></h4><p class="pre" data-k="event.resepsi.address"></p><p data-k="event.resepsi.long"></p></div>
+        <div class="maps"><a class="btn" data-href="event.akad.maps" data-show="event.akad.maps" target="_blank" rel="noopener">Lokasi akad</a><a class="btn ghost" data-href="event.resepsi.maps" data-show="event.resepsi.maps" target="_blank" rel="noopener"><span data-k="event.resepsi.mapLabel"></span></a></div>
+      </div>
+      <div class="dress" data-section="dresscode" data-show="sections.dresscode"><h3>Busana</h3><p class="pre" data-k="dresscode.text"></p><div class="dots" data-list="dresscode.colors"><template><i data-bgc="$"></i></template></div></div>
+    </div>
+  </section>
+
+  <section data-section="story" data-show="sections.story">
+    <img class="sh deco wig" src="assets/kr-bunga5.webp" alt="" aria-hidden="true" style="width:14%;right:-4%;top:40%">
+    
+    <div class="card">
+      <p class="kicker"><span>Kisah kami</span></p>
+      <h2 class="title" data-k="story.title"></h2>
+      <div class="moments" data-list="story.items"><template><div class="moment"><div class="n"></div><div><h4 data-k="$.title"></h4><p class="pre" data-k="$.text"></p><img class="mp" data-show="$.img" data-src="$.img" alt=""></div></div></template></div>
+    </div>
+  </section>
+
+  <section data-section="gallery" data-show="sections.gallery">
+    <img class="sh deco wig" src="assets/kr-kilau.webp" alt="" aria-hidden="true" style="width:11%;left:-3%;top:-8px">
+    
+    <div class="card">
+      <p class="kicker"><span>Galeri</span></p>
+      <h2 class="title">Momen kami</h2>
+      <div class="gal" id="gal"></div>
+      <div hidden id="gsrc"><img data-src="photos.g1" alt=""><img data-src="photos.g2" alt=""><img data-src="photos.g3" alt=""><img data-src="photos.g4" alt=""><img data-src="photos.g5" alt=""><img data-src="photos.g6" alt=""></div>
+    </div>
+  </section>
+
+  <section data-section="gift" data-show="sections.gift">
+    <img class="sh deco wig" src="assets/kr-bulan.webp" alt="" aria-hidden="true" style="width:14%;right:-4%;top:20%">
+    
+    <div class="card">
+      <p class="kicker"><span>Tanda kasih</span></p>
+      <h2 class="title">Tanda kasih</h2>
+      <p class="lead pre" data-k="gift.intro"></p>
+      <div data-list="gift.accounts"><template><div class="acct"><div class="bank" data-k="$.bank"></div><div class="num" data-k="$.number"></div><div class="holder">a.n. <span data-k="$.holder"></span></div><button class="copy" data-copy>Salin</button></div></template></div>
+      <p class="lead pre" style="margin-top:12px" data-k="gift.shipText" data-show="gift.shipText"></p>
+      <p class="lead pre" data-k="gift.address" data-show="gift.address"></p>
+      <div class="wa" data-list="gift.contacts"><template><a class="btn ghost" data-wa>WhatsApp <span data-k="$.name"></span><span hidden data-k="$.phone"></span></a></template></div>
+    </div>
+  </section>
+
+  <section data-section="rsvp" data-show="sections.rsvp">
+    <img class="sh deco wig" src="assets/kr-gelombang.webp" alt="" aria-hidden="true" style="width:26%;left:-6%;bottom:-16px">
+    
+    <div class="card">
+      <p class="kicker"><span>Kabari kami</span></p>
+      <h2 class="title">Ucapan &amp; doa</h2>
+      <div class="tally"><span><b id="tHadir">0</b>Hadir</span><span><b id="tTidak">0</b>Berhalangan</span></div>
+      <form class="form" id="rsvpForm" autocomplete="off">
+        <label for="fName">Nama</label><input id="fName" maxlength="60" required>
+        <label for="fMsg">Ucapan &amp; doa</label><textarea id="fMsg" maxlength="400" required></textarea>
+        <label>Kehadiran</label>
+        <div class="att"><button type="button" class="on" data-att="hadir">Hadir</button><button type="button" data-att="tidak">Berhalangan</button></div>
+        <div id="paxField"><label for="fPax">Jumlah tamu</label><select id="fPax"><option value="1">1 orang</option><option value="2">2 orang</option><option value="3">3 orang</option><option value="4">4 orang</option></select></div>
+        <button class="btn" type="submit">Kirim ucapan</button>
+        <div class="okmsg" id="note"></div>
+      </form>
+      <div class="wall" id="wall"></div>
+    </div>
+  </section>
+
+  <section class="closing" data-section="closing" data-show="sections.closing">
+    <img class="sh deco wig" src="assets/kr-tunas.webp" alt="" aria-hidden="true" style="width:16%;right:-3%;top:16%">
+    
+    <div class="card">
+      <p class="kicker"><span>Sampai jumpa</span></p>
+      <div class="ph"><img data-src="photos.scene1" alt=""></div>
+      <p class="lead pre" data-k="closing.text"></p>
+      <div class="names"><span data-k="couple.bride.short"></span> &amp; <span data-k="couple.groom.short"></span></div>
+      <p class="when" data-k="_date.dotsPlain"></p>
+    </div>
+    <img class="sh wig" src="assets/kr-bunga.webp" alt="" aria-hidden="true" style="position:relative;width:52%;margin:10px auto 0">
+  </section>
+</main>
+<footer><span data-k="_names.bg"></span></footer>
+
+<button class="fab" id="fab" aria-label="Putar atau jeda musik"><span class="bars"><i></i><i></i><i></i></span></button>
+<div class="lightbox" id="lb"><button class="lb-x" aria-label="Tutup">×</button><button class="lb-p" aria-label="Sebelumnya">‹</button><img alt=""><button class="lb-n" aria-label="Berikutnya">›</button></div>
+
+<script src="../shared/defaults.js"></script>
+<script src="../shared/bind.js"></script>
+<script src="../shared/sakara-bridge.js?v=11"></script>
+<script src="music.js"></script>
+<script>
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const escH = v => String(v == null ? "" : v).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- kartu muncul saat terlihat ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.12});
+$$(".card").forEach(c => io.observe(c));
+
+/* ---------- bentuk kertas bergoyang saat disentuh ---------- */
+document.addEventListener("click", e => { const s = e.target.closest(".sh"); if (!s || !opened) return; s.classList.remove("boing"); void s.offsetWidth; s.classList.add("boing"); });
+const BITS = ["kilau","titik","hati","bunga5","zigzag","pelangi","bulan"];
+function burst(x, y, n){
+  if (reduce) return;
+  for (let i = 0; i < n; i++) { const c = document.createElement("img"); c.className = "confetti"; c.alt = ""; c.src = `assets/kr-${BITS[i % BITS.length]}.webp`;
+    const a = Math.random() * Math.PI * 2, d = 120 + Math.random() * 220; c.style.left = (x - 14) + "px"; c.style.top = (y - 14) + "px";
+    c.style.setProperty("--dx", Math.cos(a) * d + "px"); c.style.setProperty("--dy", Math.sin(a) * d + 160 + "px"); c.style.setProperty("--r", (Math.random() * 720 - 360) + "deg"); c.style.width = (18 + Math.random() * 18) + "px";
+    c.addEventListener("animationend", () => c.remove()); document.body.append(c); }
+}
+
+/* ---------- galeri ---------- */
+let gallery = [];
+function gal(){
+  gallery = $$("#gsrc img").map(i => i.getAttribute("src")).filter(Boolean);
+  $("#gal").innerHTML = gallery.map((s, i) => `<button data-g="${i}" aria-label="Lihat foto"><img src="${escH(s)}" alt="" loading="lazy"></button>`).join("");
+}
+const lb = $("#lb"), lbImg = $("img", lb); let gi = 0;
+const show = i => { if (!gallery.length) return; gi = (i + gallery.length) % gallery.length; lbImg.src = gallery[gi]; lb.classList.add("show"); };
+document.addEventListener("click", e => { const b = e.target.closest("[data-g]"); if (b) show(+b.dataset.g); });
+$(".lb-x").onclick = () => lb.classList.remove("show"); $(".lb-p").onclick = () => show(gi-1); $(".lb-n").onclick = () => show(gi+1);
+lb.onclick = e => { if (e.target === lb) lb.classList.remove("show"); };
+
+/* ---------- sobek karcis → masuk gerbang ---------- */
+let opened = false;
+function openInvite(withMusic, instant){
+  if (opened) return; opened = true;
+  const done = () => { $("#cover").classList.add("gone"); document.body.classList.remove("locked"); $("#fab").classList.add("show"); setTimeout(() => { $("#cover").style.display = "none"; }, instant ? 0 : 600); };
+  if (withMusic) { try { Music.play(); } catch(e){} }
+  sync();
+  if (instant) { $("#cover").style.transition = "none"; $$(".card").forEach(c => c.classList.add("in")); done(); return; }
+  $("#cover").classList.add("go"); burst(innerWidth / 2, innerHeight * .4, 22); setTimeout(done, 1000);
+}
+$("#openBtn").onclick = () => openInvite(true);
+document.addEventListener("invite:skipcover", () => openInvite(false, true));
+function sync(){ $("#fab").classList.toggle("playing", Music.playing); }
+$("#fab").onclick = () => { Music.playing ? Music.pause() : Music.play(); sync(); };
+
+/* ---------- hitung mundur ---------- */
+let eventAt = 0;
+(function cd(){
+  const s = Math.max(0, eventAt - Date.now())/1000;
+  const v = {d:Math.floor(s/86400), h:Math.floor(s%86400/3600), m:Math.floor(s%3600/60), s:Math.floor(s%60)};
+  $$("[data-cd]").forEach(el => { const n = String(v[el.dataset.cd]).padStart(2,"0"); if (el.textContent !== n) el.textContent = n; });
+  setTimeout(cd, 1000);
+})();
+
+/* ---------- salin rekening ---------- */
+document.addEventListener("click", async e => {
+  const b = e.target.closest("[data-copy]"); if (!b) return;
+  const t = b.closest(".acct").querySelector(".num").textContent.replace(/\s+/g,"");
+  try { await navigator.clipboard.writeText(t); } catch { const a = Object.assign(document.createElement("textarea"),{value:t}); document.body.append(a); a.select(); try{document.execCommand("copy")}catch{} a.remove(); }
+  b.textContent = "Tersalin"; setTimeout(() => b.textContent = "Salin", 1600);
+});
+
+/* ---------- ucapan ---------- */
+const KEY = "undangan-kertasriang-wishes";
+const seed = [ {n:"Dita & Bimo", a:"hadir", m:"Selamat ya! Semoga rumah tangganya selalu ceria dan penuh warna, seperti undangan ini.", t:"1 hari lalu"} ];
+const load = () => { const h = SakaraBridge.wishes(); if (h) return h; try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; } };
+const save = l => { try { localStorage.setItem(KEY, JSON.stringify(l)); } catch {} };
+function wall(){
+  const all = SakaraBridge.host() ? load() : [...load(), ...seed];
+  $("#wall").innerHTML = all.map(w => `<div class="wish"><b>${escH(w.n)}</b><em>${SakaraBridge.t(w.a==="hadir"?"Hadir":"Berhalangan")} · ${escH(w.t)}</em><p>${escH(w.m)}</p></div>`).join("");
+  $("#tHadir").textContent = all.filter(w => w.a==="hadir").length; $("#tTidak").textContent = all.filter(w => w.a!=="hadir").length;
+}
+let att = "hadir";
+$$("[data-att]").forEach(b => b.onclick = () => { att = b.dataset.att; $$("[data-att]").forEach(x => x.classList.toggle("on", x===b)); $("#paxField").hidden = att!=="hadir"; });
+$("#rsvpForm").addEventListener("submit", e => { e.preventDefault(); const n = $("#fName").value.trim(), m = $("#fMsg").value.trim(); if (!n || !m) return; if (SakaraBridge.host()) { SakaraBridge.send({n, a:att, m, pax: att==="hadir" ? parseInt($("#fPax").value)||1 : 0}); Invite.data._wishes = [{n, a:att, m, t:"baru saja"}, ...load()]; } else save([{n, a:att, m, t:"baru saja"}, ...load()]); e.target.reset(); $("#note").textContent = "Terima kasih, ucapan Anda sudah kami terima."; wall(); const r = e.target.querySelector(".btn").getBoundingClientRect(); burst(r.left + r.width/2, r.top, 14); });
+wall();
+document.addEventListener("sakara:render", wall);
+
+/* ---------- data ---------- */
+let lastMusic = null;
+Invite.init({
+  theme: "kertasriang", locale: "id",
+  onRender(d){
+    eventAt = d._at || 0;
+    $$("[data-wa]").forEach(a => { const num = (a.querySelector("[data-k='$.phone']")?.textContent || "").replace(/\D/g,"").replace(/^0/,"62"); a.href = num ? `https://wa.me/${num}` : ""; a.target = "_blank"; a.rel = "noopener"; });
+    const q = new URLSearchParams(location.search).get("to"), h = location.hash.slice(1);
+    const guest = q || (h && /^[A-Za-z0-9-]+$/.test(h) && !["preview","draft"].includes(h) ? h.replace(/-/g," ") : "");
+    if (guest) $("#guestName").textContent = guest;
+    document.title = `${d._names.bg} — Undangan Pernikahan`;
+    if (lastMusic !== null && lastMusic !== d.music.src) Music.reset();
+    lastMusic = d.music.src;
+    gal();
+  }
+});
+</script>
+</body>
+</html>

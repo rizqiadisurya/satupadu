@@ -545,6 +545,7 @@ var CX_THEMES = [
   {id:'cx-pasarmalam', dir:'pasarmalam', name:'Pasar Malam', region:'Custom', lang:'id', tags:['Custom','Interaktif'], desc:'Undangan meriah ala pasar malam: sobek karcis untuk masuk gerbang, lampu bohlam berkelip, balon yang bisa diletuskan, dan bianglala di ujung malam.', bg:'#1e2140', fg:'#2b2234', accent:'#b8322e', soft:'#fbefd9', font:"'Pacifico', cursive"},
   {id:'cx-jendelabulan', dir:'jendelabulan', name:'Jendela Bulan', region:'Custom', lang:'id', tags:['Custom','Interaktif'], desc:'Undangan islami yang elegan di balik jendela lengkung: lentera berayun, bintang segi delapan, dan bulan yang perlahan menjadi purnama selama tamu membaca.', bg:'#fbf7ee', fg:'#233a33', accent:'#1f4d3f', soft:'#f3ebd9', font:"'Pinyon Script', cursive"},
   {id:'cx-lipatkertas', dir:'lipatkertas', name:'Lipat Kertas', region:'Custom', lang:'id', tags:['Custom','Interaktif'], desc:'Undangan origami yang manis: amplop kertas dibuka dan surat keluar, setiap lembar terbuka saat digulir, bangau kertas terbang lewat, dan hati origami bisa diterbangkan tamu.', bg:'#fffdf9', fg:'#3a3438', accent:'#c9767b', soft:'#f7f4ef', font:"'DM Serif Display', Georgia, serif"},
+  {id:'cx-kertasriang', dir:'kertasriang', name:'Kertas Riang', region:'Custom', lang:'id', tags:['Custom','Interaktif'], desc:'Undangan ceria dari potongan kertas warna-warni: matahari, awan, dan bunga kertas yang lepas berhamburan saat dibuka, pita judul berselotip, kartu bertepi gerigi, dan bentuk yang bergoyang saat disentuh.', bg:'#f6efe2', fg:'#262033', accent:'#2f4fc8', soft:'#f6efe2', font:"'Gluten', cursive"},
   {id:'cx-kolase', dir:'kolase', name:'Kolase', region:'Custom', lang:'id', tags:['Custom','Modern'], desc:'Potongan kertas berlapis ala kolase Matisse: daun terakota, gumpalan sage, dan matahari mustard di atas kertas krem. Hangat, artistik, dan ceria.', bg:'#f3ebdd', fg:'#3a2a22', accent:'#c2623f', soft:'#ece0cc', font:"'DM Serif Display', Georgia, serif"},
   {id:'cx-lembarharian', dir:'lembarharian', name:'Lembar Harian', region:'Custom', lang:'id', tags:['Custom','Interaktif'], desc:'Undangan berupa buku harian yang dibalik halaman demi halaman: tulisan tangan, polaroid bertempel washi tape, dan bunga kering di kertas bergaris.', bg:'#fbf3e4', fg:'#2c3550', accent:'#b36a6e', soft:'#efe3cc', font:"'Caveat', cursive"},
   {id:'cx-tepilaut', dir:'tepilaut', name:'Tepi Laut', region:'Custom', lang:'id', tags:['Custom','Interaktif'], desc:'Undangan geser bercerita: satu hari di pantai, dari matahari terbit, senja jingga, sampai bulan purnama. Langit dan laut berganti waktu setiap tamu menggeser halaman.', bg:'#f3e2c4', fg:'#1f2d3a', accent:'#2e7d8c', soft:'#fff8ee', font:"'Fraunces', Georgia, serif"},
@@ -556,6 +557,7 @@ const CX_LOOK = {
   pasarmalam:{pal:[['','Merah karnaval','#b8322e']], font:[['','Bawaan',"'Pacifico', cursive"]]},
   jendelabulan:{pal:[['','Hijau zamrud','#1f4d3f']], font:[['','Bawaan',"'Pinyon Script', cursive"]]},
   lipatkertas:{pal:[['','Merah muda','#c9767b']], font:[['','Bawaan',"'DM Serif Display', Georgia, serif"]]},
+  kertasriang:{pal:[['','Biru kobalt','#2f4fc8']], font:[['','Bawaan',"'Gluten', cursive"]]},
   kolase:{pal:[['','Terakota','#c2623f'],['laut','Biru laut','#2f5f96'],['zaitun','Hijau zaitun','#5e7036']], font:[['','Bawaan',"'DM Serif Display', Georgia, serif"]]},
   lembarharian:{pal:[['','Dusty pink','#b36a6e']], font:[['','Bawaan',"'Caveat', cursive"]]},
   tepilaut:{pal:[['','Biru laut','#2e7d8c']], font:[['','Bawaan',"'Fraunces', Georgia, serif"]]},
@@ -652,7 +654,7 @@ addEventListener('message', async e=>{
   }
 });
 /* ---------- Editor Custom: susunan bagian, foto per bingkai, teks khusus tema ---------- */
-const CX_PH_LBL_DIR = {lipatkertas:{scene1:'Foto di penutup'}, jendelabulan:{scene1:'Foto di bingkai penutup'}, pasarmalam:{scene1:'Foto di penutup'}, lembarharian:{scene1:'Polaroid penutup'}, tepilaut:{scene1:'Foto di penutup'}, kolase:{cover:'Foto di bingkai pembuka', scene1:'Polaroid tanggal', scene2:'Polaroid cerita', scene3:'Foto di bingkai penutup'}};
+const CX_PH_LBL_DIR = {kertasriang:{scene1:'Foto di penutup'}, lipatkertas:{scene1:'Foto di penutup'}, jendelabulan:{scene1:'Foto di bingkai penutup'}, pasarmalam:{scene1:'Foto di penutup'}, lembarharian:{scene1:'Polaroid penutup'}, tepilaut:{scene1:'Foto di penutup'}, kolase:{cover:'Foto di bingkai pembuka', scene1:'Polaroid tanggal', scene2:'Polaroid cerita', scene3:'Foto di bingkai penutup'}};
 const CX_PH_LABEL = k => (CX_PH_LBL_DIR[cxDir()]||{})[k] || ({scene1:'Polaroid pembuka 1', scene2:'Polaroid pembuka 2', scene3:'Polaroid tanggal', scene4:'Polaroid cerita', scene5:'Polaroid penutup', cover:'Sampul', couple:'Berdua', player:'Pemutar lagu', bride:'Pengantin wanita', groom:'Pengantin pria'})[k] || ((m=>m?({g:'Galeri ',strip:'Strip ',row:'Cerita ',story:'Cerita '})[m[1]]+m[2]:k)(k.match(/^(g|strip|row|story)(\d)$/)));
 /* Drag untuk ubah urutan bagian (mouse & sentuh). Tombol panah tetap ada untuk keyboard. */
 function secSortCommit(list){
@@ -747,6 +749,7 @@ const CX_PHOTO_SEC = {
   pasarmalam:{bride:'couple', groom:'couple', scene1:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
   jendelabulan:{bride:'couple', groom:'couple', scene1:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
   lipatkertas:{bride:'couple', groom:'couple', scene1:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
+  kertasriang:{bride:'couple', groom:'couple', scene1:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
   kolase:{cover:'sampul', bride:'couple', groom:'couple', scene1:'date', scene2:'story', scene3:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
   encore:{cover:'sampul', scene1:'sampul', scene2:'sampul', bride:'couple', groom:'couple', scene3:'date', scene4:'story', scene5:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
   coretan:{cover:'sampul', player:'sampul', bride:'couple', groom:'couple', couple:'couple', strip1:'gallery', strip2:'gallery', strip3:'gallery'}
@@ -3869,7 +3872,7 @@ const GATE_CLS = ['gimg','th','g-teras','g-taman','g-dongeng','g-goresan','g-keb
 /* Gerbang pembuka: lukisan AI per gaya tema (assets/gate). Panel terangkat dari bawah ke atas saat dibuka. */
 const GATE_IMGS = ['arunika','atelier','beludru','dongeng','draperi','goresan','kamboja','kebun','klasik-gelap','klasik-terang','lentera','sekar','teras'];
 function gateImg(t){
-  if(isCx(t.id)){ const d=(cxTheme(t.id)||{}).dir; return d==='drapery'?'beludru':d==='coretan'?'goresan':d==='kolase'?'kolase':d==='lipatkertas'?'lipatkertas':d==='jendelabulan'?'jendelabulan':d==='pasarmalam'?'pasarmalam':d==='tepilaut'?'tepilaut':d==='lembarharian'?'lembarharian':'klasik-gelap'; }
+  if(isCx(t.id)){ const d=(cxTheme(t.id)||{}).dir; return d==='drapery'?'beludru':d==='coretan'?'goresan':d==='kolase'?'kolase':d==='kertasriang'?'kertasriang':d==='lipatkertas'?'lipatkertas':d==='jendelabulan'?'jendelabulan':d==='pasarmalam'?'pasarmalam':d==='tepilaut'?'tepilaut':d==='lembarharian'?'lembarharian':'klasik-gelap'; }
   if(t.gate) return t.gate;
   const L=t.layout||'klasik';
   if(L==='klasik' || !GATE_IMGS.includes(L)) return lum(t.bg) < .35 ? 'klasik-gelap' : 'klasik-terang';
