@@ -166,6 +166,18 @@ const LAYOUT_THEMES = [
     pat:(t)=>`radial-gradient(circle, #8E1B1B12 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/rumah-gadang.webp) center/cover`,
     ilVars:"--il-tegel:url(/assets/minang/tegel.webp);--il-bingkai:url(/assets/minang/bingkai.webp);--il-jalan:url(/assets/minang/jalan.webp);--tr-k:url(/assets/minang/kartu.webp) 80 95 95 84 fill / 22px 26px 26px 23px round;--tr-ink:#5A1F17;--il-nm:#8E1B1B;--il-amp:#B8862A;--il-bg:#F6EBD6;--il-bar:244/499;--il-bw:clamp(52px,14cqi,74px);--il-ini:#F3D9A0;--il-iy:24%;--il-topbg:radial-gradient(48% 46% at 50% 56%,rgba(246,235,214,.92),rgba(246,235,214,.7) 55%,rgba(246,235,214,0) 100%);--il-far:474/665;--il-fl:18.8%;--il-ft:16.8%;--il-fw:62.2%;--il-fh:66.9%",
     ilGate:{'--il-tegel':'url(/assets/minang/tegel.webp)','--il-lencana':'url(/assets/minang/lencana.webp)','--il-bg':'#F6EBD6','--il-amp':'#B8862A','--il-nm':'#8E1B1B','--il-ini':'#F3D9A0','--il-gw':'120px','--il-gh':'245px'}},
+  {id:'adat-batak', layout:'teras', ilDir:'/assets/batak/', gate:'batak', name:'Rumah Bolon', region:'Sumatera Utara', tags:['Ilustrasi','Adat'], bg:'#F4EAD8', fg:'#2B1A17', accent:'#9B1C1C', soft:'#EADCC4', font:"'Cormorant Garamond', Georgia, serif", side:'/assets/batak/sampul2.webp',
+    pat:(t)=>`radial-gradient(circle, #9B1C1C12 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/adat-batak.webp) center/cover`,
+    ilVars:"--il-tegel:url(/assets/batak/tegel.webp);--il-bingkai:url(/assets/batak/bingkai.webp);--il-jalan:url(/assets/batak/jalan.webp);--tr-k:url(/assets/batak/kartu.webp) 59 59 59 59 fill / 18px 18px 18px 18px round;--tr-ink:#9B1C1C;--il-nm:#9B1C1C;--il-amp:#B8862A;--il-bg:#F4EAD8;--il-bar:244/329;--il-bw:clamp(52px,14cqi,74px);--il-ini:#F4EAD8;--il-iy:44%;--il-topbg:radial-gradient(48% 46% at 50% 56%,#F4EAD8eb,#F4EAD8b3 55%,#F4EAD800 100%);--il-far:426/720;--il-fl:19.2%;--il-ft:14.9%;--il-fw:62.4%;--il-fh:71.7%",
+    ilGate:{'--il-tegel':'url(/assets/batak/tegel.webp)','--il-lencana':'url(/assets/batak/lencana.webp)','--il-bg':'#F4EAD8','--il-amp':'#B8862A','--il-nm':'#9B1C1C','--il-ini':'#F4EAD8','--il-gw':'120px','--il-gh':'162px'}},
+  {id:'adat-betawi', layout:'teras', ilDir:'/assets/betawi/', gate:'betawi', name:'Kembang Kelapa', region:'DKI Jakarta', tags:['Ilustrasi','Adat'], bg:'#F7EEDC', fg:'#2A1A14', accent:'#B8262B', soft:'#EFE0C6', font:"'Cormorant Garamond', Georgia, serif", side:'/assets/betawi/sampul2.webp',
+    pat:(t)=>`radial-gradient(circle, #B8262B12 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/adat-betawi.webp) center/cover`,
+    ilVars:"--il-tegel:url(/assets/betawi/tegel.webp);--il-bingkai:url(/assets/betawi/bingkai.webp);--il-jalan:url(/assets/betawi/jalan.webp);--tr-k:url(/assets/betawi/kartu.webp) 54 53 53 53 fill / 16px 16px 16px 16px round;--tr-ink:#B8262B;--il-nm:#B8262B;--il-amp:#C79A2E;--il-bg:#F7EEDC;--il-bar:244/409;--il-bw:clamp(52px,14cqi,74px);--il-ini:#F7EEDC;--il-iy:40%;--il-topbg:radial-gradient(48% 46% at 50% 56%,#F7EEDCeb,#F7EEDCb3 55%,#F7EEDC00 100%);--il-far:474/643;--il-fl:16.5%;--il-ft:13.7%;--il-fw:66.9%;--il-fh:72.5%",
+    ilGate:{'--il-tegel':'url(/assets/betawi/tegel.webp)','--il-lencana':'url(/assets/betawi/lencana.webp)','--il-bg':'#F7EEDC','--il-amp':'#C79A2E','--il-nm':'#B8262B','--il-ini':'#F7EEDC','--il-gw':'120px','--il-gh':'201px'}},
+  {id:'adat-bugis', layout:'teras', ilDir:'/assets/bugis/', gate:'bugis', name:'Rumah Panggung', region:'Sulawesi Selatan', tags:['Ilustrasi','Adat'], bg:'#F5ECDD', fg:'#22262A', accent:'#2A7C8C', soft:'#E8DECB', font:"'Cormorant Garamond', Georgia, serif", side:'/assets/bugis/sampul2.webp',
+    pat:(t)=>`radial-gradient(circle, #2A7C8C12 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/adat-bugis.webp) center/cover`,
+    ilVars:"--il-tegel:url(/assets/bugis/tegel.webp);--il-bingkai:url(/assets/bugis/bingkai.webp);--il-jalan:url(/assets/bugis/jalan.webp);--tr-k:url(/assets/bugis/kartu.webp) 73 76 74 75 fill / 22px 23px 22px 22px round;--tr-ink:#2A7C8C;--il-nm:#2A7C8C;--il-amp:#C2407A;--il-bg:#F5ECDD;--il-bar:244/485;--il-bw:clamp(52px,14cqi,74px);--il-ini:#F5ECDD;--il-iy:46%;--il-topbg:radial-gradient(48% 46% at 50% 56%,#F5ECDDeb,#F5ECDDb3 55%,#F5ECDD00 100%);--il-far:458/720;--il-fl:16.2%;--il-ft:13.9%;--il-fw:67.5%;--il-fh:73.1%",
+    ilGate:{'--il-tegel':'url(/assets/bugis/tegel.webp)','--il-lencana':'url(/assets/bugis/lencana.webp)','--il-bg':'#F5ECDD','--il-amp':'#C2407A','--il-nm':'#2A7C8C','--il-ini':'#F5ECDD','--il-gw':'120px','--il-gh':'239px'}},
   {id:'kebun-teh', layout:'teras', ilDir:'/assets/kebunteh/', name:'Kebun Teh', region:'Nasional', tags:['Ilustrasi','Floral'], bg:'#F6F4EA', fg:'#2F3B2C', accent:'#3F6B45', soft:'#E6EBDD', font:"'Cormorant Garamond', Georgia, serif", side:'/assets/kebunteh/sampul2.webp',
     pat:(t)=>`radial-gradient(circle, #3F6B4512 0 1px, transparent 1.4px)`, size:'20px 20px', thumb:()=>`url(/assets/thumbs/kebun-teh.webp) center/cover`,
     ilVars:"--il-tegel:url(/assets/kebunteh/tegel.webp);--il-bingkai:url(/assets/kebunteh/bingkai.webp);--il-jalan:url(/assets/kebunteh/jalan.webp);--tr-k:url(/assets/kebunteh/kartu.webp) 130 139 200 137 fill / 26px 28px 40px 27px round;--tr-ink:#3E4B3A;--il-nm:#6B5B9A;--il-amp:#5E8358;--il-bg:#F6F4EA;--il-bar:413/420;--il-ini:#FFFDF6;--il-iy:3%;--il-topbg:radial-gradient(48% 46% at 50% 56%,rgba(246,244,234,.8),rgba(246,244,234,.45) 55%,rgba(246,244,234,0) 100%);--il-far:486/720;--il-fl:14%;--il-ft:9.5%;--il-fw:70%;--il-fh:80.5%",
@@ -193,7 +205,7 @@ const LAYOUT_THEMES = [
 ];
 THEMES.unshift(...LAYOUT_THEMES);
 /* thumbnail = cuplikan sampul asli */
-const THUMB_IMG=new Set(["kawung", "songket", "melati", "taman", "lontar", "ulos", "senja", "peranakan", "sakinah", "endek", "megamendung", "gigibalang", "sekar", "kamboja", "lentera", "arunika", "atelier", "kebun-lila", "kebun-sage", "kebun-biru", "kebun-senja", "kebun-mawar", "draperi-biru", "draperi-zamrud", "draperi-mawar", "dongeng-pink", "goresan-merah", "teras", "joglo", "kebun-teh", "taman-wisteria", "taman-keraton", "beludru", "rumah-gadang"]);
+const THUMB_IMG=new Set(["kawung", "songket", "melati", "taman", "lontar", "ulos", "senja", "peranakan", "sakinah", "endek", "megamendung", "gigibalang", "sekar", "kamboja", "lentera", "arunika", "atelier", "kebun-lila", "kebun-sage", "kebun-biru", "kebun-senja", "kebun-mawar", "draperi-biru", "draperi-zamrud", "draperi-mawar", "dongeng-pink", "goresan-merah", "teras", "joglo", "kebun-teh", "taman-wisteria", "taman-keraton", "beludru", "rumah-gadang", "adat-bugis", "adat-betawi", "adat-batak"]);
 THEMES.forEach(t=>{ if(THUMB_IMG.has(t.id)){ t.thumbNoTxt=true; t.thumbImg=`/assets/thumbs/${t.id}.webp`; } });
 TAGS.includes('Foto') || TAGS.push('Foto');
 LAYOUT_THEMES.filter(t=>t.photo).forEach(t=>t.tags.push('Foto'));
@@ -530,12 +542,22 @@ var CX_THEMES = [
   {id:'cx-drapery', dir:'drapery', name:'Drapery Emerald', region:'Custom', lang:'id', tags:['Custom','Klasik'], desc:'Tirai beludru yang terbuka, renda keluar dari amplop, dan rangkaian bunga kering. Klasik dan khidmat.', bg:'#13301f', fg:'#efe6d6', accent:'#5b0f16', soft:'#1d4430', font:"'Cormorant Garamond', Georgia, serif"},
   {id:'cx-photobox', dir:'photobox', name:'Photobox Archives', region:'Custom', lang:'en', tags:['Custom','Santai'], desc:'Polaroid bertempel selotip, profil mempelai seperti formulir, dan kalender dengan coretan tangan. Santai dan jenaka.', thumbPos:'center 42%', bg:'#4a0b11', fg:'#efe9df', accent:'#8e1c22', soft:'#5c1219', font:"'Cormorant Garamond', Georgia, serif"},
   {id:'cx-encore', dir:'encore', name:'Encore', region:'Custom', lang:'id', tags:['Custom','Meriah'], desc:'Malam pertunjukan di bawah langit ungu: tiket bioskop yang disobek, pita berjalan, papan acara bioskop, dan gulungan film. Meriah dan sinematik.', bg:'#120a26', fg:'#fbf7ff', accent:'#c04a85', soft:'#241040', font:"'Poiret One', Georgia, serif"},
+  {id:'cx-tepilaut', dir:'tepilaut', name:'Tepi Laut', region:'Custom', lang:'id', tags:['Custom','Interaktif'], desc:'Undangan geser bercerita: satu hari di pantai, dari matahari terbit, senja jingga, sampai bulan purnama. Langit dan laut berganti waktu setiap tamu menggeser halaman.', bg:'#f3e2c4', fg:'#1f2d3a', accent:'#2e7d8c', soft:'#fff8ee', font:"'Fraunces', Georgia, serif"},
+  {id:'cx-lembarharian', dir:'lembarharian', name:'Lembar Harian', region:'Custom', lang:'id', tags:['Custom','Interaktif'], desc:'Undangan berupa buku harian yang dibalik halaman demi halaman: tulisan tangan, polaroid bertempel washi tape, dan bunga kering di kertas bergaris.', bg:'#fbf3e4', fg:'#2c3550', accent:'#b36a6e', soft:'#efe3cc', font:"'Caveat', cursive"},
+  {id:'cx-pasarmalam', dir:'pasarmalam', name:'Pasar Malam', region:'Custom', lang:'id', tags:['Custom','Interaktif'], desc:'Undangan meriah ala pasar malam: sobek karcis untuk masuk gerbang, lampu bohlam berkelip, balon yang bisa diletuskan, dan bianglala di ujung malam.', bg:'#1e2140', fg:'#2b2234', accent:'#b8322e', soft:'#fbefd9', font:"'Pacifico', cursive"},
+  {id:'cx-jendelabulan', dir:'jendelabulan', name:'Jendela Bulan', region:'Custom', lang:'id', tags:['Custom','Interaktif'], desc:'Undangan islami yang elegan di balik jendela lengkung: lentera berayun, bintang segi delapan, dan bulan yang perlahan menjadi purnama selama tamu membaca.', bg:'#fbf7ee', fg:'#233a33', accent:'#1f4d3f', soft:'#f3ebd9', font:"'Pinyon Script', cursive"},
+  {id:'cx-lipatkertas', dir:'lipatkertas', name:'Lipat Kertas', region:'Custom', lang:'id', tags:['Custom','Interaktif'], desc:'Undangan origami yang manis: amplop kertas dibuka dan surat keluar, setiap lembar terbuka saat digulir, bangau kertas terbang lewat, dan hati origami bisa diterbangkan tamu.', bg:'#fffdf9', fg:'#3a3438', accent:'#c9767b', soft:'#f7f4ef', font:"'DM Serif Display', Georgia, serif"},
   {id:'cx-kolase', dir:'kolase', name:'Kolase', region:'Custom', lang:'id', tags:['Custom','Modern'], desc:'Potongan kertas berlapis ala kolase Matisse: daun terakota, gumpalan sage, dan matahari mustard di atas kertas krem. Hangat, artistik, dan ceria.', bg:'#f3ebdd', fg:'#3a2a22', accent:'#c2623f', soft:'#ece0cc', font:"'DM Serif Display', Georgia, serif"},
   {id:'cx-coretan', dir:'coretan', name:'Coretan Merah', region:'Custom', lang:'id', tags:['Custom','Jenaka'], desc:'Ilustrasi tangan bertinta merah dan foto masa kecil di dalam bingkai. Untuk pasangan yang sudah kenal sejak bocil.', bg:'#f6f2ee', fg:'#2b1d1a', accent:'#8c1c13', soft:'#efe6df', font:"'Cormorant Garamond', Georgia, serif"}
 ];
 const CX_LOOK = {
   drapery:{pal:[['','Emerald','#13301f'],['navy','Biru malam','#0e1a2e'],['arang','Arang','#1c1b1a']], font:[['','Bawaan',"'Pinyon Script', cursive"],['great','Great Vibes',"'Great Vibes', cursive"],['parisienne','Parisienne',"'Parisienne', cursive"]]},
   photobox:{pal:[['','Wine','#4a0b11'],['navy','Navy','#101b33'],['hutan','Hijau hutan','#0f2a1c']], font:[['','Bawaan',"'Yellowtail', cursive"],['dancing','Dancing Script',"'Dancing Script', cursive"],['satisfy','Satisfy',"'Satisfy', cursive"]]},
+  tepilaut:{pal:[['','Biru laut','#2e7d8c']], font:[['','Bawaan',"'Fraunces', Georgia, serif"]]},
+  lembarharian:{pal:[['','Dusty pink','#b36a6e']], font:[['','Bawaan',"'Caveat', cursive"]]},
+  pasarmalam:{pal:[['','Merah karnaval','#b8322e']], font:[['','Bawaan',"'Pacifico', cursive"]]},
+  jendelabulan:{pal:[['','Hijau zamrud','#1f4d3f']], font:[['','Bawaan',"'Pinyon Script', cursive"]]},
+  lipatkertas:{pal:[['','Merah muda','#c9767b']], font:[['','Bawaan',"'DM Serif Display', Georgia, serif"]]},
   kolase:{pal:[['','Terakota','#c2623f'],['laut','Biru laut','#2f5f96'],['zaitun','Hijau zaitun','#5e7036']], font:[['','Bawaan',"'DM Serif Display', Georgia, serif"]]},
   encore:{pal:[['','Ungu malam','#241040']], font:[['','Bawaan',"'Yellowtail', cursive"]]},
   coretan:{pal:[['','Merah','#8c1c13'],['biru','Biru','#1f3a6b'],['hijau','Hijau','#285238']], font:[['','Bawaan',"'Permanent Marker', cursive"],['rock','Rock Salt',"'Rock Salt', cursive"],['amatic','Amatic SC',"'Amatic SC', cursive"]]}
@@ -629,7 +651,7 @@ addEventListener('message', async e=>{
   }
 });
 /* ---------- Editor Custom: susunan bagian, foto per bingkai, teks khusus tema ---------- */
-const CX_PH_LBL_DIR = {kolase:{cover:'Foto di bingkai pembuka', scene1:'Polaroid tanggal', scene2:'Polaroid cerita', scene3:'Foto di bingkai penutup'}};
+const CX_PH_LBL_DIR = {lipatkertas:{scene1:'Foto di penutup'}, jendelabulan:{scene1:'Foto di bingkai penutup'}, pasarmalam:{scene1:'Foto di penutup'}, lembarharian:{scene1:'Polaroid penutup'}, tepilaut:{scene1:'Foto di penutup'}, kolase:{cover:'Foto di bingkai pembuka', scene1:'Polaroid tanggal', scene2:'Polaroid cerita', scene3:'Foto di bingkai penutup'}};
 const CX_PH_LABEL = k => (CX_PH_LBL_DIR[cxDir()]||{})[k] || ({scene1:'Polaroid pembuka 1', scene2:'Polaroid pembuka 2', scene3:'Polaroid tanggal', scene4:'Polaroid cerita', scene5:'Polaroid penutup', cover:'Sampul', couple:'Berdua', player:'Pemutar lagu', bride:'Pengantin wanita', groom:'Pengantin pria'})[k] || ((m=>m?({g:'Galeri ',strip:'Strip ',row:'Cerita ',story:'Cerita '})[m[1]]+m[2]:k)(k.match(/^(g|strip|row|story)(\d)$/)));
 /* Drag untuk ubah urutan bagian (mouse & sentuh). Tombol panah tetap ada untuk keyboard. */
 function secSortCommit(list){
@@ -717,6 +739,11 @@ let PICK_KIND=null;
 const CX_PHOTO_SEC = {
   drapery:{bride:'couple', groom:'couple', story1:'story', story2:'story', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
   photobox:{strip1:'sampul', strip2:'sampul', strip3:'sampul', strip4:'sampul', player:'sampul', bride:'couple', groom:'couple', row1:'story', row2:'story', row3:'story', row4:'story', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery'},
+  tepilaut:{bride:'couple', groom:'couple', scene1:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
+  lembarharian:{bride:'couple', groom:'couple', scene1:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
+  pasarmalam:{bride:'couple', groom:'couple', scene1:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
+  jendelabulan:{bride:'couple', groom:'couple', scene1:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
+  lipatkertas:{bride:'couple', groom:'couple', scene1:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
   kolase:{cover:'sampul', bride:'couple', groom:'couple', scene1:'date', scene2:'story', scene3:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
   encore:{cover:'sampul', scene1:'sampul', scene2:'sampul', bride:'couple', groom:'couple', scene3:'date', scene4:'story', scene5:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
   coretan:{cover:'sampul', player:'sampul', bride:'couple', groom:'couple', couple:'couple', strip1:'gallery', strip2:'gallery', strip3:'gallery'}
@@ -3780,7 +3807,7 @@ const GATE_CLS = ['gimg','th','g-teras','g-taman','g-dongeng','g-goresan','g-keb
 /* Gerbang pembuka: lukisan AI per gaya tema (assets/gate). Panel terangkat dari bawah ke atas saat dibuka. */
 const GATE_IMGS = ['arunika','atelier','beludru','dongeng','draperi','goresan','kamboja','kebun','klasik-gelap','klasik-terang','lentera','sekar','teras'];
 function gateImg(t){
-  if(isCx(t.id)){ const d=(cxTheme(t.id)||{}).dir; return d==='drapery'?'beludru':d==='coretan'?'goresan':d==='kolase'?'kolase':'klasik-gelap'; }
+  if(isCx(t.id)){ const d=(cxTheme(t.id)||{}).dir; return d==='drapery'?'beludru':d==='coretan'?'goresan':d==='kolase'?'kolase':d==='lipatkertas'?'lipatkertas':d==='jendelabulan'?'jendelabulan':d==='pasarmalam'?'pasarmalam':d==='tepilaut'?'tepilaut':d==='lembarharian'?'lembarharian':'klasik-gelap'; }
   if(t.gate) return t.gate;
   const L=t.layout||'klasik';
   if(L==='klasik' || !GATE_IMGS.includes(L)) return lum(t.bg) < .35 ? 'klasik-gelap' : 'klasik-terang';
