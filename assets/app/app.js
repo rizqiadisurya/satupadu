@@ -543,12 +543,14 @@ var CX_THEMES = [
   {id:'cx-photobox', dir:'photobox', name:'Photobox Archives', region:'Custom', lang:'en', tags:['Custom','Santai'], desc:'Polaroid bertempel selotip, profil mempelai seperti formulir, dan kalender dengan coretan tangan. Santai dan jenaka.', thumbPos:'center 42%', bg:'#4a0b11', fg:'#efe9df', accent:'#8e1c22', soft:'#5c1219', font:"'Cormorant Garamond', Georgia, serif"},
   {id:'cx-encore', dir:'encore', name:'Encore', region:'Custom', lang:'id', tags:['Custom','Meriah'], desc:'Malam pertunjukan di bawah langit ungu: tiket bioskop yang disobek, pita berjalan, papan acara bioskop, dan gulungan film. Meriah dan sinematik.', bg:'#120a26', fg:'#fbf7ff', accent:'#c04a85', soft:'#241040', font:"'Poiret One', Georgia, serif"},
   {id:'cx-kolase', dir:'kolase', name:'Kolase', region:'Custom', lang:'id', tags:['Custom','Modern'], desc:'Potongan kertas berlapis ala kolase Matisse: daun terakota, gumpalan sage, dan matahari mustard di atas kertas krem. Hangat, artistik, dan ceria.', bg:'#f3ebdd', fg:'#3a2a22', accent:'#c2623f', soft:'#ece0cc', font:"'DM Serif Display', Georgia, serif"},
+  {id:'cx-tepilaut', dir:'tepilaut', name:'Tepi Laut', region:'Custom', lang:'id', tags:['Custom','Interaktif'], desc:'Undangan geser bercerita: satu hari di pantai, dari matahari terbit, senja jingga, sampai bulan purnama. Langit dan laut berganti waktu setiap tamu menggeser halaman.', bg:'#f3e2c4', fg:'#1f2d3a', accent:'#2e7d8c', soft:'#fff8ee', font:"'Fraunces', Georgia, serif"},
   {id:'cx-coretan', dir:'coretan', name:'Coretan Merah', region:'Custom', lang:'id', tags:['Custom','Jenaka'], desc:'Ilustrasi tangan bertinta merah dan foto masa kecil di dalam bingkai. Untuk pasangan yang sudah kenal sejak bocil.', bg:'#f6f2ee', fg:'#2b1d1a', accent:'#8c1c13', soft:'#efe6df', font:"'Cormorant Garamond', Georgia, serif"}
 ];
 const CX_LOOK = {
   drapery:{pal:[['','Emerald','#13301f'],['navy','Biru malam','#0e1a2e'],['arang','Arang','#1c1b1a']], font:[['','Bawaan',"'Pinyon Script', cursive"],['great','Great Vibes',"'Great Vibes', cursive"],['parisienne','Parisienne',"'Parisienne', cursive"]]},
   photobox:{pal:[['','Wine','#4a0b11'],['navy','Navy','#101b33'],['hutan','Hijau hutan','#0f2a1c']], font:[['','Bawaan',"'Yellowtail', cursive"],['dancing','Dancing Script',"'Dancing Script', cursive"],['satisfy','Satisfy',"'Satisfy', cursive"]]},
   kolase:{pal:[['','Terakota','#c2623f'],['laut','Biru laut','#2f5f96'],['zaitun','Hijau zaitun','#5e7036']], font:[['','Bawaan',"'DM Serif Display', Georgia, serif"]]},
+  tepilaut:{pal:[['','Biru laut','#2e7d8c']], font:[['','Bawaan',"'Fraunces', Georgia, serif"]]},
   encore:{pal:[['','Ungu malam','#241040']], font:[['','Bawaan',"'Yellowtail', cursive"]]},
   coretan:{pal:[['','Merah','#8c1c13'],['biru','Biru','#1f3a6b'],['hijau','Hijau','#285238']], font:[['','Bawaan',"'Permanent Marker', cursive"],['rock','Rock Salt',"'Rock Salt', cursive"],['amatic','Amatic SC',"'Amatic SC', cursive"]]}
 };
@@ -642,7 +644,7 @@ addEventListener('message', async e=>{
   }
 });
 /* ---------- Editor Custom: susunan bagian, foto per bingkai, teks khusus tema ---------- */
-const CX_PH_LBL_DIR = {kolase:{cover:'Foto di bingkai pembuka', scene1:'Polaroid tanggal', scene2:'Polaroid cerita', scene3:'Foto di bingkai penutup'}};
+const CX_PH_LBL_DIR = {tepilaut:{scene1:'Foto di penutup'}, kolase:{cover:'Foto di bingkai pembuka', scene1:'Polaroid tanggal', scene2:'Polaroid cerita', scene3:'Foto di bingkai penutup'}};
 const CX_PH_LABEL = k => (CX_PH_LBL_DIR[cxDir()]||{})[k] || ({scene1:'Polaroid pembuka 1', scene2:'Polaroid pembuka 2', scene3:'Polaroid tanggal', scene4:'Polaroid cerita', scene5:'Polaroid penutup', cover:'Sampul', couple:'Berdua', player:'Pemutar lagu', bride:'Pengantin wanita', groom:'Pengantin pria'})[k] || ((m=>m?({g:'Galeri ',strip:'Strip ',row:'Cerita ',story:'Cerita '})[m[1]]+m[2]:k)(k.match(/^(g|strip|row|story)(\d)$/)));
 /* Drag untuk ubah urutan bagian (mouse & sentuh). Tombol panah tetap ada untuk keyboard. */
 function secSortCommit(list){
@@ -732,6 +734,7 @@ let PICK_KIND=null;
 const CX_PHOTO_SEC = {
   drapery:{bride:'couple', groom:'couple', story1:'story', story2:'story', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
   photobox:{strip1:'sampul', strip2:'sampul', strip3:'sampul', strip4:'sampul', player:'sampul', bride:'couple', groom:'couple', row1:'story', row2:'story', row3:'story', row4:'story', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery'},
+  tepilaut:{bride:'couple', groom:'couple', scene1:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
   kolase:{cover:'sampul', bride:'couple', groom:'couple', scene1:'date', scene2:'story', scene3:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
   encore:{cover:'sampul', scene1:'sampul', scene2:'sampul', bride:'couple', groom:'couple', scene3:'date', scene4:'story', scene5:'closing', g1:'gallery', g2:'gallery', g3:'gallery', g4:'gallery', g5:'gallery', g6:'gallery'},
   coretan:{cover:'sampul', player:'sampul', bride:'couple', groom:'couple', couple:'couple', strip1:'gallery', strip2:'gallery', strip3:'gallery'}
@@ -3854,7 +3857,7 @@ const GATE_CLS = ['gimg','th','g-teras','g-taman','g-dongeng','g-goresan','g-keb
 /* Gerbang pembuka: lukisan AI per gaya tema (assets/gate). Panel terangkat dari bawah ke atas saat dibuka. */
 const GATE_IMGS = ['arunika','atelier','beludru','dongeng','draperi','goresan','kamboja','kebun','klasik-gelap','klasik-terang','lentera','sekar','teras'];
 function gateImg(t){
-  if(isCx(t.id)){ const d=(cxTheme(t.id)||{}).dir; return d==='drapery'?'beludru':d==='coretan'?'goresan':d==='kolase'?'kolase':'klasik-gelap'; }
+  if(isCx(t.id)){ const d=(cxTheme(t.id)||{}).dir; return d==='drapery'?'beludru':d==='coretan'?'goresan':d==='kolase'?'kolase':d==='tepilaut'?'tepilaut':'klasik-gelap'; }
   if(t.gate) return t.gate;
   const L=t.layout||'klasik';
   if(L==='klasik' || !GATE_IMGS.includes(L)) return lum(t.bg) < .35 ? 'klasik-gelap' : 'klasik-terang';
