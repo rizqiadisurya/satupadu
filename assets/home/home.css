@@ -490,3 +490,5 @@ html:not(.on-home) .e-fcta{display:none}
 .edh .e-tema.e-native .e-track{overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding-right:20px;padding-bottom:6px;scrollbar-width:none;will-change:auto}
 .edh .e-tema.e-native .e-track::-webkit-scrollbar{display:none}
 .edh .e-tema.e-native .e-card{scroll-snap-align:start}
+/* B9: hero di HP — judul naik, tidak menyisakan bidang kosong di atas */
+@media (max-width:760px){ .edh .e-hero-copy{align-content:start;padding-top:clamp(64px,14svh,140px)} }
