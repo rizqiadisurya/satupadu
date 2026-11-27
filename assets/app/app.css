@@ -10,8 +10,8 @@
   --line:#EBDDE2;
   --card:#FFFFFF;
   --gold:#D9A441;
-  --ok:#2E7D57; --ok-bg:#E5F3EB;
-  --warn:#A8671B; --warn-bg:#FBF0E0;
+  --ok:#276B4A; --ok-bg:#E5F3EB;
+  --warn:#8F5714; --warn-bg:#FBF0E0;
   --no:#A33A3A; --no-bg:#F8E6E6;
   --display:'Lora', Georgia, 'Times New Roman', serif;
   --body:'Lora', Georgia, 'Times New Roman', serif;
@@ -3449,7 +3449,7 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
 @media (max-width:640px){
   .plan-pick label{grid-template-columns:22px 1fr;row-gap:4px;padding:14px}
   .plan-pick label .num{grid-column:2;justify-self:start;font-size:16px}
-  .plan-pick small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13px;line-height:1.45}
+  .plan-pick small{font-size:13px;line-height:1.45}
   .co-sum .co-inv,.co-sum .co-trust{display:none}
   .co-sum{padding:14px 16px}
   .co-foot{position:sticky;bottom:0;z-index:6;background:var(--card,#fff);margin:16px -16px -16px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line);border-radius:0 0 var(--r-lg) var(--r-lg);flex-wrap:wrap;gap:8px}
@@ -3519,3 +3519,19 @@ html:not([data-dv="undangan"]) #demoPill .dp-back{display:none}
   .preview-fab .icon{width:22px;height:22px}
   body.is-typing .preview-fab{transform:translateY(140%);opacity:0;pointer-events:none}
 }
+
+/* === Audit UI/UX 27 Nov — gelombang 1 === */
+/* G1: teks kecil berwarna aksen tema dibuat lebih pekat (ke arah warna teks), ornamen tetap memakai aksen asli */
+.inv.prem :is(.kick,.p-ig,.ev2-t,.tl-d,.cover .to){color:color-mix(in srgb,var(--t-accent) 62%,var(--t-fg))}
+.inv.prem .p-ig{border-color:color-mix(in srgb,var(--t-accent) 62%,var(--t-fg))}
+/* C3: di HP pilihan paket lebih dulu, ringkasan total di bawahnya (total juga ada di tombol Bayar) */
+@media (max-width:640px){ .co-grid .co-sum{order:1} }
+/* D1: Naikkan paket sebagai tautan kecil setelah tombol utama */
+.dh-acts .dh-up{display:inline-flex;align-items:center;gap:6px;font-size:14px;min-height:44px;padding:0 4px}
+.dh-acts .dh-up svg{width:16px;height:16px}
+/* Kenangan: tab memakai aria-selected, tampilan sama dengan segmen terpilih */
+.seg button[role="tab"][aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* Kontras teks kecil: hitung mundur undangan, penerima tamu */
+.inv.prem .cd4 small{opacity:.85}
+.ci2-scan small{opacity:1}
+.ci2-tabs button span{color:var(--ink)}
