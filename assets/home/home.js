@@ -121,7 +121,11 @@ function init(){
   // galeri tema horizontal
   const track=$('#e-track'); gCount();
   const dist=()=>track.scrollWidth-innerWidth+Math.max(24,(innerWidth-1320)/2);
-  gsap.to(track,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:'.e-tema',start:'top top',end:()=>'+='+dist(),pin:'.e-tema-pin',scrub:1,invalidateOnRefresh:true,
+  // di HP galeri digeser langsung dengan jari (tanpa menahan guliran halaman); di layar besar tetap ikut guliran
+  if(matchMedia('(max-width:760px)').matches){ $('.e-tema').classList.add('e-native'); const n=()=>$$('.e-card:not(.e-all)',track).length;
+    const upd=()=>{ const m=track.scrollWidth-track.clientWidth, pr=m>0?track.scrollLeft/m:0; $('#e-prog').style.transform=`scaleX(${pr})`; $('#e-tc').textContent=String(Math.min(n(),1+Math.floor(pr*n()))).padStart(2,'0'); };
+    track.addEventListener('scroll',upd,{passive:true}); upd(); }
+  else gsap.to(track,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:'.e-tema',start:'top top',end:()=>'+='+dist(),pin:'.e-tema-pin',scrub:1,invalidateOnRefresh:true,
     onUpdate:s=>{ const n=$$('.e-card:not(.e-all)',track).length; $('#e-prog').style.transform=`scaleX(${s.progress})`; $('#e-tc').textContent=String(Math.min(n,1+Math.floor(s.progress*n))).padStart(2,'0'); }}});
   $$('.e-card',track).slice(0,6).forEach((c,i)=>gsap.from(c,{y:60+i%3*30,opacity:0,duration:1.2,ease:'expo.out',scrollTrigger:{trigger:'.e-tema',start:'top 60%'},delay:i*.05}));
 

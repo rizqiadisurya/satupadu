@@ -1258,15 +1258,20 @@ $('#tryGo')?.addEventListener('click', ()=>{
 });
 
 /* ---------- Theme cards ---------- */
+/* K3: tema yang baru ditambahkan diberi label Baru di katalog */
+const NEW_THEMES = new Set(['rumah-gadang','adat-batak','adat-betawi','adat-bugis','cx-kolase','cx-tepilaut','cx-lembarharian','cx-pasarmalam','cx-jendelabulan','cx-lipatkertas','cx-kertasriang']);
+/* K2: sampul kartu bisa diketuk untuk membuka demo, tombol tinggal satu (Pakai) */
+const tcPeek = t => `${NEW_THEMES.has(t.id)?'<span class="tc-new">Baru</span>':''}<span class="tc-peek" aria-hidden="true">${ico('eye')}Lihat demo</span>`;
+const tcCoverAttr = t => `role="button" tabindex="0" data-act="demo" data-t="${t.id}" aria-label="Lihat demo tema ${esc(t.name)}"`;
 function tcard(t){
   return `<article class="tcard">
-    ${t.layout ? `<div class="cover tc-wrap" style="${themeStyle(t)}"><div class="tc-live" data-tclive>${tcLive(t)}</div></div>` : `<div class="cover" style="${themeStyle(t)}"><div class="frame"></div>
+    ${t.layout ? `<div class="cover tc-wrap" ${tcCoverAttr(t)} style="${themeStyle(t)}">${tcPeek(t)}<div class="tc-live" data-tclive>${tcLive(t)}</div></div>` : `<div class="cover" ${tcCoverAttr(t)} style="${themeStyle(t)}">${tcPeek(t)}<div class="frame"></div>
       <div class="inner"><small>The Wedding of</small><div class="nm">${esc(S.bride.nick||'Sarah')}<i>&amp;</i>${esc(S.groom.nick||'Raka')}</div><small>${esc(fmtShort(S.events[0].date||'2027-02-14'))}</small></div>
     </div>`}
     <div class="meta">
-      <div class="top"><h3>${esc(t.name)}</h3><span class="reg">${esc(t.region)}</span></div>
+      <div class="top"><h3>${esc(t.name)}</h3>${t.region&&t.region!=='Nasional'?`<span class="reg">${esc(t.region)}</span>`:''}</div>
       <div class="chips">${t.tags.map(x=>`<span class="chip">${esc(x)}</span>`).join('')}</div>
-      <div class="acts"><button class="btn btn-ghost btn-sm" data-act="demo" data-t="${t.id}">${ico('eye')}Demo</button><button class="btn btn-primary btn-sm" data-act="use-theme" data-t="${t.id}">Pakai</button></div>
+      <div class="acts"><button class="btn btn-primary btn-sm" data-act="use-theme" data-t="${t.id}">Pakai tema ini</button></div>
     </div>
   </article>`;
 }
@@ -1298,23 +1303,23 @@ function renderHomeThemes(){ const tr=$('#e-track'); if(!tr) return; const all=t
 let catTag='Semua', catQ='';
 let catKind='lukisan';
 function cxCard(t){
-  return `<article class="tcard cx-card"><div class="cover"><img loading="lazy" decoding="async" src="${t.thumbImg}" alt="Sampul tema ${esc(t.name)}"></div>
+  return `<article class="tcard cx-card"><div class="cover" ${tcCoverAttr(t)}>${tcPeek(t)}<img loading="lazy" decoding="async" src="${t.thumbImg}" alt="Sampul tema ${esc(t.name)}"></div>
     <div class="meta"><div class="top"><h3>${esc(t.name)}</h3><span class="cx-badge">Paket Custom</span></div>
       <p class="cx-desc">${esc(t.desc)}</p>
       <div class="chips">${t.tags.filter(x=>x!=='Custom').map(x=>`<span class="chip">${esc(x)}</span>`).join('')}<span class="chip">Indonesia &amp; English</span></div>
-      <div class="acts"><button class="btn btn-ghost btn-sm" data-act="demo" data-t="${t.id}">${ico('eye')}Demo</button><button class="btn btn-primary btn-sm" data-act="use-theme" data-t="${t.id}">Pakai</button></div></div></article>`;
+      <div class="acts"><button class="btn btn-primary btn-sm" data-act="use-theme" data-t="${t.id}">Pakai tema ini</button></div></div></article>`;
 }
 function renderCatalog(){
   const kt=$('#kindTabs'); if(kt) kt.innerHTML = [['lukisan','Lukisan','Tanpa foto, digambar khusus'],['custom','Custom','Pakai foto kalian · Paket Custom']].map(([k,l,d])=>`<button type="button" role="tab" data-kind="${k}" aria-selected="${catKind===k}"><b>${l}</b><small>${d}</small></button>`).join('');
   const lede=$('#catLede'), tb=$('#catToolbar');
   if(catKind==='custom'){ if(tb) tb.hidden=true; if(lede) lede.textContent='Tema penuh foto kalian. Urutan bagian, bagian yang tampil, dan foto di setiap bingkai bebas diatur. Dipublikasikan dengan paket Custom.';
-    $('#themeGrid').innerHTML = CX_THEMES.filter(t=>!themeHidden(t.id)).map(cxCard).join('') + `<div class="cx-note"><span>Mau desain dari nol, khusus kalian?</span><a class="btn btn-ghost btn-sm" href="${customWaUrl()}" data-wa-custom target="_blank" rel="noopener">Ngobrol dengan kami</a></div>`;
+    $('#themeGrid').innerHTML = `<p class="cat-count">${CX_THEMES.filter(t=>!themeHidden(t.id)).length} tema Custom</p>` + CX_THEMES.filter(t=>!themeHidden(t.id)).map(cxCard).join('') + `<div class="cx-note"><span>Mau desain dari nol, khusus kalian?</span><a class="btn btn-ghost btn-sm" href="${customWaUrl()}" data-wa-custom target="_blank" rel="noopener">Ngobrol dengan kami</a></div>`;
     setTimeout(()=>aniScan($('[data-view=tema]')),0); return; }
   if(tb) tb.hidden=false; if(lede) lede.textContent='Tema yang digambar khusus, tanpa perlu foto. Bisa dipakai di paket apa pun, warna dan hurufnya bisa diganti.';
   $('#tagFilter').innerHTML = TAGS.map(t=>`<button type="button" data-tag="${t}" aria-pressed="${t===catTag}">${t}</button>`).join('');
   const q = catQ.toLowerCase();
   const list = themeOrder(THEMES).filter(t => (catTag==='Semua'||t.tags.includes(catTag)) && (!q || (t.name+' '+t.region+' '+t.tags.join(' ')).toLowerCase().includes(q) || (q.includes('jawa')&&t.id==='kawung') || (q.includes('minang')&&t.id==='songket') || (q.includes('batak')&&t.id==='ulos') || (q.includes('bugis')&&t.id==='lontar')));
-  setTimeout(()=>{ fitLive($('#themeGrid')); aniScan($('[data-view=tema]')); },0); $('#themeGrid').innerHTML = list.length ? list.map(tcard).join('') : `<div class="empty">${karaImg('bingung','kara-empty')}<b style="color:var(--ink)">Belum ada tema untuk “${esc(catQ)}”.</b><br>Coba kata lain, atau <button class="btn btn-ghost btn-sm" data-act="clear-filter" style="margin-top:10px">tampilkan semua tema</button></div>`;
+  setTimeout(()=>{ fitLive($('#themeGrid')); aniScan($('[data-view=tema]')); },0); $('#themeGrid').innerHTML = list.length ? `<p class="cat-count">${list.length} tema${catTag!=='Semua'||catQ?' cocok':''}</p>`+list.map(tcard).join('') : `<div class="empty">${karaImg('bingung','kara-empty')}<b style="color:var(--ink)">Belum ada tema untuk “${esc(catQ)}”.</b><br>Coba kata lain, atau <button class="btn btn-ghost btn-sm" data-act="clear-filter" style="margin-top:10px">tampilkan semua tema</button></div>`;
 }
 $('#kindTabs').addEventListener('click',e=>{ const b=e.target.closest('[data-kind]'); if(!b) return; catKind=b.dataset.kind; history.replaceState(null,'',location.pathname+location.search+(catKind==='custom'?'#tema-custom':'#tema')); renderCatalog(); });
 $('#tagFilter').addEventListener('click',e=>{ const b=e.target.closest('[data-tag]'); if(!b) return; catTag=b.dataset.tag; renderCatalog(); });
@@ -1387,17 +1392,19 @@ const canUpgrade = () => S.published && upgradeTargets().length>0;
 const cheapestWith = k => shownPlans().filter(p=>p.id!=='coba' && planFeat(p,k)).sort((a,b)=>a.price-b.price)[0] || null;
 const featCell = (v, dark) => v===1 ? `<span class="fc yes" role="img" aria-label="Ada">${ico('check')}</span>` : v===0 ? `<span class="fc no" role="img" aria-label="Tidak ada">${ico('x')}</span>` : `<span class="fc txt">${esc(v)}</span>`;
 function myPlan(){ const r=(DEMO.on&&DEMO.saved)?DEMO.saved.S:S; if(!r.user) return null; return r.published ? (r.plan||'tamu') : 'coba'; }
-function planCta(p){
+function planCta(p, short){
   const cur=myPlan(), cls=`btn ${p.feature?'btn-primary':'btn-ghost'} btn-block`;
-  if(!cur) return `<a class="${cls}" href="${p.id==='custom'?'#tema-custom':'#buat'}" data-plan="${p.id}">${p.cta}</a>`;
-  if(p.id===cur) return `<span class="btn btn-block plan-state is-cur" role="note">${ico('check')}Paket kalian sekarang</span>`;
-  if(planRank(p.id)<planRank(cur)) return `<span class="btn btn-block plan-state" role="note">Sudah termasuk di paket kalian</span>`;
-  if(cur==='coba') return `<a class="${cls}" href="${p.id==='custom'?'#tema-custom':'#buat'}" data-plan="${p.id}">${p.cta}</a>`;
-  return `<button type="button" class="${cls}" data-act="upgrade">${ico('up')}Naik ke ${esc(p.name)}</button>`;
+  /* di tabel Bandingkan versi HP, label panjang diganti label pendek */
+  const L=(full,sm)=> short ? `<span class="cta-l">${full}</span><span class="cta-s" aria-hidden="true">${sm}</span>` : full;
+  if(!cur) return `<a class="${cls}" href="${p.id==='custom'?'#tema-custom':'#buat'}" data-plan="${p.id}"${short?` aria-label="${esc(p.cta)}"`:''}>${L(p.cta,'Pilih')}</a>`;
+  if(p.id===cur) return `<span class="btn btn-block plan-state is-cur" role="note">${ico('check')}${L('Paket kalian sekarang','Aktif')}</span>`;
+  if(planRank(p.id)<planRank(cur)) return `<span class="btn btn-block plan-state" role="note">${L('Sudah termasuk di paket kalian','Termasuk')}</span>`;
+  if(cur==='coba') return `<a class="${cls}" href="${p.id==='custom'?'#tema-custom':'#buat'}" data-plan="${p.id}"${short?` aria-label="${esc(p.cta)}"`:''}>${L(p.cta,'Pilih')}</a>`;
+  return `<button type="button" class="${cls}" data-act="upgrade"${short?` aria-label="Naik ke ${esc(p.name)}"`:''}>${ico('up')}${L(`Naik ke ${esc(p.name)}`,'Naik')}</button>`;
 }
 function renderCompare(){
   const ps=shownPlans(), cur=myPlan();
-  const head = `<tr class="cmp-head"><th scope="col"><span class="sr">Fitur</span></th>${ps.map(p=>`<th scope="col" class="${p.feature?'feat':''}${p.id===cur?' mine':''}"><span class="cmp-tag">${p.id===cur?'Paket kalian':p.tag}</span><b>${p.name}</b><span class="cmp-price num">${p.price?rupiah(p.price):'Gratis'}</span><span class="cmp-note">${p.price?'sekali bayar':'tanpa daftar'}</span><div class="cmp-cta">${planCta(p)}</div></th>`).join('')}</tr>`;
+  const head = `<tr class="cmp-head"><th scope="col"><span class="sr">Fitur</span></th>${ps.map(p=>`<th scope="col" class="${p.feature?'feat':''}${p.id===cur?' mine':''}"><span class="cmp-tag">${p.id===cur?'Paket kalian':p.tag}</span><b>${p.name}</b><span class="cmp-price num">${p.price?rupiah(p.price):'Gratis'}</span><span class="cmp-note">${p.price?'sekali bayar':'tanpa daftar'}</span><div class="cmp-cta">${planCta(p,true)}</div></th>`).join('')}</tr>`;
   const body = FEATS.map(([g,rows])=>`<tr class="cmp-group"><th scope="rowgroup" colspan="${ps.length+1}">${g}</th></tr>`+rows.map(r=>`<tr><th scope="row">${r[0]}</th>${ps.map(p=>`<td class="${p.feature?'feat':''}">${featCell(planFeat(p,r.key))}</td>`).join('')}</tr>`).join('')).join('');
   $('#bandingkan').innerHTML = `<div class="page-head"><a class="linkbtn" href="#harga">← Kembali ke harga</a><h1>Bandingkan semua paket</h1><p>Semua paket dibayar sekali, tanpa biaya per tamu. Mulai dari Coba dulu, lalu naik paket kapan saja tanpa mengulang dari awal.</p></div>
     <div class="cmp-wrap"><table class="cmp" style="--plan-n:${ps.length}"><thead>${head}</thead><tbody>${body}</tbody></table></div>
@@ -2071,6 +2078,8 @@ function openGuest(){
 
 /* ---------- Dashboard ---------- */
 let dTab='ringkasan', gQ='', gStatus='semua', gGroup='semua', sel=new Set();
+/* daftar tamu ditampilkan bertahap supaya halaman HP tidak terlalu panjang; kembali ke awal bila filter berubah */
+const GPAGE=30; let gLimit=GPAGE, gSig='';
 const isPrep = () => !DEMO.on && !S.published && !!S.user;
 const dtList = () => isPrep() ? DT.filter(([k])=>['tamu','keluarga'].includes(k)) : DT;
 const DT = [['ringkasan','Ringkasan','home'],['tamu','Tamu','users'],['keluarga','Keluarga','family'],['katering','Katering','food'],['harih','Hari H','qr'],['ucapan','Ucapan','chat'],['kenangan','Kenangan','heart'],['hadiah','Hadiah','gift']];
@@ -2394,7 +2403,8 @@ function renderDashCore(){
     </div>`;
   }
   if(dTab==='tamu'){
-    const list = filteredGuests();
+    const all = filteredGuests(); { const sig=gQ+'|'+gStatus+'|'+gGroup; if(sig!==gSig){ gSig=sig; gLimit=GPAGE; } }
+    const list = all.slice(0,gLimit), more = all.length-list.length;
     const groups=[...new Set([...(S.groups||[]), ...G.map(g=>g.group)])];
     body = `<div class="gtool">
       <label class="search"><svg class="icon"><use href="#i-search"/></svg><input class="input" id="gSearch" placeholder="Cari nama, nomor, atau kode" value="${esc(gQ)}" aria-label="Cari tamu"></label>
@@ -2410,12 +2420,13 @@ function renderDashCore(){
     ${sel.size?`<div class="bulk"><span>${sel.size} tamu dipilih</span>
       <select class="input" id="bulkGroup" aria-label="Pindah ke grup" style="width:auto;min-height:36px;padding:6px 10px;color:var(--ink)"><option value="">Pindah ke grup…</option>${groups.map(x=>`<option>${esc(x)}</option>`).join('')}</select>
       <button class="btn btn-sm" style="background:#fff;color:var(--ink);margin-left:auto" data-act="${isLocked('bulk')?'upgrade':'bulk-send'}">${ico(isLocked('bulk')?'lock':'wa')}Kirim ke ${sel.size} tamu</button><button class="btn btn-sm" style="color:#fff;border-color:#ffffff55" data-act="${isLocked('bulk')?'upgrade':'cards-print'}">${ico(isLocked('bulk')?'lock':'qr')}Kartu cetak</button><button class="btn btn-sm" style="color:#fff;border-color:#ffffff55" data-act="bulk-clear">Batal</button></div>`:''}
-    <div class="tbl-wrap"><table><thead><tr><th style="width:40px"><input type="checkbox" data-act="sel-all" aria-label="Pilih semua" ${list.length&&list.every(g=>sel.has(g.id))?'checked':''}></th><th>Nama</th><th>Grup</th><th>Sesi</th><th>Status</th><th class="num">Orang</th><th>Dikirim</th><th style="text-align:right">Aksi</th></tr></thead><tbody>
+    <div class="tbl-wrap"><table><thead><tr><th style="width:40px"><input type="checkbox" data-act="sel-all" aria-label="Pilih semua" ${all.length&&all.every(g=>sel.has(g.id))?'checked':''}></th><th>Nama</th><th>Grup</th><th>Sesi</th><th>Status</th><th class="num">Orang</th><th>Dikirim</th><th style="text-align:right">Aksi</th></tr></thead><tbody>
       ${list.map(g=>`<tr><td><input type="checkbox" data-sel="${g.id}" ${sel.has(g.id)?'checked':''} aria-label="Pilih ${esc(g.name)}"></td><td><div class="nm">${esc(g.name)}</div><div class="sub num">${esc(g.phone||'—')} · ${esc(g.code)}</div></td><td>${esc(g.group)}</td><td>${sesChips(g)}</td><td><span class="status ${stLabel[g.status][1]}">${stLabel[g.status][0]}</span>${g.checkin?' <span class="status s-mute">Sudah datang</span>':''}</td><td class="num">${g.pax||'—'}</td><td>${g.sent?'<span class="status s-mute">Terkirim</span>':'<span class="muted" style="font-size:13px">Belum</span>'}</td>
       <td class="acts"><a class="btn btn-soft btn-sm" href="${waUrl(g)}" target="_blank" rel="noopener" data-sent="${g.id}">${ico('wa')}${g.sent?'Kirim ulang':'Kirim WA'}</a> <button class="btn btn-ghost btn-sm" data-act="guest-menu" data-id="${g.id}" aria-label="Opsi ${esc(g.name)}">Opsi</button></td></tr>`).join('') || `<tr><td colspan="8"><div class="empty" style="border:0">Tidak ada tamu yang cocok. Coba ubah kata pencarian atau filternya.</div></td></tr>`}
     </tbody></table></div>
-    <div class="gcards">${list.map(g=>`<div class="gcard"><input type="checkbox" data-sel="${g.id}" ${sel.has(g.id)?'checked':''} aria-label="Pilih ${esc(g.name)}"><div><div style="font-weight:700">${esc(g.name)}</div><div class="muted" style="font-size:13px">${esc(g.group)} · ${esc(sessionNames(g))}${g.pax?` · ${g.pax} orang`:''}</div></div><span class="status ${stLabel[g.status][1]}">${stLabel[g.status][0].replace(' menjawab','')}</span>
+    <div class="gcards">${list.map(g=>`<div class="gcard"><label class="gsel"><input type="checkbox" data-sel="${g.id}" ${sel.has(g.id)?'checked':''} aria-label="Pilih ${esc(g.name)}"></label><div><div style="font-weight:700">${esc(g.name)}</div><div class="muted" style="font-size:13px">${esc(g.group)} · ${esc(sessionNames(g))}${g.pax?` · ${g.pax} orang`:''}</div></div><span class="status ${stLabel[g.status][1]}">${stLabel[g.status][0].replace(' menjawab','')}</span>
       <div class="acts"><a class="btn btn-soft btn-sm" href="${waUrl(g)}" target="_blank" rel="noopener" data-sent="${g.id}">${ico('wa')}${g.sent?'Kirim ulang':'Kirim WA'}</a><button class="btn btn-ghost btn-sm" data-act="guest-menu" data-id="${g.id}">Opsi</button></div></div>`).join('') || (G.length ? '<div class="empty">Tidak ada tamu yang cocok dengan pencarian atau filter ini.</div>' : `<div class="empty">${karaImg('lambai','kara-sm')}<b style="display:block;margin:8px 0 4px">Belum ada tamu</b>Tambahkan satu per satu, atau impor dari Excel kalau daftarnya sudah ada.<div style="margin-top:12px"><button class="btn btn-primary btn-sm" data-act="add-guest">${ico('plus')}Tambah tamu</button></div></div>`)}</div>
+    ${more?`<div class="g-more"><button type="button" class="btn btn-ghost" data-act="g-more">Tampilkan ${Math.min(more,GPAGE)} tamu lagi</button></div>`:''}
     <p class="muted" style="font-size:13px;margin-top:12px">Menampilkan ${list.length} dari ${total} tamu. <button class="linkbtn" data-act="import-help">Lihat format file Excel</button></p>`;
   }
   if(dTab==='harih'){
@@ -2602,6 +2613,7 @@ document.addEventListener('click', e=>{
   if(el.dataset.go){ const tgt=$('#'+el.dataset.go); if(tgt){ openGuest(); tgt.scrollIntoView({behavior:'smooth',block:'start'}); $$('.g-nav button').forEach(b=>b.classList.toggle('active',b===el)); } return; }
   if(el.dataset.dtab){ dTab=el.dataset.dtab; sel.clear(); renderDash(); window.scrollTo({top:0}); return; }
   if(el.dataset.gst){ gStatus=el.dataset.gst; renderDash(); return; }
+  if(el.dataset.act==='g-more'){ gLimit+=GPAGE; renderDash(); return; }
   if(el.dataset.sent){ const g=G.find(x=>x.id===el.dataset.sent); if(g&&!g.sent){ g.sent=true; saveG(); setTimeout(renderDash,300); } return; }
   const a = el.dataset.act;
   if(a==='close') closeModal();
@@ -4684,3 +4696,9 @@ setInterval(()=> $$('[data-count]').forEach(el=> el.innerHTML = countHTML(el.dat
 /* tandai saat sedang mengetik (keyboard HP terbuka) */
 document.addEventListener('focusin', e=>{ if(e.target.matches && e.target.matches('input:not([type=checkbox]):not([type=radio]):not([type=file]),textarea,select')) document.body.classList.add('is-typing'); });
 document.addEventListener('focusout', ()=>{ setTimeout(()=>{ const a=document.activeElement; if(!(a && a.matches && a.matches('input,textarea,select'))) document.body.classList.remove('is-typing'); }, 60); });
+/* E2: tombol pratinjau di HP menyingkir saat halaman digulir ke bawah (sedang mengisi), muncul lagi saat digulir ke atas atau berhenti */
+(function(){ let y0=scrollY, t=0; const b=document.body;
+  addEventListener('scroll',()=>{ if(document.documentElement.dataset.dv!=='buat') return; const y=scrollY; if(y>y0+6) b.classList.add('fab-away'); else if(y<y0-6) b.classList.remove('fab-away'); y0=y; clearTimeout(t); t=setTimeout(()=>b.classList.remove('fab-away'),900); },{passive:true}); })();
+
+/* elemen role=button bisa dibuka dengan Enter atau Spasi */
+document.addEventListener('keydown', e=>{ if((e.key==='Enter'||e.key===' ') && e.target.matches && e.target.matches('[role="button"][data-act]:not(button):not(a)')){ e.preventDefault(); e.target.click(); } });
