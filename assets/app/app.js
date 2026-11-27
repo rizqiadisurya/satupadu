@@ -907,9 +907,9 @@ function invHTML0(opts={}){
       <svg class="orn" width="120" height="20" aria-hidden="true"><use href="#i-orn"/></svg>
       <h3>${esc(op.salam)}</h3>
       <p class="lead">${esc(op.text)}</p>
-      <div class="couple2"><div class="pics">
+      <div class="couple2${noPics()?' no-pics':''}">${noPics()?'':`<div class="pics">
         <figure class="pic"><div class="ph" ${S.bride.photo?`style="background:url(${S.bride.photo}) center/cover"`:''}>${S.bride.photo?'':esc(initials(S.bride.name)||'?')}</div></figure>
-        <figure class="pic"><div class="ph" ${S.groom.photo?`style="background:url(${S.groom.photo}) center/cover"`:''}>${S.groom.photo?'':esc(initials(S.groom.name)||'?')}</div></figure></div>
+        <figure class="pic"><div class="ph" ${S.groom.photo?`style="background:url(${S.groom.photo}) center/cover"`:''}>${S.groom.photo?'':esc(initials(S.groom.name)||'?')}</div></figure></div>`}
         <div class="person"><h4>${esc(S.bride.name||'Nama mempelai wanita')}</h4><p>${esc(S.bride.parents)}</p></div>
         <div class="and">&amp;</div>
         <div class="person"><h4>${esc(S.groom.name||'Nama mempelai pria')}</h4><p>${esc(S.groom.parents)}</p></div></div>
@@ -1446,7 +1446,7 @@ function renderStep(){
 function renderStepCore(onlyHTML, iOverride){
   const f = $('#stepForm'); const i = iOverride ?? S.step; let h='';
   if(i===0){
-    h = `<span class="eyebrow">Langkah 1 dari 5</span><h2>Siapa yang akan menikah? 💍</h2><p class="sub">Nama panggilan akan menyapa tamu di sampul dan pesan WhatsApp. Tenang, semuanya bisa diubah nanti.</p>
+    h = `<span class="eyebrow">Langkah 1 dari 5</span><h2>Siapa yang akan menikah?</h2><p class="sub">Nama panggilan akan menyapa tamu di sampul dan pesan WhatsApp. Tenang, semuanya bisa diubah nanti.</p>
     ${EDIT.on?'':`<div class="quick-note">${ico('check')}<div><b>Cukup 3 hal untuk mulai</b><span>Nama kalian, tanggal, dan lokasi acara. Yang bertanda <b class="req">*</b> wajib diisi. Sisanya boleh dilewati dan dilengkapi kapan saja, bahkan setelah undangan dibagikan.</span></div></div>`}
     <fieldset class="fieldset"><legend>Mempelai wanita</legend><div class="fgrid">
       ${fld('bn','Nama lengkap',S.bride.name,{bind:'bride.name',req:1,ph:'Sarah Amalia'})}
@@ -1518,7 +1518,7 @@ function renderStepCore(onlyHTML, iOverride){
     const checks = [['Nama kedua mempelai', !!(S.bride.name&&S.groom.name), 0],['Minimal satu acara dengan tanggal & tempat', S.events.some(e=>e.date&&e.venue), 1],['Tema dipilih', !!S.theme, 2],['Rekening amplop digital', !S.gift.on || !!S.gift.acct, 3],
       ...sl.map(([l,k])=>[`${l} masih contoh, ganti dengan milik kalian`, false, k])];
     const ready = checks.every(c=>c[1]);
-    h = `<span class="eyebrow">Langkah 5 dari 5</span><h2>${S.published?'Undangan kalian sudah tayang':'Siap disebar ke tamu? 🎉'}</h2><p class="sub">${S.published?'Undangan kalian sudah bisa dibuka tamu. Kirim dari dashboard, dan ubah isinya kapan saja perlu.':'Cek sekali lagi, lalu pilih alamat link kalian. Habis bayar, undangan langsung bisa dikirim ke semua tamu. Tidak cocok? Ada garansi uang kembali 7 hari.'}</p>
+    h = `<span class="eyebrow">Langkah 5 dari 5</span><h2>${S.published?'Undangan kalian sudah tayang':'Siap disebar ke tamu?'}</h2><p class="sub">${S.published?'Undangan kalian sudah bisa dibuka tamu. Kirim dari dashboard, dan ubah isinya kapan saja perlu.':'Cek sekali lagi, lalu pilih alamat link kalian. Habis bayar, undangan langsung bisa dikirim ke semua tamu. Tidak cocok? Ada garansi uang kembali 7 hari.'}</p>
     <ul class="check-list">${checks.map(([l,ok,k])=>`<li>${ok?`<span class="status s-ok" style="padding:4px">${ico('check')}</span>`:`<span class="status s-wait" style="padding:4px">!</span>`}${l}<span class="st">${ok?'<span class="muted">Lengkap</span>':`<button type="button" class="btn btn-soft btn-sm" data-step="${k}">Lengkapi</button>`}</span></li>`).join('')}</ul>
     <div class="field"><label for="slug">Alamat undangan</label><div class="slug"><span>${pubHost()}</span><input id="slug" data-bind="slug" value="${esc(S.slug)}" autocomplete="off" aria-describedby="slugHint"></div><span class="hint" id="slugHint">Pakai huruf kecil, angka, dan tanda strip. Link ini yang dilihat tamu, jadi buat yang mudah diingat.</span><span class="err" hidden></span></div>
     ${S.published?'':`<div class="field" style="margin-top:22px"><span style="font-weight:700;font-size:13.5px">Paket</span><div class="plan-pick">
@@ -2390,13 +2390,13 @@ function renderDashCore(){
   if(dTab==='kenangan') body = knTabHTML();
   if(dTab==='katering') body = catTabHTML();
   if(dTab==='ucapan'){
-    body = `<p class="muted" style="margin-bottom:16px">Ucapan yang kalian sembunyikan tidak tampil di undangan, tapi tetap tersimpan aman di sini.</p>${W.length?'':dEmpty('chat','Belum ada ucapan.','Ucapan dari tamu langsung masuk ke sini begitu mereka mengirimnya.')}<div class="wish-admin">${W.map((w,k)=>`<div class="w ${w.show?'':'hid'}"><div><b>${esc(w.n)}</b> ${w.att?'<span class="status s-ok">Hadir</span>':''} <span class="muted" style="font-size:13px">${esc(w.t)}</span><p style="margin-top:6px">${esc(w.m)}</p></div><button class="btn btn-ghost btn-sm" data-act="toggle-wish" data-k="${k}">${w.show?'Sembunyikan':'Tampilkan'}</button></div>`).join('')}</div>`;
+    body = `<p class="muted" style="margin-bottom:16px">Ucapan yang kalian sembunyikan tidak tampil di undangan, tapi tetap tersimpan aman di sini.</p>${W.length?'':dEmpty('chat','Belum ada ucapan.','Ucapan dari tamu langsung masuk ke sini begitu mereka mengirimnya.')}<div class="wish-admin">${W.map((w,k)=>`<div class="w ${w.show?'':'hid'}"><div><b>${esc(w.n)}</b> ${w.att?'<span class="status s-ok">Hadir</span>':''} <span class="muted" style="font-size:13px;white-space:nowrap">${esc(w.t)}</span><p style="margin-top:6px">${esc(w.m)}</p></div><button class="btn btn-ghost btn-sm" data-act="toggle-wish" data-k="${k}">${w.show?'Sembunyikan':'Tampilkan'}</button></div>`).join('')}</div>`;
   }
   if(dTab==='hadiah'){
     const sum = GIFTS.reduce((a,g)=>a+g.amt,0);
     body = `<div class="tiles t2">${dTile('Tamu menitipkan nama',GIFTS.length,'kirim hadiah lewat undangan','users','amber',1)}${dTile('Total dilaporkan tamu',rupiah(sum),'cek lagi di mutasi rekening','wallet','green')}</div>
     <p class="muted" style="margin:16px 0">Uang langsung masuk ke rekening ${esc(S.gift.bank)} ${esc(S.gift.holder)}. Tamu tidak diminta konfirmasi. Daftar ini hanya berisi tamu yang menitipkan nama secara sukarela, jadi tetap cek mutasi rekening kalian.</p>
-    ${GIFTS.length?'':`<section class="panel-c">${dEmpty('gift','Belum ada titipan nama.','Saat tamu mengirim hadiah dan menitipkan namanya, catatannya muncul di sini.')}</section>`}<div class="tbl-wrap" style="display:block${GIFTS.length?'':';display:none'}"><table><thead><tr><th>Dari</th><th>Ke</th><th class="num">Jumlah</th><th>Waktu</th></tr></thead><tbody>${GIFTS.map(g=>`<tr><td class="nm">${esc(g.n)}</td><td>${esc(g.bank)}</td><td class="num">${g.amt?rupiah(g.amt):'—'}</td><td class="muted">${esc(g.t)}</td></tr>`).join('')}</tbody></table></div>` + kadoAdminHTML();
+    ${GIFTS.length?'':`<section class="panel-c">${dEmpty('gift','Belum ada titipan nama.','Saat tamu mengirim hadiah dan menitipkan namanya, catatannya muncul di sini.')}</section>`}<div class="tbl-wrap tbl-stack" style="display:block${GIFTS.length?'':';display:none'}"><table><thead><tr><th>Dari</th><th>Ke</th><th class="num">Jumlah</th><th>Waktu</th></tr></thead><tbody>${GIFTS.map(g=>`<tr><td class="nm" data-l="Dari">${esc(g.n)}</td><td data-l="Ke">${esc(g.bank)}</td><td class="num" data-l="Jumlah">${g.amt?rupiah(g.amt):'—'}</td><td class="muted" data-l="Waktu">${esc(g.t)}</td></tr>`).join('')}</tbody></table></div>` + kadoAdminHTML();
   }
   // Tata letak seperti panel admin: menu samping + isi
   const cnt = k => k==='tamu'?`<span class="cnt num">${total}</span>`:k==='ucapan'?`<span class="cnt num">${W.length}</span>`:k==='harih'&&arrived.length?`<span class="cnt num">${arrived.length}</span>`:k==='keluarga'&&(G_ALL||G).some(isPending)?`<span class="cnt num warn">${(G_ALL||G).filter(isPending).length}</span>`:'';
@@ -2824,7 +2824,7 @@ function renderTagihan(){
     <div style="display:flex;gap:8px;flex-wrap:wrap">${canUpgrade()?`<button class="btn btn-soft btn-sm" data-act="upgrade">Naikkan paket</button>`:''}${S.published?'':`<a class="btn btn-primary btn-sm" href="#buat">Lanjut ke editor</a>`}<button class="btn btn-ghost btn-sm" data-act="logout">${ico('logout')}Keluar</button></div></div>
   <div><h2 class="co-h" style="margin-top:0">Riwayat tagihan</h2>
   ${inv.length?`<div class="tbl-wrap" style="display:block"><table><thead><tr><th>Nomor</th><th>Tanggal</th><th>Item</th><th class="num">Total</th><th>Status</th></tr></thead><tbody>${inv.map((x,k)=>`<tr><td class="nm num"><button type="button" class="inv-no" data-act="inv" data-k="${k}" title="Lihat bukti pembayaran">${esc(x.no)}</button></td><td class="muted td-date">${(()=>{ const [d,t]=fmtDT(x.date).split(' pukul '); return `${esc(d)}${t?`<small>pukul ${esc(t)}</small>`:''}`; })()}</td><td class="td-item">${esc(x.item)}</td><td class="num td-total">${rupiah(x.total)}<small>${esc(methodName(x.method))}</small></td><td><span class="status s-ok">${esc(x.status)}</span></td></tr>`).join('')}</tbody></table></div>`
-  :`<div class="empty"><img class="kara kara-empty" src="/assets/kara/kara-tidur.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">Belum ada tagihan. Bukti bayar akan muncul di sini begitu undangan kalian dipublikasikan.<br><a class="btn btn-primary btn-sm" href="#buat" style="margin-top:14px">Lanjutkan undangan</a></div>`}</div></div>`;
+  :`<div class="empty"><img class="kara kara-empty" src="/assets/kara/kara-tidur.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">${S.published?'Belum ada riwayat tagihan di akun ini. Bila kalian sudah membayar tetapi bukti bayarnya tidak muncul, hubungi kami lewat WhatsApp.':'Belum ada tagihan. Bukti bayar akan muncul di sini begitu undangan kalian dipublikasikan.'}<br><a class="btn btn-primary btn-sm" href="#${S.published?'dashboard':'buat'}" style="margin-top:14px">${S.published?'Buka dashboard':'Lanjutkan undangan'}</a></div>`}</div></div>`;
 }
 function invoiceModal(k){
   const x=(S.invoices||[])[k]; if(!x) return;
@@ -2889,13 +2889,13 @@ function renderCheckin(){
       <label class="ci2-ses"><span>Sesi</span><select id="ciSes" aria-label="Sesi acara">${S.events.map((e,i)=>`<option value="${i}" ${i===ciSession?'selected':''}>${esc(e.type||'Acara '+(i+1))}${e.start?' · '+esc(e.start):''}</option>`).join('')}</select></label>
       <button class="ci2-ib" data-act="ci-menu" aria-label="Pengaturan">${ico('menu')}</button>
     </div>
-    <div class="ci2-prog"><div class="ci2-bar"><span style="width:${pct}%"></span></div><div class="ci2-nums"><span><b class="num">${expectAll.length-notYet.length}</b>/${expectAll.length} undangan datang</span><span><b class="num">${ppl}</b> orang di lokasi</span><span>Kado terakhir <b class="num">${giftNo(S.giftNo||0)}</b></span></div></div></header>
+    <div class="ci2-prog"><div class="ci2-bar"><span style="width:${pct}%"></span></div><div class="ci2-nums"><span><b class="num">${expectAll.length-notYet.length}</b>/${expectAll.length} undangan datang</span><span><b class="num">${ppl}</b> orang di lokasi</span>${S.giftNo?`<span>Kado terakhir <b class="num">${giftNo(S.giftNo)}</b></span>`:''}</div></div></header>
     <main class="ci2-main">
       <div class="ci2-col">
         ${help}
         <button class="ci2-scan" data-act="ci-scan">${ico('qr')}<span><b>Scan QR tamu</b><small>Arahkan kamera ke kartu masuk di undangan</small></span></button>
         <div class="ci2-search">${ico('search')}<input class="input" id="ciQ" placeholder="Atau cari nama / kode SP-…" value="${esc(ciQ)}" autocomplete="off" enterkeyhint="search" aria-label="Cari tamu atau kode">${ciQ?`<button class="ci2-clear" data-act="ci-clear" aria-label="Hapus pencarian">${ico('x')}</button>`:''}</div>
-        ${q?`<p class="ci2-h">${title}</p>`:`<div class="ci2-tabs" role="tablist">${[['belum','Ditunggu',notYet.length],['sudah','Sudah datang',arrived.length],['semua','Semua',pool.filter(inSes).length]].map(([k,l,n])=>`<button role="tab" data-citab="${k}" aria-selected="${ciTab===k}">${l}<span class="num">${n}</span></button>`).join('')}</div>`}
+        ${q?`<p class="ci2-h">${title}</p>`:`<div class="ci2-tabs" role="tablist">${[['belum','Ditunggu',notYet.length],['sudah','Datang',arrived.length],['semua','Semua',pool.filter(inSes).length]].map(([k,l,n])=>`<button role="tab" data-citab="${k}" aria-selected="${ciTab===k}">${l}<span class="num">${n}</span></button>`).join('')}</div>`}
         <ul class="ci2-list">${list.map(row).join('') || `<li class="ci2-empty">${q?`${karaImg('bingung','kara-sm')}Tidak ada tamu bernama “${esc(ciQ)}”.`:ciTab==='sudah'?`${karaImg('tidur','kara-sm')}Belum ada yang check-in.`:`${karaImg('rayakan','kara-sm')}Semua tamu yang konfirmasi hadir sudah datang 🎉`}</li>`}</ul>
         <button class="ci2-walk" data-act="ci-walkin">${ico('plus')}<span><b>Tamu tidak ada di daftar?</b><small>Catat sebagai tamu tambahan</small></span></button>
       </div>
@@ -3730,6 +3730,7 @@ function pPhoto(person, cls){
   const ini = esc((person.nick||person.name||'?').trim().charAt(0).toUpperCase());
   return person.photo ? `<div class="${cls}" data-par style="background-image:url(${esc(person.photo)})"></div>` : `<div class="${cls} ph-empty" aria-hidden="true"><span>${ini}</span></div>`;
 }
+const noPics = () => !!CLOUD.guestMode && !S.bride.photo && !S.groom.photo;
 function premSalam(id, op){
   const info = (who, role) => { const x=S[who]; return `<div class="p-body"><span class="kick">${role}</span><h4>${esc(x.name||(who==='bride'?'Nama mempelai wanita':'Nama mempelai pria'))}</h4><p>${esc(x.parents||'')}</p>${x.ig?`<a class="p-ig" href="https://instagram.com/${esc(String(x.ig).replace(/^@/,''))}" target="_blank" rel="noopener">@${esc(String(x.ig).replace(/^@/,''))}</a>`:''}</div>`; };
   const pic = who => `<figure class="p-card p-pic">${pPhoto(S[who],'p-ph')}</figure>`;
@@ -3737,7 +3738,7 @@ function premSalam(id, op){
     ${P_KICK.salam?`<span class="kick">${esc(P_KICK.salam)}</span>`:''}
     <h3>${esc(op.salam)}</h3>
     <p class="lead">${esc(op.text)}</p>
-    <div class="p-couple"><div class="p-pics">${pic('bride')}${pic('groom')}</div>
+    <div class="p-couple${noPics()?' no-pics':''}">${noPics()?'':`<div class="p-pics">${pic('bride')}${pic('groom')}</div>`}
       <div class="p-info">${info('bride','Mempelai wanita')}<div class="p-amp" aria-hidden="true">&amp;</div>${info('groom','Mempelai pria')}</div></div>
     ${op.quote?`<figure class="qband"><svg class="orn" width="120" height="20" aria-hidden="true"><use href="#i-orn"/></svg><blockquote>${esc(op.quote.replace(/\s*—\s*[^—]+$/,''))}</blockquote>${/—/.test(op.quote)?`<figcaption>${esc(op.quote.split('—').pop().trim())}</figcaption>`:''}</figure>`:''}
   </section>`;
