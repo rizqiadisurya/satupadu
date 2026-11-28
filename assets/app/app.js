@@ -127,6 +127,9 @@ const ART = {
 const LAYOUT_THEMES = [
   {id:'sekar', layout:'sekar', name:'Sekar Ayu', region:'Nasional', tags:['Floral','Minimalis'], bg:'#F7F3EA', fg:'#2F3326', accent:'#7E8A55', soft:'#ECE8D6', font:"'Cormorant Garamond', Georgia, serif",
     pat:(t)=>`radial-gradient(circle at 20% 30%, #2F332608 0 .6px, transparent 1px), radial-gradient(circle at 70% 80%, #2F33260a 0 .7px, transparent 1.1px)`, size:'7px 7px, 11px 11px', thumb:(t)=>`radial-gradient(120% 60% at 50% 105%, ${t.accent} 0 46%, transparent 47%), ${t.bg}`},
+  /* Rangkai: tema percontohan yang dirakit dari aset satuan (satu bunga per gambar) lewat rkS() */
+  {id:'rangkai', layout:'rangkai', stk:'/assets/rangkai/', name:'Rangkai Mawar', region:'Nasional', tags:['Floral','Ilustrasi'], bg:'#FBF6EF', fg:'#4A3537', accent:'#B5656F', soft:'#F4E6E1', font:"'Cormorant Garamond', Georgia, serif",
+    pat:(t)=>`radial-gradient(circle at 30% 40%, #4A353707 0 .7px, transparent 1.1px)`, size:'9px 9px', thumb:(t)=>`radial-gradient(60% 40% at 0 0, ${t.accent}55, transparent 70%), radial-gradient(60% 40% at 100% 100%, ${t.accent}55, transparent 70%), ${t.bg}`},
   {id:'kamboja', layout:'kamboja', name:'Kamboja Senja', region:'Bali', tags:['Floral','Modern'], bg:'#FBF5F0', fg:'#1E2B57', accent:'#E07A5F', soft:'#F4E4DA', font:"'Oswald', 'Plus Jakarta Sans', sans-serif",
     pat:(t)=>`radial-gradient(circle at 30% 40%, ${t.accent}12 0 2px, transparent 2.5px)`, size:'38px 38px', thumb:()=>`linear-gradient(180deg,#24388F,#4A6CD4 50%,#F2B8A2)`, sky:['#22357F','#4766CF','#F3B7A1']},
   {id:'lentera', layout:'lentera', name:'Lentera Hijau', region:'Nasional', tags:['Modern','Floral'], bg:'#F6F2E7', fg:'#1E3A2B', accent:'#2E5A41', soft:'#E5ECDD', font:"'Cormorant Garamond', Georgia, serif",
@@ -210,6 +213,12 @@ THEMES.forEach(t=>{ if(THUMB_IMG.has(t.id)){ t.thumbNoTxt=true; t.thumbImg=`/ass
 TAGS.includes('Foto') || TAGS.push('Foto');
 LAYOUT_THEMES.filter(t=>t.photo).forEach(t=>t.tags.push('Foto'));
 function coverPhoto(t){ return S.coverPhoto || (S.gallery&&S.gallery[0]) || S.bride.photo || svgData(sceneSVG(t.scene||LAYOUT_THEMES[2].scene)); }
+/* Tempel satu aset: a = jangkar (tl, tr, bl, br, l, r, t, b), x/y = jarak dari jangkar, w = lebar,
+   r = putaran, sx/sy = -1 untuk membalik, m = gerak (sway, float, flut), d/tm = jeda & durasi gerak */
+function rkS(A, f, o){ o=o||{};
+  const v=[['--x',o.x],['--y',o.y],['--w',o.w],['--r',o.r],['--sx',o.sx],['--sy',o.sy],['--d',o.d],['--tm',o.tm]].filter(([,x])=>x!=null).map(([k,x])=>`${k}:${x}`).join(';');
+  return `<img class="stk a-${o.a||'tl'}${o.m?' '+o.m:''}${o.cls?' '+o.cls:''}" src="${A}${f}.webp" alt="" aria-hidden="true" loading="eager"${o.eager?'':' fetchpriority="low"'} decoding="async" style="${v}">`; }
+function rkFall(A, n){ return `<div class="rk-fall" aria-hidden="true">${Array.from({length:n},(_,i)=>`<img src="${A}kelopak-${i%10+1}.webp" alt="" loading="lazy" decoding="async" style="--x:${(i*37+7)%92}%;--w:${5+(i*3)%4}cqi;--d:${-(i*1.9).toFixed(1)}s;--tm:${11+(i*7)%7}s;--dx:${(i%2?1:-1)*(8+(i*5)%14)}cqi;--rz:${(i%2?1:-1)*(180+(i*40)%200)}deg">`).join('')}</div>`; }
 function coverHTML(t, d){
   const a = d.accent; const L = t.layout;
   const open = d.gate ? `<button class="open cv-in" style="--i:6" data-act="open-inv">${ico('mail')}<span>Buka undangan</span></button>` : '';
@@ -220,6 +229,18 @@ function coverHTML(t, d){
       <div class="cv-stage cv-in" style="--i:2"><div class="sun"></div>${ART.bouquet(a)}<div class="tape"></div></div>
       <div class="cv-slot">${to}${open}</div>
     </section>`;
+  if(L==='rangkai'){ const A=t.stk;
+    return `<section class="cover cv-rangkai" id="${d.id}-cover">
+      ${rkS(A,'sudut',{a:'tl',x:'-18cqi',y:'-12cqi',w:'60cqi',m:'sway',eager:1})}
+      ${rkS(A,'rumpun',{a:'r',x:'-9cqi',y:'52%',w:'26cqi',r:'-16deg',m:'sway',d:'-3s',eager:1})}
+      ${rkS(A,'kupu',{a:'tr',x:'12cqi',y:'22cqi',w:'15cqi',m:'flut',eager:1})}
+      ${rkS(A,'dasar',{a:'b',y:'-3cqi',w:'118cqi',eager:1,cls:'rk-dasar'})}
+      ${rkFall(A,8)}
+      <div class="k-label cv-in" style="--i:0">Undangan pernikahan</div>
+      <div class="rk-wreath cv-in" style="--i:1"><img src="${A}karangan.webp" alt="" aria-hidden="true" decoding="async"><div class="names">${esc(d.n1)}<span class="amp">&amp;</span>${esc(d.n2)}</div></div>
+      <div class="rk-date cv-in" style="--i:2">${esc(d.dateLong)}</div>
+      <div class="cv-slot">${to}${open}</div>
+    </section>`; }
   if(L==='kamboja'){
     const [s1,s2,s3] = t.sky; const petals = Array.from({length:14},(_,i)=>`<i style="--x:${(i*37+11)%100}%;--y:${(i*53)%90}%;--d:${(i*0.73)%7}s;--t:${7+(i%5)*1.6}s;--s:${.5+(i%4)*.18};--r:${(i*47)%360}deg">${ART.kamboja('#FFFFFF','#F2C14E')}</i>`).join('');
     const cluster = (cls) => `<div class="cl ${cls}">${[[0,0,1.25,10],[34,18,.95,40],[8,44,.8,70],[52,52,.7,20]].map(([x,y,s,r])=>`<span style="left:${x}px;top:${y}px;transform:scale(${s}) rotate(${r}deg)">${ART.kamboja('#FFF8F3','#F2C14E')}</span>`).join('')}</div>`;
@@ -1052,6 +1073,26 @@ function invHTML0(opts={}){
     if(sec.hadiah) sec.hadiah=sec.hadiah.replace(/(<h3[^>]*>[\s\S]*?<\/h3>)/, `$1${im('bl-gift','giftbox')}`);
     if(sec.cerita) sec.cerita=sec.cerita.replace(/(<h3[^>]*>[\s\S]*?<\/h3>)/, `${im('bl-seal','wax-seal')}$1`);
   }
+  // Tema Rangkai: tiap bagian ditempeli aset satuan di posisi tertentu, plus ranting melati di bawah judul
+  if(t.layout==='rangkai'){ const A=t.stk;
+    const PLAN={
+      salam:[['tangkai',{a:'l',x:'-7cqi',y:'10%',w:'24cqi',m:'sway'}],['rumpun',{a:'tr',x:'-8cqi',y:'-6cqi',w:'30cqi',r:'-14deg'}]],
+      acara:[['juntai',{a:'tl',x:'3cqi',y:'-2cqi',w:'15cqi',m:'sway'}],['juntai',{a:'tr',x:'5cqi',y:'-2cqi',w:'12cqi',sx:-1,m:'sway',d:'-2.5s'}]],
+      cerita:[['kupu',{a:'tr',x:'9cqi',y:'6cqi',w:'13cqi',m:'flut',d:'-1.5s'}],['rumpun',{a:'bl',x:'-9cqi',y:'-6cqi',w:'28cqi',r:'12deg'}]],
+      galeri:[['tangkai',{a:'r',x:'-7cqi',y:'8%',w:'22cqi',sx:-1,m:'sway',d:'-1s'}]],
+      rsvp:[['rumpun',{a:'tl',x:'-9cqi',y:'-7cqi',w:'30cqi',r:'18deg'}],['kupu',{a:'br',x:'8cqi',y:'8cqi',w:'11cqi',m:'flut',d:'-4s'}]],
+      hadiah:[['pita',{a:'t',y:'-3cqi',w:'24cqi'}]],
+      kado:[['rumpun',{a:'br',x:'-9cqi',y:'-7cqi',w:'28cqi',r:'-10deg'}]],
+      ucapan:[['juntai',{a:'tr',x:'4cqi',y:'-2cqi',w:'13cqi',sx:-1,m:'sway'}]],
+      kenangan:[['dasar',{a:'b',y:'-4cqi',w:'110cqi'}],['kupu',{a:'tl',x:'10cqi',y:'8cqi',w:'12cqi',m:'flut'}]],
+    };
+    const ALT=[[['rumpun',{a:'tr',x:'-9cqi',y:'-7cqi',w:'27cqi',r:'-12deg'}]],[['rumpun',{a:'tl',x:'-9cqi',y:'-7cqi',w:'27cqi',r:'14deg'}]]];
+    order.forEach((k,i)=>{ const st=(PLAN[k]||ALT[i%2]).map(([f,o])=>rkS(A,f,o)).join('');
+      const last = i===order.length-1 && k!=='kenangan' ? rkS(A,'dasar',{a:'b',y:'-4cqi',w:'110cqi'}) : '';
+      sec[k]=sec[k].replace(/^(\s*<section\b)([^>]*)>/, (m,a,b)=>a+(/\sclass="/.test(b)?b.replace(/\sclass="/,' class="rk-s '):b+' class="rk-s"')+'>'+st+last)
+                   .replace(/(<h3[^>]*>[\s\S]*?<\/h3>)/, `$1<img class="rk-div" src="${A}melati.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">`);
+    });
+  }
   // Tema Teras: pita taman hijau bergelombang di bawah bagian berselang-seling
   if(t.layout==='teras' && t.ilMode==='taman'){ const A=t.ilDir, tk=t.tm||{}, F=Object.assign({wis:'pita',sak:'sakura',kal:'kalung',bangku:'bangku'},tk.files||{}), BF=tk.bf||['b1','b3'], PT=tk.pet||['bunga6','bunga7','bunga8'];
     if(sec.acara) sec.acara=sec.acara.replace(/<\/section>\s*$/, `<img class="tm-bangku" src="${A}${F.bangku}.webp" alt="" aria-hidden="true" loading="eager" decoding="async"></section>`);
@@ -1259,7 +1300,7 @@ $('#tryGo')?.addEventListener('click', ()=>{
 
 /* ---------- Theme cards ---------- */
 /* K3: tema yang baru ditambahkan diberi label Baru di katalog */
-const NEW_THEMES = new Set(['rumah-gadang','adat-batak','adat-betawi','adat-bugis','cx-kolase','cx-tepilaut','cx-lembarharian','cx-pasarmalam','cx-jendelabulan','cx-lipatkertas','cx-kertasriang']);
+const NEW_THEMES = new Set(['rangkai','rumah-gadang','adat-batak','adat-betawi','adat-bugis','cx-kolase','cx-tepilaut','cx-lembarharian','cx-pasarmalam','cx-jendelabulan','cx-lipatkertas','cx-kertasriang']);
 /* K2: sampul kartu bisa diketuk untuk membuka demo, tombol tinggal satu (Pakai) */
 const tcPeek = t => `${NEW_THEMES.has(t.id)?'<span class="tc-new">Baru</span>':''}<span class="tc-peek" aria-hidden="true">${ico('eye')}Lihat demo</span>`;
 const tcCoverAttr = t => `role="button" tabindex="0" data-act="demo" data-t="${t.id}" aria-label="Lihat demo tema ${esc(t.name)}"`;
@@ -2056,7 +2097,7 @@ function guestSide(t){
   const mono = !ph || art;
   const d = (S.events.find(e=>e.date)||{}).date;
   const q = quoteText();
-  return `<aside class="g-side${ph?'':' nophoto'}${art?' art':''}${mono?' mono-on':''}${!real&&!art&&ph?' scene':''}${t.layout?' gs-'+t.layout:''}${t.ilMode?' gs-'+t.ilMode:''}" aria-hidden="true">${ph?`<div class="ph" style="background-image:url('${esc(ph)}')"></div>`:''}
+  return `<aside class="g-side${ph?'':' nophoto'}${art?' art':''}${mono?' mono-on':''}${!real&&!art&&ph?' scene':''}${t.layout?' gs-'+t.layout:''}${t.ilMode?' gs-'+t.ilMode:''}" aria-hidden="true">${ph?`<div class="ph" style="background-image:url('${esc(ph)}')"></div>`:''}${t.layout==='rangkai'?`<div class="gs-stk">${rkS(t.stk,'sudut',{a:'tl',x:'-4%',y:'-6%',w:'34%',m:'sway',eager:1})}${rkS(t.stk,'sudut',{a:'br',x:'-4%',y:'-6%',w:'30%',r:'180deg',m:'sway',d:'-3s',eager:1})}${rkS(t.stk,'kupu',{a:'tr',x:'14%',y:'18%',w:'7%',m:'flut',eager:1})}</div>`:''}
     <div class="tx">${mono?`<div class="mono">${esc((S.bride.nick||'')[0]||'')}${esc((S.groom.nick||'')[0]||'')}</div>`:''}<small>The Wedding of</small><h1>${esc(S.bride.nick)}<i>&amp;</i>${esc(S.groom.nick)}</h1>${d?`<div class="dt">${esc(fmtDate(d))}</div>`:''}${q?`<blockquote>${esc(q)}</blockquote>`:''}</div></aside>`;
 }
 // Foto lama yang resolusinya kecil jadi pecah kalau dibentang penuh: tampilkan sebagai foto berbingkai di atas latar foto yang diburamkan

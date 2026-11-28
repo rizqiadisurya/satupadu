@@ -3618,3 +3618,51 @@ html:not(.on-home) .display :is(i,em){font-style:italic}
 /* G1 lanjutan: label tanggal acara di tema Kebun (latar aksen) cukup kontras untuk teks kecil */
 .inv.prem.lay-kebun .ev2-d{background:color-mix(in srgb,var(--t-accent) 60%,var(--t-fg))}
 .inv.prem.lay-kebun .ev2-d span{opacity:1}
+
+/* === Tema Rangkai: dirakit dari aset satuan === */
+.inv.lay-rangkai{--t-sub:'Cormorant Garamond',Georgia,serif}
+.inv.lay-rangkai .cover.cv-rangkai,.inv.lay-rangkai section.rk-s{position:relative;isolation:isolate;overflow:clip}
+.inv.lay-rangkai .stk{visibility:visible;position:absolute;z-index:-1;width:var(--w,30cqi);height:auto;max-width:none;pointer-events:none;user-select:none;transform:rotate(var(--r,0deg)) scale(var(--sx,1),var(--sy,1))}
+.inv.lay-rangkai .stk.a-tl{left:var(--x,0);top:var(--y,0);transform-origin:0 0}
+.inv.lay-rangkai .stk.a-tr{right:var(--x,0);top:var(--y,0);transform-origin:100% 0}
+.inv.lay-rangkai .stk.a-bl{left:var(--x,0);bottom:var(--y,0);transform-origin:0 100%}
+.inv.lay-rangkai .stk.a-br{right:var(--x,0);bottom:var(--y,0);transform-origin:100% 100%}
+.inv.lay-rangkai .stk.a-l{left:var(--x,0);top:var(--y,0);transform-origin:0 100%}
+.inv.lay-rangkai .stk.a-r{right:var(--x,0);top:var(--y,0);transform-origin:100% 100%}
+.inv.lay-rangkai .stk.a-t{left:50%;top:var(--y,0);translate:-50% 0;transform-origin:50% 0}
+.inv.lay-rangkai .stk.a-b{left:50%;bottom:var(--y,0);translate:-50% 0;transform-origin:50% 100%}
+@keyframes rk-sway{0%,100%{rotate:-1.4deg}50%{rotate:1.4deg}}
+@keyframes rk-flut{0%,100%{translate:0 0;scale:1 1}25%{translate:4px -8px;scale:.86 1}50%{translate:-3px -14px;scale:1 1}75%{translate:-6px -6px;scale:.9 1}}
+@keyframes rk-fall{0%{top:-8%;transform:translateX(0) rotate(0);opacity:0}8%{opacity:.85}90%{opacity:.85}100%{top:104%;transform:translateX(var(--dx)) rotate(var(--rz));opacity:0}}
+.inv.lay-rangkai .stk.sway{animation:rk-sway var(--tm,7s) ease-in-out var(--d,0s) infinite}
+.inv.lay-rangkai .stk.flut{animation:rk-flut var(--tm,5s) ease-in-out var(--d,0s) infinite}
+.inv.lay-rangkai .rk-fall{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.inv.lay-rangkai .rk-fall img{position:absolute;top:-8%;left:var(--x);width:var(--w);opacity:0;animation:rk-fall var(--tm) linear var(--d) infinite}
+@media (prefers-reduced-motion:reduce){ .inv.lay-rangkai .stk{animation:none!important} .inv.lay-rangkai .rk-fall{display:none} }
+/* sampul */
+.inv.lay-rangkai .cover.cv-rangkai{justify-content:center;gap:2px;padding:118px 22px calc(34cqi + 36px);background:var(--t-bg)}
+.inv.lay-rangkai .cv-rangkai > :not(.stk):not(.rk-fall){position:relative;z-index:1}
+.inv.lay-rangkai .cv-rangkai .k-label{letter-spacing:.26em;font-size:12px;text-transform:uppercase;color:color-mix(in srgb,var(--t-accent) 70%,var(--t-fg))}
+.inv.lay-rangkai .rk-wreath{position:relative;width:min(82cqi,430px);aspect-ratio:760/715;display:grid;place-items:center;margin:4px auto 0}
+.inv.lay-rangkai .rk-wreath img{position:absolute;inset:0;width:100%;height:100%}
+.inv.lay-rangkai .rk-wreath .names{position:relative;display:flex;flex-direction:column;align-items:center;font-size:clamp(30px,10.5cqi,54px);line-height:.98;text-align:center;color:var(--t-fg);font-weight:500;padding:0 18%}
+.inv.lay-rangkai .rk-wreath .amp{font-style:italic;font-size:.72em;color:var(--t-accent);margin:2px 0}
+.inv.lay-rangkai .rk-date{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;letter-spacing:.04em;color:var(--t-fg);margin-top:2px}
+.inv.lay-rangkai .cv-rangkai .open{background:var(--t-accent)}
+/* bagian dalam */
+.inv.lay-rangkai section.rk-s{padding-top:56px;padding-bottom:56px}
+.inv.lay-rangkai section.rk-s:has(> .stk.a-b){padding-bottom:calc(30cqi + 24px)}
+.inv.lay-rangkai .rk-div{display:block;width:min(58cqi,300px);height:auto;margin:6px auto 14px}
+.inv.lay-rangkai section:not(.cover):nth-of-type(even){background:color-mix(in srgb,var(--t-accent) 6%,var(--t-bg))}
+
+/* Rangkai di desktop: panel kiri ikut ditempeli bunga */
+.g-side.gs-rangkai .gs-stk{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.g-side.gs-rangkai .gs-stk .stk{position:absolute;height:auto;transform:rotate(var(--r,0deg)) scale(var(--sx,1),var(--sy,1));width:var(--w)}
+.g-side.gs-rangkai .gs-stk .a-tl{left:var(--x);top:var(--y);transform-origin:0 0}
+.g-side.gs-rangkai .gs-stk .a-br{right:var(--x);bottom:var(--y);transform-origin:100% 100%}
+.g-side.gs-rangkai .gs-stk .a-tr{right:var(--x);top:var(--y)}
+.g-side.gs-rangkai .gs-stk .sway{animation:rk-sway var(--tm,7s) ease-in-out var(--d,0s) infinite}
+.g-side.gs-rangkai .gs-stk .flut{animation:rk-flut var(--tm,5s) ease-in-out var(--d,0s) infinite}
+.g-side.gs-rangkai .tx{position:relative;z-index:1}
+@media (prefers-reduced-motion:reduce){ .g-side.gs-rangkai .gs-stk .stk{animation:none} }
+.g-side.gs-rangkai .gs-stk .stk{transform-origin:50% 50%!important}
